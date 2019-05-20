@@ -121,7 +121,7 @@ async def download_plugin(hass, plugin):
     git = hass.data[DOMAIN_DATA]["commander"].git
 
     www_dir = "{}/www".format(hass.config.path())
-    plugin_base_dir = "{}/www/community".format(www_dir)
+    plugin_base_dir = "{}/community".format(www_dir)
     plugin_dir = "{}/{}".format(plugin_base_dir, plugin.element_id)
 
     # Create the www directory.
@@ -217,7 +217,7 @@ async def download_plugin(hass, plugin):
         # Update hass.data
         plugin.installed_version = plugin.avaiable_version
         plugin.isinstalled = True
-        plugin.restart_pending = True
+        plugin.restart_pending = False
         await update_data_after_action(hass, plugin)
 
     except Exception as error:  # pylint: disable=broad-except

@@ -101,8 +101,8 @@ class CommunitySettings(HomeAssistantView):
                 )
         content += """
                 </ul>
-            <form action="/community_api/integration_url/add" method="get">
-                <input type="text" name="custom_url" placeholder="ADD CUSTOM INTEGRATION REPO" style="width: 90%">
+            <form action="/community_api/integration_url/add" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+                <input id="custom_url" type="text" name="custom_url" placeholder="ADD CUSTOM INTEGRATION REPO" style="width: 90%">
                     <button class="btn waves-effect waves-light right" type="submit" name="add" onclick="document.getElementById('progressbar').style.display = 'block'">
                         <i class="fas fa-save"></i>
                     </button>
@@ -130,8 +130,8 @@ class CommunitySettings(HomeAssistantView):
                 )
         content += """
                 </ul>
-            <form action="/community_api/plugin_url/add" method="get">
-                <input type="text" name="custom_url" placeholder="ADD CUSTOM PLUGIN REPO" style="width: 90%">
+            <form action="/community_api/plugin_url/add" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+                <input id="custom_url" type="text" name="custom_url" placeholder="ADD CUSTOM PLUGIN REPO" style="width: 90%">
                     <button class="btn waves-effect waves-light right" type="submit" name="add" onclick="document.getElementById('progressbar').style.display = 'block'">
                         <i class="fas fa-save"></i>
                     </button>

@@ -13,6 +13,7 @@ from custom_components.hacs.handler.download import (
 from custom_components.hacs.handler.log import get_log_file_content
 from custom_components.hacs.handler.remove import remove_element
 from custom_components.hacs.handler.storage import write_to_data_store
+from custom_components.hacs.handler.update import load_integrations_from_git, load_plugins_from_git
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -30,8 +31,8 @@ class CommunityAPI(HomeAssistantView):
         self.hass = hass
 
     async def get(self, request, element, action):
-        """Prosess the API actions."""
-        _LOGGER.debug("API call for %s with %s", element, action)
+        """Prosess GET API actions."""
+        _LOGGER.debug("GET API call for %s with %s", element, action)
 
         # Reload data from the settings tab.
         if action == "reload":
@@ -103,22 +104,36 @@ class CommunityAPI(HomeAssistantView):
             # Return to settings tab.
             raise web.HTTPFound("/community_settings")
 
+        else:
+            # Serve the errorpage if action is not valid.
+            html = await error_view()
+            return web.Response(body=html, content_type="text/html", charset="utf-8")
+
+    async def post(self, request, element, action):
+        """Prosess GET API actions."""
+        _LOGGER.debug("GET API call for %s with %s", element, action)
+
+        # Custom repo handling.
         # Add custom integration repo.
-        elif element == "integration_url":
+        if element == "integration_url":
 
             # Get the repo.
-            repo = request.query_string.split("=")[-1]
+            data = await request.post()
+            repo = data['custom_url']
+
+            _LOGGER.debug("Trying to add %s", repo)
 
             # Stip first part if it's an URL.
-            if "http" in repo:
+            if "https://github" in repo:
                 repo = repo.split("https://github.com/")[-1]
+
+            if "https://www.github" in repo:
+                repo = repo.split("https://www.github.com/")[-1]
 
             # If it still have content, continue.
             if repo != "":
                 self.hass.data[DOMAIN_DATA]["repos"]["integration"].append(repo)
-                await self.hass.data[DOMAIN_DATA][
-                    "commander"
-                ].load_integrations_from_git(repo)
+                await load_integrations_from_git(self.hass, repo)
                 await write_to_data_store(
                     self.hass.config.path(), self.hass.data[DOMAIN_DATA]
                 )
@@ -130,18 +145,22 @@ class CommunityAPI(HomeAssistantView):
         elif element == "plugin_url":
 
             # Get the repo.
-            repo = request.query_string.split("=")[-1]
+            data = await request.post()
+            repo = data['custom_url']
+
+            _LOGGER.debug("Trying to add %s", repo)
 
             # Stip first part if it's an URL.
-            if "http" in repo:
+            if "https://github" in repo:
                 repo = repo.split("https://github.com/")[-1]
+
+            if "https://www.github" in repo:
+                repo = repo.split("https://www.github.com/")[-1]
 
             # If it still have content, continue.
             if repo != "":
                 self.hass.data[DOMAIN_DATA]["repos"]["plugin"].append(repo)
-                await self.hass.data[DOMAIN_DATA]["commander"].load_plugins_from_git(
-                    repo
-                )
+                await load_plugins_from_git(self.hass, repo)
                 await write_to_data_store(
                     self.hass.config.path(), self.hass.data[DOMAIN_DATA]
                 )

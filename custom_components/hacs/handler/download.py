@@ -252,6 +252,7 @@ async def download_hacs(hass):
                 # We download sub dirs at a later stage.
                 if file.type == "dir":
                     _LOGGER.debug("%s is a directory, skipping.", file.name)
+                    continue
 
                 _LOGGER.debug("Downloading %s", file.path)
 

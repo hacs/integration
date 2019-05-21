@@ -64,6 +64,8 @@ For a integration repository to be valid these are the criterias:
 - The integration (all the python files for it) are located under `ROOT_OF_THE_REPO/custom_components/INTEGRATION_NAME/`
 - In that integration directory, there is a [`manifest.json`](https://developers.home-assistant.io/docs/en/creating_integration_manifest.html) file.
 
+A good template to use as a reference are [blueprint](https://github.com/custom-components/blueprint)
+
 ### Note for plugin developers
 
 For a integration repository to be valid these are the criterias:
@@ -73,6 +75,8 @@ For a integration repository to be valid these are the criterias:
 - One of the `.js` files have the same name as the repository.
 
 It will first check the `dist` directory, if nothing there it will check the root. All `.js` files it find will be downloaded.
+
+A good template to use as a reference are [boilerplate-card](https://github.com/custom-cards/boilerplate-card)
 
 ## Settings
 
@@ -130,3 +134,17 @@ For new features / Changes to existing features or other big changes, please ope
 ## Example plugin
 
 ![example_plugin](images/example_plugin.png)
+
+# Last notes from the initial developer
+
+This was developed under the influence of 🍺, a lot of 🍺, [if you want to support my work feel free to buy me a ☕️ (most likely 🍺)](meacoffee.com/ludeeus)
+
+How it works and what it does are added based on a single persons mindset, you may not agree with what I have done, if you have a suggestion please open an [RFC](https://github.com/custom-components/hacs/issues)
+
+## Why do frontend like this and not use `JavaScript` in a `panel_custom`?
+
+I tried, believe me I tried, I really wanted to go that route, but after several many many many hours of failing I gave up.
+
+## Bugs / issues / suggestions
+
+If you find bugs/issues or have any suggestions please open an issue in the [HACS Repository](https://github.com/custom-components/hacs/issues)

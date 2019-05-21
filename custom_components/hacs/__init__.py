@@ -19,7 +19,7 @@ import json
 import asyncio
 from datetime import timedelta
 import voluptuous as vol
-from homeassistant.const import EVENT_HOMEASSISTANT_START
+from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_component import EntityComponent
 from homeassistant.helpers.event import async_track_time_interval
@@ -79,6 +79,11 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
             msg = CUSTOM_UPDATER_WARNING.format(location.format(config_dir))
             _LOGGER.critical(msg)
             return False
+
+    # Check if HA is the required version.
+    if int(HAVERSION.split(".")[1]) < 92:
+        _LOGGER.critical("You need HA version 92 or newer to use this integration.")
+        return False
 
     # Setup background tasks
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, commander.startup_tasks())

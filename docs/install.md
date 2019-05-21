@@ -92,6 +92,6 @@ If you have [`custom_updater`](https://github.com/custom-components/custom_updat
 
 This and [`custom_updater`](https://github.com/custom-components/custom_updater) can not operate on the same installation.
 
-If you used the spesial endpoint `/customcards/` endpoint for your Lovelace cards, this now needs to change to `/community_plugin/`
+If you used the special endpoint `/customcards/` endpoint for your Lovelace cards, you now need to reinstall that plugin using HACS and use the url provided in the page for that plugin in the HACS UI, if the plugin is not there you need to use `/local/` insted.
 
 As noted under ['Existing elements'](/hacs#existing-elements) You need to click the "INSTALL" button for each element you previously have installed.

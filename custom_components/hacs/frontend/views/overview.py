@@ -65,6 +65,7 @@ async def overview(hass, element_type, show_installed_only=False):
         return NO_ELEMENTS
     else:
         for element in elements:
+            _LOGGER.debug("Generating overview card for %s", element.element_id)
             card_icon = await Generate(hass, element).card_icon()
             content += await cards.overview_card(element, card_icon)
         return content

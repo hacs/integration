@@ -2,16 +2,7 @@
 Custom element manager for community created elements.
 
 For more details about this component, please refer to the documentation at
-https://github.com/custom-components/hacs (eventually)
-
-For now:
-in configuration.yaml:
-hacs:
-  token: xxxxxxxxxxxxxxxxxx
--------------------------------------
-The token is a GitHub Access token, you can create one here:
-https://github.com/settings/tokens
-You don't have to check any of the boxes.
+https://custom-components.github.io/hacs/
 """
 import logging
 import os.path
@@ -58,6 +49,9 @@ from custom_components.hacs.frontend.views import (
 DOMAIN = "{}".format(NAME_SHORT.lower())
 
 INTERVAL = timedelta(minutes=500)
+
+# TODO: Requirements are not loaded from manifest, needs investigation.
+REQUIREMENTS = ["PyGithub", "markdown"]
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -143,6 +137,9 @@ class HacsCommander:
             self.hass.data[DOMAIN_DATA]["elements"] = returndata["elements"]
             self.hass.data[DOMAIN_DATA]["repos"] = returndata["repos"]
             self.hass.data[DOMAIN_DATA]["hacs"] = returndata["hacs"]
+
+        # Make sure we have the correct version
+        self.hass.data[DOMAIN_DATA]["hacs"]["local"] = VERSION
 
         # Reset restart_pending flag
         self.hass.data[DOMAIN_DATA]["hacs"]["restart_pending"] = False

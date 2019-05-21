@@ -15,8 +15,7 @@ class Element:
         self.isinstalled = False
         self.installed_version = None
         self.avaiable_version = None
-        self.example_config = None
-        self.example_image = None
+        self.info = None
         self.manifest = None
         self.remote_dir_location = None
         self.authors = []

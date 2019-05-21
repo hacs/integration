@@ -17,8 +17,6 @@ async def async_download_file(hass, url):
     """
     Download files, and return the content.
     """
-    _LOGGER.debug("Donwloading from %s", url)
-
     # There is a bug somewhere... TODO: Find that bug....
     if "tags/" in url:
         _LOGGER.debug(
@@ -26,18 +24,25 @@ async def async_download_file(hass, url):
         )
         url = url.replace("tags/", "")
 
+    _LOGGER.debug("Donwloading from %s", url)
+
     result = None
 
-    with async_timeout.timeout(5, loop=hass.loop):
-        request = await async_get_clientsession(hass).get(url)
+    try:
+        with async_timeout.timeout(5, loop=hass.loop):
+            request = await async_get_clientsession(hass).get(url)
 
-        # Make sure that we got a valid result
-        if request.status == 200:
-            result = await request.text()
-        else:
-            _LOGGER.debug(
-                "Got status code %s when trying to download %s", request.status, url
-            )
+            # Make sure that we got a valid result
+            if request.status == 200:
+                result = await request.text()
+            else:
+                _LOGGER.debug(
+                    "Got status code %s when trying to download %s", request.status, url
+                )
+
+    except Exception as error:  # pylint: disable=broad-except
+        _LOGGER.debug("Downloading %s failed with %s", url, error)
+
     return result
 
 

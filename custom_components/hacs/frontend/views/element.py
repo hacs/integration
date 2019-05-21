@@ -70,8 +70,7 @@ class CommunityElement(HomeAssistantView):
         changelog = await self.generate.changelog()
         description = await self.generate.description()
         element_note = await self.generate.element_note()
-        example_config = await self.generate.example_config()
-        example_image = await self.generate.example_image()
+        info = await self.generate.info()
         installed_version = await self.generate.installed_version()
         main_action = await self.generate.main_action()
         name = self.element.name
@@ -89,8 +88,7 @@ class CommunityElement(HomeAssistantView):
                   {description}
                   {installed_version}
                   {avaiable_version}
-                  {example_image}
-                  {example_config}
+                  {info}
                   </br>
                   {authors}
                   {element_note}
@@ -110,8 +108,7 @@ class CommunityElement(HomeAssistantView):
             changelog=changelog,
             description=description,
             element_note=element_note,
-            example_config=example_config,
-            example_image=example_image,
+            info=info,
             installed_version=installed_version,
             main_action=main_action,
             name=name,

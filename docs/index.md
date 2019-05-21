@@ -50,12 +50,7 @@ The description for each element are gathered from the description of the reposi
 
 The version it shows/uses are gathered from the tag name of the latest release.
 
-If you want to add a richer experience for your users you can add some extra files to the root of your repository (this is optional).
-
-filename | description
--- | --
-`example.yaml` | A configuration example for your element.
-`example.png` | A Sample image of how this can look.
+If you want to add a richer experience for your users you can add a `info.md` file to the root of your repository (this is optional), this file will be rendered under the repository description, it does not support the full styling options as Github so use with care.
 
 ### Note for integration developers
 
@@ -138,6 +133,8 @@ For new features / Changes to existing features or other big changes, please ope
 ![example_plugin](images/example_plugin.png)
 
 # Last notes from the initial developer
+
+First startup after installation will take some time, but it's worth it.
 
 This was developed under the influence of 🍺, a lot of 🍺, [if you want to support my work feel free to buy me a ☕️ (most likely 🍺)](meacoffee.com/ludeeus)
 

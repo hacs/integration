@@ -138,17 +138,12 @@ async def load_integrations_from_git(hass, repo_name):
 
     ################### Load custom info from repo. ###################
 
-    # Get example config
+    # Get info.md
     try:
-        example = repo.get_file_contents("example.yaml", ref).decoded_content.decode()
-        element.example_config = example
+        info = repo.get_file_contents("info.md", ref).decoded_content.decode()
+        element.info = info
     except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.debug(error)
-
-    # Get example image
-    try:
-        element.example_image = repo.get_file_contents("example.png").download_url
-    except Exception as error:  # pylint: disable=broad-except
+        element.info = ""
         _LOGGER.debug(error)
 
     # PrettyDescription
@@ -188,6 +183,8 @@ async def load_plugins_from_git(hass, repo_name):
     # Try to find files
     files = []
 
+    repo_root = repo.get_dir_contents("", ref)
+
     if element.remote_dir_location is None:
         # Try RepoRoot/dist/
         try:
@@ -203,8 +200,7 @@ async def load_plugins_from_git(hass, repo_name):
     if element.remote_dir_location is None:
         # Try RepoRoot/
         try:
-            test_remote_dir_location = repo.get_dir_contents("", ref)
-            for file in list(test_remote_dir_location):
+            for file in list(repo_root):
                 if file.name.endswith(".js"):
                     files.append(file)
                     if files:
@@ -227,17 +223,13 @@ async def load_plugins_from_git(hass, repo_name):
     element.repo = repo_name
 
     ################### Load custom info from repo. ###################
-    # Get example config
-    try:
-        example = repo.get_file_contents("example.yaml", ref).decoded_content.decode()
-        element.example_config = example
-    except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.debug(error)
 
-    # Get example image
+    # Get info.md
     try:
-        element.example_image = repo.get_file_contents("example.png").download_url
+        info = repo.get_file_contents("info.md", ref).decoded_content.decode()
+        element.info = info
     except Exception as error:  # pylint: disable=broad-except
+        element.info = ""
         _LOGGER.debug(error)
 
     # PrettyDescription

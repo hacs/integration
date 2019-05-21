@@ -48,6 +48,7 @@ class Generate:
           <p>
             <b>Available version:</b> {}
           </p>
+          </br>
         """.format(
             self.element.avaiable_version
         )
@@ -136,14 +137,12 @@ class Generate:
                 When installed, this will be located in '{config}/www/community/{element}',
                 you still need to add it to your lovelace configuration ('ui-lovelace.yaml' or the raw UI config editor).
               </i>
-              </br>
+              </br></br>
               <i>
                 When you add this to your configuration use this as the URL:
               </i>
               </br>
-              <i>
-                '/community_plugin/{element}/{file_name}.js'
-              </i>
+              <pre class="yaml">url: /community_plugin/{element}/{file_name}.js</pre>
               </br></br>
               <i>
                 To learn more about how to configure this,
@@ -157,40 +156,35 @@ class Generate:
         else:
             return ""
 
-    async def example_config(self):
-        """Generate example config."""
-        _LOGGER.debug("Generating example config for %s", self.element.element_id)
+    async def info(self):
+        """Generate info."""
+        import markdown
 
-        if self.element.example_config is None:
+        _LOGGER.debug("Generating info for %s", self.element.element_id)
+
+        if self.element.info is None:
             return ""
 
-        return """
-          </br>
-          <p>
-            Example configuration:
-          </p>
-          <pre class="yaml"
-            {}
-          </pre>
-          </br>
-        """.format(
-            self.element.example_config
+        markdown_render = markdown.markdown(
+            self.element.info,
+            extensions=["markdown.extensions.tables", "markdown.extensions.codehilite"],
         )
-
-    async def example_image(self):
-        """Generate example image."""
-        _LOGGER.debug("Generating example image for %s", self.element.element_id)
-
-        if self.element.example_image is None:
-            return ""
-
-        return """
-          </br></br>
-          <img class="responsive-img" src="{}">
-          </br>
-        """.format(
-            self.element.example_image
+        markdown_render = markdown_render.replace("<h3>", "<h6>").replace(
+            "</h3>", "</h6>"
         )
+        markdown_render = markdown_render.replace("<h2>", "<h5>").replace(
+            "</h2>", "</h5>"
+        )
+        markdown_render = markdown_render.replace("<h1>", "<h4>").replace(
+            "</h1>", "</h4>"
+        )
+        markdown_render = markdown_render.replace("<code>", "<pre>").replace(
+            "</code>", "</pre>"
+        )
+        markdown_render = markdown_render.replace(
+            "<table>", "<table class='responsive-table white-text'>"
+        )
+        return "<span>{}</span>".format(markdown_render)
 
     async def installed_version(self):
         """Generate installed version."""
@@ -200,7 +194,6 @@ class Generate:
             return ""
 
         return """
-          </br>
           <p>
             <b>Installed version:</b> {}
           </p>

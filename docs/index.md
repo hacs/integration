@@ -136,7 +136,7 @@ For new features / Changes to existing features or other big changes, please ope
 
 First startup after installation will take some time, but it's worth it.
 
-This was developed under the influence of 🍺, a lot of 🍺, [if you want to support my work feel free to buy me a ☕️ (most likely 🍺)](meacoffee.com/ludeeus)
+This was developed under the influence of 🍺, a lot of 🍺, [if you want to support my work feel free to buy me a ☕️ (most likely 🍺)](https://buymeacoffee.com/ludeeus)
 
 How it works and what it does are added based on a single persons mindset, you may not agree with what I have done, if you have a suggestion please open an [RFC](https://github.com/custom-components/hacs/issues)
 

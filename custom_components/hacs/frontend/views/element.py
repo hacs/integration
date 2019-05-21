@@ -63,6 +63,7 @@ class CommunityElement(HomeAssistantView):
 
     async def element_view_content(self):
         """Generate the content for a single element."""
+        # TODO: Add a button to check the card (show the card content)
 
         # Generate objects
         authors = await self.generate.authors()

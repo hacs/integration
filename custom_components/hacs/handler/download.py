@@ -35,7 +35,7 @@ async def async_download_file(hass, url):
         if request.status == 200:
             result = await request.text()
         else:
-            _LOGGER.error(
+            _LOGGER.debug(
                 "Got status code %s when trying to download %s", request.status, url
             )
     return result
@@ -64,7 +64,7 @@ async def download_integration(hass, integration):
         os.mkdir(integrationdir)
 
     except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.error("Creating directory %s failed with %s", integrationdir, error)
+        _LOGGER.debug("Creating directory %s failed with %s", integrationdir, error)
         return
 
     # Okey, the directory structure is now OK, let's continue.
@@ -89,7 +89,7 @@ async def download_integration(hass, integration):
             filecontent = await async_download_file(hass, file.download_url)
 
             if filecontent is None:
-                _LOGGER.error("There was an error downloading the file %s", file.path)
+                _LOGGER.debug("There was an error downloading the file %s", file.path)
                 continue
 
             # Save the content of the file.
@@ -107,7 +107,7 @@ async def download_integration(hass, integration):
         await update_data_after_action(hass, integration)
 
     except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.error(
+        _LOGGER.debug(
             "This sucks! There was an issue downloading the integration - %s", error
         )
 
@@ -130,7 +130,7 @@ async def download_plugin(hass, plugin):
             os.mkdir(www_dir)
 
     except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.error("Creating directory %s failed with %s", www_dir, error)
+        _LOGGER.debug("Creating directory %s failed with %s", www_dir, error)
         return
 
     # Create the base plugin directory.
@@ -139,7 +139,7 @@ async def download_plugin(hass, plugin):
             os.mkdir(plugin_base_dir)
 
     except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.error("Creating directory %s failed with %s", plugin_base_dir, error)
+        _LOGGER.debug("Creating directory %s failed with %s", plugin_base_dir, error)
         return
 
     # Create the plugin directory.
@@ -154,7 +154,7 @@ async def download_plugin(hass, plugin):
         os.mkdir(plugin_dir)
 
     except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.error("Creating directory %s failed with %s", plugin_dir, error)
+        _LOGGER.debug("Creating directory %s failed with %s", plugin_dir, error)
         return
 
     # Okey, the directory structure is now OK, let's continue.
@@ -185,7 +185,7 @@ async def download_plugin(hass, plugin):
             try:
                 remotedir = repo.get_dir_contents("", ref)
             except Exception as error:  # pylint: disable=broad-except
-                _LOGGER.error(
+                _LOGGER.debug(
                     "This sucks! We could not locate ANY files to download - %s", error
                 )
                 return
@@ -203,7 +203,7 @@ async def download_plugin(hass, plugin):
             filecontent = await async_download_file(hass, file.download_url)
 
             if filecontent is None:
-                _LOGGER.error("There was an error downloading the file %s", file.path)
+                _LOGGER.debug("There was an error downloading the file %s", file.path)
                 continue
 
             # Save the content of the file.
@@ -221,7 +221,7 @@ async def download_plugin(hass, plugin):
         await update_data_after_action(hass, plugin)
 
     except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.error(
+        _LOGGER.debug(
             "This sucks! There was an issue downloading the plugin - %s", error
         )
 
@@ -252,7 +252,7 @@ async def download_hacs(hass):
 
                 filecontent = await async_download_file(hass, file.download_url)
                 if filecontent is None:
-                    _LOGGER.error(
+                    _LOGGER.debug(
                         "There was an error downloading the file %s", file.path
                     )
                     continue
@@ -265,7 +265,7 @@ async def download_hacs(hass):
                     outfile.close()
 
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.error(
+            _LOGGER.debug(
                 "This sucks! There was an issue downloading 'hacs' - %s", error
             )
 
@@ -288,7 +288,7 @@ async def download_hacs(hass):
 
                 filecontent = await async_download_file(hass, file.download_url)
                 if filecontent is None:
-                    _LOGGER.error(
+                    _LOGGER.debug(
                         "There was an error downloading the file %s", file.path
                     )
                     continue
@@ -300,7 +300,7 @@ async def download_hacs(hass):
                     outfile.write(filecontent)
                     outfile.close()
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.error(
+            _LOGGER.debug(
                 "This sucks! There was an issue downloading 'frontend' - %s", error
             )
 
@@ -325,7 +325,7 @@ async def download_hacs(hass):
 
                 filecontent = await async_download_file(hass, file.download_url)
                 if filecontent is None:
-                    _LOGGER.error(
+                    _LOGGER.debug(
                         "There was an error downloading the file %s", file.path
                     )
                     continue
@@ -337,7 +337,7 @@ async def download_hacs(hass):
                     outfile.write(filecontent)
                     outfile.close()
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.error(
+            _LOGGER.debug(
                 "This sucks! There was an issue downloading 'frontend/views' - %s",
                 error,
             )
@@ -363,7 +363,7 @@ async def download_hacs(hass):
 
                 filecontent = await async_download_file(hass, file.download_url)
                 if filecontent is None:
-                    _LOGGER.error(
+                    _LOGGER.debug(
                         "There was an error downloading the file %s", file.path
                     )
                     continue
@@ -375,7 +375,7 @@ async def download_hacs(hass):
                     outfile.write(filecontent)
                     outfile.close()
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.error(
+            _LOGGER.debug(
                 "This sucks! There was an issue downloading 'frontend/elements' - %s",
                 error,
             )
@@ -396,7 +396,7 @@ async def download_hacs(hass):
 
                 filecontent = await async_download_file(hass, file.download_url)
                 if filecontent is None:
-                    _LOGGER.error(
+                    _LOGGER.debug(
                         "There was an error downloading the file %s", file.path
                     )
                     continue
@@ -408,7 +408,7 @@ async def download_hacs(hass):
                     outfile.write(filecontent)
                     outfile.close()
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.error(
+            _LOGGER.debug(
                 "This sucks! There was an issue downloading 'handler' - %s", error
             )
 
@@ -420,4 +420,4 @@ async def download_hacs(hass):
         await write_to_data_store(hass.config.path(), hass.data[DOMAIN_DATA])
 
     except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.error("This sucks! There was an issue downloading HACS - %s", error)
+        _LOGGER.debug("This sucks! There was an issue downloading HACS - %s", error)

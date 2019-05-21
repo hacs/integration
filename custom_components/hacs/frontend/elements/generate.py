@@ -202,7 +202,7 @@ class Generate:
         return """
           </br>
           <p>
-            Installed version: {}
+            <b>Installed version:</b> {}
           </p>
         """.format(
             self.element.installed_version

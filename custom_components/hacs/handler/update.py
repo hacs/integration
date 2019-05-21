@@ -144,7 +144,7 @@ async def load_integrations_from_git(hass, repo_name):
         element.info = info
     except Exception as error:  # pylint: disable=broad-except
         element.info = ""
-        _LOGGER.debug(error)
+        _LOGGER.debug(error)  # TODO: Remove all unnecessary log statements, for things that we expect to fail.
 
     # PrettyDescription
     element.description = "" if element.description is None else element.description

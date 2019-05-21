@@ -5,6 +5,10 @@
 ***
 # Installation
 
+**NB!: You need to use Home Assistant version 0.92.0 or newer for this to work.**
+
+**NB!: If you move from [`custom_updater`](https://github.com/custom-components/custom_updater) to this see the special note at the bottom here.**
+
 This integration requires **a lot** of files.
 
 The easiest way to make sure that you have them all is to download the `.zip` file from the repo.
@@ -78,3 +82,14 @@ The `custom_components` **needs** to be in **the exact same** folder as `configu
 ## Step 8 - ✏️
 
 [You should now be done, next part will be to add it to your configuration.](https://custom-components.github.io/hacs/configure)
+
+
+# Moving from [`custom_updater`](https://github.com/custom-components/custom_updater)
+
+If you have [`custom_updater`](https://github.com/custom-components/custom_updater) installed you need to remove that (rename the directory or delete it completely)
+
+This and [`custom_updater`](https://github.com/custom-components/custom_updater) can not operate on the same installation.
+
+If you used the spesial endpoint `/customcards/` endpoint for your Lovelace cards, this now needs to change to `/community_plugin/`
+
+As noted under ['Existing elements'](/hacs#existing-elements) You need to click the "INSTALL" button for each element you previously have installed.

@@ -3,7 +3,7 @@ import logging
 import traceback
 import sys
 
-from custom_components.hacs.frontend.elements import style
+from custom_components.hacs.frontend.elements import style, generic_button_external
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -28,23 +28,23 @@ async def error_view():
         )
     content = await style()
 
+    content += "<div class='container'>"
+
     content += "<h2>Something is super wrong...</h2>"
 
     if ex_type is not None:
         content += """
             <p>Exception type: {}</p>
             <p>Exception message: {}</p>
-            <code class="codeblock">{}</code>
+            <code class="codeblock" style="display: block; margin-bottom: 30px;">{}</code>
         """.format(
             ex_type.__name__, ex_value, pretty_trace
         )
 
-    content += """
-    </br></br>
-    <a href='https://github.com/custom-components/hacs/issues/new'
-        class='waves-effect waves-light btn'
-        target="_blank">
-        OPEN ISSUE
-    </a>
-    """
+    content += await generic_button_external("https://github.com/custom-components/hacs/issues/new", "OPEN ISSUE")
+    content += await generic_button_external("/community_api/log/get", "OPEN LOG")
+    content += "<div class='center-align' style='margin-top: 100px'>"
+    content += "<img src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>"
+    content += "</div>"
+
     return content

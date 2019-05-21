@@ -249,7 +249,7 @@ class Generate:
         """Generate main action."""
         _LOGGER.debug("Generating main action for %s", self.element.element_id)
 
-        if not self.element.restart_pending:
+        if not self.element.restart_pending or self.element.element_type == 'plugin':
             return ""
 
         title = "Restart pending"

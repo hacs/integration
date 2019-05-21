@@ -3,7 +3,7 @@ import logging
 import shutil
 import os
 import asyncio
-from custom_components.hacs.const import DOMAIN_DATA
+from custom_components.hacs.handler.update import update_data_after_action
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -28,4 +28,7 @@ async def remove_element(hass, element):
             await asyncio.sleep(1)
 
     # Update hass.data
-    del hass.data[DOMAIN_DATA]["elements"][element.element_id]
+    element.installed_version = None
+    element.isinstalled = False
+    element.restart_pending = True
+    await update_data_after_action(hass, element)

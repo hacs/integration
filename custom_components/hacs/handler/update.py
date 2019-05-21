@@ -29,14 +29,15 @@ async def prosess_repo_request(hass, repo_name):
 
     if repo_name in hass.data[DOMAIN_DATA]["commander"].skip:
         _LOGGER.debug("%s in 'skip', skipping", repo_name)
-        return
+        return repo, last_release, ref
 
     _LOGGER.debug("Loading from data from GitHub for %s", repo_name)
 
     try:
         repo = git.get_repo(repo_name)
     except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.error(error)
+        _LOGGER.debug(error)
+        _LOGGER.debug("Skipping %s on next run.", repo_name)
         hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
 
     # Find GitHub releases.
@@ -66,6 +67,7 @@ async def load_integrations_from_git(hass, repo_name):
     if repo is None or last_release is None or ref is None:
         hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
         _LOGGER.debug("Could not prosess %s", repo_name)
+        _LOGGER.debug("Skipping %s on next run.", repo_name)
         return
 
     # Find component location
@@ -79,9 +81,16 @@ async def load_integrations_from_git(hass, repo_name):
         for item in list(integration_dir_contents):
             content.append(item.path)
 
-        if not content or manifest_path not in content:
+        if not content:
             hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
-            _LOGGER.error("Can't get data from %s", repo_name)
+            _LOGGER.debug("Can't get data from %s (no content)", repo_name)
+            _LOGGER.debug("Skipping %s on next run.", repo_name)
+            return
+
+        if manifest_path not in content:
+            hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+            _LOGGER.debug("Can't get data from %s (missing manifest)", repo_name)
+            _LOGGER.debug("Skipping %s on next run.", repo_name)
             return
 
     except Exception as error:  # pylint: disable=broad-except
@@ -93,13 +102,15 @@ async def load_integrations_from_git(hass, repo_name):
         manifest = json.loads(manifest.decoded_content.decode())
     except Exception as error:  # pylint: disable=broad-except
         hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
-        _LOGGER.error("Can't get data from %s", repo_name)
+        _LOGGER.debug("Can't load manifest from %s", repo_name)
+        _LOGGER.debug("Skipping %s on next run.", repo_name)
         return
 
     # Check if manifest is valid
     if len(manifest["domain"].split()) > 1 or "http" in manifest["domain"]:
         hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
-        _LOGGER.error("Can't get data from %s", repo_name)
+        _LOGGER.debug("Manifest is not valid for %s", repo_name)
+        _LOGGER.debug("Skipping %s on next run.", repo_name)
         return
 
     ###################################################################
@@ -163,6 +174,7 @@ async def load_plugins_from_git(hass, repo_name):
     if repo is None or last_release is None or ref is None:
         hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
         _LOGGER.debug("Could not prosess %s", repo_name)
+        _LOGGER.debug("Skipping %s on next run.", repo_name)
         return
 
     plugin_name = repo_name.split("/")[-1]
@@ -200,8 +212,10 @@ async def load_plugins_from_git(hass, repo_name):
         except Exception as error:  # pylint: disable=broad-except
             _LOGGER.debug(error)
 
-    if not files:
-        _LOGGER.error("Can't get data from %s", repo_name)
+    if element.remote_dir_location is None:
+        _LOGGER.debug("Can't find any acceptable files in %s", repo_name)
+        _LOGGER.debug(files)
+        _LOGGER.debug("Skipping %s on next run.", repo_name)
         hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
         return
 

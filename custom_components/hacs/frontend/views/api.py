@@ -13,7 +13,10 @@ from custom_components.hacs.handler.download import (
 from custom_components.hacs.handler.log import get_log_file_content
 from custom_components.hacs.handler.remove import remove_element
 from custom_components.hacs.handler.storage import write_to_data_store
-from custom_components.hacs.handler.update import load_integrations_from_git, load_plugins_from_git
+from custom_components.hacs.handler.update import (
+    load_integrations_from_git,
+    load_plugins_from_git,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -119,7 +122,7 @@ class CommunityAPI(HomeAssistantView):
 
             # Get the repo.
             data = await request.post()
-            repo = data['custom_url']
+            repo = data["custom_url"]
 
             _LOGGER.debug("Trying to add %s", repo)
 
@@ -146,7 +149,7 @@ class CommunityAPI(HomeAssistantView):
 
             # Get the repo.
             data = await request.post()
-            repo = data['custom_url']
+            repo = data["custom_url"]
 
             _LOGGER.debug("Trying to add %s", repo)
 

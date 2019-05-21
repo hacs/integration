@@ -41,7 +41,9 @@ async def error_view():
             ex_type.__name__, ex_value, pretty_trace
         )
 
-    content += await generic_button_external("https://github.com/custom-components/hacs/issues/new", "OPEN ISSUE")
+    content += await generic_button_external(
+        "https://github.com/custom-components/hacs/issues/new", "OPEN ISSUE"
+    )
     content += await generic_button_external("/community_api/log/get", "OPEN LOG")
     content += "<div class='center-align' style='margin-top: 100px'>"
     content += "<img src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>"

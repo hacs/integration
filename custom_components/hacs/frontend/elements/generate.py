@@ -184,6 +184,8 @@ class Generate:
         markdown_render = markdown_render.replace(
             "<table>", "<table class='responsive-table white-text'>"
         )
+        markdown_render = markdown_render.replace("<ul>", "")
+        markdown_render = markdown_render.replace("</ul>", "")
         return "<span>{}</span>".format(markdown_render)
 
     async def installed_version(self):

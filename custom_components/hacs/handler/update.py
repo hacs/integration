@@ -157,9 +157,10 @@ async def load_plugins_from_git(hass, repo_name):
     """
     Load plugin data from GitHub repo.
 
-    For integraions to be accepted, two criterias must be met in the GitHub repo.
+    For integraions to be accepted, three criterias must be met in the GitHub repo.
         - There are GitHub releases
         - The plugin is located under RepoRoot/dist/ or RepoRoot/
+        - One of the js files needs to match the repo name. # TODO: This should fail the scan
 
     This function checks those requirements
     If any of them fails, the repo will be added to a 'skip' list.

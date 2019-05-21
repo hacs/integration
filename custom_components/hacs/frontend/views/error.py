@@ -1,8 +1,10 @@
 """CommunityAPI View for HACS."""
 import logging
+import random
 import traceback
 import sys
 
+from custom_components.hacs.const import ERROR
 from custom_components.hacs.frontend.elements import style, generic_button_external
 
 _LOGGER = logging.getLogger(__name__)
@@ -30,15 +32,25 @@ async def error_view():
 
     content += "<div class='container'>"
 
-    content += "<h2>Something is super wrong...</h2>"
+    content += "<h2>Something is wrong...</h2>"
+    content += "<b>Error code:</b> <i>{}</i>".format(random.choice(ERROR))
 
     if ex_type is not None:
         content += """
-            <p>Exception type: {}</p>
-            <p>Exception message: {}</p>
+            <p><b>Exception type:</b> {}</p>
+            <p><b>Exception message:</b> {}</p>
+            <p><b>Stacktrace:</b></p>
             <code class="codeblock" style="display: block; margin-bottom: 30px;">{}</code>
         """.format(
-            ex_type.__name__, ex_value, pretty_trace
+            ex_type.__name__,
+            ex_value,
+            pretty_trace.replace(
+                "File :",
+                "</br>---------------------------------------------------------------</br><b>File :</b>",
+            )
+            .replace(", Line :", "</br><b>Line :</b>")
+            .replace(", Func.Name :", "</br><b>Func.Name :</b>")
+            .replace(", Message :", "</br><b>Message :</b>")[86:-1],
         )
 
     content += await generic_button_external(

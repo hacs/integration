@@ -2,6 +2,8 @@
 
 ## 📘 Documentation: https://custom-components.github.io/hacs/
 
+[![HACS Promo](https://img.youtube.com/vi/vq0qQtDAOW0/0.jpg)](https://www.youtube.com/watch?v=vq0qQtDAOW0 "HACS Promo")
+
 ## Issues
 
 ~~If~~ When you experience issues/bugs with this the best way to report them is to open an issue in **this** repo.

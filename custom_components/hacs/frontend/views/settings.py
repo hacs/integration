@@ -96,7 +96,7 @@ class CommunitySettings(HomeAssistantView):
             for entry in self.hass.data[DOMAIN_DATA]["repos"].get("integration"):
                 content += """
                     <li class="collection-item">
-                        <div><a href="/community_api/integration_url_reload/{url}" ><i class="fa fa-sync" style="color: #26a69a; margin-right: 1%"></i></a>  {entry}
+                        <div><a href="/community_api/integration_url_reload/{url}" onclick="document.getElementById('progressbar').style.display = 'block'"><i class="fa fa-sync" style="color: #26a69a; margin-right: 1%"></i></a>  {entry}
                             <a href="/community_api/integration_url_delete/{url}" class="secondary-content">
                                 <i name="delete" class="fas fa-trash-alt"></i>
                             </a>
@@ -125,7 +125,7 @@ class CommunitySettings(HomeAssistantView):
             for entry in self.hass.data[DOMAIN_DATA]["repos"].get("plugin"):
                 content += """
                     <li class="collection-item">
-                        <div><a href="/community_api/plugin_url_reload/{url}" ><i class="fa fa-sync" style="color: #26a69a; margin-right: 1%"></i></a>  {entry}
+                        <div><a href="/community_api/plugin_url_reload/{url}" onclick="document.getElementById('progressbar').style.display = 'block'"><i class="fa fa-sync" style="color: #26a69a; margin-right: 1%"></i></a>  {entry}
                             <a href="/community_api/plugin_url_delete/{url}" class="secondary-content">
                                 <i name="delete" class="fas fa-trash-alt"></i>
                             </a>

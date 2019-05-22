@@ -268,6 +268,19 @@ class Generate:
             self.element.element_id, file_name
         )
 
+    async def reload_icon(self):
+        """Generate reload icon."""
+        _LOGGER.debug("Generating reload icon for %s", self.element.element_id)
+
+        return """
+            <a href="/community_api/integration_url_reload/{}" style="float: right; color: #ffab40;"
+              onclick="document.getElementById('progressbar').style.display = 'block'">
+                <i name="reload" class="fa fa-sync"></i>
+            </a>
+        """.format(
+            self.element.element_id
+        )
+
     async def repo(self):
         """Generate repo link."""
         _LOGGER.debug("Generating repo link for %s", self.element.element_id)

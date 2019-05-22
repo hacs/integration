@@ -25,7 +25,7 @@ async def header():
 async def progress_bar():
     """Generate a brogressbar."""
     return """
-    <div class="progress" id="progressbar" style="display: none">
-        <div class="indeterminate"></div>
+    <div class="progress" id="progressbar" style="display: none; background-color: #ffab405c">
+        <div class="indeterminate" style="background-color: #ffab40"></div>
     </div>
     """

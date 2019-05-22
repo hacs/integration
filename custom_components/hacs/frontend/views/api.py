@@ -113,9 +113,15 @@ class CommunityAPI(HomeAssistantView):
 
         # Reload custom plugin repo.
         elif element == "integration_url_reload":
-            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(action)
-            scan_result = await load_integrations_from_git(self.hass, action)
+
+            if "/" not in action:
+                repo = self.hass.data[DOMAIN_DATA]["elements"][action].repo
+            else:
+                repo = action
+
+            if repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
+                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(repo)
+            scan_result = await load_integrations_from_git(self.hass, repo)
 
             if scan_result is not None:
                 message = None
@@ -124,20 +130,36 @@ class CommunityAPI(HomeAssistantView):
                 )
             else:
                 message = "Could not reload repo '{}' at this time, if the repo meet all requirements try again later.".format(
-                    action
+                    repo
                 )
 
-            # Return to settings tab.
-            if message is not None:
-                raise web.HTTPFound("/community_settings?message={}".format(message))
+            # Return
+            if "/" in action:
+                if message is not None:
+                    raise web.HTTPFound(
+                        "/community_settings?message={}".format(message)
+                    )
+                else:
+                    raise web.HTTPFound("/community_settings")
             else:
-                raise web.HTTPFound("/community_settings")
+                if message is not None:
+                    raise web.HTTPFound(
+                        "community_element{}?message={}".format(action, message)
+                    )
+                else:
+                    raise web.HTTPFound("/community_element/{}".format(action))
 
         # Reload custom plugin repo.
         elif element == "plugin_url_reload":
-            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(action)
-            scan_result = await load_plugins_from_git(self.hass, action)
+
+            if "/" not in action:
+                repo = self.hass.data[DOMAIN_DATA]["elements"][action].repo
+            else:
+                repo = action
+
+            if repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
+                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(repo)
+            scan_result = await load_plugins_from_git(self.hass, repo)
 
             if scan_result is not None:
                 message = None
@@ -146,7 +168,7 @@ class CommunityAPI(HomeAssistantView):
                 )
             else:
                 message = "Could not reload repo '{}' at this time, if the repo meet all requirements try again later.".format(
-                    action
+                    repo
                 )
 
             # Return to settings tab.

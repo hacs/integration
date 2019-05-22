@@ -245,6 +245,29 @@ class Generate:
             self.element.element_id, action, title
         )
 
+    async def open_plugin(self):
+        """Generate open card link."""
+        _LOGGER.debug("Generating open card link for %s", self.element.element_id)
+
+        if self.element.element_type != "plugin":
+            return ""
+
+        if not self.element.isinstalled:
+            return ""
+
+        if "lovelace-" in self.element.element_id:
+            file_name = self.element.element_id.split("lovelace-")[-1]
+        else:
+            file_name = self.element.element_id
+
+        return """
+          <a href="/community_plugin/{}/{}.js" target="_blank">
+            OPEN CARD
+          </a>
+        """.format(
+            self.element.element_id, file_name
+        )
+
     async def repo(self):
         """Generate repo link."""
         _LOGGER.debug("Generating repo link for %s", self.element.element_id)

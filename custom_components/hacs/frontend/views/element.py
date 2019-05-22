@@ -63,7 +63,6 @@ class CommunityElement(HomeAssistantView):
 
     async def element_view_content(self):
         """Generate the content for a single element."""
-        # TODO: Add a button to check the card (show the card content)
 
         # Generate objects
         authors = await self.generate.authors()
@@ -76,6 +75,7 @@ class CommunityElement(HomeAssistantView):
         last_update = await self.generate.last_update()
         main_action = await self.generate.main_action()
         name = self.element.name
+        open_plugin = await self.generate.open_plugin()
         repo = await self.generate.repo()
         restart_pending = await self.generate.restart_pending()
         uninstall = await self.generate.uninstall()
@@ -100,6 +100,7 @@ class CommunityElement(HomeAssistantView):
                   {main_action}
                   {changelog}
                   {repo}
+                  {open_plugin}
                   {uninstall}
                 </div>
               </div>
@@ -116,6 +117,7 @@ class CommunityElement(HomeAssistantView):
             last_update=last_update,
             main_action=main_action,
             name=name,
+            open_plugin=open_plugin,
             repo=repo,
             restart_pending=restart_pending,
             uninstall=uninstall,

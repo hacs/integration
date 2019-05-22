@@ -258,8 +258,8 @@ class Generate:
         )
 
     async def restart_pending(self):
-        """Generate main action."""
-        _LOGGER.debug("Generating main action for %s", self.element.element_id)
+        """Generate restart_pending."""
+        _LOGGER.debug("Generating restart_pending for %s", self.element.element_id)
 
         if not self.element.restart_pending or self.element.element_type == "plugin":
             return ""
@@ -272,8 +272,8 @@ class Generate:
         return await warning_card(message, title)
 
     async def uninstall(self):
-        """Generate main action."""
-        _LOGGER.debug("Generating main action for %s", self.element.element_id)
+        """Generate uninstall."""
+        _LOGGER.debug("Generating uninstall for %s", self.element.element_id)
 
         if not self.element.isinstalled:
             return ""

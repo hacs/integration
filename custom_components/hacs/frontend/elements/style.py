@@ -15,5 +15,8 @@ async def style():
             border-width: thin;
             margin: 0;
         }
+        a {
+          color: #ffab40;
+        }
       </style>
     """

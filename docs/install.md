@@ -37,7 +37,7 @@ Initialize the download by clicking the "**Source code** (zip)" link at the bott
 
 There should now be a `hacs-VERSION_NUMBER.zip` (like `hacs-0.2.0.zip`) file in your Download folder.
 
-You need to unzip this, before preceding.
+You need to unzip this, before proceeding.
 
 ## Step 5 - Move along
 

@@ -144,7 +144,7 @@ class CommunityAPI(HomeAssistantView):
             else:
                 if message is not None:
                     raise web.HTTPFound(
-                        "community_element{}?message={}".format(action, message)
+                        "/community_element/{}?message={}".format(action, message)
                     )
                 else:
                     raise web.HTTPFound("/community_element/{}".format(action))
@@ -171,11 +171,21 @@ class CommunityAPI(HomeAssistantView):
                     repo
                 )
 
-            # Return to settings tab.
-            if message is not None:
-                raise web.HTTPFound("/community_settings?message={}".format(message))
+            # Return
+            if "/" in action:
+                if message is not None:
+                    raise web.HTTPFound(
+                        "/community_settings?message={}".format(message)
+                    )
+                else:
+                    raise web.HTTPFound("/community_settings")
             else:
-                raise web.HTTPFound("/community_settings")
+                if message is not None:
+                    raise web.HTTPFound(
+                        "/community_element/{}?message={}".format(action, message)
+                    )
+                else:
+                    raise web.HTTPFound("/community_element/{}".format(action))
 
         else:
             # Serve the errorpage if action is not valid.

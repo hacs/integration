@@ -260,12 +260,12 @@ class Generate:
         """Generate reload icon."""
 
         return """
-            <a href="/community_api/integration_url_reload/{}" style="float: right; color: #ffab40;"
+            <a href="/community_api/{}_url_reload/{}" style="float: right; color: #ffab40;"
               onclick="document.getElementById('progressbar').style.display = 'block'">
                 <i name="reload" class="fa fa-sync"></i>
             </a>
         """.format(
-            self.element.element_id
+            self.element.element_type, self.element.element_id
         )
 
     async def repo(self):

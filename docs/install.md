@@ -23,27 +23,23 @@ _You are probably looking at this in a browser, so we can probably check this of
 
 ## Step 2 - Go to the HACS repo
 
-https://github.com/custom-components/hacs
+Then find the latest release from the release page.
 
-## Step 3 - Open menu
+shortcurt: https://github.com/custom-components/hacs/releases/latest
 
-Open the download menu by clicking the "Clone or download" button.
+## Step 3 - Initialize Download
 
-![install1](images/install1.png)
-
-## Step 4 - Initialize Download
-
-Initialize the download by clicking the "Donwload ZIP" button.
+Initialize the download by clicking the "**Source code** (zip)" link at the bottom of the page.
 
 ![install2](images/install2.png)
 
-## Step 5 - Extract the content
+## Step 4 - Extract the content
 
-There should now be a `hacs-master.zip` file in your Download folder.
+There should now be a `hacs-VERSION_NUMBER.zip` (like `hacs-0.2.0.zip`) file in your Download folder.
 
 You need to unzip this, before preceding.
 
-## Step 6 - Move along
+## Step 5 - Move along
 
 Now that you have extracted all the files you will see something like this:
 
@@ -66,22 +62,22 @@ On Hassio the final location will be `/config/custom_components/hacs`
 
 On Hassbian the final location will be `/home/homeassistant/.homeassistant/custom_components/hacs`
 
-## Step 7 - (Bonus)
+## Step 6 - (Bonus)
 
-If you are a seasoned user, skip to step 8.
+If you are a seasoned user, skip to step 7.
 
 Cool you are still reading.
 
 Open the folder where you have your `configuration.yaml` file.
 Don't open that file (yet) just the folder for now.
 
-If you see a folder named `custom_components` there, go back to Step 7 if you think you need to do something here.
+If you see a folder named `custom_components` there, go back to Step 6 if you think you need to do something here.
 
 If you **do not** see a `custom_components` folder in **the same** folder as `configuration.yaml`, you need to create it.
 
 The `custom_components` **needs** to be in **the exact same** folder as `configuration.yaml`
 
-## Step 8 - ✏️
+## Step 7 - ✏️
 
 [You should now be done, next part will be to add it to your configuration.](https://custom-components.github.io/hacs/configure)
 

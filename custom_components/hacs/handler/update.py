@@ -82,6 +82,15 @@ async def load_integrations_from_git(hass, repo_name):
         _LOGGER.debug("Skipping %s on next run.", repo_name)
         return
 
+    _LOGGER.debug(
+        "%s info:  ref: '%s'  last_update: '%s'  releases: '%s'  last_release: '%s'",
+        repo.name,
+        ref,
+        last_update,
+        str(releases),
+        last_release,
+    )
+
     # Find component location
     try:
         integration_dir = repo.get_dir_contents("custom_components", ref)[0].path
@@ -92,6 +101,8 @@ async def load_integrations_from_git(hass, repo_name):
         content = []
         for item in list(integration_dir_contents):
             content.append(item.path)
+
+        _LOGGER.debug("Integration content %s", str(content))
 
         if not content:
             hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
@@ -186,6 +197,15 @@ async def load_plugins_from_git(hass, repo_name):
         _LOGGER.debug("Skipping %s on next run.", repo_name)
         return
 
+    _LOGGER.debug(
+        "%s info:  ref: '%s'  last_update: '%s'  releases: '%s'  last_release: '%s'",
+        repo.name,
+        ref,
+        last_update,
+        str(releases),
+        last_release,
+    )
+
     plugin_name = repo_name.split("/")[-1]
 
     # Load existing Element object.
@@ -199,7 +219,7 @@ async def load_plugins_from_git(hass, repo_name):
 
     repo_root = repo.get_dir_contents("", ref)
 
-    if element.remote_dir_location is None:
+    if element.remote_dir_location is None or element.remote_dir_location == "root":
         # Try RepoRoot/
         try:
             for file in list(repo_root):
@@ -212,7 +232,7 @@ async def load_plugins_from_git(hass, repo_name):
         except Exception as error:  # pylint: disable=broad-except
             _LOGGER.debug("Could not find any files in / - %s", error)
 
-    if element.remote_dir_location is None:
+    if element.remote_dir_location is None or element.remote_dir_location == "dist":
         # Try RepoRoot/dist/
         try:
             test_remote_dir_location = repo.get_dir_contents("dist", ref)
@@ -226,6 +246,8 @@ async def load_plugins_from_git(hass, repo_name):
         except Exception as error:  # pylint: disable=broad-except
             _LOGGER.debug("Could not find any files in dist/ - %s", error)
 
+    _LOGGER.debug("plugin content %s", str(files))
+
     # Handler for requirement 3
     find_file = "{}.js".format(repo_name.split("/")[1].replace("lovelace-", ""))
     if find_file not in files:
@@ -237,13 +259,6 @@ async def load_plugins_from_git(hass, repo_name):
             "Expected file %s not found in %s for %s", find_file, files, repo_name
         )
         _LOGGER.debug("Skipping %s on next run.", repo_name)
-        return
-
-    if element.remote_dir_location is None:
-        _LOGGER.debug("Can't find any acceptable files in %s", repo_name)
-        _LOGGER.debug(files)
-        _LOGGER.debug("Skipping %s on next run.", repo_name)
-        hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
         return
 
     ################### Load basic info from repo. ###################

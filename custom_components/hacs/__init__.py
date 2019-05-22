@@ -126,13 +126,16 @@ class HacsCommander:
         async_track_time_interval(self.hass, self.repetetive_tasks, INTERVAL)
 
         _LOGGER.info("Loading existing data.")
-        # Ready up hass.data
+
         returndata = await get_data_from_store(self.hass.config.path())
         if not returndata.get("elements"):
+            _LOGGER.info(
+                "Data did not exist running initial setup, this will take some time."
+            )
             self.hass.data[DOMAIN_DATA]["elements"] = {}
             self.hass.data[DOMAIN_DATA]["repos"] = {"integration": [], "plugin": []}
             self.hass.data[DOMAIN_DATA]["hacs"] = {"local": VERSION, "remote": None}
-            await self.repetetive_tasks()
+            self.hass.async_create_task(self.repetetive_tasks())
         else:
             self.hass.data[DOMAIN_DATA]["elements"] = returndata["elements"]
             self.hass.data[DOMAIN_DATA]["repos"] = returndata["repos"]
@@ -151,7 +154,7 @@ class HacsCommander:
 
     async def repetetive_tasks(self, runas=None):  # pylint: disable=unused-argument
         """Run repetetive tasks."""
-        _LOGGER.debug("Run background_tasks.")
+        _LOGGER.debug("Run repetetive_tasks.")
 
         # Check HACS
         try:

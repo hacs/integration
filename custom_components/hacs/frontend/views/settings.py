@@ -20,6 +20,7 @@ _LOGGER = logging.getLogger(__name__)
 
 class CommunitySettings(HomeAssistantView):
     """View to serve the overview."""
+
     requires_auth = False
 
     url = r"/community_settings"

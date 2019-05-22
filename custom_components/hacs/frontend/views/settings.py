@@ -20,8 +20,6 @@ _LOGGER = logging.getLogger(__name__)
 
 class CommunitySettings(HomeAssistantView):
     """View to serve the overview."""
-    # TODO: Add reload button to the left of the repo names to reload single custom repo
-
     requires_auth = False
 
     url = r"/community_settings"
@@ -97,14 +95,14 @@ class CommunitySettings(HomeAssistantView):
             for entry in self.hass.data[DOMAIN_DATA]["repos"].get("integration"):
                 content += """
                     <li class="collection-item">
-                        <div>{}
-                            <a href="/community_api/integration_url_delete/{}" class="secondary-content">
+                        <div><a href="/community_api/integration_url_reload/{url}" ><i class="fa fa-sync" style="color: #26a69a; margin-right: 1%"></i></a>  {entry}
+                            <a href="/community_api/integration_url_delete/{url}" class="secondary-content">
                                 <i name="delete" class="fas fa-trash-alt"></i>
                             </a>
                         </div>
                     </li>
                 """.format(
-                    entry, entry.replace("/", "%2F")
+                    entry=entry, url=entry.replace("/", "%2F")
                 )
         content += """
                 </ul>
@@ -126,14 +124,14 @@ class CommunitySettings(HomeAssistantView):
             for entry in self.hass.data[DOMAIN_DATA]["repos"].get("plugin"):
                 content += """
                     <li class="collection-item">
-                        <div>{}
-                            <a href="/community_api/plugin_url_delete/{}" class="secondary-content">
+                        <div><a href="/community_api/plugin_url_reload/{url}" ><i class="fa fa-sync" style="color: #26a69a; margin-right: 1%"></i></a>  {entry}
+                            <a href="/community_api/plugin_url_delete/{url}" class="secondary-content">
                                 <i name="delete" class="fas fa-trash-alt"></i>
                             </a>
                         </div>
                     </li>
                 """.format(
-                    entry, entry.replace("/", "%2F")
+                    entry=entry, url=entry.replace("/", "%2F")
                 )
         content += """
                 </ul>

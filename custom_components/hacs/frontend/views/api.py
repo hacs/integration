@@ -111,6 +111,30 @@ class CommunityAPI(HomeAssistantView):
             # Return to settings tab.
             raise web.HTTPFound("/community_settings")
 
+        # Reload custom plugin repo.
+        elif element == "integration_url_reload":
+            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
+                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(action)
+            await load_integrations_from_git(self.hass, action)
+            await write_to_data_store(
+                self.hass.config.path(), self.hass.data[DOMAIN_DATA]
+            )
+
+            # Return to settings tab.
+            raise web.HTTPFound("/community_settings")
+
+        # Reload custom plugin repo.
+        elif element == "plugin_url_reload":
+            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
+                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(action)
+            await load_plugins_from_git(self.hass, action)
+            await write_to_data_store(
+                self.hass.config.path(), self.hass.data[DOMAIN_DATA]
+            )
+
+            # Return to settings tab.
+            raise web.HTTPFound("/community_settings")
+
         else:
             # Serve the errorpage if action is not valid.
             html = await error_view()

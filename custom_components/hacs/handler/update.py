@@ -46,8 +46,9 @@ async def prosess_repo_request(hass, repo_name):
     try:
         github_releases = list(repo.get_releases())
         if github_releases:
-            last_release = github_releases[0].tag_name
-            last_update = github_releases[0].last_modified.split(", ")[1]
+            release = github_releases[0]
+            last_release = release.tag_name
+            last_update = release.created_at.strftime("%d %b %Y %H:%M:%S")
             ref = "tags/{}".format(last_release)
 
             for release in github_releases:
@@ -58,8 +59,7 @@ async def prosess_repo_request(hass, repo_name):
     if not releases:
         try:
             ref = repo.default_branch
-            last_commit = repo.get_branch(repo.default_branch).commit.stats
-            last_update = last_commit.last_modified.split(", ")[1]
+            last_update = repo.updated_at.strftime("%d %b %Y %H:%M:%S")
 
         except Exception as error:  # pylint: disable=broad-except
             _LOGGER.error("There was an issue parsing data for %s", repo_name)
@@ -70,14 +70,6 @@ async def prosess_repo_request(hass, repo_name):
 async def load_integrations_from_git(hass, repo_name):
     """
     Load integration data from GitHub repo.
-
-    For integraions to be accepted, three criterias must be met in the GitHub repo.
-        - There are GitHub releases
-        - The integration is located under RepoRoot/custom_components/integration_name
-        - There is a manifest.json file under RepoRoot/custom_components/integration_name/
-
-    This function checks those requirements
-    If any of them fails, the repo will be added to a 'skip' list.
     """
     repo, last_release, last_update, ref, releases = await prosess_repo_request(
         hass, repo_name
@@ -182,14 +174,6 @@ async def load_integrations_from_git(hass, repo_name):
 async def load_plugins_from_git(hass, repo_name):
     """
     Load plugin data from GitHub repo.
-
-    For integraions to be accepted, three criterias must be met in the GitHub repo.
-        - There are GitHub releases
-        - The plugin is located under RepoRoot/dist/ or RepoRoot/
-        - One of the js files needs to match the repo name.
-
-    This function checks those requirements
-    If any of them fails, the repo will be added to a 'skip' list.
     """
     repo, last_release, last_update, ref, releases = await prosess_repo_request(
         hass, repo_name

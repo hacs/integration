@@ -24,6 +24,7 @@ class CommunityOverview(HomeAssistantView):
 
     async def get(self, request):  # pylint: disable=unused-argument
         """View to serve the overview."""
+        _LOGGER.debug("Trying to serve overview")
         try:
             html = await self.content()
         except Exception as error:  # pylint: disable=broad-except
@@ -65,7 +66,6 @@ async def overview(hass, element_type, show_installed_only=False):
         return NO_ELEMENTS
     else:
         for element in elements:
-            _LOGGER.debug("Generating overview card for %s", element.element_id)
             card_icon = await Generate(hass, element).card_icon()
             content += await cards.overview_card(element, card_icon)
         return content

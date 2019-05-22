@@ -25,6 +25,7 @@ class CommunityStore(HomeAssistantView):
 
     async def get(self, request):  # pylint: disable=unused-argument
         """View to serve the overview."""
+        _LOGGER.debug("Trying to serve store")
         try:
             html = await self.store_view()
         except Exception as error:  # pylint: disable=broad-except

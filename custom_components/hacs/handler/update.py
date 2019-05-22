@@ -168,11 +168,8 @@ async def load_integrations_from_git(hass, repo_name):
     try:
         info = repo.get_file_contents("info.md", ref).decoded_content.decode()
         element.info = info
-    except Exception as error:  # pylint: disable=broad-except
-        element.info = ""
-        _LOGGER.debug(
-            error
-        )  # TODO: Remove all unnecessary log statements, for things that we expect to fail.
+    except Exception:  # pylint: disable=broad-except
+        pass
 
     # PrettyDescription
     element.description = "" if element.description is None else element.description
@@ -230,8 +227,8 @@ async def load_plugins_from_git(hass, repo_name):
                 element.remote_dir_location = "root"
             else:
                 _LOGGER.debug("Could not find any files in /")
-        except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.debug("Could not find any files in / - %s", error)
+        except Exception:  # pylint: disable=broad-except
+            pass
 
     if element.remote_dir_location is None or element.remote_dir_location == "dist":
         # Try RepoRoot/dist/
@@ -244,8 +241,8 @@ async def load_plugins_from_git(hass, repo_name):
                 element.remote_dir_location = "dist"
             else:
                 _LOGGER.debug("Could not find any files in dist/")
-        except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.debug("Could not find any files in dist/ - %s", error)
+        except Exception:  # pylint: disable=broad-except
+            pass
 
     _LOGGER.debug("plugin content %s", str(files))
 
@@ -278,9 +275,8 @@ async def load_plugins_from_git(hass, repo_name):
     try:
         info = repo.get_file_contents("info.md", ref).decoded_content.decode()
         element.info = info
-    except Exception as error:  # pylint: disable=broad-except
-        element.info = ""
-        _LOGGER.debug(error)
+    except Exception:  # pylint: disable=broad-except
+        pass
 
     # PrettyDescription
     element.description = "" if element.description is None else element.description

@@ -16,6 +16,7 @@ SKIP = [
     "custom-cards/config-template-card",
     "custom-components/hacs",
     "custom-components/blueprint",
+    "custom-components/information",
 ]
 ELEMENT_TYPES = ["integration", "plugin"]
 IFRAME = {

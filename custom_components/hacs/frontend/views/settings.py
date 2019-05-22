@@ -33,6 +33,7 @@ class CommunitySettings(HomeAssistantView):
 
     async def get(self, request):  # pylint: disable=unused-argument
         """View to serve the overview."""
+        _LOGGER.debug("Trying to serve settings")
         self.message = request.rel_url.query.get("message")
         try:
             html = await self.settings_view()

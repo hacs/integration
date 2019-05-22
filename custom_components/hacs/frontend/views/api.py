@@ -90,6 +90,8 @@ class CommunityAPI(HomeAssistantView):
         # Delete custom integration repo.
         elif element == "integration_url_delete":
             self.hass.data[DOMAIN_DATA]["repos"]["integration"].remove(action)
+            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
+                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(action)
             await write_to_data_store(
                 self.hass.config.path(), self.hass.data[DOMAIN_DATA]
             )
@@ -100,6 +102,8 @@ class CommunityAPI(HomeAssistantView):
         # Delete custom plugin repo.
         elif element == "plugin_url_delete":
             self.hass.data[DOMAIN_DATA]["repos"]["plugin"].remove(action)
+            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
+                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(action)
             await write_to_data_store(
                 self.hass.config.path(), self.hass.data[DOMAIN_DATA]
             )
@@ -136,13 +140,27 @@ class CommunityAPI(HomeAssistantView):
             # If it still have content, continue.
             if repo != "":
                 self.hass.data[DOMAIN_DATA]["repos"]["integration"].append(repo)
-                await load_integrations_from_git(self.hass, repo)
-                await write_to_data_store(
-                    self.hass.config.path(), self.hass.data[DOMAIN_DATA]
-                )
+                scan_result = await load_integrations_from_git(self.hass, repo)
+                if scan_result is not None:
+                    await write_to_data_store(
+                        self.hass.config.path(), self.hass.data[DOMAIN_DATA]
+                    )
+                else:
+                    message = "Could not add repo '{}' at this time, if the repo meet all requirements try again later.".format(
+                        data["custom_url"]
+                    )
+            else:
+                message = "Repo '{}' was not a valid format.".format(data["custom_url"])
 
-            # Return to settings tab.
-            raise web.HTTPFound("/community_settings")
+            # Return to settings tab
+            if message is not None:
+                if repo in self.hass.data[DOMAIN_DATA]["repos"]["plugin"]:
+                    self.hass.data[DOMAIN_DATA]["repos"]["plugin"].remove(repo)
+                if repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
+                    self.hass.data[DOMAIN_DATA]["commander"].skip.remove(repo)
+                raise web.HTTPFound("/community_settings?message={}".format(message))
+            else:
+                raise web.HTTPFound("/community_settings")
 
         # Add custom plugin repo.
         elif element == "plugin_url":
@@ -150,6 +168,7 @@ class CommunityAPI(HomeAssistantView):
             # Get the repo.
             data = await request.post()
             repo = data["custom_url"]
+            message = None
 
             _LOGGER.debug("Trying to add %s", repo)
 
@@ -163,13 +182,27 @@ class CommunityAPI(HomeAssistantView):
             # If it still have content, continue.
             if repo != "":
                 self.hass.data[DOMAIN_DATA]["repos"]["plugin"].append(repo)
-                await load_plugins_from_git(self.hass, repo)
-                await write_to_data_store(
-                    self.hass.config.path(), self.hass.data[DOMAIN_DATA]
-                )
+                scan_result = await load_plugins_from_git(self.hass, repo)
+                if scan_result is not None:
+                    await write_to_data_store(
+                        self.hass.config.path(), self.hass.data[DOMAIN_DATA]
+                    )
+                else:
+                    message = "Could not add repo '{}' at this time, if the repo meet all requirements try again later.".format(
+                        data["custom_url"]
+                    )
+            else:
+                message = "Repo '{}' was not a valid format.".format(data["custom_url"])
 
             # Return to settings tab
-            raise web.HTTPFound("/community_settings")
+            if message is not None:
+                if repo in self.hass.data[DOMAIN_DATA]["repos"]["plugin"]:
+                    self.hass.data[DOMAIN_DATA]["repos"]["plugin"].remove(repo)
+                if repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
+                    self.hass.data[DOMAIN_DATA]["commander"].skip.remove(repo)
+                raise web.HTTPFound("/community_settings?message={}".format(message))
+            else:
+                raise web.HTTPFound("/community_settings")
 
         else:
             # Serve the errorpage if action is not valid.

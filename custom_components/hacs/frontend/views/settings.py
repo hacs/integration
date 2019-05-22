@@ -20,6 +20,7 @@ _LOGGER = logging.getLogger(__name__)
 
 class CommunitySettings(HomeAssistantView):
     """View to serve the overview."""
+    # TODO: Add reload button to the left of the repo names to reload single custom repo
 
     requires_auth = False
 
@@ -29,9 +30,11 @@ class CommunitySettings(HomeAssistantView):
     def __init__(self, hass):
         """Initialize overview."""
         self.hass = hass
+        self.message = None
 
     async def get(self, request):  # pylint: disable=unused-argument
         """View to serve the overview."""
+        self.message = request.rel_url.query.get("message")
         try:
             html = await self.settings_view()
         except Exception as error:  # pylint: disable=broad-except
@@ -79,6 +82,10 @@ class CommunitySettings(HomeAssistantView):
                 self.hass.data[DOMAIN_DATA]["hacs"]["local"],
                 self.hass.data[DOMAIN_DATA]["hacs"]["remote"],
             )
+
+        # Show info message
+        if self.message is not None and self.message != "None":
+            content += await warning_card(self.message)
 
         # Integration URL's
         content += """
@@ -159,15 +166,15 @@ class CommunitySettings(HomeAssistantView):
         <b>Home Assistant version:</b> {}</br>
         </br>
         <i>
-            <a href="https://www.buymeacoffee.com/ludeeus" target="_blank" style="color: #ffab40;font-weight: 700;">
-                Built while consuming (a lot of) <i class="fas fa-beer" style="color: #ffab40;font-weight: 700;"></i>
+            <a href="https://www.buymeacoffee.com/ludeeus" target="_blank" style="font-weight: 700;">
+                Built while consuming (a lot of) <i class="fas fa-beer" style="font-weight: 700;"></i>
             </a>
         </i>
         </br>
         <hr>
         <h6>UI built with elements from:</h6>
-        <li><a href="https://materializecss.com" target="_blank" style="color: #ffab40;font-weight: 700;">Materialize</a></li>
-        <li><a href="https://fontawesome.com" target="_blank" style="color: #ffab40;font-weight: 700;">Font Awesome</a></li>
+        <li><a href="https://materializecss.com" target="_blank" style="font-weight: 700;">Materialize</a></li>
+        <li><a href="https://fontawesome.com" target="_blank" style=";font-weight: 700;">Font Awesome</a></li>
         <hr>
         <i>This site and the items here is not created, developed, affiliated, supported, maintained or endorsed by Home Assistant.</i>
         """.format(

@@ -154,6 +154,7 @@ async def load_integrations_from_git(hass, repo_name):
     element.repo = repo_name
     element.releases = releases
     element.last_update = last_update
+    element.trackable = True
 
     ################# Load basic info from manifest. #################
 
@@ -269,6 +270,7 @@ async def load_plugins_from_git(hass, repo_name):
     element.repo = repo_name
     element.releases = releases
     element.last_update = last_update
+    element.trackable = True
 
     ################### Load custom info from repo. ###################
 

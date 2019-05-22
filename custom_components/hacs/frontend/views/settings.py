@@ -4,7 +4,7 @@ from aiohttp import web
 from homeassistant.components.http import HomeAssistantView
 from homeassistant.const import __version__ as HAVERSION
 
-from custom_components.hacs.const import DOMAIN_DATA, NAME_LONG, VERSION
+from custom_components.hacs.const import DOMAIN_DATA, NAME_LONG
 from custom_components.hacs.frontend.views import error_view
 from custom_components.hacs.frontend.elements import (
     info_card,
@@ -49,7 +49,7 @@ class CommunitySettings(HomeAssistantView):
 
         content += "<div class='container'>"
 
-        if self.hass.data[DOMAIN_DATA]["hacs"].get("pending_restart"):
+        if self.hass.data[DOMAIN_DATA]["hacs"].get("restart_pending"):
             content += await warning_card(
                 "You need to restart Home Assisant to start using the latest version of HACS."
             )
@@ -66,20 +66,22 @@ class CommunitySettings(HomeAssistantView):
                         <span class="card-title">UPDATE PENDING</span>
                         <p>There is an update pending for HACS!.</p>
                         </br>
-                        <p>Current version: {}</p>
-                        <p>Available version: {}</p>
+                        <p><b>Current version:</b> {local}</p>
+                        <p><b>Available version:</b> {remote}</p>
                         </div>
                         <div class="card-action">
                         <a href="/community_api/hacs/upgrade"
                             onclick="document.getElementById('progressbar').style.display = 'block'">
                             UPGRADE</a>
+                        <a href="https://github.com/custom-components/hacs/releases/tag/{remote}" target="_blank">
+                            CHANGELOG</a>
                         </div>
                     </div>
                     </div>
                 </div>
             """.format(
-                self.hass.data[DOMAIN_DATA]["hacs"]["local"],
-                self.hass.data[DOMAIN_DATA]["hacs"]["remote"],
+                local=self.hass.data[DOMAIN_DATA]["hacs"]["local"],
+                remote=self.hass.data[DOMAIN_DATA]["hacs"]["remote"],
             )
 
         # Show info message
@@ -159,6 +161,12 @@ class CommunitySettings(HomeAssistantView):
         content += await generic_button_external("/community_api/log/get", "OPEN LOG")
         content += "</br>"
         content += "</br>"
+        if self.hass.data[DOMAIN_DATA]["hacs"].get("restart_pending"):
+            local_version = "{} <b>(RESTART PENDING!)</b>".format(
+                self.hass.data[DOMAIN_DATA]["hacs"]["local"]
+            )
+        else:
+            local_version = "{}".format(self.hass.data[DOMAIN_DATA]["hacs"]["local"])
         info_message = """
         <h5>{}</h5>
         <b>HACS version:</b> {}</br>
@@ -177,7 +185,7 @@ class CommunitySettings(HomeAssistantView):
         <hr>
         <i>This site and the items here is not created, developed, affiliated, supported, maintained or endorsed by Home Assistant.</i>
         """.format(
-            NAME_LONG, VERSION, HAVERSION
+            NAME_LONG, local_version, HAVERSION
         )
         content += await info_card(info_message)
         content += "</div>"  # End the view container

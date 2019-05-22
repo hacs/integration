@@ -54,7 +54,7 @@ async def error_view():
         )
 
     content += await generic_button_external(
-        "https://github.com/custom-components/hacs/issues/new", "OPEN ISSUE"
+        "https://github.com/custom-components/hacs/issues/new/choose", "OPEN ISSUE"
     )
     content += await generic_button_external("/community_api/log/get", "OPEN LOG")
     content += "<div class='center-align' style='margin-top: 100px'>"

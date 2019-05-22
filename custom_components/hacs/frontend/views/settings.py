@@ -154,7 +154,7 @@ class CommunitySettings(HomeAssistantView):
             "/community_api/self/reload", "RELOAD DATA"
         )
         content += await generic_button_external(
-            "https://github.com/custom-components/hacs/issues/new", "OPEN ISSUE"
+            "https://github.com/custom-components/hacs/issues/new/choose", "OPEN ISSUE"
         )
         content += await generic_button_external(
             "https://github.com/custom-components/hacs", "HACS REPO"

@@ -110,7 +110,7 @@ For new features / Changes to existing features or other big changes, please ope
 
 ***
 
-# Image "galery"
+# Image "gallery"
 
 ## Overview
 

@@ -88,7 +88,7 @@ The `custom_components` **needs** to be in **the exact same** folder as `configu
 
 # Moving from [`custom_updater`](https://github.com/custom-components/custom_updater)
 
-If you have [`custom_updater`](https://github.com/custom-components/custom_updater) installed you need to remove that (rename the directory or delete it completely)
+If you have [`custom_updater`](https://github.com/custom-components/custom_updater) installed you need to remove that (rename the directory or delete it completely). You will also need to remove the custom_updater entry from your configuration.yaml file.
 
 This and [`custom_updater`](https://github.com/custom-components/custom_updater) can not operate on the same installation.
 

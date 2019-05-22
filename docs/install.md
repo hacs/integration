@@ -33,7 +33,7 @@ Open the download menu by clicking the "Clone or download" button.
 
 ## Step 4 - Initialize Download
 
-Initialize the download by clicking the "Donwload ZIP" button.
+Initialize the download by clicking the "Download ZIP" button.
 
 ![install2](images/install2.png)
 
@@ -41,7 +41,7 @@ Initialize the download by clicking the "Donwload ZIP" button.
 
 There should now be a `hacs-master.zip` file in your Download folder.
 
-You need to unzip this, before preceding.
+You need to unzip this, before proceeding.
 
 ## Step 6 - Move along
 

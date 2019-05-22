@@ -56,7 +56,12 @@ If you want to add a richer experience for your users you can add a `info.md` fi
 
 For a integration repository to be valid these are the criterias:
 
-- The repository uses GitHub releases
+- The repository uses GitHub releases (Optional)
+  - If there is releases:
+    - When installing/upgrading it will scan the content in the latest release.
+  - If there is no releases:
+    - Update will not be possible (but the user will still be able to install/reinstall it).
+    - It will scan files in the branch marked as default.
 - There is only one integration (one directory under `ROOT_OF_THE_REPO/custom_components/`) pr repository (if you have more, only the first one will be managed.)
 - The integration (all the python files for it) are located under `ROOT_OF_THE_REPO/custom_components/INTEGRATION_NAME/`
 - In that integration directory, there is a [`manifest.json`](https://developers.home-assistant.io/docs/en/creating_integration_manifest.html) file.
@@ -67,9 +72,22 @@ A good template to use as a reference are [blueprint](https://github.com/custom-
 
 For a integration repository to be valid these are the criterias:
 
-- The repository uses GitHub releases
-- There are `.js` files under `ROOT_OF_THE_REPO/dist/` or directly in the root of the repo.
+- The repository uses GitHub releases (Optional)
+  - If there is releases:
+    - When installing/upgrading it will scan the content in the latest release.
+  - If there is no releases:
+    - Update will not be possible (but the user will still be able to install/reinstall it).
+    - It will scan files in the branch marked as default.
+
+- There are `.js` files under `ROOT_OF_THE_REPO/dist/` or directly in the root of the repository.
 - One of the `.js` files have the same name as the repository.
+  - With every rule there is an exception, if the repository name start with `"lovelace-"`, there must be a `.js` file in the repository matching the repository name with `"lovelace-"` striped from the name, examples:
+    - Accepted:
+      - repository name: "lovelace-awesome-card"
+      - file name of one of the files "awesome-card"
+    - Not accepted:
+      - repository name: "lovelace-awesome-card"
+      - file name of one of the files "lovelace-awesome-card"
 
 It will first check the `dist` directory, if nothing there it will check the root. All `.js` files it find will be downloaded.
 

@@ -44,11 +44,13 @@ class Generate:
         """Generate avaiable version."""
         _LOGGER.debug("Generating avaiable version for %s", self.element.element_id)
 
+        if self.element.avaiable_version is None:
+            return ""
+
         return """
           <p>
             <b>Available version:</b> {}
           </p>
-          </br>
         """.format(
             self.element.avaiable_version
         )
@@ -201,6 +203,21 @@ class Generate:
           </p>
         """.format(
             self.element.installed_version
+        )
+
+    async def last_update(self):
+        """Generate last updated."""
+        _LOGGER.debug("Generating last updated for %s", self.element.element_id)
+
+        if self.element.last_update is None:
+            return ""
+        return """
+          <p>
+            <b>Last updated:</b> {}
+          </p>
+          </br>
+        """.format(
+            self.element.last_update
         )
 
     async def main_action(self):

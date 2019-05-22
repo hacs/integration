@@ -77,7 +77,10 @@ async def download_integration(hass, integration):
         repo = git.get_repo(integration.repo)
 
         # Make sure that we use the correct version (ref).
-        ref = "tags/{}".format(integration.avaiable_version)
+        if integration.avaiable_version is not None:
+            ref = "tags/{}".format(integration.avaiable_version)
+        else:
+            ref = repo.default_branch
 
         # Get the first dir in the "custom_components" directory.
         remote_dir_name = repo.get_dir_contents("custom_components", ref)[0].path
@@ -165,7 +168,12 @@ async def download_plugin(hass, plugin):
     # Okey, the directory structure is now OK, let's continue.
     try:
         repo = git.get_repo(plugin.repo)
-        ref = "tags/{}".format(plugin.avaiable_version)
+
+        # Make sure that we use the correct version (ref).
+        if plugin.avaiable_version is not None:
+            ref = "tags/{}".format(plugin.avaiable_version)
+        else:
+            ref = repo.default_branch
 
         # Plugins have two supported locations, wee need to check both...
         remotedir = None

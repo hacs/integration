@@ -24,30 +24,47 @@ async def prosess_repo_request(hass, repo_name):
     """Initial prosessing of the repo."""
     _LOGGER.debug("Started prosessing %s", repo_name)
 
-    repo, last_release, ref = None, None, None
+    repo, last_release, last_update, ref, releases = None, None, None, None, []
+
     git = hass.data[DOMAIN_DATA]["commander"].git
 
     if repo_name in hass.data[DOMAIN_DATA]["commander"].skip:
         _LOGGER.debug("%s in 'skip', skipping", repo_name)
-        return repo, last_release, ref
+        return repo, last_release, last_update, ref, releases
 
     _LOGGER.debug("Loading from data from GitHub for %s", repo_name)
 
     try:
         repo = git.get_repo(repo_name)
     except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.debug(error)
+        _LOGGER.error("Could not find repo for %s - %s", repo_name, error)
         _LOGGER.debug("Skipping %s on next run.", repo_name)
         hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+        return repo, last_release, last_update, ref, releases
 
     # Find GitHub releases.
     try:
-        last_release = list(repo.get_releases())[0].tag_name
-        ref = "tags/{}".format(last_release)
-    except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.debug(error)
+        github_releases = list(repo.get_releases())
+        if github_releases:
+            last_release = github_releases[0].tag_name
+            last_update = github_releases[0].last_modified.split(", ")[1]
+            ref = "tags/{}".format(last_release)
 
-    return repo, last_release, ref
+            for release in github_releases:
+                releases.append(release.tag_name)
+    except Exception:  # pylint: disable=broad-except
+        _LOGGER.debug("No releases found for %s - %s", repo_name, str(releases))
+
+    if not releases:
+        try:
+            ref = repo.default_branch
+            last_commit = repo.get_branch(repo.default_branch).commit.stats
+            last_update = last_commit.last_modified.split(", ")[1]
+
+        except Exception as error:  # pylint: disable=broad-except
+            _LOGGER.error("There was an issue parsing data for %s", repo_name)
+
+    return repo, last_release, last_update, ref, releases
 
 
 async def load_integrations_from_git(hass, repo_name):
@@ -62,10 +79,13 @@ async def load_integrations_from_git(hass, repo_name):
     This function checks those requirements
     If any of them fails, the repo will be added to a 'skip' list.
     """
-    repo, last_release, ref = await prosess_repo_request(hass, repo_name)
+    repo, last_release, last_update, ref, releases = await prosess_repo_request(
+        hass, repo_name
+    )
 
-    if repo is None or last_release is None or ref is None:
-        hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+    if repo is None or ref is None:
+        if repo_name not in hass.data[DOMAIN_DATA]["commander"].skip:
+            hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
         _LOGGER.debug("Could not prosess %s", repo_name)
         _LOGGER.debug("Skipping %s on next run.", repo_name)
         return
@@ -129,6 +149,8 @@ async def load_integrations_from_git(hass, repo_name):
     element.avaiable_version = last_release
     element.description = repo.description
     element.repo = repo_name
+    element.releases = releases
+    element.last_update = last_update
 
     ################# Load basic info from manifest. #################
 
@@ -144,13 +166,17 @@ async def load_integrations_from_git(hass, repo_name):
         element.info = info
     except Exception as error:  # pylint: disable=broad-except
         element.info = ""
-        _LOGGER.debug(error)  # TODO: Remove all unnecessary log statements, for things that we expect to fail.
+        _LOGGER.debug(
+            error
+        )  # TODO: Remove all unnecessary log statements, for things that we expect to fail.
 
     # PrettyDescription
     element.description = "" if element.description is None else element.description
 
     # Save it back to hass.data
     hass.data[DOMAIN_DATA]["elements"][element.element_id] = element
+
+    return True
 
 
 async def load_plugins_from_git(hass, repo_name):
@@ -160,15 +186,18 @@ async def load_plugins_from_git(hass, repo_name):
     For integraions to be accepted, three criterias must be met in the GitHub repo.
         - There are GitHub releases
         - The plugin is located under RepoRoot/dist/ or RepoRoot/
-        - One of the js files needs to match the repo name. # TODO: This should fail the scan
+        - One of the js files needs to match the repo name.
 
     This function checks those requirements
     If any of them fails, the repo will be added to a 'skip' list.
     """
-    repo, last_release, ref = await prosess_repo_request(hass, repo_name)
+    repo, last_release, last_update, ref, releases = await prosess_repo_request(
+        hass, repo_name
+    )
 
-    if repo is None or last_release is None or ref is None:
-        hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+    if repo is None or ref is None:
+        if repo_name not in hass.data[DOMAIN_DATA]["commander"].skip:
+            hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
         _LOGGER.debug("Could not prosess %s", repo_name)
         _LOGGER.debug("Skipping %s on next run.", repo_name)
         return
@@ -187,27 +216,44 @@ async def load_plugins_from_git(hass, repo_name):
     repo_root = repo.get_dir_contents("", ref)
 
     if element.remote_dir_location is None:
+        # Try RepoRoot/
+        try:
+            for file in list(repo_root):
+                if file.name.endswith(".js"):
+                    files.append(file.name)
+            if files:
+                element.remote_dir_location = "root"
+            else:
+                _LOGGER.debug("Could not find any files in /")
+        except Exception as error:  # pylint: disable=broad-except
+            _LOGGER.debug("Could not find any files in / - %s", error)
+
+    if element.remote_dir_location is None:
         # Try RepoRoot/dist/
         try:
             test_remote_dir_location = repo.get_dir_contents("dist", ref)
             for file in list(test_remote_dir_location):
                 if file.name.endswith(".js"):
-                    files.append(file)
-                if files:
-                    element.remote_dir_location = "dist"
+                    files.append(file.name)
+            if files:
+                element.remote_dir_location = "dist"
+            else:
+                _LOGGER.debug("Could not find any files in dist/")
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.debug(error)
+            _LOGGER.debug("Could not find any files in dist/ - %s", error)
 
-    if element.remote_dir_location is None:
-        # Try RepoRoot/
-        try:
-            for file in list(repo_root):
-                if file.name.endswith(".js"):
-                    files.append(file)
-                    if files:
-                        element.remote_dir_location = "root"
-        except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.debug(error)
+    # Handler for requirement 3
+    find_file = "{}.js".format(repo_name.split("/")[1].replace("lovelace-", ""))
+    if find_file not in files:
+        element.remote_dir_location = None
+
+        if repo_name not in hass.data[DOMAIN_DATA]["commander"].skip:
+            hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+        _LOGGER.debug(
+            "Expected file %s not found in %s for %s", find_file, files, repo_name
+        )
+        _LOGGER.debug("Skipping %s on next run.", repo_name)
+        return
 
     if element.remote_dir_location is None:
         _LOGGER.debug("Can't find any acceptable files in %s", repo_name)
@@ -222,6 +268,8 @@ async def load_plugins_from_git(hass, repo_name):
     element.avaiable_version = last_release
     element.description = repo.description
     element.repo = repo_name
+    element.releases = releases
+    element.last_update = last_update
 
     ################### Load custom info from repo. ###################
 
@@ -238,3 +286,5 @@ async def load_plugins_from_git(hass, repo_name):
 
     # Save it back to hass.data
     hass.data[DOMAIN_DATA]["elements"][plugin_name] = element
+
+    return True

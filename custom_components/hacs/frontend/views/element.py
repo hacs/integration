@@ -73,6 +73,7 @@ class CommunityElement(HomeAssistantView):
         element_note = await self.generate.element_note()
         info = await self.generate.info()
         installed_version = await self.generate.installed_version()
+        last_update = await self.generate.last_update()
         main_action = await self.generate.main_action()
         name = self.element.name
         repo = await self.generate.repo()
@@ -89,6 +90,7 @@ class CommunityElement(HomeAssistantView):
                   {description}
                   {installed_version}
                   {avaiable_version}
+                  {last_update}
                   {info}
                   </br>
                   {authors}
@@ -111,6 +113,7 @@ class CommunityElement(HomeAssistantView):
             element_note=element_note,
             info=info,
             installed_version=installed_version,
+            last_update=last_update,
             main_action=main_action,
             name=name,
             repo=repo,

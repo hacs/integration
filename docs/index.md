@@ -86,7 +86,7 @@ By default all elements that meet the requirements from these orgs are automatic
 - [custom-components](https://github.com/custom-components)
 - [custom-cards](https://github.com/custom-cards)
 
-But you can add any other repository that meed the requirements, to do so go to the "SETTINGS" tab.
+But you can add any other repository that meets the requirements, to do so go to the "SETTINGS" tab.
 
 ![settings](images/settings.png)
 

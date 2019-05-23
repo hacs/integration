@@ -28,11 +28,13 @@ from custom_components.hacs.const import (
     VERSION,
     IFRAME,
     SKIP,
+    DATA_SCHEMA,
 )
 from custom_components.hacs.element import Element
 from custom_components.hacs.handler.storage import (
     get_data_from_store,
     write_to_data_store,
+    data_migration,
 )
 from custom_components.hacs.handler.update import (
     load_integrations_from_git,
@@ -52,7 +54,7 @@ DOMAIN = "{}".format(NAME_SHORT.lower())
 INTERVAL = timedelta(minutes=500)
 
 # TODO: Requirements are not loaded from manifest, needs investigation.
-REQUIREMENTS = ["PyGithub>=1.43.6"]
+REQUIREMENTS = ["PyGithub>=1.43.6", "aiofiles"]
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -134,17 +136,22 @@ class HacsCommander:
 
         if not returndata.get("elements"):
             _LOGGER.info(
-                "Data did not exist running initial setup, this will take some time."
+                "Expected data did not exist running initial setup, this will take some time."
             )
             self.hass.data[DOMAIN_DATA]["elements"] = {}
             self.hass.data[DOMAIN_DATA]["repos"] = {"integration": [], "plugin": []}
-            self.hass.data[DOMAIN_DATA]["hacs"] = {"local": VERSION, "remote": None}
+            self.hass.data[DOMAIN_DATA]["hacs"] = {"local": VERSION, "remote": None, "schema": DATA_SCHEMA}
             self.hass.async_create_task(self.full_element_scan())
 
         else:
-            self.hass.data[DOMAIN_DATA]["elements"] = returndata["elements"]
-            self.hass.data[DOMAIN_DATA]["repos"] = returndata["repos"]
-            self.hass.data[DOMAIN_DATA]["hacs"] = returndata["hacs"]
+            if not returndata.get("hacs", {}).get("schema"):
+                await data_migration(self.hass, self.git)
+            elif returndata.get("hacs", {}).get("schema") != DATA_SCHEMA:
+                await data_migration(self.hass, self.git)
+            else:
+                self.hass.data[DOMAIN_DATA]["elements"] = returndata["elements"]
+                self.hass.data[DOMAIN_DATA]["repos"] = returndata["repos"]
+                self.hass.data[DOMAIN_DATA]["hacs"] = returndata["hacs"]
 
         # Make sure we have the correct version
         self.hass.data[DOMAIN_DATA]["hacs"]["local"] = VERSION

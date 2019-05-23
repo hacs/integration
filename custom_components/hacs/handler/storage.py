@@ -1,7 +1,7 @@
 """Storage handler."""
 import logging
 import json
-from custom_components.hacs.const import STORENAME
+from custom_components.hacs.const import STORENAME, DOMAIN_DATA, VERSION, DATA_SCHEMA
 from custom_components.hacs.element import Element
 
 _LOGGER = logging.getLogger(__name__)
@@ -86,6 +86,7 @@ async def write_to_data_store(basedir, output):
         elementdata['pending_restart'] = output["elements"][element].pending_restart
         elementdata['pending_update'] = output["elements"][element].pending_update
         elementdata['trackable'] = output["elements"][element].trackable
+        elementdata['reason'] = output["elements"][element].reason
         elementdata['hidden'] = output["elements"][element].hidden
 
         outdata["elements"][output["elements"][element].element_id] = elementdata
@@ -98,3 +99,30 @@ async def write_to_data_store(basedir, output):
     except Exception as error:  # pylint: disable=broad-except
         msg = "Could not write data to {} - {}".format(datastore, error)
         _LOGGER.debug(msg)
+
+async def data_migration(hass, github):
+    """Run data migration."""
+    import aiofiles
+
+    datastore = "{}/.storage/{}".format(hass.config.path(), STORENAME)
+    data = None
+
+    hass.data[DOMAIN_DATA]["elements"] = {}
+    hass.data[DOMAIN_DATA]["repos"] = {"integration": [], "plugin": []}
+    hass.data[DOMAIN_DATA]["hacs"] = {"local": VERSION, "remote": None, "schema": DATA_SCHEMA}
+
+
+    # Get current data:
+    try:
+        async with aiofiles.open(datastore, mode='r') as datafile:
+            data = await datafile.read()
+            data = json.load(data)
+            datafile.close()
+    except Exception as error:  # pylint: disable=broad-except
+        _LOGGER.debug("Could not load data from %s - %s", datastore, error)
+
+    if not data:
+        # No data exist, we are happy and return.
+        return
+
+    

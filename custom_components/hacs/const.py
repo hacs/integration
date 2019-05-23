@@ -2,6 +2,7 @@
 VERSION = "0.2.1"
 NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
+DATA_SCHEMA = 1
 STORENAME = "hacs"
 PROJECT_URL = "https://github.com/custom-components/hacs/"
 CUSTOM_UPDATER_LOCATIONS = [

@@ -34,6 +34,7 @@ class Element:
         self.releases = None # ok
         self.remote_dir_location = None
         self.repo = repo # ok
+        self.reason = None
         self.github_repo = None # ok
         self.github_ref = None
         self.github_last_release = None # ok

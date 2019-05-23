@@ -64,7 +64,7 @@ class Element:
 
 
         self.start_task_scheduler()
-        _LOGGER.debug(f'Completed {str(self.repo)} in {(datetime.now() - start_time).seconds} seconds')
+        _LOGGER.debug(f'Completed {str(self.repo)} update in {(datetime.now() - start_time).seconds} seconds')
         return True
 
 

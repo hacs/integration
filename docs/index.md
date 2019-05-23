@@ -18,7 +18,33 @@ It cam also help you discover new awesome stuff.
 
 ## Updates
 
-It checks for updates every 500 minutes after Home Assistant is started, you can also force a check by clicking the "RELOAD DATA" button under the "SETTINGS" tab.
+### Self
+
+HACS will check for updates to itself:
+
+- At startup.
+- Every 60 minutes after HA startup.
+
+### Installed elements
+
+HACS will check for updates to installed elements:
+
+- At startup.
+- Every 30 minutes after HA startup.
+
+### Everything else
+
+HACS will check for updates to every element:
+
+- Every 500 minutes after HA startup.
+
+### Manually trigger updates
+
+You can also force a check by clicking the "RELOAD DATA" button under the "SETTINGS" tab _(This will force a reload of everything.)_
+
+Under the "SETTINGS" tab there is also a reload icon to the left of every custom repository you have added, clicking that will reload info for it.
+
+On each ElementView (the page with details about the element) there is a reload icon at the top-right corner, clicking that will reload it.
 
 ## Logs
 

@@ -39,7 +39,7 @@ class CommunityAPI(HomeAssistantView):
 
         # Reload data from the settings tab.
         if action == "reload":
-            await self.hass.data[DOMAIN_DATA]["commander"].repetetive_tasks()
+            await self.hass.data[DOMAIN_DATA]["commander"].full_element_scan()
 
             # Return to settings tab.
             raise web.HTTPFound("/community_settings")
@@ -114,14 +114,9 @@ class CommunityAPI(HomeAssistantView):
         # Reload custom plugin repo.
         elif element == "integration_url_reload":
 
-            if "/" not in action:
-                repo = self.hass.data[DOMAIN_DATA]["elements"][action].repo
-            else:
-                repo = action
-
-            if repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
+            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
                 self.hass.data[DOMAIN_DATA]["commander"].skip.remove(repo)
-            scan_result = await load_integrations_from_git(self.hass, repo)
+            scan_result = await self.hass.data[DOMAIN_DATA]["elements"][action].update_element()
 
             if scan_result is not None:
                 message = None

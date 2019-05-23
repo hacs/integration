@@ -27,7 +27,7 @@ class Element:
         self.isinstalled = False  # are set with actions
         self.github_last_update = None # ok
         self.manifest = None # ok-ish
-        self.name = None # ok-ish
+        self.name = self.element_id
         self.github = github # ok
         self.hass = hass # ok
         self.releases = None # ok
@@ -55,13 +55,15 @@ class Element:
             # This repo is marked as skippable, lets skip it.
             return
 
+        self.trackable = True
         self.attach_github_repo_object()
         self.fetch_github_repo_data()
         self.element_has_update()
         self.fetch_github_element_content()
         if self.element_type == "integration":
             self.fetch_file_manifest()
-
+            if self.manifest is None:
+                self.skip_list_add()
 
         self.start_task_scheduler()
         _LOGGER.debug(f'Completed {str(self.repo)} update in {(datetime.now() - start_time).seconds} seconds')
@@ -115,6 +117,7 @@ class Element:
 
         self.log_repo_info()
         self.fetch_github_repo_description()
+        self.fetch_file_info()
 
     def fetch_github_repo_releases(self):
         """Fetch github releases."""
@@ -149,6 +152,7 @@ class Element:
 
     def log_repo_info(self):
         """Log repository info."""
+        _LOGGER.debug("------------------------------------------------------")
         _LOGGER.debug("Repository: %s", self.repo)
         _LOGGER.debug("Repository ref: %s", self.github_ref)
         _LOGGER.debug("Repository last update: %s", self.github_last_update)
@@ -267,7 +271,7 @@ class Element:
         _LOGGER.debug("Skipping %s on next run.", self.repo)
         self.trackable = False
         if self.repo not in self.hass.data[DOMAIN_DATA]["commander"].skip:
-            self.hass.data[DOMAIN_DATA]["commander"].skip.apped(self.repo)
+            self.hass.data[DOMAIN_DATA]["commander"].skip.append(self.repo)
 
 
     def skip_list_remove(self):

@@ -57,6 +57,8 @@ async def overview(hass, element_type, show_installed_only=False):
         return NO_ELEMENTS
     for entry in hass.data[DOMAIN_DATA]["elements"]:
         element = hass.data[DOMAIN_DATA]["elements"][entry]
+        if not element.trackable:
+            continue
         if show_installed_only:
             if not element.isinstalled:
                 continue

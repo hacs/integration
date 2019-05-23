@@ -52,7 +52,7 @@ DOMAIN = "{}".format(NAME_SHORT.lower())
 INTERVAL = timedelta(minutes=500)
 
 # TODO: Requirements are not loaded from manifest, needs investigation.
-REQUIREMENTS = ["PyGithub", "markdown"]
+REQUIREMENTS = ["PyGithub>=1.43.6"]
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -116,7 +116,7 @@ class HacsCommander:
         import github
 
         self.hass = hass
-        self.git = github.Github(github_token, timeout=5)
+        self.git = github.Github(github_token, timeout=5, retry=2)
         self.skip = SKIP
         self.tasks = []
 

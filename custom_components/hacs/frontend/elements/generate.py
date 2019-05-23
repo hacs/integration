@@ -154,15 +154,10 @@ class Generate:
 
     async def info(self):
         """Generate info."""
-        import markdown
-
         if self.element.info is None:
             return ""
 
-        markdown_render = markdown.markdown(
-            self.element.info,
-            extensions=["markdown.extensions.tables", "markdown.extensions.codehilite"],
-        )
+        markdown_render = self.element.github.render_markdown(self.element.info, self.element.github_repo)
         markdown_render = markdown_render.replace("<h3>", "<h6>").replace(
             "</h3>", "</h6>"
         )
@@ -176,7 +171,7 @@ class Generate:
             "</code>", "</pre>"
         )
         markdown_render = markdown_render.replace(
-            "<table>", "<table class='responsive-table white-text'>"
+            "<table>", "<table class='white-text'>"
         )
         markdown_render = markdown_render.replace("<ul>", "")
         markdown_render = markdown_render.replace("</ul>", "")
@@ -199,7 +194,7 @@ class Generate:
     async def last_update(self):
         """Generate last updated."""
 
-        if self.element.last_update is None:
+        if self.element.github_last_update is None:
             return ""
         return """
           <p>
@@ -207,7 +202,7 @@ class Generate:
           </p>
           </br>
         """.format(
-            self.element.last_update
+            self.element.github_last_update
         )
 
     async def main_action(self):

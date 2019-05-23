@@ -14,7 +14,7 @@ This is a manager for your custom integration (components) and plugin (lovelace 
 
 It can help you download and update elements.
 
-It cam also help you discover new awesome stuff.
+It can also help you discover new awesome stuff.
 
 ## Updates
 
@@ -24,7 +24,7 @@ It checks for updates every 500 minutes after Home Assistant is started, you can
 
 Like any other integration this logs to the `home-assistant.log` file.
 
-You can also click the "OPEN LOG" form the "SETTINGS" tab to show logs only related to this integration (useful when creating a issue)
+You can also click the "OPEN LOG" from the "SETTINGS" tab to show logs only related to this integration (useful when creating a issue)
 
 During the first versions of this it will configure the logger component to use `debug` for this integration. This is done to make sure those exists when you need to report a bug.
 
@@ -34,7 +34,7 @@ This will not scan you local file system for existing elements.
 
 Why?
 
-Trust. If this did not download it, it can not know which version you have, so for elements you already have you still need to click the "INSTALL" button for that element.
+Trust. If this did not download it, there'd be no way to know which version you have, so for elements you already have you will still need to click the "INSTALL" button for that element.
 
 ## Data
 
@@ -42,46 +42,46 @@ All data it handles are saved to the `hacs` file that is located under `.storage
 
 ## Note for developers
 
-For your repository to be added there is a few criterias that needs to be met.
+For your repository to be added there are a few criteria that need to be met.
 
 [See here for how to add a custom repository.](#add-custom-repos)
 
-The description for each element are gathered from the description of the repository.
+The description of each element is gathered from it's repository.
 
-The version it shows/uses are gathered from the tag name of the latest release.
+The version it shows/uses is gathered from the tag name of the latest release.
 
-If you want to add a richer experience for your users you can add a `info.md` file to the root of your repository (this is optional), this file will be rendered under the repository description, it does not support the full styling options as Github so use with care.
+If you want to add a richer experience for your users you can add an `info.md` file to the root of your repository (this is optional), this file will be rendered under the repository description, it does not support the full styling options as Github so use with care.
 
 ### Note for integration developers
 
-For a integration repository to be valid these are the criterias:
+For an integration repository to be valid these are the criteria:
 
 - The repository uses GitHub releases (Optional)
-  - If there is releases:
+  - If there are releases:
     - When installing/upgrading it will scan the content in the latest release.
-  - If there is no releases:
-    - Update will not be possible (but the user will still be able to install/reinstall it).
+  - If there are no releases:
+    - An update will not be possible (but the user will still be able to install/reinstall it).
     - It will scan files in the branch marked as default.
-- There is only one integration (one directory under `ROOT_OF_THE_REPO/custom_components/`) pr repository (if you have more, only the first one will be managed.)
-- The integration (all the python files for it) are located under `ROOT_OF_THE_REPO/custom_components/INTEGRATION_NAME/`
+- There is only one integration (one directory under `ROOT_OF_THE_REPO/custom_components/`) per repository (if you have more, only the first one will be managed.)
+- The integration and all the python files for it are located under `ROOT_OF_THE_REPO/custom_components/INTEGRATION_NAME/`
 - In that integration directory, there is a [`manifest.json`](https://developers.home-assistant.io/docs/en/creating_integration_manifest.html) file.
 
-A good template to use as a reference are [blueprint](https://github.com/custom-components/blueprint)
+A good template to use as a reference is [blueprint](https://github.com/custom-components/blueprint)
 
 ### Note for plugin developers
 
-For a integration repository to be valid these are the criterias:
+For an integration repository to be valid these are the criteria:
 
 - The repository uses GitHub releases (Optional)
-  - If there is releases:
+  - If there are releases:
     - When installing/upgrading it will scan the content in the latest release.
-  - If there is no releases:
-    - Update will not be possible (but the user will still be able to install/reinstall it).
+  - If there are no releases:
+    - An update will not be possible (but the user will still be able to install/reinstall it).
     - It will scan files in the branch marked as default.
 
 - There are `.js` files under `ROOT_OF_THE_REPO/dist/` or directly in the root of the repository.
 - One of the `.js` files have the same name as the repository.
-  - With every rule there is an exception, if the repository name start with `"lovelace-"`, there must be a `.js` file in the repository matching the repository name with `"lovelace-"` striped from the name, examples:
+  - With every rule there is an exception, if the repository's name starts with `"lovelace-"`, there must be a `.js` file in the repository matching the repository name with `"lovelace-"` striped from the name, examples:
     - Accepted:
       - repository name: "lovelace-awesome-card"
       - file name of one of the files "awesome-card"
@@ -89,9 +89,9 @@ For a integration repository to be valid these are the criterias:
       - repository name: "lovelace-awesome-card"
       - file name of one of the files "lovelace-awesome-card"
 
-It will first check the `dist` directory, if nothing there it will check the root. All `.js` files it find will be downloaded.
+It will first check the `dist` directory, if nothing is there it will check the root directory. All `.js` files it finds will be downloaded.
 
-A good template to use as a reference are [boilerplate-card](https://github.com/custom-cards/boilerplate-card)
+A good template to use as a reference is [boilerplate-card](https://github.com/custom-cards/boilerplate-card)
 
 ## Settings
 
@@ -110,21 +110,21 @@ But you can add any other repository that meets the requirements, to do so go to
 
 Add the url to the repository under "Custom integration repo's" or "Custom plugin repo's" depending on the type.
 
-After you add a repository it will scan that repository, if it can be tracked the element from it will show up under "STORE".
+After you add a repository it will scan that repository, if it can be tracked the element will show up under "STORE".
 
-Want to get inspiration on what to add, check out the [Awesome Home Assistant list](https://www.awesome-ha.com/) it has has links to some custom_components (integration) and custom_cards (plugin).
+Want to get inspiration on what to add? Check out the [Awesome Home Assistant list](https://www.awesome-ha.com/) it has has links to many custom_components (integration) and custom_cards (plugin).
 
 ## Contribute
 
-This integration is **massive** there are a lot of areas to contribute to.
+This integration is **massive** and there are a lot of areas to contribute to.
 
 Contributions to the docs, will almost be blindly accepted.
 
 ### For contributions to the integration itself (backend/frontend)
 
-If the contribution is minor, do the change and open a PR (Pull Request).
+If the contribution is minor, make the change and open a PR (Pull Request).
 
-For new features / Changes to existing features or other big changes, please open an RFC (Request for comment) issue before you start the work.
+For new features, changes to existing features, or other big changes, please open an RFC (Request for comment) issue before you start the work.
 
 ***
 
@@ -156,11 +156,11 @@ First startup after installation will take some time, but it's worth it.
 
 This was developed under the influence of 🍺, a lot of 🍺, [if you want to support my work feel free to buy me a ☕️ (most likely 🍺)](https://buymeacoffee.com/ludeeus)
 
-How it works and what it does are added based on a single persons mindset, you may not agree with what I have done, if you have a suggestion please open an [RFC](https://github.com/custom-components/hacs/issues)
+How it works and what it does are added based on a single persons mindset, you may not agree with what I have done, if you have a suggestion please open an [RFC](https://github.com/custom-components/hacs/issues).
 
 ## Why do frontend like this and not use `JavaScript` in a `panel_custom`?
 
-I tried, believe me I tried, I really wanted to go that route, but after several many many many hours of failing I gave up.
+I tried, believe me I tried. I really wanted to go that route, but after many, many hours of failing I gave up.
 
 ## Bugs / issues / suggestions
 

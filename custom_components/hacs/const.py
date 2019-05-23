@@ -3,7 +3,7 @@ VERSION = "0.2.1"
 NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
 STORENAME = "hacs"
-PROJECT_URL = "https://github.com/custom_components/hacs/"
+PROJECT_URL = "https://github.com/custom-components/hacs/"
 CUSTOM_UPDATER_LOCATIONS = [
     "{}/custom_components/custom_updater.py",
     "{}/custom_components/custom_updater/__init__.py",

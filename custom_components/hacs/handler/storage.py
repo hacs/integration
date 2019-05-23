@@ -104,13 +104,10 @@ async def data_migration(hass, github):
     """Run data migration."""
     import aiofiles
 
+    _LOGGER.infor("Running datamigration.")
+
     datastore = "{}/.storage/{}".format(hass.config.path(), STORENAME)
     data = None
-
-    hass.data[DOMAIN_DATA]["elements"] = {}
-    hass.data[DOMAIN_DATA]["repos"] = {"integration": [], "plugin": []}
-    hass.data[DOMAIN_DATA]["hacs"] = {"local": VERSION, "remote": None, "schema": DATA_SCHEMA}
-
 
     # Get current data:
     try:
@@ -122,7 +119,40 @@ async def data_migration(hass, github):
         _LOGGER.debug("Could not load data from %s - %s", datastore, error)
 
     if not data:
-        # No data exist, we are happy and return.
+        hass.data[DOMAIN_DATA]["elements"] = {}
+        hass.data[DOMAIN_DATA]["repos"] = {"integration": [], "plugin": []}
+        hass.data[DOMAIN_DATA]["hacs"] = {"local": VERSION, "remote": None, "schema": DATA_SCHEMA}
         return
 
-    
+    hass.data[DOMAIN_DATA]["elements"] = {}
+    hass.data[DOMAIN_DATA]["repos"] = {}
+    hass.data[DOMAIN_DATA]["repos"]["integration"] = data["repos"].get("integration", [])
+    hass.data[DOMAIN_DATA]["repos"]["plugin"] = data["repos"].get("plugin", [])
+    hass.data[DOMAIN_DATA]["hacs"] = {}
+    hass.data[DOMAIN_DATA]["hacs"]['local'] = VERSION
+    hass.data[DOMAIN_DATA]["hacs"]['remote'] = data["hacs"].get("remote")
+    hass.data[DOMAIN_DATA]["hacs"]['schema'] = DATA_SCHEMA
+
+
+    for element in data["elements"]:
+        elementdata = Element(hass, github, data["elements"][element]["element_type"], element)
+        for entry in data["elements"][element]:
+
+            if entry == "something":
+                # do something special here
+                elementdata.__setattr__(entry, data["elements"][element][entry])
+
+            elif entry == "something_else":
+                # do something special here
+                elementdata.__setattr__(entry, data["elements"][element][entry])
+
+            else:
+                # We can reuse it
+                elementdata.__setattr__(entry, data["elements"][element][entry])
+
+
+
+        # Since this function is used during startup, we clear these flags
+        elementdata.__setattr__("restart_pending", False)
+
+        hass.data[DOMAIN_DATA]["elements"][element] = elementdata

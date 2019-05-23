@@ -13,6 +13,7 @@ async def get_data_from_store(hass, github):
     Returns a dict with information from the storage.
     example output: {"elements": {}, "repos": {}, "hacs": {}}
     """
+    import aiofiles
     datastore = "{}/.storage/{}".format(hass.config.path(), STORENAME)
     _LOGGER.debug("Reading from datastore %s.", datastore)
 
@@ -20,9 +21,10 @@ async def get_data_from_store(hass, github):
     returndata = {}
 
     try:
-        with open(datastore, encoding="utf-8", errors="ignore") as localfile:
-            data = json.load(localfile)
-            localfile.close()
+        async with aiofiles.open(datastore, mode='r', encoding="utf-8", errors="ignore") as datafile:
+            data = await datafile.read()
+            data = json.loads(data)
+            datafile.close()
 
         returndata["repos"] = {}
         returndata["repos"]["integration"] = data["repos"].get("integration", [])
@@ -52,6 +54,7 @@ async def write_to_data_store(basedir, output):
     """
     Write data to datastore.
     """
+    import aiofiles
     datastore = "{}/.storage/{}".format(basedir, STORENAME)
     _LOGGER.debug("Writing to datastore %s.", datastore)
 
@@ -92,8 +95,8 @@ async def write_to_data_store(basedir, output):
         outdata["elements"][output["elements"][element].element_id] = elementdata
 
     try:
-        with open(datastore, "w", encoding="utf-8", errors="ignore") as outfile:
-            json.dump(outdata, outfile, indent=4)
+        async with aiofiles.open(datastore, mode='w', encoding="utf-8", errors="ignore") as outfile:
+            await outfile.write(json.dumps(outdata, indent=4))
             outfile.close()
 
     except Exception as error:  # pylint: disable=broad-except
@@ -104,16 +107,16 @@ async def data_migration(hass, github):
     """Run data migration."""
     import aiofiles
 
-    _LOGGER.infor("Running datamigration.")
+    _LOGGER.info("Running datamigration.")
 
     datastore = "{}/.storage/{}".format(hass.config.path(), STORENAME)
     data = None
 
     # Get current data:
     try:
-        async with aiofiles.open(datastore, mode='r') as datafile:
+        async with aiofiles.open(datastore, mode='r', encoding="utf-8", errors="ignore") as datafile:
             data = await datafile.read()
-            data = json.load(data)
+            data = json.loads(data)
             datafile.close()
     except Exception as error:  # pylint: disable=broad-except
         _LOGGER.debug("Could not load data from %s - %s", datastore, error)

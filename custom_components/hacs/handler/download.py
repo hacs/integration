@@ -1,8 +1,11 @@
 """Download."""
 import logging
 import os
+import aiofiles
 
 import async_timeout
+
+from github import GitReleaseAsset
 
 from custom_components.hacs.const import DOMAIN_DATA
 from custom_components.hacs.handler.remove import remove_element
@@ -24,7 +27,7 @@ async def async_download_file(hass, url):
         )
         url = url.replace("tags/", "")
 
-    _LOGGER.debug("Donwloading from %s", url)
+    _LOGGER.debug("Donwloading %s", url)
 
     result = None
 
@@ -46,12 +49,64 @@ async def async_download_file(hass, url):
     return result
 
 
+async def save_file(location, content):
+    """Save files."""
+    _LOGGER.debug("Saving %s", location)
+    try:
+        async with aiofiles.open(location, mode='w', encoding="utf-8", errors="ignore") as outfile:
+            await outfile.write(content)
+            outfile.close()
+
+    except Exception as error:  # pylint: disable=broad-except
+        msg = "Could not write data to {} - {}".format(location, error)
+        _LOGGER.debug(msg)
+
+
 async def download_integration(hass, integration):
     """
     Download an integration.
     This will create the required directory, and download any files needed for the integration to function.
     """
+
+    integrationdir = "{}/custom_components/{}".format(
+        hass.config.path(), integration.element_id
+    )
+
+    # Recreate the integration directory.
     try:
+        if os.path.exists(integrationdir):
+            _LOGGER.debug(
+                "%s exist, deleting current content before download.", integrationdir
+            )
+            await remove_element(hass, integration)
+
+        # Create the new directory
+        os.mkdir(integrationdir)
+
+    except Exception as error:  # pylint: disable=broad-except
+        _LOGGER.debug("Creating directory %s failed with %s", integrationdir, error)
+        return
+
+    try:
+        # Update integration data
+        await integration.update_element()
+
+        _LOGGER.critical(integration.github_element_content_objects)
+
+        for file in integration.github_element_content_objects:
+            if file.type == "dir":
+                continue
+            _LOGGER.debug("Downloading %s", file.path)
+
+            filecontent = await async_download_file(hass, file.download_url)
+
+            if filecontent is None:
+                _LOGGER.debug("There was an error downloading the file %s", file.path)
+                continue
+
+            # Save the content of the file.
+            local_file_path = "{}/{}".format(integrationdir, file.name)
+            await save_file(local_file_path, filecontent)
 
         # Update hass.data
         integration.installed_version = integration.avaiable_version
@@ -109,22 +164,31 @@ async def download_plugin(hass, plugin):
         return
 
     try:
-        for file in plugin.github_element_content_objects:
-            _LOGGER.debug("Downloading %s", file.path)
+        # Update plugindata
+        await plugin.update_element()
 
-            filecontent = await async_download_file(hass, file.download_url)
+        for file in plugin.github_element_content_objects:
+            if plugin.github_element_content_path != "release":
+                if file.type == "dir" or not file.name.endswith(".js"):
+                    continue
+                downloadurl = file.download_url
+            else:
+                downloadurl = file.browser_download_url
+
+            filecontent = await async_download_file(hass, downloadurl)
 
             if filecontent is None:
                 _LOGGER.debug("There was an error downloading the file %s", file.path)
                 continue
 
             # Save the content of the file.
-            local_file_path = "{}/{}".format(plugin_dir, file.name)
-            with open(
-                local_file_path, "w", encoding="utf-8", errors="ignore"
-            ) as outfile:
-                outfile.write(filecontent)
-                outfile.close()
+            if "-bundle" in file.name:
+                filename = file.name.replace("-bundle", "")
+            else:
+                filename = file.name
+
+            local_file_path = "{}/{}".format(plugin_dir, filename)
+            await save_file(local_file_path, filecontent)
 
         # Update hass.data
         plugin.installed_version = plugin.avaiable_version

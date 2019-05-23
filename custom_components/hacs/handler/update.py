@@ -19,7 +19,6 @@ async def update_data_after_action(hass, element):
     # Save the data to storage.
     await write_to_data_store(hass.config.path(), hass.data[DOMAIN_DATA])
 
-
 async def prosess_repo_request(hass, repo_name):
     """Initial prosessing of the repo."""
     _LOGGER.debug("Started prosessing %s", repo_name)

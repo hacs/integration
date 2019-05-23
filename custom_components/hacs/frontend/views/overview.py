@@ -37,7 +37,7 @@ class CommunityOverview(HomeAssistantView):
         content = ""
 
         content += await style()
-        content += await header()
+        content += await header(self.hass)
 
         content += "<div class='container''>"
         content += "<h5>CUSTOM INTEGRATIONS</h5>"

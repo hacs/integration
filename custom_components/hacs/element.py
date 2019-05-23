@@ -1,6 +1,7 @@
 """Element class"""
 # pylint: disable=invalid-name, too-many-instance-attributes, broad-except, unused-argument
 import logging
+import asyncio
 from datetime import datetime
 import json
 
@@ -8,8 +9,26 @@ from homeassistant.helpers.event import async_call_later
 
 from custom_components.hacs.const import DOMAIN_DATA
 
-
 _LOGGER = logging.getLogger(__name__)
+
+
+async def add_new_element(hass, element_type, repo):
+    """Adds a new object."""
+    github = hass.data[DOMAIN_DATA]["commander"].git
+    new = Element(hass, github, element_type, repo)
+
+    # Run update
+    update_result = await new.update_element()
+
+    _LOGGER.debug("Update result %s", update_result)
+
+    if update_result is not None:
+        hass.data[DOMAIN_DATA]["elements"][new.element_id] = new
+        hass.data[DOMAIN_DATA]["repos"][element_type].append(repo)
+    else:
+        _LOGGER.error("Could not add %s", repo)
+
+    return update_result
 
 
 class Element:
@@ -48,6 +67,7 @@ class Element:
 
     async def update_element(self, notarealargument=None):
         """Update element"""
+        from custom_components.hacs.handler.storage import write_to_data_store
         start_time = datetime.now()
         if self.element_id is None:
             # Something is wrong with the element_id, don't even try.
@@ -59,17 +79,22 @@ class Element:
 
         self.trackable = True
         self.attach_github_repo_object()
+        await asyncio.sleep(0.1)
         self.fetch_github_repo_data()
+        await asyncio.sleep(0.1)
         self.element_has_update()
+        await asyncio.sleep(0.1)
         self.fetch_github_element_content()
+        await asyncio.sleep(0.1)
         if self.element_type == "integration":
             self.fetch_file_manifest()
             if self.manifest is None:
                 self.skip_list_add()
         elif self.element_type == "plugin":
             self.parse_readme_for_jstype()
-
+        await asyncio.sleep(0.1)
         self.start_task_scheduler()
+        await write_to_data_store(self.hass.config.path(), self.hass.data[DOMAIN_DATA])
         _LOGGER.debug(f'Completed {str(self.repo)} update in {(datetime.now() - start_time).seconds} seconds')
         return True
 
@@ -97,8 +122,7 @@ class Element:
             return
 
         # Update installed elements every 30min
-        #async_call_later(self.hass, 60*30, self.update_element)
-        async_call_later(self.hass, 120, self.update_element)
+        async_call_later(self.hass, 60*30, self.update_element)
 
     def element_has_update(self):
         """Check if the element has an update."""
@@ -107,11 +131,14 @@ class Element:
     def fetch_github_repo_data(self):
         """Fetch github repo data."""
         self.fetch_github_repo_releases()
+        self.fetch_github_repo_description()
         new_update = self.fetch_github_repo_last_update()
 
         if new_update == self.github_last_update:
             # No need to update, we have the latest info.
             return
+        else:
+            self.github_last_update = new_update
 
         self.fetch_github_repo_ref()
 
@@ -120,7 +147,6 @@ class Element:
             self.avaiable_version = self.github_last_release.tag_name
 
         self.log_repo_info()
-        self.fetch_github_repo_description()
         self.fetch_file_info()
 
     def fetch_github_repo_releases(self):
@@ -162,6 +188,7 @@ class Element:
         _LOGGER.debug("Repository last update: %s", self.github_last_update)
         _LOGGER.debug("Repository releases: %s", self.releases)
         _LOGGER.debug("Repository last release: %s", self.avaiable_version)
+        _LOGGER.debug("Repository files %s",self.github_element_content_files)
 
     def fetch_file_info(self):
         """Fetch info.md."""

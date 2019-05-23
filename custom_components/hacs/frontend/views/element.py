@@ -53,7 +53,7 @@ class CommunityElement(HomeAssistantView):
         self.generate = Generate(self.hass, self.element)
 
         content_style = await style()
-        content_header = await header()
+        content_header = await header(self.hass)
         main_content = await self.element_view_content()
 
         return """

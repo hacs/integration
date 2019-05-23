@@ -1,9 +1,10 @@
 """Frontend header."""
+from custom_components.hacs.const import DOMAIN_DATA
 
 
-async def header():
+async def header(hass):
     """Generate a header element."""
-    progressbar = await progress_bar()
+    progressbar = await progress_bar(hass)
     return """
       <div class="navbar-fixed">
         <nav class="nav-extended black">
@@ -22,10 +23,14 @@ async def header():
     )
 
 
-async def progress_bar():
+async def progress_bar(hass):
     """Generate a brogressbar."""
+    if hass.data[DOMAIN_DATA]["commander"].task_running:
+        display = "block"
+    else:
+        display = "none"
     return """
-    <div class="progress" id="progressbar" style="display: none; background-color: #ffab405c">
+    <div class="progress" id="progressbar" style="display: {}; background-color: #ffab405c">
         <div class="indeterminate" style="background-color: #ffab40"></div>
     </div>
-    """
+    """.format(display)

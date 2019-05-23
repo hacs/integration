@@ -46,7 +46,7 @@ class CommunitySettings(HomeAssistantView):
         """Settings view."""
         content = ""
         content += await style()
-        content += await header()
+        content += await header(self.hass)
 
         content += "<div class='container'>"
 
@@ -172,12 +172,6 @@ class CommunitySettings(HomeAssistantView):
         <h5>{}</h5>
         <b>HACS version:</b> {}</br>
         <b>Home Assistant version:</b> {}</br>
-        </br>
-        <i>
-            <a href="https://www.buymeacoffee.com/ludeeus" target="_blank" style="font-weight: 700;">
-                Built while consuming (a lot of) <i class="fas fa-beer" style="font-weight: 700;"></i>
-            </a>
-        </i>
         </br>
         <hr>
         <h6>UI built with elements from:</h6>

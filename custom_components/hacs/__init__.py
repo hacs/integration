@@ -14,7 +14,7 @@ import voluptuous as vol
 from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_component import EntityComponent
-from homeassistant.helpers.event import async_track_time_interval, track_time_interval
+from homeassistant.helpers.event import async_track_time_interval, async_call_later
 from custom_components.hacs.const import (
     CUSTOM_UPDATER_LOCATIONS,
     STARTUP,
@@ -30,7 +30,7 @@ from custom_components.hacs.const import (
     SKIP,
     DATA_SCHEMA,
 )
-from custom_components.hacs.element import Element
+from custom_components.hacs.element import add_new_element
 from custom_components.hacs.handler.storage import (
     get_data_from_store,
     write_to_data_store,
@@ -50,8 +50,6 @@ from custom_components.hacs.frontend.views import (
 )
 
 DOMAIN = "{}".format(NAME_SHORT.lower())
-
-INTERVAL = timedelta(minutes=500)
 
 # TODO: Requirements are not loaded from manifest, needs investigation.
 REQUIREMENTS = ["PyGithub>=1.43.6", "aiofiles"]
@@ -120,10 +118,12 @@ class HacsCommander:
         self.hass = hass
         self.git = github.Github(github_token, timeout=5, retry=2)
         self.skip = SKIP
+        self.task_running = False
         self.tasks = []
 
     async def startup_tasks(self):
         """Run startup_tasks."""
+        self.task_running = True
         _LOGGER.debug("Runing startup tasks.")
 
         custom_log_level = {"custom_components.hacs": "debug"}
@@ -141,7 +141,8 @@ class HacsCommander:
             self.hass.data[DOMAIN_DATA]["elements"] = {}
             self.hass.data[DOMAIN_DATA]["repos"] = {"integration": [], "plugin": []}
             self.hass.data[DOMAIN_DATA]["hacs"] = {"local": VERSION, "remote": None, "schema": DATA_SCHEMA}
-            self.hass.async_create_task(self.full_element_scan())
+            #self.hass.async_create_task(self.full_element_scan())
+            async_call_later(self.hass, 1, self.full_element_scan)
 
         else:
             if not returndata.get("hacs", {}).get("schema"):
@@ -169,11 +170,13 @@ class HacsCommander:
         for element in self.hass.data[DOMAIN_DATA]["elements"]:
             element_object = self.hass.data[DOMAIN_DATA]["elements"][element]
             if element_object.isinstalled:
-                self.hass.async_create_task(element_object.update_element())
+                #self.hass.async_create_task(element_object.update_element())
+                await element_object.update_element()
                 await asyncio.sleep(2) #  Breathing room
 
 
         await write_to_data_store(self.hass.config.path(), self.hass.data[DOMAIN_DATA])
+        self.task_running = False
 
     async def check_for_hacs_update(self, notarealargument=None):
         """Check for hacs update."""
@@ -266,8 +269,7 @@ class HacsCommander:
     async def setup_recuring_tasks(self):
         """Setup recuring tasks."""
 
-        #hacs_scan_interval = timedelta(minutes=60)
-        hacs_scan_interval = timedelta(minutes=1)
+        hacs_scan_interval = timedelta(minutes=60)
         full_element_scan_interval = timedelta(minutes=500)
 
         async_track_time_interval(self.hass, self.check_for_hacs_update, hacs_scan_interval)
@@ -275,6 +277,7 @@ class HacsCommander:
 
     async def full_element_scan(self, notarealargument=None):
         """Setup full element refresh scan."""
+        self.task_running = True
         start_time = datetime.now()
         integration_repos, plugin_repos = self.get_repos()
 
@@ -285,14 +288,14 @@ class HacsCommander:
                 if element in self.skip:
                     continue
 
-                if element in self.hass.data[DOMAIN_DATA]["elements"]:
-                    element_object = self.hass.data[DOMAIN_DATA]["elements"][element]
-                else:
-                    element_object = Element(self.hass, self.git, element_type, element)
+                if element not in self.hass.data[DOMAIN_DATA]["elements"]:
+                    await add_new_element(self.hass, element_type, element)
 
-                self.hass.async_create_task(element_object.update_element())
-                self.hass.data[DOMAIN_DATA]["elements"][element] = element_object
+                else:
+                    await self.hass.data[DOMAIN_DATA]["elements"][element].update_element()
+
                 await asyncio.sleep(2) #  Breathing room
 
         await write_to_data_store(self.hass.config.path(), self.hass.data[DOMAIN_DATA])
         _LOGGER.debug(f'Completed full element refresh scan in {(datetime.now() - start_time).seconds} seconds')
+        self.task_running = False

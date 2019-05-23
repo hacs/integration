@@ -37,7 +37,7 @@ class CommunityStore(HomeAssistantView):
         """element_view."""
         content = ""
         content += await style()
-        content += await header()
+        content += await header(self.hass)
         content += """
         <script>
             function Search() {

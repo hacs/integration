@@ -4,16 +4,17 @@ Custom element manager for community created elements.
 For more details about this component, please refer to the documentation at
 https://custom-components.github.io/hacs/
 """
+# pylint: disable=not-an-iterable, unused-argument
 import logging
 import os.path
 import json
 import asyncio
-from datetime import timedelta
+from datetime import datetime, timedelta
 import voluptuous as vol
 from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_component import EntityComponent
-from homeassistant.helpers.event import async_track_time_interval
+from homeassistant.helpers.event import async_track_time_interval, track_time_interval
 from custom_components.hacs.const import (
     CUSTOM_UPDATER_LOCATIONS,
     STARTUP,
@@ -79,7 +80,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
         _LOGGER.critical("You need HA version 92 or newer to use this integration.")
         return False
 
-    # Setup background tasks
+    # Setup startup tasks
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, commander.startup_tasks())
 
     # Register the views
@@ -115,19 +116,22 @@ class HacsCommander:
         import github
 
         self.hass = hass
-        self.git = github.Github(github_token)
+        self.git = github.Github(github_token, timeout=5)
         self.skip = SKIP
+        self.tasks = []
 
     async def startup_tasks(self):
         """Run startup_tasks."""
-        _LOGGER.debug("Runing startup_tasks.")
+        _LOGGER.debug("Runing startup tasks.")
+
         custom_log_level = {"custom_components.hacs": "debug"}
         await self.hass.services.async_call("logger", "set_level", custom_log_level)
-        async_track_time_interval(self.hass, self.repetetive_tasks, INTERVAL)
 
-        _LOGGER.info("Loading existing data.")
+        await self.setup_recuring_tasks()
 
-        returndata = await get_data_from_store(self.hass.config.path())
+        _LOGGER.info("Trying to load existing data.")
+        returndata = await get_data_from_store(self.hass, self.git)
+
         if not returndata.get("elements"):
             _LOGGER.info(
                 "Data did not exist running initial setup, this will take some time."
@@ -135,7 +139,8 @@ class HacsCommander:
             self.hass.data[DOMAIN_DATA]["elements"] = {}
             self.hass.data[DOMAIN_DATA]["repos"] = {"integration": [], "plugin": []}
             self.hass.data[DOMAIN_DATA]["hacs"] = {"local": VERSION, "remote": None}
-            self.hass.async_create_task(self.repetetive_tasks())
+            self.hass.async_create_task(self.full_element_scan())
+
         else:
             self.hass.data[DOMAIN_DATA]["elements"] = returndata["elements"]
             self.hass.data[DOMAIN_DATA]["repos"] = returndata["repos"]
@@ -150,13 +155,22 @@ class HacsCommander:
             element = self.hass.data[DOMAIN_DATA]["elements"][element]
             element.restart_pending = False
             self.hass.data[DOMAIN_DATA]["elements"][element.element_id] = element
+
+        await self.check_for_hacs_update()
+
+        # Update installed element data on startup
+        for element in self.hass.data[DOMAIN_DATA]["elements"]:
+            element_object = self.hass.data[DOMAIN_DATA]["elements"][element]
+            if element_object.isinstalled:
+                self.hass.async_create_task(element_object.update_element())
+                await asyncio.sleep(1) #  Breathing room
+
+
         await write_to_data_store(self.hass.config.path(), self.hass.data[DOMAIN_DATA])
 
-    async def repetetive_tasks(self, runas=None):  # pylint: disable=unused-argument
-        """Run repetetive tasks."""
-        _LOGGER.debug("Run repetetive_tasks.")
-
-        # Check HACS
+    async def check_for_hacs_update(self, notarealargument=None):
+        """Check for hacs update."""
+        _LOGGER.debug("Checking for HACS updates...")
         try:
             hacs = self.git.get_repo("custom-components/hacs")
             self.hass.data[DOMAIN_DATA]["hacs"]["remote"] = list(hacs.get_releases())[
@@ -165,11 +179,22 @@ class HacsCommander:
         except Exception as error:  # pylint: disable=broad-except
             _LOGGER.debug(error)
 
-        integration_repos = []
-        plugin_repos = []
+    def get_repos(self):
+        """Get org and custom repos."""
 
-        # Add integration repos to check list.
-        ## Custom repos
+        integration_repos = self.get_repos_integration()
+        plugin_repos = self.get_repos_plugin()
+
+        _LOGGER.debug(integration_repos)
+        _LOGGER.debug(plugin_repos)
+
+        return integration_repos, plugin_repos
+
+    def get_repos_integration(self):
+        """Get org and custom integration repos."""
+        repos = []
+
+        # Custom repos
         if self.hass.data[DOMAIN_DATA]["repos"].get("integration"):
             for entry in self.hass.data[DOMAIN_DATA]["repos"].get("integration"):
                 _LOGGER.debug("Checking custom repo %s", entry)
@@ -184,19 +209,24 @@ class HacsCommander:
                 try:
                     repo = self.git.get_repo(repo)
                     if not repo.archived or repo.full_name not in self.skip:
-                        integration_repos.append(repo.full_name)
+                        repos.append(repo.full_name)
                 except Exception as error:  # pylint: disable=broad-except
                     _LOGGER.error(error)
 
-        ## Org repos
+        # Org repos
         for repo in list(self.git.get_organization("custom-components").get_repos()):
             if repo.archived:
                 continue
             if repo.full_name in self.skip:
                 continue
-            integration_repos.append(repo.full_name)
+            repos.append(repo.full_name)
 
-        # Add plugin repos to check list.
+        return repos
+
+    def get_repos_plugin(self):
+        """Get org and custom plugin repos."""
+        repos = []
+
         ## Custom repos
         if self.hass.data[DOMAIN_DATA]["repos"].get("plugin"):
             for entry in self.hass.data[DOMAIN_DATA]["repos"].get("plugin"):
@@ -212,7 +242,7 @@ class HacsCommander:
                 try:
                     repo = self.git.get_repo(repo)
                     if not repo.archived or repo.full_name not in self.skip:
-                        plugin_repos.append(repo.full_name)
+                        repos.append(repo.full_name)
                 except Exception as error:  # pylint: disable=broad-except
                     _LOGGER.error(error)
 
@@ -222,26 +252,40 @@ class HacsCommander:
                 continue
             if repo.full_name in self.skip:
                 continue
-            plugin_repos.append(repo.full_name)
+            repos.append(repo.full_name)
 
-        _LOGGER.debug(integration_repos)
+        return repos
 
-        for repo in integration_repos:
-            await load_integrations_from_git(self.hass, repo)
+    async def setup_recuring_tasks(self):
+        """Setup recuring tasks."""
 
-        _LOGGER.debug(plugin_repos)
+        #hacs_scan_interval = timedelta(minutes=60)
+        hacs_scan_interval = timedelta(minutes=1)
+        full_element_scan_interval = timedelta(minutes=500)
 
-        self.hass.async_create_task(
-            self.prosess_repos(integration_repos, "integration")
-        )
-        self.hass.async_create_task(self.prosess_repos(plugin_repos, "plugin"))
+        async_track_time_interval(self.hass, self.check_for_hacs_update, hacs_scan_interval)
+        async_track_time_interval(self.hass, self.full_element_scan, full_element_scan_interval)
 
-    async def prosess_repos(self, repos, repo_type):
-        """Prosess repos."""
-        if repo_type == "integraion":
-            for repo in repos:
-                await load_integrations_from_git(self.hass, repo)
-        elif repo_type == "plugin":
-            for repo in repos:
-                await load_plugins_from_git(self.hass, repo)
+    async def full_element_scan(self, notarealargument=None):
+        """Setup full element refresh scan."""
+        start_time = datetime.now()
+        integration_repos, plugin_repos = self.get_repos()
+
+        repos = {"integration": integration_repos, "plugin": plugin_repos}
+
+        for element_type in repos:
+            for element in repos[element_type]:
+                if element in self.skip:
+                    continue
+
+                if element in self.hass.data[DOMAIN_DATA]["elements"]:
+                    element_object = self.hass.data[DOMAIN_DATA]["elements"][element]
+                else:
+                    element_object = Element(self.hass, self.git, element_type, element)
+
+                self.hass.async_create_task(element_object.update_element())
+                self.hass.data[DOMAIN_DATA]["elements"][element] = element_object
+                await asyncio.sleep(1) #  Breathing room
+
         await write_to_data_store(self.hass.config.path(), self.hass.data[DOMAIN_DATA])
+        _LOGGER.debug(f'Completed full element refresh scan in {(datetime.now() - start_time).seconds} seconds')

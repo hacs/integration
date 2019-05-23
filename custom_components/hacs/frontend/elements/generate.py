@@ -58,7 +58,7 @@ class Generate:
 
         card_icon = ""
 
-        if self.element.restart_pending:
+        if self.element.pending_restart:
             card_icon = """
               <i class='fas fa-info'
                 style='font-size: 18px; float: right; color: #a70000'>
@@ -282,7 +282,7 @@ class Generate:
     async def restart_pending(self):
         """Generate restart_pending."""
 
-        if not self.element.restart_pending or self.element.element_type == "plugin":
+        if not self.element.pending_restart or self.element.element_type == "plugin":
             return ""
 
         title = "Restart pending"

@@ -29,6 +29,7 @@ class Element:
         self.manifest = None # ok-ish
         self.name = self.element_id
         self.github = github # ok
+        self.jstype = None
         self.hass = hass # ok
         self.releases = None # ok
         self.remote_dir_location = None
@@ -64,6 +65,8 @@ class Element:
             self.fetch_file_manifest()
             if self.manifest is None:
                 self.skip_list_add()
+        elif self.element_type == "plugin":
+            self.parse_readme_for_jstype()
 
         self.start_task_scheduler()
         _LOGGER.debug(f'Completed {str(self.repo)} update in {(datetime.now() - start_time).seconds} seconds')
@@ -265,6 +268,20 @@ class Element:
                 pass
 
 
+    def parse_readme_for_jstype(self):
+        """Parse the readme looking for js type."""
+        try:
+            readme = self.github_repo.get_file_contents("README.md", self.github_ref)
+            readme = readme.decoded_content.decode()
+            for line in readme.splitlines():
+                if "type: module" in line:
+                    self.jstype = "module"
+                    break
+                elif "type: js" in line:
+                    self.jstype = "js"
+                    break
+        except Exception:
+            pass
 
     def skip_list_add(self):
         """Add repo to skip list."""

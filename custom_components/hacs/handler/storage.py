@@ -77,6 +77,7 @@ async def write_to_data_store(basedir, output):
         elementdata['manifest'] = output["elements"][element].manifest
         elementdata['name'] = output["elements"][element].name
         elementdata['releases'] = output["elements"][element].releases
+        elementdata['jstype'] = output["elements"][element].jstype
         elementdata['remote_dir_location'] = output["elements"][element].remote_dir_location
         elementdata['repo'] = output["elements"][element].repo
         elementdata['github_ref'] = output["elements"][element].github_ref

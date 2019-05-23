@@ -127,6 +127,28 @@ class Generate:
             else:
                 file_name = self.element.element_id
 
+            if self.element.jstype is not None:
+               setup_instructions = """
+               <pre class="yaml" style="white-space: pre-line">
+                  url: /community_plugin/{element}/{file_name}.js
+                  type: {type}
+               </pre>
+               """.format(
+                element=self.element.element_id,
+                type=self.element.jstype,
+                file_name=file_name,
+            )
+            else:
+              setup_instructions = """
+               <pre class="yaml" style="white-space: pre-line">
+                  url: /community_plugin/{element}/{file_name}.js
+               </pre>
+               """.format(
+                element=self.element.element_id,
+                file_name=file_name,
+            )
+
+
             return """
               </br>
               <i>
@@ -135,10 +157,10 @@ class Generate:
               </i>
               </br></br>
               <i>
-                When you add this to your configuration use this as the URL:
+                When you add this to your configuration use this:
               </i>
               </br>
-              <pre class="yaml">url: /community_plugin/{element}/{file_name}.js</pre>
+              {setup_instructions}
               </br></br>
               <i>
                 To learn more about how to configure this,
@@ -147,7 +169,7 @@ class Generate:
             """.format(
                 config=self.hass.config.path(),
                 element=self.element.element_id,
-                file_name=file_name,
+                setup_instructions=setup_instructions,
             )
         else:
             return ""

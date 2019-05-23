@@ -198,6 +198,8 @@ class Element:
             self.fetch_github_element_content_integration()
         elif self.element_type == "plugin":
             self.fetch_github_element_content_plugin()
+        if not self.github_element_content_files:
+            self.skip_list_add()
 
 
 
@@ -237,6 +239,29 @@ class Element:
                 if find_file_name in files:
                     # YES! We got it!
                     self.github_element_content_path = "root"
+                    self.github_element_content_objects = objects
+                    self.github_element_content_files = files
+                else:
+                    _LOGGER.debug("Expected filename not found in %s for %s", files, self.repo)
+
+            except Exception:
+                pass
+
+        if self.github_element_content_path is None or self.github_element_content_path == "release":
+            # Try fetching data from Release
+            try:
+                files = []
+                objects = list(self.github_last_release.get_assets())
+                for item in objects:
+                    if item.name.endswith(".js"):
+                        files.append(item.name)
+
+                # Handler for plugin requirement 3
+                find_file_name1 = "{}.js".format(self.name)
+                find_file_name2 = "{}-bundle.js".format(self.name)
+                if find_file_name1 in files or find_file_name2 in files:
+                    # YES! We got it!
+                    self.github_element_content_path = "release"
                     self.github_element_content_objects = objects
                     self.github_element_content_files = files
                 else:

@@ -163,7 +163,7 @@ class HacsCommander:
             element_object = self.hass.data[DOMAIN_DATA]["elements"][element]
             if element_object.isinstalled:
                 self.hass.async_create_task(element_object.update_element())
-                await asyncio.sleep(1) #  Breathing room
+                await asyncio.sleep(2) #  Breathing room
 
 
         await write_to_data_store(self.hass.config.path(), self.hass.data[DOMAIN_DATA])
@@ -285,7 +285,7 @@ class HacsCommander:
 
                 self.hass.async_create_task(element_object.update_element())
                 self.hass.data[DOMAIN_DATA]["elements"][element] = element_object
-                await asyncio.sleep(1) #  Breathing room
+                await asyncio.sleep(2) #  Breathing room
 
         await write_to_data_store(self.hass.config.path(), self.hass.data[DOMAIN_DATA])
         _LOGGER.debug(f'Completed full element refresh scan in {(datetime.now() - start_time).seconds} seconds')

@@ -51,62 +51,7 @@ async def download_integration(hass, integration):
     Download an integration.
     This will create the required directory, and download any files needed for the integration to function.
     """
-    git = hass.data[DOMAIN_DATA]["commander"].git
-
-    integrationdir = "{}/custom_components/{}".format(
-        hass.config.path(), integration.element_id
-    )
-
-    # Recreate the integration directory.
     try:
-        if os.path.exists(integrationdir):
-            _LOGGER.debug(
-                "%s exist, deleting current content before download.", integrationdir
-            )
-            await remove_element(hass, integration)
-
-        # Create the new directory
-        os.mkdir(integrationdir)
-
-    except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.debug("Creating directory %s failed with %s", integrationdir, error)
-        return
-
-    # Okey, the directory structure is now OK, let's continue.
-    try:
-        repo = git.get_repo(integration.repo)
-
-        # Make sure that we use the correct version (ref).
-        if integration.avaiable_version is not None:
-            ref = "tags/{}".format(integration.avaiable_version)
-        else:
-            ref = repo.default_branch
-
-        # Get the first dir in the "custom_components" directory.
-        remote_dir_name = repo.get_dir_contents("custom_components", ref)[0].path
-
-        # Get the contents of the remote integration.
-        remote_integration_dir = repo.get_dir_contents(remote_dir_name, ref)
-
-        _LOGGER.debug("Content in remote repo %s", str(list(remote_integration_dir)))
-
-        # Download all the files.
-        for file in remote_integration_dir:
-            _LOGGER.debug("Downloading %s", file.path)
-
-            filecontent = await async_download_file(hass, file.download_url)
-
-            if filecontent is None:
-                _LOGGER.debug("There was an error downloading the file %s", file.path)
-                continue
-
-            # Save the content of the file.
-            local_file_path = "{}/{}".format(integrationdir, file.name)
-            with open(
-                local_file_path, "w", encoding="utf-8", errors="ignore"
-            ) as outfile:
-                outfile.write(filecontent)
-                outfile.close()
 
         # Update hass.data
         integration.installed_version = integration.avaiable_version
@@ -126,8 +71,6 @@ async def download_plugin(hass, plugin):
 
     This will create the required directory, and download any files needed for the plugin to function.
     """
-    git = hass.data[DOMAIN_DATA]["commander"].git
-
     www_dir = "{}/www".format(hass.config.path())
     plugin_base_dir = "{}/community".format(www_dir)
     plugin_dir = "{}/{}".format(plugin_base_dir, plugin.element_id)
@@ -165,52 +108,8 @@ async def download_plugin(hass, plugin):
         _LOGGER.debug("Creating directory %s failed with %s", plugin_dir, error)
         return
 
-    # Okey, the directory structure is now OK, let's continue.
     try:
-        repo = git.get_repo(plugin.repo)
-
-        # Make sure that we use the correct version (ref).
-        if plugin.avaiable_version is not None:
-            ref = "tags/{}".format(plugin.avaiable_version)
-        else:
-            ref = repo.default_branch
-
-        # Plugins have two supported locations, wee need to check both...
-        remotedir = None
-
-        if plugin.remote_dir_location is not None:
-            if plugin.remote_dir_location == "root":
-                remotedir = repo.get_dir_contents("", ref)
-            elif plugin.remote_dir_location == "dist":
-                remotedir = repo.get_dir_contents("dist", ref)
-            else:
-                _LOGGER.debug("%s is not valid", plugin.remote_dir_location)
-
-        # Try ROOT/dist/
-        if remotedir is None:
-            try:
-                remotedir = repo.get_dir_contents("dist", ref)
-            except Exception as error:  # pylint: disable=broad-except
-                _LOGGER.debug("No content found in ROOT/dist.")
-
-        # Try ROOT/
-        if remotedir is None:
-            try:
-                remotedir = repo.get_dir_contents("", ref)
-            except Exception as error:  # pylint: disable=broad-except
-                _LOGGER.debug(
-                    "This sucks! We could not locate ANY files to download - %s", error
-                )
-                return
-
-        _LOGGER.debug("Content in remote repo %s", str(list(remotedir)))
-
-        for file in remotedir:
-
-            # We will only handle .js files
-            if not file.name.endswith(".js"):
-                continue
-
+        for file in plugin.github_element_content_objects:
             _LOGGER.debug("Downloading %s", file.path)
 
             filecontent = await async_download_file(hass, file.download_url)

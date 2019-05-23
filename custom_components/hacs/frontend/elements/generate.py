@@ -179,7 +179,7 @@ class Generate:
         if self.element.info is None:
             return ""
 
-        markdown_render = self.element.github.render_markdown(self.element.info, self.element.github_repo)
+        markdown_render = self.element.github.render_markdown(self.element.info)
         markdown_render = markdown_render.replace("<h3>", "<h6>").replace(
             "</h3>", "</h6>"
         )

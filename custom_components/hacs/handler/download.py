@@ -206,12 +206,12 @@ async def download_hacs(hass):
     """
     Special function to update HACS.
     """
-    git = hass.data[DOMAIN_DATA]["commander"].git
+    git = data["commander"].github
     hacs_directory = "{}/custom_components/hacs".format(hass.config.path())
 
     try:
         repo = git.get_repo("custom-components/hacs")
-        ref = "tags/{}".format(hass.data[DOMAIN_DATA]["hacs"]["remote"])
+        ref = "tags/{}".format(data["hacs"]["remote"])
 
         remote_dir = repo.get_dir_contents("custom_components/hacs", ref)
 
@@ -390,11 +390,11 @@ async def download_hacs(hass):
             )
 
         # Update hass.data
-        hass.data[DOMAIN_DATA]["hacs"]["local"] = hass.data[DOMAIN_DATA]["hacs"][
+        data["hacs"]["local"] = data["hacs"][
             "remote"
         ]
-        hass.data[DOMAIN_DATA]["hacs"]["restart_pending"] = True
-        await write_to_data_store(hass.config.path(), hass.data[DOMAIN_DATA])
+        data["hacs"]["restart_pending"] = True
+        await write_to_data_store(hass.config.path(), data)
 
     except Exception as error:  # pylint: disable=broad-except
         _LOGGER.debug("This sucks! There was an issue downloading HACS - %s", error)

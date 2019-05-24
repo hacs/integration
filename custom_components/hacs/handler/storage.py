@@ -6,6 +6,25 @@ from custom_components.hacs.element import Element
 
 _LOGGER = logging.getLogger(__name__)
 
+async def load_storage_file(hass):
+    """Load datafile from storage."""
+    import aiofiles
+    datastore = "{}/.storage/{}".format(hass.config.path(), STORENAME)
+    _LOGGER.debug("Reading from datastore %s.", datastore)
+
+    returndata = {}
+
+    try:
+        async with aiofiles.open(datastore, mode='r', encoding="utf-8", errors="ignore") as datafile:
+            data = await datafile.read()
+            returndata = json.loads(data)
+            datafile.close()
+
+    except Exception as error:  # pylint: disable=broad-except
+        msg = "Could not load data from {} - {}".format(datastore, error)
+        _LOGGER.debug(msg)
+
+    return returndata
 
 async def get_data_from_store(hass, github):
     """
@@ -32,7 +51,7 @@ async def get_data_from_store(hass, github):
         returndata["hacs"] = data["hacs"]
 
         for element in data["elements"]:
-            elementdata = Element(hass, github, data["elements"][element]["element_type"], element)
+            elementdata = Element(data["elements"][element]["element_type"], element)
             for entry in data["elements"][element]:
                 elementdata.__setattr__(entry, data["elements"][element][entry])
 
@@ -122,19 +141,19 @@ async def data_migration(hass, github):
         _LOGGER.debug("Could not load data from %s - %s", datastore, error)
 
     if not data:
-        hass.data[DOMAIN_DATA]["elements"] = {}
-        hass.data[DOMAIN_DATA]["repos"] = {"integration": [], "plugin": []}
-        hass.data[DOMAIN_DATA]["hacs"] = {"local": VERSION, "remote": None, "schema": DATA_SCHEMA}
+        data["elements"] = {}
+        data["repos"] = {"integration": [], "plugin": []}
+        data["hacs"] = {"local": VERSION, "remote": None, "schema": DATA_SCHEMA}
         return
 
-    hass.data[DOMAIN_DATA]["elements"] = {}
-    hass.data[DOMAIN_DATA]["repos"] = {}
-    hass.data[DOMAIN_DATA]["repos"]["integration"] = data["repos"].get("integration", [])
-    hass.data[DOMAIN_DATA]["repos"]["plugin"] = data["repos"].get("plugin", [])
-    hass.data[DOMAIN_DATA]["hacs"] = {}
-    hass.data[DOMAIN_DATA]["hacs"]['local'] = VERSION
-    hass.data[DOMAIN_DATA]["hacs"]['remote'] = data["hacs"].get("remote")
-    hass.data[DOMAIN_DATA]["hacs"]['schema'] = DATA_SCHEMA
+    data["elements"] = {}
+    data["repos"] = {}
+    data["repos"]["integration"] = data["repos"].get("integration", [])
+    data["repos"]["plugin"] = data["repos"].get("plugin", [])
+    data["hacs"] = {}
+    data["hacs"]['local'] = VERSION
+    data["hacs"]['remote'] = data["hacs"].get("remote")
+    data["hacs"]['schema'] = DATA_SCHEMA
 
 
     for element in data["elements"]:
@@ -158,4 +177,4 @@ async def data_migration(hass, github):
         # Since this function is used during startup, we clear these flags
         elementdata.__setattr__("restart_pending", False)
 
-        hass.data[DOMAIN_DATA]["elements"][element] = elementdata
+        data["elements"][element] = elementdata

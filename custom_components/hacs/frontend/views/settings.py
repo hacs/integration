@@ -50,14 +50,14 @@ class CommunitySettings(HomeAssistantView):
 
         content += "<div class='container'>"
 
-        if self.hass.data[DOMAIN_DATA]["hacs"].get("restart_pending"):
+        if self.data["hacs"].get("restart_pending"):
             content += await warning_card(
                 "You need to restart Home Assisant to start using the latest version of HACS."
             )
 
         if (
-            self.hass.data[DOMAIN_DATA]["hacs"]["local"]
-            != self.hass.data[DOMAIN_DATA]["hacs"]["remote"]
+            self.data["hacs"]["local"]
+            != self.data["hacs"]["remote"]
         ):
             content += """
                 <div class="row">
@@ -81,8 +81,8 @@ class CommunitySettings(HomeAssistantView):
                     </div>
                 </div>
             """.format(
-                local=self.hass.data[DOMAIN_DATA]["hacs"]["local"],
-                remote=self.hass.data[DOMAIN_DATA]["hacs"]["remote"],
+                local=self.data["hacs"]["local"],
+                remote=self.data["hacs"]["remote"],
             )
 
         # Show info message
@@ -95,8 +95,8 @@ class CommunitySettings(HomeAssistantView):
                 <ul class="collection with-header">
                     <li class="collection-header"><h5>CUSTOM INTEGRATION REPO'S</h5></li>
         """
-        if self.hass.data[DOMAIN_DATA]["repos"].get("integration"):
-            for entry in self.hass.data[DOMAIN_DATA]["repos"].get("integration"):
+        if self.data["repos"].get("integration"):
+            for entry in self.data["repos"].get("integration"):
                 content += """
                     <li class="collection-item">
                         <div><a href="/community_api/integration_url_reload/{url}" onclick="document.getElementById('progressbar').style.display = 'block'"><i class="fa fa-sync" style="color: #26a69a; margin-right: 1%"></i></a>  {entry}
@@ -124,8 +124,8 @@ class CommunitySettings(HomeAssistantView):
                 <ul class="collection with-header">
                     <li class="collection-header"><h5>CUSTOM PLUGIN REPO'S</h5></li>
         """
-        if self.hass.data[DOMAIN_DATA]["repos"].get("plugin"):
-            for entry in self.hass.data[DOMAIN_DATA]["repos"].get("plugin"):
+        if self.data["repos"].get("plugin"):
+            for entry in self.data["repos"].get("plugin"):
                 content += """
                     <li class="collection-item">
                         <div><a href="/community_api/plugin_url_reload/{url}" onclick="document.getElementById('progressbar').style.display = 'block'"><i class="fa fa-sync" style="color: #26a69a; margin-right: 1%"></i></a>  {entry}
@@ -162,12 +162,12 @@ class CommunitySettings(HomeAssistantView):
         content += await generic_button_external("/community_api/log/get", "OPEN LOG")
         content += "</br>"
         content += "</br>"
-        if self.hass.data[DOMAIN_DATA]["hacs"].get("restart_pending"):
+        if self.data["hacs"].get("restart_pending"):
             local_version = "{} <b>(RESTART PENDING!)</b>".format(
-                self.hass.data[DOMAIN_DATA]["hacs"]["local"]
+                self.data["hacs"]["local"]
             )
         else:
-            local_version = "{}".format(self.hass.data[DOMAIN_DATA]["hacs"]["local"])
+            local_version = "{}".format(self.data["hacs"]["local"])
         info_message = """
         <h5>{}</h5>
         <b>HACS version:</b> {}</br>

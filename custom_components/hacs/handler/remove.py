@@ -31,10 +31,10 @@ async def remove_element(hass, element):
             await asyncio.sleep(1)
 
     if element.repo.split("/")[0] not in ["custom-cards", "custom-components"]:
-        if element.repo not in hass.data[DOMAIN_DATA]["repos"][element.element_type]:
+        if element.repo not in data["repos"][element.element_type]:
             _LOGGER.debug("Repo no longer in reistry, removing from store.")
-            del hass.data[DOMAIN_DATA]["elements"][element.element_id]
-            await write_to_data_store(hass.config.path(), hass.data[DOMAIN_DATA])
+            del data["elements"][element.element_id]
+            await write_to_data_store(hass.config.path(), data)
             return
         else:
             _LOGGER.debug("Repo in reistry, keeping in store.")
@@ -50,17 +50,17 @@ async def remove_repo(hass, repo):
     # TODO: Fail HARD if installed, and give back a message about that.
     _LOGGER.debug("Staring removal of %s", repo)
     element = None
-    if repo.split("/")[-1] in hass.data[DOMAIN_DATA]["elements"]:
-        element = hass.data[DOMAIN_DATA]["elements"][repo.split("/")[-1]]
+    if repo.split("/")[-1] in data["elements"]:
+        element = data["elements"][repo.split("/")[-1]]
 
     if element is not None:
-        hass.data[DOMAIN_DATA]["repos"][element.element_type].remove(repo)
+        data["repos"][element.element_type].remove(repo)
         if not element.isinstalled:
             await remove_element(hass, element)
         else:
             _LOGGER.debug("Element is installed keeping in store.")
     else:
-        if repo in hass.data[DOMAIN_DATA]["repos"]["plugin"]:
-            hass.data[DOMAIN_DATA]["repos"]["plugin"].remove(repo)
-        elif repo in hass.data[DOMAIN_DATA]["repos"]["integration"]:
-            hass.data[DOMAIN_DATA]["repos"]["integration"].remove(repo)
+        if repo in data["repos"]["plugin"]:
+            data["repos"]["plugin"].remove(repo)
+        elif repo in data["repos"]["integration"]:
+            data["repos"]["integration"].remove(repo)

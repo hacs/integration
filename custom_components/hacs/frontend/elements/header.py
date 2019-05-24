@@ -25,7 +25,7 @@ async def header(hass):
 
 async def progress_bar(hass):
     """Generate a brogressbar."""
-    if hass.data[DOMAIN_DATA]["commander"].task_running:
+    if data["commander"].task_running:
         display = "block"
     else:
         display = "none"

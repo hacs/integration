@@ -49,7 +49,7 @@ class CommunityElement(HomeAssistantView):
         """element_view."""
         _LOGGER.debug("Trying to generate view for %s", element)
 
-        self.element = self.hass.data[DOMAIN_DATA]["elements"][element]
+        self.element = self.data["elements"][element]
         self.generate = Generate(self.hass, self.element)
 
         content_style = await style()

@@ -1,10 +1,11 @@
 """CommunityAPI View for HACS."""
 import logging
+import json
+import functools
 from aiohttp import web
 from homeassistant.components.http import HomeAssistantView
 from homeassistant.helpers.event import async_call_later
 
-from custom_components.hacs.const import DOMAIN_DATA
 from custom_components.hacs.element import add_new_element
 from custom_components.hacs.frontend.views import error_view
 from custom_components.hacs.handler.download import (
@@ -14,7 +15,7 @@ from custom_components.hacs.handler.download import (
 )
 from custom_components.hacs.handler.log import get_log_file_content
 from custom_components.hacs.handler.remove import remove_element, remove_repo
-from custom_components.hacs.handler.storage import write_to_data_store
+from custom_components.hacs.handler.storage import write_to_data_store, load_storage_file
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -27,18 +28,24 @@ class CommunityAPI(HomeAssistantView):
     url = r"/community_api/{element}/{action}"
     name = "community_api"
 
-    def __init__(self, hass):
+    def __init__(self, hass, hacs):
         """Initialize CommunityAPI."""
         self.hass = hass
+        self.hacs = hacs
 
     async def get(self, request, element, action):
         """Prosess GET API actions."""
         _LOGGER.debug("GET API call for %s with %s", element, action)
 
+        # Show the content of hacs.data
+        if element == "hacs" and action == "inspect":
+            inspect = await load_storage_file(self.hass)
+            return web.json_response(inspect, dumps=functools.partial(json.dumps, indent=4))
+
         # Reload data from the settings tab.
-        if action == "reload":
-            async_call_later(self.hass, 1, self.hass.data[DOMAIN_DATA]["commander"].full_element_scan())
-            #await self.hass.data[DOMAIN_DATA]["commander"].full_element_scan()
+        elif action == "reload":
+            async_call_later(self.hass, 1, self.data["commander"].full_element_scan())
+            #await self.data["commander"].full_element_scan()
 
             # Return to settings tab.
             raise web.HTTPFound("/community_settings")
@@ -63,7 +70,7 @@ class CommunityAPI(HomeAssistantView):
         elif action in ["install", "upgrade"]:
 
             # Get the Element.
-            element = self.hass.data[DOMAIN_DATA]["elements"][element]
+            element = self.data["elements"][element]
 
             if element.element_type == "integration":
                 await download_integration(self.hass, element)
@@ -77,7 +84,7 @@ class CommunityAPI(HomeAssistantView):
         elif action == "uninstall":
 
             # Get the Element.
-            element = self.hass.data[DOMAIN_DATA]["elements"][element]
+            element = self.data["elements"][element]
 
             if element.element_type in ["integration", "plugin"]:
                 await remove_element(self.hass, element)
@@ -89,10 +96,10 @@ class CommunityAPI(HomeAssistantView):
         # Delete custom integration repo.
         elif element == "integration_url_delete":
             await remove_repo(self.hass, action)
-            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(action)
+            if action in self.data["commander"].blacklist:
+                self.data["commander"].blacklist.remove(action)
             await write_to_data_store(
-                self.hass.config.path(), self.hass.data[DOMAIN_DATA]
+                self.hass.config.path(), self.data
             )
 
             # Return to settings tab.
@@ -101,10 +108,10 @@ class CommunityAPI(HomeAssistantView):
         # Delete custom plugin repo.
         elif element == "plugin_url_delete":
             await remove_repo(self.hass, action)
-            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(action)
+            if action in self.data["commander"].blacklist:
+                self.data["commander"].blacklist.remove(action)
             await write_to_data_store(
-                self.hass.config.path(), self.hass.data[DOMAIN_DATA]
+                self.hass.config.path(), self.data
             )
 
             # Return to settings tab.
@@ -113,14 +120,14 @@ class CommunityAPI(HomeAssistantView):
         # Reload custom plugin repo.
         elif element == "integration_url_reload":
 
-            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(action)
-            scan_result = await self.hass.data[DOMAIN_DATA]["elements"][action].update_element()
+            if action in self.data["commander"].blacklist:
+                self.data["commander"].blacklist.remove(action)
+            scan_result = await self.data["elements"][action].update_element()
 
             if scan_result is not None:
                 message = None
                 await write_to_data_store(
-                    self.hass.config.path(), self.hass.data[DOMAIN_DATA]
+                    self.hass.config.path(), self.data
                 )
             else:
                 message = "Could not reload repo '{}' at this time, if the repo meet all requirements try again later.".format(
@@ -146,14 +153,14 @@ class CommunityAPI(HomeAssistantView):
         # Reload custom plugin repo.
         elif element == "plugin_url_reload":
 
-            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(action)
-            scan_result = await self.hass.data[DOMAIN_DATA]["elements"][action].update_element()
+            if action in self.data["commander"].blacklist:
+                self.data["commander"].blacklist.remove(action)
+            scan_result = await self.data["elements"][action].update_element()
 
             if scan_result is not None:
                 message = None
                 await write_to_data_store(
-                    self.hass.config.path(), self.hass.data[DOMAIN_DATA]
+                    self.hass.config.path(), self.data
                 )
             else:
                 message = "Could not reload repo '{}' at this time, if the repo meet all requirements try again later.".format(
@@ -205,10 +212,10 @@ class CommunityAPI(HomeAssistantView):
 
             # If it still have content, continue.
             if repo != "":
-                scan_result = await add_new_element(self.hass, "integration", repo)
+                scan_result = await add_new_element(self.hacs, "integration", repo)
                 if scan_result is not None:
                     await write_to_data_store(
-                        self.hass.config.path(), self.hass.data[DOMAIN_DATA]
+                        self.hass.config.path(), self.data
                     )
                 else:
                     message = "Could not add repo '{}' at this time, if the repo meet all requirements try again later.".format(
@@ -219,10 +226,10 @@ class CommunityAPI(HomeAssistantView):
 
             # Return to settings tab
             if message is not None:
-                if repo in self.hass.data[DOMAIN_DATA]["repos"]["plugin"]:
-                    self.hass.data[DOMAIN_DATA]["repos"]["plugin"].remove(repo)
-                if repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                    self.hass.data[DOMAIN_DATA]["commander"].skip.remove(repo)
+                if repo in self.data["repos"]["plugin"]:
+                    self.data["repos"]["plugin"].remove(repo)
+                if repo in self.data["commander"].blacklist:
+                    self.data["commander"].blacklist.remove(repo)
                 raise web.HTTPFound("/community_settings?message={}".format(message))
             else:
                 raise web.HTTPFound("/community_settings")
@@ -246,10 +253,10 @@ class CommunityAPI(HomeAssistantView):
 
             # If it still have content, continue.
             if repo != "":
-                scan_result = await add_new_element(self.hass, "plugin", repo)
+                scan_result = await add_new_element(self.hacs, "plugin", repo)
                 if scan_result is not None:
                     await write_to_data_store(
-                        self.hass.config.path(), self.hass.data[DOMAIN_DATA]
+                        self.hass.config.path(), self.data
                     )
                 else:
                     message = "Could not add repo '{}' at this time, if the repo meet all requirements try again later.".format(
@@ -260,10 +267,10 @@ class CommunityAPI(HomeAssistantView):
 
             # Return to settings tab
             if message is not None:
-                if repo in self.hass.data[DOMAIN_DATA]["repos"]["plugin"]:
-                    self.hass.data[DOMAIN_DATA]["repos"]["plugin"].remove(repo)
-                if repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                    self.hass.data[DOMAIN_DATA]["commander"].skip.remove(repo)
+                if repo in self.data["repos"]["plugin"]:
+                    self.data["repos"]["plugin"].remove(repo)
+                if repo in self.data["commander"].blacklist:
+                    self.data["commander"].blacklist.remove(repo)
                 raise web.HTTPFound("/community_settings?message={}".format(message))
             else:
                 raise web.HTTPFound("/community_settings")

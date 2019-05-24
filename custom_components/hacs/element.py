@@ -8,14 +8,14 @@ import json
 from homeassistant.helpers.event import async_call_later
 
 from custom_components.hacs.const import DOMAIN_DATA
+from custom_components.hacs.hacs import HACS
 
 _LOGGER = logging.getLogger(__name__)
 
 
-async def add_new_element(hass, element_type, repo):
+async def add_new_element(hacs, element_type, repo):
     """Adds a new object."""
-    github = hass.data[DOMAIN_DATA]["commander"].git
-    new = Element(hass, github, element_type, repo)
+    new = Element(element_type, repo)
 
     # Run update
     update_result = await new.update_element()
@@ -23,18 +23,23 @@ async def add_new_element(hass, element_type, repo):
     _LOGGER.debug("Update result %s", update_result)
 
     if update_result is not None:
-        hass.data[DOMAIN_DATA]["elements"][new.element_id] = new
-        hass.data[DOMAIN_DATA]["repos"][element_type].append(repo)
+        hacs.data["elements"][new.element_id] = new
+        hacs.data["repos"][element_type].append(repo)
     else:
         _LOGGER.error("Could not add %s", repo)
 
     return update_result
 
+class HacsElement(HACS):
+    """Base HACS Element Class."""
+    def __init__(self):
+        pass
 
-class Element:
+
+class Element(HacsElement):
     """Element Class"""
 
-    def __init__(self, hass, github, element_type, repo):
+    def __init__(self, element_type, repo):
         """Set up a community element."""
         self.authors = []
         self.avaiable_version = None # ok
@@ -47,9 +52,7 @@ class Element:
         self.github_last_update = None # ok
         self.manifest = None # ok-ish
         self.name = self.element_id
-        self.github = github # ok
         self.jstype = None
-        self.hass = hass # ok
         self.releases = None # ok
         self.remote_dir_location = None
         self.repo = repo # ok
@@ -73,7 +76,7 @@ class Element:
             # Something is wrong with the element_id, don't even try.
             return
 
-        if self.repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
+        if self.repo in self.data["commander"].blacklist:
             # This repo is marked as skippable, lets skip it.
             return
 
@@ -94,7 +97,7 @@ class Element:
             self.parse_readme_for_jstype()
         await asyncio.sleep(0.1)
         self.start_task_scheduler()
-        await write_to_data_store(self.hass.config.path(), self.hass.data[DOMAIN_DATA])
+        await write_to_data_store(self.hass.config.path(), self.data)
         _LOGGER.debug(f'Completed {str(self.repo)} update in {(datetime.now() - start_time).seconds} seconds')
         return True
 
@@ -337,15 +340,15 @@ class Element:
             pass
 
     def skip_list_add(self):
-        """Add repo to skip list."""
+        """Add repo to blacklist list."""
         _LOGGER.debug("Skipping %s on next run.", self.repo)
         self.trackable = False
-        if self.repo not in self.hass.data[DOMAIN_DATA]["commander"].skip:
-            self.hass.data[DOMAIN_DATA]["commander"].skip.append(self.repo)
+        if self.repo not in self.data["commander"].blacklist:
+            self.data["commander"].blacklist.append(self.repo)
 
 
     def skip_list_remove(self):
         """Add repo to skip list."""
         self.trackable = True
-        if self.repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
-            self.hass.data[DOMAIN_DATA]["commander"].skip.remove(self.repo)
+        if self.repo in self.data["commander"].blacklist:
+            self.data["commander"].blacklist.remove(self.repo)

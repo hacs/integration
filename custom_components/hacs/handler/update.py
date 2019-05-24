@@ -14,10 +14,10 @@ async def update_data_after_action(hass, element):
     """
 
     # Update the data
-    hass.data[DOMAIN_DATA]["elements"][element.element_id] = element
+    data["elements"][element.element_id] = element
 
     # Save the data to storage.
-    await write_to_data_store(hass.config.path(), hass.data[DOMAIN_DATA])
+    await write_to_data_store(hass.config.path(), data)
 
 async def prosess_repo_request(hass, repo_name):
     """Initial prosessing of the repo."""
@@ -25,9 +25,9 @@ async def prosess_repo_request(hass, repo_name):
 
     repo, last_release, last_update, ref, releases = None, None, None, None, []
 
-    git = hass.data[DOMAIN_DATA]["commander"].git
+    git = data["commander"].github
 
-    if repo_name in hass.data[DOMAIN_DATA]["commander"].skip:
+    if repo_name in data["commander"].blacklist:
         _LOGGER.debug("%s in 'skip', skipping", repo_name)
         return repo, last_release, last_update, ref, releases
 
@@ -38,7 +38,7 @@ async def prosess_repo_request(hass, repo_name):
     except Exception as error:  # pylint: disable=broad-except
         _LOGGER.error("Could not find repo for %s - %s", repo_name, error)
         _LOGGER.debug("Skipping %s on next run.", repo_name)
-        hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+        data["commander"].blacklist.append(repo_name)
         return repo, last_release, last_update, ref, releases
 
     # Find GitHub releases.
@@ -75,8 +75,8 @@ async def load_integrations_from_git(hass, repo_name):
     )
 
     if repo is None or ref is None:
-        if repo_name not in hass.data[DOMAIN_DATA]["commander"].skip:
-            hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+        if repo_name not in data["commander"].blacklist:
+            data["commander"].blacklist.append(repo_name)
         _LOGGER.debug("Could not prosess %s", repo_name)
         _LOGGER.debug("Skipping %s on next run.", repo_name)
         return
@@ -104,13 +104,13 @@ async def load_integrations_from_git(hass, repo_name):
         _LOGGER.debug("Integration content %s", str(content))
 
         if not content:
-            hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+            data["commander"].blacklist.append(repo_name)
             _LOGGER.debug("Can't get data from %s (no content)", repo_name)
             _LOGGER.debug("Skipping %s on next run.", repo_name)
             return
 
         if manifest_path not in content:
-            hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+            data["commander"].blacklist.append(repo_name)
             _LOGGER.debug("Can't get data from %s (missing manifest)", repo_name)
             _LOGGER.debug("Skipping %s on next run.", repo_name)
             return
@@ -123,14 +123,14 @@ async def load_integrations_from_git(hass, repo_name):
         manifest = repo.get_file_contents(manifest_path, ref)
         manifest = json.loads(manifest.decoded_content.decode())
     except Exception as error:  # pylint: disable=broad-except
-        hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+        data["commander"].blacklist.append(repo_name)
         _LOGGER.debug("Can't load manifest from %s", repo_name)
         _LOGGER.debug("Skipping %s on next run.", repo_name)
         return
 
     # Check if manifest is valid
     if len(manifest["domain"].split()) > 1 or "http" in manifest["domain"]:
-        hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+        data["commander"].blacklist.append(repo_name)
         _LOGGER.debug("Manifest is not valid for %s", repo_name)
         _LOGGER.debug("Skipping %s on next run.", repo_name)
         return
@@ -140,8 +140,8 @@ async def load_integrations_from_git(hass, repo_name):
     ###################################################################
 
     # Load existing Element object from hass.data if it exists.
-    if manifest["domain"] in hass.data[DOMAIN_DATA]["elements"]:
-        element = hass.data[DOMAIN_DATA]["elements"][manifest["domain"]]
+    if manifest["domain"] in data["elements"]:
+        element = data["elements"][manifest["domain"]]
     else:
         # Create new Element object.
         element = Element("integration", manifest["domain"])
@@ -174,7 +174,7 @@ async def load_integrations_from_git(hass, repo_name):
     element.description = "" if element.description is None else element.description
 
     # Save it back to hass.data
-    hass.data[DOMAIN_DATA]["elements"][element.element_id] = element
+    data["elements"][element.element_id] = element
 
     return True
 
@@ -188,8 +188,8 @@ async def load_plugins_from_git(hass, repo_name):
     )
 
     if repo is None or ref is None:
-        if repo_name not in hass.data[DOMAIN_DATA]["commander"].skip:
-            hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+        if repo_name not in data["commander"].blacklist:
+            data["commander"].blacklist.append(repo_name)
         _LOGGER.debug("Could not prosess %s", repo_name)
         _LOGGER.debug("Skipping %s on next run.", repo_name)
         return
@@ -206,8 +206,8 @@ async def load_plugins_from_git(hass, repo_name):
     plugin_name = repo_name.split("/")[-1]
 
     # Load existing Element object.
-    if plugin_name in hass.data[DOMAIN_DATA]["elements"]:
-        element = hass.data[DOMAIN_DATA]["elements"][plugin_name]
+    if plugin_name in data["elements"]:
+        element = data["elements"][plugin_name]
     else:
         element = Element("plugin", plugin_name)
 
@@ -250,8 +250,8 @@ async def load_plugins_from_git(hass, repo_name):
     if find_file not in files:
         element.remote_dir_location = None
 
-        if repo_name not in hass.data[DOMAIN_DATA]["commander"].skip:
-            hass.data[DOMAIN_DATA]["commander"].skip.append(repo_name)
+        if repo_name not in data["commander"].blacklist:
+            data["commander"].blacklist.append(repo_name)
         _LOGGER.debug(
             "Expected file %s not found in %s for %s", find_file, files, repo_name
         )
@@ -281,6 +281,6 @@ async def load_plugins_from_git(hass, repo_name):
     element.description = "" if element.description is None else element.description
 
     # Save it back to hass.data
-    hass.data[DOMAIN_DATA]["elements"][plugin_name] = element
+    data["elements"][plugin_name] = element
 
     return True

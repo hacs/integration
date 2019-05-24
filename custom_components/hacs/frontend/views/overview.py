@@ -53,10 +53,10 @@ async def overview(hass, element_type, show_installed_only=False):
     """Overview."""
     content = ""
     elements = []
-    if not hass.data[DOMAIN_DATA]["elements"]:
+    if not data["elements"]:
         return NO_ELEMENTS
-    for entry in hass.data[DOMAIN_DATA]["elements"]:
-        element = hass.data[DOMAIN_DATA]["elements"][entry]
+    for entry in data["elements"]:
+        element = data["elements"][entry]
         if not element.trackable:
             continue
         if show_installed_only:

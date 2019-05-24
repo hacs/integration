@@ -5,9 +5,6 @@ import aiofiles
 
 import async_timeout
 
-from github import GitReleaseAsset
-
-from custom_components.hacs.const import DOMAIN_DATA
 from custom_components.hacs.handler.remove import remove_element
 from custom_components.hacs.handler.storage import write_to_data_store
 from custom_components.hacs.handler.update import update_data_after_action

@@ -5,7 +5,7 @@
 ***
 # Installation
 
-**NB!: You need to use Home Assistant version 0.92.0 or newer for this to work.**
+**NB!: You need to use Home Assistant version 0.93.0 or newer for this to work.**
 
 **NB!: If you move from [`custom_updater`](https://github.com/custom-components/custom_updater) to this see the special note at the bottom here.**
 

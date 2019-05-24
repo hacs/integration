@@ -85,7 +85,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
             return False
 
     # Check if HA is the required version.
-    if int(HAVERSION.split(".")[1]) < 92:
+    if int(HAVERSION.split(".")[1]) < 93:
         _LOGGER.critical("You need HA version 92 or newer to use this integration.")
         return False
 

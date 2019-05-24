@@ -19,9 +19,10 @@ class CommunityStore(HomeAssistantView):
     url = r"/community_store"
     name = "community_store"
 
-    def __init__(self, hass):
+    def __init__(self, hass, hacs):
         """Initialize overview."""
         self.hass = hass
+        self.hacs = hacs
 
     async def get(self, request):  # pylint: disable=unused-argument
         """View to serve the overview."""
@@ -37,7 +38,7 @@ class CommunityStore(HomeAssistantView):
         """element_view."""
         content = ""
         content += await style()
-        content += await header(self.hass)
+        content += await header(self.hacs)
         content += """
         <script>
             function Search() {
@@ -58,8 +59,8 @@ class CommunityStore(HomeAssistantView):
         content += "<div class='container''>"
         content += '<input type="text" id="Search" onkeyup="Search()" placeholder="Please enter a search term.." title="Type in a name">'
         content += "<h5>CUSTOM INTEGRATIONS</h5>"
-        content += await overview(self.hass, "integration")
+        content += await overview(self.hacs, "integration")
         content += "<h5>CUSTOM PLUGINS (LOVELACE)</h5>"
-        content += await overview(self.hass, "plugin")
+        content += await overview(self.hacs, "plugin")
         content += "</div>"
         return content

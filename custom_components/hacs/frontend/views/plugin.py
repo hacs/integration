@@ -15,9 +15,10 @@ class CommunityPlugin(HomeAssistantView):
     url = r"/community_plugin/{path:.+}"
     name = "community_plugin"
 
-    def __init__(self, hass):
+    def __init__(self, hass, hacs):
         """Initialize plugin view."""
         self.hass = hass
+        self.hacs = hacs
 
     async def get(self, request, path):  # pylint: disable=unused-argument
         """Retrieve custom_card."""

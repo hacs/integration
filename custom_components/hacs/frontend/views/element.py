@@ -23,9 +23,10 @@ class CommunityElement(HomeAssistantView):
     url = r"/community_element/{path}"
     name = "community_element"
 
-    def __init__(self, hass):
+    def __init__(self, hass, hacs):
         """Initialize overview."""
         self.hass = hass
+        self.hacs = hacs
         self.element = None
         self.generate = None
         self.message = None
@@ -49,11 +50,11 @@ class CommunityElement(HomeAssistantView):
         """element_view."""
         _LOGGER.debug("Trying to generate view for %s", element)
 
-        self.element = self.data["elements"][element]
+        self.element = self.hacs.data["elements"][element]
         self.generate = Generate(self.hass, self.element)
 
         content_style = await style()
-        content_header = await header(self.hass)
+        content_header = await header(self.hacs)
         main_content = await self.element_view_content()
 
         return """

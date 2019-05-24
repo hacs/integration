@@ -157,7 +157,7 @@ async def data_migration(hass, github):
 
 
     for element in data["elements"]:
-        elementdata = Element(hass, github, data["elements"][element]["element_type"], element)
+        elementdata = Element(data["elements"][element]["element_type"], element)
         for entry in data["elements"][element]:
 
             if entry == "something":

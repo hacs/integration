@@ -18,9 +18,10 @@ class CommunityOverview(HomeAssistantView):
     url = r"/community_overview"
     name = "community_overview"
 
-    def __init__(self, hass):
+    def __init__(self, hass, hacs):
         """Initialize overview."""
         self.hass = hass
+        self.hacs = hacs
 
     async def get(self, request):  # pylint: disable=unused-argument
         """View to serve the overview."""
@@ -37,26 +38,26 @@ class CommunityOverview(HomeAssistantView):
         content = ""
 
         content += await style()
-        content += await header(self.hass)
+        content += await header(self.hacs)
 
         content += "<div class='container''>"
         content += "<h5>CUSTOM INTEGRATIONS</h5>"
-        content += await overview(self.hass, "integration", True)
+        content += await overview(self.hacs, "integration", True)
         content += "<h5>CUSTOM PLUGINS (LOVELACE)</h5>"
-        content += await overview(self.hass, "plugin", True)
+        content += await overview(self.hacs, "plugin", True)
         content += "</div>"
 
         return content
 
 
-async def overview(hass, element_type, show_installed_only=False):
+async def overview(hacs, element_type, show_installed_only=False):
     """Overview."""
     content = ""
     elements = []
-    if not data["elements"]:
+    if not hacs.data["elements"]:
         return NO_ELEMENTS
-    for entry in data["elements"]:
-        element = data["elements"][entry]
+    for entry in hacs.data["elements"]:
+        element = hacs.data["elements"][entry]
         if not element.trackable:
             continue
         if show_installed_only:
@@ -68,6 +69,6 @@ async def overview(hass, element_type, show_installed_only=False):
         return NO_ELEMENTS
     else:
         for element in elements:
-            card_icon = await Generate(hass, element).card_icon()
+            card_icon = await Generate(hacs.hass, element).card_icon()
             content += await cards.overview_card(element, card_icon)
         return content

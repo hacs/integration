@@ -74,7 +74,6 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     HACS.hass = hass
     HACS.github = github.Github(github_token, timeout=5, retry=2)
     HACS.blacklist = SKIP
-    hacs = HACS
 
     # Check if custom_updater exists
     for location in CUSTOM_UPDATER_LOCATIONS:
@@ -92,14 +91,14 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, commander.startup_tasks())
 
     # Register the views
-    hass.http.register_view(CommunityOverview(hass))
-    hass.http.register_view(CommunityElement(hass))
-    hass.http.register_view(CommunityStore(hass))
-    hass.http.register_view(CommunityPlugin(hass))
-    hass.http.register_view(CommunitySettings(hass))
-    hass.http.register_view(CommunityAPI(hass, hacs))
+    hass.http.register_view(CommunityOverview(hass, HACS))
+    hass.http.register_view(CommunityElement(hass, HACS))
+    hass.http.register_view(CommunityStore(hass, HACS))
+    hass.http.register_view(CommunityPlugin(hass, HACS))
+    hass.http.register_view(CommunitySettings(hass, HACS))
+    hass.http.register_view(CommunityAPI(hass, HACS))
 
-    hacs.data["commander"] = commander
+    HACS.data["commander"] = commander
 
     # Add to sidepanel
     await hass.components.frontend.async_register_built_in_panel(

@@ -82,11 +82,11 @@ class HacsRepositoryBase(HacsBase):
     def set_repository_id(self):
         """Set the ID of an repository."""
         if self.github is None:
-            raise self.HacsRepositoryInfo("Missing: GitHub object")
+            raise self.HacsRepositoryInfo("GitHub object is missing")
         elif self.repository_name is None:
-            raise self.HacsRepositoryInfo("Missing: GitHub repository name")
+            raise self.HacsRepositoryInfo("GitHub repository name is missing")
         elif self.repository is None:
-            raise self.HacsRepositoryInfo("Missing: GitHub repository object")
+            raise self.HacsRepositoryInfo("GitHub repository object is missing")
 
         try:
             temp = self.repository.id
@@ -96,15 +96,16 @@ class HacsRepositoryBase(HacsBase):
             self._repository_id = temp
         except Exception as exception:
             _LOGGER.error(
-                f"Failed to set repository ID for {self.repository_name} - Exception: {exception}")
+                f"Failed to set repository ID for '{self.repository_name}'"
+                f" - Exception: {exception}")
 
     def validate_repository_name(self):
         """Validate the given repository_name."""
         if "/" not in self.repository_name:
             raise self.HacsRepositoryInfo(
-                "Format: GitHub repository name "
+                "GitHub repository name "
                 f"'{self.repository_name}' is not the correct format")
         elif len(self.repository_name.split('/')) > 2:
             raise self.HacsRepositoryInfo(
-                "Format: GitHub repository name "
+                "GitHub repository name "
                 f"'{self.repository_name}' is not the correct format")

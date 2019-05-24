@@ -52,11 +52,6 @@ from custom_components.hacs.frontend.views import (
 
 DOMAIN = "{}".format(NAME_SHORT.lower())
 
-# TODO: Requirements are not loaded from manifest, needs investigation.
-# This works as it should under 0.93.x
-# Keeping it here untill a HA version requirement bump is doable
-REQUIREMENTS = ["PyGithub>=1.43.6", "aiofiles"]
-
 _LOGGER = logging.getLogger(__name__)
 
 CONFIG_SCHEMA = vol.Schema(

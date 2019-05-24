@@ -70,9 +70,6 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     github_token = config[DOMAIN]["token"]
     commander = HacsCommander()
 
-    test = HacsRepositoryIntegration("tes/ttesttest/test222")
-    await test.setup_repository()
-
     # Add stuff to hacs
     hacs.hass = hass
     hacs.github = github.Github(github_token, timeout=5, retry=2)

@@ -9,6 +9,7 @@ CUSTOM_UPDATER_LOCATIONS = [
     "{}/custom_components/custom_updater.py",
     "{}/custom_components/custom_updater/__init__.py",
 ]
+USER_ERROR = "Possible error codes: 1D10T, PICNIC, B0110CK5."
 ISSUE_URL = "{}issues".format(PROJECT_URL)
 DOMAIN_DATA = "{}_data".format(NAME_SHORT.lower())
 SKIP = [

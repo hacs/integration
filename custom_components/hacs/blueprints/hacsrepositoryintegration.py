@@ -19,21 +19,32 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         """Initialize a HacsRepositoryIntegration object."""
 
         super().__init__()
-        self._repository_name = repository_name
-        self._repository_type = "integration"
-        self._manifest_content = None
+        self.repository_name = repository_name
+        self.repository_type = "integration"
+        self.manifest_content = None
 
-    @property
-    def manifest_content(self):
+    async def setup_repository(self):
         """
-        Repository manifest content.
+        Run initialation to setup a repository.
 
-        Retruns a dict with the manifest content.
+        Return True if everything is validated and ok.
         """
-        return "" if self._description is None else self._description
+        try:
+            # Validate the repository name
+            self.validate_repository_name()
+            await sleep(0.2)
 
+            # Set the Gihub repository object
+            self.set_repository()
+            await sleep(0.2)
 
-    async def setup_repository(self) -> None:
-        """Run initialation to setup a repository."""
-        self.validate_repository_name()
+        except self.HacsRepositoryInfo as exception:
+            _LOGGER.error(f"Could not validate/setup repository info - {exception}")
+            return False
 
+        except Exception as exception:
+            raise self.HacsNotSoBasicException(
+                f"An unexpected error occured while trying to setup repository - {exception}")
+
+        # If we get there all is good.
+        return True

@@ -4,7 +4,7 @@ class HacsBaseException(Exception):
     """Super basic."""
     pass
 
-class HacsUserException(HacsBaseException):
+class HacsUserScrewupException(HacsBaseException):
     """Raise this when the user does something they should not do."""
     pass
 

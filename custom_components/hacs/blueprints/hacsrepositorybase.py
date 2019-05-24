@@ -13,27 +13,27 @@ class HacsRepositoryBase(HacsBase):
     def __init__(self):
         """Set up a HacsRepoBase object."""
         self.additional_info = None
-        self.content_files = None###
-        self.content_objects = None###
-        self.content_path = None###
-        self.custom = False#
-        self.description = None#
-        self.hide = False###
-        self.installed = False###
-        self.last_release_object = None#
-        self.last_release_tag = None#
-        self.last_updated = None#
-        self.name = None###
-        self.pending_restart = False###
-        self.pending_update = False###
-        self.ref = None#
-        self.releases = None#
-        self.repository = None#
-        self.repository_id = None#
-        self.repository_name = None#
-        self.repository_type = None#
-        self.track = False###
-        self.version_installed = None###
+        self.content_files = None
+        self.content_objects = None
+        self.content_path = None
+        self.custom = False
+        self.description = None
+        self.hide = False
+        self.installed = False
+        self.last_release_object = None
+        self.last_release_tag = None
+        self.last_updated = None
+        self.name = None
+        self.pending_restart = False
+        self.pending_update = False
+        self.ref = None
+        self.releases = None
+        self.repository = None
+        self.repository_id = None
+        self.repository_name = None
+        self.repository_type = None
+        self.track = False
+        self.version_installed = None
 
     def log_repository_info(self):
         """Print current repository info in the log."""

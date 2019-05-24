@@ -3,7 +3,7 @@ import logging
 from aiohttp import web
 from homeassistant.components.http import HomeAssistantView
 
-from custom_components.hacs.const import DOMAIN_DATA, NO_ELEMENTS
+from custom_components.hacs.const import NO_ELEMENTS
 from custom_components.hacs.frontend.views import error_view
 from custom_components.hacs.frontend.elements import style, header, cards, Generate
 

@@ -4,6 +4,10 @@ class HacsBaseException(Exception):
     """Super basic."""
     pass
 
+class HacsNotSoBasicException(HacsBaseException):
+    """Not that basic."""
+    pass
+
 class HacsDataFileMissing(HacsBaseException):
     """Raise this storage datafile is missing."""
     pass

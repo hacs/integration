@@ -15,7 +15,7 @@ from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERS
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_component import EntityComponent
 from homeassistant.helpers.event import async_track_time_interval, async_call_later
-from custom_components.hacs.hacs import HACS
+from custom_components.hacs.blueprints import HacsBase as hacs, HacsRepositoryIntegration
 from custom_components.hacs.const import (
     CUSTOM_UPDATER_LOCATIONS,
     STARTUP,
@@ -70,10 +70,13 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     github_token = config[DOMAIN]["token"]
     commander = HacsCommander()
 
+    test = HacsRepositoryIntegration("tes/ttesttest/test222")
+    await test.setup_repository()
+
     # Add stuff to hacs
-    HACS.hass = hass
-    HACS.github = github.Github(github_token, timeout=5, retry=2)
-    HACS.blacklist = SKIP
+    hacs.hass = hass
+    hacs.github = github.Github(github_token, timeout=5, retry=2)
+    hacs.blacklist = SKIP
 
     # Check if custom_updater exists
     for location in CUSTOM_UPDATER_LOCATIONS:
@@ -91,14 +94,14 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, commander.startup_tasks())
 
     # Register the views
-    hass.http.register_view(CommunityOverview(hass, HACS))
-    hass.http.register_view(CommunityElement(hass, HACS))
-    hass.http.register_view(CommunityStore(hass, HACS))
-    hass.http.register_view(CommunityPlugin(hass, HACS))
-    hass.http.register_view(CommunitySettings(hass, HACS))
-    hass.http.register_view(CommunityAPI(hass, HACS))
+    hass.http.register_view(CommunityOverview(hass, hacs))
+    hass.http.register_view(CommunityElement(hass, hacs))
+    hass.http.register_view(CommunityStore(hass, hacs))
+    hass.http.register_view(CommunityPlugin(hass, hacs))
+    hass.http.register_view(CommunitySettings(hass, hacs))
+    hass.http.register_view(CommunityAPI(hass, hacs))
 
-    HACS.data["commander"] = commander
+    hacs.data["commander"] = commander
 
     # Add to sidepanel
     await hass.components.frontend.async_register_built_in_panel(
@@ -114,7 +117,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     return True
 
 
-class HacsCommander(HACS):
+class HacsCommander(hacs):
     """HACS Commander class."""
 
     async def startup_tasks(self):

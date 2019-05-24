@@ -8,7 +8,7 @@ import json
 from homeassistant.helpers.event import async_call_later
 
 from custom_components.hacs.const import DOMAIN_DATA
-from custom_components.hacs.hacs import HACS
+from custom_components.hacs.blueprints import HacsBase
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -30,7 +30,7 @@ async def add_new_element(hacs, element_type, repo):
 
     return update_result
 
-class HacsElement(HACS):
+class HacsElement(HacsBase):
     """Base HACS Element Class."""
     def __init__(self):
         pass

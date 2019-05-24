@@ -1,8 +1,8 @@
-"""HACS."""
+"""Blueprint for HacsBase."""
+# pylint: disable=too-few-public-methods
 
-
-class HACS:
-    """The brains of the operation."""
+class HacsBase:
+    """The base class of HACS, nested thoughout the project."""
     data = {}
     hass = None
     github = None

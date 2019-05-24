@@ -66,6 +66,10 @@ class HacsRepositoryBase(HacsBase):
 
     def set_custom(self):
         """Set the custom flag."""
+        # Check if we need to run this.
+        if self.custom is not None:
+            return
+
         if self.repository_name is None:
             raise self.HacsRepositoryInfo("GitHub repository name is missing")
 
@@ -177,6 +181,10 @@ class HacsRepositoryBase(HacsBase):
 
     def set_ref(self):
         """Set repository ref to use."""
+        # Check if we need to run this.
+        if self.ref is not None:
+            return
+
         if self.repository is None:
             raise self.HacsRepositoryInfo("GitHub repository object is missing")
 

@@ -4,6 +4,10 @@ class HacsBaseException(Exception):
     """Super basic."""
     pass
 
+class HacsUserException(HacsBaseException):
+    """Raise this when the user does something they should not do."""
+    pass
+
 class HacsNotSoBasicException(HacsBaseException):
     """Not that basic."""
     pass

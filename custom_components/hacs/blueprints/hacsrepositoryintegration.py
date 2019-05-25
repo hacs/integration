@@ -31,6 +31,13 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         Return True if everything is validated and ok.
         """
         try:
+            # Check the blacklist
+            if self.repository_name in self.blacklist:
+                raise self.HacsBlacklistException
+
+            # If a previous attempt failed we need to reset the track flag
+            self.track = True
+
             # Validate the repository name
             self.validate_repository_name()
             await sleep(0.2)
@@ -39,8 +46,29 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             self.set_repository()
             await sleep(0.2)
 
+            # Set repository ID
+            self.set_repository_id()
+            await sleep(0.2)
+
+            # Set repository releases
+            self.set_repository_releases()
+            await sleep(0.2)
+
+            # Set the repository ref
+            self.set_ref()
+            await sleep(0.2)
+
+            # Set additional info
+            self.set_additional_info()
+            await sleep(0.2)
+
+
         except self.HacsRepositoryInfo as exception:
             _LOGGER.error(f"Could not validate/setup repository info - {exception}")
+            return False
+
+        except self.HacsUserScrewupException as exception:
+            _LOGGER.error(exception)
             return False
 
         except Exception as exception:
@@ -62,6 +90,10 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             _LOGGER.error(f"Could not validate/setup repository info - {exception}")
             return False
 
+        except self.HacsUserScrewupException as exception:
+            _LOGGER.error(exception)
+            return False
+
         except Exception as exception:
             raise self.HacsNotSoBasicException(
                 f"An unexpected error occured while trying to setup repository - {exception}")
@@ -75,6 +107,10 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
     async def update(self):
         """Run update tasks."""
         try:
+            # Update description.
+            self.set_description()
+            await sleep(0.2)
+
             # Run common checks
             await self.common_check()
             await sleep(0.2)
@@ -82,6 +118,10 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
 
         except self.HacsRepositoryInfo as exception:
             _LOGGER.error(f"Could not validate/setup repository info - {exception}")
+            return False
+
+        except self.HacsUserScrewupException as exception:
+            _LOGGER.error(exception)
             return False
 
         except Exception as exception:
@@ -109,9 +149,16 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             await self.setup_repository()
             await sleep(0.2)
 
+            # Print log
+            self.log_repository_info()
+
 
         except self.HacsRepositoryInfo as exception:
             _LOGGER.error(f"Could not validate/setup repository info - {exception}")
+            return False
+
+        except self.HacsUserScrewupException as exception:
+            _LOGGER.error(exception)
             return False
 
         except Exception as exception:

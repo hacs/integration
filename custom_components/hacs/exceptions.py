@@ -27,3 +27,8 @@ class HacsRepositoryInfo(HacsBaseException):
 class HacsMissingManifest(HacsRepositoryInfo):
     """Raise this when manifest is missing."""
     pass
+
+
+class HacsBlacklistException(HacsBaseException):
+    """Raise this when the repository is currently in the blacklist."""
+    pass

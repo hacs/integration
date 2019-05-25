@@ -49,6 +49,7 @@ from custom_components.hacs.frontend.views import (
     CommunityStore,
     CommunitySettings,
     CommunityAPI,
+    HacsStaticView,
 )
 
 DOMAIN = "{}".format(NAME_SHORT.lower())
@@ -72,6 +73,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hacs.hass = hass
     hacs.github = github.Github(github_token, timeout=5, retry=2)
     hacs.blacklist = BLACKLIST
+    hacs.config_dir = config_dir
 
     # Check if custom_updater exists
     for location in CUSTOM_UPDATER_LOCATIONS:
@@ -89,6 +91,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, commander.startup_tasks())
 
     # Register the views
+    hass.http.register_view(HacsStaticView())
     hass.http.register_view(CommunityOverview(hass, hacs))
     hass.http.register_view(CommunityElement(hass, hacs))
     hass.http.register_view(CommunityStore(hass, hacs))

@@ -10,28 +10,16 @@ class HacsViewBase(HomeAssistantView, HacsBase):
     """Base View Class for HACS."""
     requires_auth = False
 
-    def __init__(self):
-        """Initialize view."""
-        self.styles = self.load_styles()
-
-    def load_styles(self):
-        """Load styles from CSS file."""
-        style = ""
-        file = f"{self.hacs.config_dir}/custom_components/hacs/frontend/elements/hacs.css"
-        with open(file) as cssfile:
-            style = cssfile.read()
-            cssfile.close()
-        return f"<style>{style}</style>"
-
     @property
     def base_content(self):
         """Base content."""
         return f"""
-          {self.load_imports}
-          {self.load_styles}
-          {self.load_scripts}
-          {self.load_header}
-          {self.load_progress_bar}
+            <head>
+                {self.imports}
+                {self.scripts}
+            </head>
+            {self.header}
+            {self.progress_bar}
         """
 
     @property
@@ -39,6 +27,7 @@ class HacsViewBase(HomeAssistantView, HacsBase):
         """Load imports."""
         return """
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="/community_static/hacs.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         """
@@ -68,7 +57,7 @@ class HacsViewBase(HomeAssistantView, HacsBase):
     @property
     def progress_bar(self):
         """Load progress bar."""
-        if self.hacs.task_running:
+        if self.task_running:
             display = "block"
         else:
             display = "none"

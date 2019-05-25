@@ -6,3 +6,4 @@ from custom_components.hacs.frontend.views.overview import CommunityOverview
 from custom_components.hacs.frontend.views.plugin import CommunityPlugin
 from custom_components.hacs.frontend.views.settings import CommunitySettings
 from custom_components.hacs.frontend.views.store import CommunityStore
+from custom_components.hacs.frontend.views.static import HacsStaticView

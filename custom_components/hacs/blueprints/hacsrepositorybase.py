@@ -8,7 +8,7 @@ _LOGGER = logging.getLogger(__name__)
 
 class HacsRepositoryBase(HacsBase):
     """HacsRepoBase Class"""
-    from custom_components.hacs.exceptions import HacsRepositoryInfo, HacsNotSoBasicException
+    from custom_components.hacs.exceptions import HacsRepositoryInfo, HacsNotSoBasicException, HacsBlacklistException, HacsUserScrewupException
 
     def __init__(self):
         """Set up a HacsRepoBase object."""
@@ -225,12 +225,12 @@ class HacsRepositoryBase(HacsBase):
     def validate_repository_name(self):
         """Validate the given repository_name."""
         if "/" not in self.repository_name:
-            raise self.HacsRepositoryInfo(
+            raise self.HacsUserScrewupException(
                 "GitHub repository name "
                 f"'{self.repository_name}' is not the correct format")
 
         elif len(self.repository_name.split('/')) > 2:
-            raise self.HacsRepositoryInfo(
+            raise self.HacsUserScrewupException(
                 "GitHub repository name "
                 f"'{self.repository_name}' is not the correct format")
 

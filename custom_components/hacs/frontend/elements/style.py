@@ -14,6 +14,9 @@ async def style():
             border-style: solid;
             border-width: thin;
             margin: 0;
+            overflow: auto;
+            display: inline-flex;
+            width: calc(100% - 20px);
         }
         a {
           color: #ffab40;

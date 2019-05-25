@@ -12,13 +12,15 @@ CUSTOM_UPDATER_LOCATIONS = [
 USER_ERROR = "Possible error codes: 1D10T, PICNIC, B0110CK5."
 ISSUE_URL = "{}issues".format(PROJECT_URL)
 DOMAIN_DATA = "{}_data".format(NAME_SHORT.lower())
-SKIP = [
+BLACKLIST = [
     "custom-cards/custom-card-helpers",
     "custom-cards/information",
     "custom-cards/config-template-card",
+    "custom-cards/tracker-card",
     "custom-components/hacs",
     "custom-components/blueprint",
     "custom-components/information",
+    "custom-components/custom-updater",
 ]
 ELEMENT_TYPES = ["integration", "plugin"]
 IFRAME = {

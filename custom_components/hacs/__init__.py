@@ -28,7 +28,7 @@ from custom_components.hacs.const import (
     ELEMENT_TYPES,
     VERSION,
     IFRAME,
-    SKIP,
+    BLACKLIST,
     DATA_SCHEMA,
 )
 from custom_components.hacs.element import add_new_element
@@ -70,7 +70,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     # Add stuff to hacs
     hacs.hass = hass
     hacs.github = github.Github(github_token, timeout=5, retry=2)
-    hacs.blacklist = SKIP
+    hacs.blacklist = BLACKLIST
 
     # Check if custom_updater exists
     for location in CUSTOM_UPDATER_LOCATIONS:

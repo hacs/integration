@@ -10,6 +10,7 @@ import os.path
 import json
 import asyncio
 from datetime import datetime, timedelta
+from pkg_resources import parse_version
 import voluptuous as vol
 from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
 import homeassistant.helpers.config_validation as cv
@@ -80,7 +81,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
             return False
 
     # Check if HA is the required version.
-    if int(HAVERSION.split(".")[1]) < 93:
+    if parse_version(HAVERSION) < parse_version('0.92.0'):
         _LOGGER.critical("You need HA version 92 or newer to use this integration.")
         return False
 

@@ -1,17 +1,17 @@
 """Blueprint for HacsViewBase."""
 import logging
 from homeassistant.components.http import HomeAssistantView
+from custom_components.hacs.blueprints import HacsBase
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class HacsViewBase(HomeAssistantView):
+class HacsViewBase(HomeAssistantView, HacsBase):
     """Base View Class for HACS."""
     requires_auth = False
 
-    def __init__(self, hacs):
+    def __init__(self):
         """Initialize view."""
-        self.hacs = hacs
         self.styles = self.load_styles()
 
     def load_styles(self):

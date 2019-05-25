@@ -5,7 +5,7 @@
 ***
 # Installation
 
-**NB!: You need to use Home Assistant version 0.93.0 or newer for this to work.**
+**NB!: You need to use Home Assistant version 0.92.0 or newer for this to work.**
 
 **NB!: If you move from [`custom_updater`](https://github.com/custom-components/custom_updater) to this see the special note at the bottom here.**
 
@@ -13,7 +13,7 @@
 
 This integration requires **a lot** of files.
 
-The easiest way to make sure that you have them all is to download the `.zip` file from the repo.
+The easiest way to make sure that you have them all is to download the `.zip` file from the repository.
 
 [Not a fan of reading, direct link here.](https://github.com/custom-components/hacs/archive/master.zip)
 
@@ -21,7 +21,7 @@ The easiest way to make sure that you have them all is to download the `.zip` fi
 
 _You are probably looking at this in a browser, so we can probably check this off._
 
-## Step 2 - Go to the HACS repo
+## Step 2 - Go to the HACS repository
 
 Then find the latest release from the release page.
 

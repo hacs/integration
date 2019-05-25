@@ -3,6 +3,7 @@
 from asyncio import sleep
 import logging
 
+from homeassistant.helpers.event import async_call_later
 from custom_components.hacs.blueprints import HacsRepositoryBase
 
 _LOGGER = logging.getLogger(__name__)
@@ -48,3 +49,71 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
 
         # If we get there all is good.
         return True
+
+    async def install(self):
+        """Run install tasks."""
+        try:
+            # Run common checks
+            await self.common_check()
+            await sleep(0.2)
+
+
+        except self.HacsRepositoryInfo as exception:
+            _LOGGER.error(f"Could not validate/setup repository info - {exception}")
+            return False
+
+        except Exception as exception:
+            raise self.HacsNotSoBasicException(
+                f"An unexpected error occured while trying to setup repository - {exception}")
+
+    async def remove(self):
+        """Run remove tasks."""
+
+    async def uninstall(self):
+        """Run uninstall tasks."""
+
+    async def update(self):
+        """Run update tasks."""
+        try:
+            # Run common checks
+            await self.common_check()
+            await sleep(0.2)
+
+
+        except self.HacsRepositoryInfo as exception:
+            _LOGGER.error(f"Could not validate/setup repository info - {exception}")
+            return False
+
+        except Exception as exception:
+            raise self.HacsNotSoBasicException(
+                f"An unexpected error occured while trying to setup repository - {exception}")
+
+    def start_task_scheduler(self):
+        """Start task scheduler."""
+        if not self.installed:
+            return
+
+        # Update installed elements every 30min
+        async_call_later(self.hass, 60*30, self.update)
+
+    async def common_check(self):
+        """Common checks for most operations."""
+        try:
+            # Check if last updated string changed.
+            current = self.last_updated
+            new = self.return_last_update()
+            if current == new:
+                return
+
+            # Validate content.
+            await self.setup_repository()
+            await sleep(0.2)
+
+
+        except self.HacsRepositoryInfo as exception:
+            _LOGGER.error(f"Could not validate/setup repository info - {exception}")
+            return False
+
+        except Exception as exception:
+            raise self.HacsNotSoBasicException(
+                f"An unexpected error occured while trying to setup repository - {exception}")

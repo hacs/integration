@@ -110,6 +110,10 @@ class HacsRepositoryBase(HacsBase):
 
     def set_repository(self):
         """Set the Github repository object."""
+        # Check if we need to run this.
+        if self.repository is not None:
+            return
+
         if self.github is None:
             raise self.HacsRepositoryInfo("GitHub object is missing")
         elif self.repository_name is None:
@@ -127,6 +131,10 @@ class HacsRepositoryBase(HacsBase):
 
     def set_repository_id(self):
         """Set the ID of an repository."""
+        # Check if we need to run this.
+        if self.repository_id is not None:
+            return
+
         if self.github is None:
             raise self.HacsRepositoryInfo("GitHub object is missing")
         elif self.repository_name is None:

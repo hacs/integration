@@ -3,7 +3,7 @@ import logging
 
 from custom_components.hacs.const import STARTUP
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs')
 
 
 async def get_log_file_content(hass):

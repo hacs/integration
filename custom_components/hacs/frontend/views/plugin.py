@@ -4,7 +4,7 @@ import os
 from aiohttp import web
 from homeassistant.components.http import HomeAssistantView
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs')
 
 
 class CommunityPlugin(HomeAssistantView):

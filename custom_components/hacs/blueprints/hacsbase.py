@@ -3,7 +3,7 @@
 import logging
 import uuid
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs.hacs')
 
 
 class HacsBase:
@@ -32,6 +32,8 @@ class HacsBase:
 
         if element_type != "integration":
             return
+
+        _LOGGER.debug(f"({repo}) - Trying not register")
         repository = HacsRepositoryIntegration(repo)
 
         setup_result = None
@@ -47,4 +49,4 @@ class HacsBase:
                 self.data["repos"][element_type].append(repo)
             write_to_data_store(self.config_dir, self.data)
         else:
-            _LOGGER.debug(f"Could not register {repo}")
+            _LOGGER.debug(f"({repo}) - Could not register")

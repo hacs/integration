@@ -10,7 +10,7 @@ from custom_components.hacs.handler.storage import write_to_data_store
 from custom_components.hacs.handler.update import update_data_after_action
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs')
 
 
 async def async_download_file(hass, url):

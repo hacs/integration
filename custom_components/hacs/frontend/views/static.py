@@ -5,7 +5,7 @@ import logging
 import aiofiles
 from custom_components.hacs.blueprints import HacsViewBase
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs')
 
 
 class HacsStaticView(HacsViewBase):

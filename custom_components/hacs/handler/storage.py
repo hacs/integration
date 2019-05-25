@@ -4,7 +4,7 @@ import json
 from custom_components.hacs.const import STORENAME, DOMAIN_DATA, VERSION, DATA_SCHEMA
 from custom_components.hacs.element import Element
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs.storage')
 
 async def load_storage_file(hass):
     """Load datafile from storage."""
@@ -84,39 +84,22 @@ async def write_to_data_store(basedir, output):
     # 'elements' contains Class objects and cans be stored directly, so we extract the important part.
     outdata["elements"] = {}
 
+    skip_keys = [
+        "content_objects",
+        "last_release_object",
+        "pending_restart",
+        "repository"
+    ]
+
     for element in output["elements"]:
         elementdata = {}
         element = output["elements"][element]
-        _LOGGER.critical(vars(element))
-        for key, value in vars(element):
-            if isinstance(key, (str, list, dict, float, int)):
-                elementdata[key] = value
+        attributes = vars(element)
+        for key in attributes:
+            if key not in skip_keys:
+                elementdata[key] = attributes[key]
 
-#        elementdata['authors'] = output["elements"][element].authors
-#        elementdata['avaiable_version'] = output["elements"][element].avaiable_version
-#        elementdata['description'] = output["elements"][element].description
-#        elementdata['element_id'] = output["elements"][element].element_id
-#        elementdata['element_type'] = output["elements"][element].element_type
-#        elementdata['info'] = output["elements"][element].info
-#        elementdata['installed_version'] = output["elements"][element].installed_version
-#        elementdata['isinstalled'] = output["elements"][element].isinstalled
-#        elementdata['github_last_update'] = output["elements"][element].github_last_update
-#        elementdata['manifest'] = output["elements"][element].manifest
-#        elementdata['name'] = output["elements"][element].name
-#        elementdata['releases'] = output["elements"][element].releases
-#        elementdata['jstype'] = output["elements"][element].jstype
-#        elementdata['remote_dir_location'] = output["elements"][element].remote_dir_location
-#        elementdata['repo'] = output["elements"][element].repo
-#        elementdata['github_ref'] = output["elements"][element].github_ref
-#        elementdata['github_element_content_files'] = output["elements"][element].github_element_content_files
-#        elementdata['github_element_content_path'] = output["elements"][element].github_element_content_path
-#        elementdata['pending_restart'] = output["elements"][element].pending_restart
-#        elementdata['pending_update'] = output["elements"][element].pending_update
-#        elementdata['trackable'] = output["elements"][element].trackable
-#        elementdata['reason'] = output["elements"][element].reason
-#        elementdata['hidden'] = output["elements"][element].hidden
-
-        outdata["elements"][output["elements"][element].element_id] = elementdata
+        outdata["elements"][attributes["repository_id"]] = elementdata
 
     try:
         async with aiofiles.open(datastore, mode='w', encoding="utf-8", errors="ignore") as outfile:

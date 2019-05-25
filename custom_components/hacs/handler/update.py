@@ -5,7 +5,7 @@ from custom_components.hacs.element import Element
 from custom_components.hacs.const import DOMAIN_DATA
 from custom_components.hacs.handler.storage import write_to_data_store
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs')
 
 
 async def update_data_after_action(hass, element):

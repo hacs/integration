@@ -11,7 +11,7 @@ from custom_components.hacs.frontend.elements import (
     warning_card,
 )
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs')
 
 
 class CommunityElement(HomeAssistantView):

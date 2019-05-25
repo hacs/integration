@@ -3,7 +3,7 @@ import logging
 from homeassistant.components.http import HomeAssistantView
 from custom_components.hacs.blueprints import HacsBase
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs')
 
 
 class HacsViewBase(HomeAssistantView, HacsBase):

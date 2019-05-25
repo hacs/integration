@@ -7,7 +7,7 @@ from custom_components.hacs.const import NO_ELEMENTS
 from custom_components.hacs.frontend.views import error_view
 from custom_components.hacs.frontend.elements import style, header, cards, Generate
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs')
 
 
 class CommunityOverview(HomeAssistantView):

@@ -53,7 +53,7 @@ from custom_components.hacs.frontend.views import (
 
 DOMAIN = "{}".format(NAME_SHORT.lower())
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs')
 
 CONFIG_SCHEMA = vol.Schema(
     {DOMAIN: vol.Schema({vol.Required("token"): cv.string})}, extra=vol.ALLOW_EXTRA

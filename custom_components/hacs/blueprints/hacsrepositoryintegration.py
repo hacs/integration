@@ -12,7 +12,7 @@ from custom_components.hacs.blueprints import HacsRepositoryBase
 from custom_components.hacs.exceptions import HacsBaseException, HacsBlacklistException, HacsNotSoBasicException, HacsMissingManifest
 from custom_components.hacs.handler.download import async_download_file, async_save_file
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs.repository')
 
 class HacsRepositoryIntegration(HacsRepositoryBase):
     """
@@ -103,7 +103,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             self.start_task_scheduler()
             if self.repository_id not in self.elements:
                 self.elements[self.repository_id] = self
-            _LOGGER.info(f"({self.repository_name}) - Setup of complete")
+            _LOGGER.debug(f"({self.repository_name}) - Setup of complete")
 
             return True
 
@@ -153,9 +153,10 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
     async def uninstall(self):
         """Run uninstall tasks."""
 
-    async def update(self, showtime=True):
+    async def update(self, setup=False):
         """Run update tasks."""
-        if showtime:
+        from custom_components.hacs.handler.storage import write_to_data_store
+        if not setup:
             start_time = datetime.now()
             _LOGGER.info(f'({self.repository_name}) - Starting update')
 
@@ -209,7 +210,9 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             _LOGGER.debug(f"({self.repository_name}) - {exception}")
             return False
 
-        if showtime:
+        if not setup:
+            self.data[self.repository_id] = self
+            write_to_data_store(self.config_dir, self.data)
             _LOGGER.info(f'({self.repository_name}) - update completed in {(datetime.now() - start_time).seconds} seconds')
         return True
 

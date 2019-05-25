@@ -11,7 +11,7 @@ from custom_components.hacs.const import DOMAIN_DATA
 from custom_components.hacs.blueprints import HacsBase
 from custom_components.hacs.exceptions import HacsBaseException
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs')
 
 
 class HacsElement(HacsBase):

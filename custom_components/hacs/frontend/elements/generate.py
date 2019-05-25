@@ -139,6 +139,7 @@ class Generate:
               </i>
               </br>
               <pre class="yaml">url: /community_plugin/{element}/{file_name}.js</pre>
+              <a onclick="navigator.clipboard.writeText('url: /community_plugin/{element}/{file_name}.js')"><i class="fa fa-copy"></i></a>
               </br></br>
               <i>
                 To learn more about how to configure this,

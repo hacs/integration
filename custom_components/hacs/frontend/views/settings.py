@@ -96,7 +96,7 @@ class CommunitySettings(HomeAssistantView):
                 <ul class="collection with-header">
                     <li class="collection-header"><h5>CUSTOM INTEGRATION REPO'S</h5></li>
         """
-        if self.hacs.data["repos"].get("integration"):
+        if self.hacs.data["custom"].get("integration"):
             for entry in self.hacs.data["repos"].get("integration"):
                 content += """
                     <li class="collection-item">
@@ -125,7 +125,7 @@ class CommunitySettings(HomeAssistantView):
                 <ul class="collection with-header">
                     <li class="collection-header"><h5>CUSTOM PLUGIN REPO'S</h5></li>
         """
-        if self.hacs.data["repos"].get("plugin"):
+        if self.hacs.data["custom"].get("plugin"):
             for entry in self.hacs.data["repos"].get("plugin"):
                 content += """
                     <li class="collection-item">

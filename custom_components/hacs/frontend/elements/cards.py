@@ -27,7 +27,7 @@ async def overview_card(element, card_icon):
         card_icon=card_icon,
         name=str(element.name),
         description=str(element.description),
-        element=str(element.element_id),
+        element=str(element.repository_id),
     )
 
 

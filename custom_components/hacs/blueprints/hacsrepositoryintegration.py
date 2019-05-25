@@ -80,7 +80,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
 
             # Validate the repository name
             self.validate_repository_name()
-            #await sleep(0.2)
+            
 
             # Update repository info
             updateresult = await self.update(False)
@@ -91,7 +91,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
                     self.blacklist.append(self.repository_name)
                 _LOGGER.debug(f"({self.repository_name}) - Setup failed")
                 return False
-            #await sleep(0.2)
+            
 
         except HacsBaseException as exception:
             _LOGGER.debug(f"({self.repository_name}) - {exception}")
@@ -113,11 +113,11 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         try:
             # Run update
             await self.update(False)
-            #await sleep(0.2)
+            
 
             # Check local directory
             await self.check_local_directory()
-            #await sleep(0.2)
+            
 
             # Download files
             for remote_file in self.content_objects:
@@ -183,19 +183,15 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         try:
             # Set the Gihub repository object
             self.set_repository()
-            #await sleep(0.2)
 
             # Update description.
             self.set_description()
-            #await sleep(0.2)
 
             # Set repository ID
             self.set_repository_id()
-            #await sleep(0.2)
 
             # Set repository releases
             self.set_repository_releases()
-            #await sleep(0.2)
 
             # Check if last updated string changed.
             current = self.last_updated
@@ -206,19 +202,15 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
 
             # Set the repository ref
             self.set_ref()
-            #await sleep(0.2)
 
             # Set additional info
             self.set_additional_info()
-            #await sleep(0.2)
 
             # Set repository content
             self.set_repository_content()
-            #await sleep(0.2)
 
             # Set manifest content
             self.set_manifest_content()
-            #await sleep(0.2)
 
             # Run task later
             self.start_task_scheduler()

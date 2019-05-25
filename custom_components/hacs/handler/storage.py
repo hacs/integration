@@ -52,7 +52,7 @@ async def get_data_from_store(hass):
         returndata["hacs"] = data["hacs"]
 
         for element in data["repositories"]:
-            elementdata = Element(data["repositories"][element]["element_type"], element)
+            elementdata = Element(data["repositories"][element]["repository_type"], element)
             for entry in data["repositories"][element]:
                 elementdata.__setattr__(entry, data["repositories"][element][entry])
 

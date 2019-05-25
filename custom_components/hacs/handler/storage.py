@@ -1,7 +1,8 @@
 """Storage handler."""
+# pylint: disable=broad-except
 import logging
 import json
-from custom_components.hacs.const import STORENAME, DOMAIN_DATA, VERSION, DATA_SCHEMA
+from custom_components.hacs.const import STORENAME, VERSION, DATA_SCHEMA
 from custom_components.hacs.element import Element
 
 _LOGGER = logging.getLogger('custom_components.hacs.storage')
@@ -20,23 +21,23 @@ async def load_storage_file(hass):
             returndata = json.loads(data)
             datafile.close()
 
-    except Exception as error:  # pylint: disable=broad-except
+    except Exception as error:
         msg = "Could not load data from {} - {}".format(datastore, error)
         _LOGGER.debug(msg)
 
     return returndata
 
-async def get_data_from_store(hass, github):
+async def get_data_from_store(hass):
     """
     Get data from datastore.
     Returns a dict with information from the storage.
-    example output: {"elements": {}, "repos": {}, "hacs": {}}
+    example output: {"repositories": {}, "custom": {}, "hacs": {}}
     """
     import aiofiles
     datastore = "{}/.storage/{}".format(hass.config.path(), STORENAME)
     _LOGGER.debug("Reading from datastore %s.", datastore)
 
-    elements = {}
+    repositories = {}
     returndata = {}
 
     try:
@@ -45,24 +46,24 @@ async def get_data_from_store(hass, github):
             data = json.loads(data)
             datafile.close()
 
-        returndata["repos"] = {}
-        returndata["repos"]["integration"] = data["repos"].get("integration", [])
-        returndata["repos"]["plugin"] = data["repos"].get("plugin", [])
+        returndata["custom"] = {}
+        returndata["custom"]["integration"] = data["custom"].get("integration", [])
+        returndata["custom"]["plugin"] = data["custom"].get("plugin", [])
         returndata["hacs"] = data["hacs"]
 
-        for element in data["elements"]:
-            elementdata = Element(data["elements"][element]["element_type"], element)
-            for entry in data["elements"][element]:
-                elementdata.__setattr__(entry, data["elements"][element][entry])
+        for element in data["repositories"]:
+            elementdata = Element(data["repositories"][element]["element_type"], element)
+            for entry in data["repositories"][element]:
+                elementdata.__setattr__(entry, data["repositories"][element][entry])
 
             # Since this function is used during startup, we clear these flags
             elementdata.__setattr__("restart_pending", False)
 
-            elements[element] = elementdata
+            repositories[element] = elementdata
 
-        returndata["elements"] = elements
+        returndata["repositories"] = repositories
 
-    except Exception as error:  # pylint: disable=broad-except
+    except Exception as error:
         msg = "Could not load data from {} - {}".format(datastore, error)
         _LOGGER.debug(msg)
 
@@ -79,10 +80,10 @@ async def write_to_data_store(basedir, output):
 
     outdata = {}
     outdata["hacs"] = output["hacs"]
-    outdata["repos"] = output["repos"]
+    outdata["custom"] = output["custom"]
 
-    # 'elements' contains Class objects and cans be stored directly, so we extract the important part.
-    outdata["elements"] = {}
+    # 'repositories' contains Class objects and cans be stored directly, so we extract the important part.
+    outdata["repositories"] = {}
 
     skip_keys = [
         "content_objects",
@@ -91,26 +92,26 @@ async def write_to_data_store(basedir, output):
         "repository"
     ]
 
-    for element in output["elements"]:
+    for element in output["repositories"]:
         elementdata = {}
-        element = output["elements"][element]
+        element = output["repositories"][element]
         attributes = vars(element)
         for key in attributes:
             if key not in skip_keys:
                 elementdata[key] = attributes[key]
 
-        outdata["elements"][attributes["repository_id"]] = elementdata
+        outdata["repositories"][attributes["repository_id"]] = elementdata
 
     try:
         async with aiofiles.open(datastore, mode='w', encoding="utf-8", errors="ignore") as outfile:
             await outfile.write(json.dumps(outdata, indent=4))
             outfile.close()
 
-    except Exception as error:  # pylint: disable=broad-except
+    except Exception as error:
         msg = "Could not write data to {} - {}".format(datastore, error)
         _LOGGER.debug(msg)
 
-async def data_migration(hass, github):
+async def data_migration(hass):
     """Run data migration."""
     import aiofiles
 
@@ -125,44 +126,44 @@ async def data_migration(hass, github):
             data = await datafile.read()
             data = json.loads(data)
             datafile.close()
-    except Exception as error:  # pylint: disable=broad-except
+    except Exception as error:
         _LOGGER.debug("Could not load data from %s - %s", datastore, error)
 
     if not data:
-        data["elements"] = {}
-        data["repos"] = {"integration": [], "plugin": []}
+        data["repositories"] = {}
+        data["custom"] = {"integration": [], "plugin": []}
         data["hacs"] = {"local": VERSION, "remote": None, "schema": DATA_SCHEMA}
         return
 
-    data["elements"] = {}
-    data["repos"] = {}
-    data["repos"]["integration"] = data["repos"].get("integration", [])
-    data["repos"]["plugin"] = data["repos"].get("plugin", [])
+    data["repositories"] = {}
+    data["custom"] = {}
+    data["custom"]["integration"] = data["custom"].get("integration", [])
+    data["custom"]["plugin"] = data["custom"].get("plugin", [])
     data["hacs"] = {}
     data["hacs"]['local'] = VERSION
     data["hacs"]['remote'] = data["hacs"].get("remote")
     data["hacs"]['schema'] = DATA_SCHEMA
 
 
-    for element in data["elements"]:
-        elementdata = Element(data["elements"][element]["element_type"], element)
-        for entry in data["elements"][element]:
+    for element in data["repositories"]:
+        elementdata = Element(data["repositories"][element]["element_type"], element)
+        for entry in data["repositories"][element]:
 
             if entry == "something":
                 # do something special here
-                elementdata.__setattr__(entry, data["elements"][element][entry])
+                elementdata.__setattr__(entry, data["repositories"][element][entry])
 
             elif entry == "something_else":
                 # do something special here
-                elementdata.__setattr__(entry, data["elements"][element][entry])
+                elementdata.__setattr__(entry, data["repositories"][element][entry])
 
             else:
                 # We can reuse it
-                elementdata.__setattr__(entry, data["elements"][element][entry])
+                elementdata.__setattr__(entry, data["repositories"][element][entry])
 
 
 
         # Since this function is used during startup, we clear these flags
         elementdata.__setattr__("restart_pending", False)
 
-        data["elements"][element] = elementdata
+        data["repositories"][element] = elementdata

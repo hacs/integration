@@ -128,26 +128,26 @@ class HacsCommander(hacs):
         await self.setup_recuring_tasks()  # TODO: Check this...
 
         _LOGGER.info("Trying to load existing data.")
-        returndata = await get_data_from_store(self.hass, self.github)
+        returndata = await get_data_from_store(self.hass)
 
-        if not returndata.get("elements"):
+        if not returndata.get("repositories"):
             _LOGGER.info(
                 "Expected data did not exist running initial setup, this will take some time."
             )
-            self.data["elements"] = {}
-            self.data["repos"] = {"integration": [], "plugin": []}
+            self.data["repositories"] = {}
+            self.data["custom"] = {"integration": [], "plugin": []}
             self.data["hacs"] = {"local": VERSION, "remote": None, "schema": DATA_SCHEMA}
             #self.hass.async_create_task(self.full_element_scan())
             async_call_later(self.hass, 1, self.full_element_scan)
 
         else:
             if not returndata.get("hacs", {}).get("schema"):
-                await data_migration(self.hass, self.github)
+                await data_migration(self.hass)
             elif returndata.get("hacs", {}).get("schema") != DATA_SCHEMA:
-                await data_migration(self.hass, self.github)
+                await data_migration(self.hass)
             else:
-                self.data["elements"] = returndata["elements"]
-                self.data["repos"] = returndata["repos"]
+                self.data["repositories"] = returndata["repositories"]
+                self.data["custom"] = returndata["custom"]
                 self.data["hacs"] = returndata["hacs"]
 
         # Make sure we have the correct version
@@ -155,16 +155,16 @@ class HacsCommander(hacs):
 
         # Reset restart_pending flag
         self.data["hacs"]["restart_pending"] = False
-        for element in self.data["elements"]:
-            element = self.data["elements"][element]
+        for element in self.data["repositories"]:
+            element = self.data["repositories"][element]
             element.restart_pending = False
-            self.data["elements"][element.element_id] = element
+            self.data["repositories"][element.element_id] = element
 
         await self.check_for_hacs_update()
 
         # Update installed element data on startup
-        for element in self.data["elements"]:
-            element_object = self.data["elements"][element]
+        for element in self.data["repositories"]:
+            element_object = self.data["repositories"][element]
             if element_object.isinstalled:
                 #self.hass.async_create_task(element_object.update_element())
                 await element_object.update_element()
@@ -198,11 +198,11 @@ class HacsCommander(hacs):
 
     def get_repos_integration(self):
         """Get org and custom integration repos."""
-        repos = []
+        custom = []
 
         # Custom repos
-        if self.data["repos"].get("integration"):
-            for entry in self.data["repos"].get("integration"):
+        if self.data["custom"].get("integration"):
+            for entry in self.data["custom"].get("integration"):
                 _LOGGER.debug("Checking custom repo %s", entry)
                 repo = entry
                 if "http" in repo:
@@ -215,7 +215,7 @@ class HacsCommander(hacs):
                 try:
                     repo =self.github.get_repo(repo)
                     if not repo.archived or repo.full_name not in self.blacklist:
-                        repos.append(repo.full_name)
+                        custom.append(repo.full_name)
                 except Exception as error:  # pylint: disable=broad-except
                     _LOGGER.debug(error)
 
@@ -225,17 +225,17 @@ class HacsCommander(hacs):
                 continue
             if repo.full_name in self.blacklist:
                 continue
-            repos.append(repo.full_name)
+            custom.append(repo.full_name)
 
-        return repos
+        return custom
 
     def get_repos_plugin(self):
         """Get org and custom plugin repos."""
-        repos = []
+        custom = []
 
         ## Custom repos
-        if self.data["repos"].get("plugin"):
-            for entry in self.data["repos"].get("plugin"):
+        if self.data["custom"].get("plugin"):
+            for entry in self.data["custom"].get("plugin"):
                 _LOGGER.debug("Checking custom repo %s", entry)
                 repo = entry
                 if "http" in repo:
@@ -248,7 +248,7 @@ class HacsCommander(hacs):
                 try:
                     repo =self.github.get_repo(repo)
                     if not repo.archived or repo.full_name not in self.blacklist:
-                        repos.append(repo.full_name)
+                        custom.append(repo.full_name)
                 except Exception as error:  # pylint: disable=broad-except
                     _LOGGER.debug(error)
 
@@ -258,9 +258,9 @@ class HacsCommander(hacs):
                 continue
             if repo.full_name in self.blacklist:
                 continue
-            repos.append(repo.full_name)
+            custom.append(repo.full_name)
 
-        return repos
+        return custom
 
     async def setup_recuring_tasks(self):
         """Setup recuring tasks."""
@@ -284,12 +284,12 @@ class HacsCommander(hacs):
                 if element in self.blacklist:
                     continue
 
-                if element not in self.data["elements"]:
+                if element not in self.data["repositories"]:
                     self.hass.async_create_task(self.register_new_repository(element_type, element))
                     #await self.register_new_repository(element_type, element)
 
                 else:
-                    await self.data["elements"][element].update_element()
+                    await self.data["repositories"][element].update_element()
 
                 await asyncio.sleep(2) #  Breathing room
 

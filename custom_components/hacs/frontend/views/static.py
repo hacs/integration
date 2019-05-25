@@ -1,7 +1,7 @@
 """Serve static files used by HACS."""
 # pylint: disable=broad-except
-from aiohttp import web
 import logging
+from aiohttp import web
 import aiofiles
 from custom_components.hacs.blueprints import HacsViewBase
 
@@ -13,7 +13,7 @@ class HacsStaticView(HacsViewBase):
 
     requires_auth = False
 
-    url = r"/community_static/{requested_file}"
+    url = "/community_static/{requested_file}"
     name = "community_static"
 
     async def get(self, request, requested_file):  # pylint: disable=unused-argument

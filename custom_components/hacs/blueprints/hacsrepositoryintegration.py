@@ -100,8 +100,8 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         else:
             # If we get there all is good.
             self.start_task_scheduler()
-            if self.repository_id not in self.elements:
-                self.elements[self.repository_id] = self
+            if self.repository_id not in self.repositories:
+                self.repositories[self.repository_id] = self
             _LOGGER.debug(f"({self.repository_name}) - Setup of complete")
 
             return True
@@ -148,9 +148,30 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
 
     async def remove(self):
         """Run remove tasks."""
+        from custom_components.hacs.handler.storage import write_to_data_store
+        _LOGGER.debug(f"({self.repository_name}) - Starting removal")
+
+        await self.remove_local_directory()
+
+        if self.repository_id in self.repositories:
+            del self.repositories[self.repository_id]
+
+        if self.repository_name in self.data["custom"]["integration"]:
+            self.data["custom"]["integration"].remove(self.repository_name)
+
+        write_to_data_store(self.config_dir, self.data)
+
+
 
     async def uninstall(self):
         """Run uninstall tasks."""
+        from custom_components.hacs.handler.storage import write_to_data_store
+        _LOGGER.debug(f"({self.repository_name}) - Starting uninstall")
+        await self.remove_local_directory()
+        self.installed = False
+        self.pending_restart = True
+        self.version_installed = None
+        write_to_data_store(self.config_dir, self.data)
 
     async def update(self, setup=False):
         """Run update tasks."""

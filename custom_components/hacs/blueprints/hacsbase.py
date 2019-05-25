@@ -14,7 +14,7 @@ class HacsBase:
     github = None
     custom_repositories = {"integration": [], "plugin": []}
     blacklist = []
-    elements = {}
+    repositories = {}
     task_running = False
     url_path = {
         "overview": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
@@ -33,7 +33,7 @@ class HacsBase:
         if element_type != "integration":
             return
 
-        _LOGGER.debug(f"({repo}) - Trying not register")
+        _LOGGER.debug(f"({repo}) - Trying to register")
         repository = HacsRepositoryIntegration(repo)
 
         setup_result = None
@@ -44,9 +44,10 @@ class HacsBase:
             return setup_result
 
         if setup_result:
-            self.data["elements"][repository.repository_id] = repository
+            self.data["repositories"][repository.repository_id] = repository
             if repository.custom:
-                self.data["repos"][element_type].append(repo)
+                if repo.repository_name not in self.data["custom"][element_type]:
+                    self.data["custom"][element_type].append(repo.repository_name)
             write_to_data_store(self.config_dir, self.data)
         else:
             _LOGGER.debug(f"({repo}) - Could not register")

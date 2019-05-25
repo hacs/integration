@@ -55,10 +55,10 @@ async def overview(hacs, element_type, show_installed_only=False):
     """Overview."""
     content = ""
     elements = []
-    if not hacs.data["elements"]:
+    if not hacs.data["repositories"]:
         return NO_ELEMENTS
-    for entry in hacs.data["elements"]:
-        element = hacs.data["elements"][entry]
+    for entry in hacs.data["repositories"]:
+        element = hacs.data["repositories"][entry]
         if not element.track:
             continue
         if show_installed_only:

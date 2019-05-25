@@ -9,7 +9,7 @@ import shutil
 
 from homeassistant.helpers.event import async_call_later
 from custom_components.hacs.blueprints import HacsRepositoryBase
-from custom_components.hacs.exceptions import HacsBaseException, HacsBlacklistException, HacsNotSoBasicException, HacsMissingManifest
+from custom_components.hacs.exceptions import HacsBaseException, HacsBlacklistException, HacsMissingManifest
 from custom_components.hacs.handler.download import async_download_file, async_save_file
 
 _LOGGER = logging.getLogger('custom_components.hacs.repository')
@@ -24,7 +24,6 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
 
     def __init__(self, repository_name: str):
         """Initialize a HacsRepositoryIntegration object."""
-
         super().__init__()
         self.repository_name = repository_name
         self.repository_type = "integration"

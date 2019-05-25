@@ -1,29 +1,24 @@
 """Log handler."""
-import logging
+# pylint: disable=broad-except
+import aiofiles
 
 from custom_components.hacs.const import STARTUP
 
-_LOGGER = logging.getLogger('custom_components.hacs')
-
-
 async def get_log_file_content(hass):
     """Get logfile content."""
-    _LOGGER.debug("Generating log contents")
-
     log_file = "{}/home-assistant.log".format(hass.config.path())
 
     interesting = "<pre style='margin: 0'>{}</pre>".format(STARTUP)
 
     try:
-        with open(log_file, encoding="utf-8", errors="ignore") as localfile:
-            for line in localfile.readlines():
-                if "[custom_components.hacs" in line:
-                    line = line.replace(
-                        "(MainThread) [custom_components.hacs", "- hacs"
-                    ).replace("]", " -")
-                    interesting += "<pre style='margin: 0'>{}</pre>".format(line)
+        async with aiofiles.open(
+            log_file, mode='r', encoding="utf-8", errors="ignore") as localfile:
+            logfile = await localfile.read()
             localfile.close()
-    except Exception as error:  # pylint: disable=broad-except
-        msg = "Could not load logfile from {} - {}".format(log_file, error)
-        _LOGGER.debug(msg)
+        for line in logfile.readlines():
+            if "[custom_components.hacs" in line:
+                line = line.replace("(MainThread)", "")
+                interesting += "<pre style='margin: 0'>{}</pre>".format(line)
+    except Exception:
+        pass
     return interesting

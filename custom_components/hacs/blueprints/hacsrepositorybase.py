@@ -1,7 +1,7 @@
 """Blueprint for HacsRepositoryBase."""
 # pylint: disable=too-many-instance-attributes,invalid-name,broad-except,wildcard-import
 from custom_components.hacs.blueprints import HacsBase
-from custom_components.hacs.exceptions import HacsRepositoryInfo, HacsNotSoBasicException, HacsBlacklistException, HacsUserScrewupException
+from custom_components.hacs.exceptions import HacsRepositoryInfo, HacsUserScrewupException
 
 class HacsRepositoryBase(HacsBase):
     """HacsRepoBase Class"""

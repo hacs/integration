@@ -3,8 +3,6 @@ import logging
 from homeassistant.components.http import HomeAssistantView
 from custom_components.hacs.blueprints import HacsBase
 
-_LOGGER = logging.getLogger('custom_components.hacs')
-
 
 class HacsViewBase(HomeAssistantView, HacsBase):
     """Base View Class for HACS."""
@@ -45,9 +43,9 @@ class HacsViewBase(HomeAssistantView, HacsBase):
           <nav class="nav-extended black">
             <div class="nav-content">
               <ul class="right tabs tabs-transparent">
-                <li class="tab"><a href="/community_overview">overview</a></li>
-                <li class="tab"><a href="/community_store">store</a></li>
-                <li class="tab"><a href="/community_settings">settings</a></li>
+                <li class="tab"><a href="{self.url_path["overview"]}">overview</a></li>
+                <li class="tab"><a href="{self.url_path["store"]}">store</a></li>
+                <li class="tab"><a href="{self.url_path["settings"]}">settings</a></li>
               </ul>
             </div>
           </nav>

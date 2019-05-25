@@ -2,33 +2,34 @@
 
 class HacsBaseException(Exception):
     """Super basic."""
-    pass
 
 class HacsUserScrewupException(HacsBaseException):
     """Raise this when the user does something they should not do."""
-    pass
+
 
 class HacsNotSoBasicException(HacsBaseException):
     """Not that basic."""
-    pass
+
 
 class HacsDataFileMissing(HacsBaseException):
     """Raise this storage datafile is missing."""
-    pass
 
 class HacsDataNotExpected(HacsBaseException):
     """Raise this when data returned from storage is not ok."""
-    pass
+
 
 class HacsRepositoryInfo(HacsBaseException):
     """Raise this when repository info is missing/wrong."""
-    pass
 
-class HacsMissingManifest(HacsRepositoryInfo):
+
+class HacsMissingManifest(HacsBaseException):
     """Raise this when manifest is missing."""
-    pass
-
+    def __init__(self, message="The manifest file is missing in the repository."):
+        super().__init__(message)
+        self.message = message
 
 class HacsBlacklistException(HacsBaseException):
     """Raise this when the repository is currently in the blacklist."""
-    pass
+    def __init__(self, message="The repository is currently in the blacklist."):
+        super().__init__(message)
+        self.message = message

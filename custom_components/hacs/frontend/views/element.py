@@ -39,7 +39,7 @@ class CommunityElement(HomeAssistantView):
             html = await self.element_view(path)
 
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.error("Ups... There was an isse generating the page %s", error)
+            _LOGGER.debug("Ups... There was an isse generating the page %s", error)
             html = await error_view()
 
         # Show the content

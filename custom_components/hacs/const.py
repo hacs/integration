@@ -15,9 +15,8 @@ DOMAIN_DATA = "{}_data".format(NAME_SHORT.lower())
 BLACKLIST = [
     "custom-cards/custom-card-helpers",
     "custom-cards/information",
-    "custom-cards/config-template-card",
     "custom-cards/tracker-card",
-    "custom-components/hacs",
+#    "custom-components/hacs",
     "custom-components/blueprint",
     "custom-components/information",
     "custom-components/custom-updater",

@@ -36,7 +36,7 @@ async def prosess_repo_request(hass, repo_name):
     try:
         repo = git.get_repo(repo_name)
     except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.error("Could not find repo for %s - %s", repo_name, error)
+        _LOGGER.debug("Could not find repo for %s - %s", repo_name, error)
         _LOGGER.debug("Skipping %s on next run.", repo_name)
         data["commander"].blacklist.append(repo_name)
         return repo, last_release, last_update, ref, releases
@@ -61,7 +61,7 @@ async def prosess_repo_request(hass, repo_name):
             last_update = repo.updated_at.strftime("%d %b %Y %H:%M:%S")
 
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.error("There was an issue parsing data for %s", repo_name)
+            _LOGGER.debug("There was an issue parsing data for %s", repo_name)
 
     return repo, last_release, last_update, ref, releases
 

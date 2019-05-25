@@ -39,7 +39,7 @@ class CommunitySettings(HomeAssistantView):
         try:
             html = await self.settings_view()
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.error(error)
+            _LOGGER.debug(error)
             html = await error_view()
         return web.Response(body=html, content_type="text/html", charset="utf-8")
 

@@ -6,7 +6,6 @@ from aiohttp import web
 from homeassistant.components.http import HomeAssistantView
 from homeassistant.helpers.event import async_call_later
 
-from custom_components.hacs.element import add_new_element
 from custom_components.hacs.frontend.views import error_view
 from custom_components.hacs.handler.download import (
     download_hacs,

@@ -9,26 +9,10 @@ from homeassistant.helpers.event import async_call_later
 
 from custom_components.hacs.const import DOMAIN_DATA
 from custom_components.hacs.blueprints import HacsBase
+from custom_components.hacs.exceptions import HacsBaseException
 
 _LOGGER = logging.getLogger(__name__)
 
-
-async def add_new_element(hacs, element_type, repo):
-    """Adds a new object."""
-    new = Element(element_type, repo)
-
-    # Run update
-    update_result = await new.update_element()
-
-    _LOGGER.debug("Update result %s", update_result)
-
-    if update_result is not None:
-        hacs.data["elements"][new.element_id] = new
-        hacs.data["repos"][element_type].append(repo)
-    else:
-        _LOGGER.error("Could not add %s", repo)
-
-    return update_result
 
 class HacsElement(HacsBase):
     """Base HACS Element Class."""
@@ -113,7 +97,7 @@ class Element(HacsElement):
         try:
             github_repo = self.github.get_repo(self.repo)
         except Exception as error:
-            _LOGGER.error("Could not find repo for %s - %s", self.repo, error)
+            _LOGGER.debug("Could not find repo for %s - %s", self.repo, error)
             self.skip_list_add()
             return
         self.github_repo = github_repo

@@ -64,8 +64,8 @@ class Generate:
                 style='font-size: 18px; float: right; color: #a70000'>
               </i>
             """
-        elif self.element.isinstalled:
-            if self.element.installed_version != self.element.avaiable_version:
+        elif self.element.installed:
+            if self.element.installed_version != self.element.last_release_tag:
                 card_icon = """
                   <i class='fas fa-arrow-up'
                     style='font-size: 18px; float: right; color: #ffab40'>
@@ -76,10 +76,10 @@ class Generate:
     async def changelog(self):
         """Generate changelog link."""
 
-        if not self.element.isinstalled:
+        if not self.element.installed:
             return ""
 
-        if self.element.installed_version == self.element.avaiable_version:
+        if self.element.installed_version == self.element.last_release_tag:
             return ""
 
         return """

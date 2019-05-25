@@ -15,13 +15,14 @@ class CommunityOverview(HomeAssistantView):
 
     requires_auth = False
 
-    url = r"/community_overview"
+    #url = "/community_overview"
     name = "community_overview"
 
     def __init__(self, hass, hacs):
         """Initialize overview."""
         self.hass = hass
         self.hacs = hacs
+        self.url = hacs.url_path["overview"]
 
     async def get(self, request):  # pylint: disable=unused-argument
         """View to serve the overview."""
@@ -29,7 +30,7 @@ class CommunityOverview(HomeAssistantView):
         try:
             html = await self.content()
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.error(error)
+            _LOGGER.debug(error)
             html = await error_view()
         return web.Response(body=html, content_type="text/html", charset="utf-8")
 
@@ -40,7 +41,7 @@ class CommunityOverview(HomeAssistantView):
         content += await style()
         content += await header(self.hacs)
 
-        content += "<div class='container''>"
+        content += "<div class='container'>"
         content += "<h5>CUSTOM INTEGRATIONS</h5>"
         content += await overview(self.hacs, "integration", True)
         content += "<h5>CUSTOM PLUGINS (LOVELACE)</h5>"
@@ -58,12 +59,12 @@ async def overview(hacs, element_type, show_installed_only=False):
         return NO_ELEMENTS
     for entry in hacs.data["elements"]:
         element = hacs.data["elements"][entry]
-        if not element.trackable:
+        if not element.track:
             continue
         if show_installed_only:
-            if not element.isinstalled:
+            if not element.installed:
                 continue
-        if element.element_type == element_type:
+        if element.repository_type == element_type:
             elements.append(element)
     if not elements:
         return NO_ELEMENTS

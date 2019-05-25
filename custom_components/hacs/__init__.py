@@ -32,7 +32,6 @@ from custom_components.hacs.const import (
     BLACKLIST,
     DATA_SCHEMA,
 )
-from custom_components.hacs.element import add_new_element
 from custom_components.hacs.handler.storage import (
     get_data_from_store,
     write_to_data_store,
@@ -107,7 +106,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
         IFRAME["title"],
         IFRAME["icon"],
         IFRAME["path"],
-        {"url": IFRAME["url"]},
+        {"url": hacs.url_path["overview"]},
         require_admin=IFRAME["require_admin"],
     )
 
@@ -126,10 +125,10 @@ class HacsCommander(hacs):
         custom_log_level = {"custom_components.hacs": "debug"}
         await self.hass.services.async_call("logger", "set_level", custom_log_level)
 
-        await self.setup_recuring_tasks()
+        await self.setup_recuring_tasks()  # TODO: Check this...
 
         _LOGGER.info("Trying to load existing data.")
-        returndata = await get_data_from_store(self.hass,self.github)
+        returndata = await get_data_from_store(self.hass, self.github)
 
         if not returndata.get("elements"):
             _LOGGER.info(
@@ -143,9 +142,9 @@ class HacsCommander(hacs):
 
         else:
             if not returndata.get("hacs", {}).get("schema"):
-                await data_migration(self.hass,self.github)
+                await data_migration(self.hass, self.github)
             elif returndata.get("hacs", {}).get("schema") != DATA_SCHEMA:
-                await data_migration(self.hass,self.github)
+                await data_migration(self.hass, self.github)
             else:
                 self.data["elements"] = returndata["elements"]
                 self.data["repos"] = returndata["repos"]
@@ -179,7 +178,7 @@ class HacsCommander(hacs):
         """Check for hacs update."""
         _LOGGER.debug("Checking for HACS updates...")
         try:
-            hacs =self.github.get_repo("custom-components/hacs")
+            hacs = self.github.get_repo("custom-components/hacs")
             self.data["hacs"]["remote"] = list(hacs.get_releases())[
                 0
             ].tag_name
@@ -210,7 +209,7 @@ class HacsCommander(hacs):
                     repo = repo.split("https://github.com/")[-1]
 
                 if len(repo.split("/")) != 2:
-                    _LOGGER.error("%s is not valid", entry)
+                    _LOGGER.debug("%s is not valid", entry)
                     continue
 
                 try:
@@ -218,7 +217,7 @@ class HacsCommander(hacs):
                     if not repo.archived or repo.full_name not in self.blacklist:
                         repos.append(repo.full_name)
                 except Exception as error:  # pylint: disable=broad-except
-                    _LOGGER.error(error)
+                    _LOGGER.debug(error)
 
         # Org repos
         for repo in list(self.github.get_organization("custom-components").get_repos()):
@@ -243,7 +242,7 @@ class HacsCommander(hacs):
                     repo = repo.split("https://github.com/")[-1]
 
                 if len(repo.split("/")) != 2:
-                    _LOGGER.error("%s is not valid", entry)
+                    _LOGGER.debug("%s is not valid", entry)
                     continue
 
                 try:
@@ -251,7 +250,7 @@ class HacsCommander(hacs):
                     if not repo.archived or repo.full_name not in self.blacklist:
                         repos.append(repo.full_name)
                 except Exception as error:  # pylint: disable=broad-except
-                    _LOGGER.error(error)
+                    _LOGGER.debug(error)
 
         ## Org repos
         for repo in list(self.github.get_organization("custom-cards").get_repos()):
@@ -286,7 +285,8 @@ class HacsCommander(hacs):
                     continue
 
                 if element not in self.data["elements"]:
-                    await add_new_element(self, element_type, element)
+                    self.hass.async_create_task(self.register_new_repository(element_type, element))
+                    #await self.register_new_repository(element_type, element)
 
                 else:
                     await self.data["elements"][element].update_element()

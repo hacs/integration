@@ -38,9 +38,9 @@ class CommunityPlugin(HomeAssistantView):
                 response = web.FileResponse(file)
                 response.headers["Cache-Control"] = "max-age=0, must-revalidate"
             else:
-                _LOGGER.error("Tried to serve up '%s' but it does not exist", file)
+                _LOGGER.debug("Tried to serve up '%s' but it does not exist", file)
 
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.error("there was an issue trying to serve %s - %s", file, error)
+            _LOGGER.debug("there was an issue trying to serve %s - %s", file, error)
 
         return response

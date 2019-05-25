@@ -46,7 +46,7 @@ async def async_download_file(hass, url):
     return result
 
 
-async def save_file(location, content):
+async def async_save_file(location, content):
     """Save files."""
     _LOGGER.debug("Saving %s", location)
     try:
@@ -103,7 +103,7 @@ async def download_integration(hass, integration):
 
             # Save the content of the file.
             local_file_path = "{}/{}".format(integrationdir, file.name)
-            await save_file(local_file_path, filecontent)
+            await async_save_file(local_file_path, filecontent)
 
         # Update hass.data
         integration.installed_version = integration.avaiable_version
@@ -185,7 +185,7 @@ async def download_plugin(hass, plugin):
                 filename = file.name
 
             local_file_path = "{}/{}".format(plugin_dir, filename)
-            await save_file(local_file_path, filecontent)
+            await async_save_file(local_file_path, filecontent)
 
         # Update hass.data
         plugin.installed_version = plugin.avaiable_version

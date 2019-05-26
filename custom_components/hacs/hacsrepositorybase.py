@@ -98,6 +98,9 @@ class HacsRepositoryBase(HacsBase):
         # Set the Gihub repository object
         self.set_repository()
 
+        # Set custom
+        self.set_custom()
+
         # Update description.
         self.set_description()
 

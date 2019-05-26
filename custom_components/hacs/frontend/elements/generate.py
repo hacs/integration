@@ -83,9 +83,7 @@ class Generate:
             return ""
 
         return """
-          <a href="https://github.com/{}/releases" target="_blank">
-            CHANGELOG
-          </a>
+          
         """.format(
             self.element.repo
         )

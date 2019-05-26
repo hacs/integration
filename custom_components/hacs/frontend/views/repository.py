@@ -7,13 +7,15 @@ from custom_components.hacs.blueprints import HacsViewBase
 _LOGGER = logging.getLogger('custom_components.hacs.frontend')
 
 LOVELACE_EXAMLE_URL = """
-resources:
-  - url: /community_plugin/{}
+<pre id="LovelaceExample" class="yaml">
+  - url: /community_plugin/{name}/{name}.js
+</pre>
 """
 LOVELACE_EXAMLE_URL_TYPE = """
-resources:
-  - url: /community_plugin/{}
-    type: {}
+<pre id="LovelaceExample" class="yaml">
+  - url: /community_plugin/{name}/{name}.js
+    type: {type}
+</pre>
 """
 
 class HacsRepositoryView(HacsViewBase):
@@ -70,6 +72,92 @@ class HacsRepositoryView(HacsViewBase):
             else:
                 pending_restart = ""
 
+            if repository.additional_info:
+                info = self.github.render_markdown(repository.additional_info)
+                info = info.replace("<h3>", "<h6>").replace(
+                    "</h3>", "</h6>"
+                )
+                info = info.replace("<h2>", "<h5>").replace(
+                    "</h2>", "</h5>"
+                )
+                info = info.replace("<h1>", "<h4>").replace(
+                    "</h1>", "</h4>"
+                )
+                info = info.replace("<code>", "<pre>").replace(
+                    "</code>", "</pre>"
+                )
+                info = info.replace(
+                    "<table>", "<table class='white-text'>"
+                )
+                info = info.replace("<ul>", "")
+                info = info.replace("</ul>", "")
+            else:
+                info = ""
+
+
+            if repository.authors:
+                authors = "<p>Author(s): "
+                for author in repository.authors:
+                    if "@" in author:
+                        author = author.split("@")[-1]
+                    authors += f"<a href='https://github.com/{author}' target='_blank' style='margin: 2'> @{author}</a>"
+                authors += "</p>"
+            else:
+                authors = ""
+
+            if repository.repository_type == "integration":
+                note = f"""
+                    </br>
+                    <i>
+                        When installed, this will be located in '{self.config_dir}/custom_components/{repository.name}/',
+                        you still need to add it to your 'configuration.yaml' file.
+                    </i></br></br>
+                    <i>
+                        To learn more about how to configure this,
+                        click the "REPO" button to get to the repoistory for this integration.
+                    </i>
+                """
+            else:
+                note = f"""
+                    </br><i>
+                        When installed, this will be located in '{self.config_dir}/www/community/{repository.name}',
+                        you still need to add it to your lovelace configuration ('ui-lovelace.yaml' or the raw UI config editor).
+                    </i>
+                    </br></br>
+                    <i>
+                        When you add this to your configuration use this:
+                    </i></br>
+                        {
+                            LOVELACE_EXAMLE_URL.format(repository.name)
+                            if repository.javascript_type is not None else
+                            LOVELACE_EXAMLE_URL_TYPE.format(name=repository.name, type=repository.javascript_type)
+                        }
+                    <a id ="lovelacecopy" onclick="CopyToLovelaceExampleToClipboard()"><i class="fa fa-copy"></i></a>
+                    </br></br><i>
+                        To learn more about how to configure this,
+                        click the "REPO" button to get to the repoistory for this plugin.
+                    </i>
+                """
+
+            if not repository.installed:
+                main_action = "INSTALL"
+            elif repository.pending_update:
+                main_action = "UPGRADE"
+            else:
+                main_action = "REINSTALL"
+
+            if repository.repository_type == "plugin":
+                if not repository.installed:
+                    open_plugin = ""
+                else:
+                    if "lovelace-" in repository.name:
+                        name = repository.name.split("lovelace-")[-1]
+                    else:
+                        name = repository.name
+                    open_plugin = f"<a href='/community_plugin/{repository.name}/{name}.js' target='_blank'>OPEN PLUGIN</a>"
+            else:
+                open_plugin = ""
+
             # Generate content
             content = self.base_content
 
@@ -92,17 +180,26 @@ class HacsRepositoryView(HacsViewBase):
                                     {f"<p><b>Installed version:</b> {repository.version_installed}</p>" if repository.version_installed is not None else ""}
                                     {f"<p><b>Available version:</b> {repository.last_release_tag}</p>" if repository.last_release_tag is not None else ""}
                                     {f"<p><b>Last updated:</b> {repository.last_updated}</p>" if repository.last_updated is not None else ""}
-                                    {"info"}
+                                    <span>{info}</span>
                                     </br>
-                                    {"authors"}
-                                    {"element_note"}
+                                    {authors}
+                                    {note}
                                 </div>
                                 <div class="card-action">
-                                    {"main_action"}
-                                    {"changelog"}
-                                    {"repo"}
-                                    {"open_plugin"}
-                                    {"uninstall"}
+                                    <a href="{self.url_path["api"]}/repository_register/install"
+                                        onclick="ShowProgressBar()">
+                                        {main_action}
+                                    </a>
+                                    {
+                                        f"<a href='https://github.com/{repository.repository_name}/releases' target='_blank'>CHANGELOG</a>"
+                                        if repository.pending_update else ""
+                                    }
+                                    <a href='https://github.com/{repository.repository_name}' target='_blank'>repository</a>
+                                    {open_plugin}
+                                    {
+                                        f"<a href='{self.url_path['api']}/repository/uninstall' class='right red' onclick='ShowProgressBar()'>UNINSTALL</a>"
+                                        if repository.installed else ""
+                                    }
                                 </div>
                                 </div>
                             </div>
@@ -111,7 +208,7 @@ class HacsRepositoryView(HacsViewBase):
                 </div>
             """
 
-        except Exception as exception:
+        except SystemError as exception:
             _LOGGER.error(exception)
             raise web.HTTPFound(self.url_path["error"])
 

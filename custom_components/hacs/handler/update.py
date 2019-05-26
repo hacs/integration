@@ -1,7 +1,7 @@
 """Update data."""
 import logging
 import json
-from custom_components.hacs.element import Element
+
 from custom_components.hacs.const import DOMAIN_DATA
 from custom_components.hacs.handler.storage import write_to_data_store
 

@@ -28,14 +28,21 @@ class HacsBase:
     async def register_new_repository(self, element_type, repo):
         """Register a new repository."""
         from custom_components.hacs.exceptions import HacsBaseException
-        from custom_components.hacs.blueprints import HacsRepositoryIntegration
+        from custom_components.hacs.blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
         from custom_components.hacs.handler.storage import write_to_data_store
 
-        if element_type != "integration":
-            return
-
         _LOGGER.debug(f"({repo}) - Trying to register")
-        repository = HacsRepositoryIntegration(repo)
+
+        if element_type == "integration":
+            return
+            repository = HacsRepositoryIntegration(repo)
+
+        elif element_type == "plugin":
+            repository = HacsRepositoryPlugin(repo)
+
+        else:
+            return False
+
 
         setup_result = None
         try:
@@ -49,6 +56,10 @@ class HacsBase:
             if repository.custom:
                 if repo.repository_name not in self.data["custom"][element_type]:
                     self.data["custom"][element_type].append(repo.repository_name)
-            write_to_data_store(self.config_dir, self.data)
+            await write_to_data_store(self.config_dir, self.data)
+            return True
         else:
+            if repo not in self.blacklist:
+                self.blacklist.append(repo)
             _LOGGER.debug(f"({repo}) - Could not register")
+            return False

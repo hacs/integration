@@ -3,7 +3,6 @@
 import logging
 import json
 from custom_components.hacs.const import STORENAME, VERSION, DATA_SCHEMA
-from custom_components.hacs.element import Element
 
 _LOGGER = logging.getLogger('custom_components.hacs.storage')
 

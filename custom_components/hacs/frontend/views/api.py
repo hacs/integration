@@ -13,7 +13,6 @@ from custom_components.hacs.handler.download import (
     download_plugin,
 )
 from custom_components.hacs.handler.log import get_log_file_content
-from custom_components.hacs.handler.remove import remove_element, remove_repo
 from custom_components.hacs.handler.storage import write_to_data_store, load_storage_file
 
 _LOGGER = logging.getLogger('custom_components.hacs')

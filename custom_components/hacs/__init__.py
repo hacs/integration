@@ -173,8 +173,8 @@ class HacsCommander(hacs):
         """Check for hacs update."""
         _LOGGER.debug("Checking for HACS updates...")
         try:
-            hacs = self.github.get_repo("custom-components/hacs")
-            self.data["hacs"]["remote"] = list(hacs.get_releases())[
+            repository = self.github.get_repo("custom-components/hacs")
+            self.data["hacs"]["remote"] = list(repository.get_releases())[
                 0
             ].tag_name
         except Exception as error:  # pylint: disable=broad-except

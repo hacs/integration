@@ -5,7 +5,6 @@ import aiofiles
 
 import async_timeout
 
-from custom_components.hacs.handler.remove import remove_element
 from custom_components.hacs.handler.storage import write_to_data_store
 from custom_components.hacs.handler.update import update_data_after_action
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -48,7 +47,11 @@ async def async_download_file(hass, url):
 
 async def async_save_file(location, content):
     """Save files."""
+    if "-bundle" in location:
+        location = location.replace("-bundle", "")
+
     _LOGGER.debug("Saving %s", location)
+
     try:
         async with aiofiles.open(location, mode='w', encoding="utf-8", errors="ignore") as outfile:
             await outfile.write(content)

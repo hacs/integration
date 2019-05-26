@@ -33,6 +33,7 @@ async def get_data_from_store(hass):
     example output: {"repositories": {}, "custom": {}, "hacs": {}}
     """
     import aiofiles
+    from custom_components.hacs.blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
     datastore = "{}/.storage/{}".format(hass.config.path(), STORENAME)
     _LOGGER.debug("Reading from datastore %s.", datastore)
 
@@ -51,12 +52,12 @@ async def get_data_from_store(hass):
         returndata["hacs"] = data["hacs"]
 
         for element in data["repositories"]:
-            elementdata = Element(data["repositories"][element]["repository_type"], element)
+            if data["repositories"][element]["repository_type"] == "integration":
+                elementdata = HacsRepositoryIntegration(data["repositories"][element]["repository_name"])
+            elif data["repositories"][element]["repository_type"] == "plugin":
+                elementdata = HacsRepositoryPlugin(data["repositories"][element]["repository_name"])
             for entry in data["repositories"][element]:
                 elementdata.__setattr__(entry, data["repositories"][element][entry])
-
-            # Since this function is used during startup, we clear these flags
-            elementdata.__setattr__("pending_restart", False)
 
             repositories[element] = elementdata
 
@@ -66,20 +67,20 @@ async def get_data_from_store(hass):
         msg = "Could not load data from {} - {}".format(datastore, error)
         _LOGGER.debug(msg)
 
-    return returndata
+    return repositories, returndata
 
 
-async def write_to_data_store(basedir, output):
+async def write_to_data_store(hacs):
     """
     Write data to datastore.
     """
     import aiofiles
-    datastore = "{}/.storage/{}".format(basedir, STORENAME)
+    datastore = "{}/.storage/{}".format(hacs.config_dir, STORENAME)
     _LOGGER.debug("Writing to datastore %s.", datastore)
 
     outdata = {}
-    outdata["hacs"] = output["hacs"]
-    outdata["custom"] = output["custom"]
+    outdata["hacs"] = hacs.data["hacs"]
+    outdata["custom"] = hacs.data["custom"]
 
     outdata["repositories"] = {}
 
@@ -89,12 +90,13 @@ async def write_to_data_store(basedir, output):
         "pending_restart", # Reset on restart.
         "repository",
         "track",  # Reset on restart.
+        "reasons",  # Reset on restart.
     ]
 
-    for element in output["repositories"]:
+    for repository in hacs.repositories:
         elementdata = {}
-        element = output["repositories"][element]
-        attributes = vars(element)
+        repository = hacs.repositories[repository]
+        attributes = vars(repository)
         for key in attributes:
             if key not in skip_keys:
                 elementdata[key] = attributes[key]

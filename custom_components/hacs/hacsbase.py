@@ -36,6 +36,8 @@ class HacsBase:
         _LOGGER.debug(f"({repo}) - Trying to register")
 
         if element_type == "integration":
+            if repo != "custom-components/breaking_changes":
+                return
             repository = HacsRepositoryIntegration(repo)
 
         elif element_type == "plugin":
@@ -54,9 +56,9 @@ class HacsBase:
 
         if setup_result:
             if repository.custom:
-                if repo.repository_name not in self.data["custom"][element_type]:
-                    self.data["custom"][element_type].append(repo.repository_name)
-            await write_to_data_store(self.config_dir, self.data)
+                if repository.repository_name not in self.data["custom"][element_type]:
+                    self.data["custom"][element_type].append(repository.repository_name)
+            await write_to_data_store(self)
             return True
         else:
             if repo not in self.blacklist:

@@ -53,7 +53,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
 
         if not setup:
             self.data[self.repository_id] = self
-            await write_to_data_store(self.config_dir, self.data)
+            await write_to_data_store(self)
             _LOGGER.info(f'({self.repository_name}) - update completed in {(datetime.now() - start_time).seconds} seconds')
         return True
 

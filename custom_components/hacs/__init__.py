@@ -133,7 +133,7 @@ class HacsCommander(hacs):
         await self.setup_recuring_tasks()  # TODO: Check this...
 
         _LOGGER.info("Trying to load existing data.")
-        returndata = await get_data_from_store(self.hass)
+        self.repositories, returndata = await get_data_from_store(self.hass)
 
         if not returndata.get("repositories"):
             _LOGGER.info(
@@ -151,7 +151,6 @@ class HacsCommander(hacs):
             elif returndata.get("hacs", {}).get("schema") != DATA_SCHEMA:
                 await data_migration(self.hass)
             else:
-                self.data["repositories"] = returndata["repositories"]
                 self.data["custom"] = returndata["custom"]
                 self.data["hacs"] = returndata["hacs"]
 
@@ -161,15 +160,15 @@ class HacsCommander(hacs):
         await self.check_for_hacs_update()
 
         # Update installed element data on startup
-        for element in self.data["repositories"]:
-            element_object = self.data["repositories"][element]
-            if element_object.isinstalled:
+        for element in self.repositories:
+            element_object = self.repositories[element]
+            if element_object.installed:
                 #self.hass.async_create_task(element_object.update_element())
-                await element_object.update_element()
+                await element_object.update()
                 # TODO await asyncio.sleep(2) #  Breathing room
 
 
-        await write_to_data_store(self.hass.config.path(), self.data)
+        await write_to_data_store(self)
         self.task_running = False
 
     async def check_for_hacs_update(self, notarealargument=None):
@@ -291,6 +290,6 @@ class HacsCommander(hacs):
 
                 # TODO: await asyncio.sleep(2) #  Breathing room
 
-        await write_to_data_store(self.hass.config.path(), self.data)
+        await write_to_data_store(self)
         _LOGGER.debug(f'Completed full element refresh scan in {(datetime.now() - start_time).seconds} seconds')
         self.task_running = False

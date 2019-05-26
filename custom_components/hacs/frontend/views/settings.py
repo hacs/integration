@@ -109,9 +109,8 @@ class HacsSettingsView(HacsViewBase):
                             <a href="{self.url_path["api"]}/repository_update/{repository.repository_id}" onclick="ShowProgressBar()">
                                 <i class="fa fa-sync" style="color: #26a69a; margin-right: 1%"></i>
                             </a>  {repository.repository_name}
-                            <a {"class='disabled'" if repository.installed else ""} 
-                                href="{self.url_path["api"]}/repository_remove/{repository.repository_id}" 
-                                onclick="ShowProgressBar()" class="secondary-content">
+                            <a href="{self.url_path["api"]}/repository_remove/{repository.repository_id}" 
+                                onclick="ShowProgressBar()" class="secondary-content {"disabled" if repository.installed else ""}">
                                 <i name="delete" class="fas fa-trash-alt"></i>
                             </a>
                         </div>
@@ -122,7 +121,7 @@ class HacsSettingsView(HacsViewBase):
                     integrations.append(line)
 
                 elif repository.repository_type == "plugin":
-                    integrations.append(line)
+                    plugins.append(line)
 
 
 

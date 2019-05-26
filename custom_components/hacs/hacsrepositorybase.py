@@ -26,7 +26,6 @@ class HacsRepositoryBase(HacsBase):
         self.content_files = None
         self.content_objects = None
         self.content_path = None
-        self.custom = False
         self.description = None
         self.hide = False
         self.installed = False
@@ -36,6 +35,7 @@ class HacsRepositoryBase(HacsBase):
         self.local_path = None
         self.name = None
         self.pending_restart = False
+        self.reasons = []
         self.ref = None
         self.releases = None
         self.repository = None
@@ -45,7 +45,21 @@ class HacsRepositoryBase(HacsBase):
         self.show_beta = True
         self.track = True
         self.version_installed = None
-        self.pending_update = bool(self.last_release_tag != self.version_installed)
+
+
+    @property
+    def pending_update(self):
+        """Return flag if the an update is pending."""
+        if self.installed:
+            return bool(self.last_release_tag != self.version_installed)
+        return False
+
+    @property
+    def custom(self):
+        """Return flag if the repository is custom."""
+        if self.repository_name.split("/")[0] not in ["custom-components", "custom-cards"]:
+            return True
+        return False
 
     async def setup_repository(self):
         """
@@ -97,9 +111,6 @@ class HacsRepositoryBase(HacsBase):
         """Run common update tasks."""
         # Set the Gihub repository object
         self.set_repository()
-
-        # Set custom
-        self.set_custom()
 
         # Update description.
         self.set_description()
@@ -207,7 +218,7 @@ class HacsRepositoryBase(HacsBase):
         if self.repository_name in self.data["custom"][self.repository_type]:
             self.data["custom"][self.repository_type].remove(self.repository_name)
 
-        write_to_data_store(self.config_dir, self.data)
+        write_to_data_store(self)
 
 
 
@@ -221,7 +232,7 @@ class HacsRepositoryBase(HacsBase):
         self.version_installed = None
         if self.repository_name not in self.data["custom"][self.repository_type]:
             del self.repositories[self.repository_id]
-        write_to_data_store(self.config_dir, self.data)
+        write_to_data_store(self)
 
     async def check_local_directory(self):
         """Check the local directory."""
@@ -269,25 +280,6 @@ class HacsRepositoryBase(HacsBase):
         except Exception:
             # We kinda expect this one to fail
             pass
-
-    def set_custom(self):
-        """Set the custom flag."""
-        # Check if we need to run this.
-        if self.custom is not None:
-            return
-
-        if self.repository_name is None:
-            raise HacsRepositoryInfo("GitHub repository name is missing")
-
-        # Assign to a temp var so we can check it before using it.
-        temp = self.repository_name
-
-        temp = temp.split("/")[0]
-
-        if temp in ["custom-components", "csutom-cards"]:
-            self.custom = False
-        else:
-            self.custom = True
 
     def set_description(self):
         """Set the custom flag."""

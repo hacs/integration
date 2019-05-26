@@ -20,12 +20,31 @@ class HacsAPIView(HacsViewBase):
         """Serve HacsAPIView."""
         _LOGGER.debug("GET API call for %s with %s", element, action)
 
+        # Register new repository
         if element == "repository_register":
             repository = self.repositories[action]
             result = await repository.install()
             _LOGGER.debug(result)
             raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
 
+
+        # Show content of hacs
+        if element == "hacs" and action == "inspect":
+            jsons = {}
+            skip = [
+                "content_objects",
+                "last_release_object",
+                "repository",
+            ]
+            for repository in self.repositories:
+                repository = self.repositories[repository]
+                jsons[repository.repository_id] = {}
+                var = vars(repository)
+                for item in var:
+                    if item in skip:
+                        continue
+                    jsons[repository.repository_id][item] = var[item]
+            return self.json(jsons)
 
 
     async def post(self, request, element, action=None):  # pylint: disable=unused-argument

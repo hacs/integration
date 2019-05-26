@@ -35,7 +35,7 @@ class HacsOverviewView(HacsViewBase):
                     if not repository.track or repository.hide or not repository.installed:
                         continue
 
-                    if repository.restart_pending:
+                    if repository.pending_restart:
                         card_icon = "<i class='fas fa-info right' style='font-size: 18px; color: #a70000'></i>"
 
                     elif repository.pending_update:

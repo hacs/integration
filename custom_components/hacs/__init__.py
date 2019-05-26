@@ -49,6 +49,7 @@ from custom_components.hacs.frontend.views import (
     HacsStoreView,
     HacsSettingsView,
     HacsRepositoryView,
+    HacsAPIView,
 )
 
 DOMAIN = "{}".format(NAME_SHORT.lower())
@@ -100,6 +101,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hass.http.register_view(HacsOverviewView())
     hass.http.register_view(HacsSettingsView())
     hass.http.register_view(HacsRepositoryView())
+    hass.http.register_view(HacsAPIView())
 
     hacs.data["commander"] = commander
 

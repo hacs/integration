@@ -30,7 +30,7 @@ class HacsSettingsView(HacsViewBase):
             message = request.rel_url.query.get("message")
 
             # HACS restart pending
-            if self.data["hacs"].get("restart_pending"):
+            if self.data["hacs"].get("pending_restart"):
                 hacs_restart = f"""
                     <div class='container'>
                         <div class="row">
@@ -215,7 +215,7 @@ class HacsSettingsView(HacsViewBase):
                                 <div class="card-content black-text">
                                     <h5>{NAME_LONG}</h5>
                                     <b>HACS version:</b> {self.data["hacs"]["local"]}
-                                    {" <b>(RESTART PENDING!)</b>" if self.data["hacs"].get("restart_pending") else ""}</br>
+                                    {" <b>(RESTART PENDING!)</b>" if self.data["hacs"].get("pending_restart") else ""}</br>
                                     <b>Home Assistant version:</b> {HAVERSION}</br>
                                     </br>
                                     <hr>

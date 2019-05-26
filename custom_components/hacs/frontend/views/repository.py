@@ -128,8 +128,8 @@ class HacsRepositoryView(HacsViewBase):
                         When you add this to your configuration use this:
                     </i></br>
                         {
-                            LOVELACE_EXAMLE_URL.format(repository.name)
-                            if repository.javascript_type is not None else
+                            LOVELACE_EXAMLE_URL.format(name=repository.name)
+                            if repository.javascript_type is None else
                             LOVELACE_EXAMLE_URL_TYPE.format(name=repository.name, type=repository.javascript_type)
                         }
                     <a id ="lovelacecopy" onclick="CopyToLovelaceExampleToClipboard()"><i class="fa fa-copy"></i></a>
@@ -186,7 +186,7 @@ class HacsRepositoryView(HacsViewBase):
                                     {note}
                                 </div>
                                 <div class="card-action">
-                                    <a href="{self.url_path["api"]}/repository_register/install"
+                                    <a href="{self.url_path["api"]}/repository_register/{repository.repository_id}"
                                         onclick="ShowProgressBar()">
                                         {main_action}
                                     </a>
@@ -197,7 +197,7 @@ class HacsRepositoryView(HacsViewBase):
                                     <a href='https://github.com/{repository.repository_name}' target='_blank'>repository</a>
                                     {open_plugin}
                                     {
-                                        f"<a href='{self.url_path['api']}/repository/uninstall' class='right red' onclick='ShowProgressBar()'>UNINSTALL</a>"
+                                        f"<a href='{self.url_path['api']}/repository_uninstall/{repository.repository_id}' style='float: right; color: #a70000; font-weight: bold;' onclick='ShowProgressBar()'>UNINSTALL</a>"
                                         if repository.installed else ""
                                     }
                                 </div>
@@ -208,7 +208,7 @@ class HacsRepositoryView(HacsViewBase):
                 </div>
             """
 
-        except SystemError as exception:
+        except Exception as exception:
             _LOGGER.error(exception)
             raise web.HTTPFound(self.url_path["error"])
 

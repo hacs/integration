@@ -18,9 +18,6 @@ async def async_download_file(hass, url):
     """
     # There is a bug somewhere... TODO: Find that bug....
     if "tags/" in url:
-        _LOGGER.debug(
-            "tags/ are in '%s', this is beeing removed, but this IS a bug.", url
-        )
         url = url.replace("tags/", "")
 
     _LOGGER.debug("Donwloading %s", url)
@@ -60,146 +57,6 @@ async def async_save_file(location, content):
     except Exception as error:  # pylint: disable=broad-except
         msg = "Could not write data to {} - {}".format(location, error)
         _LOGGER.debug(msg)
-
-
-async def download_integration(hass, integration):
-    """
-    Download an integration.
-    This will create the required directory, and download any files needed for the integration to function.
-    """
-
-    integrationdir = "{}/custom_components/{}".format(
-        hass.config.path(), integration.element_id
-    )
-
-    # Recreate the integration directory.
-    try:
-        if os.path.exists(integrationdir):
-            _LOGGER.debug(
-                "%s exist, deleting current content before download.", integrationdir
-            )
-            await remove_element(hass, integration)
-
-        # Create the new directory
-        os.mkdir(integrationdir)
-
-    except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.debug("Creating directory %s failed with %s", integrationdir, error)
-        return
-
-    try:
-        # Update integration data
-        await integration.update_element()
-
-        _LOGGER.critical(integration.github_element_content_objects)
-
-        for file in integration.github_element_content_objects:
-            if file.type == "dir":
-                continue
-            _LOGGER.debug("Downloading %s", file.path)
-
-            filecontent = await async_download_file(hass, file.download_url)
-
-            if filecontent is None:
-                _LOGGER.debug("There was an error downloading the file %s", file.path)
-                continue
-
-            # Save the content of the file.
-            local_file_path = "{}/{}".format(integrationdir, file.name)
-            await async_save_file(local_file_path, filecontent)
-
-        # Update hass.data
-        integration.installed_version = integration.avaiable_version
-        integration.isinstalled = True
-        integration.restart_pending = True
-        await update_data_after_action(hass, integration)
-
-    except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.debug(
-            "This sucks! There was an issue downloading the integration - %s", error
-        )
-
-
-async def download_plugin(hass, plugin):
-    """
-    Download a plugin.
-
-    This will create the required directory, and download any files needed for the plugin to function.
-    """
-    www_dir = "{}/www".format(hass.config.path())
-    plugin_base_dir = "{}/community".format(www_dir)
-    plugin_dir = "{}/{}".format(plugin_base_dir, plugin.element_id)
-
-    # Create the www directory.
-    try:
-        if not os.path.exists(www_dir):
-            os.mkdir(www_dir)
-
-    except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.debug("Creating directory %s failed with %s", www_dir, error)
-        return
-
-    # Create the base plugin directory.
-    try:
-        if not os.path.exists(plugin_base_dir):
-            os.mkdir(plugin_base_dir)
-
-    except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.debug("Creating directory %s failed with %s", plugin_base_dir, error)
-        return
-
-    # Create the plugin directory.
-    try:
-        if os.path.exists(plugin_dir):
-            _LOGGER.debug(
-                "%s exist, deleting current content before download.", plugin_dir
-            )
-            await remove_element(hass, plugin)
-
-        # Create the new directory
-        os.mkdir(plugin_dir)
-
-    except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.debug("Creating directory %s failed with %s", plugin_dir, error)
-        return
-
-    try:
-        # Update plugindata
-        await plugin.update_element()
-
-        for file in plugin.github_element_content_objects:
-            if plugin.github_element_content_path != "release":
-                if file.type == "dir" or not file.name.endswith(".js"):
-                    continue
-                downloadurl = file.download_url
-            else:
-                downloadurl = file.browser_download_url
-
-            filecontent = await async_download_file(hass, downloadurl)
-
-            if filecontent is None:
-                _LOGGER.debug("There was an error downloading the file %s", file.path)
-                continue
-
-            # Save the content of the file.
-            if "-bundle" in file.name:
-                filename = file.name.replace("-bundle", "")
-            else:
-                filename = file.name
-
-            local_file_path = "{}/{}".format(plugin_dir, filename)
-            await async_save_file(local_file_path, filecontent)
-
-        # Update hass.data
-        plugin.installed_version = plugin.avaiable_version
-        plugin.isinstalled = True
-        plugin.restart_pending = False
-        await update_data_after_action(hass, plugin)
-
-    except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.debug(
-            "This sucks! There was an issue downloading the plugin - %s", error
-        )
 
 
 async def download_hacs(hass):
@@ -393,7 +250,7 @@ async def download_hacs(hass):
         data["hacs"]["local"] = data["hacs"][
             "remote"
         ]
-        data["hacs"]["restart_pending"] = True
+        data["hacs"]["pending_restart"] = True
         await write_to_data_store(hass.config.path(), data)
 
     except Exception as error:  # pylint: disable=broad-except

@@ -131,7 +131,7 @@ class HacsRepositoryBase(HacsBase):
             if self.content_path == "release":
                 contents = self.content_objects
             else:
-                contents = list(self.repository.get_dir_contents(repository_directory_path.path, ref))
+                contents = list(self.repository.get_dir_contents(repository_directory_path, ref))
 
             for content_object in contents:
                 if content_object.type == "dir":
@@ -185,7 +185,8 @@ class HacsRepositoryBase(HacsBase):
         else:
             self.version_installed = self.last_release_tag
             self.installed = True
-            self.pending_restart = True
+            if self.repository_type == "integration":
+                self.pending_restart = True
             _LOGGER.info(f'({self.repository_name}) - installation completed in {(datetime.now() - start_time).seconds} seconds')
 
 

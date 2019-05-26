@@ -56,7 +56,7 @@ async def get_data_from_store(hass):
                 elementdata.__setattr__(entry, data["repositories"][element][entry])
 
             # Since this function is used during startup, we clear these flags
-            elementdata.__setattr__("restart_pending", False)
+            elementdata.__setattr__("pending_restart", False)
 
             repositories[element] = elementdata
 
@@ -163,6 +163,6 @@ async def data_migration(hass):
 
 
         # Since this function is used during startup, we clear these flags
-        elementdata.__setattr__("restart_pending", False)
+        elementdata.__setattr__("pending_restart", False)
 
         data["repositories"][element] = elementdata

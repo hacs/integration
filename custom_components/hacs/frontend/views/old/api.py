@@ -121,7 +121,7 @@ class CommunityAPI(HomeAssistantView):
                 self.hacs.data["commander"].blacklist.remove(action)
             scan_result = await self.hacs.data["elements"][action].update_element()
 
-            if scan_result is not None:
+            if scan_result is not None:+
                 message = None
                 await write_to_data_store(
                     self.hass.config.path(), self.hacs.data

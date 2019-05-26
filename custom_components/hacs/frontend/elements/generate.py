@@ -296,8 +296,8 @@ class Generate:
             self.element.repo
         )
 
-    async def restart_pending(self):
-        """Generate restart_pending."""
+    async def pending_restart(self):
+        """Generate pending_restart."""
 
         if not self.element.pending_restart or self.element.element_type == "plugin":
             return ""

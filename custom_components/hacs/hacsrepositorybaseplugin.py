@@ -50,6 +50,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
 
         try:
             self.common_update()
+            self.parse_readme_for_jstype()
             if not self.set_repository_content():
                 self.track = False
 

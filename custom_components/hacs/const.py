@@ -16,7 +16,7 @@ BLACKLIST = [
     "custom-cards/custom-card-helpers",
     "custom-cards/information",
     "custom-cards/tracker-card",
-#    "custom-components/hacs",
+    "custom-components/hacs",
     "custom-components/blueprint",
     "custom-components/information",
     "custom-components/custom-updater",
@@ -48,7 +48,7 @@ If you have any issues with this you need to open an issue here:
     NAME_LONG, VERSION, ISSUE_URL
 )
 
-NO_ELEMENTS = "No elements to show."
+NO_ELEMENTS = "No elements to show, open the store to install some awesome stuff."
 
 ERROR = [
     "Luke, I am your father!",

@@ -45,6 +45,10 @@ from custom_components.hacs.frontend.views import (
     HacsStaticView,
     HacsErrorView,
     HacsPluginView,
+    HacsOverviewView,
+    HacsStoreView,
+    HacsSettingsView,
+    HacsRepositoryView,
 )
 
 DOMAIN = "{}".format(NAME_SHORT.lower())
@@ -92,6 +96,10 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hass.http.register_view(HacsStaticView())
     hass.http.register_view(HacsErrorView())
     hass.http.register_view(HacsPluginView())
+    hass.http.register_view(HacsStoreView())
+    hass.http.register_view(HacsOverviewView())
+    hass.http.register_view(HacsSettingsView())
+    hass.http.register_view(HacsRepositoryView())
 
     hacs.data["commander"] = commander
 
@@ -156,7 +164,7 @@ class HacsCommander(hacs):
             if element_object.isinstalled:
                 #self.hass.async_create_task(element_object.update_element())
                 await element_object.update_element()
-                await asyncio.sleep(2) #  Breathing room
+                # TODO await asyncio.sleep(2) #  Breathing room
 
 
         await write_to_data_store(self.hass.config.path(), self.data)
@@ -279,7 +287,7 @@ class HacsCommander(hacs):
                 else:
                     await self.data["repositories"][element].update_element()
 
-                await asyncio.sleep(2) #  Breathing room
+                # TODO: await asyncio.sleep(2) #  Breathing room
 
         await write_to_data_store(self.hass.config.path(), self.data)
         _LOGGER.debug(f'Completed full element refresh scan in {(datetime.now() - start_time).seconds} seconds')

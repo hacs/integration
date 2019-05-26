@@ -52,7 +52,6 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
             self.common_update()
             if not self.set_repository_content():
                 self.track = False
-                self.hide = True
 
         except HacsBaseException as exception:
             raise HacsBaseException(exception)
@@ -60,6 +59,8 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
         except Exception as exception:
             _LOGGER.debug(f"({self.repository_name}) - {exception}")
             return False
+        else:
+            self.track = True
 
         if not setup:
             self.data[self.repository_id] = self

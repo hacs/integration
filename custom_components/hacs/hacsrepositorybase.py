@@ -75,7 +75,6 @@ class HacsRepositoryBase(HacsBase):
             updateresult = await self.update(False)  # pylint: disable=no-member
             if not updateresult:
                 self.track = False
-                self.hide = True
                 if self.repository_name not in self.blacklist:
                     self.blacklist.append(self.repository_name)
                 _LOGGER.debug(f"({self.repository_name}) - Setup failed")
@@ -88,8 +87,8 @@ class HacsRepositoryBase(HacsBase):
         else:
             # If we get there all is good.
             self.start_task_scheduler()
-            if self.repository_id not in self.repositories:
-                self.repositories[self.repository_id] = self
+            if str(self.repository_id) not in self.repositories:
+                self.repositories[str(self.repository_id)] = self
             _LOGGER.debug(f"({self.repository_name}) - Setup of complete")
 
             return True
@@ -332,8 +331,8 @@ class HacsRepositoryBase(HacsBase):
         temp = self.repository.id
 
         if not isinstance(temp, int):
-            raise TypeError(f"Value {temp} is not int Type.")
-        self.repository_id = temp
+            raise TypeError(f"Value {temp} is not IntType.")
+        self.repository_id = str(temp)
 
 
     def set_repository_releases(self):

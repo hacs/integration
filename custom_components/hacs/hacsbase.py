@@ -36,11 +36,13 @@ class HacsBase:
         _LOGGER.debug(f"({repo}) - Trying to register")
 
         if element_type == "integration":
-            return
+            if repo != "custom-components/breaking_changes":
+                return
             repository = HacsRepositoryIntegration(repo)
 
         elif element_type == "plugin":
-            return
+            if repo != "custom-cards/pc-card":
+                return
             repository = HacsRepositoryPlugin(repo)
 
         else:
@@ -55,7 +57,6 @@ class HacsBase:
             return setup_result
 
         if setup_result:
-            self.data["repositories"][repository.repository_id] = repository
             if repository.custom:
                 if repo.repository_name not in self.data["custom"][element_type]:
                     self.data["custom"][element_type].append(repo.repository_name)

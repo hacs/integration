@@ -26,7 +26,7 @@ class HacsViewBase(HomeAssistantView, HacsBase):
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"/></script>
         <link rel="stylesheet" href="{self.url_path["static"]}/hacs.css">
-        <script src={self.url_path["static"]}/hacs.js"></script>
+        <script src="{self.url_path["static"]}/hacs.js"></script>
         """
 
     @property
@@ -39,7 +39,7 @@ class HacsViewBase(HomeAssistantView, HacsBase):
               <ul class="right tabs tabs-transparent">
                 <li class="tab"><a href="{self.url_path["overview"]}">overview</a></li>
                 <li class="tab"><a href="{self.url_path["store"]}">store</a></li>
-                <li class="tab"><a href="{self.url_path["settings"]}">settings</a></li>
+                <li class="tab right"><a href="{self.url_path["settings"]}">settings</a></li>
               </ul>
             </div>
           </nav>

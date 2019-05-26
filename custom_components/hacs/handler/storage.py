@@ -81,14 +81,14 @@ async def write_to_data_store(basedir, output):
     outdata["hacs"] = output["hacs"]
     outdata["custom"] = output["custom"]
 
-    # 'repositories' contains Class objects and cans be stored directly, so we extract the important part.
     outdata["repositories"] = {}
 
     skip_keys = [
         "content_objects",
         "last_release_object",
-        "pending_restart",
-        "repository"
+        "pending_restart", # Reset on restart.
+        "repository",
+        "track",  # Reset on restart.
     ]
 
     for element in output["repositories"]:

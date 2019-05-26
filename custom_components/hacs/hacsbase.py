@@ -17,6 +17,8 @@ class HacsBase:
     repositories = {}
     task_running = False
     url_path = {
+        "api": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
+        "error": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
         "overview": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
         "static": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
         "store": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
@@ -38,6 +40,7 @@ class HacsBase:
             repository = HacsRepositoryIntegration(repo)
 
         elif element_type == "plugin":
+            return
             repository = HacsRepositoryPlugin(repo)
 
         else:

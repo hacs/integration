@@ -33,9 +33,14 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             _LOGGER.info(f'({self.repository_name}) - Starting update')
 
         try:
-            self.common_update()
-            self.set_repository_content()
-            self.set_manifest_content()
+            if self.common_update():
+                setup = False
+            if not self.set_repository_content():
+                self.track = False
+                self.hide = True
+            if not self.set_manifest_content():
+                self.track = False
+                self.hide = True
 
         except HacsBaseException as exception:
             raise HacsBaseException(exception)
@@ -67,6 +72,8 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         if contentfiles:
             self.content_files = contentfiles
 
+        return True
+
     def set_manifest_content(self):
         """Set manifest content."""
         manifest_path = "{}/manifest.json".format(self.content_path)
@@ -82,3 +89,4 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             self.manifest_content = manifest
             self.authors = manifest["codeowners"]
             self.name = manifest["name"]
+            return True

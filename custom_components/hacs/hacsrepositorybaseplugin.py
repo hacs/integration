@@ -50,7 +50,9 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
 
         try:
             self.common_update()
-            self.set_repository_content()
+            if not self.set_repository_content():
+                self.track = False
+                self.hide = True
 
         except HacsBaseException as exception:
             raise HacsBaseException(exception)

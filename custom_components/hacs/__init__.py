@@ -42,13 +42,9 @@ from custom_components.hacs.handler.update import (
     load_plugins_from_git,
 )
 from custom_components.hacs.frontend.views import (
-    CommunityOverview,
-    CommunityElement,
-    CommunityPlugin,
-    CommunityStore,
-    CommunitySettings,
-    CommunityAPI,
     HacsStaticView,
+    HacsErrorView,
+    HacsPluginView,
 )
 
 DOMAIN = "{}".format(NAME_SHORT.lower())
@@ -73,6 +69,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hacs.github = github.Github(github_token, timeout=5, retry=2)
     hacs.blacklist = BLACKLIST
     hacs.config_dir = config_dir
+
     for item in hacs.url_path:
         _LOGGER.critical(f"{item}: {hacs.url_path[item]}")
 
@@ -93,12 +90,8 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
 
     # Register the views
     hass.http.register_view(HacsStaticView())
-    hass.http.register_view(CommunityOverview(hass, hacs))
-    hass.http.register_view(CommunityElement(hass, hacs))
-    hass.http.register_view(CommunityStore(hass, hacs))
-    hass.http.register_view(CommunityPlugin(hass, hacs))
-    hass.http.register_view(CommunitySettings(hass, hacs))
-    hass.http.register_view(CommunityAPI(hass, hacs))
+    hass.http.register_view(HacsErrorView())
+    hass.http.register_view(HacsPluginView())
 
     hacs.data["commander"] = commander
 

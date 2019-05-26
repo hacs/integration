@@ -5,7 +5,7 @@ from aiohttp import web
 import aiofiles
 from custom_components.hacs.blueprints import HacsViewBase
 
-_LOGGER = logging.getLogger('custom_components.hacs')
+_LOGGER = logging.getLogger('custom_components.hacs.frontend')
 
 
 class HacsStaticView(HacsViewBase):

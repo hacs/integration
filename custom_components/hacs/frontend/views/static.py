@@ -11,18 +11,24 @@ _LOGGER = logging.getLogger('custom_components.hacs')
 class HacsStaticView(HacsViewBase):
     """Serve static files."""
 
-    requires_auth = False
-
-    url = "/community_static/{requested_file}"
     name = "community_static"
+
+    def __init__(self):
+        """Initilize."""
+        self.url = self.url_path["static"] + r"/{requested_file}"
 
     async def get(self, request, requested_file):  # pylint: disable=unused-argument
         """Serve static files."""
-        servefile = "{}/custom_components/hacs/frontend/static/{}".format(
+        servefile = "{}/custom_components/hacs/frontend/{}".format(
             self.config_dir, requested_file)
         filecontent = ""
+
         if str(requested_file).endswith(".css"):
             filecontent_type = "text/css"
+
+        elif str(requested_file).endswith(".js"):
+            filecontent_type = "text/javascript"
+
         else:
             filecontent_type = "text/html"
 

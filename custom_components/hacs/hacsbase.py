@@ -18,9 +18,10 @@ class HacsBase:
     task_running = False
     url_path = {
         "overview": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
+        "static": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
         "store": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
         "settings": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
-        "repo": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
+        "repository": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
     }
 
 

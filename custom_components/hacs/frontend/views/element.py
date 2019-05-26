@@ -19,7 +19,7 @@ class CommunityElement(HomeAssistantView):
 
     requires_auth = False
 
-    url = r"/community_element/{path}"
+    url = "/community_element/{path}"
     name = "community_element"
 
     def __init__(self, hass, hacs):
@@ -49,7 +49,7 @@ class CommunityElement(HomeAssistantView):
         """element_view."""
         _LOGGER.debug("Trying to generate view for %s", element)
 
-        self.element = self.hacs.data["elements"][element]
+        self.element = self.hacs.data["repositories"][element]
         self.generate = Generate(self.hass, self.element)
 
         content_style = await style()

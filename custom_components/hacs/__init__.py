@@ -73,6 +73,8 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hacs.github = github.Github(github_token, timeout=5, retry=2)
     hacs.blacklist = BLACKLIST
     hacs.config_dir = config_dir
+    for item in hacs.url_path:
+        _LOGGER.critical(f"{item}: {hacs.url_path[item]}")
 
     # Check if custom_updater exists
     for location in CUSTOM_UPDATER_LOCATIONS:
@@ -152,13 +154,6 @@ class HacsCommander(hacs):
 
         # Make sure we have the correct version
         self.data["hacs"]["local"] = VERSION
-
-        # Reset restart_pending flag
-        self.data["hacs"]["restart_pending"] = False
-        for element in self.data["repositories"]:
-            element = self.data["repositories"][element]
-            element.restart_pending = False
-            self.data["repositories"][element.element_id] = element
 
         await self.check_for_hacs_update()
 

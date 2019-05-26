@@ -1,5 +1,4 @@
 """Blueprint for HacsViewBase."""
-import logging
 from homeassistant.components.http import HomeAssistantView
 from custom_components.hacs.blueprints import HacsBase
 
@@ -14,7 +13,6 @@ class HacsViewBase(HomeAssistantView, HacsBase):
         return f"""
             <head>
                 {self.imports}
-                {self.scripts}
             </head>
             {self.header}
             {self.progress_bar}
@@ -23,17 +21,13 @@ class HacsViewBase(HomeAssistantView, HacsBase):
     @property
     def imports(self):
         """Load imports."""
-        return """
+        return f"""
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link rel="stylesheet" href="/community_static/hacs.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"/>
+        <link rel="stylesheet" href="{self.url_path["static"]}/hacs.css">
+        <script src={self.url_path["static"]}/hacs.js"/>
         """
-
-    @property
-    def scripts(self):
-        """Load scripts."""
-        return ""
 
     @property
     def header(self):

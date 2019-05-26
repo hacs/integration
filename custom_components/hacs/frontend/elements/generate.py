@@ -129,10 +129,11 @@ class Generate:
 
             if self.element.jstype is not None:
                setup_instructions = """
-               <pre class="yaml" style="white-space: pre-line">
+               <pre id="LovelaceExample" class="yaml" style="white-space: pre-line">
                   url: /community_plugin/{element}/{file_name}.js
                   type: {type}
                </pre>
+               <a onclick="CopyToLovelaceExampleToClipboard()"><i class="fa fa-copy"></i></a>
                """.format(
                 element=self.element.element_id,
                 type=self.element.jstype,
@@ -140,9 +141,10 @@ class Generate:
             )
             else:
               setup_instructions = """
-               <pre class="yaml" style="white-space: pre-line">
+               <pre id="LovelaceExample" class="yaml" style="white-space: pre-line">
                   url: /community_plugin/{element}/{file_name}.js
                </pre>
+               <a onclick="CopyToLovelaceExampleToClipboard()"><i class="fa fa-copy"></i></a>
                """.format(
                 element=self.element.element_id,
                 file_name=file_name,

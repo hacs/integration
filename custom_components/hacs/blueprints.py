@@ -1,0 +1,6 @@
+"""Initialize blueprints."""
+# pylint: disable=unused-import
+from custom_components.hacs.hacsbase import HacsBase
+from custom_components.hacs.hacsrepositorybase import HacsRepositoryBase
+from custom_components.hacs.hacsrepositoryintegration import HacsRepositoryIntegration
+from custom_components.hacs.hacsviewbase import HacsViewBase

@@ -154,7 +154,8 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         await self.remove_local_directory()
 
         if self.repository_id in self.repositories:
-            del self.repositories[self.repository_id]
+            if not self.installed:
+                del self.repositories[self.repository_id]
 
         if self.repository_name in self.data["custom"]["integration"]:
             self.data["custom"]["integration"].remove(self.repository_name)
@@ -171,6 +172,8 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         self.installed = False
         self.pending_restart = True
         self.version_installed = None
+        if self.repository_name not in self.data["custom"]["integration"]:
+            del self.repositories[self.repository_id]
         write_to_data_store(self.config_dir, self.data)
 
     async def update(self, setup=False):

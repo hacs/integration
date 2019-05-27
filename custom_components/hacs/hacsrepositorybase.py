@@ -422,4 +422,4 @@ class HacsRepositoryBase(HacsBase):
         else:
             temp = self.repository.updated_at
 
-        return temp.strftime("%d %b %Y %H:%M:%S")
+        return temp.strftime("%d %b %Y %H:%M")

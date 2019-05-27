@@ -22,7 +22,7 @@ function Search() {
         var filter = input.value.toLowerCase();
         var nodes = document.getElementsByClassName('row');
         for (i = 0; i < nodes.length; i++) {
-            if (nodes[i].innerHTML.includes(filter)) {
+            if (nodes[i].innerHTML.toLowerCase().includes(filter)) {
             nodes[i].style.display = "block";
             } else {
             nodes[i].style.display = "none";

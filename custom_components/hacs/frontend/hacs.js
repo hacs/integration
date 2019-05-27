@@ -13,3 +13,20 @@ function CopyToLovelaceExampleToClipboard() {
 function ShowProgressBar() {
     document.getElementById('progressbar').style.display = 'block';
 }
+
+// Searchbar
+
+function Search() {
+    var input = document.getElementById("Search");
+    if (input) {
+        var filter = input.value.toLowerCase();
+        var nodes = document.getElementsByClassName('row');
+        for (i = 0; i < nodes.length; i++) {
+            if (nodes[i].innerHTML.includes(filter)) {
+            nodes[i].style.display = "block";
+            } else {
+            nodes[i].style.display = "none";
+            }
+        }
+    }
+}

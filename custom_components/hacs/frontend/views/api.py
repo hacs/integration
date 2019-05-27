@@ -99,8 +99,9 @@ class HacsAPIView(HacsViewBase):
 
             # If it still have content, continue.
             if repository_name != "":
-                repository = await self.register_new_repository(repository_type, repository_name)
-                if repository.track:
+                repository, result = await self.register_new_repository(repository_type, repository_name)
+                if result:
+                    await self.write_to_data_store()
                     raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
 
             raise web.HTTPFound(self.url_path['settings'])

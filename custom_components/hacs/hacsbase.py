@@ -54,14 +54,14 @@ class HacsBase:
             _LOGGER.debug(exception)
             return setup_result
 
-        if not repository.custom:
+        if setup_result:
             self.repositories[repository.repository_id] = repository
 
-        if not setup_result:
+        else:
             if repo not in self.blacklist:
                 self.blacklist.append(repo)
             _LOGGER.debug(f"({repo}) - Could not register")
-        return repository
+        return repository, setup_result
 
 
     async def write_to_data_store(self):
@@ -153,7 +153,6 @@ class HacsBase:
                     repository.__setattr__(attribute, repositorydata[attribute])
 
                 # Restore complete
-                _LOGGER.info("Loaded %s from storrage.", repository.repository_name)
                 self.repositories[repository.repository_id] = repository
 
         except Exception as exception:

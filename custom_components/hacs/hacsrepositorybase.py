@@ -41,6 +41,7 @@ class HacsRepositoryBase(HacsBase):
         self.repository_id = None
         self.repository_name = None
         self.repository_type = None
+        self.repository_topics = None
         self.show_beta = True
         self.track = True
         self.version_installed = None
@@ -122,6 +123,9 @@ class HacsRepositoryBase(HacsBase):
 
         # Update description.
         self.set_description()
+
+        # Set topics
+        self.set_topics()
 
         # Set repository ID
         self.set_repository_id()
@@ -278,7 +282,7 @@ class HacsRepositoryBase(HacsBase):
             pass
 
     def set_description(self):
-        """Set the custom flag."""
+        """Set the description."""
         if self.repository is None:
             raise HacsRepositoryInfo("GitHub repository object is missing")
 
@@ -289,6 +293,19 @@ class HacsRepositoryBase(HacsBase):
             self.description = temp
         else:
             self.description = ""
+
+    def set_topics(self):
+        """Set topics."""
+        if self.repository is None:
+            raise HacsRepositoryInfo("GitHub repository object is missing")
+
+        # Assign to a temp var so we can check it before using it.
+        temp = self.repository.get_topics()
+
+        if temp:
+            self.repository_topics = temp
+        else:
+            self.repository_topics = ""
 
     def set_repository(self):
         """Set the Github repository object."""

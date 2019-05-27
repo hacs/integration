@@ -28,6 +28,14 @@ class HacsStoreView(HacsViewBase):
                 content += "Loading store items, check back later."
 
             else:
+
+                content += """
+                    <div class='container'>
+                        <input type="text" id="Search" onkeyup="Search()" placeholder="Please enter a search term.." title="Type in a name">
+                    </div>
+                """
+
+
                 for repository in self.repositories:
                     repository = self.repositories[repository]
 
@@ -48,6 +56,8 @@ class HacsStoreView(HacsViewBase):
                             <div class="col s12">
                                 <div class="card blue-grey darken-1">
                                     <div class="card-content white-text">
+                                        <meta repository_topics="{repository.repository_topics}">
+                                        <meta repository_authors="{repository.authors}">
                                         <span class="card-title">
                                             {repository.name} {card_icon}
                                         </span>

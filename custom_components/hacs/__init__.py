@@ -160,8 +160,7 @@ class HacsCommander(hacs):
                 await element_object.update()
                 # TODO await asyncio.sleep(2) #  Breathing room
 
-
-        await self.full_element_scan()
+        await self.write_to_data_store()
         self.task_running = False
 
     async def check_for_hacs_update(self, notarealargument=None):

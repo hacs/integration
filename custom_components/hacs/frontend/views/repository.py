@@ -109,7 +109,7 @@ class HacsRepositoryView(HacsViewBase):
                 note = f"""
                     </br>
                     <i>
-                        When installed, this will be located in '{self.config_dir}/custom_components/{repository.name}/',
+                        When installed, this will be located in '{repository.local_path}',
                         you still need to add it to your 'configuration.yaml' file.
                     </i></br></br>
                     <i>
@@ -120,7 +120,7 @@ class HacsRepositoryView(HacsViewBase):
             else:
                 note = f"""
                     </br><i>
-                        When installed, this will be located in '{self.config_dir}/www/community/{repository.name}',
+                        When installed, this will be located in '{repository.local_path}',
                         you still need to add it to your lovelace configuration ('ui-lovelace.yaml' or the raw UI config editor).
                     </i>
                     </br></br>

@@ -56,13 +56,12 @@ class HacsBase:
 
         if not repository.custom:
             self.repositories[repository.repository_id] = repository
- 
 
         if not setup_result:
             if repo not in self.blacklist:
                 self.blacklist.append(repo)
             _LOGGER.debug(f"({repo}) - Could not register")
-        return setup_result
+        return repository
 
 
     async def write_to_data_store(self):

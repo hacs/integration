@@ -23,13 +23,29 @@ class HacsAPIView(HacsViewBase):
         # Register new repository
         if element == "repository_register":
             repository = self.repositories[action]
-            result = await repository.install()
+            result = await repository.update()
             _LOGGER.debug(result)
+            await self.write_to_data_store()
             raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
 
+        # Uninstall a element from the repository view
+        elif element == "repository_uninstall":
+            repository = self.repositories[action]
+            result = await repository.uninstall()
+            _LOGGER.debug(result)
+            await self.write_to_data_store()
+            raise web.HTTPFound(self.url_path['store'])
+
+        # Remove a custom repository from the settings view
+        elif element == "repository_remove":
+            repository = self.repositories[action]
+            result = await repository.remove()
+            _LOGGER.debug(result)
+            await self.write_to_data_store()
+            raise web.HTTPFound(self.url_path['settings'])
 
         # Show content of hacs
-        if element == "hacs" and action == "inspect":
+        elif element == "hacs" and action == "inspect":
             jsons = {}
             skip = [
                 "content_objects",
@@ -46,6 +62,7 @@ class HacsAPIView(HacsViewBase):
                     jsons[repository.repository_id][item] = var[item]
             return self.json(jsons)
 
+        raise web.HTTPFound(self.url_path['error'])
 
     async def post(self, request, element, action=None):  # pylint: disable=unused-argument
         """Prosess POST API actions."""
@@ -66,6 +83,8 @@ class HacsAPIView(HacsViewBase):
 
             # If it still have content, continue.
             if repository_name != "":
-                await self.register_new_repository(repository_type, repository_name)
+                repository = await self.register_new_repository(repository_type, repository_name)
+                if repository.track:
+                    raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
 
             raise web.HTTPFound(self.url_path['settings'])

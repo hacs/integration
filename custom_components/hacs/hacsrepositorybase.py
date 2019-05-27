@@ -32,7 +32,6 @@ class HacsRepositoryBase(HacsBase):
         self.last_release_object = None
         self.last_release_tag = None
         self.last_updated = None
-        self.local_path = None
         self.name = None
         self.pending_restart = False
         self.reasons = []
@@ -61,6 +60,21 @@ class HacsRepositoryBase(HacsBase):
             return True
         return False
 
+    @property
+    def local_path(self):
+        """Return local path."""
+        local_path = None
+        if self.repository_type == "integration":
+            if self.domain is None:  # pylint: disable=no-member
+                local_path = None
+            else:
+                local_path = f"{self.config_dir}/custom_components/{self.manifest_content.get('domain')}"  # pylint: disable=no-member
+
+        elif self.repository_type == "plugin":
+            local_path = f"{self.config_dir}/www/community/{self.name}"
+
+        return local_path
+
     async def setup_repository(self):
         """
         Run initialation to setup a repository.
@@ -71,16 +85,6 @@ class HacsRepositoryBase(HacsBase):
             # Check the blacklist
             if self.repository_name in self.blacklist or not self.track or self.hide:
                 raise HacsBlacklistException
-
-            # Set local path
-            if self.local_path is None:
-
-                if self.repository_type == "integration":
-                    integration_name = self.repository_name.split("/")[-1]
-                    self.local_path = f"{self.config_dir}/custom_components/{integration_name}"
-
-                elif self.repository_type == "plugin":
-                    self.local_path = f"{self.config_dir}/www/community/{self.name}"
 
             # Validate the repository name
             self.validate_repository_name()
@@ -188,7 +192,7 @@ class HacsRepositoryBase(HacsBase):
         _LOGGER.info(f'({self.repository_name}) - Starting installation')
         try:
             # Run update
-            await self.update(False)  # pylint: disable=no-member
+            await self.update()  # pylint: disable=no-member
 
             # Check local directory
             await self.check_local_directory()
@@ -218,11 +222,6 @@ class HacsRepositoryBase(HacsBase):
             if not self.installed:
                 del self.repositories[self.repository_id]
 
-        if self.repository_name in self.data["custom"][self.repository_type]:
-            self.data["custom"][self.repository_type].remove(self.repository_name)
-
-
-
     async def uninstall(self):
         """Run uninstall tasks."""
         _LOGGER.debug(f"({self.repository_name}) - Starting uninstall")
@@ -230,8 +229,6 @@ class HacsRepositoryBase(HacsBase):
         self.installed = False
         self.pending_restart = True
         self.version_installed = None
-        if self.repository_name not in self.data["custom"][self.repository_type]:
-            del self.repositories[self.repository_id]
 
     async def check_local_directory(self):
         """Check the local directory."""

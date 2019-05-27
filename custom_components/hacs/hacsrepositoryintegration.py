@@ -1,6 +1,5 @@
 """Blueprint for HacsRepositoryIntegration."""
 # pylint: disable=too-many-instance-attributes,invalid-name,broad-except
-from datetime import datetime
 import logging
 import json
 
@@ -24,6 +23,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         self.repository_name = repository_name
         self.repository_type = "integration"
         self.manifest_content = None
+        self.domain = None
 
     async def update(self):
         """Run update tasks."""

@@ -116,10 +116,10 @@ class HacsSettingsView(HacsViewBase):
                     """.format(repository.repository_type)
                 else:
                     remove = """
-                        <a href={} onclick="ShowProgressBar()" class="secondary-content">
+                        <a href={}/repository_remove/{} onclick="ShowProgressBar()" class="secondary-content">
                             <i title="Remove." class="fas fa-trash-alt"></i>
                         </a>
-                    """.format(self.url_path["api"])
+                    """.format(self.url_path["api"], repository.repository_id)
                 line += remove
                 line += "</div></li>"
 

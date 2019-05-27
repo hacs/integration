@@ -68,7 +68,7 @@ class HacsRepositoryBase(HacsBase):
             if self.domain is None:  # pylint: disable=no-member
                 local_path = None
             else:
-                local_path = f"{self.config_dir}/custom_components/{self.manifest_content.get('domain')}"  # pylint: disable=no-member
+                local_path = f"{self.config_dir}/custom_components/{self.domain}"  # pylint: disable=no-member
 
         elif self.repository_type == "plugin":
             local_path = f"{self.config_dir}/www/community/{self.name}"

@@ -171,7 +171,7 @@ class HacsRepositoryView(HacsViewBase):
                                 <div class="card-content white-text">
                                     <span class="card-title">
                                         {repository.name}
-                                        <a href="{self.url_path["api"]}/repository_update/{repository.repository_id}"
+                                        <a href="{self.url_path["api"]}/repository_update_repository/{repository.repository_id}"
                                                 style="float: right; color: #ffab40;" onclick="ShowProgressBar()">
                                             <i name="reload" class="fa fa-sync"></i>
                                         </a>
@@ -186,7 +186,7 @@ class HacsRepositoryView(HacsViewBase):
                                     {note}
                                 </div>
                                 <div class="card-action">
-                                    <a href="{self.url_path["api"]}/repository_register/{repository.repository_id}"
+                                    <a href="{self.url_path["api"]}/repository_install/{repository.repository_id}"
                                         onclick="ShowProgressBar()">
                                         {main_action}
                                     </a>

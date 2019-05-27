@@ -105,7 +105,7 @@ class HacsSettingsView(HacsViewBase):
 
                 line = '<li class="collection-item"><div>'
                 line += """
-                    <a title="Reload data." href="{}/repository_update/{}" onclick="ShowProgressBar()">
+                    <a title="Reload data." href="{}/repository_update_settings/{}" onclick="ShowProgressBar()">
                     <i class="fa fa-sync" style="color: #26a69a; margin-right: 1%"></i></a> 
                 """.format(self.url_path["api"], repository.repository_id)
                 line += repository.repository_name

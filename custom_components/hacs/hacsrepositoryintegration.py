@@ -82,4 +82,5 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             self.manifest_content = manifest
             self.authors = manifest["codeowners"]
             self.name = manifest["name"]
+            self.domain = manifest["domain"]
             return True

@@ -21,12 +21,28 @@ class HacsAPIView(HacsViewBase):
         _LOGGER.debug("GET API call for %s with %s", element, action)
 
         # Register new repository
-        if element == "repository_register":
+        if element == "repository_install":
+            repository = self.repositories[action]
+            result = await repository.install()
+            _LOGGER.debug(result)
+            await self.write_to_data_store()
+            raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
+
+        # Update a repository
+        elif element == "repository_update_repository":
             repository = self.repositories[action]
             result = await repository.update()
             _LOGGER.debug(result)
             await self.write_to_data_store()
             raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
+
+        # Update a repository
+        elif element == "repository_update_settings":
+            repository = self.repositories[action]
+            result = await repository.update()
+            _LOGGER.debug(result)
+            await self.write_to_data_store()
+            raise web.HTTPFound(self.url_path['settings'])
 
         # Uninstall a element from the repository view
         elif element == "repository_uninstall":

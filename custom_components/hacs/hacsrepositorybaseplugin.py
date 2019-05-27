@@ -41,15 +41,11 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
         except Exception:
             pass
 
-    async def update(self, setup=False):
+    async def update(self):
         """Run update tasks."""
-        from custom_components.hacs.handler.storage import write_to_data_store
-        if not setup:
-            start_time = datetime.now()
-            _LOGGER.info(f'({self.repository_name}) - Starting update')
-
         try:
-            self.common_update()
+            if self.common_update():
+                return True
             self.parse_readme_for_jstype()
             if not self.set_repository_content():
                 self.track = False
@@ -63,10 +59,6 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
         else:
             self.track = True
 
-        if not setup:
-            self.data[self.repository_id] = self
-            await write_to_data_store(self)
-            _LOGGER.info(f'({self.repository_name}) - update completed in {(datetime.now() - start_time).seconds} seconds')
         return True
 
     def set_repository_content(self):

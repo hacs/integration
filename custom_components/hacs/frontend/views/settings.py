@@ -103,19 +103,26 @@ class HacsSettingsView(HacsViewBase):
                 if not repository.custom:
                     continue
 
-                line = f"""
-                    <li class="collection-item">
-                        <div>
-                            <a href="{self.url_path["api"]}/repository_update/{repository.repository_id}" onclick="ShowProgressBar()">
-                                <i class="fa fa-sync" style="color: #26a69a; margin-right: 1%"></i>
-                            </a>  {repository.repository_name}
-                            <a href="{self.url_path["api"]}/repository_remove/{repository.repository_id}" 
-                                onclick="ShowProgressBar()" class="secondary-content {"disabled" if repository.installed else ""}">
-                                <i name="delete" class="fas fa-trash-alt"></i>
-                            </a>
-                        </div>
-                    </li>
-                """
+                line = '<li class="collection-item"><div>'
+                line += """
+                    <a title="Reload data." href="{}/repository_update/{}" onclick="ShowProgressBar()">
+                    <i class="fa fa-sync" style="color: #26a69a; margin-right: 1%"></i></a> 
+                """.format(self.url_path["api"], repository.repository_id)
+                line += repository.repository_name
+
+                if repository.installed:
+                    remove = """
+                        <i title="Remove is not possible when {} is installed." class="secondary-content fas fa-trash-alt disabledaction"></i>
+                    """.format(repository.repository_type)
+                else:
+                    remove = """
+                        <a href={} onclick="ShowProgressBar()" class="secondary-content">
+                            <i title="Remove." class="fas fa-trash-alt"></i>
+                        </a>
+                    """.format(self.url_path["api"])
+                line += remove
+                line += "</div></li>"
+
 
                 if repository.repository_type == "integration":
                     integrations.append(line)

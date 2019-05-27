@@ -86,7 +86,7 @@ class HacsRepositoryBase(HacsBase):
             self.validate_repository_name()
 
             # Update repository info
-            updateresult = await self.update(False)  # pylint: disable=no-member
+            updateresult = await self.update()  # pylint: disable=no-member
             if not updateresult:
                 self.track = False
                 if self.repository_name not in self.blacklist:
@@ -109,6 +109,10 @@ class HacsRepositoryBase(HacsBase):
 
     def common_update(self):
         """Run common update tasks."""
+        # Check the blacklist
+        if self.repository_name in self.blacklist or not self.track or self.hide:
+            raise HacsBlacklistException
+
         # Set the Gihub repository object
         self.set_repository()
 
@@ -206,7 +210,6 @@ class HacsRepositoryBase(HacsBase):
 
     async def remove(self):
         """Run remove tasks."""
-        from custom_components.hacs.handler.storage import write_to_data_store
         _LOGGER.debug(f"({self.repository_name}) - Starting removal")
 
         await self.remove_local_directory()
@@ -218,13 +221,10 @@ class HacsRepositoryBase(HacsBase):
         if self.repository_name in self.data["custom"][self.repository_type]:
             self.data["custom"][self.repository_type].remove(self.repository_name)
 
-        write_to_data_store(self)
-
 
 
     async def uninstall(self):
         """Run uninstall tasks."""
-        from custom_components.hacs.handler.storage import write_to_data_store
         _LOGGER.debug(f"({self.repository_name}) - Starting uninstall")
         await self.remove_local_directory()
         self.installed = False
@@ -232,7 +232,6 @@ class HacsRepositoryBase(HacsBase):
         self.version_installed = None
         if self.repository_name not in self.data["custom"][self.repository_type]:
             del self.repositories[self.repository_id]
-        write_to_data_store(self)
 
     async def check_local_directory(self):
         """Check the local directory."""

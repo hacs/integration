@@ -132,7 +132,7 @@ class HacsRepositoryView(HacsViewBase):
                             if repository.javascript_type is None else
                             LOVELACE_EXAMLE_URL_TYPE.format(name=repository.name, type=repository.javascript_type)
                         }
-                    <a id ="lovelacecopy" onclick="CopyToLovelaceExampleToClipboard()"><i class="fa fa-copy"></i></a>
+                    <a title="Copy content to clipboard" id ="lovelacecopy" onclick="CopyToLovelaceExampleToClipboard()"><i class="fa fa-copy"></i></a>
                     </br></br><i>
                         To learn more about how to configure this,
                         click the "REPO" button to get to the repoistory for this plugin.

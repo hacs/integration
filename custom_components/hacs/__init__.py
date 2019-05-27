@@ -156,11 +156,9 @@ class HacsCommander(hacs):
         for element in self.repositories:
             element_object = self.repositories[element]
             if element_object.installed:
-                #self.hass.async_create_task(element_object.update_element())
-                await element_object.update()
+                self.hass.async_create_task(element_object.update())
                 # TODO await asyncio.sleep(2) #  Breathing room
 
-        await self.write_to_data_store()
         self.task_running = False
 
     async def check_for_hacs_update(self, notarealargument=None):
@@ -238,6 +236,5 @@ class HacsCommander(hacs):
                     if repository.installed:
                         await repository.update()
 
-        await self.write_to_data_store()
         _LOGGER.debug(f'Completed full element refresh scan in {(datetime.now() - start_time).seconds} seconds')
         self.task_running = False

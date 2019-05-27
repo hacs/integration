@@ -118,6 +118,8 @@ class HacsRepositoryBase(HacsBase):
         if self.repository_name in self.blacklist or not self.track or self.hide:
             raise HacsBlacklistException
 
+        _LOGGER.debug(f"({self.repository_name}) -Running update")
+
         # Set the Gihub repository object
         self.set_repository()
 

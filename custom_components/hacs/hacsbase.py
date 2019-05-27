@@ -56,6 +56,7 @@ class HacsBase:
 
         if setup_result:
             self.repositories[repository.repository_id] = repository
+            await self.write_to_data_store()
 
         else:
             if repo not in self.blacklist:
@@ -69,7 +70,6 @@ class HacsBase:
         Write data to datastore.
         """
         datastore = "{}/.storage/{}".format(self.config_dir, self.const.STORENAME)
-        _LOGGER.debug("Writing to datastore %s", datastore)
 
         data = {}
         data["hacs"] = self.data["hacs"]

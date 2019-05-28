@@ -41,7 +41,7 @@ class HacsRepositoryBase(HacsBase):
         self.repository_id = None
         self.repository_name = None
         self.repository_type = None
-        self.repository_topics = None
+        #self.topics = None
         self.show_beta = True
         self.track = True
         self.version_installed = None
@@ -124,7 +124,7 @@ class HacsRepositoryBase(HacsBase):
         self.set_repository()
 
         # Set topics
-        await self.set_topics()
+        #await self.set_topics()
 
         # Set repository ID
         self.set_repository_id()
@@ -281,6 +281,10 @@ class HacsRepositoryBase(HacsBase):
             pass
 
     @property
+    def topics(self):
+        return self.arepository.topics
+
+    @property
     def description(self):
         """Description."""
         return self.arepository.description
@@ -294,9 +298,9 @@ class HacsRepositoryBase(HacsBase):
         temp = await self.arepository.get_topics()
 
         if temp:
-            self.repository_topics = temp
+            self.topics = temp
         else:
-            self.repository_topics = ""
+            self.topics = ""
 
     def set_repository(self):
         """Set the Github repository object."""

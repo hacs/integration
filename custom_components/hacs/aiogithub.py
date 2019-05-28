@@ -28,7 +28,7 @@ class AIOGitHub(object):
         headers = self.headers
         headers["Accept"] = "application/vnd.github.mercy-preview+json"
 
-        async with async_timeout.timeout(10, loop=self.loop):
+        async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.get(url, headers=headers)
             response = await response.json()
 
@@ -84,7 +84,7 @@ class AIOGithubRepository(AIOGitHub):
         if ref is not None:
             params["ref"] = ref
 
-        async with async_timeout.timeout(10, loop=self.loop):
+        async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.get(url, headers=self.headers, params=params)
             response = await response.json()
 
@@ -103,12 +103,12 @@ class AIOGithubRepository(AIOGitHub):
         endpoint = "/repos/" + self.full_name + "/releases/" + "latest" if latest else ""
         url = self.baseapi + endpoint
 
-        async with async_timeout.timeout(10, loop=self.loop):
+        async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.get(url, headers=self.headers)
             response = await response.json()
 
             if response.get("message"):
-                raise AIOGitHubBaseException(response["message"])
+                return False
 
             if latest:
                 return AIOGithubRepositoryRelease(response)

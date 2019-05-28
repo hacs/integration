@@ -130,7 +130,7 @@ class HacsRepositoryBase(HacsBase):
         self.set_repository_id()
 
         # Set repository releases
-        self.set_repository_releases()
+        await self.set_repository_releases()
 
         # Check if last updated string changed.
         current = self.last_updated
@@ -354,31 +354,20 @@ class HacsRepositoryBase(HacsBase):
         self.repository_id = str(temp)
 
 
-    def set_repository_releases(self):
+    async def set_repository_releases(self):
         """Set attributes for releases."""
         if self.repository is None:
             raise HacsRepositoryInfo("GitHub repository object is missing")
 
         # Assign to a temp vars so we can check it before using it.
-        temp = list(self.repository.get_releases())
-        releases = []
+        temp = await self.arepository.get_releases(latest=True)
+        _LOGGER.error(temp)
+        if not temp:
+            raise HacsRepositoryInfo("Github releases are missing")
 
-        if temp:
-            # Set info about the latest release.
-            # Assign to a releasetemp var so we can check it before using it.
-            releasetemp = temp[0]
-            self.last_release_object = releasetemp
-            self.last_release_tag = releasetemp.tag_name
+        self.last_release_object = temp
+        self.last_release_tag = temp.tag_name
 
-            # Loop though the releases and add the .tag_name.
-            for release in temp:
-                releases.append(release.tag_name)
-
-            # Check if out temp actually have content.
-            if releases:
-                self.releases = releases
-            else:
-                raise HacsRepositoryInfo("Github releases are missing")
 
     def set_ref(self):
         """Set repository ref to use."""
@@ -393,7 +382,7 @@ class HacsRepositoryBase(HacsBase):
         if self.last_release_tag is not None:
             temp = f"tags/{self.last_release_tag}"
         else:
-            temp = self.repository.default_branch
+            temp = self.arepository.default_branch
 
         # We need this one so lets check it!
         if temp:

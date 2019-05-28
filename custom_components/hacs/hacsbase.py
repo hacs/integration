@@ -87,6 +87,7 @@ class HacsBase:
             repositorydata["installed"] = repository.installed
             repositorydata["name"] = repository.name
             repositorydata["repository_name"] = repository.repository_name
+            repositorydata["repository_type"] = repository.repository_type
             repositorydata["show_beta"] = repository.show_beta
             repositorydata["version_installed"] = repository.version_installed
 

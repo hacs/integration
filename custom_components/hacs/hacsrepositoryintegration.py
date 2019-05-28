@@ -29,8 +29,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
     async def update(self):
         """Run update tasks."""
         try:
-            await self.set_arepository()
-            if self.common_update():
+            if await self.common_update():
                 return True
             if not self.set_repository_content():
                 self.track = False

@@ -45,8 +45,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
     async def update(self):
         """Run update tasks."""
         try:
-            await self.set_arepository()
-            if self.common_update():
+            if await self.common_update():
                 return True
             self.parse_readme_for_jstype()
             if not self.set_repository_content():

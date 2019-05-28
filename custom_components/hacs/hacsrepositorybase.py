@@ -112,7 +112,7 @@ class HacsRepositoryBase(HacsBase):
 
             return True
 
-    def common_update(self):
+    async def common_update(self):
         """Run common update tasks."""
         # Check the blacklist
         if self.repository_name in self.blacklist or not self.track or self.hide:
@@ -124,7 +124,7 @@ class HacsRepositoryBase(HacsBase):
         self.set_repository()
 
         # Set topics
-        self.set_topics()
+        await self.set_topics()
 
         # Set repository ID
         self.set_repository_id()
@@ -283,17 +283,15 @@ class HacsRepositoryBase(HacsBase):
     @property
     def description(self):
         """Description."""
-        if self.arepository:
-            return self.arepository.description
-        return None
+        return self.arepository.description
 
-    def set_topics(self):
+    async def set_topics(self):
         """Set topics."""
         if self.repository is None:
             raise HacsRepositoryInfo("GitHub repository object is missing")
 
         # Assign to a temp var so we can check it before using it.
-        temp = self.repository.get_topics()
+        temp = await self.arepository.get_topics()
 
         if temp:
             self.repository_topics = temp

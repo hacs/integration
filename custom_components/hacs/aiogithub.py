@@ -1,6 +1,8 @@
 """Async Github API implementation."""
 import async_timeout
 
+class AIOGitHubBaseException(BaseException):
+    """Raise this when something is off."""
 
 class AIOGitHub(object):
     """Base Github API implementation."""
@@ -12,10 +14,11 @@ class AIOGitHub(object):
     }
 
     def __init__(self, token, loop, session):
-        """Initialize."""
-        self.headers["Authorization"] = "token {}".format(token)
+        """Must be called before anything else."""
+        self.token = token
         self.loop = loop
         self.session = session
+        self.headers["Authorization"] = "token {}".format(token)
 
     async def get_repo(self, repo: str):
         """Retrun AIOGithubRepository object."""
@@ -26,15 +29,18 @@ class AIOGitHub(object):
             response = await self.session.get(url, headers=self.headers)
             response = await response.json()
 
-        return AIOGithubRepository(response)
+            if response.get("message"):
+                raise AIOGitHubBaseException(response["message"])
+
+            return AIOGithubRepository(response, self.token, self.loop, self.session)
 
 
 class AIOGithubRepository(AIOGitHub):
     """Repository Github API implementation."""
 
-    def __init__(self, attributes):
+    def __init__(self, attributes, token, loop, session):
         """Initialize."""
-        super().__init__()
+        super().__init__(token, loop, session)
         self.attributes = attributes
 
 
@@ -62,3 +68,24 @@ class AIOGithubRepository(AIOGitHub):
     def description(self):
         """description."""
         return self.attributes.get("description")
+
+
+    async def get_topics(self):
+        """Retrun topics."""
+        endpoint = "/repos/" + self.full_name + "/topics"
+        url = self.baseapi + endpoint
+
+        headers = self.headers
+        headers["Accept"] = "application/vnd.github.mercy-preview+json"
+
+        async with async_timeout.timeout(10, loop=self.loop):
+            response = await self.session.get(url, headers=headers)
+            response = await response.json()
+
+            if response.get("names"):
+                return response["names"]
+
+            elif response.get("message"):
+                raise AIOGitHubBaseException(response["message"])
+
+            return

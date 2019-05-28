@@ -39,9 +39,11 @@ class HacsBase:
 
         if element_type == "integration":
             repository = HacsRepositoryIntegration(repo, repositoryobject)
+            await repository.set_arepository()
 
         elif element_type == "plugin":
             repository = HacsRepositoryPlugin(repo, repositoryobject)
+            await repository.set_arepository()
 
         else:
             return False
@@ -77,26 +79,18 @@ class HacsBase:
 
         data["repositories"] = {}
 
-        # Skip attributes that can't be stored, or we want to clear on restart.
-        skip_attributes = [
-            "content_objects",
-            "last_release_object",
-            "pending_restart",
-            "repository",
-            "track",
-            "reasons",
-            "arepository"
-        ]
-
         for repository in self.repositories:
             repositorydata = {}
             repository = self.repositories[repository]
-            attributes = vars(repository)
-            for key in attributes:
-                if key not in skip_attributes:
-                    repositorydata[key] = attributes[key]
 
-            data["repositories"][attributes["repository_id"]] = repositorydata
+            repositorydata["hide"] = repository.hide
+            repositorydata["installed"] = repository.installed
+            repositorydata["name"] = repository.name
+            repositorydata["repository_name"] = repository.repository_name
+            repositorydata["show_beta"] = repository.show_beta
+            repositorydata["version_installed"] = repository.version_installed
+
+            data["repositories"][repository.repository_id] = repositorydata
 
         try:
             async with aiofiles.open(
@@ -149,6 +143,9 @@ class HacsBase:
                 # Not supported
                 else:
                     continue
+
+                # Attach AIOGitHub object
+                await repository.set_arepository()
 
                 # Set repository attributes from stored values
                 for attribute in repositorydata:

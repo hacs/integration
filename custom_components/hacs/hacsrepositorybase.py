@@ -26,7 +26,6 @@ class HacsRepositoryBase(HacsBase):
         self.content_files = None
         self.content_objects = None
         self.content_path = None
-        self.description = None
         self.hide = False
         self.installed = False
         self.last_release_object = None
@@ -37,6 +36,7 @@ class HacsRepositoryBase(HacsBase):
         self.reasons = []
         self.ref = None
         self.releases = None
+        self.arepository = None
         self.repository = None
         self.repository_id = None
         self.repository_name = None
@@ -118,13 +118,10 @@ class HacsRepositoryBase(HacsBase):
         if self.repository_name in self.blacklist or not self.track or self.hide:
             raise HacsBlacklistException
 
-        _LOGGER.debug(f"({self.repository_name}) -Running update")
+        _LOGGER.debug(f"({self.repository_name}) - Running update")
 
         # Set the Gihub repository object
         self.set_repository()
-
-        # Update description.
-        self.set_description()
 
         # Set topics
         self.set_topics()
@@ -283,18 +280,12 @@ class HacsRepositoryBase(HacsBase):
             # We kinda expect this one to fail
             pass
 
-    def set_description(self):
-        """Set the description."""
-        if self.repository is None:
-            raise HacsRepositoryInfo("GitHub repository object is missing")
-
-        # Assign to a temp var so we can check it before using it.
-        temp = self.repository.description
-
-        if temp is not None:
-            self.description = temp
-        else:
-            self.description = ""
+    @property
+    def description(self):
+        """Description."""
+        if self.arepository:
+            return self.arepository.description
+        return None
 
     def set_topics(self):
         """Set topics."""
@@ -323,6 +314,21 @@ class HacsRepositoryBase(HacsBase):
         # Assign to a temp var so we can check it before using it.
         temp = self.github.get_repo(self.repository_name)
         self.repository = temp
+
+    async def set_arepository(self):
+        """Set the AIOGitHub repository object."""
+        # Check if we need to run this.
+        if self.arepository is not None:
+            return
+
+        if self.aiogithub is None:
+            raise HacsRepositoryInfo("GitHub object is missing")
+        elif self.repository_name is None:
+            raise HacsRepositoryInfo("GitHub repository name is missing")
+
+        # Assign to a temp var so we can check it before using it.
+        temp = await self.aiogithub.get_repo(self.repository_name)
+        self.arepository = temp
 
 
     def set_repository_id(self):

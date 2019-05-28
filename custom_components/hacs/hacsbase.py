@@ -4,6 +4,7 @@ import logging
 import uuid
 import json
 import aiofiles
+import asyncio
 
 _LOGGER = logging.getLogger('custom_components.hacs.hacs')
 
@@ -29,7 +30,7 @@ class HacsBase:
     }
 
 
-    async def register_new_repository(self, element_type, repo):
+    async def register_new_repository(self, element_type, repo, repositoryobject=None):
         """Register a new repository."""
         from custom_components.hacs.exceptions import HacsBaseException
         from custom_components.hacs.blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
@@ -37,10 +38,10 @@ class HacsBase:
         _LOGGER.debug(f"({repo}) - Trying to register")
 
         if element_type == "integration":
-            repository = HacsRepositoryIntegration(repo)
+            repository = HacsRepositoryIntegration(repo, repositoryobject)
 
         elif element_type == "plugin":
-            repository = HacsRepositoryPlugin(repo)
+            repository = HacsRepositoryPlugin(repo, repositoryobject)
 
         else:
             return False
@@ -84,6 +85,7 @@ class HacsBase:
             "repository",
             "track",
             "reasons",
+            "arepository"
         ]
 
         for repository in self.repositories:
@@ -158,3 +160,63 @@ class HacsBase:
         except Exception as exception:
             msg = "Could not load data from {} - {}".format(datastore, exception)
             _LOGGER.error(msg)
+
+
+    async def full_repository_scan(self, notarealargument=None):
+        """Full repository scan."""
+        integration_repos, plugin_repos = self.get_repos()
+
+        repos = {"integration": integration_repos, "plugin": plugin_repos}
+
+        _LOGGER.debug(f"Blacklist {self.blacklist}")
+
+        for element_type in repos:
+            for repository in repos[element_type]:
+                _LOGGER.debug(f"Checking {repository.full_name}")
+                if repository.full_name in self.blacklist:
+                    _LOGGER.debug(f"Skipping {repository.full_name}")
+                    continue
+
+                if str(repository.id) not in self.repositories:
+                    self.hass.async_create_task(self.register_new_repository(element_type, repository.full_name, repository))
+
+                else:
+                    repository = self.repositories[str(repository.id)]
+                    self.hass.async_create_task(repository.update())
+
+                await asyncio.sleep(5)
+
+    def get_repos(self):
+        """Get org and custom repos."""
+
+        integration_repos = self.get_repos_integration()
+        plugin_repos = self.get_repos_plugin()
+
+        return integration_repos, plugin_repos
+
+    def get_repos_integration(self):
+        """Get org and custom integration repos."""
+        repositories = []
+
+        # Org repos
+        for repository in list(self.github.get_organization("custom-components").get_repos()):
+            if repository.archived:
+                continue
+            if repository.full_name in self.blacklist:
+                continue
+            repositories.append(repository)
+
+        return repositories
+
+    def get_repos_plugin(self):
+        """Get org and custom plugin repos."""
+        repositories = []
+        ## Org repos
+        for repository in list(self.github.get_organization("custom-cards").get_repos()):
+            if repository.archived:
+                continue
+            if repository.full_name in self.blacklist:
+                continue
+            repositories.append(repository)
+
+        return repositories

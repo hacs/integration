@@ -9,6 +9,7 @@ import logging
 import os.path
 import json
 import asyncio
+import aiohttp
 from datetime import datetime, timedelta
 from pkg_resources import parse_version
 import voluptuous as vol
@@ -16,6 +17,7 @@ from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERS
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_component import EntityComponent
 from homeassistant.helpers.event import async_track_time_interval, async_call_later
+from custom_components.hacs.aiogithub import AIOGitHub
 from custom_components.hacs.blueprints import HacsBase as hacs, HacsRepositoryIntegration
 from custom_components.hacs.const import (
     CUSTOM_UPDATER_LOCATIONS,
@@ -66,6 +68,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
 
     # Add stuff to hacs
     hacs.hass = hass
+    hacs.aiogithub = AIOGitHub(github_token, hass.loop, aiohttp.ClientSession())
     hacs.github = github.Github(github_token, timeout=5, retry=2)
     hacs.blacklist = BLACKLIST
     hacs.config_dir = config_dir

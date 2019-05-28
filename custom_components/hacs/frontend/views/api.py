@@ -60,6 +60,11 @@ class HacsAPIView(HacsViewBase):
             await self.write_to_data_store()
             raise web.HTTPFound(self.url_path['settings'])
 
+        # Remove a custom repository from the settings view
+        elif element == "repositories_reload":
+            self.hass.async_create_task(self.full_repository_scan())
+            raise web.HTTPFound(self.url_path['settings'])
+
         # Show content of hacs
         elif element == "hacs" and action == "inspect":
             jsons = {}

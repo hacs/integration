@@ -149,7 +149,7 @@ class HacsSettingsView(HacsViewBase):
                 <div class='container'>
                     <div class="row">
                         <ul class="collection with-header">
-                            <li class="collection-header"><h5>CUSTOM INTEGRATION REPO'S</h5></li>
+                            <li class="collection-header"><h5>CUSTOM INTEGRATION REPOSITORIES</h5></li>
             """
             for line in integrations:
                 content += line
@@ -159,7 +159,7 @@ class HacsSettingsView(HacsViewBase):
                                 method="post" accept-charset="utf-8"
                                 enctype="application/x-www-form-urlencoded">
                             <input id="custom_url" type="text" name="custom_url" 
-                                    placeholder="ADD CUSTOM INTEGRATION REPO" style="width: 90%">
+                                    placeholder="ADD CUSTOM INTEGRATION REPOSITORY" style="width: 90%">
                                 <button class="btn waves-effect waves-light right" 
                                         type="submit" name="add" onclick="ShowProgressBar()">
                                     <i class="fas fa-save"></i>
@@ -174,7 +174,7 @@ class HacsSettingsView(HacsViewBase):
                 <div class='container'>
                     <div class="row">
                         <ul class="collection with-header">
-                            <li class="collection-header"><h5>CUSTOM PLUGIN REPO'S</h5></li>
+                            <li class="collection-header"><h5>CUSTOM PLUGIN REPOSITORIES</h5></li>
             """
             for line in plugins:
                 content += line
@@ -184,7 +184,7 @@ class HacsSettingsView(HacsViewBase):
                                 method="post" accept-charset="utf-8"
                                 enctype="application/x-www-form-urlencoded">
                             <input id="custom_url" type="text" name="custom_url" 
-                                    placeholder="ADD CUSTOM PLUGIN REPO" style="width: 90%">
+                                    placeholder="ADD CUSTOM PLUGIN REPOSITORY" style="width: 90%">
                                 <button class="btn waves-effect waves-light right" 
                                         type="submit" name="add" onclick="ShowProgressBar()">
                                     <i class="fas fa-save"></i>
@@ -197,7 +197,7 @@ class HacsSettingsView(HacsViewBase):
             # The buttons, must have buttons
             content += f"""
                 <div class='container' style="padding-right: 2%">
-                    <a href="{self.url_path["api"]}/self/reload" class='waves-effect waves-light btn hacsbutton' onclick="ShowProgressBar()">
+                    <a href="{self.url_path["api"]}/repositories_reload/notinuse" class='waves-effect waves-light btn hacsbutton' onclick="ShowProgressBar()">
                         RELOAD DATA
                     </a>
                     <a href='{ISSUE_URL}/new/choose' class='waves-effect waves-light btn right hacsbutton' target="_blank">

@@ -17,9 +17,10 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
     (example: awesome-dev/awesome-repo)
     """
 
-    def __init__(self, repository_name: str):
+    def __init__(self, repository_name: str, repositoryobject=None):
         """Initialize a HacsRepositoryIntegration object."""
         super().__init__()
+        self.repository = repositoryobject
         self.repository_name = repository_name
         self.repository_type = "integration"
         self.manifest_content = None
@@ -28,6 +29,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
     async def update(self):
         """Run update tasks."""
         try:
+            await self.set_arepository()
             if self.common_update():
                 return True
             if not self.set_repository_content():

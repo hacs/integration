@@ -101,7 +101,7 @@ class HacsStoreView(HacsViewBase):
                 if not plugins and not integrations:
                     content += "Loading store items, check back later."
 
-        except Exception as exception:
+        except SystemError as exception:
             _LOGGER.error(exception)
             raise web.HTTPFound(self.url_path["error"])
 

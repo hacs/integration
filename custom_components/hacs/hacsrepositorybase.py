@@ -361,7 +361,7 @@ class HacsRepositoryBase(HacsBase):
 
         # Assign to a temp vars so we can check it before using it.
         temp = await self.arepository.get_releases(latest=True)
-        _LOGGER.error(temp)
+
         if not temp:
             raise HacsRepositoryInfo("Github releases are missing")
 
@@ -417,7 +417,7 @@ class HacsRepositoryBase(HacsBase):
 
         # Assign to a temp var so we can check it before using it.
         if self.last_release_tag is not None:
-            temp = self.last_release_object.created_at
+            temp = self.last_release_object.published_at
         else:
             temp = self.repository.updated_at
 

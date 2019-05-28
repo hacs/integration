@@ -5,6 +5,7 @@ import uuid
 import json
 import aiofiles
 import asyncio
+from custom_components.hacs.aiogithub import AIOGitHubBaseException
 
 _LOGGER = logging.getLogger('custom_components.hacs.hacs')
 
@@ -53,6 +54,8 @@ class HacsBase:
         self.task_running = True
         try:
             setup_result = await repository.setup_repository()
+        except AIOGitHubBaseException as exception:
+            _LOGGER.debug(exception)
         except HacsBaseException as exception:
             _LOGGER.debug(exception)
             return setup_result

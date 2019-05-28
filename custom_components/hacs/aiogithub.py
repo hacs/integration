@@ -1,5 +1,6 @@
 """Async Github API implementation."""
 import async_timeout
+from datetime import datetime
 
 class AIOGitHubBaseException(BaseException):
     """Raise this when something is off."""
@@ -57,7 +58,7 @@ class AIOGithubRepository(AIOGitHub):
 
     @property
     def pushed_at(self):
-        return self.attributes.get("pushed_at")
+        return datetime.strptime(self.attributes.get("pushed_at"), "%Y-%m-%dT%H:%M:%SZ")
 
     @property
     def archived(self):
@@ -170,7 +171,7 @@ class AIOGithubRepositoryRelease(AIOGitHub):
 
     @property
     def published_at(self):
-        return self.attributes.get("published_at")
+        return datetime.strptime(self.attributes.get("published_at"), "%Y-%m-%dT%H:%M:%SZ")
 
     @property
     def draft(self):

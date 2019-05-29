@@ -1,7 +1,7 @@
 """Blueprint for HacsRepositoryBase."""
 # pylint: disable=too-many-instance-attributes,invalid-name,broad-except,wildcard-import
 from asyncio import sleep
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
 import pathlib
 import os
@@ -156,7 +156,7 @@ class HacsRepositoryBase(HacsBase):
             if self.content_path == "release":
                 contents = self.content_objects
             else:
-                contents = list(self.repository.get_dir_contents(repository_directory_path, ref))
+                contents = await self.repository.get_contents(repository_directory_path, ref)
 
             for content_object in contents:
                 if content_object.type == "dir":
@@ -183,11 +183,12 @@ class HacsRepositoryBase(HacsBase):
 
     def start_task_scheduler(self):
         """Start task scheduler."""
-        if not self.installed:
-            return
+        return None
+        #if not self.installed:
+        #    return
 
         # Update installed elements every 30min
-        async_call_later(self.hass, 60*30, self.update)  # pylint: disable=no-member
+        #async_call_later(self.hass, 60*30, self.update)  # pylint: disable=no-member
 
     async def install(self):
         """Run install tasks."""
@@ -283,6 +284,13 @@ class HacsRepositoryBase(HacsBase):
     @property
     def topics(self):
         return self.arepository.topics
+
+
+    @property
+    def throttle_time(self):
+        if self.installed:
+            return timedelta(minutes=30)
+        return timedelta(minutes=500)
 
     @property
     def description(self):

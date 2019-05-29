@@ -38,6 +38,28 @@ class AIOGitHub(object):
 
             return AIOGithubRepository(response, self.token, self.loop, self.session)
 
+    async def get_org_repos(self, org: str):
+        """Retrun a list of AIOGithubRepository objects."""
+        endpoint = "/orgs/" + org + "/repos"
+        url = self.baseapi + endpoint
+
+        headers = self.headers
+        headers["Accept"] = "application/vnd.github.mercy-preview+json"
+
+        async with async_timeout.timeout(20, loop=self.loop):
+            response = await self.session.get(url, headers=headers)
+            response = await response.json()
+
+            if not isinstance(response, list):
+                raise AIOGitHubBaseException(response["message"])
+
+            repositories = []
+
+            for repository in response:
+                repositories.append(AIOGithubRepository(repository, self.token, self.loop, self.session))
+
+            return repositories
+
 
 class AIOGithubRepository(AIOGitHub):
     """Repository Github API implementation."""

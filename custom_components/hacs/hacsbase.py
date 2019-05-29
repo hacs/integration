@@ -17,6 +17,7 @@ class HacsBase:
     hass = None
     config_dir = None
     github = None
+    aiogithub = None
     blacklist = []
     repositories = {}
     task_running = False
@@ -165,7 +166,7 @@ class HacsBase:
 
     async def full_repository_scan(self, notarealargument=None):
         """Full repository scan."""
-        integration_repos, plugin_repos = self.get_repos()
+        integration_repos, plugin_repos = await self.get_repositories()
 
         repos = {"integration": integration_repos, "plugin": plugin_repos}
 
@@ -221,3 +222,47 @@ class HacsBase:
             repositories.append(repository)
 
         return repositories
+
+    async def update_repositories(self):
+        """Run update on registerd repositories, and register new."""
+
+        # Running update on registerd repositories
+        for repository in self.repositories:
+            await self.repositories[repository].update()
+
+        # Register new repositories
+        integrations, plugins = await self.get_repositories()
+
+        ## Integrations
+        for repository in integrations:
+            if repository.archived:
+                continue
+            elif repository.full_name in self.blacklist:
+                continue
+            else:
+                await self.register_new_repository("integration", repository.full_name, repository)
+
+        # Plugins
+        for repository in plugins:
+            if repository.archived:
+                continue
+            elif repository.full_name in self.blacklist:
+                continue
+            else:
+                await self.register_new_repository("integration", repository.full_name, repository)
+
+    async def get_repositories(self):
+        """Get defined repositories."""
+        repositories = {}
+
+        # Get org repositories
+        repositories["integration"] = await self.aiogithub.get_org_repos("custom-components")
+        repositories["plugin"] = await self.aiogithub.get_org_repos("custom-cards")
+
+        # Additional repositories (Not implemented)
+        for repository_type in self.const.DEFAULT_REPOSITORIES:
+            for repository in self.const.DEFAULT_REPOSITORIES[repository_type]:
+                result = await self.aiogithub.get_repo(repository)
+                repositories[repository_type].append(result)
+
+        return repositories["integration"], repositories["plugin"]

@@ -30,6 +30,11 @@ IFRAME = {
     "require_admin": True,
 }
 
+DEFAULT_REPOSITORIES = {
+    "integration": [],
+    "plugin": []
+}
+
 # Messages
 CUSTOM_UPDATER_WARNING = """
 This cannot be used with custom_updater.

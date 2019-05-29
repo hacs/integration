@@ -144,8 +144,7 @@ class HacsCommander(hacs):
                 "local": VERSION,
                 "remote": None,
                 "schema": DATA_SCHEMA}
-            #self.hass.async_create_task(self.full_element_scan())
-            async_call_later(self.hass, 1, self.full_element_scan)
+            async_call_later(self.hass, 1, self.full_repository_scan)
 
         else:
             _LOGGER.warning("migration logic goes here")
@@ -168,10 +167,10 @@ class HacsCommander(hacs):
         """Check for hacs update."""
         _LOGGER.debug("Checking for HACS updates...")
         try:
-            repository = self.github.get_repo("custom-components/hacs")
-            self.data["hacs"]["remote"] = list(repository.get_releases())[
-                0
-            ].tag_name
+            repository = await self.aiogithub.get_repo("custom-components/hacs")
+            release = await repository.get_releases(True)
+            self.data["hacs"]["remote"] = release.tag_name
+
         except Exception as error:  # pylint: disable=broad-except
             _LOGGER.debug(error)
 
@@ -213,31 +212,8 @@ class HacsCommander(hacs):
     async def setup_recuring_tasks(self):
         """Setup recuring tasks."""
 
-        hacs_scan_interval = timedelta(minutes=60)
-        full_element_scan_interval = timedelta(minutes=500)
+        hacs_scan_interval = timedelta(minutes=10)
+        full_element_scan_interval = timedelta(minutes=30)
 
         async_track_time_interval(self.hass, self.check_for_hacs_update, hacs_scan_interval)
-        async_track_time_interval(self.hass, self.full_element_scan, full_element_scan_interval)
-
-    async def full_element_scan(self, notarealargument=None):
-        """Setup full element refresh scan."""
-        self.task_running = True
-        start_time = datetime.now()
-        integration_repos, plugin_repos = self.get_repos()
-
-        repos = {"integration": integration_repos, "plugin": plugin_repos}
-
-        for element_type in repos:
-            for repository in repos[element_type]:
-                if repository.full_name in self.blacklist:
-                    continue
-
-                if str(repository.id) not in self.repositories:
-                    await self.register_new_repository(element_type, repository.full_name)
-                else:
-                    repository = self.repositories[str(repository.id)]
-                    if repository.installed:
-                        await repository.update()
-
-        _LOGGER.debug(f'Completed full element refresh scan in {(datetime.now() - start_time).seconds} seconds')
-        self.task_running = False
+        async_track_time_interval(self.hass, self.update_repositories, full_element_scan_interval)

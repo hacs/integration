@@ -27,7 +27,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
         self.javascript_type = None
         self.name = repository_name.split("/")[-1]
 
-    def parse_readme_for_jstype(self):
+    async def parse_readme_for_jstype(self):
         """Parse the readme looking for js type."""
         try:
             readme = self.repository.get_file_contents("README.md", self.ref)
@@ -44,11 +44,12 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
 
     async def update(self):
         """Run update tasks."""
+        _LOGGER.info("Running update (%s)", self.repository_name)
         try:
             if await self.common_update():
                 return True
-            self.parse_readme_for_jstype()
-            if not self.set_repository_content():
+            await self.parse_readme_for_jstype()
+            if not await self.set_repository_content():
                 self.track = False
 
         except HacsBaseException as exception:
@@ -62,13 +63,13 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
 
         return True
 
-    def set_repository_content(self):
+    async def set_repository_content(self):
         """Set repository content attributes."""
         if self.content_path is None or self.content_path == "":
             # Try fetching data from REPOROOT
             try:
                 files = []
-                objects = list(self.repository.get_dir_contents("", self.ref))
+                objects = await self.repository.get_dir_contents("", self.ref)
                 for item in objects:
                     if item.name.endswith(".js"):
                         files.append(item.name)
@@ -113,7 +114,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
             # Try fetching data from REPOROOT/dist
             try:
                 files = []
-                objects = list(self.repository.get_dir_contents("dist", self.ref))
+                objects = await self.repository.get_dir_contents("dist", self.ref)
                 for item in objects:
                     if item.name.endswith(".js"):
                         files.append(item.name)

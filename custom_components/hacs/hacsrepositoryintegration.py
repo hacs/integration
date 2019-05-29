@@ -28,6 +28,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
 
     async def update(self):
         """Run update tasks."""
+        _LOGGER.info("Running update (%s)", self.repository_name)
         try:
             if await self.common_update():
                 return True
@@ -49,13 +50,14 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
 
         return True
 
-    def set_repository_content(self):
+    async def set_repository_content(self):
         """Set repository content attributes."""
         contentfiles = []
 
         if self.content_path is None:
-            self.content_path = self.repository.get_dir_contents(
-                "custom_components", self.ref)[0].path
+            first = await self.repository.get_contents(
+                "custom_components", self.ref)
+            self.content_path = first[0].path
 
         self.content_objects = list(self.repository.get_dir_contents(
             self.content_path, self.ref))
@@ -68,7 +70,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
 
         return True
 
-    def set_manifest_content(self):
+    async def set_manifest_content(self):
         """Set manifest content."""
         manifest_path = "{}/manifest.json".format(self.content_path)
         manifest = None

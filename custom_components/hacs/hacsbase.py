@@ -13,6 +13,11 @@ _LOGGER = logging.getLogger('custom_components.hacs.hacs')
 class HacsBase:
     """The base class of HACS, nested thoughout the project."""
     import custom_components.hacs.const as const
+    from custom_components.hacs.hacsmigration import HacsMigration
+    from custom_components.hacs.hacsstorage import HacsStorage
+
+    migration = HacsMigration()
+    storage = HacsStorage()
     data = {}
     hass = None
     config_dir = None
@@ -21,6 +26,7 @@ class HacsBase:
     blacklist = []
     repositories = {}
     task_running = False
+
     url_path = {
         "api": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
         "error": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
@@ -180,13 +186,11 @@ class HacsBase:
                     continue
 
                 if str(repository.id) not in self.repositories:
-                    self.hass.async_create_task(self.register_new_repository(element_type, repository.full_name, repository))
+                    await self.register_new_repository(element_type, repository.full_name, repository)
 
                 else:
                     repository = self.repositories[str(repository.id)]
-                    self.hass.async_create_task(repository.update())
-
-                await asyncio.sleep(5)
+                    await repository.update()
 
     def get_repos(self):
         """Get org and custom repos."""

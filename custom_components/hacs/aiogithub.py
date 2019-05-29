@@ -38,9 +38,9 @@ class AIOGitHub(object):
 
             return AIOGithubRepository(response, self.token, self.loop, self.session)
 
-    async def get_org_repos(self, org: str):
+    async def get_org_repos(self, org: str, page=1):
         """Retrun a list of AIOGithubRepository objects."""
-        endpoint = "/orgs/" + org + "/repos"
+        endpoint = "/orgs/" + org + "/repos?page=" + str(page)
         url = self.baseapi + endpoint
 
         headers = self.headers
@@ -53,9 +53,16 @@ class AIOGitHub(object):
             if not isinstance(response, list):
                 raise AIOGitHubBaseException(response["message"])
 
-            repositories = []
+        repositories = []
 
-            for repository in response:
+        for repository in response:
+            repositories.append(AIOGithubRepository(repository, self.token, self.loop, self.session))
+
+        while True:
+            more_pages  = await self.get_org_repos(org, page + 1)
+            if not more_pages:
+                break
+            for repository in more_pages:
                 repositories.append(AIOGithubRepository(repository, self.token, self.loop, self.session))
 
             return repositories

@@ -52,9 +52,6 @@ class HacsStorage(HacsBase):
                 # Attach AIOGitHub object
                 await repository.set_repository()
 
-                # Run initial setup
-                await repository.setup_repository()
-
                 # Set repository attributes from stored values
                 for attribute in repositorydata:
                     repository.__setattr__(attribute, repositorydata[attribute])

@@ -73,24 +73,28 @@ class HacsRepositoryView(HacsViewBase):
                 pending_restart = ""
 
             if repository.additional_info:
-                info = "</br>" + await self.aiogithub.render_markdown(repository.additional_info)
-                info = info.replace("<h3>", "<h6>").replace(
-                    "</h3>", "</h6>"
-                )
-                info = info.replace("<h2>", "<h5>").replace(
-                    "</h2>", "</h5>"
-                )
-                info = info.replace("<h1>", "<h4>").replace(
-                    "</h1>", "</h4>"
-                )
-                info = info.replace("<code>", "<pre>").replace(
-                    "</code>", "</pre>"
-                )
-                info = info.replace(
-                    "<table>", "<table class='white-text'>"
-                )
-                info = info.replace("<ul>", "")
-                info = info.replace("</ul>", "")
+                if repository.info is not None:
+                    info = "</br>" + await self.aiogithub.render_markdown(repository.additional_info)
+                    info = info.replace("<h3>", "<h6>").replace(
+                        "</h3>", "</h6>"
+                    )
+                    info = info.replace("<h2>", "<h5>").replace(
+                        "</h2>", "</h5>"
+                    )
+                    info = info.replace("<h1>", "<h4>").replace(
+                        "</h1>", "</h4>"
+                    )
+                    info = info.replace("<code>", "<pre>").replace(
+                        "</code>", "</pre>"
+                    )
+                    info = info.replace(
+                        "<table>", "<table class='white-text'>"
+                    )
+                    info = info.replace("<ul>", "")
+                    info = info.replace("</ul>", "")
+                    repository.info = info
+                else:
+                    info = repository.info
             else:
                 info = ""
 

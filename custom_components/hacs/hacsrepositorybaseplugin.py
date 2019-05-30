@@ -73,9 +73,11 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
             # Try fetching data from Release
             try:
                 files = []
-                for item in self.last_release_object.assets:
-                    if item.name.endswith(".js"):
-                        files.append(item.name)
+                if self.last_release_object is not None:
+                    if self.last_release_object.assets is not None:
+                        for item in self.last_release_object.assets:
+                            if item.name.endswith(".js"):
+                                files.append(item.name)
 
                 # Handler for plugin requirement 3
                 find_file_name1 = "{}.js".format(self.name)

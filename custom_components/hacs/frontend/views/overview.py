@@ -3,7 +3,6 @@
 import logging
 from aiohttp import web
 from custom_components.hacs.blueprints import HacsViewBase
-from custom_components.hacs.const import NO_ELEMENTS
 
 _LOGGER = logging.getLogger('custom_components.hacs.frontend')
 
@@ -26,7 +25,8 @@ class HacsOverviewView(HacsViewBase):
             plugins = []
 
             if not self.repositories:
-                content += NO_ELEMENTS
+                if not self.data["task_running"]:
+                    content += self.const.NO_ELEMENTS
 
             else:
                 for repository in self.repositories:
@@ -88,7 +88,8 @@ class HacsOverviewView(HacsViewBase):
                     content += "</div>"
 
                 if not plugins and not integrations:
-                    content += NO_ELEMENTS
+                    if not self.data["task_running"]:
+                        content += self.const.NO_ELEMENTS
 
 
         except Exception as exception:

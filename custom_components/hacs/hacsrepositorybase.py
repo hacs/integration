@@ -28,6 +28,7 @@ class HacsRepositoryBase(HacsBase):
         self.content_objects = None
         self.content_path = None
         self.hide = False
+        self.info = None
         self.installed = False
         self.last_release_object = None
         self.last_release_tag = None

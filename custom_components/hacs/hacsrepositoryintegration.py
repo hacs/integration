@@ -32,10 +32,10 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         try:
             if await self.common_update():
                 return True
-            if not self.set_repository_content():
+            if not await self.set_repository_content():
                 self.track = False
 
-            if not self.set_manifest_content():
+            if not await self.set_manifest_content():
                 self.track = False
 
 
@@ -59,8 +59,8 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
                 "custom_components", self.ref)
             self.content_path = first[0].path
 
-        self.content_objects = list(self.repository.get_dir_contents(
-            self.content_path, self.ref))
+        self.content_objects = await self.repository.get_contents(
+            self.content_path, self.ref)
 
         for filename in self.content_objects:
             contentfiles.append(filename.name)
@@ -78,8 +78,8 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         if "manifest.json" not in self.content_files:
             raise HacsMissingManifest
 
-        manifest = self.repository.get_file_contents(manifest_path, self.ref)
-        manifest = json.loads(manifest.decoded_content.decode())
+        manifest = await self.repository.get_contents(manifest_path, self.ref)
+        manifest = json.loads(manifest.content)
 
         if manifest:
             self.manifest_content = manifest

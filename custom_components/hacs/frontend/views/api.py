@@ -25,7 +25,7 @@ class HacsAPIView(HacsViewBase):
             repository = self.repositories[action]
             result = await repository.install()
             _LOGGER.debug(result)
-            await self.write_to_data_store()
+            await self.storage.set()
             raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
 
         # Update a repository
@@ -33,7 +33,7 @@ class HacsAPIView(HacsViewBase):
             repository = self.repositories[action]
             result = await repository.update()
             _LOGGER.debug(result)
-            await self.write_to_data_store()
+            await self.storage.set()
             raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
 
         # Update a repository
@@ -41,7 +41,7 @@ class HacsAPIView(HacsViewBase):
             repository = self.repositories[action]
             result = await repository.update()
             _LOGGER.debug(result)
-            await self.write_to_data_store()
+            await self.storage.set()
             raise web.HTTPFound(self.url_path['settings'])
 
         # Uninstall a element from the repository view
@@ -49,7 +49,7 @@ class HacsAPIView(HacsViewBase):
             repository = self.repositories[action]
             result = await repository.uninstall()
             _LOGGER.debug(result)
-            await self.write_to_data_store()
+            await self.storage.set()
             raise web.HTTPFound(self.url_path['store'])
 
         # Remove a custom repository from the settings view
@@ -57,12 +57,12 @@ class HacsAPIView(HacsViewBase):
             repository = self.repositories[action]
             result = await repository.remove()
             _LOGGER.debug(result)
-            await self.write_to_data_store()
+            await self.storage.set()
             raise web.HTTPFound(self.url_path['settings'])
 
         # Remove a custom repository from the settings view
         elif element == "repositories_reload":
-            self.hass.async_create_task(self.full_repository_scan())
+            self.hass.async_create_task(self.update_repositories())
             raise web.HTTPFound(self.url_path['settings'])
 
         # Show content of hacs
@@ -106,7 +106,7 @@ class HacsAPIView(HacsViewBase):
             if repository_name != "":
                 repository, result = await self.register_new_repository(repository_type, repository_name)
                 if result:
-                    await self.write_to_data_store()
+                    await self.storage.set()
                     raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
 
             raise web.HTTPFound(self.url_path['settings'])

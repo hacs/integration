@@ -36,12 +36,10 @@ class HacsRepositoryBase(HacsBase):
         self.reasons = []
         self.ref = None
         self.releases = None
-        self.arepository = None
         self.repository = None
         self.repository_id = None
         self.repository_name = None
         self.repository_type = None
-        #self.topics = None
         self.show_beta = True
         self.track = True
         self.version_installed = None
@@ -121,32 +119,32 @@ class HacsRepositoryBase(HacsBase):
         _LOGGER.debug(f"({self.repository_name}) - Running update")
 
         # Set the Gihub repository object
-        self.set_repository()
+        await self.set_repository()
 
         # Set topics
         #await self.set_topics()
 
         # Set repository ID
-        self.set_repository_id()
+        await self.set_repository_id()
 
         # Set repository releases
         await self.set_repository_releases()
 
         # Check if last updated string changed.
         current = self.last_updated
-        new = self.return_last_update()
+        new = await self.return_last_update()
         if current == new and current is not None:
             return True
         self.last_updated = new
 
         # Set the repository ref
-        self.set_ref()
+        await self.set_ref()
 
         # Set additional info
-        self.set_additional_info()
+        await self.set_additional_info()
 
         # Run task later
-        self.start_task_scheduler()
+        #self.start_task_scheduler()
 
 
     async def download_repository_directory_content(self, repository_directory_path, local_directory, ref):
@@ -166,8 +164,6 @@ class HacsRepositoryBase(HacsBase):
 
                 _LOGGER.debug(f"Downloading {content_object.name}")
 
-                if self.content_path == "release":
-                    filecontent = await async_download_file(self.hass, content_object.browser_download_url)
                 filecontent = await async_download_file(self.hass, content_object.download_url)
 
                 if filecontent is None:
@@ -181,7 +177,7 @@ class HacsRepositoryBase(HacsBase):
         except Exception as exception:
             _LOGGER.debug(exception)
 
-    def start_task_scheduler(self):
+    async def start_task_scheduler(self):
         """Start task scheduler."""
         return None
         #if not self.installed:
@@ -264,7 +260,7 @@ class HacsRepositoryBase(HacsBase):
             _LOGGER.debug(f"({self.repository_name}) - Removing directory {self.local_path} failed with {exception}")
             return
 
-    def set_additional_info(self):
+    async def set_additional_info(self):
         """Add additional info (from info.md)."""
         if self.repository is None:
             raise HacsRepositoryInfo("GitHub repository object is missing")
@@ -273,9 +269,8 @@ class HacsRepositoryBase(HacsBase):
 
         try:
             # Assign to a temp var so we can check it before using it.
-            temp = self.repository.get_file_contents("info.md", self.ref)
-            temp = temp.decoded_content.decode()
-            self.additional_info = temp
+            temp = await self.repository.get_contents("info.md", self.ref)
+            self.additional_info = temp.content
 
         except Exception:
             # We kinda expect this one to fail
@@ -283,7 +278,7 @@ class HacsRepositoryBase(HacsBase):
 
     @property
     def topics(self):
-        return self.arepository.topics
+        return self.repository.topics
 
 
     @property
@@ -295,7 +290,7 @@ class HacsRepositoryBase(HacsBase):
     @property
     def description(self):
         """Description."""
-        return self.arepository.description
+        return self.repository.description
 
     async def set_topics(self):
         """Set topics."""
@@ -303,32 +298,17 @@ class HacsRepositoryBase(HacsBase):
             raise HacsRepositoryInfo("GitHub repository object is missing")
 
         # Assign to a temp var so we can check it before using it.
-        temp = await self.arepository.get_topics()
+        temp = await self.repository.get_topics()
 
         if temp:
             self.topics = temp
         else:
             self.topics = ""
 
-    def set_repository(self):
-        """Set the Github repository object."""
-        # Check if we need to run this.
-        if self.repository is not None:
-            return
-
-        if self.github is None:
-            raise HacsRepositoryInfo("GitHub object is missing")
-        elif self.repository_name is None:
-            raise HacsRepositoryInfo("GitHub repository name is missing")
-
-        # Assign to a temp var so we can check it before using it.
-        temp = self.github.get_repo(self.repository_name)
-        self.repository = temp
-
-    async def set_arepository(self):
+    async def set_repository(self):
         """Set the AIOGitHub repository object."""
         # Check if we need to run this.
-        if self.arepository is not None:
+        if self.repository is not None:
             return
 
         if self.aiogithub is None:
@@ -338,16 +318,16 @@ class HacsRepositoryBase(HacsBase):
 
         # Assign to a temp var so we can check it before using it.
         temp = await self.aiogithub.get_repo(self.repository_name)
-        self.arepository = temp
+        self.repository = temp
 
 
-    def set_repository_id(self):
+    async def set_repository_id(self):
         """Set the ID of an repository."""
         # Check if we need to run this.
         if self.repository_id is not None:
             return
 
-        if self.github is None:
+        if self.aiogithub is None:
             raise HacsRepositoryInfo("GitHub object is missing")
         elif self.repository_name is None:
             raise HacsRepositoryInfo("GitHub repository name is missing")
@@ -368,7 +348,7 @@ class HacsRepositoryBase(HacsBase):
             raise HacsRepositoryInfo("GitHub repository object is missing")
 
         # Assign to a temp vars so we can check it before using it.
-        temp = await self.arepository.get_releases(latest=True)
+        temp = await self.repository.get_releases(True)
 
         if not temp:
             raise HacsRepositoryInfo("Github releases are missing")
@@ -377,7 +357,7 @@ class HacsRepositoryBase(HacsBase):
         self.last_release_tag = temp.tag_name
 
 
-    def set_ref(self):
+    async def set_ref(self):
         """Set repository ref to use."""
         # Check if we need to run this.
         if self.ref is not None:
@@ -390,7 +370,7 @@ class HacsRepositoryBase(HacsBase):
         if self.last_release_tag is not None:
             temp = f"tags/{self.last_release_tag}"
         else:
-            temp = self.arepository.default_branch
+            temp = self.repository.default_branch
 
         # We need this one so lets check it!
         if temp:
@@ -406,7 +386,7 @@ class HacsRepositoryBase(HacsBase):
             else:
                 self.ref = temp
 
-    def validate_repository_name(self):
+    async def validate_repository_name(self):
         """Validate the given repository_name."""
         if "/" not in self.repository_name:
             raise HacsUserScrewupException(
@@ -418,7 +398,7 @@ class HacsRepositoryBase(HacsBase):
                 "GitHub repository name "
                 f"'{self.repository_name}' is not the correct format")
 
-    def return_last_update(self):
+    async def return_last_update(self):
         """Return a last update string."""
         if self.repository is None:
             raise HacsRepositoryInfo("GitHub repository object is missing")

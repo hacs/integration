@@ -68,7 +68,7 @@ async def download_hacs(hass):
         repo = git.get_repo("custom-components/hacs")
         ref = "tags/{}".format(data["hacs"]["remote"])
 
-        remote_dir = repo.get_dir_contents("custom_components/hacs", ref)
+        remote_dir = repo.get_contents("custom_components/hacs", ref)
 
         _LOGGER.debug("Content in remote repo %s", str(list(remote_dir)))
 
@@ -103,7 +103,7 @@ async def download_hacs(hass):
 
         # Download the content of "frontend"
         try:
-            remote_dir = repo.get_dir_contents("custom_components/hacs/frontend", ref)
+            remote_dir = repo.get_contents("custom_components/hacs/frontend", ref)
             local_base_dir = "{}/frontend".format(hacs_directory)
 
             _LOGGER.debug("Content in remote repo %s", str(list(remote_dir)))
@@ -138,7 +138,7 @@ async def download_hacs(hass):
 
         # Download the content of "frontend/views"
         try:
-            remote_dir = repo.get_dir_contents(
+            remote_dir = repo.get_contents(
                 "custom_components/hacs/frontend/views", ref
             )
             local_base_dir = "{}/frontend/views".format(hacs_directory)
@@ -176,7 +176,7 @@ async def download_hacs(hass):
 
         # Download the content of "frontend/elements"
         try:
-            remote_dir = repo.get_dir_contents(
+            remote_dir = repo.get_contents(
                 "custom_components/hacs/frontend/elements", ref
             )
             local_base_dir = "{}/frontend/elements".format(hacs_directory)
@@ -214,7 +214,7 @@ async def download_hacs(hass):
 
         # Download the content of "handler"
         try:
-            remote_dir = repo.get_dir_contents("custom_components/hacs/handler", ref)
+            remote_dir = repo.get_contents("custom_components/hacs/handler", ref)
             local_base_dir = "{}/handler".format(hacs_directory)
 
             _LOGGER.debug("Content in remote repo %s", str(list(remote_dir)))

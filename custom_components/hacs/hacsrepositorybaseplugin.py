@@ -30,8 +30,8 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
     async def parse_readme_for_jstype(self):
         """Parse the readme looking for js type."""
         try:
-            readme = self.repository.get_file_contents("README.md", self.ref)
-            readme = readme.decoded_content.decode()
+            readme = self.repository.get_contents("README.md", self.ref)
+            readme = readme.decoded_content
             for line in readme.splitlines():
                 if "type: module" in line:
                     self.javascript_type = "module"
@@ -55,7 +55,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
         except HacsBaseException as exception:
             raise HacsBaseException(exception)
 
-        except Exception as exception:
+        except SystemError as exception:
             _LOGGER.debug(f"({self.repository_name}) - {exception}")
             return False
         else:
@@ -69,7 +69,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
             # Try fetching data from REPOROOT
             try:
                 files = []
-                objects = await self.repository.get_dir_contents("", self.ref)
+                objects = await self.repository.get_contents("", self.ref)
                 for item in objects:
                     if item.name.endswith(".js"):
                         files.append(item.name)
@@ -114,7 +114,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
             # Try fetching data from REPOROOT/dist
             try:
                 files = []
-                objects = await self.repository.get_dir_contents("dist", self.ref)
+                objects = await self.repository.get_contents("dist", self.ref)
                 for item in objects:
                     if item.name.endswith(".js"):
                         files.append(item.name)

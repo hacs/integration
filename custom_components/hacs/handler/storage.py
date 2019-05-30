@@ -2,7 +2,7 @@
 # pylint: disable=broad-except
 import logging
 import json
-from custom_components.hacs.const import STORENAME, VERSION, DATA_SCHEMA
+from custom_components.hacs.const import STORENAME, VERSION, STORAGE_VERSION
 
 _LOGGER = logging.getLogger('custom_components.hacs.storage')
 

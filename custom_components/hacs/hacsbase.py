@@ -2,9 +2,6 @@
 # pylint: disable=too-few-public-methods
 import logging
 import uuid
-import json
-import aiofiles
-import asyncio
 from custom_components.hacs.aiogithub import AIOGitHubBaseException
 
 _LOGGER = logging.getLogger('custom_components.hacs.hacs')
@@ -13,49 +10,78 @@ _LOGGER = logging.getLogger('custom_components.hacs.hacs')
 class HacsBase:
     """The base class of HACS, nested thoughout the project."""
     import custom_components.hacs.const as const
-    from custom_components.hacs.hacsmigration import HacsMigration
-    from custom_components.hacs.hacsstorage import HacsStorage
 
-    migration = HacsMigration()
-    storage = HacsStorage()
+    migration = None
+    storage = None
     data = {}
     hass = None
     config_dir = None
-    github = None
     aiogithub = None
     blacklist = []
     repositories = {}
     task_running = False
 
-    url_path = {
-        "api": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
-        "error": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
-        "overview": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
-        "static": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
-        "store": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
-        "settings": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
-        "repository": f"/community_{str(uuid.uuid4())}-{str(uuid.uuid4())}",
-    }
+    url_path = {}
+    for endpoint in ["api", "error", "overview", "static", "store", "settings", "repository"]:
+        url_path[endpoint] = "/community_{}-{}".format(str(uuid.uuid4()), str(uuid.uuid4()))
 
+    async def startup_tasks(self):
+        """Run startup_tasks."""
+        self.task_running = True
+
+        _LOGGER.debug("Runing startup tasks.")
+
+        custom_log_level = {"custom_components.hacs": "debug"}
+        await self.hass.services.async_call("logger", "set_level", custom_log_level)
+
+        #await self.setup_recuring_tasks()  # TODO: Check this...
+
+        _LOGGER.info("Trying to load existing data.")
+
+        await self.storage.get()
+
+        if not self.repositories:
+            _LOGGER.info("Expected data did not exist running initial setup, this will take some time.")
+            self.repositories = {}
+            self.data["hacs"] = {
+                "local": self.const.VERSION,
+                "remote": None,
+                "schema": self.const.STORAGE_VERSION}
+            await self.update_repositories()
+
+        else:
+            _LOGGER.warning("Migration logic goes here")
+
+        # Make sure we have the correct version
+        self.data["hacs"]["local"] = self.const.VERSION
+
+        #await self.check_for_hacs_update()
+
+        # Update installed element data on startup
+        for element in self.repositories:
+            element_object = self.repositories[element]
+            if element_object.installed:
+                await element_object.update()
+
+        self.task_running = False
 
     async def register_new_repository(self, element_type, repo, repositoryobject=None):
         """Register a new repository."""
         from custom_components.hacs.exceptions import HacsBaseException
         from custom_components.hacs.blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
 
-        _LOGGER.debug(f"({repo}) - Trying to register")
+        _LOGGER.debug("(%s) - Trying to register", repo)
 
         if element_type == "integration":
             repository = HacsRepositoryIntegration(repo, repositoryobject)
-            await repository.set_arepository()
+            await repository.set_repository()
 
         elif element_type == "plugin":
             repository = HacsRepositoryPlugin(repo, repositoryobject)
-            await repository.set_arepository()
+            await repository.set_repository()
 
         else:
             return False
-
 
         setup_result = None
         self.task_running = True
@@ -69,191 +95,43 @@ class HacsBase:
 
         if setup_result:
             self.repositories[repository.repository_id] = repository
-            await self.write_to_data_store()
+            await self.storage.set()
 
         else:
             if repo not in self.blacklist:
                 self.blacklist.append(repo)
-            _LOGGER.debug(f"({repo}) - Could not register")
+            _LOGGER.debug("(%s) - Could not register.", repo)
         return repository, setup_result
 
-
-    async def write_to_data_store(self):
-        """
-        Write data to datastore.
-        """
-        datastore = "{}/.storage/{}".format(self.config_dir, self.const.STORENAME)
-
-        data = {}
-        data["hacs"] = self.data["hacs"]
-
-        data["repositories"] = {}
-
-        for repository in self.repositories:
-            repositorydata = {}
-            repository = self.repositories[repository]
-
-            repositorydata["hide"] = repository.hide
-            repositorydata["installed"] = repository.installed
-            repositorydata["name"] = repository.name
-            repositorydata["repository_name"] = repository.repository_name
-            repositorydata["repository_type"] = repository.repository_type
-            repositorydata["show_beta"] = repository.show_beta
-            repositorydata["version_installed"] = repository.version_installed
-
-            data["repositories"][repository.repository_id] = repositorydata
-
-        try:
-            async with aiofiles.open(
-                datastore, mode='w', encoding="utf-8", errors="ignore") as outfile:
-                await outfile.write(json.dumps(data, indent=4))
-                outfile.close()
-
-        except Exception as error:
-            msg = "Could not write data to {} - {}".format(datastore, error)
-            _LOGGER.error(msg)
-
-
-    async def get_data_from_store(self):
-        """
-        Get data from datastore.
-        Returns a dict with information from the storage.
-        example output: {"repositories": {}, "hacs": {}}
-        """
-        from custom_components.hacs.blueprints import (
-            HacsRepositoryIntegration,
-            HacsRepositoryPlugin,)
-        datastore = "{}/.storage/{}".format(self.config_dir, self.const.STORENAME)
-        _LOGGER.debug("Reading from datastore %s.", datastore)
-
-        try:
-            async with aiofiles.open(
-                datastore, mode='r', encoding="utf-8", errors="ignore") as datafile:
-                store_data = await datafile.read()
-                store_data = json.loads(store_data)
-                datafile.close()
-
-            # Restore data about HACS
-            self.data["hacs"] = store_data["hacs"]
-
-            # Restore repository data
-            for repository in store_data["repositories"]:
-                # Set var
-                repositorydata = store_data["repositories"][repository]
-
-                _LOGGER.info("Loading %s from storrage.", repositorydata["repository_name"])
-
-                # Restore integration
-                if repositorydata["repository_type"] == "integration":
-                    repository = HacsRepositoryIntegration(repositorydata["repository_name"])
-
-                # Restore plugin
-                elif repositorydata["repository_type"] == "plugin":
-                    repository = HacsRepositoryPlugin(repositorydata["repository_name"])
-
-                # Not supported
-                else:
-                    continue
-
-                # Attach AIOGitHub object
-                await repository.set_arepository()
-
-                # Set repository attributes from stored values
-                for attribute in repositorydata:
-                    repository.__setattr__(attribute, repositorydata[attribute])
-
-                # Restore complete
-                self.repositories[repository.repository_id] = repository
-
-        except Exception as exception:
-            msg = "Could not load data from {} - {}".format(datastore, exception)
-            _LOGGER.error(msg)
-
-
-    async def full_repository_scan(self, notarealargument=None):
-        """Full repository scan."""
-        integration_repos, plugin_repos = await self.get_repositories()
-
-        repos = {"integration": integration_repos, "plugin": plugin_repos}
-
-        _LOGGER.debug(f"Blacklist {self.blacklist}")
-
-        for element_type in repos:
-            for repository in repos[element_type]:
-                _LOGGER.debug(f"Checking {repository.full_name}")
-                if repository.full_name in self.blacklist:
-                    _LOGGER.debug(f"Skipping {repository.full_name}")
-                    continue
-
-                if str(repository.id) not in self.repositories:
-                    await self.register_new_repository(element_type, repository.full_name, repository)
-
-                else:
-                    repository = self.repositories[str(repository.id)]
-                    await repository.update()
-
-    def get_repos(self):
-        """Get org and custom repos."""
-
-        integration_repos = self.get_repos_integration()
-        plugin_repos = self.get_repos_plugin()
-
-        return integration_repos, plugin_repos
-
-    def get_repos_integration(self):
-        """Get org and custom integration repos."""
-        repositories = []
-
-        # Org repos
-        for repository in list(self.github.get_organization("custom-components").get_repos()):
-            if repository.archived:
-                continue
-            if repository.full_name in self.blacklist:
-                continue
-            repositories.append(repository)
-
-        return repositories
-
-    def get_repos_plugin(self):
-        """Get org and custom plugin repos."""
-        repositories = []
-        ## Org repos
-        for repository in list(self.github.get_organization("custom-cards").get_repos()):
-            if repository.archived:
-                continue
-            if repository.full_name in self.blacklist:
-                continue
-            repositories.append(repository)
-
-        return repositories
-
-    async def update_repositories(self):
+    async def update_repositories(self, notarealargument=None):
         """Run update on registerd repositories, and register new."""
 
         # Running update on registerd repositories
-        for repository in self.repositories:
-            await self.repositories[repository].update()
+        if self.repositories:
+            for repository in self.repositories:
+                try:
+                    repository = self.repositories[repository]
+                    _LOGGER.info("Running update for %s", repository.repository_name)
+                    await repository.update()
+                except AIOGitHubBaseException as exception:
+                    _LOGGER.warning(exception)
 
         # Register new repositories
         integrations, plugins = await self.get_repositories()
 
-        ## Integrations
-        for repository in integrations:
-            if repository.archived:
-                continue
-            elif repository.full_name in self.blacklist:
-                continue
-            else:
-                await self.register_new_repository("integration", repository.full_name, repository)
+        repository_types = {"integration": integrations, "plugin": plugins}
 
-        # Plugins
-        for repository in plugins:
-            if repository.archived:
-                continue
-            elif repository.full_name in self.blacklist:
-                continue
-            else:
-                await self.register_new_repository("integration", repository.full_name, repository)
+        for repository_type in repository_types:
+            for repository in repository_types[repository_type]:
+                if repository.archived:
+                    continue
+                elif repository.full_name in self.blacklist:
+                    continue
+                else:
+                    try:
+                        await self.register_new_repository(repository_type, repository.full_name, repository)
+                    except AIOGitHubBaseException as exception:
+                        _LOGGER.warning(exception)
 
     async def get_repositories(self):
         """Get defined repositories."""

@@ -17,7 +17,6 @@ from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERS
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_component import EntityComponent
 from homeassistant.helpers.event import async_track_time_interval, async_call_later
-from custom_components.hacs.aiogithub import AIOGitHub
 from custom_components.hacs.blueprints import HacsBase as hacs, HacsRepositoryIntegration
 from custom_components.hacs.const import (
     CUSTOM_UPDATER_LOCATIONS,
@@ -32,7 +31,7 @@ from custom_components.hacs.const import (
     VERSION,
     IFRAME,
     BLACKLIST,
-    DATA_SCHEMA,
+    STORAGE_VERSION,
 )
 from custom_components.hacs.handler.storage import (
     data_migration,
@@ -60,18 +59,13 @@ CONFIG_SCHEMA = vol.Schema(
 
 async def async_setup(hass, config):  # pylint: disable=unused-argument
     """Set up this component."""
-    import github
     _LOGGER.info(STARTUP)
     config_dir = hass.config.path()
     github_token = config[DOMAIN]["token"]
     commander = HacsCommander()
 
-    # Add stuff to hacs
-    hacs.hass = hass
-    hacs.aiogithub = AIOGitHub(github_token, hass.loop, aiohttp.ClientSession())
-    hacs.github = github.Github(github_token, timeout=5, retry=2)
-    hacs.blacklist = BLACKLIST
-    hacs.config_dir = config_dir
+    # Configure HACS
+    await configure_hacs(hass, github_token, config_dir)
 
     for item in hacs.url_path:
         _LOGGER.critical(f"{item}: {hacs.url_path[item]}")
@@ -89,7 +83,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
         return False
 
     # Setup startup tasks
-    hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, commander.startup_tasks())
+    hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs().startup_tasks())
 
     # Register the views
     hass.http.register_view(HacsStaticView())
@@ -117,51 +111,23 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     return True
 
 
+async def configure_hacs(hass, github_token, hass_config_dir):
+    """Configure HACS."""
+    from custom_components.hacs.aiogithub import AIOGitHub
+    from custom_components.hacs.hacsmigration import HacsMigration
+    from custom_components.hacs.hacsstorage import HacsStorage
+
+    hacs.migration = HacsMigration()
+    hacs.storage = HacsStorage()
+
+    hacs.aiogithub = AIOGitHub(github_token, hass.loop, aiohttp.ClientSession())
+
+    hacs.hass = hass
+    hacs.config_dir = hass_config_dir
+    hacs.blacklist = hacs.const.BLACKLIST
+
 class HacsCommander(hacs):
     """HACS Commander class."""
-
-    async def startup_tasks(self):
-        """Run startup_tasks."""
-        self.task_running = True
-
-        _LOGGER.debug("Runing startup tasks.")
-
-        custom_log_level = {"custom_components.hacs": "debug"}
-        await self.hass.services.async_call("logger", "set_level", custom_log_level)
-
-        await self.setup_recuring_tasks()  # TODO: Check this...
-
-        _LOGGER.info("Trying to load existing data.")
-
-        await self.get_data_from_store()
-
-        if not self.repositories:
-            _LOGGER.info(
-                "Expected data did not exist running initial setup, this will take some time."
-            )
-            self.repositories = {}
-            self.data["hacs"] = {
-                "local": VERSION,
-                "remote": None,
-                "schema": DATA_SCHEMA}
-            async_call_later(self.hass, 1, self.full_repository_scan)
-
-        else:
-            _LOGGER.warning("migration logic goes here")
-
-        # Make sure we have the correct version
-        self.data["hacs"]["local"] = VERSION
-
-        await self.check_for_hacs_update()
-
-        # Update installed element data on startup
-        for element in self.repositories:
-            element_object = self.repositories[element]
-            if element_object.installed:
-                self.hass.async_create_task(element_object.update())
-                # TODO await asyncio.sleep(2) #  Breathing room
-
-        self.task_running = False
 
     async def check_for_hacs_update(self, notarealargument=None):
         """Check for hacs update."""
@@ -173,41 +139,6 @@ class HacsCommander(hacs):
 
         except Exception as error:  # pylint: disable=broad-except
             _LOGGER.debug(error)
-
-    def get_repos(self):
-        """Get org and custom repos."""
-
-        integration_repos = self.get_repos_integration()
-        plugin_repos = self.get_repos_plugin()
-
-        return integration_repos, plugin_repos
-
-    def get_repos_integration(self):
-        """Get org and custom integration repos."""
-        repositories = []
-
-        # Org repos
-        for repository in list(self.github.get_organization("custom-components").get_repos()):
-            if repository.archived:
-                continue
-            if repository.full_name in self.blacklist:
-                continue
-            repositories.append(repository)
-
-        return repositories
-
-    def get_repos_plugin(self):
-        """Get org and custom plugin repos."""
-        repositories = []
-        ## Org repos
-        for repository in list(self.github.get_organization("custom-cards").get_repos()):
-            if repository.archived:
-                continue
-            if repository.full_name in self.blacklist:
-                continue
-            repositories.append(repository)
-
-        return repositories
 
     async def setup_recuring_tasks(self):
         """Setup recuring tasks."""

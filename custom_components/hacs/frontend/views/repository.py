@@ -73,7 +73,7 @@ class HacsRepositoryView(HacsViewBase):
                 pending_restart = ""
 
             if repository.additional_info:
-                info = self.github.render_markdown(repository.additional_info)
+                info = "</br>" + await self.aiogithub.render_markdown(repository.additional_info)
                 info = info.replace("<h3>", "<h6>").replace(
                     "</h3>", "</h6>"
                 )

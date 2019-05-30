@@ -1,6 +1,11 @@
 """Async Github API implementation."""
 import async_timeout
+import base64
+import logging
 from datetime import datetime
+
+_LOGGER = logging.getLogger('custom_components.hacs.aiogithub')
+
 
 class AIOGitHubBaseException(BaseException):
     """Raise this when something is off."""
@@ -36,36 +41,49 @@ class AIOGitHub(object):
             if response.get("message"):
                 raise AIOGitHubBaseException(response["message"])
 
-            return AIOGithubRepository(response, self.token, self.loop, self.session)
+        return AIOGithubRepository(response, self.token, self.loop, self.session)
 
     async def get_org_repos(self, org: str, page=1):
         """Retrun a list of AIOGithubRepository objects."""
         endpoint = "/orgs/" + org + "/repos?page=" + str(page)
         url = self.baseapi + endpoint
 
+        params = {"per_page": 100}
+
         headers = self.headers
         headers["Accept"] = "application/vnd.github.mercy-preview+json"
 
         async with async_timeout.timeout(20, loop=self.loop):
-            response = await self.session.get(url, headers=headers)
+            response = await self.session.get(url, headers=headers, params=params)
             response = await response.json()
 
             if not isinstance(response, list):
                 raise AIOGitHubBaseException(response["message"])
 
-        repositories = []
+            repositories = []
 
-        for repository in response:
-            repositories.append(AIOGithubRepository(repository, self.token, self.loop, self.session))
-
-        while True:
-            more_pages  = await self.get_org_repos(org, page + 1)
-            if not more_pages:
-                break
-            for repository in more_pages:
+            for repository in response:
                 repositories.append(AIOGithubRepository(repository, self.token, self.loop, self.session))
 
-            return repositories
+        return repositories
+
+    async def render_markdown(self, content: str):
+        """Retrun AIOGithubRepository object."""
+        endpoint = "/markdown/raw"
+        url = self.baseapi + endpoint
+
+        headers = self.headers
+        headers["Content-Type"] = "text/plain"
+
+        async with async_timeout.timeout(20, loop=self.loop):
+            response = await self.session.post(url, headers=headers, data=content)
+            response = await response.text()
+
+            if isinstance(response, dict):
+                if response.get("message"):
+                    raise AIOGitHubBaseException(response["message"])
+
+        return response
 
 
 class AIOGithubRepository(AIOGitHub):
@@ -118,15 +136,17 @@ class AIOGithubRepository(AIOGitHub):
             response = await self.session.get(url, headers=self.headers, params=params)
             response = await response.json()
 
-            if response.get("message"):
-                raise AIOGitHubBaseException(response["message"])
+            if not isinstance(response, list):
+                if response.get("message"):
+                    raise AIOGitHubBaseException(response["message"])
+                return AIOGithubRepositoryContent(response)
 
             contents = []
 
             for content in response:
-                contents.append(AIOGithubRepositoryContent(response))
+                contents.append(AIOGithubRepositoryContent(content))
 
-            return contents
+        return contents
 
     async def get_releases(self, latest=False):
         """Retrun a list of repository release objects."""
@@ -146,9 +166,9 @@ class AIOGithubRepository(AIOGitHub):
             contents = []
 
             for content in response:
-                contents.append(AIOGithubRepositoryRelease(response))
+                contents.append(AIOGithubRepositoryRelease(content))
 
-            return contents
+        return contents
 
 
 class AIOGithubRepositoryContent(AIOGitHub):
@@ -176,7 +196,8 @@ class AIOGithubRepositoryContent(AIOGitHub):
 
     @property
     def content(self):
-        return self.attributes.get("content")
+        #return self.attributes.get("content")
+        return base64.b64decode(bytearray(self.attributes.get("content"), "utf-8")).decode()
 
     @property
     def download_url(self):

@@ -49,7 +49,7 @@ class HacsViewBase(HomeAssistantView, HacsBase):
     @property
     def progress_bar(self):
         """Load progress bar."""
-        if self.task_running:
+        if self.data["task_running"]:
             display = "block"
         else:
             display = "none"

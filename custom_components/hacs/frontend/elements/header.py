@@ -21,7 +21,7 @@ async def header(hacs):
 
 async def progress_bar(hacs):
     """Generate a brogressbar."""
-    if hacs.task_running:
+    if hacs.data["task_running"]:
         display = "block"
     else:
         display = "none"

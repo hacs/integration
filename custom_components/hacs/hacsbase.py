@@ -14,12 +14,12 @@ class HacsBase:
     migration = None
     storage = None
     data = {}
+    data["task_running"] = True
     hass = None
     config_dir = None
     aiogithub = None
     blacklist = []
     repositories = {}
-    task_running = False
 
     url_path = {}
     for endpoint in ["api", "error", "overview", "static", "store", "settings", "repository"]:
@@ -27,7 +27,7 @@ class HacsBase:
 
     async def startup_tasks(self):
         """Run startup_tasks."""
-        self.task_running = True
+        self.data["task_running"] = True
 
         _LOGGER.debug("Runing startup tasks.")
 
@@ -63,7 +63,7 @@ class HacsBase:
             if element_object.installed:
                 await element_object.update()
 
-        self.task_running = False
+        self.data["task_running"] = False
 
     async def register_new_repository(self, element_type, repo, repositoryobject=None):
         """Register a new repository."""
@@ -84,15 +84,11 @@ class HacsBase:
             return False
 
         setup_result = True
-        self.task_running = True
         try:
             await repository.setup_repository()
         #except AIOGitHubBaseException as exception:
         #    _LOGGER.debug(exception)
-        except HacsRequirement as exception:
-            _LOGGER.debug(exception)
-            setup_result = False
-        except HacsBaseException as exception:
+        except (HacsRequirement, HacsBaseException) as exception:
             _LOGGER.debug(exception)
             setup_result = False
 

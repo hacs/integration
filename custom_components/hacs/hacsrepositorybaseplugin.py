@@ -83,7 +83,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
                 if find_file_name1 in files or find_file_name2 in files:
                     # YES! We got it!
                     self.content_path = "release"
-                    self.content_objects = objects
+                    self.content_objects = self.last_release_object.assets
                     self.content_files = files
 
             except AIOGitHubBaseException:

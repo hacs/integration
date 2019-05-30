@@ -20,6 +20,7 @@ class HacsStorage(HacsBase):
         _LOGGER.debug("Reading from datastore %s.", datastore)
 
         try:
+            self.data["task_running"] = True
             async with aiofiles.open(
                 datastore, mode='r', encoding="utf-8", errors="ignore") as datafile:
                 store_data = await datafile.read()
@@ -34,7 +35,7 @@ class HacsStorage(HacsBase):
                 # Set var
                 repositorydata = store_data["repositories"][repository]
 
-                _LOGGER.info("Loading %s from storrage.", repositorydata["repository_name"])
+                _LOGGER.info("Loading %s from storage.", repositorydata["repository_name"])
 
                 # Restore integration
                 if repositorydata["repository_type"] == "integration":
@@ -64,6 +65,7 @@ class HacsStorage(HacsBase):
         except Exception as exception:
             msg = "Could not load data from {} - {}".format(datastore, exception)
             _LOGGER.error(msg)
+        self.data["task_running"] = False
 
 
     async def set(self):

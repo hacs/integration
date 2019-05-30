@@ -9,6 +9,7 @@ import shutil
 
 from homeassistant.helpers.event import async_call_later
 
+from custom_components.hacs.aiogithub import AIOGitHubBaseException
 from custom_components.hacs.blueprints import HacsBase
 from custom_components.hacs.exceptions import HacsRepositoryInfo, HacsUserScrewupException, HacsBaseException, HacsBlacklistException
 from custom_components.hacs.handler.download import async_download_file, async_save_file
@@ -140,8 +141,11 @@ class HacsRepositoryBase(HacsBase):
         # Set the repository ref
         await self.set_ref()
 
-        # Set additional info
-        await self.set_additional_info()
+        try:
+            # Set additional info
+            await self.set_additional_info()
+        except AIOGitHubBaseException:
+            pass
 
         # Run task later
         #self.start_task_scheduler()

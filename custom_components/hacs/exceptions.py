@@ -21,6 +21,8 @@ class HacsDataNotExpected(HacsBaseException):
 class HacsRepositoryInfo(HacsBaseException):
     """Raise this when repository info is missing/wrong."""
 
+class HacsRequirement(HacsBaseException):
+    """Raise this when repository is missing a requirement."""
 
 class HacsMissingManifest(HacsBaseException):
     """Raise this when manifest is missing."""

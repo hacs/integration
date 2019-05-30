@@ -4,7 +4,7 @@ import logging
 import json
 
 from custom_components.hacs.blueprints import HacsRepositoryBase
-from custom_components.hacs.exceptions import HacsBaseException, HacsMissingManifest
+from custom_components.hacs.exceptions import HacsBaseException, HacsMissingManifest, HacsRequirement
 
 _LOGGER = logging.getLogger('custom_components.hacs.repository')
 
@@ -36,7 +36,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
                 self.track = False
 
             if not await self.set_manifest_content():
-                self.track = False
+                raise HacsRequirement("manifest.json is missing or does not contain expected values.")
 
 
         except HacsBaseException as exception:
@@ -76,7 +76,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         manifest = None
 
         if "manifest.json" not in self.content_files:
-            raise HacsMissingManifest
+            return False
 
         manifest = await self.repository.get_contents(manifest_path, self.ref)
         manifest = json.loads(manifest.content)
@@ -87,3 +87,4 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             self.name = manifest["name"]
             self.domain = manifest["domain"]
             return True
+        return False

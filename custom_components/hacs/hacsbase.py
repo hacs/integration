@@ -67,7 +67,7 @@ class HacsBase:
 
     async def register_new_repository(self, element_type, repo, repositoryobject=None):
         """Register a new repository."""
-        from custom_components.hacs.exceptions import HacsBaseException
+        from custom_components.hacs.exceptions import HacsBaseException, HacsRequirement
         from custom_components.hacs.blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
 
         _LOGGER.debug("(%s) - Trying to register", repo)
@@ -89,9 +89,12 @@ class HacsBase:
             setup_result = await repository.setup_repository()
         except AIOGitHubBaseException as exception:
             _LOGGER.debug(exception)
+        except HacsRequirement as exception:
+            _LOGGER.debug(exception)
+            setup_result = False
         except HacsBaseException as exception:
             _LOGGER.debug(exception)
-            return setup_result
+            setup_result = False
 
         if setup_result:
             self.repositories[repository.repository_id] = repository

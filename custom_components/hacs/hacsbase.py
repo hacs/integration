@@ -83,12 +83,12 @@ class HacsBase:
         else:
             return False
 
-        setup_result = None
+        setup_result = True
         self.task_running = True
         try:
-            setup_result = await repository.setup_repository()
-        except AIOGitHubBaseException as exception:
-            _LOGGER.debug(exception)
+            await repository.setup_repository()
+        #except AIOGitHubBaseException as exception:
+        #    _LOGGER.debug(exception)
         except HacsRequirement as exception:
             _LOGGER.debug(exception)
             setup_result = False

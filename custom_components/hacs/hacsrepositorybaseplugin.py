@@ -1,10 +1,10 @@
 """Blueprint for HacsRepositoryPlugin."""
 # pylint: disable=too-many-instance-attributes,invalid-name,broad-except
-from datetime import datetime
 import logging
 
+from custom_components.hacs.aiogithub import AIOGitHubBaseException
 from custom_components.hacs.blueprints import HacsRepositoryBase
-from custom_components.hacs.exceptions import HacsBaseException, HacsMissingManifest
+from custom_components.hacs.exceptions import HacsRequirement
 
 _LOGGER = logging.getLogger('custom_components.hacs.repository')
 
@@ -29,39 +29,23 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
 
     async def parse_readme_for_jstype(self):
         """Parse the readme looking for js type."""
-        try:
-            readme = self.repository.get_contents("README.md", self.ref)
-            readme = readme.decoded_content
-            for line in readme.splitlines():
-                if "type: module" in line:
-                    self.javascript_type = "module"
-                    break
-                elif "type: js" in line:
-                    self.javascript_type = "js"
-                    break
-        except Exception:
-            pass
+        readme = await self.repository.get_contents("README.md", self.ref)
+        readme = readme.content
+        for line in readme.splitlines():
+            if "type: module" in line:
+                self.javascript_type = "module"
+                break
+            elif "type: js" in line:
+                self.javascript_type = "js"
+                break
 
     async def update(self):
         """Run update tasks."""
-        _LOGGER.info("Running update (%s)", self.repository_name)
-        try:
-            if await self.common_update():
-                return True
-            await self.parse_readme_for_jstype()
-            if not await self.set_repository_content():
-                self.track = False
+        if await self.common_update():
+            return
+        await self.parse_readme_for_jstype()
+        await self.set_repository_content()
 
-        except HacsBaseException as exception:
-            raise HacsBaseException(exception)
-
-        except SystemError as exception:
-            _LOGGER.debug(f"({self.repository_name}) - {exception}")
-            return False
-        else:
-            self.track = True
-
-        return True
 
     async def set_repository_content(self):
         """Set repository content attributes."""
@@ -81,18 +65,15 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
                     self.content_path = ""
                     self.content_objects = objects
                     self.content_files = files
-                else:
-                    _LOGGER.debug("Expected filename not found in %s for %s", files, self.repository_name)
 
-            except Exception:
+            except AIOGitHubBaseException:
                 pass
 
         if self.content_path is None or self.content_path == "release":
             # Try fetching data from Release
             try:
                 files = []
-                objects = list(self.last_release_object.get_assets())
-                for item in objects:
+                for item in self.last_release_object.assets:
                     if item.name.endswith(".js"):
                         files.append(item.name)
 
@@ -104,10 +85,8 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
                     self.content_path = "release"
                     self.content_objects = objects
                     self.content_files = files
-                else:
-                    _LOGGER.debug("Expected filename not found in %s for %s", files, self.repository_name)
 
-            except Exception:
+            except AIOGitHubBaseException:
                 pass
 
         if self.content_path is None or self.content_path == "dist":
@@ -126,11 +105,9 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
                     self.content_path = "dist"
                     self.content_objects = objects
                     self.content_files = files
-                else:
-                    _LOGGER.debug("Expected filename not found in %s for %s", files, self.repository_name)
 
-            except Exception:
+            except AIOGitHubBaseException:
                 pass
 
         if not self.content_files or not self.content_objects:
-            raise HacsBaseException("No acceptable files found")
+            raise HacsRequirement("No acceptable js files found")

@@ -3,8 +3,9 @@
 import logging
 import json
 
+from custom_components.hacs.aiogithub import AIOGitHubBaseException
 from custom_components.hacs.blueprints import HacsRepositoryBase
-from custom_components.hacs.exceptions import HacsBaseException, HacsMissingManifest, HacsRequirement
+from custom_components.hacs.exceptions import HacsRequirement
 
 _LOGGER = logging.getLogger('custom_components.hacs.repository')
 
@@ -28,39 +29,25 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
 
     async def update(self):
         """Run update tasks."""
-        _LOGGER.info("Running update (%s)", self.repository_name)
-        try:
-            if await self.common_update():
-                return True
-            if not await self.set_repository_content():
-                self.track = False
-
-            if not await self.set_manifest_content():
-                raise HacsRequirement("manifest.json is missing or does not contain expected values.")
-
-
-        except HacsBaseException as exception:
-            raise HacsBaseException(exception)
-
-        except Exception as exception:
-            _LOGGER.debug(f"({self.repository_name}) - {exception}")
-            return False
-        else:
-            self.track = True
-
-        return True
+        if await self.common_update():
+            return
+        await self.set_repository_content()
+        await self.set_manifest_content()
 
     async def set_repository_content(self):
         """Set repository content attributes."""
         contentfiles = []
 
         if self.content_path is None:
-            first = await self.repository.get_contents(
-                "custom_components", self.ref)
+            first = await self.repository.get_contents("custom_components", self.ref)
+
             self.content_path = first[0].path
 
         self.content_objects = await self.repository.get_contents(
             self.content_path, self.ref)
+
+        if not isinstance(self.content_objects, list):
+            raise HacsRequirement("Repository structure does not meet the requirements")
 
         for filename in self.content_objects:
             contentfiles.append(filename.name)
@@ -68,15 +55,13 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         if contentfiles:
             self.content_files = contentfiles
 
-        return True
-
     async def set_manifest_content(self):
         """Set manifest content."""
         manifest_path = "{}/manifest.json".format(self.content_path)
         manifest = None
 
         if "manifest.json" not in self.content_files:
-            return False
+            raise HacsRequirement("manifest.json is missing.")
 
         manifest = await self.repository.get_contents(manifest_path, self.ref)
         manifest = json.loads(manifest.content)
@@ -86,5 +71,6 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             self.authors = manifest["codeowners"]
             self.name = manifest["name"]
             self.domain = manifest["domain"]
-            return True
-        return False
+            return
+
+        raise HacsRequirement("manifest.json does not contain expected values.")

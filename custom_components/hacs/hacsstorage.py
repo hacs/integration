@@ -52,7 +52,7 @@ class HacsStorage(HacsBase):
                 await repository.set_repository()
 
                 # Run initial setup
-                await repository.setup()
+                await repository.setup_repository()
 
                 # Set repository attributes from stored values
                 for attribute in repositorydata:

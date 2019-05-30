@@ -35,7 +35,6 @@ class HacsRepositoryBase(HacsBase):
         self.name = None
         self.pending_restart = False
         self.reasons = []
-        self.ref = None
         self.releases = None
         self.repository = None
         self.repository_id = None
@@ -81,35 +80,15 @@ class HacsRepositoryBase(HacsBase):
 
         Return True if everything is validated and ok.
         """
-        try:
-            # Check the blacklist
-            if self.repository_name in self.blacklist or not self.track or self.hide:
-                raise HacsBlacklistException
+        # Check the blacklist
+        if self.repository_name in self.blacklist or not self.track or self.hide:
+            raise HacsBlacklistException
 
-            # Validate the repository name
-            self.validate_repository_name()
+        # Validate the repository name
+        self.validate_repository_name()
 
-            # Update repository info
-            updateresult = await self.update()  # pylint: disable=no-member
-            if not updateresult:
-                self.track = False
-                if self.repository_name not in self.blacklist:
-                    self.blacklist.append(self.repository_name)
-                _LOGGER.debug(f"({self.repository_name}) - Setup failed")
-                return False
-
-        except HacsBaseException as exception:
-            _LOGGER.debug(f"({self.repository_name}) - {exception}")
-            return False
-
-        else:
-            # If we get there all is good.
-            self.start_task_scheduler()
-            if str(self.repository_id) not in self.repositories:
-                self.repositories[str(self.repository_id)] = self
-            _LOGGER.debug(f"({self.repository_name}) - Setup of complete")
-
-            return True
+        # Update repository info
+        await self.update()  # pylint: disable=no-member
 
     async def common_update(self):
         """Run common update tasks."""
@@ -117,13 +96,8 @@ class HacsRepositoryBase(HacsBase):
         if self.repository_name in self.blacklist or not self.track or self.hide:
             raise HacsBlacklistException
 
-        _LOGGER.debug(f"({self.repository_name}) - Running update")
-
         # Set the Gihub repository object
         await self.set_repository()
-
-        # Set topics
-        #await self.set_topics()
 
         # Set repository ID
         await self.set_repository_id()
@@ -138,18 +112,11 @@ class HacsRepositoryBase(HacsBase):
             return True
         self.last_updated = new
 
-        # Set the repository ref
-        await self.set_ref()
-
         try:
             # Set additional info
             await self.set_additional_info()
         except AIOGitHubBaseException:
             pass
-
-        # Run task later
-        #self.start_task_scheduler()
-
 
     async def download_repository_directory_content(self, repository_directory_path, local_directory, ref):
         """Download the content of a directory."""
@@ -296,18 +263,6 @@ class HacsRepositoryBase(HacsBase):
         """Description."""
         return self.repository.description
 
-    async def set_topics(self):
-        """Set topics."""
-        if self.repository is None:
-            raise HacsRepositoryInfo("GitHub repository object is missing")
-
-        # Assign to a temp var so we can check it before using it.
-        temp = await self.repository.get_topics()
-
-        if temp:
-            self.topics = temp
-        else:
-            self.topics = ""
 
     async def set_repository(self):
         """Set the AIOGitHub repository object."""
@@ -355,52 +310,29 @@ class HacsRepositoryBase(HacsBase):
         temp = await self.repository.get_releases(True)
 
         if not temp:
-            raise HacsRepositoryInfo("Github releases are missing")
+            return
 
         self.last_release_object = temp
         self.last_release_tag = temp.tag_name
 
-
-    async def set_ref(self):
-        """Set repository ref to use."""
-        # Check if we need to run this.
-        if self.ref is not None:
-            return
-
-        if self.repository is None:
-            raise HacsRepositoryInfo("GitHub repository object is missing")
-
-        # Assign to a temp vars so we can check it before using it.
+    @property
+    def ref(self):
+        """Return the repository ref."""
         if self.last_release_tag is not None:
-            temp = f"tags/{self.last_release_tag}"
-        else:
-            temp = self.repository.default_branch
-
-        # We need this one so lets check it!
-        if temp:
-            if len(temp) < 1:
-                raise HacsRepositoryInfo(
-                    f"GitHub repository ref is wrong {temp}")
-
-            elif not isinstance(temp, str):
-                raise HacsRepositoryInfo(
-                    f"GitHub repository ref is wrong {temp}")
-
-            # Good! "tests" passed.
-            else:
-                self.ref = temp
+            return "tags/{}".format(self.last_release_tag)
+        return self.repository.default_branch
 
     async def validate_repository_name(self):
         """Validate the given repository_name."""
         if "/" not in self.repository_name:
             raise HacsUserScrewupException(
                 "GitHub repository name "
-                f"'{self.repository_name}' is not the correct format")
+                "'{}' is not the correct format".format(self.repository_name))
 
         elif len(self.repository_name.split('/')) > 2:
             raise HacsUserScrewupException(
                 "GitHub repository name "
-                f"'{self.repository_name}' is not the correct format")
+                "'{}' is not the correct format".format(self.repository_name))
 
     async def return_last_update(self):
         """Return a last update string."""
@@ -411,6 +343,6 @@ class HacsRepositoryBase(HacsBase):
         if self.last_release_tag is not None:
             temp = self.last_release_object.published_at
         else:
-            temp = self.repository.updated_at
+            temp = self.repository.pushed_at
 
         return temp.strftime("%d %b %Y %H:%M")

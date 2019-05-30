@@ -104,6 +104,8 @@ class HacsAPIView(HacsViewBase):
 
             # If it still have content, continue.
             if repository_name != "":
+                if repository_name in self.blacklist:
+                    self.blacklist.remove(repository_name)
                 repository, result = await self.register_new_repository(repository_type, repository_name)
                 if result:
                     await self.storage.set()

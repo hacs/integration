@@ -88,7 +88,7 @@ For a integration repository to be valid these are the criterias:
   - If there is no releases:
     - Update will not be possible (but the user will still be able to install/reinstall it).
     - It will scan files in the branch marked as default.
-- There is only one integration (one directory under `ROOT_OF_THE_REPO/custom_components/`) pr repository (if you have more, only the first one will be managed.)
+- There is only one integration (one directory under `ROOT_OF_THE_REPO/custom_components/`) pr. repository (if you have more, only the first one will be managed.)
 - The integration (all the python files for it) are located under `ROOT_OF_THE_REPO/custom_components/INTEGRATION_NAME/`
 - In that integration directory, there is a [`manifest.json`](https://developers.home-assistant.io/docs/en/creating_integration_manifest.html) file.
 

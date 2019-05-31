@@ -35,6 +35,10 @@ class HacsStorage(HacsBase):
         # Restore data about HACS
         self.data["hacs"]["schema"] = store_data["hacs"].get("schema")
 
+        # Nothing to see here.
+        if "repositories" not in store_data:
+            return store_data
+
         # Re enable stored custom repositories.
         for repository in store_data["repositories"]:
             repository = store_data["repositories"][repository]

@@ -14,15 +14,15 @@ class HacsMigration(HacsBase):
 
     async def validate(self):
         """Check the current storage version to determine if migration is needed."""
-        self.data["hacs"]["schema"] = self.const.STORAGE_VERSION
         self.old = await self.storage.get()
+        self.data["hacs"]["schema"] = self.const.STORAGE_VERSION
 
         if not self.old:
             # Could not read the current file, it probably does not exist.
             # Running full scan.
             await self.update_repositories()
 
-        elif not self.old["hacs"].get("schema"):
+        elif "schema" not in self.old["hacs"]:
             # Creating backup.
             source = "{}/.storage/hacs".format(self.config_dir)
             destination = "{}.none".format(source)
@@ -31,6 +31,9 @@ class HacsMigration(HacsBase):
 
             # Run migration.
             await self.from_none_to_1()
+
+            # Run the rest.
+            await self.update_repositories()
 
         elif self.old["hacs"].get("schema") == self.const.STORAGE_VERSION:
             pass

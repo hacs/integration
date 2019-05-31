@@ -13,6 +13,7 @@ GENERIC_ERROR = "Possible error codes: 1D10T, PICNIC, B0110CK5."
 ISSUE_URL = "{}issues".format(PROJECT_URL)
 DOMAIN_DATA = "{}_data".format(NAME_SHORT.lower())
 BLACKLIST = [
+    "custom-cards/boilerplate-card",
     "custom-cards/custom-card-helpers",
     "custom-cards/information",
     "custom-cards/tracker-card",

@@ -59,6 +59,9 @@ class HacsBase:
         # Check if migration is needed, or load existing data.
         await self.migration.validate()
 
+        # Set version
+        self.data["hacs"]["schema"] = self.const.STORAGE_VERSION
+
         self.data["task_running"] = False
 
     async def register_new_repository(self, element_type, repo, repositoryobject=None):

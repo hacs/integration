@@ -53,9 +53,13 @@ class HacsRepositoryBase(HacsBase):
     @property
     def custom(self):
         """Return flag if the repository is custom."""
-        if self.repository_name.split("/")[0] not in ["custom-components", "custom-cards"]:
-            return True
-        return False
+        if self.repository_name.split("/")[0] in ["custom-components", "custom-cards"]:
+            return False
+        elif self.repository_name in self.const.DEFAULT_REPOSITORIES["integration"]:
+            return False
+        elif self.repository_name in self.const.DEFAULT_REPOSITORIES["plugin"]:
+            return False
+        return True
 
     @property
     def local_path(self):

@@ -17,9 +17,6 @@ class HacsMigration(HacsBase):
             # TODO: Create backup
             await self.from_none_to_1()
 
-        _LOGGER.debug("Running full refresh to complete the migration.")
-
-
     async def from_none_to_1(self):
         """Migrate from None (< 0.4.0) to storage version 1."""
         _LOGGER.info("Starting migration of HACS data from None to 1.")

@@ -29,7 +29,18 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
 
     async def parse_readme_for_jstype(self):
         """Parse the readme looking for js type."""
-        readme = await self.repository.get_contents("README.md", self.ref)
+        readme = None
+        readme_files = ["readme", "readme.md"]
+        root = await self.repository.get_contents("", self.ref)
+        for file in root:
+            if file.name.lower() in readme_files:
+                readme = await self.repository.get_contents(file.name, self.ref)
+                break
+
+        if readme is None:
+            return
+
+        _LOGGER.debug(readme)
         readme = readme.content
         for line in readme.splitlines():
             if "type: module" in line:
@@ -43,7 +54,11 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
         """Run update tasks."""
         if await self.common_update():
             return
-        await self.parse_readme_for_jstype()
+        try:
+            await self.parse_readme_for_jstype()
+        except AIOGitHubBaseException:
+            # This can fail, no big deal.
+            pass
         await self.set_repository_content()
 
 

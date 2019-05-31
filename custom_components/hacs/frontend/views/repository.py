@@ -31,7 +31,6 @@ class HacsRepositoryView(HacsViewBase):
         """Serve HacsRepositoryView."""
         try:
             message = request.rel_url.query.get("message")
-            _LOGGER.warning(self.repositories)
             repository = self.repositories[str(repository_id)]
 
             if message != None:

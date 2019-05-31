@@ -50,7 +50,9 @@ class HacsSettingsView(HacsViewBase):
                 hacs_restart = ""
 
             # HACS update pending
-            if self.data["hacs"]["local"] != self.data["hacs"]["remote"]:
+            hacs = self.repositories.get("172733314")
+
+            if hacs.pending_update:
                 hacs_update = f"""
                     <div class='container'>
                         <div class="row">
@@ -61,13 +63,13 @@ class HacsSettingsView(HacsViewBase):
 
                                         <p>There is an update pending for HACS!.</p>
                                         </br>
-                                        <p><b>Current version:</b> {self.data["hacs"]["local"]}</p>
-                                        <p><b>Available version:</b> {self.data["hacs"]["remote"]}</p>
+                                        <p><b>Current version:</b> {hacs.version_installed}</p>
+                                        <p><b>Available version:</b> {hacs.last_release_tag}</p>
                                     </div>
 
                                     <div class="card-action">
                                         <a href="{self.url_path["api"]}/hacs/upgrade" onclick="ShowProgressBar()">UPGRADE</a>
-                                        <a href="https://github.com/custom-components/hacs/releases/tag/{self.data["hacs"]["remote"]}" target="_blank">CHANGELOG</a>
+                                        <a href="https://github.com/custom-components/hacs/releases/tag/{hacs.last_release_tag}" target="_blank">CHANGELOG</a>
                                     </div>
                                 </div>
                             </div>
@@ -220,8 +222,8 @@ class HacsSettingsView(HacsViewBase):
                             <div class="card-panel" style="background-color: #bbdefb00 !important">
                                 <div class="card-content black-text">
                                     <h5>{NAME_LONG}</h5>
-                                    <b>HACS version:</b> {self.data["hacs"]["local"]}
-                                    {" <b>(RESTART PENDING!)</b>" if self.data["hacs"].get("pending_restart") else ""}</br>
+                                    <b>HACS version:</b> {hacs.version_installed}
+                                    {" <b>(RESTART PENDING!)</b>" if hacs.pending_restart else ""}</br>
                                     <b>Home Assistant version:</b> {HAVERSION}</br>
                                     </br>
                                     <hr>

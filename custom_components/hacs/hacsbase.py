@@ -2,7 +2,7 @@
 # pylint: disable=too-few-public-methods
 import logging
 import uuid
-from custom_components.hacs.aiogithub import AIOGitHubBaseException
+from custom_components.hacs.aiogithub import AIOGitHubException
 
 _LOGGER = logging.getLogger('custom_components.hacs.hacs')
 
@@ -13,7 +13,8 @@ class HacsBase:
 
     migration = None
     storage = None
-    data = {}
+    hacs = None
+    data = {"hacs": {}}
     data["task_running"] = True
     hass = None
     config_dir = None
@@ -27,41 +28,29 @@ class HacsBase:
 
     async def startup_tasks(self):
         """Run startup_tasks."""
+        from custom_components.hacs.hacsrepositoryintegration import HacsRepositoryIntegration
         self.data["task_running"] = True
 
-        _LOGGER.debug("Runing startup tasks.")
+        _LOGGER.info("Runing startup tasks.")
 
         custom_log_level = {"custom_components.hacs": "debug"}
         await self.hass.services.async_call("logger", "set_level", custom_log_level)
 
         #await self.setup_recuring_tasks()  # TODO: Check this...
 
-        _LOGGER.info("Trying to load existing data.")
-
-        await self.storage.get()
-
-        if not self.repositories:
-            _LOGGER.info("Expected data did not exist running initial setup, this will take some time.")
-            self.repositories = {}
-            self.data["hacs"] = {
-                "local": self.const.VERSION,
-                "remote": None,
-                "schema": self.const.STORAGE_VERSION}
-            await self.update_repositories()
-
-        else:
-            _LOGGER.warning("Migration logic goes here")
+        # Check for updates to HACS.
+        repository = await self.aiogithub.get_repo("custom-components/hacs")
+        repository = HacsRepositoryIntegration("custom-components/hacs", repository)
+        await repository.setup_repository()
+        self.repositories[repository.repository_id] = repository
 
         # Make sure we have the correct version
         self.data["hacs"]["local"] = self.const.VERSION
 
-        #await self.check_for_hacs_update()
+        _LOGGER.info("Trying to load existing data.")
 
-        # Update installed element data on startup
-        for element in self.repositories:
-            element_object = self.repositories[element]
-            if element_object.installed:
-                await element_object.update()
+        # Check if migration is needed, or load existing data.
+        await self.migration.validate()
 
         self.data["task_running"] = False
 
@@ -70,7 +59,7 @@ class HacsBase:
         from custom_components.hacs.exceptions import HacsBaseException, HacsRequirement
         from custom_components.hacs.blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
 
-        _LOGGER.debug("(%s) - Trying to register", repo)
+        _LOGGER.debug("Starting repository registration for %s", repo)
 
         if element_type == "integration":
             repository = HacsRepositoryIntegration(repo, repositoryobject)
@@ -86,24 +75,24 @@ class HacsBase:
         setup_result = True
         try:
             await repository.setup_repository()
-        #except AIOGitHubBaseException as exception:
-        #    _LOGGER.debug(exception)
-        except (HacsRequirement, HacsBaseException) as exception:
-            _LOGGER.debug(exception)
+        except (HacsRequirement, HacsBaseException,AIOGitHubException) as exception:
+            _LOGGER.debug("%s - %s", repository.repository_name, exception)
             setup_result = False
 
         if setup_result:
             self.repositories[repository.repository_id] = repository
-            await self.storage.set()
 
         else:
             if repo not in self.blacklist:
                 self.blacklist.append(repo)
-            _LOGGER.debug("(%s) - Could not register.", repo)
+            _LOGGER.debug("%s - Could not register.", repo)
         return repository, setup_result
 
     async def update_repositories(self, notarealargument=None):
         """Run update on registerd repositories, and register new."""
+        self.data["task_running"] = True
+
+        _LOGGER.debug("Skipping repositories in blacklist %s", str(self.blacklist))
 
         # Running update on registerd repositories
         if self.repositories:
@@ -111,9 +100,11 @@ class HacsBase:
                 try:
                     repository = self.repositories[repository]
                     _LOGGER.info("Running update for %s", repository.repository_name)
+                    if repository.track or repository.repository_name in self.blacklist:
+                        continue
                     await repository.update()
-                except AIOGitHubBaseException as exception:
-                    _LOGGER.warning(exception)
+                except AIOGitHubException as exception:
+                    _LOGGER.debug("%s - %s", repository.repository_name, exception)
 
         # Register new repositories
         integrations, plugins = await self.get_repositories()
@@ -126,11 +117,15 @@ class HacsBase:
                     continue
                 elif repository.full_name in self.blacklist:
                     continue
+                elif str(repository.id) in self.repositories:
+                    continue
                 else:
                     try:
                         await self.register_new_repository(repository_type, repository.full_name, repository)
-                    except AIOGitHubBaseException as exception:
-                        _LOGGER.warning(exception)
+                    except AIOGitHubException as exception:
+                        _LOGGER.debug("%s - %s", repository.full_name, exception)
+        await self.storage.set()
+        self.data["task_running"] = False
 
     async def get_repositories(self):
         """Get defined repositories."""
@@ -147,3 +142,14 @@ class HacsBase:
                 repositories[repository_type].append(result)
 
         return repositories["integration"], repositories["plugin"]
+
+    async def check_for_hacs_update(self, notarealargument=None):
+        """Check for hacs update."""
+        _LOGGER.info("Checking for HACS updates...")
+        try:
+            repository = await self.aiogithub.get_repo("custom-components/hacs")
+            release = await repository.get_releases(True)
+            self.hacs.data["hacs"]["remote"] = release.tag_name
+
+        except Exception as exception:  # pylint: disable=broad-except
+            _LOGGER.error("custom-components/hacs - %s", exception)

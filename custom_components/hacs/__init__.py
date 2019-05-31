@@ -9,15 +9,16 @@ import logging
 import os.path
 import json
 import asyncio
-import aiohttp
 from datetime import datetime, timedelta
+import aiohttp
+
 from pkg_resources import parse_version
 import voluptuous as vol
 from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_component import EntityComponent
 from homeassistant.helpers.event import async_track_time_interval, async_call_later
-from custom_components.hacs.blueprints import HacsBase as hacs, HacsRepositoryIntegration
+from custom_components.hacs.hacsbase import HacsBase as hacs
 from custom_components.hacs.const import (
     CUSTOM_UPDATER_LOCATIONS,
     STARTUP,
@@ -56,7 +57,6 @@ CONFIG_SCHEMA = vol.Schema(
 
 async def async_setup(hass, config):  # pylint: disable=unused-argument
     """Set up this component."""
-    # TODO: Load from storage and migration needs to hapen here so we can exit if it fails
     _LOGGER.info(STARTUP)
     config_dir = hass.config.path()
     github_token = config[DOMAIN]["token"]
@@ -132,22 +132,14 @@ async def configure_hacs(hass, github_token, hass_config_dir):
     hacs.aiogithub = AIOGitHub(github_token, hass.loop, aiohttp.ClientSession())
 
     hacs.hass = hass
+    hacs.hacs = hacs
     hacs.config_dir = hass_config_dir
     hacs.blacklist = hacs.const.BLACKLIST
 
 class HacsCommander(hacs):
     """HACS Commander class."""
 
-    async def check_for_hacs_update(self, notarealargument=None):
-        """Check for hacs update."""
-        _LOGGER.debug("Checking for HACS updates...")
-        try:
-            repository = await self.aiogithub.get_repo("custom-components/hacs")
-            release = await repository.get_releases(True)
-            self.data["hacs"]["remote"] = release.tag_name
 
-        except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.debug(error)
 
     async def setup_recuring_tasks(self):
         """Setup recuring tasks."""

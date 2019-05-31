@@ -7,7 +7,7 @@ from datetime import datetime
 _LOGGER = logging.getLogger('custom_components.hacs.aiogithub')
 
 
-class AIOGitHubBaseException(BaseException):
+class AIOGitHubException(BaseException):
     """Raise this when something is off."""
 
 class AIOGitHub(object):
@@ -39,7 +39,7 @@ class AIOGitHub(object):
             response = await response.json()
 
             if response.get("message"):
-                raise AIOGitHubBaseException(response["message"])
+                raise AIOGitHubException(response["message"])
 
         return AIOGithubRepository(response, self.token, self.loop, self.session)
 
@@ -58,7 +58,7 @@ class AIOGitHub(object):
             response = await response.json()
 
             if not isinstance(response, list):
-                raise AIOGitHubBaseException(response["message"])
+                raise AIOGitHubException(response["message"])
 
             repositories = []
 
@@ -81,7 +81,7 @@ class AIOGitHub(object):
 
             if isinstance(response, dict):
                 if response.get("message"):
-                    raise AIOGitHubBaseException(response["message"])
+                    raise AIOGitHubException(response["message"])
 
         return response
 
@@ -138,7 +138,7 @@ class AIOGithubRepository(AIOGitHub):
 
             if not isinstance(response, list):
                 if response.get("message"):
-                    raise AIOGitHubBaseException(response["message"])
+                    raise AIOGitHubException(response["message"])
                 return AIOGithubRepositoryContent(response)
 
             contents = []
@@ -196,7 +196,6 @@ class AIOGithubRepositoryContent(AIOGitHub):
 
     @property
     def content(self):
-        #return self.attributes.get("content")
         return base64.b64decode(bytearray(self.attributes.get("content"), "utf-8")).decode()
 
     @property
@@ -209,7 +208,6 @@ class AIOGithubRepositoryRelease(AIOGitHub):
     def __init__(self, attributes):
         """Initialize."""
         self.attributes = attributes
-
 
     @property
     def tag_name(self):

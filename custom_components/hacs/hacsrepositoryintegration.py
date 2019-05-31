@@ -3,7 +3,7 @@
 import logging
 import json
 
-from custom_components.hacs.aiogithub import AIOGitHubBaseException
+from custom_components.hacs.aiogithub import AIOGitHubException
 from custom_components.hacs.blueprints import HacsRepositoryBase
 from custom_components.hacs.exceptions import HacsRequirement
 

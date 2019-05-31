@@ -7,10 +7,8 @@ import pathlib
 import os
 import shutil
 
-from homeassistant.helpers.event import async_call_later
-
-from custom_components.hacs.aiogithub import AIOGitHubBaseException
-from custom_components.hacs.blueprints import HacsBase
+from custom_components.hacs.aiogithub import AIOGitHubException
+from custom_components.hacs.hacsbase import HacsBase
 from custom_components.hacs.exceptions import HacsRepositoryInfo, HacsUserScrewupException, HacsBaseException, HacsBlacklistException
 from custom_components.hacs.handler.download import async_download_file, async_save_file
 
@@ -81,11 +79,17 @@ class HacsRepositoryBase(HacsBase):
         Return True if everything is validated and ok.
         """
         # Check the blacklist
-        if self.repository_name in self.blacklist or not self.track or self.hide:
+        if self.repository_name in self.blacklist or not self.track:
             raise HacsBlacklistException
 
+        # Hide HACS
+        if self.repository_name == "custom-components/hacs":
+            self.hide = True
+            self.installed = True
+            self.version_installed = self.const.VERSION
+
         # Validate the repository name
-        self.validate_repository_name()
+        await self.validate_repository_name()
 
         # Update repository info
         await self.update()  # pylint: disable=no-member
@@ -93,7 +97,7 @@ class HacsRepositoryBase(HacsBase):
     async def common_update(self):
         """Run common update tasks."""
         # Check the blacklist
-        if self.repository_name in self.blacklist or not self.track or self.hide:
+        if self.repository_name in self.blacklist or not self.track:
             raise HacsBlacklistException
 
         # Set the Gihub repository object
@@ -112,7 +116,7 @@ class HacsRepositoryBase(HacsBase):
         try:
             # Set additional info
             await self.set_additional_info()
-        except AIOGitHubBaseException:
+        except AIOGitHubException:
             pass
 
     async def download_repository_directory_content(self, repository_directory_path, local_directory, ref):
@@ -259,7 +263,7 @@ class HacsRepositoryBase(HacsBase):
     @property
     def description(self):
         """Description."""
-        return self.repository.description
+        return "" if self.repository.description is None else self.repository.description
 
 
     async def set_repository(self):

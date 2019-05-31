@@ -3,7 +3,9 @@
 import logging
 import json
 import aiofiles
-from custom_components.hacs.blueprints import HacsBase
+from custom_components.hacs.aiogithub import AIOGitHubException
+from custom_components.hacs.hacsbase import HacsBase
+from custom_components.hacs.exceptions import HacsNotSoBasicException, HacsRequirement
 
 _LOGGER = logging.getLogger('custom_components.hacs.storage')
 
@@ -29,28 +31,50 @@ class HacsStorage(HacsBase):
         # Restore data about HACS
         self.data["hacs"] = store_data["hacs"]
 
-        # Restore repository data
-        for repository in store_data["repositories"]:
-            # Set var
-            repositorydata = store_data["repositories"][repository]
+        # Get new repository objects
+        integrations, plugins = await self.get_repositories()
 
-            _LOGGER.info("Loading %s from storage.", repositorydata["repository_name"])
+        repository_types = {"integration": integrations, "plugin": plugins}
 
-            # Restore integration
-            repository, status = await self.register_new_repository(repositorydata["repository_type"], repositorydata["repository_name"])
+        for repository_type in repository_types:
+            for repository in repository_types[repository_type]:
+                if repository.archived:
+                    continue
+                elif repository.full_name in self.blacklist:
+                    continue
+                elif repository.id in self.repositories:
+                    continue
+                else:
+                    _LOGGER.info("Loading %s", repository.full_name)
+                    if repository_type == "integration":
+                        repository = HacsRepositoryIntegration(repository.full_name, repository)
+                    elif repository_type == "plugin":
+                        repository = HacsRepositoryPlugin(repository.full_name, repository)
+                    else:
+                        raise HacsNotSoBasicException(self.const.GENERIC_ERROR)
 
-            # Set repository attributes from stored values
-            for attribute in repositorydata:
-                repository.__setattr__(attribute, repositorydata[attribute])
+                    # Initial setup.
+                    try:
+                        await repository.setup_repository()
+                    except (HacsRequirement, AIOGitHubException) as exception:
+                        _LOGGER.debug("%s - %s", repository.repository_name, exception)
+                        self.blacklist.append(repository.repository_name)
+                        continue
 
-            # Restore complete
-            self.repositories[repository.repository_id] = repository
+                    # Restore attributes
+                    await self.restore(store_data, repository)
 
+                    # Restore complete
+                    self.repositories[repository.repository_id] = repository
+
+        await self.set()
         self.data["task_running"] = False
+        return store_data
 
 
     async def set(self):
         """Write HACS data to storage."""
+        _LOGGER.info("Saving data")
         datastore = "{}/.storage/{}".format(self.config_dir, self.const.STORENAME)
 
         data = {}
@@ -81,3 +105,14 @@ class HacsStorage(HacsBase):
         except Exception as error:
             msg = "Could not write data to {} - {}".format(datastore, error)
             _LOGGER.error(msg)
+
+    async def restore(self, store_data, repository):
+        """Restore saved data to a repository object."""
+        if str(repository.repository_id) not in store_data["repositories"]:
+            return
+
+        storeddata = store_data["repositories"][str(repository.repository_id)]
+
+        # Set repository attributes from stored values
+        for attribute in storeddata:
+            repository.__setattr__(attribute, storeddata[attribute])

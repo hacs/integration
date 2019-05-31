@@ -2,7 +2,7 @@
 # pylint: disable=too-many-instance-attributes,invalid-name,broad-except
 import logging
 
-from custom_components.hacs.aiogithub import AIOGitHubBaseException
+from custom_components.hacs.aiogithub import AIOGitHubException
 from custom_components.hacs.blueprints import HacsRepositoryBase
 from custom_components.hacs.exceptions import HacsRequirement
 
@@ -40,7 +40,6 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
         if readme is None:
             return
 
-        _LOGGER.debug(readme)
         readme = readme.content
         for line in readme.splitlines():
             if "type: module" in line:
@@ -56,7 +55,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
             return
         try:
             await self.parse_readme_for_jstype()
-        except AIOGitHubBaseException:
+        except AIOGitHubException:
             # This can fail, no big deal.
             pass
         await self.set_repository_content()
@@ -81,7 +80,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
                     self.content_objects = objects
                     self.content_files = files
 
-            except AIOGitHubBaseException:
+            except AIOGitHubException:
                 pass
 
         if self.content_path is None or self.content_path == "release":
@@ -103,7 +102,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
                     self.content_objects = self.last_release_object.assets
                     self.content_files = files
 
-            except AIOGitHubBaseException:
+            except AIOGitHubException:
                 pass
 
         if self.content_path is None or self.content_path == "dist":
@@ -123,7 +122,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
                     self.content_objects = objects
                     self.content_files = files
 
-            except AIOGitHubBaseException:
+            except AIOGitHubException:
                 pass
 
         if not self.content_files or not self.content_objects:

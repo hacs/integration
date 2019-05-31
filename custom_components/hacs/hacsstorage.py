@@ -96,7 +96,7 @@ class HacsStorage(HacsBase):
 
         data = {}
         data["hacs"] = self.data["hacs"]
-        data["hacs"]["schema"] = self.data["hacs"]["schema"]
+        data["hacs"]["schema"] = self.const.STORAGE_VERSION
 
         data["repositories"] = {}
 

@@ -99,6 +99,7 @@ class HacsStoreView(HacsViewBase):
                     content += "</div>"
 
                 if not plugins and not integrations:
+                    content = self.base_content
                     content += "Loading store items, check back later."
 
         except SystemError as exception:

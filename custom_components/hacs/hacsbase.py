@@ -37,7 +37,7 @@ class HacsBase:
         _LOGGER.info("Runing startup tasks.")
 
         # Store enpoints
-        HacsBase.data["hacs"]["endpoints"] = self.url_path
+        self.data["hacs"]["endpoints"] = self.url_path
 
         custom_log_level = {"custom_components.hacs": "debug"}
         await self.hass.services.async_call("logger", "set_level", custom_log_level)

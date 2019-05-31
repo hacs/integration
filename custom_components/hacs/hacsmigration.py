@@ -14,6 +14,7 @@ class HacsMigration(HacsBase):
 
     async def validate(self):
         """Check the current storage version to determine if migration is needed."""
+        self.data["hacs"]["schema"] = self.const.STORAGE_VERSION
         self.old = await self.storage.get()
 
         if not self.old:
@@ -37,8 +38,6 @@ class HacsMigration(HacsBase):
         else:
             # Should not get here, but do a full scan just in case...
             await self.update_repositories()
-
-        self.data["hacs"]["schema"] = self.const.STORAGE_VERSION
 
     async def from_none_to_1(self):
         """Migrate from None (< 0.4.0) to storage version 1."""

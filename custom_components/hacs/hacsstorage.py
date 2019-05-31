@@ -33,7 +33,7 @@ class HacsStorage(HacsBase):
             return False
 
         # Restore data about HACS
-        self.data["hacs"] = store_data["hacs"]
+        self.data["hacs"]["schema"] = store_data["hacs"].get("schema")
 
         # Re enable stored custom repositories.
         for repository in store_data["repositories"]:

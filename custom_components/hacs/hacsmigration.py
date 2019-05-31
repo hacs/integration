@@ -52,6 +52,6 @@ class HacsMigration(HacsBase):
                 _LOGGER.info("Migrating %s", repodata["repo"])
                 repository, setup_result = await self.register_new_repository(repodata["element_type"], repodata["repo"])
 
-                if setup_result:
-                    # Set old values
-                    repository.version_installed = repodata["installed_version"]
+                repository.version_installed = repodata["installed_version"]
+                repository.installed = True
+                self.repositories[repository.repository_id] = repository

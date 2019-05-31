@@ -31,7 +31,7 @@ class HacsStoreView(HacsViewBase):
 
                 content += """
                     <div class='container'>
-                        <input type="text" id="Search" onkeyup="Search()" placeholder="Please enter a search term.." title="Type in a name">
+                        <input type="text" id="Search" onkeyup="Search()" placeholder="Please enter a search term.." title="Type in a name" autofocus>
                     </div>
                 """
 

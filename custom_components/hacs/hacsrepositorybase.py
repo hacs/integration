@@ -38,7 +38,6 @@ class HacsRepositoryBase(HacsBase):
         self.reasons = []
         self.releases = None
         self.repository = None
-        self.repository_id = None
         self.repository_name = None
         self.repository_type = None
         self.show_beta = True
@@ -100,9 +99,6 @@ class HacsRepositoryBase(HacsBase):
         # Set the Gihub repository object
         await self.set_repository()
 
-        # Set repository ID
-        await self.set_repository_id()
-
         # Set repository releases
         await self.set_repository_releases()
 
@@ -147,6 +143,7 @@ class HacsRepositoryBase(HacsBase):
                 await async_save_file(local_file_path, filecontent)
 
         except Exception as exception:
+            # TODO: needs to fail/rollback (maybe use /temp?)
             _LOGGER.debug(exception)
 
     async def start_task_scheduler(self):
@@ -281,26 +278,10 @@ class HacsRepositoryBase(HacsBase):
         self.repository = temp
 
 
-    async def set_repository_id(self):
+    @property
+    def repository_id(self):
         """Set the ID of an repository."""
-        # Check if we need to run this.
-        if self.repository_id is not None:
-            return
-
-        if self.aiogithub is None:
-            raise HacsRepositoryInfo("GitHub object is missing")
-        elif self.repository_name is None:
-            raise HacsRepositoryInfo("GitHub repository name is missing")
-        elif self.repository is None:
-            raise HacsRepositoryInfo("GitHub repository object is missing")
-
-        # Assign to a temp var so we can check it before using it.
-        temp = self.repository.id
-
-        if not isinstance(temp, int):
-            raise TypeError(f"Value {temp} is not IntType.")
-        self.repository_id = str(temp)
-
+        return str(self.repository.id)
 
     async def set_repository_releases(self):
         """Set attributes for releases."""

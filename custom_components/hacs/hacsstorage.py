@@ -19,49 +19,33 @@ class HacsStorage(HacsBase):
         datastore = "{}/.storage/{}".format(self.config_dir, self.const.STORENAME)
         _LOGGER.debug("Reading from datastore %s.", datastore)
 
-        try:
-            self.data["task_running"] = True
-            async with aiofiles.open(
-                datastore, mode='r', encoding="utf-8", errors="ignore") as datafile:
-                store_data = await datafile.read()
-                store_data = json.loads(store_data)
-                datafile.close()
+        self.data["task_running"] = True
+        async with aiofiles.open(
+            datastore, mode='r', encoding="utf-8", errors="ignore") as datafile:
+            store_data = await datafile.read()
+            store_data = json.loads(store_data)
+            datafile.close()
 
-            # Restore data about HACS
-            self.data["hacs"] = store_data["hacs"]
+        # Restore data about HACS
+        self.data["hacs"] = store_data["hacs"]
 
-            # Restore repository data
-            for repository in store_data["repositories"]:
-                # Set var
-                repositorydata = store_data["repositories"][repository]
+        # Restore repository data
+        for repository in store_data["repositories"]:
+            # Set var
+            repositorydata = store_data["repositories"][repository]
 
-                _LOGGER.info("Loading %s from storage.", repositorydata["repository_name"])
+            _LOGGER.info("Loading %s from storage.", repositorydata["repository_name"])
 
-                # Restore integration
-                if repositorydata["repository_type"] == "integration":
-                    repository = HacsRepositoryIntegration(repositorydata["repository_name"])
+            # Restore integration
+            repository, status = await self.register_new_repository(repositorydata["repository_type"], repositorydata["repository_name"])
 
-                # Restore plugin
-                elif repositorydata["repository_type"] == "plugin":
-                    repository = HacsRepositoryPlugin(repositorydata["repository_name"])
+            # Set repository attributes from stored values
+            for attribute in repositorydata:
+                repository.__setattr__(attribute, repositorydata[attribute])
 
-                # Not supported
-                else:
-                    continue
+            # Restore complete
+            self.repositories[repository.repository_id] = repository
 
-                # Attach AIOGitHub object
-                await repository.set_repository()
-
-                # Set repository attributes from stored values
-                for attribute in repositorydata:
-                    repository.__setattr__(attribute, repositorydata[attribute])
-
-                # Restore complete
-                self.repositories[repository.repository_id] = repository
-
-        except Exception as exception:
-            msg = "Could not load data from {} - {}".format(datastore, exception)
-            _LOGGER.error(msg)
         self.data["task_running"] = False
 
 

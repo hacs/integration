@@ -19,7 +19,7 @@ class HacsStaticView(HacsViewBase):
 
     async def get(self, request, requested_file):  # pylint: disable=unused-argument
         """Serve static files."""
-        servefile = "{}/custom_components/hacs/frontend/{}".format(
+        servefile = "{}/custom_components/hacs/frontend/elements/{}".format(
             self.config_dir, requested_file)
         filecontent = ""
 

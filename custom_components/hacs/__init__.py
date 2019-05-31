@@ -33,9 +33,6 @@ from custom_components.hacs.const import (
     BLACKLIST,
     STORAGE_VERSION,
 )
-from custom_components.hacs.handler.storage import (
-    data_migration,
-)
 
 from custom_components.hacs.frontend.views import (
     HacsStaticView,
@@ -59,6 +56,7 @@ CONFIG_SCHEMA = vol.Schema(
 
 async def async_setup(hass, config):  # pylint: disable=unused-argument
     """Set up this component."""
+    # TODO: Load from storage and migration needs to hapen here so we can exit if it fails
     _LOGGER.info(STARTUP)
     config_dir = hass.config.path()
     github_token = config[DOMAIN]["token"]
@@ -98,14 +96,25 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hacs.data["commander"] = commander
 
     # Add to sidepanel
-    await hass.components.frontend.async_register_built_in_panel(
-        "iframe",
-        IFRAME["title"],
-        IFRAME["icon"],
-        IFRAME["path"],
-        {"url": hacs.url_path["overview"]},
-        require_admin=IFRAME["require_admin"],
-    )
+    # TODO: Remove this check when minimum HA version is > 0.94
+    if parse_version(HAVERSION) < parse_version('0.94.0'):
+        hass.components.frontend.async_register_built_in_panel(
+            "iframe",
+            IFRAME["title"],
+            IFRAME["icon"],
+            IFRAME["path"],
+            {"url": hacs.url_path["overview"]},
+            require_admin=IFRAME["require_admin"],
+        )
+    else:
+        await hass.components.frontend.async_register_built_in_panel(
+            "iframe",
+            IFRAME["title"],
+            IFRAME["icon"],
+            IFRAME["path"],
+            {"url": hacs.url_path["overview"]},
+            require_admin=IFRAME["require_admin"],
+        )
 
     # Mischief managed!
     return True

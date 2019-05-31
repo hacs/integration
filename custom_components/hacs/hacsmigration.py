@@ -15,7 +15,6 @@ class HacsMigration(HacsBase):
     async def validate(self):
         """Check the current storage version to determine if migration is needed."""
         self.old = await self.storage.get()
-        self.data["hacs"]["schema"] = self.const.STORAGE_VERSION
 
         if not self.old:
             # Could not read the current file, it probably does not exist.

@@ -136,6 +136,7 @@ class HacsRepositoryBase(HacsBase):
                 if content_object.type == "dir":
                     await self.download_repository_directory_content(content_object, local_directory, ref)
                 if self.repository_type == "plugin" and not content_object.name.endswith(".js"):
+                    # For plugins we currently only need .js files
                     continue
 
                 _LOGGER.debug(f"Downloading {content_object.name}")
@@ -156,6 +157,7 @@ class HacsRepositoryBase(HacsBase):
 
     async def start_task_scheduler(self):
         """Start task scheduler."""
+        # TODO: Remove?
         return None
         #if not self.installed:
         #    return

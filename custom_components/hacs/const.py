@@ -29,9 +29,9 @@ IFRAME = {
     "require_admin": True,
 }
 
-DEFAULT_REPOSITORIES = {
-    "integration": [],
-    "plugin": []
+UPDATE = {
+    "installed": 30,
+    "full": 500
 }
 
 # Messages
@@ -69,3 +69,13 @@ ERROR = [
     "If we knew what it was we were doing, it would not be called research, would it?",
     "Wait a minute, Doc. Ah… Are you telling me you built a time machine… out of a DeLorean?",
 ]
+
+
+################################
+##  Extra default repositories #
+################################
+
+DEFAULT_REPOSITORIES = {
+    "integration": [],
+    "plugin": []
+}

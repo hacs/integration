@@ -4,25 +4,24 @@ Custom element manager for community created elements.
 For more details about this component, please refer to the documentation at
 https://custom-components.github.io/hacs/
 """
-# pylint: disable=not-an-iterable, unused-argument
 import logging
 import os.path
 import json
 import asyncio
 from datetime import datetime, timedelta
+from pkg_resources import parse_version
 import aiohttp
 
-from pkg_resources import parse_version
+
 import voluptuous as vol
 from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
+from homeassistant.helpers.aiohttp_client import async_create_clientsession
 import homeassistant.helpers.config_validation as cv
-from homeassistant.helpers.entity_component import EntityComponent
-from homeassistant.helpers.event import async_track_time_interval, async_call_later
+
 from custom_components.hacs.hacsbase import HacsBase as hacs
 from custom_components.hacs.const import (
     CUSTOM_UPDATER_LOCATIONS,
     STARTUP,
-    PROJECT_URL,
     ISSUE_URL,
     CUSTOM_UPDATER_WARNING,
     NAME_LONG,
@@ -31,8 +30,6 @@ from custom_components.hacs.const import (
     ELEMENT_TYPES,
     VERSION,
     IFRAME,
-    BLACKLIST,
-    STORAGE_VERSION,
 )
 
 from custom_components.hacs.frontend.views import (
@@ -60,7 +57,6 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     _LOGGER.info(STARTUP)
     config_dir = hass.config.path()
     github_token = config[DOMAIN]["token"]
-    commander = HacsCommander()
 
     # Configure HACS
     await configure_hacs(hass, github_token, config_dir)
@@ -92,8 +88,6 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hass.http.register_view(HacsSettingsView())
     hass.http.register_view(HacsRepositoryView())
     hass.http.register_view(HacsAPIView())
-
-    hacs.data["commander"] = commander
 
     # Add to sidepanel
     # TODO: Remove this check when minimum HA version is > 0.94
@@ -129,23 +123,9 @@ async def configure_hacs(hass, github_token, hass_config_dir):
     hacs.migration = HacsMigration()
     hacs.storage = HacsStorage()
 
-    hacs.aiogithub = AIOGitHub(github_token, hass.loop, aiohttp.ClientSession())
+    hacs.aiogithub = AIOGitHub(github_token, hass.loop, async_create_clientsession(hass))
 
     hacs.hass = hass
     hacs.hacs = hacs
     hacs.config_dir = hass_config_dir
     hacs.blacklist = hacs.const.BLACKLIST
-
-class HacsCommander(hacs):
-    """HACS Commander class."""
-
-
-
-    async def setup_recuring_tasks(self):
-        """Setup recuring tasks."""
-
-        hacs_scan_interval = timedelta(minutes=10)
-        full_element_scan_interval = timedelta(minutes=30)
-
-        async_track_time_interval(self.hass, self.check_for_hacs_update, hacs_scan_interval)
-        async_track_time_interval(self.hass, self.update_repositories, full_element_scan_interval)

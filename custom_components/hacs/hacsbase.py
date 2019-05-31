@@ -2,6 +2,9 @@
 # pylint: disable=too-few-public-methods
 import logging
 import uuid
+from datetime import timedelta
+
+from homeassistant.helpers.event import async_track_time_interval
 from custom_components.hacs.aiogithub import AIOGitHubException
 
 _LOGGER = logging.getLogger('custom_components.hacs.hacs')
@@ -36,7 +39,11 @@ class HacsBase:
         custom_log_level = {"custom_components.hacs": "debug"}
         await self.hass.services.async_call("logger", "set_level", custom_log_level)
 
-        #await self.setup_recuring_tasks()  # TODO: Check this...
+        # For installed repositories only.
+        async_track_time_interval(self.hass, self.recuring_tasks(installed_only=True), timedelta(minutes=self.const.UPDATE["full"]))
+
+        # For the rest.
+        async_track_time_interval(self.hass, self.recuring_tasks, timedelta(minutes=self.const.UPDATE["full"]))
 
         # Check for updates to HACS.
         repository = await self.aiogithub.get_repo("custom-components/hacs")
@@ -75,7 +82,7 @@ class HacsBase:
         setup_result = True
         try:
             await repository.setup_repository()
-        except (HacsRequirement, HacsBaseException,AIOGitHubException) as exception:
+        except (HacsRequirement, HacsBaseException, AIOGitHubException) as exception:
             _LOGGER.debug("%s - %s", repository.repository_name, exception)
             setup_result = False
 
@@ -88,7 +95,7 @@ class HacsBase:
             _LOGGER.debug("%s - Could not register.", repo)
         return repository, setup_result
 
-    async def update_repositories(self, notarealargument=None):
+    async def update_repositories(self):
         """Run update on registerd repositories, and register new."""
         self.data["task_running"] = True
 
@@ -143,13 +150,23 @@ class HacsBase:
 
         return repositories["integration"], repositories["plugin"]
 
-    async def check_for_hacs_update(self, notarealargument=None):
-        """Check for hacs update."""
-        _LOGGER.info("Checking for HACS updates...")
-        try:
-            repository = await self.aiogithub.get_repo("custom-components/hacs")
-            release = await repository.get_releases(True)
-            self.hacs.data["hacs"]["remote"] = release.tag_name
+    async def recuring_tasks(self, installed_only=True):
+        """Recuring tasks."""
 
-        except Exception as exception:  # pylint: disable=broad-except
-            _LOGGER.error("custom-components/hacs - %s", exception)
+        if installed_only:
+            if self.repositories:
+                for repository in self.repositories:
+                    try:
+                        repository = self.repositories[repository]
+                        _LOGGER.info("Running update for %s", repository.repository_name)
+                        if repository.track or repository.repository_name in self.blacklist:
+                            continue
+                        if not repository.installed:
+                            continue
+                        await repository.update()
+                    except AIOGitHubException as exception:
+                        _LOGGER.debug("%s - %s", repository.repository_name, exception)
+            return
+
+        # Update everyting if installed_only=False
+        await self.update_repositories()

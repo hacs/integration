@@ -1,8 +1,9 @@
 """Async Github API implementation."""
-import async_timeout
+# pylint: disable=super-init-not-called,missing-docstring,invalid-name
 import base64
 import logging
 from datetime import datetime
+import async_timeout
 
 _LOGGER = logging.getLogger('custom_components.hacs.aiogithub')
 

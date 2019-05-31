@@ -1,5 +1,7 @@
 """Blueprint for HacsMigration."""
 import logging
+from shutil import copy2
+
 from custom_components.hacs.hacsbase import HacsBase
 
 _LOGGER = logging.getLogger('custom_components.hacs.migration')
@@ -13,9 +15,27 @@ class HacsMigration(HacsBase):
     async def validate(self):
         """Check the current storage version to determine if migration is needed."""
         self.old = await self.storage.get()
-        if not self.old["hacs"].get("schema"):
-            # TODO: Create backup
+
+        if not self.old:
+            # Could not read the current file, it probably does not exist.
+            # Running full scan.
+            await self.update_repositories()
+
+        elif not self.old["hacs"].get("schema"):
+            # Creating backup.
+            source = "{}/.storage/hacs".format(self.config_dir)
+            destination = "{}.none".format(source)
+            _LOGGER.info("Backing up current file to '%s'", destination)
+            copy2(source, destination)
+
+            # Run migration.
             await self.from_none_to_1()
+
+        else:
+            # Should not get here, but do a full scan just in case...
+            await self.update_repositories()
+
+        self.data["hacs"]["schema"] = self.const.STORAGE_VERSION
 
     async def from_none_to_1(self):
         """Migrate from None (< 0.4.0) to storage version 1."""
@@ -31,13 +51,3 @@ class HacsMigration(HacsBase):
                 if setup_result:
                     # Set old values
                     repository.version_installed = repodata["installed_version"]
-
-        self.data["hacs"]["schema"] = "1"
-
-        # TODO: Verify that this is actually needed.
-        #for repository_type in self.old["repos"]:
-        #    repository_type = self.old["repos"][repository_type]
-        #    for repository in repository_type:
-        #        # Register new repository
-        #        _LOGGER.info("Migrating %s", repository)
-        #        repository, setup_result = await self.register_new_repository(repodata["element_type"], repodata["repo"])

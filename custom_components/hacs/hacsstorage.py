@@ -22,11 +22,15 @@ class HacsStorage(HacsBase):
         _LOGGER.debug("Reading from datastore %s.", datastore)
 
         self.data["task_running"] = True
-        async with aiofiles.open(
-            datastore, mode='r', encoding="utf-8", errors="ignore") as datafile:
-            store_data = await datafile.read()
-            store_data = json.loads(store_data)
-            datafile.close()
+        try:
+            async with aiofiles.open(
+                datastore, mode='r', encoding="utf-8", errors="ignore") as datafile:
+                store_data = await datafile.read()
+                store_data = json.loads(store_data)
+                datafile.close()
+        except Exception:
+            # Issues reading the file (if it exists.)
+            return False
 
         # Restore data about HACS
         self.data["hacs"] = store_data["hacs"]

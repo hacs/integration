@@ -61,10 +61,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     # Configure HACS
     await configure_hacs(hass, github_token, config_dir)
 
-    for item in hacs.url_path:
-        _LOGGER.critical(f"{item}: {hacs.url_path[item]}")
-
-    # Check if custom_updater exists
+     # Check if custom_updater exists
     for location in CUSTOM_UPDATER_LOCATIONS:
         if os.path.exists(location.format(config_dir)):
             msg = CUSTOM_UPDATER_WARNING.format(location.format(config_dir))
@@ -126,6 +123,5 @@ async def configure_hacs(hass, github_token, hass_config_dir):
     hacs.aiogithub = AIOGitHub(github_token, hass.loop, async_create_clientsession(hass))
 
     hacs.hass = hass
-    hacs.hacs = hacs
     hacs.config_dir = hass_config_dir
     hacs.blacklist = hacs.const.BLACKLIST

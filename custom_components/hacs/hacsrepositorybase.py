@@ -42,7 +42,6 @@ class HacsRepositoryBase(HacsBase):
         self.track = True
         self.version_installed = None
 
-
     @property
     def pending_update(self):
         """Return flag if the an update is pending."""
@@ -73,8 +72,34 @@ class HacsRepositoryBase(HacsBase):
 
         elif self.repository_type == "plugin":
             local_path = f"{self.config_dir}/www/community/{self.name}"
-
         return local_path
+
+    @property
+    def topics(self):
+        return self.repository.topics
+
+    @property
+    def throttle_time(self):
+        if self.installed:
+            return timedelta(minutes=30)
+        return timedelta(minutes=500)
+
+    @property
+    def description(self):
+        """Description."""
+        return "" if self.repository.description is None else self.repository.description
+
+    @property
+    def ref(self):
+        """Return the repository ref."""
+        if self.last_release_tag is not None:
+            return "tags/{}".format(self.last_release_tag)
+        return self.repository.default_branch
+
+    @property
+    def repository_id(self):
+        """Set the ID of an repository."""
+        return str(self.repository.id)
 
     async def setup_repository(self):
         """
@@ -152,18 +177,7 @@ class HacsRepositoryBase(HacsBase):
                 await async_save_file(local_file_path, filecontent)
 
         except Exception as exception:
-            # TODO: needs to fail/rollback (maybe use /temp?)
             _LOGGER.debug(exception)
-
-    async def start_task_scheduler(self):
-        """Start task scheduler."""
-        # TODO: Remove?
-        return None
-        #if not self.installed:
-        #    return
-
-        # Update installed elements every 30min
-        #async_call_later(self.hass, 60*30, self.update)  # pylint: disable=no-member
 
     async def install(self):
         """Run install tasks."""
@@ -253,23 +267,7 @@ class HacsRepositoryBase(HacsBase):
 
         except Exception:
             # We kinda expect this one to fail
-            pass
-
-    @property
-    def topics(self):
-        return self.repository.topics
-
-
-    @property
-    def throttle_time(self):
-        if self.installed:
-            return timedelta(minutes=30)
-        return timedelta(minutes=500)
-
-    @property
-    def description(self):
-        """Description."""
-        return "" if self.repository.description is None else self.repository.description
+            self.additional_info = ""
 
 
     async def set_repository(self):
@@ -288,11 +286,6 @@ class HacsRepositoryBase(HacsBase):
         self.repository = temp
 
 
-    @property
-    def repository_id(self):
-        """Set the ID of an repository."""
-        return str(self.repository.id)
-
     async def set_repository_releases(self):
         """Set attributes for releases."""
         if self.repository is None:
@@ -307,12 +300,7 @@ class HacsRepositoryBase(HacsBase):
         self.last_release_object = temp
         self.last_release_tag = temp.tag_name
 
-    @property
-    def ref(self):
-        """Return the repository ref."""
-        if self.last_release_tag is not None:
-            return "tags/{}".format(self.last_release_tag)
-        return self.repository.default_branch
+
 
     async def validate_repository_name(self):
         """Validate the given repository_name."""

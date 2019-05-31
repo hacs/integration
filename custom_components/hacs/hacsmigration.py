@@ -31,6 +31,9 @@ class HacsMigration(HacsBase):
             # Run migration.
             await self.from_none_to_1()
 
+        elif self.old["hacs"].get("schema") == self.const.STORAGE_VERSION:
+            pass
+
         else:
             # Should not get here, but do a full scan just in case...
             await self.update_repositories()

@@ -11,6 +11,7 @@ LOVELACE_EXAMLE_URL = """
   - url: /community_plugin/{name}/{name}.js
 </pre>
 """
+
 LOVELACE_EXAMLE_URL_TYPE = """
 <pre id="LovelaceExample" class="yaml">
   - url: /community_plugin/{name}/{name}.js
@@ -73,7 +74,7 @@ class HacsRepositoryView(HacsViewBase):
                 pending_restart = ""
 
             if repository.additional_info:
-                if repository.info is not None:
+                if repository.info is None:
                     info = "</br>" + await self.aiogithub.render_markdown(repository.additional_info)
                     info = info.replace("<h3>", "<h6>").replace(
                         "</h3>", "</h6>"

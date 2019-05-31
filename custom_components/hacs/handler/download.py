@@ -1,6 +1,5 @@
 """Download."""
 import logging
-import os
 import aiofiles
 
 import async_timeout

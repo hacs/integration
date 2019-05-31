@@ -36,6 +36,9 @@ class HacsBase:
 
         _LOGGER.info("Runing startup tasks.")
 
+        # Store enpoints
+        HacsBase.data["hacs"]["endpoints"] = self.url_path
+
         custom_log_level = {"custom_components.hacs": "debug"}
         await self.hass.services.async_call("logger", "set_level", custom_log_level)
 
@@ -50,9 +53,6 @@ class HacsBase:
         repository = HacsRepositoryIntegration("custom-components/hacs", repository)
         await repository.setup_repository()
         self.repositories[repository.repository_id] = repository
-
-        # Make sure we have the correct version
-        self.data["hacs"]["local"] = self.const.VERSION
 
         _LOGGER.info("Trying to load existing data.")
 

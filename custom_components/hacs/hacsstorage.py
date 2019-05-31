@@ -35,6 +35,15 @@ class HacsStorage(HacsBase):
         # Restore data about HACS
         self.data["hacs"] = store_data["hacs"]
 
+        # Re enable stored custom repositories.
+        for repository in store_data["repositories"]:
+            repository = store_data["repositories"][repository]
+            if not repository.get("custom"):
+                continue
+            repository, status = await self.register_new_repository(repository["repository_type"], repository["repository_name"])
+            if status:
+                await self.restore(store_data, repository)
+
         # Get new repository objects
         integrations, plugins = await self.get_repositories()
 
@@ -90,6 +99,7 @@ class HacsStorage(HacsBase):
             repositorydata = {}
             repository = self.repositories[repository]
 
+            repositorydata["custom"] = repository.custom
             repositorydata["hide"] = repository.hide
             repositorydata["installed"] = repository.installed
             repositorydata["name"] = repository.name
@@ -119,4 +129,6 @@ class HacsStorage(HacsBase):
 
         # Set repository attributes from stored values
         for attribute in storeddata:
+            if attribute in ["custom"]:
+                continue
             repository.__setattr__(attribute, storeddata[attribute])

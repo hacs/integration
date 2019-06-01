@@ -62,7 +62,7 @@ class HacsRepositoryView(HacsViewBase):
                                 <div class="card-panel orange darken-4">
                                     <div class="card-content white-text">
                                         <span>
-                                            You need to restart Home Assisant, for your last operation to be loaded.
+                                            You need to restart (and potentially reconfigure) Home Assisant, for your last operation to be loaded.
                                         </span>
                                     </div>
                                 </div>

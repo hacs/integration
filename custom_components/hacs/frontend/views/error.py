@@ -30,7 +30,9 @@ class HacsErrorView(HacsViewBase):
             stack_trace = list()
 
             for trace in trace_back:
-                stack_trace.append(f"File : {trace[0]} , Line : {trace[1]}, Func.Name : {trace[2]}, Message : {trace[3]}")
+                stack_trace.append("File : {} , Line : {}, Func.Name : {}, Message : {}", format(
+                    trace[0], trace[1], trace[2], trace[3]
+                ))
 
             # HARD styling
             stacks = ""
@@ -44,37 +46,37 @@ class HacsErrorView(HacsViewBase):
 
 
             if ex_type is not None:
-                codeblock = f"""
-                    <p><b>Exception type:</b> {ex_type.__name__}</p>
-                    <p><b>Exception message:</b> {ex_value}</p>
-                    <code class="codeblock errorview"">{stacks}</code>
-                """
+                codeblock = """
+                    <p><b>Exception type:</b> {}</p>
+                    <p><b>Exception message:</b> {}</p>
+                    <code class="codeblock errorview"">{}</code>
+                """.format(ex_type.__name__, ex_value, stacks)
             else:
                 codeblock = ""
 
 
             # Generate content
             content = self.base_content
-            content += f"""
+            content += """
                 <div class='container'>
                     <h2>Something is wrong...</h2>
-                    <b>Error code:</b> <i>{random.choice(ERROR)}</i>
-                    {codeblock}
+                    <b>Error code:</b> <i>{}</i>
+                    {}
                 </div>
                 <div class='container'>
-                    <a href='{ISSUE_URL}/new/choose' class='waves-effect waves-light btn right hacsbutton'
+                    <a href='{}/new/choose' class='waves-effect waves-light btn right hacsbutton'
                         target="_blank">OPEN ISSUE</a>
 
-                    <a href='{self.url_path["api"]}/log/get' class='waves-effect waves-light btn right hacsbutton'>
+                    <a href='{}/log/get' class='waves-effect waves-light btn right hacsbutton'>
                         OPEN LOG
                     </a>
                 </div>
                 <div class='center-align' style='margin-top: 100px'>
                     <img src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>
                 </div>
-            """
+            """.format(random.choice(ERROR), codeblock, ISSUE_URL, self.url_path["api"])
 
         except Exception as exception:
-            _LOGGER.debug(f"GREAT!, even the error page is broken... ({exception})")
+            _LOGGER.debug("GREAT!, even the error page is broken... (%s)", exception)
 
         return web.Response(body=content, content_type="text/html", charset="utf-8")

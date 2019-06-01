@@ -68,10 +68,10 @@ class HacsRepositoryBase(HacsBase):
             if self.domain is None:  # pylint: disable=no-member
                 local_path = None
             else:
-                local_path = f"{self.config_dir}/custom_components/{self.domain}"  # pylint: disable=no-member
+                local_path = "{}/custom_components/{}".format(self.config_dir, self.domain)  # pylint: disable=no-member
 
         elif self.repository_type == "plugin":
-            local_path = f"{self.config_dir}/www/community/{self.name}"
+            local_path = "{}/www/community/{}".format(self.config_dir, self.name)
         return local_path
 
     @property
@@ -159,12 +159,12 @@ class HacsRepositoryBase(HacsBase):
                     # For plugins we currently only need .js files
                     continue
 
-                _LOGGER.debug(f"Downloading {content_object.name}")
+                _LOGGER.debug("Downloading %s", content_object.name)
 
                 filecontent = await async_download_file(self.hass, content_object.download_url)
 
                 if filecontent is None:
-                    _LOGGER.debug(f"There was an error downloading the file {content_object.name}")
+                    _LOGGER.debug("There was an error downloading the file %s", content_object.name)
                     continue
 
                 # Save the content of the file.
@@ -177,7 +177,7 @@ class HacsRepositoryBase(HacsBase):
                     # Check local directory
                     pathlib.Path(local_directory).mkdir(parents=True, exist_ok=True)
 
-                local_file_path = f"{local_directory}/{content_object.name}"
+                local_file_path = "{}/{}".format(local_directory, content_object.name)
                 await async_save_file(local_file_path, filecontent)
 
         except SystemError as exception:
@@ -186,7 +186,7 @@ class HacsRepositoryBase(HacsBase):
     async def install(self):
         """Run install tasks."""
         start_time = datetime.now()
-        _LOGGER.info(f'({self.repository_name}) - Starting installation')
+        _LOGGER.info('(%s) - Starting installation', self.repository_name)
         try:
             # Run update
             await self.update()  # pylint: disable=no-member
@@ -198,7 +198,7 @@ class HacsRepositoryBase(HacsBase):
             await self.download_repository_directory_content(self.content_path, self.local_path, self.ref)
 
         except HacsBaseException as exception:
-            _LOGGER.debug(f"({self.repository_name}) - {exception}")
+            _LOGGER.debug("(%s) - %s", self.repository_name, exception)
             return False
 
         else:
@@ -211,7 +211,7 @@ class HacsRepositoryBase(HacsBase):
 
     async def remove(self):
         """Run remove tasks."""
-        _LOGGER.debug(f"({self.repository_name}) - Starting removal")
+        _LOGGER.debug("(%s) - Starting removal", self.repository_name)
 
         await self.remove_local_directory()
 
@@ -221,7 +221,7 @@ class HacsRepositoryBase(HacsBase):
 
     async def uninstall(self):
         """Run uninstall tasks."""
-        _LOGGER.debug(f"({self.repository_name}) - Starting uninstall")
+        _LOGGER.debug("(%s) - Starting uninstall", self.repository_name)
         await self.remove_local_directory()
         self.installed = False
         self.pending_restart = True
@@ -240,26 +240,25 @@ class HacsRepositoryBase(HacsBase):
                 await self.remove_local_directory()
 
             # Create the new directory
-            _LOGGER.debug(f"({self.repository_name}) - Creating {local_path}")
+            _LOGGER.debug("(%s) - Creating %s", self.repository_name, local_path)
             pathlib.Path(local_path).mkdir(parents=True, exist_ok=True)
 
         except Exception as exception:
-            _LOGGER.debug(f"({self.repository_name}) - Creating directory {local_path} failed with {exception}")
+            _LOGGER.debug("(%s) - Creating directory %s failed with %s", self.repository_name, local_path, exception)
             return
 
     async def remove_local_directory(self):
         """Check the local directory."""
         try:
             if os.path.exists(self.local_path):
-                _LOGGER.debug(f"({self.repository_name}) - Removing {self.local_path}")
+                _LOGGER.debug("(%s) - Removing %s", self.repository_name, self.local_path)
                 shutil.rmtree(self.local_path)
 
                 while os.path.exists(self.local_path):
-                    _LOGGER.debug(f"({self.repository_name}) - {self.local_path} still exist, waiting 1s and checking again.")
                     await sleep(1)
 
         except Exception as exception:
-            _LOGGER.debug(f"({self.repository_name}) - Removing directory {self.local_path} failed with {exception}")
+            _LOGGER.debug("(%s) - Removing directory %s failed with %s", self.repository_name, self.local_path, exception)
             return
 
     async def set_additional_info(self):

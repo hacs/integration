@@ -32,7 +32,7 @@ class HacsSettingsView(HacsViewBase):
 
             # HACS restart pending
             if hacs.pending_restart:
-                hacs_restart = f"""
+                hacs_restart = """
                     <div class='container'>
                         <div class="row">
                             <div class="col s12">
@@ -52,7 +52,7 @@ class HacsSettingsView(HacsViewBase):
 
             # HACS update pending
             if hacs.pending_update:
-                hacs_update = f"""
+                hacs_update = """
                     <div class='container'>
                         <div class="row">
                             <div class="col s12">
@@ -62,38 +62,38 @@ class HacsSettingsView(HacsViewBase):
 
                                         <p>There is an update pending for HACS!.</p>
                                         </br>
-                                        <p><b>Current version:</b> {hacs.version_installed}</p>
-                                        <p><b>Available version:</b> {hacs.last_release_tag}</p>
+                                        <p><b>Current version:</b> {}</p>
+                                        <p><b>Available version:</b> {}</p>
                                     </div>
 
                                     <div class="card-action">
-                                        <a href="{self.url_path["api"]}/repository_install/172733314" onclick="ShowProgressBar()">UPGRADE</a>
-                                        <a href="https://github.com/custom-components/hacs/releases/tag/{hacs.last_release_tag}" target="_blank">CHANGELOG</a>
+                                        <a href="{}/repository_install/172733314" onclick="ShowProgressBar()">UPGRADE</a>
+                                        <a href="https://github.com/custom-components/hacs/releases/tag/{}" target="_blank">CHANGELOG</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                """
+                """.format(hacs.version_installed, hacs.last_release_tag, self.url_path["api"], hacs.last_release_tag)
             else:
                 hacs_update = ""
 
             if message != None:
-                custom_message = f"""
+                custom_message = """
                     <div class='container'>
                         <div class="row">
                             <div class="col s12">
                                 <div class="card-panel orange darken-4">
                                     <div class="card-content white-text">
                                         <span>
-                                            {message}
+                                            {}
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                """
+                """.format(message)
             else:
                 custom_message = ""
 
@@ -137,13 +137,13 @@ class HacsSettingsView(HacsViewBase):
 
             # Generate content to display
             content = self.base_content
-            content += f"""
+            content += """
                 <div class='container'>
-                    {hacs_restart}
-                    {hacs_update}
-                    {custom_message}
+                    {}
+                    {}
+                    {}
                 </div>
-            """
+            """.format(hacs_restart, hacs_update, custom_message)
 
             ## Integration URL's
             content += """
@@ -154,9 +154,9 @@ class HacsSettingsView(HacsViewBase):
             """
             for line in integrations:
                 content += line
-            content += f"""
+            content += """
                         </ul>
-                        <form action="{self.url_path["api"]}/repository_register/integration" 
+                        <form action="{}/repository_register/integration" 
                                 method="post" accept-charset="utf-8"
                                 enctype="application/x-www-form-urlencoded">
                             <input id="custom_url" type="text" name="custom_url" 
@@ -168,7 +168,7 @@ class HacsSettingsView(HacsViewBase):
                         </form>
                     </div>
                 </div>
-            """
+            """.format(self.url_path["api"])
 
             ## Plugin URL's
             content += """
@@ -179,9 +179,9 @@ class HacsSettingsView(HacsViewBase):
             """
             for line in plugins:
                 content += line
-            content += f"""
+            content += """
                         </ul>
-                        <form action="{self.url_path["api"]}/repository_register/plugin" 
+                        <form action="{}/repository_register/plugin" 
                                 method="post" accept-charset="utf-8"
                                 enctype="application/x-www-form-urlencoded">
                             <input id="custom_url" type="text" name="custom_url" 
@@ -193,37 +193,37 @@ class HacsSettingsView(HacsViewBase):
                         </form>
                     </div>
                 </div>
-            """
+            """.format(self.url_path["api"])
 
             # The buttons, must have buttons
-            content += f"""
+            content += """
                 <div class='container' style="padding-right: 2%">
-                    <a href="{self.url_path["api"]}/repositories_reload/notinuse" class='waves-effect waves-light btn hacsbutton' onclick="ShowProgressBar()">
+                    <a href="{}/repositories_reload/notinuse" class='waves-effect waves-light btn hacsbutton' onclick="ShowProgressBar()">
                         RELOAD DATA
                     </a>
-                    <a href='{ISSUE_URL}/new/choose' class='waves-effect waves-light btn right hacsbutton' target="_blank">
+                    <a href='{}/new/choose' class='waves-effect waves-light btn right hacsbutton' target="_blank">
                         OPEN ISSUE
                     </a>
                     <a href='https://github.com/custom-components/hacs' class='waves-effect waves-light btn right hacsbutton' target="_blank">
                         HACS REPO
                     </a>
-                    <a href="{self.url_path["api"]}/log/get" class='waves-effect waves-light btn right hacsbutton' onclick="ShowProgressBar()">
+                    <a href="{}/log/get" class='waves-effect waves-light btn right hacsbutton' onclick="ShowProgressBar()">
                         OPEN LOG
                     </a>
                 </div>
-            """
+            """.format(self.url_path["api"], ISSUE_URL, self.url_path["api"])
 
             # Bottom card
-            content += f"""
+            content += """
                 <div class='container'>
                     <div class="row">
                         <div class="col s12">
                             <div class="card-panel" style="background-color: #bbdefb00 !important">
                                 <div class="card-content black-text">
-                                    <h5>{NAME_LONG}</h5>
-                                    <b>HACS version:</b> {hacs.version_installed}
-                                    {" <b>(RESTART PENDING!)</b>" if hacs.pending_restart else ""}</br>
-                                    <b>Home Assistant version:</b> {HAVERSION}</br>
+                                    <h5>{}</h5>
+                                    <b>HACS version:</b> {}
+                                    {}</br>
+                                    <b>Home Assistant version:</b> {}</br>
                                     </br>
                                     <hr>
                                     <h6>UI built with elements from:</h6>
@@ -236,7 +236,7 @@ class HacsSettingsView(HacsViewBase):
                         </div>
                     </div>
                 </div>
-            """
+            """.format(NAME_LONG, hacs.version_installed, " <b>(RESTART PENDING!)</b>" if hacs.pending_restart else "", HAVERSION)
 
         except Exception as exception:
             _LOGGER.error(exception)

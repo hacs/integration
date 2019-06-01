@@ -27,14 +27,14 @@ class HacsAPIView(HacsViewBase):
             await self.storage.set()
             if action == "172733314":
                 raise web.HTTPFound(self.url_path['settings'])
-            raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
+            raise web.HTTPFound("{}/{}".format(self.url_path['repository'], repository.repository_id))
 
         # Update a repository
         elif element == "repository_update_repository":
             repository = self.repositories[action]
             await repository.update()
             await self.storage.set()
-            raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
+            raise web.HTTPFound("{}/{}".format(self.url_path['repository'], repository.repository_id))
 
         # Update a repository
         elif element == "repository_update_settings":
@@ -112,7 +112,7 @@ class HacsAPIView(HacsViewBase):
                 repository, result = await self.register_new_repository(repository_type, repository_name)
                 if result:
                     await self.storage.set()
-                    raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
+                    raise web.HTTPFound("{}/{}".format(self.url_path['repository'], repository.repository_id))
 
             message = "Could not add {} at this time, check the log for more details.".format(repository_name)
 

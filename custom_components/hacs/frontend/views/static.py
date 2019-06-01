@@ -39,6 +39,6 @@ class HacsStaticView(HacsViewBase):
                 localfile.close()
 
         except Exception as exception:
-            _LOGGER.debug(f"Could not serve {requested_file} - {exception}")
+            _LOGGER.debug("Could not serve %s - %s", requested_file, exception)
 
         return web.Response(body=filecontent, content_type=filecontent_type, charset="utf-8")

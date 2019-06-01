@@ -44,25 +44,25 @@ class HacsOverviewView(HacsViewBase):
                     else:
                         card_icon = ""
 
-                    card = f"""
+                    card = """
                         <div class="row">
                             <div class="col s12">
                                 <div class="card blue-grey darken-1">
                                     <div class="card-content white-text">
                                         <span class="card-title">
-                                            {repository.name} {card_icon}
+                                            {} {}
                                         </span>
                                         <span class="white-text">
-                                            <p>{repository.description}</p>
+                                            <p>{}</p>
                                         </span>
                                     </div>
                                     <div class="card-action">
-                                        <a href="{self.url_path["repository"]}/{repository.repository_id}">Manage</a>
+                                        <a href="{}/{}">Manage</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        """
+                        """.format(repository.name, card_icon, repository.description, self.url_path["repository"], repository.repository_id)
 
                     if repository.repository_type == "integration":
                         integrations.append(card)

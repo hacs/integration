@@ -35,27 +35,27 @@ class HacsRepositoryView(HacsViewBase):
             repository = self.repositories[str(repository_id)]
 
             if message != None:
-                custom_message = f"""
+                custom_message = """
                     <div class='container'>
                         <div class="row">
                             <div class="col s12">
                                 <div class="card-panel orange darken-4">
                                     <div class="card-content white-text">
                                         <span>
-                                            {message}
+                                            {}
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                """
+                """.format(message)
             else:
                 custom_message = ""
 
 
             if repository.pending_restart:
-                pending_restart = f"""
+                pending_restart = """
                     <div class='container''>
                         <div class="row">
                             <div class="col s12">
@@ -105,44 +105,44 @@ class HacsRepositoryView(HacsViewBase):
                 for author in repository.authors:
                     if "@" in author:
                         author = author.split("@")[-1]
-                    authors += f"<a href='https://github.com/{author}' target='_blank' style='margin: 2'> @{author}</a>"
+                    authors += "<a href='https://github.com/{author}' target='_blank' style='margin: 2'> @{author}</a>".format(author=author)
                 authors += "</p>"
             else:
                 authors = ""
 
             if repository.repository_type == "integration":
-                note = f"""
+                note = """
                     </br>
                     <i>
-                        When installed, this will be located in '{repository.local_path}',
+                        When installed, this will be located in '{}',
                         you still need to add it to your 'configuration.yaml' file.
                     </i></br></br>
                     <i>
                         To learn more about how to configure this,
                         click the "REPO" button to get to the repoistory for this integration.
                     </i>
-                """
+                """.format(repository.local_path)
             else:
-                note = f"""
+                if repository.javascript_type is None:
+                    llnote = LOVELACE_EXAMLE_URL.format(name=repository.name)
+                else:
+                    llnote = LOVELACE_EXAMLE_URL_TYPE.format(name=repository.name, type=repository.javascript_type)
+                note = """
                     </br><i>
-                        When installed, this will be located in '{repository.local_path}',
+                        When installed, this will be located in '{}',
                         you still need to add it to your lovelace configuration ('ui-lovelace.yaml' or the raw UI config editor).
                     </i>
                     </br></br>
                     <i>
                         When you add this to your configuration use this:
                     </i></br>
-                        {
-                            LOVELACE_EXAMLE_URL.format(name=repository.name)
-                            if repository.javascript_type is None else
-                            LOVELACE_EXAMLE_URL_TYPE.format(name=repository.name, type=repository.javascript_type)
-                        }
+                        {}
                     <a title="Copy content to clipboard" id ="lovelacecopy" onclick="CopyToLovelaceExampleToClipboard()"><i class="fa fa-copy"></i></a>
                     </br></br><i>
                         To learn more about how to configure this,
                         click the "REPO" button to get to the repoistory for this plugin.
                     </i>
-                """
+                """.format(repository.local_path, llnote)
 
             if not repository.installed:
                 main_action = "INSTALL"
@@ -159,59 +159,80 @@ class HacsRepositoryView(HacsViewBase):
                         name = repository.name.split("lovelace-")[-1]
                     else:
                         name = repository.name
-                    open_plugin = f"<a href='/community_plugin/{repository.name}/{name}.js' target='_blank'>OPEN PLUGIN</a>"
+                    open_plugin = "<a href='/community_plugin/{}/{}.js' target='_blank'>OPEN PLUGIN</a>".format(repository.name, name)
             else:
                 open_plugin = ""
 
             # Generate content
             content = self.base_content
 
-            content += f"""
-                {custom_message}
-                {pending_restart}
+            if repository.version_installed is not None:
+                 inst_ver = "<p><b>Installed version:</b> {}</p>".format(repository.version_installed)
+            else:
+                inst_ver = ""
+
+            if repository.last_release_tag is not None:
+                 last_ver = "<p><b>Available version:</b> {}</p>".format(repository.last_release_tag)
+            else:
+                last_ver = ""
+
+            if repository.last_updated is not None:
+                 last_up = "<p><b>Last updated:</b> {}</p>".format(repository.last_updated)
+            else:
+                last_up = ""
+
+            if repository.pending_update:
+                changelog = "<a href='https://github.com/{}/releases' target='_blank'>CHANGELOG</a>".format(repository.repository_name)
+            else:
+                changelog = ""
+
+            if repository.installed:
+                uninstall = "<a href='{}/repository_uninstall/{}' style='float: right; color: #a70000; font-weight: bold;' onclick='ShowProgressBar()'>UNINSTALL</a>".format(self.url_path['api'], repository.repository_id)
+            else:
+                uninstall = ""
+
+            content += """
+                {}
+                {}
                 <div class='container''>
                     <div class="row">
                         <div class="col s12">
                             <div class="card blue-grey darken-1">
                                 <div class="card-content white-text">
                                     <span class="card-title">
-                                        {repository.name}
-                                        <a href="{self.url_path["api"]}/repository_update_repository/{repository.repository_id}"
+                                        {}
+                                        <a href="{}/repository_update_repository/{}"
                                                 style="float: right; color: #ffab40;" onclick="ShowProgressBar()">
                                             <i name="reload" class="fa fa-sync"></i>
                                         </a>
                                     </span>
-                                    <p>{repository.description}</p></br>
-                                    {f"<p><b>Installed version:</b> {repository.version_installed}</p>" if repository.version_installed is not None else ""}
-                                    {f"<p><b>Available version:</b> {repository.last_release_tag}</p>" if repository.last_release_tag is not None else ""}
-                                    {f"<p><b>Last updated:</b> {repository.last_updated}</p>" if repository.last_updated is not None else ""}
-                                    <span>{info}</span>
+                                    <p>{}</p></br>
+                                    {}
+                                    {}
+                                    {}
+                                    <span>{}</span>
                                     </br>
-                                    {authors}
-                                    {note}
+                                    {}
+                                    {}
                                 </div>
                                 <div class="card-action">
-                                    <a href="{self.url_path["api"]}/repository_install/{repository.repository_id}"
+                                    <a href="{}/repository_install/{}"
                                         onclick="ShowProgressBar()">
-                                        {main_action}
+                                        {}
                                     </a>
-                                    {
-                                        f"<a href='https://github.com/{repository.repository_name}/releases' target='_blank'>CHANGELOG</a>"
-                                        if repository.pending_update else ""
-                                    }
-                                    <a href='https://github.com/{repository.repository_name}' target='_blank'>repository</a>
-                                    {open_plugin}
-                                    {
-                                        f"<a href='{self.url_path['api']}/repository_uninstall/{repository.repository_id}' style='float: right; color: #a70000; font-weight: bold;' onclick='ShowProgressBar()'>UNINSTALL</a>"
-                                        if repository.installed else ""
-                                    }
+                                    {}
+                                    <a href='https://github.com/{}' target='_blank'>repository</a>
+                                    {}
+                                    {}
                                 </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            """
+            """.format(custom_message, pending_restart, repository.name, self.url_path["api"], repository.repository_id,
+                repository.description, inst_ver, last_ver, last_up, info, authors, note, self.url_path["api"],
+                repository.repository_id, main_action, changelog, repository.repository_name, open_plugin, uninstall)
 
         except Exception as exception:
             _LOGGER.error(exception)

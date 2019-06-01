@@ -51,29 +51,29 @@ class HacsStoreView(HacsViewBase):
                     else:
                         card_icon = ""
 
-                    card = f"""
+                    card = """
                         <div class="row">
                             <div class="col s12">
                                 <div class="card blue-grey darken-1">
                                     <div class="card-content white-text">
-                                        <meta topics="{repository.topics}">
-                                        <meta repository_authors="{repository.authors}">
+                                        <meta topics="{}">
+                                        <meta repository_authors="{}">
                                         <span class="card-title">
-                                            {repository.name} {card_icon}
+                                            {} {}
                                         </span>
                                         <span class="white-text">
-                                            <p>{repository.description}</p>
+                                            <p>{}</p>
                                         </span>
                                     </div>
                                     <div class="card-action">
-                                        <a href="{self.url_path["repository"]}/{repository.repository_id}">
-                                            {"MANAGE" if repository.installed else "MORE INFO"}
+                                        <a href="{}/{}">
+                                            {}
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        """
+                        """.format(repository.topics, repository.authors, repository.name, card_icon, repository.description, self.url_path["repository"], repository.repository_id, "MANAGE" if repository.installed else "MORE INFO")
 
                     if repository.repository_type == "integration":
                         integrations.append(card)

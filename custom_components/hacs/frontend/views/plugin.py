@@ -1,45 +1,42 @@
-"""CommunityPluging View for HACS."""
+"""Serve plugins for lovelace."""
+# pylint: disable=broad-except
 import logging
 import os
 from aiohttp import web
-from homeassistant.components.http import HomeAssistantView
+from aiohttp.web_exceptions import HTTPNotFound
+from custom_components.hacs.blueprints import HacsViewBase
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs.frontend')
 
 
-class CommunityPlugin(HomeAssistantView):
-    """View to return a plugin file with limited cache."""
+class HacsPluginView(HacsViewBase):
+    """Serve plugins."""
 
-    requires_auth = False
-
-    url = r"/community_plugin/{path:.+}"
+    url = r"/community_plugin/{requested_file:.+}"
     name = "community_plugin"
 
-    def __init__(self, hass):
-        """Initialize plugin view."""
-        self.hass = hass
-
-    async def get(self, request, path):  # pylint: disable=unused-argument
-        """Retrieve custom_card."""
-
-        # Strip '?' from URL
-        if "?" in path:
-            path = path.split("?")[0]
-
-        file = "{}/www/community/{}".format(self.hass.config.path(), path)
-
+    async def get(self, request, requested_file):  # pylint: disable=unused-argument
+        """Serve plugins for lovelace."""
         try:
+            # Strip '?' from URL
+            if "?" in requested_file:
+                requested_file = requested_file.split("?")[0]
+
+            file = "{}/www/community/{}".format(self.config_dir, requested_file)
+
             response = None
             if os.path.exists(file):
                 _LOGGER.debug(
-                    "Serving /community_plugin%s from /www/community%s", file, file
+                    "Serving /community_plugin%s from /www/community%s", requested_file, requested_file
                 )
                 response = web.FileResponse(file)
                 response.headers["Cache-Control"] = "max-age=0, must-revalidate"
             else:
-                _LOGGER.error("Tried to serve up '%s' but it does not exist", file)
+                _LOGGER.debug("Tried to serve up '%s' but it does not exist", file)
+                raise HTTPNotFound()
 
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.error("there was an issue trying to serve %s - %s", file, error)
+            _LOGGER.debug("there was an issue trying to serve %s - %s", requested_file, error)
+            raise HTTPNotFound()
 
         return response

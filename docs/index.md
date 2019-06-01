@@ -18,7 +18,27 @@ It can also help you discover new awesome stuff.
 
 ## Updates
 
-It checks for updates every 500 minutes after Home Assistant is started, you can also force a check by clicking the "RELOAD DATA" button under the "SETTINGS" tab.
+### Installed elements
+
+HACS will check for updates to installed elements:
+
+- At startup.
+- Every 30 minutes after HA startup.
+
+### Everything else
+
+HACS will check for updates to every element:
+
+- At startup
+- Every 500 minutes after HA startup.
+
+### Manually trigger updates
+
+You can also force a check by clicking the "RELOAD DATA" button under the "SETTINGS" tab _(This will force a reload of everything.)_
+
+Under the "SETTINGS" tab there is also a reload icon to the left of every custom repository you have added, clicking that will reload info for it.
+
+On each ElementView (the page with details about the element) there is a reload icon at the top-right corner, clicking that will reload it.
 
 ## Logs
 
@@ -27,6 +47,15 @@ Like any other integration this logs to the `home-assistant.log` file.
 You can also click the "OPEN LOG" from the "SETTINGS" tab to show logs only related to this integration (useful when creating a issue)
 
 During the first versions of this it will configure the logger component to use `debug` for this integration. This is done to make sure those exists when you need to report a bug.
+
+## Startup
+
+During the startup it will scan for know repositories, and there will be a progressbar indicating that it's working.
+
+![startup](images/bg_task.png)
+
+This is completely normal, and you can still use it while it's working.
+The same indication will show when a scheduled task is running.
 
 ## Existing elements
 
@@ -62,8 +91,11 @@ For an integration repository to be valid these are the criteria:
   - If there are no releases:
     - An update will not be possible (but the user will still be able to install/reinstall it).
     - It will scan files in the branch marked as default.
+- There is only one integration (one directory under `ROOT_OF_THE_REPO/custom_components/`) pr. repository (if you have more, only the first one will be managed.)
+- The integration (all the python files for it) are located under `ROOT_OF_THE_REPO/custom_components/INTEGRATION_NAME/`
 - There is only one integration (one directory under `ROOT_OF_THE_REPO/custom_components/`) per repository (if you have more, only the first one will be managed.)
 - The integration and all the python files for it are located under `ROOT_OF_THE_REPO/custom_components/INTEGRATION_NAME/`
+
 - In that integration directory, there is a [`manifest.json`](https://developers.home-assistant.io/docs/en/creating_integration_manifest.html) file.
 
 A good template to use as a reference is [blueprint](https://github.com/custom-components/blueprint)

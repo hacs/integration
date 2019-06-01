@@ -2,6 +2,8 @@
 
 ## 📘 Documentation: https://custom-components.github.io/hacs/
 
+**YouTube Promo for HACS🙈:**
+
 [![HACS Promo](https://img.youtube.com/vi/vq0qQtDAOW0/0.jpg)](https://www.youtube.com/watch?v=vq0qQtDAOW0 "HACS Promo")
 
 ## Issues

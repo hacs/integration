@@ -1,64 +1,82 @@
-"""CommunityAPI View for HACS."""
+"""Serve error for HACS."""
+# pylint: disable=broad-except
 import logging
 import random
-import traceback
 import sys
+import traceback
 
-from custom_components.hacs.const import ERROR
-from custom_components.hacs.frontend.elements import style, generic_button_external
+from aiohttp import web
 
-_LOGGER = logging.getLogger(__name__)
+from custom_components.hacs.blueprints import HacsViewBase
+from custom_components.hacs.const import ERROR, ISSUE_URL
+
+_LOGGER = logging.getLogger('custom_components.hacs.frontend')
+
+class HacsErrorView(HacsViewBase):
+    """Serve error."""
+
+    name = "community_error"
+
+    def __init__(self):
+        """Initilize."""
+        self.url = self.url_path["error"]
+
+    async def get(self, request):  # pylint: disable=unused-argument
+        """Serve error."""
+        try:
+            # Get last error
+            ex_type, ex_value, ex_traceback = sys.exc_info()
+            trace_back = traceback.extract_tb(ex_traceback)
+            stack_trace = list()
+
+            for trace in trace_back:
+                stack_trace.append("File : {} , Line : {}, Func.Name : {}, Message : {}", format(
+                    trace[0], trace[1], trace[2], trace[3]
+                ))
+
+            # HARD styling
+            stacks = ""
+            for stack in stack_trace:
+                stacks += stack
+            stacks = stacks.replace("File :", "</br>---------------------------------------------------------------</br><b>File :</b>")
+            stacks = stacks.replace(", Line :", "</br><b>Line :</b>")
+            stacks = stacks.replace(", Func.Name :", "</br><b>Func.Name :</b>")
+            stacks = stacks.replace(", Message :", "</br><b>Message :</b>")[86:-1]
 
 
-async def error_view():
-    """Return this on error."""
-    ex_type, ex_value, ex_traceback = sys.exc_info()
 
-    trace_back = traceback.extract_tb(ex_traceback)
-    stack_trace = list()
-    for trace in trace_back:
-        stack_trace.append(
-            "File : %s , Line : %d, Func.Name : %s, Message : %s"
-            % (trace[0], trace[1], trace[2], trace[3])
-        )
-    pretty_trace = ""
-    for trace in stack_trace:
-        pretty_trace += """
-            {}
-        """.format(
-            trace
-        )
-    content = await style()
+            if ex_type is not None:
+                codeblock = """
+                    <p><b>Exception type:</b> {}</p>
+                    <p><b>Exception message:</b> {}</p>
+                    <code class="codeblock errorview"">{}</code>
+                """.format(ex_type.__name__, ex_value, stacks)
+            else:
+                codeblock = ""
 
-    content += "<div class='container'>"
 
-    content += "<h2>Something is wrong...</h2>"
-    content += "<b>Error code:</b> <i>{}</i>".format(random.choice(ERROR))
+            # Generate content
+            content = self.base_content
+            content += """
+                <div class='container'>
+                    <h2>Something is wrong...</h2>
+                    <b>Error code:</b> <i>{}</i>
+                    {}
+                </div>
+                <div class='container'>
+                    <a href='{}/new/choose' class='waves-effect waves-light btn right hacsbutton'
+                        target="_blank">OPEN ISSUE</a>
 
-    if ex_type is not None:
-        content += """
-            <p><b>Exception type:</b> {}</p>
-            <p><b>Exception message:</b> {}</p>
-            <p><b>Stacktrace:</b></p>
-            <code class="codeblock" style="display: block; margin-bottom: 30px;">{}</code>
-        """.format(
-            ex_type.__name__,
-            ex_value,
-            pretty_trace.replace(
-                "File :",
-                "</br>---------------------------------------------------------------</br><b>File :</b>",
-            )
-            .replace(", Line :", "</br><b>Line :</b>")
-            .replace(", Func.Name :", "</br><b>Func.Name :</b>")
-            .replace(", Message :", "</br><b>Message :</b>")[86:-1],
-        )
+                    <a href='{}/log/get' class='waves-effect waves-light btn right hacsbutton'>
+                        OPEN LOG
+                    </a>
+                </div>
+                <div class='center-align' style='margin-top: 100px'>
+                    <img src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>
+                </div>
+            """.format(random.choice(ERROR), codeblock, ISSUE_URL, self.url_path["api"])
 
-    content += await generic_button_external(
-        "https://github.com/custom-components/hacs/issues/new/choose", "OPEN ISSUE"
-    )
-    content += await generic_button_external("/community_api/log/get", "OPEN LOG")
-    content += "<div class='center-align' style='margin-top: 100px'>"
-    content += "<img src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>"
-    content += "</div>"
+        except Exception as exception:
+            _LOGGER.debug("GREAT!, even the error page is broken... (%s)", exception)
 
-    return content
+        return web.Response(body=content, content_type="text/html", charset="utf-8")

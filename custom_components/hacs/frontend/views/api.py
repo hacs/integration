@@ -1,287 +1,119 @@
-"""CommunityAPI View for HACS."""
+"""Serve HacsAPIView."""
+# pylint: disable=broad-except
 import logging
 from aiohttp import web
-from homeassistant.components.http import HomeAssistantView
+from custom_components.hacs.blueprints import HacsViewBase
 
-from custom_components.hacs.const import DOMAIN_DATA
-from custom_components.hacs.frontend.views import error_view
-from custom_components.hacs.handler.download import (
-    download_hacs,
-    download_integration,
-    download_plugin,
-)
-from custom_components.hacs.handler.log import get_log_file_content
-from custom_components.hacs.handler.remove import remove_element
-from custom_components.hacs.handler.storage import write_to_data_store
-from custom_components.hacs.handler.update import (
-    load_integrations_from_git,
-    load_plugins_from_git,
-)
-
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger('custom_components.hacs.frontend')
 
 
-class CommunityAPI(HomeAssistantView):
-    """View to serve CommunityAPI."""
+class HacsAPIView(HacsViewBase):
+    """Serve HacsAPIView."""
 
-    requires_auth = False
-
-    url = r"/community_api/{element}/{action}"
     name = "community_api"
 
-    def __init__(self, hass):
-        """Initialize CommunityAPI."""
-        self.hass = hass
+    def __init__(self):
+        """Initilize."""
+        self.url = self.url_path["api"] + r"/{element}/{action}"
 
-    async def get(self, request, element, action):
-        """Prosess GET API actions."""
+    async def get(self, request, element, action=None):  # pylint: disable=unused-argument
+        """Serve HacsAPIView."""
         _LOGGER.debug("GET API call for %s with %s", element, action)
 
-        # Reload data from the settings tab.
-        if action == "reload":
-            await self.hass.data[DOMAIN_DATA]["commander"].repetetive_tasks()
+        # Register new repository
+        if element == "repository_install":
+            repository = self.repositories[action]
+            await repository.install()
+            await self.storage.set()
+            if action == "172733314":
+                raise web.HTTPFound(self.url_path['settings'])
+            raise web.HTTPFound("{}/{}".format(self.url_path['repository'], repository.repository_id))
 
-            # Return to settings tab.
-            raise web.HTTPFound("/community_settings")
+        # Update a repository
+        elif element == "repository_update_repository":
+            repository = self.repositories[action]
+            await repository.update()
+            await self.storage.set()
+            raise web.HTTPFound("{}/{}".format(self.url_path['repository'], repository.repository_id))
 
-        # Generate logfile.
+        # Update a repository
+        elif element == "repository_update_settings":
+            repository = self.repositories[action]
+            await repository.update()
+            await self.storage.set()
+            raise web.HTTPFound(self.url_path['settings'])
+
+        # Uninstall a element from the repository view
+        elif element == "repository_uninstall":
+            repository = self.repositories[action]
+            await repository.uninstall()
+            await self.storage.set()
+            raise web.HTTPFound(self.url_path['store'])
+
+        # Remove a custom repository from the settings view
+        elif element == "repository_remove":
+            repository = self.repositories[action]
+            await repository.remove()
+            await self.storage.set()
+            raise web.HTTPFound(self.url_path['settings'])
+
+        # Remove a custom repository from the settings view
+        elif element == "repositories_reload":
+            self.hass.async_create_task(self.update_repositories())
+            raise web.HTTPFound(self.url_path['settings'])
+
+        # Show content of hacs
+        elif element == "hacs" and action == "inspect":
+            jsons = {}
+            skip = [
+                "content_objects",
+                "last_release_object",
+                "repository",
+            ]
+            for repository in self.repositories:
+                repository = self.repositories[repository]
+                jsons[repository.repository_id] = {}
+                var = vars(repository)
+                for item in var:
+                    if item in skip:
+                        continue
+                    jsons[repository.repository_id][item] = var[item]
+            return self.json(jsons)
+
         elif element == "log" and action == "get":
-            log_file = await get_log_file_content(self.hass)
+            from custom_components.hacs.handler.log import get_log_file_content
+            content = self.base_content
+            content += await get_log_file_content(self.config_dir)
+            return web.Response(body=content, content_type="text/html", charset="utf-8")
 
-            # Show the logfile
-            return web.Response(
-                body=log_file, content_type="text/html", charset="utf-8"
-            )
+        raise web.HTTPFound(self.url_path['error'])
 
-        # Upgrade HACS.
-        elif element == "hacs" and action == "upgrade":
-            await download_hacs(self.hass)
+    async def post(self, request, element, action=None):  # pylint: disable=unused-argument
+        """Prosess POST API actions."""
+        _LOGGER.debug("GET POST call for %s with %s", element, action)
 
-            # Return to settings tab.
-            raise web.HTTPFound("/community_settings")
+        postdata = await request.post()
 
-        # Insall or Upgrade a custom element.
-        elif action in ["install", "upgrade"]:
-
-            # Get the Element.
-            element = self.hass.data[DOMAIN_DATA]["elements"][element]
-
-            if element.element_type == "integration":
-                await download_integration(self.hass, element)
-            elif element.element_type == "plugin":
-                await download_plugin(self.hass, element)
-
-            # Return to the element page.
-            raise web.HTTPFound("/community_element/" + element.element_id)
-
-        # Uninsall a custom element.
-        elif action == "uninstall":
-
-            # Get the Element.
-            element = self.hass.data[DOMAIN_DATA]["elements"][element]
-
-            if element.element_type in ["integration", "plugin"]:
-                await remove_element(self.hass, element)
-
-            # Return to the element page.
-            raise web.HTTPFound("/community_element/" + element.element_id)
-
-        # Custom repo handling.
-        # Delete custom integration repo.
-        elif element == "integration_url_delete":
-            self.hass.data[DOMAIN_DATA]["repos"]["integration"].remove(action)
-            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(action)
-            await write_to_data_store(
-                self.hass.config.path(), self.hass.data[DOMAIN_DATA]
-            )
-
-            # Return to settings tab.
-            raise web.HTTPFound("/community_settings")
-
-        # Delete custom plugin repo.
-        elif element == "plugin_url_delete":
-            self.hass.data[DOMAIN_DATA]["repos"]["plugin"].remove(action)
-            if action in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(action)
-            await write_to_data_store(
-                self.hass.config.path(), self.hass.data[DOMAIN_DATA]
-            )
-
-            # Return to settings tab.
-            raise web.HTTPFound("/community_settings")
-
-        # Reload custom plugin repo.
-        elif element == "integration_url_reload":
-
-            if "/" not in action:
-                repo = self.hass.data[DOMAIN_DATA]["elements"][action].repo
-            else:
-                repo = action
-
-            if repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(repo)
-            scan_result = await load_integrations_from_git(self.hass, repo)
-
-            if scan_result is not None:
-                message = None
-                await write_to_data_store(
-                    self.hass.config.path(), self.hass.data[DOMAIN_DATA]
-                )
-            else:
-                message = "Could not reload repo '{}' at this time, if the repo meet all requirements try again later.".format(
-                    repo
-                )
-
-            # Return
-            if "/" in action:
-                if message is not None:
-                    raise web.HTTPFound(
-                        "/community_settings?message={}".format(message)
-                    )
-                else:
-                    raise web.HTTPFound("/community_settings")
-            else:
-                if message is not None:
-                    raise web.HTTPFound(
-                        "/community_element/{}?message={}".format(action, message)
-                    )
-                else:
-                    raise web.HTTPFound("/community_element/{}".format(action))
-
-        # Reload custom plugin repo.
-        elif element == "plugin_url_reload":
-
-            if "/" not in action:
-                repo = self.hass.data[DOMAIN_DATA]["elements"][action].repo
-            else:
-                repo = action
-
-            if repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                self.hass.data[DOMAIN_DATA]["commander"].skip.remove(repo)
-            scan_result = await load_plugins_from_git(self.hass, repo)
-
-            if scan_result is not None:
-                message = None
-                await write_to_data_store(
-                    self.hass.config.path(), self.hass.data[DOMAIN_DATA]
-                )
-            else:
-                message = "Could not reload repo '{}' at this time, if the repo meet all requirements try again later.".format(
-                    repo
-                )
-
-            # Return
-            if "/" in action:
-                if message is not None:
-                    raise web.HTTPFound(
-                        "/community_settings?message={}".format(message)
-                    )
-                else:
-                    raise web.HTTPFound("/community_settings")
-            else:
-                if message is not None:
-                    raise web.HTTPFound(
-                        "/community_element/{}?message={}".format(action, message)
-                    )
-                else:
-                    raise web.HTTPFound("/community_element/{}".format(action))
-
-        else:
-            # Serve the errorpage if action is not valid.
-            html = await error_view()
-            return web.Response(body=html, content_type="text/html", charset="utf-8")
-
-    async def post(self, request, element, action):
-        """Prosess GET API actions."""
-        _LOGGER.debug("GET API call for %s with %s", element, action)
-
-        # Custom repo handling.
-        # Add custom integration repo.
-        if element == "integration_url":
-
-            # Get the repo.
-            data = await request.post()
-            repo = data["custom_url"]
-            message = None
-
-            _LOGGER.debug("Trying to add %s", repo)
+        if element == "repository_register":
+            repository_name = postdata["custom_url"]
+            repository_type = action
 
             # Stip first part if it's an URL.
-            if "https://github" in repo:
-                repo = repo.split("https://github.com/")[-1]
+            if "https://github" in repository_name:
+                repository_name = repository_name.split("https://github.com/")[-1]
 
-            if "https://www.github" in repo:
-                repo = repo.split("https://www.github.com/")[-1]
-
-            # If it still have content, continue.
-            if repo != "":
-                self.hass.data[DOMAIN_DATA]["repos"]["integration"].append(repo)
-                scan_result = await load_integrations_from_git(self.hass, repo)
-                if scan_result is not None:
-                    await write_to_data_store(
-                        self.hass.config.path(), self.hass.data[DOMAIN_DATA]
-                    )
-                else:
-                    message = "Could not add repo '{}' at this time, if the repo meet all requirements try again later.".format(
-                        data["custom_url"]
-                    )
-            else:
-                message = "Repo '{}' was not a valid format.".format(data["custom_url"])
-
-            # Return to settings tab
-            if message is not None:
-                if repo in self.hass.data[DOMAIN_DATA]["repos"]["plugin"]:
-                    self.hass.data[DOMAIN_DATA]["repos"]["plugin"].remove(repo)
-                if repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                    self.hass.data[DOMAIN_DATA]["commander"].skip.remove(repo)
-                raise web.HTTPFound("/community_settings?message={}".format(message))
-            else:
-                raise web.HTTPFound("/community_settings")
-
-        # Add custom plugin repo.
-        elif element == "plugin_url":
-
-            # Get the repo.
-            data = await request.post()
-            repo = data["custom_url"]
-            message = None
-
-            _LOGGER.debug("Trying to add %s", repo)
-
-            # Stip first part if it's an URL.
-            if "https://github" in repo:
-                repo = repo.split("https://github.com/")[-1]
-
-            if "https://www.github" in repo:
-                repo = repo.split("https://www.github.com/")[-1]
+            if "https://www.github" in repository_name:
+                repository_name = repository_name.split("https://www.github.com/")[-1]
 
             # If it still have content, continue.
-            if repo != "":
-                self.hass.data[DOMAIN_DATA]["repos"]["plugin"].append(repo)
-                scan_result = await load_plugins_from_git(self.hass, repo)
-                if scan_result is not None:
-                    await write_to_data_store(
-                        self.hass.config.path(), self.hass.data[DOMAIN_DATA]
-                    )
-                else:
-                    message = "Could not add repo '{}' at this time, if the repo meet all requirements try again later.".format(
-                        data["custom_url"]
-                    )
-            else:
-                message = "Repo '{}' was not a valid format.".format(data["custom_url"])
+            if repository_name != "":
+                if repository_name in self.blacklist:
+                    self.blacklist.remove(repository_name)
+                repository, result = await self.register_new_repository(repository_type, repository_name)
+                if result:
+                    await self.storage.set()
+                    raise web.HTTPFound("{}/{}".format(self.url_path['repository'], repository.repository_id))
 
-            # Return to settings tab
-            if message is not None:
-                if repo in self.hass.data[DOMAIN_DATA]["repos"]["plugin"]:
-                    self.hass.data[DOMAIN_DATA]["repos"]["plugin"].remove(repo)
-                if repo in self.hass.data[DOMAIN_DATA]["commander"].skip:
-                    self.hass.data[DOMAIN_DATA]["commander"].skip.remove(repo)
-                raise web.HTTPFound("/community_settings?message={}".format(message))
-            else:
-                raise web.HTTPFound("/community_settings")
+            message = "Could not add {} at this time, check the log for more details.".format(repository_name)
 
-        else:
-            # Serve the errorpage if action is not valid.
-            html = await error_view()
-            return web.Response(body=html, content_type="text/html", charset="utf-8")
+            raise web.HTTPFound("{}?message={}".format(self.url_path['settings'], message))

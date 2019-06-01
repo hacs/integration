@@ -23,40 +23,35 @@ class HacsAPIView(HacsViewBase):
         # Register new repository
         if element == "repository_install":
             repository = self.repositories[action]
-            result = await repository.install()
-            _LOGGER.debug(result)
+            await repository.install()
             await self.storage.set()
             raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
 
         # Update a repository
         elif element == "repository_update_repository":
             repository = self.repositories[action]
-            result = await repository.update()
-            _LOGGER.debug(result)
+            await repository.update()
             await self.storage.set()
             raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
 
         # Update a repository
         elif element == "repository_update_settings":
             repository = self.repositories[action]
-            result = await repository.update()
-            _LOGGER.debug(result)
+            await repository.update()
             await self.storage.set()
             raise web.HTTPFound(self.url_path['settings'])
 
         # Uninstall a element from the repository view
         elif element == "repository_uninstall":
             repository = self.repositories[action]
-            result = await repository.uninstall()
-            _LOGGER.debug(result)
+            await repository.uninstall()
             await self.storage.set()
             raise web.HTTPFound(self.url_path['store'])
 
         # Remove a custom repository from the settings view
         elif element == "repository_remove":
             repository = self.repositories[action]
-            result = await repository.remove()
-            _LOGGER.debug(result)
+            await repository.remove()
             await self.storage.set()
             raise web.HTTPFound(self.url_path['settings'])
 
@@ -82,6 +77,12 @@ class HacsAPIView(HacsViewBase):
                         continue
                     jsons[repository.repository_id][item] = var[item]
             return self.json(jsons)
+
+        elif element == "log" and action == "get":
+            from custom_components.hacs.handler.log import get_log_file_content
+            content = self.base_content
+            content += await get_log_file_content(self.config_dir)
+            return web.Response(body=content, content_type="text/html", charset="utf-8")
 
         raise web.HTTPFound(self.url_path['error'])
 
@@ -111,4 +112,6 @@ class HacsAPIView(HacsViewBase):
                     await self.storage.set()
                     raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
 
-            raise web.HTTPFound(self.url_path['settings'])
+            message = "Could not add {} at this time, check the log for more details.".format(repository_name)
+
+            raise web.HTTPFound("{}?message={}".format(self.url_path['settings'], message))

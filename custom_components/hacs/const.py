@@ -30,10 +30,6 @@ IFRAME = {
     "require_admin": True,
 }
 
-UPDATE = {
-    "installed": 30,
-    "full": 500
-}
 
 # Messages
 CUSTOM_UPDATER_WARNING = """

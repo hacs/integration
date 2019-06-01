@@ -43,10 +43,10 @@ class HacsBase:
         await self.hass.services.async_call("logger", "set_level", custom_log_level)
 
         # For installed repositories only.
-        async_track_time_interval(self.hass, self.recuring_tasks(installed_only=True), timedelta(minutes=self.const.UPDATE["full"]))
+        async_track_time_interval(self.hass, self.recuring_tasks_installed, timedelta(minutes=30))
 
         # For the rest.
-        async_track_time_interval(self.hass, self.recuring_tasks, timedelta(minutes=self.const.UPDATE["full"]))
+        async_track_time_interval(self.hass, self.update_repositories, timedelta(minutes=500))
 
         # Check for updates to HACS.
         repository = await self.aiogithub.get_repo("custom-components/hacs")
@@ -70,17 +70,16 @@ class HacsBase:
 
         if element_type == "integration":
             repository = HacsRepositoryIntegration(repo, repositoryobject)
-            await repository.set_repository()
 
         elif element_type == "plugin":
             repository = HacsRepositoryPlugin(repo, repositoryobject)
-            await repository.set_repository()
 
         else:
             return False
 
         setup_result = True
         try:
+            await repository.set_repository()
             await repository.setup_repository()
         except (HacsRequirement, HacsBaseException, AIOGitHubException) as exception:
             _LOGGER.debug("%s - %s", repository.repository_name, exception)
@@ -95,7 +94,7 @@ class HacsBase:
             _LOGGER.debug("%s - Could not register.", repo)
         return repository, setup_result
 
-    async def update_repositories(self):
+    async def update_repositories(self, now=None):
         """Run update on registerd repositories, and register new."""
         self.data["task_running"] = True
 
@@ -106,10 +105,11 @@ class HacsBase:
             for repository in self.repositories:
                 try:
                     repository = self.repositories[repository]
-                    _LOGGER.info("Running update for %s", repository.repository_name)
-                    if repository.track or repository.repository_name in self.blacklist:
+                    if not repository.track or repository.repository_name in self.blacklist:
                         continue
-                    await repository.update()
+                    if now is not None:
+                        _LOGGER.info("Running update for %s", repository.repository_name)
+                        await repository.update()
                 except AIOGitHubException as exception:
                     _LOGGER.debug("%s - %s", repository.repository_name, exception)
 
@@ -125,7 +125,8 @@ class HacsBase:
                 elif repository.full_name in self.blacklist:
                     continue
                 elif str(repository.id) in self.repositories:
-                    continue
+                    repository = self.repositories[str(repository.id)]
+                    await repository.update()
                 else:
                     try:
                         await self.register_new_repository(repository_type, repository.full_name, repository)
@@ -150,23 +151,19 @@ class HacsBase:
 
         return repositories["integration"], repositories["plugin"]
 
-    async def recuring_tasks(self, installed_only=True):
-        """Recuring tasks."""
-
-        if installed_only:
-            if self.repositories:
-                for repository in self.repositories:
-                    try:
-                        repository = self.repositories[repository]
-                        _LOGGER.info("Running update for %s", repository.repository_name)
-                        if repository.track or repository.repository_name in self.blacklist:
-                            continue
-                        if not repository.installed:
-                            continue
-                        await repository.update()
-                    except AIOGitHubException as exception:
-                        _LOGGER.debug("%s - %s", repository.repository_name, exception)
-            return
-
-        # Update everyting if installed_only=False
-        await self.update_repositories()
+    async def recuring_tasks_installed(self, notarealarg):  # pylint: disable=unused-argument
+        """Recuring tasks for installed repositories."""
+        self.data["task_running"] = True
+        _LOGGER.info("Running scheduled update of installed repositories")
+        for repository in self.repositories:
+            try:
+                repository = self.repositories[repository]
+                if not repository.track or repository.repository_name in self.blacklist:
+                    continue
+                if not repository.installed:
+                    continue
+                _LOGGER.info("Running update for %s", repository.repository_name)
+                await repository.update()
+            except AIOGitHubException as exception:
+                _LOGGER.debug("%s - %s", repository.repository_name, exception)
+        self.data["task_running"] = False

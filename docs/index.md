@@ -18,13 +18,6 @@ It cam also help you discover new awesome stuff.
 
 ## Updates
 
-### Self
-
-HACS will check for updates to itself:
-
-- At startup.
-- Every 60 minutes after HA startup.
-
 ### Installed elements
 
 HACS will check for updates to installed elements:
@@ -36,6 +29,7 @@ HACS will check for updates to installed elements:
 
 HACS will check for updates to every element:
 
+- At startup
 - Every 500 minutes after HA startup.
 
 ### Manually trigger updates
@@ -53,6 +47,15 @@ Like any other integration this logs to the `home-assistant.log` file.
 You can also click the "OPEN LOG" form the "SETTINGS" tab to show logs only related to this integration (useful when creating a issue)
 
 During the first versions of this it will configure the logger component to use `debug` for this integration. This is done to make sure those exists when you need to report a bug.
+
+## Startup
+
+During the startup it will scan for know repositories, and there will be a progressbar indicating that it's working.
+
+![startup](images/bg_task.png)
+
+This is completely normal, and you can still use it while it's working.
+The same indication will show when a scheduled task is running.
 
 ## Existing elements
 

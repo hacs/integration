@@ -31,10 +31,10 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
         """Parse the readme looking for js type."""
         readme = None
         readme_files = ["readme", "readme.md"]
-        root = await self.repository.get_contents("", self.ref)
+        root = await self.repository.get_contents("")
         for file in root:
             if file.name.lower() in readme_files:
-                readme = await self.repository.get_contents(file.name, self.ref)
+                readme = await self.repository.get_contents(file.name)
                 break
 
         if readme is None:

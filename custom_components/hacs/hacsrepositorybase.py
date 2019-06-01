@@ -76,13 +76,8 @@ class HacsRepositoryBase(HacsBase):
 
     @property
     def topics(self):
+        """Return repository topics."""
         return self.repository.topics
-
-    @property
-    def throttle_time(self):
-        if self.installed:
-            return timedelta(minutes=30)
-        return timedelta(minutes=500)
 
     @property
     def description(self):

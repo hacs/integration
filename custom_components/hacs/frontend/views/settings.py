@@ -25,12 +25,13 @@ class HacsSettingsView(HacsViewBase):
             # We use these later:
             integrations = []
             plugins = []
+            hacs = self.repositories.get("172733314")
 
             # Get the message sendt to us:
             message = request.rel_url.query.get("message")
 
             # HACS restart pending
-            if self.data["hacs"].get("pending_restart"):
+            if hacs.pending_restart:
                 hacs_restart = f"""
                     <div class='container'>
                         <div class="row">
@@ -50,8 +51,6 @@ class HacsSettingsView(HacsViewBase):
                 hacs_restart = ""
 
             # HACS update pending
-            hacs = self.repositories.get("172733314")
-
             if hacs.pending_update:
                 hacs_update = f"""
                     <div class='container'>
@@ -68,7 +67,7 @@ class HacsSettingsView(HacsViewBase):
                                     </div>
 
                                     <div class="card-action">
-                                        <a href="{self.url_path["api"]}/hacs/upgrade" onclick="ShowProgressBar()">UPGRADE</a>
+                                        <a href="{self.url_path["api"]}/repository_install/172733314" onclick="ShowProgressBar()">UPGRADE</a>
                                         <a href="https://github.com/custom-components/hacs/releases/tag/{hacs.last_release_tag}" target="_blank">CHANGELOG</a>
                                     </div>
                                 </div>

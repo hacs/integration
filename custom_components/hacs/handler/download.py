@@ -13,6 +13,9 @@ async def async_download_file(hass, url):
     """
     Download files, and return the content.
     """
+    if url is None:
+        return
+
     # There is a bug somewhere... TODO: Find that bug....
     if "tags/" in url:
         url = url.replace("tags/", "")

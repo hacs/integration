@@ -25,6 +25,8 @@ class HacsAPIView(HacsViewBase):
             repository = self.repositories[action]
             await repository.install()
             await self.storage.set()
+            if action == "172733314":
+                raise web.HTTPFound(self.url_path['settings'])
             raise web.HTTPFound(f"{self.url_path['repository']}/{repository.repository_id}")
 
         # Update a repository

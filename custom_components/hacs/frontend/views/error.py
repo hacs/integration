@@ -65,8 +65,9 @@ class HacsErrorView(HacsViewBase):
                     <a href='{ISSUE_URL}/new/choose' class='waves-effect waves-light btn right hacsbutton'
                         target="_blank">OPEN ISSUE</a>
 
-                    <a href='{self.url_path["api"]}/log/get' class='waves-effect waves-light btn right hacsbutton'
-                        target="_blank">OPEN LOG</a>
+                    <a href='{self.url_path["api"]}/log/get' class='waves-effect waves-light btn right hacsbutton'>
+                        OPEN LOG
+                    </a>
                 </div>
                 <div class='center-align' style='margin-top: 100px'>
                     <img src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>

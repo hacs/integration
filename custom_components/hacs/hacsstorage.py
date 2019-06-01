@@ -134,6 +134,8 @@ class HacsStorage(HacsBase):
 
         # Set repository attributes from stored values
         for attribute in storeddata:
+            if repository.repository_name == "custom-components/hacs":
+                continue
             if attribute in ["custom"]:
                 continue
             repository.__setattr__(attribute, storeddata[attribute])

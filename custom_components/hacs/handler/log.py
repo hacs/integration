@@ -20,7 +20,7 @@ async def get_log_file_content(config_dir):
             logfile = await localfile.readlines()
             localfile.close()
         for line in logfile:
-            if "[custom_components.hacs" in line:
+            if "[custom_components.hacs" in line or "[homeassistant.core" in line:
                 line = line.replace("(MainThread)", "")
                 line = line.replace(" DEBUG ", "")
                 line = line.replace(" INFO ", "")

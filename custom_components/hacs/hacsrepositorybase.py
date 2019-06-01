@@ -1,7 +1,7 @@
 """Blueprint for HacsRepositoryBase."""
 # pylint: disable=too-many-instance-attributes,invalid-name,broad-except,wildcard-import
 from asyncio import sleep
-from datetime import datetime, timedelta
+from datetime import datetime
 import logging
 import pathlib
 import os
@@ -154,7 +154,7 @@ class HacsRepositoryBase(HacsBase):
 
             for content_object in contents:
                 if content_object.type == "dir":
-                    await self.download_repository_directory_content(content_object, local_directory, ref)
+                    await self.download_repository_directory_content(content_object.path, local_directory, ref)
                 if self.repository_type == "plugin" and not content_object.name.endswith(".js"):
                     # For plugins we currently only need .js files
                     continue
@@ -168,10 +168,19 @@ class HacsRepositoryBase(HacsBase):
                     continue
 
                 # Save the content of the file.
+                if self.repository_name == "custom-components/hacs":
+                    local_directory = "{}/{}".format(self.config_dir, content_object.path)
+                    local_directory = local_directory.split(".")[0]
+                    strip = local_directory.split("/")[-1]
+                    local_directory = local_directory.split("/{}".format(strip))[0]
+
+                    # Check local directory
+                    pathlib.Path(local_directory).mkdir(parents=True, exist_ok=True)
+
                 local_file_path = f"{local_directory}/{content_object.name}"
                 await async_save_file(local_file_path, filecontent)
 
-        except Exception as exception:
+        except SystemError as exception:
             _LOGGER.debug(exception)
 
     async def install(self):
@@ -218,19 +227,24 @@ class HacsRepositoryBase(HacsBase):
         self.pending_restart = True
         self.version_installed = None
 
-    async def check_local_directory(self):
+    async def check_local_directory(self, path=None):
         """Check the local directory."""
         try:
+            if path is not None:
+                local_path = path
+            else:
+                local_path = self.local_path
+
             # Remove if it's allready there.
-            if os.path.exists(self.local_path):
+            if os.path.exists(local_path):
                 await self.remove_local_directory()
 
             # Create the new directory
-            _LOGGER.debug(f"({self.repository_name}) - Creating {self.local_path}")
-            pathlib.Path(self.local_path).mkdir(parents=True, exist_ok=True)
+            _LOGGER.debug(f"({self.repository_name}) - Creating {local_path}")
+            pathlib.Path(local_path).mkdir(parents=True, exist_ok=True)
 
         except Exception as exception:
-            _LOGGER.debug(f"({self.repository_name}) - Creating directory {self.local_path} failed with {exception}")
+            _LOGGER.debug(f"({self.repository_name}) - Creating directory {local_path} failed with {exception}")
             return
 
     async def remove_local_directory(self):

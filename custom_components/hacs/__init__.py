@@ -12,7 +12,6 @@ from datetime import datetime, timedelta
 from pkg_resources import parse_version
 import aiohttp
 
-
 import voluptuous as vol
 from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
@@ -44,6 +43,9 @@ from custom_components.hacs.frontend.views import (
 )
 
 DOMAIN = "{}".format(NAME_SHORT.lower())
+
+# TODO: Remove this when minimum HA version is > 0.93
+REQUIREMENTS = ["aiofiles"]
 
 _LOGGER = logging.getLogger('custom_components.hacs')
 

@@ -90,8 +90,8 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
 
     # Add to sidepanel
     # TODO: Remove this check when minimum HA version is > 0.94
-    if parse_version(HAVERSION) < parse_version('0.94.0'):
-        hass.components.frontend.async_register_built_in_panel(
+    if parse_version(HAVERSION) < parse_version('0.93.9'):
+        await hass.components.frontend.async_register_built_in_panel(
             "iframe",
             IFRAME["title"],
             IFRAME["icon"],
@@ -100,7 +100,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
             require_admin=IFRAME["require_admin"],
         )
     else:
-        await hass.components.frontend.async_register_built_in_panel(
+        hass.components.frontend.async_register_built_in_panel(
             "iframe",
             IFRAME["title"],
             IFRAME["icon"],

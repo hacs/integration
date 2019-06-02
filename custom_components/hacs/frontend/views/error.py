@@ -7,10 +7,10 @@ import traceback
 
 from aiohttp import web
 
-from custom_components.hacs.blueprints import HacsViewBase
-from custom_components.hacs.const import ERROR, ISSUE_URL
+from ...blueprints import HacsViewBase
+from ...const import ERROR, ISSUE_URL
 
-_LOGGER = logging.getLogger('custom_components.hacs.frontend')
+_LOGGER = logging.getLogger('custom_components.hacs..frontend')
 
 class HacsErrorView(HacsViewBase):
     """Serve error."""

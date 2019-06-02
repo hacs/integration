@@ -17,8 +17,8 @@ from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERS
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 import homeassistant.helpers.config_validation as cv
 
-from custom_components.hacs.hacsbase import HacsBase as hacs
-from custom_components.hacs.const import (
+from .hacsbase import HacsBase as hacs
+from .const import (
     CUSTOM_UPDATER_LOCATIONS,
     STARTUP,
     ISSUE_URL,
@@ -29,9 +29,10 @@ from custom_components.hacs.const import (
     ELEMENT_TYPES,
     VERSION,
     IFRAME,
+    BLACKLIST,
 )
 
-from custom_components.hacs.frontend.views import (
+from .frontend.views import (
     HacsStaticView,
     HacsErrorView,
     HacsPluginView,
@@ -115,9 +116,9 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
 
 async def configure_hacs(hass, github_token, hass_config_dir):
     """Configure HACS."""
-    from custom_components.hacs.aiogithub import AIOGitHub
-    from custom_components.hacs.hacsmigration import HacsMigration
-    from custom_components.hacs.hacsstorage import HacsStorage
+    from .aiogithub import AIOGitHub
+    from .hacsmigration import HacsMigration
+    from .hacsstorage import HacsStorage
 
     hacs.migration = HacsMigration()
     hacs.storage = HacsStorage()
@@ -126,4 +127,4 @@ async def configure_hacs(hass, github_token, hass_config_dir):
 
     hacs.hass = hass
     hacs.config_dir = hass_config_dir
-    hacs.blacklist = hacs.const.BLACKLIST
+    hacs.blacklist = BLACKLIST

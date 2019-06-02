@@ -4,7 +4,7 @@ import logging
 import os
 from aiohttp import web
 from aiohttp.web_exceptions import HTTPNotFound
-from custom_components.hacs.blueprints import HacsViewBase
+from ...blueprints import HacsViewBase
 
 _LOGGER = logging.getLogger('custom_components.hacs.frontend')
 

@@ -2,7 +2,7 @@
 # pylint: disable=broad-except
 import logging
 from aiohttp import web
-from custom_components.hacs.blueprints import HacsViewBase
+from ...blueprints import HacsViewBase
 
 _LOGGER = logging.getLogger('custom_components.hacs.frontend')
 

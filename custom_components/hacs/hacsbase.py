@@ -3,17 +3,16 @@
 import logging
 import uuid
 from datetime import timedelta
-
 from homeassistant.helpers.event import async_track_time_interval
-from custom_components.hacs.aiogithub import AIOGitHubException
+from .aiogithub import AIOGitHubException
+from .const import DEFAULT_REPOSITORIES
 
 _LOGGER = logging.getLogger('custom_components.hacs.hacs')
 
 
 class HacsBase:
     """The base class of HACS, nested thoughout the project."""
-    import custom_components.hacs.const as const
-
+    const = None
     migration = None
     storage = None
     hacs = None
@@ -31,7 +30,7 @@ class HacsBase:
 
     async def startup_tasks(self):
         """Run startup_tasks."""
-        from custom_components.hacs.hacsrepositoryintegration import HacsRepositoryIntegration
+        from .hacsrepositoryintegration import HacsRepositoryIntegration
         self.data["task_running"] = True
 
         _LOGGER.info("Runing startup tasks.")
@@ -63,8 +62,8 @@ class HacsBase:
 
     async def register_new_repository(self, element_type, repo, repositoryobject=None):
         """Register a new repository."""
-        from custom_components.hacs.exceptions import HacsBaseException, HacsRequirement
-        from custom_components.hacs.blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
+        from .exceptions import HacsBaseException, HacsRequirement
+        from .blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
 
         _LOGGER.debug("Starting repository registration for %s", repo)
 
@@ -144,8 +143,8 @@ class HacsBase:
         repositories["plugin"] = await self.aiogithub.get_org_repos("custom-cards")
 
         # Additional repositories (Not implemented)
-        for repository_type in self.const.DEFAULT_REPOSITORIES:
-            for repository in self.const.DEFAULT_REPOSITORIES[repository_type]:
+        for repository_type in DEFAULT_REPOSITORIES:
+            for repository in DEFAULT_REPOSITORIES[repository_type]:
                 result = await self.aiogithub.get_repo(repository)
                 repositories[repository_type].append(result)
 

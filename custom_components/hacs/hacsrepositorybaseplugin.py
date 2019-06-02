@@ -2,9 +2,9 @@
 # pylint: disable=too-many-instance-attributes,invalid-name,broad-except
 import logging
 
-from custom_components.hacs.aiogithub import AIOGitHubException
-from custom_components.hacs.blueprints import HacsRepositoryBase
-from custom_components.hacs.exceptions import HacsRequirement
+from .aiogithub import AIOGitHubException
+from .blueprints import HacsRepositoryBase
+from .exceptions import HacsRequirement
 
 _LOGGER = logging.getLogger('custom_components.hacs.repository')
 

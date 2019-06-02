@@ -1,9 +1,9 @@
 """Initialize frontend views."""
-from custom_components.hacs.frontend.views.error import HacsErrorView
-from custom_components.hacs.frontend.views.static import HacsStaticView
-from custom_components.hacs.frontend.views.plugin import HacsPluginView
-from custom_components.hacs.frontend.views.overview import HacsOverviewView
-from custom_components.hacs.frontend.views.store import HacsStoreView
-from custom_components.hacs.frontend.views.settings import HacsSettingsView
-from custom_components.hacs.frontend.views.repository import HacsRepositoryView
-from custom_components.hacs.frontend.views.api import HacsAPIView
+from .error import HacsErrorView
+from .static import HacsStaticView
+from .plugin import HacsPluginView
+from .overview import HacsOverviewView
+from .store import HacsStoreView
+from .settings import HacsSettingsView
+from .repository import HacsRepositoryView
+from .api import HacsAPIView

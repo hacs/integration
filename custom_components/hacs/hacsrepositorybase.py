@@ -7,10 +7,11 @@ import pathlib
 import os
 import shutil
 
-from custom_components.hacs.aiogithub import AIOGitHubException
-from custom_components.hacs.hacsbase import HacsBase
-from custom_components.hacs.exceptions import HacsRepositoryInfo, HacsUserScrewupException, HacsBaseException, HacsBlacklistException
-from custom_components.hacs.handler.download import async_download_file, async_save_file
+from .aiogithub import AIOGitHubException
+from .hacsbase import HacsBase
+from .exceptions import HacsRepositoryInfo, HacsUserScrewupException, HacsBaseException, HacsBlacklistException
+from .handler.download import async_download_file, async_save_file
+from .const import DEFAULT_REPOSITORIES, VERSION
 
 _LOGGER = logging.getLogger('custom_components.hacs.repository')
 
@@ -54,9 +55,9 @@ class HacsRepositoryBase(HacsBase):
         """Return flag if the repository is custom."""
         if self.repository_name.split("/")[0] in ["custom-components", "custom-cards"]:
             return False
-        elif self.repository_name in self.const.DEFAULT_REPOSITORIES["integration"]:
+        elif self.repository_name in DEFAULT_REPOSITORIES["integration"]:
             return False
-        elif self.repository_name in self.const.DEFAULT_REPOSITORIES["plugin"]:
+        elif self.repository_name in DEFAULT_REPOSITORIES["plugin"]:
             return False
         return True
 
@@ -110,7 +111,7 @@ class HacsRepositoryBase(HacsBase):
         if self.repository_name == "custom-components/hacs":
             self.hide = True
             self.installed = True
-            self.version_installed = self.const.VERSION
+            self.version_installed = VERSION
 
         # Validate the repository name
         await self.validate_repository_name()
@@ -206,7 +207,7 @@ class HacsRepositoryBase(HacsBase):
             self.installed = True
             if self.repository_type == "integration":
                 self.pending_restart = True
-            _LOGGER.info(f'({self.repository_name}) - installation completed in {(datetime.now() - start_time).seconds} seconds')
+            _LOGGER.info('(%s) - installation completed in %s seconds', self.repository_name, (datetime.now() - start_time).seconds)
 
 
     async def remove(self):

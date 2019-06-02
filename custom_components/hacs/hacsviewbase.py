@@ -1,6 +1,6 @@
 """Blueprint for HacsViewBase."""
 from homeassistant.components.http import HomeAssistantView
-from custom_components.hacs.hacsbase import HacsBase
+from .hacsbase import HacsBase
 
 
 class HacsViewBase(HomeAssistantView, HacsBase):

@@ -2,7 +2,7 @@
 # pylint: disable=broad-except
 import logging
 from aiohttp import web
-from custom_components.hacs.blueprints import HacsViewBase
+from ...blueprints import HacsViewBase
 
 _LOGGER = logging.getLogger('custom_components.hacs.frontend')
 
@@ -81,7 +81,7 @@ class HacsAPIView(HacsViewBase):
             return self.json(jsons)
 
         elif element == "log" and action == "get":
-            from custom_components.hacs.handler.log import get_log_file_content
+            from ...handler.log import get_log_file_content
             content = self.base_content
             content += await get_log_file_content(self.config_dir)
             return web.Response(body=content, content_type="text/html", charset="utf-8")

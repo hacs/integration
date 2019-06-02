@@ -3,7 +3,7 @@
 import logging
 import aiofiles
 
-from custom_components.hacs.const import STARTUP
+from ..const import STARTUP
 
 _LOGGER = logging.getLogger('custom_components.hacs.log')
 

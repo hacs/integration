@@ -3,8 +3,8 @@
 import logging
 import json
 
-from custom_components.hacs.blueprints import HacsRepositoryBase
-from custom_components.hacs.exceptions import HacsRequirement
+from .blueprints import HacsRepositoryBase
+from .exceptions import HacsRequirement
 
 _LOGGER = logging.getLogger('custom_components.hacs.repository')
 

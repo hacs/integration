@@ -3,9 +3,10 @@
 import logging
 import json
 import aiofiles
-from custom_components.hacs.aiogithub import AIOGitHubException
-from custom_components.hacs.hacsbase import HacsBase
-from custom_components.hacs.exceptions import HacsNotSoBasicException, HacsRequirement
+from .aiogithub import AIOGitHubException
+from .hacsbase import HacsBase
+from .exceptions import HacsNotSoBasicException, HacsRequirement
+from .const import STORENAME, GENERIC_ERROR, STORAGE_VERSION
 
 _LOGGER = logging.getLogger('custom_components.hacs.storage')
 
@@ -15,10 +16,10 @@ class HacsStorage(HacsBase):
 
     async def get(self):
         """Read HACS data to storage."""
-        from custom_components.hacs.blueprints import (
+        from .blueprints import (
             HacsRepositoryIntegration,
             HacsRepositoryPlugin,)
-        datastore = "{}/.storage/{}".format(self.config_dir, self.const.STORENAME)
+        datastore = "{}/.storage/{}".format(self.config_dir, STORENAME)
         _LOGGER.debug("Reading from datastore %s.", datastore)
 
         self.data["task_running"] = True
@@ -68,7 +69,7 @@ class HacsStorage(HacsBase):
                     elif repository_type == "plugin":
                         repository = HacsRepositoryPlugin(repository.full_name, repository)
                     else:
-                        raise HacsNotSoBasicException(self.const.GENERIC_ERROR)
+                        raise HacsNotSoBasicException(GENERIC_ERROR)
 
                     # Initial setup.
                     try:
@@ -92,11 +93,11 @@ class HacsStorage(HacsBase):
     async def set(self):
         """Write HACS data to storage."""
         _LOGGER.info("Saving data")
-        datastore = "{}/.storage/{}".format(self.config_dir, self.const.STORENAME)
+        datastore = "{}/.storage/{}".format(self.config_dir, STORENAME)
 
         data = {}
         data["hacs"] = self.data["hacs"]
-        data["hacs"]["schema"] = self.const.STORAGE_VERSION
+        data["hacs"]["schema"] = STORAGE_VERSION
 
         data["repositories"] = {}
 

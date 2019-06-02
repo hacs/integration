@@ -2,7 +2,8 @@
 # pylint: disable=broad-except
 import logging
 from aiohttp import web
-from custom_components.hacs.blueprints import HacsViewBase
+from ...blueprints import HacsViewBase
+from ...const import NO_ELEMENTS
 
 _LOGGER = logging.getLogger('custom_components.hacs.frontend')
 
@@ -26,7 +27,7 @@ class HacsOverviewView(HacsViewBase):
 
             if not self.repositories:
                 if not self.data["task_running"]:
-                    content += self.const.NO_ELEMENTS
+                    content += NO_ELEMENTS
 
             else:
                 for repository in self.repositories:
@@ -89,7 +90,7 @@ class HacsOverviewView(HacsViewBase):
 
                 if not plugins and not integrations:
                     if not self.data["task_running"]:
-                        content += self.const.NO_ELEMENTS
+                        content += NO_ELEMENTS
 
 
         except Exception as exception:

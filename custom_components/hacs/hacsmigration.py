@@ -2,7 +2,8 @@
 import logging
 from shutil import copy2
 
-from custom_components.hacs.hacsbase import HacsBase
+from .hacsbase import HacsBase
+from .const import STORAGE_VERSION
 
 _LOGGER = logging.getLogger('custom_components.hacs.migration')
 
@@ -34,7 +35,7 @@ class HacsMigration(HacsBase):
             # Run the rest.
             await self.update_repositories()
 
-        elif self.old["hacs"].get("schema") == self.const.STORAGE_VERSION:
+        elif self.old["hacs"].get("schema") == STORAGE_VERSION:
             pass
 
         else:

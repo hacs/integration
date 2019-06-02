@@ -99,8 +99,7 @@ class HacsSettingsView(HacsViewBase):
 
 
             # Repos:
-            for repository in self.repositories:
-                repository = self.repositories[repository]
+            for repository in self.repositories_list_repo:
                 if not repository.custom:
                     continue
 

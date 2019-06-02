@@ -35,9 +35,7 @@ class HacsStoreView(HacsViewBase):
                     </div>
                 """
 
-
-                for repository in self.repositories:
-                    repository = self.repositories[repository]
+                for repository in self.repositories_list_name:
 
                     if not repository.track or repository.hide:
                         continue

@@ -280,18 +280,7 @@ class HacsRepositoryBase(HacsBase):
 
     async def set_repository(self):
         """Set the AIOGitHub repository object."""
-        # Check if we need to run this.
-        if self.repository is not None:
-            return
-
-        if self.aiogithub is None:
-            raise HacsRepositoryInfo("GitHub object is missing")
-        elif self.repository_name is None:
-            raise HacsRepositoryInfo("GitHub repository name is missing")
-
-        # Assign to a temp var so we can check it before using it.
-        temp = await self.aiogithub.get_repo(self.repository_name)
-        self.repository = temp
+        self.repository = await self.aiogithub.get_repo(self.repository_name)
 
 
     async def set_repository_releases(self):

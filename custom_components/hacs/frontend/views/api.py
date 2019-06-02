@@ -59,7 +59,7 @@ class HacsAPIView(HacsViewBase):
 
         # Remove a custom repository from the settings view
         elif element == "repositories_reload":
-            self.hass.async_create_task(self.update_repositories())
+            self.hass.async_create_task(self.update_repositories("Run it!"))
             raise web.HTTPFound(self.url_path['settings'])
 
         # Show content of hacs

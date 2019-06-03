@@ -30,7 +30,7 @@ class HacsStoreView(HacsViewBase):
             else:
 
                 content += """
-                    <div class='container'>
+                    <div class='hacs-overview-container'>
                         <input type="text" id="Search" onkeyup="Search()" placeholder="Please enter a search term.." title="Type in a name" autofocus>
                     </div>
                 """
@@ -52,28 +52,17 @@ class HacsStoreView(HacsViewBase):
                         card_icon = ""
 
                     card = """
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="card blue-grey darken-1">
-                                    <div class="card-content white-text">
-                                        <meta topics="{}">
-                                        <meta repository_authors="{}">
-                                        <span class="card-title">
-                                            {} {}
-                                        </span>
-                                        <span class="white-text">
-                                            <p>{}</p>
-                                        </span>
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="{}/{}">
-                                            {}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                    <a href="{}/{}" class="hacs-card">
+                        <div class="hacs-card overview">
+                            <meta topics="{}">
+                            <meta repository_authors="{}">
+                            <span class="hacs-card-title">{} {}</span>
+                            <span class="hacs-card-content">
+                                <p>{}</p>
+                            </span>
                         </div>
-                        """.format(repository.topics, repository.authors, repository.name, card_icon, repository.description, self.url_path["repository"], repository.repository_id, "MANAGE" if repository.installed else "MORE INFO")
+                    </a>
+                    """.format(self.url_path["repository"], repository.repository_id, repository.topics, repository.authors, repository.name, card_icon, repository.description)
 
                     if repository.repository_type == "integration":
                         integrations.append(card)
@@ -85,18 +74,20 @@ class HacsStoreView(HacsViewBase):
                         continue
 
                 if integrations:
-                    content += "<div class='container'>"
+                    content += "<div class='hacs-overview-container'>"
                     content += "<h5>CUSTOM INTEGRATIONS</h5>"
+                    content += "<div class='hacs-card-container'>"
                     for card in integrations:
                         content += card
-                    content += "</div>"
+                    content += "</div></div>"
 
                 if plugins:
-                    content += "<div class='container'>"
+                    content += "<div class='hacs-overview-container'>"
                     content += "<h5>CUSTOM PLUGINS (LOVELACE)</h5>"
+                    content += "<div class='hacs-card-container'>"
                     for card in plugins:
                         content += card
-                    content += "</div>"
+                    content += "</div></div>"
 
                 if not plugins and not integrations:
                     content = self.base_content

@@ -3,7 +3,11 @@
 import base64
 import logging
 from datetime import datetime
+
 import async_timeout
+from aiohttp import ClientError
+
+import backoff
 
 _LOGGER = logging.getLogger('custom_components.hacs.aiogithub')
 
@@ -27,6 +31,7 @@ class AIOGitHub(object):
         self.session = session
         self.headers["Authorization"] = "token {}".format(token)
 
+    @backoff.on_exception(backoff.expo, ClientError, max_tries=3)
     async def get_repo(self, repo: str):
         """Retrun AIOGithubRepository object."""
         endpoint = "/repos/" + repo
@@ -44,6 +49,7 @@ class AIOGitHub(object):
 
         return AIOGithubRepository(response, self.token, self.loop, self.session)
 
+    @backoff.on_exception(backoff.expo, ClientError, max_tries=3)
     async def get_org_repos(self, org: str, page=1):
         """Retrun a list of AIOGithubRepository objects."""
         endpoint = "/orgs/" + org + "/repos?page=" + str(page)
@@ -68,6 +74,7 @@ class AIOGitHub(object):
 
         return repositories
 
+    @backoff.on_exception(backoff.expo, ClientError, max_tries=3)
     async def render_markdown(self, content: str):
         """Retrun AIOGithubRepository object."""
         endpoint = "/markdown/raw"
@@ -124,6 +131,7 @@ class AIOGithubRepository(AIOGitHub):
     def default_branch(self):
         return self.attributes.get("default_branch")
 
+    @backoff.on_exception(backoff.expo, ClientError, max_tries=3)
     async def get_contents(self, path, ref=None):
         """Retrun a list of repository content objects."""
         endpoint = "/repos/" + self.full_name + "/contents/" + path
@@ -149,6 +157,7 @@ class AIOGithubRepository(AIOGitHub):
 
         return contents
 
+    @backoff.on_exception(backoff.expo, ClientError, max_tries=3)
     async def get_releases(self, latest=False):
         """Retrun a list of repository release objects."""
         endpoint = "/repos/" + self.full_name + "/releases/" + "latest" if latest else ""

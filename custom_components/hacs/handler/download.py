@@ -1,14 +1,17 @@
 """Download."""
 import logging
+
 import aiofiles
-
 import async_timeout
+from aiohttp import ClientError
 
+import backoff
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 _LOGGER = logging.getLogger('custom_components.hacs.download')
 
 
+@backoff.on_exception(backoff.expo, ClientError, max_tries=3)
 async def async_download_file(hass, url):
     """
     Download files, and return the content.

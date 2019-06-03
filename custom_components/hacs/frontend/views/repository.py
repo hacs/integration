@@ -8,14 +8,15 @@ _LOGGER = logging.getLogger('custom_components.hacs.frontend')
 
 LOVELACE_EXAMLE_URL = """
 <pre id="LovelaceExample" class="yaml">
-  - url: /community_plugin/{name}/{name}.js
+  - url: /community_plugin/{}/{}.js
 </pre>
+<i>HACS could not determine the type of this element, look at the documentation in the repository.</i>
 """
 
 LOVELACE_EXAMLE_URL_TYPE = """
 <pre id="LovelaceExample" class="yaml">
-  - url: /community_plugin/{name}/{name}.js
-    type: {type}
+  - url: /community_plugin/{}/{}.js
+    type: {}
 </pre>
 """
 
@@ -124,9 +125,9 @@ class HacsRepositoryView(HacsViewBase):
                 """.format(repository.local_path)
             else:
                 if repository.javascript_type is None:
-                    llnote = LOVELACE_EXAMLE_URL.format(name=repository.name)
+                    llnote = LOVELACE_EXAMLE_URL.format(repository.name, repository.name.replace("lovelace-", ""))
                 else:
-                    llnote = LOVELACE_EXAMLE_URL_TYPE.format(name=repository.name, type=repository.javascript_type)
+                    llnote = LOVELACE_EXAMLE_URL_TYPE.format(repository.name, repository.name.replace("lovelace-", ""), repository.javascript_type)
                 note = """
                     </br><i>
                         When installed, this will be located in '{}',
@@ -167,17 +168,17 @@ class HacsRepositoryView(HacsViewBase):
             content = self.base_content
 
             if repository.version_installed is not None:
-                 inst_ver = "<p><b>Installed version:</b> {}</p>".format(repository.version_installed)
+                inst_ver = "<p><b>Installed version:</b> {}</p>".format(repository.version_installed)
             else:
                 inst_ver = ""
 
             if repository.last_release_tag is not None:
-                 last_ver = "<p><b>Available version:</b> {}</p>".format(repository.last_release_tag)
+                last_ver = "<p><b>Available version:</b> {}</p>".format(repository.last_release_tag)
             else:
                 last_ver = ""
 
             if repository.last_updated is not None:
-                 last_up = "<p><b>Last updated:</b> {}</p>".format(repository.last_updated)
+                last_up = "<p><b>Last updated:</b> {}</p>".format(repository.last_updated)
             else:
                 last_up = ""
 
@@ -231,8 +232,8 @@ class HacsRepositoryView(HacsViewBase):
                     </div>
                 </div>
             """.format(custom_message, pending_restart, repository.name, self.url_path["api"], repository.repository_id,
-                repository.description, inst_ver, last_ver, last_up, info, authors, note, self.url_path["api"],
-                repository.repository_id, main_action, changelog, repository.repository_name, open_plugin, uninstall)
+                       repository.description, inst_ver, last_ver, last_up, info, authors, note, self.url_path["api"],
+                       repository.repository_id, main_action, changelog, repository.repository_name, open_plugin, uninstall)
 
         except Exception as exception:
             _LOGGER.error(exception)

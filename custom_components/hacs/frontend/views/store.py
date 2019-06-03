@@ -42,14 +42,17 @@ class HacsStoreView(HacsViewBase):
                     if not repository.track or repository.hide:
                         continue
 
-                    if repository.pending_restart:
-                        card_icon = "<i class='fas fa-info right' style='font-size: 18px; color: #a70000'></i>"
+                    if repository.installed:
+                        card_icon = "<i class='fas fa-cube' style='font-size: 18px; color: #4caf50;padding-right: 4px'></i>"
 
-                    elif repository.installed and repository.pending_update:
-                        card_icon = "<i class='fas fa-arrow-up right' style='font-size: 18px; color: #ffab40'></i>"
+                    elif repository.pending_restart:
+                        card_icon = "<i class='fas fa-cube' style='font-size: 18px; color: #a70000;padding-right: 4px'></i>"
+
+                    elif repository.pending_update:
+                        card_icon = "<i class='fas fa-cube' style='font-size: 18px; color: #ffab40;padding-right: 4px'></i>"
 
                     else:
-                        card_icon = ""
+                        card_icon = "<i class='fas fa-cube' style='font-size: 18px; color: #fff;padding-right: 4px'></i>"
 
                     card = """
                     <a href="{}/{}" class="hacs-card">
@@ -62,7 +65,7 @@ class HacsStoreView(HacsViewBase):
                             </span>
                         </div>
                     </a>
-                    """.format(self.url_path["repository"], repository.repository_id, repository.topics, repository.authors, repository.name, card_icon, repository.description)
+                    """.format(self.url_path["repository"], repository.repository_id, repository.topics, repository.authors, card_icon, repository.name, repository.description)
 
                     if repository.repository_type == "integration":
                         integrations.append(card)

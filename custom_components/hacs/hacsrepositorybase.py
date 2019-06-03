@@ -156,6 +156,7 @@ class HacsRepositoryBase(HacsBase):
             for content_object in contents:
                 if content_object.type == "dir":
                     await self.download_repository_directory_content(content_object.path, local_directory, ref)
+                    continue
                 if self.repository_type == "plugin" and not content_object.name.endswith(".js"):
                     # For plugins we currently only need .js files
                     continue
@@ -171,9 +172,9 @@ class HacsRepositoryBase(HacsBase):
                 # Save the content of the file.
                 if self.repository_name == "custom-components/hacs":
                     local_directory = "{}/{}".format(self.config_dir, content_object.path)
-                    local_directory = local_directory.split(".")[0]
-                    strip = local_directory.split("/")[-1]
-                    local_directory = local_directory.split("/{}".format(strip))[0]
+                    local_directory = local_directory.split("/{}".format(content_object.name))[0]
+                    _LOGGER.debug(content_object.path)
+                    _LOGGER.debug(local_directory)
 
                     # Check local directory
                     pathlib.Path(local_directory).mkdir(parents=True, exist_ok=True)
@@ -181,7 +182,7 @@ class HacsRepositoryBase(HacsBase):
                 local_file_path = "{}/{}".format(local_directory, content_object.name)
                 await async_save_file(local_file_path, filecontent)
 
-        except SystemError as exception:
+        except Exception as exception:
             _LOGGER.debug(exception)
 
     async def install(self):

@@ -43,20 +43,20 @@ class HacsStoreView(HacsViewBase):
                         continue
 
                     if repository.installed:
-                        card_icon = "<i class='fas fa-cube' style='font-size: 18px; color: #4caf50;padding-right: 4px'></i>"
+                        card_icon = "<i class='fas fa-cube card-status installed'></i>"
 
                     elif repository.pending_restart:
-                        card_icon = "<i class='fas fa-cube' style='font-size: 18px; color: #a70000;padding-right: 4px'></i>"
+                        card_icon = "<i class='fas fa-cube card-status pending-restart'></i>"
 
                     elif repository.pending_update:
-                        card_icon = "<i class='fas fa-cube' style='font-size: 18px; color: #ffab40;padding-right: 4px'></i>"
+                        card_icon = "<i class='fas fa-cube card-status pending-update'></i>"
 
                     else:
-                        card_icon = "<i class='fas fa-cube' style='font-size: 18px; color: #fff;padding-right: 4px'></i>"
+                        card_icon = "<i class='fas fa-cube card-status default'></i>"
 
                     card = """
-                    <a href="{}/{}" class="hacs-card">
-                        <div class="hacs-card overview">
+                    <a href="{}/{}" class="hacs-card" style="background-color: var(--paper-card-background-color) !important;">
+                        <div class="hacs-card overview" style="background-color: var(--paper-card-background-color) !important;">
                             <meta topics="{}">
                             <meta repository_authors="{}">
                             <span class="hacs-card-title">{} {}</span>

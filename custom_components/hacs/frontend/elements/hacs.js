@@ -1,3 +1,6 @@
+// Copy active HA theme
+document.getElementsByTagName("html").item(0).setAttribute("style", parent.document.getElementsByTagName("html").item(0).style.cssText)
+
 // Copy yhe content of the Lovelace example to the clipboard.
 function CopyToLovelaceExampleToClipboard() {
     window.getSelection().selectAllChildren( document.getElementById("LovelaceExample"));

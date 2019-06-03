@@ -34,7 +34,7 @@ class HacsViewBase(HomeAssistantView, HacsBase):
         """Load header."""
         return """
         <div class="navbar-fixed">
-          <nav class="nav-extended black">
+          <nav class="nav-extended hacs-nav">
             <div class="nav-content">
               <ul class="right tabs tabs-transparent">
                 <li class="tab"><a href="{}">overview</a></li>

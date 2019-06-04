@@ -31,7 +31,7 @@ class HacsStoreView(HacsViewBase):
 
                 content += """
                     <div class='hacs-overview-container'>
-                        <input type="text" id="Search" onkeyup="Search()" placeholder="Please enter a search term.." title="Type in a name" autofocus>
+                        <input type="text" id="Search" onkeyup="Search()" placeholder="Please enter a search term.." title="Type in a name" autofocus style="color: var(--primary-text-color)">
                     </div>
                 """
 
@@ -55,8 +55,8 @@ class HacsStoreView(HacsViewBase):
                         card_icon = "<i class='fas fa-cube card-status default'></i>"
 
                     card = """
-                    <a href="{}/{}" class="hacs-card" style="background-color: var(--paper-card-background-color) !important;">
-                        <div class="hacs-card overview" style="background-color: var(--paper-card-background-color) !important;">
+                    <a href="{}/{}" class="hacs-card"">
+                        <div class="hacs-card overview">
                             <meta topics="{}">
                             <meta repository_authors="{}">
                             <span class="hacs-card-title">{} {}</span>
@@ -95,6 +95,8 @@ class HacsStoreView(HacsViewBase):
                 if not plugins and not integrations:
                     content = self.base_content
                     content += "Loading store items, check back later."
+
+                content += self.footer
 
         except SystemError as exception:
             _LOGGER.error(exception)

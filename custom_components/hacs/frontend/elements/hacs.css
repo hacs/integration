@@ -12,8 +12,13 @@
 
 .hacs-card-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
+}
+
+@media all and (min-width: 550px) {
+  .hacs-card-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .hacs-overview-container {
@@ -22,10 +27,21 @@
   margin-right: 2.5%;
 }
 
+.hacs-content {
+  position: absolute;
+  top: 49px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 20px;
+  padding-bottom: 15px;
+}
+
 .hacs-card {
-  color: var(--primary-text-color);
   height: 100%;
-  background-color: var(--paper-card-background-color);
+  background-color: var(--paper-card-background-color) !important;
   padding: 12px;
 }
 
@@ -35,10 +51,11 @@
 
 .hacs-card-title {
   font-size: large;
+  color: var(--primary-text-color);
 }
 
 .hacs-card-content {
-  color: #e4e2e2;
+  color: var(--secondary-text-color);
   font-style: italic;
 }
 
@@ -60,7 +77,7 @@
 }
 
 .default {
-  color: var(--hacs-status-default);
+  color: var(--primary-text-color);
 }
 
 .hacs-nav {
@@ -78,6 +95,13 @@ a {
   opacity: 0.5;
 }
 
+.hacs-bar {
+  background-color: var(--primary-color) !important;
+}
+.hacs-bar-background {
+  background-color: var(--dark-primary-color) !important;
+}
+
 .errorview {
   display: block;
   margin-bottom: 30px;
@@ -91,6 +115,30 @@ a {
 
 body {
   background-color: var(--primary-background-color) !important;
+  color: var(--primary-text-color);
+  overflow: hidden;
+}
+
+#main::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+}
+
+#main::-webkit-scrollbar
+{
+	width: 12px;
+}
+
+#main::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: var(--primary-color);
+}
+
+input[type="text"]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid var(--primary-color);
+  -webkit-box-shadow: 0 1px 0 0 var(--primary-color);
+  box-shadow: 0 1px 0 0 var(--primary-color);
 }
 
 /* color vars*/
@@ -98,8 +146,10 @@ body {
   --hacs-status-isntalled: #126e15;
   --hacs-status-pending-restart: #a70000;
   --hacs-status-pending-update: #ffab40;
-  --hacs-status-default: #fafafa;
   --primary-color: #03a9f4;
+  --primary-text-color: #000000;
+  --secondary-text-color: #424141;
   --primary-background-color: #fafafa;
   --paper-card-background-color: #ffffff;
+  --dark-primary-color: #00405d;
 }

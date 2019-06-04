@@ -104,7 +104,7 @@ class HacsSettingsView(HacsViewBase):
                 if not repository.custom:
                     continue
 
-                line = '<li class="collection-item hacscolor"><div>'
+                line = '<li class="collection-item hacscolor hacslist"><div>'
                 line += """
                     <a title="Reload data." href="{}/{}">{}</a> 
                 """.format(self.url_path["repository"], repository.repository_id, repository.repository_name)
@@ -147,8 +147,8 @@ class HacsSettingsView(HacsViewBase):
             content += """
                 <div class='hacs-overview-container'>
                     <div class="row">
-                        <ul class="collection with-header">
-                            <li class="collection-header hacscolor"><h5>CUSTOM INTEGRATION REPOSITORIES</h5></li>
+                        <ul class="collection with-header hacslist">
+                            <li class="collection-header hacscolor hacslist"><h5>CUSTOM INTEGRATION REPOSITORIES</h5></li>
             """
             for line in integrations:
                 content += line
@@ -172,8 +172,8 @@ class HacsSettingsView(HacsViewBase):
             content += """
                 <div class='hacs-overview-container'>
                     <div class="row">
-                        <ul class="collection with-header">
-                            <li class="collection-header hacscolor"><h5>CUSTOM PLUGIN REPOSITORIES</h5></li>
+                        <ul class="collection with-header hacslist">
+                            <li class="collection-header hacscolor hacslist"><h5>CUSTOM PLUGIN REPOSITORIES</h5></li>
             """
             for line in plugins:
                 content += line

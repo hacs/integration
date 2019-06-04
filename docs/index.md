@@ -38,7 +38,7 @@ You can also force a check by clicking the "RELOAD DATA" button under the "SETTI
 
 Under the "SETTINGS" tab there is also a reload icon to the left of every custom repository you have added, clicking that will reload info for it.
 
-On each ElementView (the page with details about the element) there is a reload icon at the top-right corner, clicking that will reload it.
+On each RepositoryView (the page with details about the element) there is a reload icon at the top-right corner, clicking that will reload it.
 
 ## Logs
 

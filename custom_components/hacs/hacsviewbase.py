@@ -14,7 +14,9 @@ class HacsViewBase(HomeAssistantView, HacsBase):
             <head>
                 {}
             </head>
+            <body>
             {}
+            <div id="main" class="hacs-content">
             {}
         """.format(self.imports, self.header, self.progress_bar)
 
@@ -34,7 +36,7 @@ class HacsViewBase(HomeAssistantView, HacsBase):
         """Load header."""
         return """
         <div class="navbar-fixed">
-          <nav class="nav-extended black">
+          <nav class="nav-extended hacs-nav">
             <div class="nav-content">
               <ul class="right tabs tabs-transparent">
                 <li class="tab"><a href="{}">overview</a></li>
@@ -56,7 +58,12 @@ class HacsViewBase(HomeAssistantView, HacsBase):
 
         return """
         <div style="display: {}"><p>Background task running, refresh the page in a little while.</p></div>
-        <div class="progress" id="progressbar" style="display: {}; background-color: #ffab405c">
-            <div class="indeterminate" style="background-color: #ffab40"></div>
+        <div class="progress hacs-bar-background" id="progressbar" style="display: {}">
+            <div class="indeterminate hacs-bar"></div>
         </div>
         """.format(display, display)
+
+    @property
+    def footer(self):
+        """Return the end of the document."""
+        return "</div></body>"

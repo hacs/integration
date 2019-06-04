@@ -37,33 +37,29 @@ class HacsOverviewView(HacsViewBase):
                         continue
 
                     if repository.pending_restart:
-                        card_icon = "<i class='fas fa-info right' style='font-size: 18px; color: #a70000'></i>"
+                        card_icon = "<i class='fas fa-cube card-status pending-restart'></i>"
 
                     elif repository.pending_update:
-                        card_icon = "<i class='fas fa-arrow-up right' style='font-size: 18px; color: #ffab40'></i>"
+                        card_icon = "<i class='fas fa-cube card-status pending-update'></i>"
+
+                    elif repository.installed:
+                        card_icon = "<i class='fas fa-cube card-status installed'></i>"
 
                     else:
-                        card_icon = ""
+                        card_icon = "<i class='fas fa-cube card-status default'></i>"
 
                     card = """
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="card blue-grey darken-1">
-                                    <div class="card-content white-text">
-                                        <span class="card-title">
-                                            {} {}
-                                        </span>
-                                        <span class="white-text">
-                                            <p>{}</p>
-                                        </span>
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="{}/{}">Manage</a>
-                                    </div>
-                                </div>
-                            </div>
+                    <a href="{}/{}" class="hacs-card"">
+                        <div class="hacs-card overview">
+                            <meta topics="{}">
+                            <meta repository_authors="{}">
+                            <span class="hacs-card-title">{} {}</span>
+                            <span class="hacs-card-content">
+                                <p>{}</p>
+                            </span>
                         </div>
-                        """.format(repository.name, card_icon, repository.description, self.url_path["repository"], repository.repository_id)
+                    </a>
+                    """.format(self.url_path["repository"], repository.repository_id, repository.topics, repository.authors, card_icon, repository.name, repository.description)
 
                     if repository.repository_type == "integration":
                         integrations.append(card)
@@ -75,23 +71,26 @@ class HacsOverviewView(HacsViewBase):
                         continue
 
                 if integrations:
-                    content += "<div class='container'>"
+                    content += "<div class='hacs-overview-container'>"
                     content += "<h5>CUSTOM INTEGRATIONS</h5>"
+                    content += "<div class='hacs-card-container'>"
                     for card in integrations:
                         content += card
-                    content += "</div>"
+                    content += "</div></div>"
 
                 if plugins:
-                    content += "<div class='container'>"
+                    content += "<div class='hacs-overview-container'>"
                     content += "<h5>CUSTOM PLUGINS (LOVELACE)</h5>"
+                    content += "<div class='hacs-card-container'>"
                     for card in plugins:
                         content += card
-                    content += "</div>"
+                    content += "</div></div>"
 
                 if not plugins and not integrations:
                     if not self.data["task_running"]:
                         content += NO_ELEMENTS
 
+                content += self.footer
 
         except Exception as exception:
             _LOGGER.error(exception)

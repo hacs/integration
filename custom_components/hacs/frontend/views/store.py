@@ -42,14 +42,14 @@ class HacsStoreView(HacsViewBase):
                     if not repository.track or repository.hide:
                         continue
 
-                    if repository.installed:
-                        card_icon = "<i class='fas fa-cube card-status installed'></i>"
-
-                    elif repository.pending_restart:
+                    if repository.pending_restart:
                         card_icon = "<i class='fas fa-cube card-status pending-restart'></i>"
 
                     elif repository.pending_update:
                         card_icon = "<i class='fas fa-cube card-status pending-update'></i>"
+
+                    elif repository.installed:
+                        card_icon = "<i class='fas fa-cube card-status installed'></i>"
 
                     else:
                         card_icon = "<i class='fas fa-cube card-status default'></i>"

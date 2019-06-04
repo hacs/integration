@@ -106,7 +106,7 @@ class HacsRepositoryView(HacsViewBase):
                 for author in repository.authors:
                     if "@" in author:
                         author = author.split("@")[-1]
-                    authors += "<a href='https://github.com/{author}' target='_blank' style='margin: 2'> @{author}</a>".format(author=author)
+                    authors += "<a href='https://github.com/{author}' target='_blank' style='color: var(--primary-color) !important; margin: 2'> @{author}</a>".format(author=author)
                 authors += "</p>"
             else:
                 authors = ""
@@ -160,7 +160,7 @@ class HacsRepositoryView(HacsViewBase):
                         name = repository.name.split("lovelace-")[-1]
                     else:
                         name = repository.name
-                    open_plugin = "<a href='/community_plugin/{}/{}.js' target='_blank'>OPEN PLUGIN</a>".format(repository.name, name)
+                    open_plugin = "<a href='/community_plugin/{}/{}.js' target='_blank' style='color: var(--primary-color) !important'>OPEN PLUGIN</a>".format(repository.name, name)
             else:
                 open_plugin = ""
 
@@ -183,27 +183,27 @@ class HacsRepositoryView(HacsViewBase):
                 last_up = ""
 
             if repository.pending_update:
-                changelog = "<a href='https://github.com/{}/releases' target='_blank'>CHANGELOG</a>".format(repository.repository_name)
+                changelog = "<a href='https://github.com/{}/releases' target='_blank' style='color: var(--primary-color) !important'>CHANGELOG</a>".format(repository.repository_name)
             else:
                 changelog = ""
 
             if repository.installed:
-                uninstall = "<a href='{}/repository_uninstall/{}' style='float: right; color: #a70000; font-weight: bold;' onclick='ShowProgressBar()'>UNINSTALL</a>".format(self.url_path['api'], repository.repository_id)
+                uninstall = "<a href='{}/repository_uninstall/{}' style='float: right; color: var(--google-red-500) !important; font-weight: bold;' onclick='ShowProgressBar()'>UNINSTALL</a>".format(self.url_path['api'], repository.repository_id)
             else:
                 uninstall = ""
 
             content += """
                 {}
                 {}
-                <div class='container''>
+                <div class='hacs-overview-container'>
                     <div class="row">
                         <div class="col s12">
-                            <div class="card blue-grey darken-1">
-                                <div class="card-content white-text">
+                            <div class="card hacscolor">
+                                <div class="card-content">
                                     <span class="card-title">
-                                        {}
+                                        <b>{}</b>
                                         <a href="{}/repository_update_repository/{}"
-                                                style="float: right; color: #ffab40;" onclick="ShowProgressBar()">
+                                                style="float: right; color: var(--primary-color);" onclick="ShowProgressBar()">
                                             <i name="reload" class="fa fa-sync"></i>
                                         </a>
                                     </span>
@@ -218,11 +218,11 @@ class HacsRepositoryView(HacsViewBase):
                                 </div>
                                 <div class="card-action">
                                     <a href="{}/repository_install/{}"
-                                        onclick="ShowProgressBar()">
+                                        onclick="ShowProgressBar()" style='color: var(--primary-color) !important'>
                                         {}
                                     </a>
                                     {}
-                                    <a href='https://github.com/{}' target='_blank'>repository</a>
+                                    <a href='https://github.com/{}' target='_blank' style='color: var(--primary-color) !important'>repository</a>
                                     {}
                                     {}
                                 </div>

@@ -166,3 +166,19 @@ class HacsBase:
             except AIOGitHubException as exception:
                 _LOGGER.debug("%s - %s", repository.repository_name, exception)
         self.data["task_running"] = False
+
+    @property
+    def repositories_list_name(self):
+        """Return a sorted(by name) list of repository objects."""
+        repositories = []
+        for repository in self.repositories:
+            repositories.append(self.repositories[repository])
+        return sorted(repositories, key=lambda x: x.name)
+
+    @property
+    def repositories_list_repo(self):
+        """Return a sorted(by repository_name) list of repository objects."""
+        repositories = []
+        for repository in self.repositories:
+            repositories.append(self.repositories[repository])
+        return sorted(repositories, key=lambda x: x.repository_name)

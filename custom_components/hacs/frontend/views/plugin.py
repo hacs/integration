@@ -27,7 +27,7 @@ class HacsPluginView(HacsViewBase):
             response = None
             if os.path.exists(file):
                 _LOGGER.debug(
-                    "Serving /community_plugin%s from /www/community%s", requested_file, requested_file
+                    "Serving /community_plugin/%s from /www/community/%s", requested_file, requested_file
                 )
                 response = web.FileResponse(file)
                 response.headers["Cache-Control"] = "max-age=0, must-revalidate"

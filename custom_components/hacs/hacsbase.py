@@ -173,7 +173,7 @@ class HacsBase:
         repositories = []
         for repository in self.repositories:
             repositories.append(self.repositories[repository])
-        return sorted(repositories, key=lambda x: x.name)
+        return sorted(repositories, key=lambda x: x.name.lower())
 
     @property
     def repositories_list_repo(self):

@@ -92,6 +92,9 @@ class HacsRepositoryView(HacsViewBase):
                     info = info.replace(
                         "<table>", "<table class='white-text'>"
                     )
+                    info = info.replace(
+                        '<a href="http', '<a target="_blank" href="http'
+                    )
                     info = info.replace("<ul>", "")
                     info = info.replace("</ul>", "")
                     repository.info = info

@@ -49,4 +49,4 @@ class HACSSensor(Entity):
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement."""
-        return "pending updates"
+        return "pending update(s)"

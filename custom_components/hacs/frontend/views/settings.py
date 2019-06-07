@@ -157,7 +157,7 @@ class HacsSettingsView(HacsViewBase):
                                 method="post" accept-charset="utf-8"
                                 enctype="application/x-www-form-urlencoded">
                             <input id="custom_url" type="text" name="custom_url" 
-                                    placeholder="ADD CUSTOM INTEGRATION REPOSITORY" style="width: 90%">
+                                    placeholder="ADD CUSTOM INTEGRATION REPOSITORY" style="width: 90%; color: var(--primary-text-color)">
                                 <button class="btn waves-effect waves-light right" 
                                         type="submit" name="add" onclick="ShowProgressBar()" style="background-color: var(--primary-color)">
                                     <i class="fas fa-save"></i>
@@ -182,7 +182,7 @@ class HacsSettingsView(HacsViewBase):
                                 method="post" accept-charset="utf-8"
                                 enctype="application/x-www-form-urlencoded">
                             <input id="custom_url" type="text" name="custom_url" 
-                                    placeholder="ADD CUSTOM PLUGIN REPOSITORY" style="width: 90%">
+                                    placeholder="ADD CUSTOM PLUGIN REPOSITORY" style="width: 90%; color: var(--primary-text-color)">
                                 <button class="btn waves-effect waves-light right" 
                                         type="submit" name="add" onclick="ShowProgressBar()" style="background-color: var(--primary-color)">
                                     <i class="fas fa-save"></i>

@@ -45,3 +45,8 @@ class HACSSensor(Entity):
     def icon(self):
         """Return the icon of the sensor."""
         return "mdi:package"
+
+    @property
+    def unit_of_measurement(self):
+        """Return the unit of measurement."""
+        return "pending updates"

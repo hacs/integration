@@ -128,10 +128,6 @@ class HacsSettingsView(HacsViewBase):
                 elif repository.repository_type == "plugin":
                     plugins.append(line)
 
-
-
-
-
             # Generate content to display
             content = self.base_content
             content += """

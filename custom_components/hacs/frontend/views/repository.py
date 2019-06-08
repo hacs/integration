@@ -205,10 +205,14 @@ class HacsRepositoryView(HacsViewBase):
                                 <div class="card-content">
                                     <span class="card-title">
                                         <b>{}</b>
-                                        <a href="{}/repository_update_repository/{}"
-                                                style="float: right; color: var(--primary-color);" onclick="ShowProgressBar()">
-                                            <i name="reload" class="fa fa-sync"></i>
+
+                                        <a class='dropdown-trigger btn right' href='#' data-target='dropdown1' style="background-color: var(--primary-color); padding-top: 8px; height: 48">
+                                            <i class="fas fa-bars"></i>
                                         </a>
+
+                                        <ul id='dropdown1' class='dropdown-content'>
+                                            <li><a href="{}/repository_update_repository/{}" style="color: var(--primary-color); background-color: var(--paper-card-background-color)" onclick="ShowProgressBar()">RELOAD</a></li>
+                                        </ul>
                                     </span>
                                     <p>{}</p></br>
                                     {}

@@ -25,6 +25,7 @@ class HacsSettingsView(HacsViewBase):
             # We use these later:
             integrations = []
             plugins = []
+            hidden = []
             hacs = self.repositories.get("172733314")
 
             # Get the message sendt to us:
@@ -100,12 +101,22 @@ class HacsSettingsView(HacsViewBase):
 
             # Repos:
             for repository in self.repositories_list_repo:
+                if repository.hide and repository.repository_id != "172733314":
+                    line = '<li class="collection-item hacscolor hacslist"><div>'
+                    line += """
+                        <a href="{}/repository_unhide/{}">
+                        <i title="Unhide" class="fas fa-plus-circle"></i></a> 
+                        {}
+                    """.format(self.url_path["api"], repository.repository_id, repository.repository_name)
+                    line += "</div></li>"
+                    hidden.append(line)
+
                 if not repository.custom:
                     continue
 
                 line = '<li class="collection-item hacscolor hacslist"><div>'
                 line += """
-                    <a title="Reload data." href="{}/{}">{}</a> 
+                    <a href="{}/{}">{}</a> 
                 """.format(self.url_path["repository"], repository.repository_id, repository.repository_name)
 
                 if repository.installed:
@@ -217,6 +228,22 @@ class HacsSettingsView(HacsViewBase):
                     </div>
                 </div>
             """.format(self.url_path["api"])
+
+            ## Hidden repositories
+            if hidden:
+                content += """
+                    <div class='hacs-overview-container'>
+                        <div class="row">
+                            <ul class="collection with-header hacslist">
+                                <li class="collection-header hacscolor hacslist"><h5>HIDDEN REPOSITORIES</h5></li>
+                """
+                for line in hidden:
+                    content += line
+                content += """
+                            </ul>
+                        </div>
+                    </div>
+                """
 
             content += self.footer
 

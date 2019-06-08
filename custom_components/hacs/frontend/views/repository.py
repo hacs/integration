@@ -167,7 +167,20 @@ class HacsRepositoryView(HacsViewBase):
             else:
                 open_plugin = ""
 
-            # Generate content
+            # Hide/unhide
+            if repository.installed:
+                hide_option = ""
+            else:
+                if repository.hide:
+                    hide_option = """
+                        <li><a class="dropdown-list-item" href="{}/repository_unhide/{}" onclick="ShowProgressBar()">Unhide</a></li>
+                    """.format(self.url_path["api"], repository.repository_id)
+                else:
+                    hide_option = """
+                        <li><a class="dropdown-list-item" href="{}/repository_hide/{}" onclick="ShowProgressBar()">Hide</a></li>
+                    """.format(self.url_path["api"], repository.repository_id)
+
+
             content = self.base_content
 
             if repository.version_installed is not None:
@@ -212,6 +225,7 @@ class HacsRepositoryView(HacsViewBase):
 
                                         <ul id='dropdown1' class='dropdown-content'>
                                             <li><a class="dropdown-list-item" href="{}/repository_update_repository/{}" onclick="ShowProgressBar()">Reload</a></li>
+                                            {}
                                             <li><a class="dropdown-list-item" href="https://github.com/{}/issues/" target="_blank">Open a issue</a></li>
                                             <li><a class="dropdown-list-item" href="https://github.com/custom-components/hacs/issues/new?title={}&labels=flag&assignee=ludeeus&template=flag.md" target="_blank">Flag this</a></li>
                                         </ul>
@@ -240,7 +254,7 @@ class HacsRepositoryView(HacsViewBase):
                         </div>
                     </div>
                 </div>
-            """.format(custom_message, pending_restart, repository.name, self.url_path["api"], repository.repository_id, repository.repository_name,
+            """.format(custom_message, pending_restart, repository.name, self.url_path["api"], repository.repository_id, hide_option, repository.repository_name,
                        repository.name, repository.description, inst_ver, last_ver, last_up, info, authors, note, self.url_path["api"],
                        repository.repository_id, main_action, changelog, repository.repository_name, open_plugin, uninstall)
 

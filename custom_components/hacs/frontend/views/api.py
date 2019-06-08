@@ -57,6 +57,20 @@ class HacsAPIView(HacsViewBase):
             await self.storage.set()
             raise web.HTTPFound(self.url_path['settings'])
 
+        # Hide a repository.
+        elif element == "repository_hide":
+            repository = self.repositories[action]
+            repository.hide = True
+            await self.storage.set()
+            raise web.HTTPFound(self.url_path['store'])
+
+        # Unhide a repository.
+        elif element == "repository_unhide":
+            repository = self.repositories[action]
+            repository.hide = False
+            await self.storage.set()
+            raise web.HTTPFound(self.url_path['settings'])
+
         # Remove a custom repository from the settings view
         elif element == "repositories_reload":
             self.hass.async_create_task(self.update_repositories("Run it!"))

@@ -142,6 +142,36 @@ class HacsSettingsView(HacsViewBase):
                 </div>
             """.format(hacs_restart, hacs_update, custom_message)
 
+            # HACS card
+            content += """
+                <div class='hacs-overview-container'>
+                    <div class="hacs-card-standalone">
+                        <h5>{}</h5>
+                        <b>HACS version:</b> {}
+                        {}</br>
+                        <b>Home Assistant version:</b> {}</br>
+                    </div>
+                </div>
+            """.format(NAME_LONG, hacs.version_installed, " <b>(RESTART PENDING!)</b>" if hacs.pending_restart else "", HAVERSION)
+
+            # The buttons, must have buttons
+            content += """
+                <div class='hacs-overview-container'>
+                    <a href="{}/repositories_reload/notinuse" class='waves-effect waves-light btn hacsbutton' onclick="ShowProgressBar()">
+                        RELOAD DATA
+                    </a>
+                    <a href='{}/new/choose' class='waves-effect waves-light btn right hacsbutton' target="_blank">
+                        OPEN ISSUE
+                    </a>
+                    <a href='https://github.com/custom-components/hacs' class='waves-effect waves-light btn right hacsbutton' target="_blank">
+                        HACS REPO
+                    </a>
+                    <a href="{}/log/get" class='waves-effect waves-light btn right hacsbutton' onclick="ShowProgressBar()">
+                        OPEN LOG
+                    </a>
+                </div>
+            """.format(self.url_path["api"], ISSUE_URL, self.url_path["api"])
+
             ## Integration URL's
             content += """
                 <div class='hacs-overview-container'>
@@ -191,43 +221,6 @@ class HacsSettingsView(HacsViewBase):
                     </div>
                 </div>
             """.format(self.url_path["api"])
-
-            # The buttons, must have buttons
-            content += """
-                <div class='hacs-overview-container'>
-                    <a href="{}/repositories_reload/notinuse" class='waves-effect waves-light btn hacsbutton' onclick="ShowProgressBar()">
-                        RELOAD DATA
-                    </a>
-                    <a href='{}/new/choose' class='waves-effect waves-light btn right hacsbutton' target="_blank">
-                        OPEN ISSUE
-                    </a>
-                    <a href='https://github.com/custom-components/hacs' class='waves-effect waves-light btn right hacsbutton' target="_blank">
-                        HACS REPO
-                    </a>
-                    <a href="{}/log/get" class='waves-effect waves-light btn right hacsbutton' onclick="ShowProgressBar()">
-                        OPEN LOG
-                    </a>
-                </div>
-            """.format(self.url_path["api"], ISSUE_URL, self.url_path["api"])
-
-            # Bottom card
-            content += """
-                <div class='hacs-overview-container'>
-                    <div class="hacs-card-standalone">
-                        <h5>{}</h5>
-                        <b>HACS version:</b> {}
-                        {}</br>
-                        <b>Home Assistant version:</b> {}</br>
-                        </br>
-                        <hr>
-                        <h6>UI built with elements from:</h6>
-                        <li><a href="https://materializecss.com" target="_blank" style="font-weight: 700;">Materialize</a></li>
-                        <li><a href="https://fontawesome.com" target="_blank" style=";font-weight: 700;">Font Awesome</a></li>
-                        <hr>
-                        <i>This site and the items here is not created, developed, affiliated, supported, maintained or endorsed by Home Assistant.</i>
-                    </div>
-                </div>
-            """.format(NAME_LONG, hacs.version_installed, " <b>(RESTART PENDING!)</b>" if hacs.pending_restart else "", HAVERSION)
 
             content += self.footer
 

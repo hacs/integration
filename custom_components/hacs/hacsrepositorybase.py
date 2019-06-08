@@ -226,7 +226,8 @@ class HacsRepositoryBase(HacsBase):
         _LOGGER.debug("(%s) - Starting uninstall", self.repository_name)
         await self.remove_local_directory()
         self.installed = False
-        self.pending_restart = True
+        if self.repository_type == "integration":
+            self.pending_restart = True
         self.version_installed = None
 
     async def check_local_directory(self, path=None):

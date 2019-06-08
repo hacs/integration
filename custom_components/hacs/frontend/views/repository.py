@@ -211,7 +211,8 @@ class HacsRepositoryView(HacsViewBase):
                                         </a>
 
                                         <ul id='dropdown1' class='dropdown-content'>
-                                            <li><a href="{}/repository_update_repository/{}" style="color: var(--primary-color); background-color: var(--paper-card-background-color)" onclick="ShowProgressBar()">RELOAD</a></li>
+                                            <li><a class="dropdown-list-item" href="{}/repository_update_repository/{}" onclick="ShowProgressBar()">Reload</a></li>
+                                            <li><a class="dropdown-list-item" href="https://github.com/custom-components/hacs/issues/new?title={}&labels=flag&assignee=ludeeus&template=flag.md" target="_blank">Flag this</a></li>
                                         </ul>
                                     </span>
                                     <p>{}</p></br>
@@ -238,7 +239,7 @@ class HacsRepositoryView(HacsViewBase):
                         </div>
                     </div>
                 </div>
-            """.format(custom_message, pending_restart, repository.name, self.url_path["api"], repository.repository_id,
+            """.format(custom_message, pending_restart, repository.name, self.url_path["api"], repository.repository_id, repository.name,
                        repository.description, inst_ver, last_ver, last_up, info, authors, note, self.url_path["api"],
                        repository.repository_id, main_action, changelog, repository.repository_name, open_plugin, uninstall)
 

@@ -106,6 +106,8 @@ class HacsBase:
                     repository = self.repositories[repository]
                     if not repository.track or repository.repository_name in self.blacklist:
                         continue
+                    if repository.hide and repository.repository_id != "172733314":
+                        continue
                     if now is not None:
                         _LOGGER.info("Running update for %s", repository.repository_name)
                         await repository.update()
@@ -125,8 +127,6 @@ class HacsBase:
                     continue
                 elif str(repository.id) in self.repositories:
                     repository = self.repositories[str(repository.id)]
-                    if repository.hide and repository.repository_id != "172733314":
-                        continue
                     await repository.update()
                 else:
                     try:

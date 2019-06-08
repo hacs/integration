@@ -68,6 +68,7 @@ class HacsAPIView(HacsViewBase):
         elif element == "repository_unhide":
             repository = self.repositories[action]
             repository.hide = False
+            await repository.update()
             await self.storage.set()
             raise web.HTTPFound(self.url_path['settings'])
 

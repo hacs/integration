@@ -125,6 +125,8 @@ class HacsBase:
                     continue
                 elif str(repository.id) in self.repositories:
                     repository = self.repositories[str(repository.id)]
+                    if repository.hide and repository.repository_id != "172733314":
+                        continue
                     await repository.update()
                 else:
                     try:

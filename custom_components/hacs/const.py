@@ -73,6 +73,6 @@ ERROR = [
 ################################
 
 DEFAULT_REPOSITORIES = {
-    "integration": [],
+    "integration": ["StyraHem/ShellyForHASS"],
     "plugin": []
 }

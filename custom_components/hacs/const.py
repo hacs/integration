@@ -78,6 +78,7 @@ DEFAULT_REPOSITORIES = {
     ],
     "plugin": [
         "maykar/compact-custom-header",
-        "maykar/lovelace-swipe-navigation"
+        "maykar/lovelace-swipe-navigation",
+        "peternijssen/lovelace-postnl-card"
     ]
 }

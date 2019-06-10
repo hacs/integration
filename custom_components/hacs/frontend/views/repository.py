@@ -10,7 +10,10 @@ LOVELACE_EXAMLE_URL = """
 <pre id="LovelaceExample" class="yaml">
   - url: /community_plugin/{}/{}.js
 </pre>
-<i>HACS could not determine the type of this element, look at the documentation in the repository.</i>
+"""
+
+MISSING_JS_TYPE = """
+<i>HACS could not determine the type of this element, look at the documentation in the repository.</i></br>
 """
 
 LOVELACE_EXAMLE_URL_TYPE = """
@@ -129,8 +132,10 @@ class HacsRepositoryView(HacsViewBase):
             else:
                 if repository.javascript_type is None:
                     llnote = LOVELACE_EXAMLE_URL.format(repository.name, repository.name.replace("lovelace-", ""))
+                    jsnote = MISSING_JS_TYPE
                 else:
                     llnote = LOVELACE_EXAMLE_URL_TYPE.format(repository.name, repository.name.replace("lovelace-", ""), repository.javascript_type)
+                    jsnote = ""
                 note = """
                     </br><i>
                         When installed, this will be located in '{}',
@@ -142,11 +147,12 @@ class HacsRepositoryView(HacsViewBase):
                     </i></br>
                         {}
                     <a title="Copy content to clipboard" id ="lovelacecopy" onclick="CopyToLovelaceExampleToClipboard()"><i class="fa fa-copy"></i></a>
+                    {}
                     </br></br><i>
                         To learn more about how to configure this,
                         click the "REPO" button to get to the repoistory for this plugin.
                     </i>
-                """.format(repository.local_path, llnote)
+                """.format(repository.local_path, llnote, jsnote)
 
             if not repository.installed:
                 main_action = "INSTALL"

@@ -89,9 +89,7 @@ class HacsRepositoryView(HacsViewBase):
                     info = info.replace("<h1>", "<h4>").replace(
                         "</h1>", "</h4>"
                     )
-                    info = info.replace("<code>", "<pre>").replace(
-                        "</code>", "</pre>"
-                    )
+                    info = info.replace("<code>", "<code class='codeinfo'>")
                     info = info.replace(
                         "<table>", "<table class='white-text'>"
                     )

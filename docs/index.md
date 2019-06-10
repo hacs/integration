@@ -52,7 +52,7 @@ During the first versions of this it will configure the logger component to use 
 
 During the startup it will scan for know repositories, and there will be a progressbar indicating that it's working.
 
-![startup](images/bg_task.png)
+![startup](images/bg_task.PNG)
 
 This is completely normal, and you can still use it while it's working.
 The same indication will show when a scheduled task is running.
@@ -80,6 +80,21 @@ The description of each element is gathered from it's repository.
 The version it shows/uses is gathered from the tag name of the latest release.
 
 If you want to add a richer experience for your users you can add an `info.md` file to the root of your repository (this is optional), this file will be rendered under the repository description, it does not support the full styling options as Github so use with care.
+
+### Include default repositories
+
+As a developer you can now add your repository to be included in as a default repository in the store.
+
+Before you try to add your repository to the default store first make sure that it follows the requirements for that type that are listed below.
+
+Only the owner of the repository or a major contributer to it can submit a PR to have it included as a default.
+
+When all of this is covered, you can add it to `DEFAULT_REPOSITORIES` at the bottom of the [`const.py file`](https://github.com/custom-components/hacs/blob/master/custom_components/hacs/const.py)
+
+**Examples:**
+
+- [`integration`](https://github.com/custom-components/hacs/pull/64)
+- [`plugin`](https://github.com/custom-components/hacs/pull/65)
 
 ### Note for integration developers
 

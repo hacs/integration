@@ -105,7 +105,7 @@ class HacsSettingsView(HacsViewBase):
                     line = '<li class="collection-item hacscolor hacslist"><div>'
                     line += """
                         <a href="{}/repository_unhide/{}">
-                        <i title="Unhide" class="fas fa-plus-circle"></i></a> 
+                        <i title="Unhide" class="fas fa-plus-circle" style="padding-right: 8px"></i></a> 
                         {}
                     """.format(self.url_path["api"], repository.repository_id, repository.repository_name)
                     line += "</div></li>"

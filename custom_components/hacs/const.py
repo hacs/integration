@@ -73,6 +73,11 @@ ERROR = [
 ################################
 
 DEFAULT_REPOSITORIES = {
-    "integration": ["StyraHem/ShellyForHASS"],
-    "plugin": []
+    "integration": [
+        "StyraHem/ShellyForHASS"
+    ],
+    "plugin": [
+        "maykar/compact-custom-header",
+        "maykar/lovelace-swipe-navigation"
+    ]
 }

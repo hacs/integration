@@ -140,6 +140,13 @@ It will first check the `dist` directory, if nothing is there it will check the 
 
 A good template to use as a reference is [boilerplate-card](https://github.com/custom-cards/boilerplate-card)
 
+## Sensor
+
+During the setup HACS will add a new sensor to your installation (`sensor.hacs`).
+This will have the number of pending updates as the state.
+
+![sensor](https://user-images.githubusercontent.com/15093472/59136215-5ff29d00-8982-11e9-860f-75d382a4d3b7.png)
+
 ## Settings
 
 This section is for the settings tab.
@@ -150,6 +157,8 @@ By default all elements that meet the requirements from these orgs are automatic
 
 - [custom-components](https://github.com/custom-components)
 - [custom-cards](https://github.com/custom-cards)
+
+[_developers can also add their repositories to be included by default_](https://custom-components.github.io/hacs/#include-default-repositories)
 
 But you can add any other repository that meets the requirements, to do so go to the "SETTINGS" tab.
 

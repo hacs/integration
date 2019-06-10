@@ -168,7 +168,7 @@ class HacsRepositoryView(HacsViewBase):
                 open_plugin = ""
 
             # Hide/unhide
-            if repository.installed:
+            if repository.installed or repository.custom:
                 hide_option = ""
             else:
                 if repository.hide:

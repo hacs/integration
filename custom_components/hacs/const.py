@@ -73,6 +73,8 @@ ERROR = [
 ################################
 
 DEFAULT_REPOSITORIES = {
-    "integration": [],
+    "integration": [
+        "awesome-dev/awesome-integration"
+    ],
     "plugin": []
 }

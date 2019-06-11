@@ -79,6 +79,8 @@ DEFAULT_REPOSITORIES = {
     "plugin": [
         "maykar/compact-custom-header",
         "maykar/lovelace-swipe-navigation",
-        "peternijssen/lovelace-postnl-card"
+        "peternijssen/lovelace-postnl-card",
+        "nervetattoo/simple-thermostat",
+        "nervetattoo/banner-card"
     ]
 }

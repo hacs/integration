@@ -81,6 +81,8 @@ DEFAULT_REPOSITORIES = {
         "maykar/lovelace-swipe-navigation",
         "peternijssen/lovelace-postnl-card",
         "nervetattoo/simple-thermostat",
-        "nervetattoo/banner-card"
+        "nervetattoo/banner-card",
+        "kalkih/mini-media-player",
+        "kalkih/mini-graph-card"
     ]
 }

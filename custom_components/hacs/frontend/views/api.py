@@ -111,23 +111,25 @@ class HacsAPIView(HacsViewBase):
 
         if element == "repository_register":
             repository_name = postdata["custom_url"]
-            repository_type = action
+            if 'repository_type' in postdata:
+                repository_type = postdata["repository_type"]
+                _LOGGER.debug("GET POST call for %s with %s", repository_name, repository_type)
 
-            # Stip first part if it's an URL.
-            if "https://github" in repository_name:
-                repository_name = repository_name.split("https://github.com/")[-1]
+                # Stip first part if it's an URL.
+                if "https://github" in repository_name:
+                    repository_name = repository_name.split("https://github.com/")[-1]
 
-            if "https://www.github" in repository_name:
-                repository_name = repository_name.split("https://www.github.com/")[-1]
+                if "https://www.github" in repository_name:
+                    repository_name = repository_name.split("https://www.github.com/")[-1]
 
-            # If it still have content, continue.
-            if repository_name != "":
-                if repository_name in self.blacklist:
-                    self.blacklist.remove(repository_name)
-                repository, result = await self.register_new_repository(repository_type, repository_name)
-                if result:
-                    await self.storage.set()
-                    raise web.HTTPFound("{}/{}".format(self.url_path['repository'], repository.repository_id))
+                # If it still have content, continue.
+                if repository_name != "":
+                    if repository_name in self.blacklist:
+                        self.blacklist.remove(repository_name)
+                    repository, result = await self.register_new_repository(repository_type, repository_name)
+                    if result:
+                        await self.storage.set()
+                        raise web.HTTPFound("{}/{}".format(self.url_path['repository'], repository.repository_id))
 
             message = "Could not add {} at this time, check the log for more details.".format(repository_name)
 

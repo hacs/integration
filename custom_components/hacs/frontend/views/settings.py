@@ -23,8 +23,7 @@ class HacsSettingsView(HacsViewBase):
         """Serve HacsOverviewView."""
         try:
             # We use these later:
-            integrations = []
-            plugins = []
+            repository_lines = []
             hidden = []
             hacs = self.repositories.get("172733314")
 
@@ -107,7 +106,8 @@ class HacsSettingsView(HacsViewBase):
                         <a href="{}/repository_unhide/{}">
                         <i title="Unhide" class="fas fa-plus-circle" style="padding-right: 8px"></i></a> 
                         {}
-                    """.format(self.url_path["api"], repository.repository_id, repository.repository_name)
+                        <span class="repository-list-badge">{}</span>
+                    """.format(self.url_path["api"], repository.repository_id, repository.repository_name, repository.repository_type)
                     line += "</div></li>"
                     hidden.append(line)
 
@@ -116,8 +116,8 @@ class HacsSettingsView(HacsViewBase):
 
                 line = '<li class="collection-item hacscolor hacslist"><div>'
                 line += """
-                    <a href="{}/{}">{}</a> 
-                """.format(self.url_path["repository"], repository.repository_id, repository.repository_name)
+                    <a href="{}/{}"><span class="repository-list-badge">{}</span> {}</a> 
+                """.format(self.url_path["repository"], repository.repository_id, repository.repository_type, repository.repository_name)
 
                 if repository.installed:
                     remove = """
@@ -133,11 +133,7 @@ class HacsSettingsView(HacsViewBase):
                 line += "</div></li>"
 
 
-                if repository.repository_type == "integration":
-                    integrations.append(line)
-
-                elif repository.repository_type == "plugin":
-                    plugins.append(line)
+                repository_lines.append(line)
 
             # Generate content to display
             content = self.base_content
@@ -184,46 +180,28 @@ class HacsSettingsView(HacsViewBase):
                 <div class='hacs-overview-container'>
                     <div class="row">
                         <ul class="collection with-header hacslist">
-                            <li class="collection-header hacscolor hacslist"><h5>CUSTOM INTEGRATION REPOSITORIES</h5></li>
+                            <li class="collection-header hacscolor hacslist"><h5>CUSTOM REPOSITORIES</h5></li>
             """
-            for line in integrations:
+            for line in repository_lines:
                 content += line
             content += """
                         </ul>
-                        <form action="{}/repository_register/integration" 
+                        <form action="{}/repository_register/new" 
                                 method="post" accept-charset="utf-8"
                                 enctype="application/x-www-form-urlencoded">
                             <input id="custom_url" type="text" name="custom_url" 
-                                    placeholder="ADD CUSTOM INTEGRATION REPOSITORY" style="width: 90%; color: var(--primary-text-color)">
-                                <button class="btn waves-effect waves-light right" 
-                                        type="submit" name="add" onclick="ShowProgressBar()" style="background-color: var(--primary-color)">
-                                    <i class="fas fa-save"></i>
-                                </button>
-                        </form>
-                    </div>
-                </div>
-            """.format(self.url_path["api"])
+                                    placeholder="ADD CUSTOM REPOSITORY" style="width: 70%; color: var(--primary-text-color)">
 
-            ## Plugin URL's
-            content += """
-                <div class='hacs-overview-container'>
-                    <div class="row">
-                        <ul class="collection with-header hacslist">
-                            <li class="collection-header hacscolor hacslist"><h5>CUSTOM PLUGIN REPOSITORIES</h5></li>
-            """
-            for line in plugins:
-                content += line
-            content += """
-                        </ul>
-                        <form action="{}/repository_register/plugin" 
-                                method="post" accept-charset="utf-8"
-                                enctype="application/x-www-form-urlencoded">
-                            <input id="custom_url" type="text" name="custom_url" 
-                                    placeholder="ADD CUSTOM PLUGIN REPOSITORY" style="width: 90%; color: var(--primary-text-color)">
-                                <button class="btn waves-effect waves-light right" 
-                                        type="submit" name="add" onclick="ShowProgressBar()" style="background-color: var(--primary-color)">
-                                    <i class="fas fa-save"></i>
-                                </button>
+                            <select name="repository_type" class="repository-select">
+                                <option disabled selected value>type</option>
+                                <option value="integration">Integration</option>
+                                <option value="plugin">Plugin</option>
+                            </select>
+
+                            <button class="btn waves-effect waves-light right" 
+                                    type="submit" name="add" onclick="ShowProgressBar()" style="background-color: var(--primary-color); height: 44px;">
+                                <i class="fas fa-save"></i>
+                            </button>
                         </form>
                     </div>
                 </div>

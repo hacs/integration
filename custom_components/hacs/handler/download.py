@@ -6,6 +6,7 @@ import async_timeout
 
 import backoff
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from ..exceptions import HacsNotSoBasicException
 
 _LOGGER = logging.getLogger('custom_components.hacs.download')
 
@@ -26,20 +27,14 @@ async def async_download_file(hass, url):
 
     result = None
 
-    try:
-        with async_timeout.timeout(5, loop=hass.loop):
-            request = await async_get_clientsession(hass).get(url)
+    with async_timeout.timeout(5, loop=hass.loop):
+        request = await async_get_clientsession(hass).get(url)
 
-            # Make sure that we got a valid result
-            if request.status == 200:
-                result = await request.text()
-            else:
-                _LOGGER.debug(
-                    "Got status code %s when trying to download %s", request.status, url
-                )
-
-    except Exception as error:  # pylint: disable=broad-except
-        _LOGGER.debug("Downloading %s failed with %s", url, error)
+        # Make sure that we got a valid result
+        if request.status == 200:
+            result = await request.text()
+        else:
+            raise HacsNotSoBasicException("Got status code {} when trying to download {}".format(request.status, url))
 
     return result
 

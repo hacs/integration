@@ -183,7 +183,7 @@ class HacsRepositoryBase(HacsBase):
                 await async_save_file(local_file_path, filecontent)
 
         except Exception as exception:
-            _LOGGER.debug(exception)
+            raise HacsBaseException(exception)
 
     async def install(self):
         """Run install tasks."""

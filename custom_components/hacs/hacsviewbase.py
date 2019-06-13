@@ -24,9 +24,9 @@ class HacsViewBase(HomeAssistantView, HacsBase):
     def imports(self):
         """Load imports."""
         return """
-        <link rel="stylesheet" href="{static}/materialize.min.css">
-        <link rel="stylesheet" href="{static}/all.min.css">
-        <script src="{static}/materialize.min.js"></script>
+        <link rel="stylesheet" href="{static}/materialize.min.css.gz">
+        <link rel="stylesheet" href="{static}/all.min.css.gz">
+        <script src="{static}/materialize.min.js.gz"></script>
         <link rel="stylesheet" href="{static}/hacs.css">
         <script src="{static}/hacs.js"></script>
         """.format(static=self.url_path["static"])

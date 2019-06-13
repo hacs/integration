@@ -1,7 +1,9 @@
 """Serve static files used by HACS."""
 # pylint: disable=broad-except
 import logging
+import os
 from aiohttp import web
+from aiohttp.web import HTTPNotFound
 from ...blueprints import HacsViewBase
 
 _LOGGER = logging.getLogger('custom_components.hacs.frontend')
@@ -21,4 +23,11 @@ class HacsStaticView(HacsViewBase):
         servefile = "{}/custom_components/hacs/frontend/elements/{}".format(
             self.config_dir, requested_file)
 
-        return web.FileResponse(servefile)
+        if os.path.exists(servefile):
+            return web.FileResponse(servefile)
+        else:
+            servefile += '.gz'
+            if os.path.exists(servefile):
+                return web.FileResponse(servefile)
+            else:
+                raise HTTPNotFound

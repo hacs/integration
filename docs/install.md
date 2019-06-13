@@ -56,7 +56,7 @@ If this is your first custom_component you would need to create a new folder (se
 
 If this is not your first, you should know where to place the `hacs` folder, and if this is not your first why are you reading this? you have done this earlier and should know this by now :D
 
-Anyway the `hacs` folder needs to be placed under `<conifg_dir>/custom_components/`
+Anyway the `hacs` folder needs to be placed under `<config_dir>/custom_components/`
 
 On Hassio the final location will be `/config/custom_components/hacs`
 

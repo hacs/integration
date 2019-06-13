@@ -32,10 +32,10 @@ When you install an element this is what's happening:
 1. A new local target directory is created.
 1. All expected files are downloaded to that directory.
 
-# How does it work: Upgrade</b></summary>
+# How does it work: Upgrade
 
 The same as installation.
 
-# How can I install this.</b></summary>
+# How can I install this.
 
 Look at the [installation documentation.](/hacs/install)

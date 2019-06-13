@@ -82,6 +82,8 @@ DEFAULT_REPOSITORIES = {
         "peternijssen/lovelace-postnl-card",
         "nervetattoo/simple-thermostat",
         "nervetattoo/banner-card",
+        "kalkih/mini-media-player",
+        "kalkih/mini-graph-card",
         "finity69x2/fan-control-entity-row"
     ]
 }

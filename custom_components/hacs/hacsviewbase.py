@@ -24,12 +24,12 @@ class HacsViewBase(HomeAssistantView, HacsBase):
     def imports(self):
         """Load imports."""
         return """
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"/></script>
-        <link rel="stylesheet" href="{}/hacs.css">
-        <script src="{}/hacs.js"></script>
-        """.format(self.url_path["static"], self.url_path["static"])
+        <link rel="stylesheet" href="{static}/materialize.min.css">
+        <link rel="stylesheet" href="{static}/all.min.css">
+        <script src="{static}/materialize.min.js"></script>
+        <link rel="stylesheet" href="{static}/hacs.css">
+        <script src="{static}/hacs.js"></script>
+        """.format(static=self.url_path["static"])
 
     @property
     def header(self):

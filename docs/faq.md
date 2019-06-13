@@ -18,7 +18,7 @@ Although "Store" is not "technically" correct, since nothing is sold, it's more 
 
 ***
 
-## Is this for hass.</i>io only?
+## Is this for hass.io only?
 
 No, it's not.
 

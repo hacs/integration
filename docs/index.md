@@ -172,6 +172,8 @@ After you add a repository it will scan that repository, if it can be tracked th
 
 Want to get inspiration on what to add? Check out the [Awesome Home Assistant list](https://www.awesome-ha.com/) it has has links to many custom_components (integration) and custom_cards (plugin).
 
+_If you have added a repository manually and that repository is subsequently added to the 'store' then that will be removed from the custom repository list._
+
 ## Contribute
 
 This integration is **massive** and there are a lot of areas to contribute to.

@@ -56,7 +56,7 @@ class HacsBase:
 
         # After an upgrade from < 0.7.0 some files are missing.
         # This will handle that.
-        checkpath = "{}/frotend/elements/all.min.css.gz".format(repository.local_path)
+        checkpath = "{}/frontend/elements/all.min.css.gz".format(repository.local_path)
         if not os.path.exists(checkpath):
             _LOGGER.critical("HACS is missing files, trying to correct.")
             await repository.install()

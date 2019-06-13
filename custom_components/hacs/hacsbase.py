@@ -2,6 +2,7 @@
 # pylint: disable=too-few-public-methods
 import logging
 import uuid
+import os
 from datetime import timedelta
 from homeassistant.helpers.event import async_track_time_interval
 from .aiogithub import AIOGitHubException
@@ -52,6 +53,13 @@ class HacsBase:
         repository = HacsRepositoryIntegration("custom-components/hacs", repository)
         await repository.setup_repository()
         self.repositories[repository.repository_id] = repository
+
+        # After an upgrade from < 0.7.0 some files are missing.
+        # This will handle that.
+        checkpath = "{}/frotend/all.min.css.gz".format(repository.local_path)
+        if not os.path.exists(checkpath):
+            _LOGGER.critical("HACS is missing files, trying to correct.")
+            await repository.install()
 
         _LOGGER.info("Trying to load existing data.")
 

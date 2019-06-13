@@ -32,7 +32,10 @@ async def async_download_file(hass, url):
 
         # Make sure that we got a valid result
         if request.status == 200:
-            result = await request.text()
+            if url.endswith(".gz"):
+                result = await request.read()
+            else:
+                result = await request.text()
         else:
             raise HacsNotSoBasicException("Got status code {} when trying to download {}".format(request.status, url))
 
@@ -45,9 +48,17 @@ async def async_save_file(location, content):
         location = location.replace("-bundle", "")
 
     _LOGGER.debug("Saving %s", location)
+    mode = 'w'
+    encoding = "utf-8"
+    errors="ignore"
+
+    if not isinstance(content, str):
+        mode = 'wb'
+        encoding = None
+        errors = None
 
     try:
-        async with aiofiles.open(location, mode='w', encoding="utf-8", errors="ignore") as outfile:
+        async with aiofiles.open(location, mode=mode, encoding=encoding, errors=errors) as outfile:
             await outfile.write(content)
             outfile.close()
 

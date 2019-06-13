@@ -84,6 +84,8 @@ DEFAULT_REPOSITORIES = {
         "nervetattoo/banner-card",
         "kalkih/mini-media-player",
         "kalkih/mini-graph-card",
-        "finity69x2/fan-control-entity-row"
+        "finity69x2/fan-control-entity-row",
+        "thomasloven/lovelace-card-mod",
+        "thomasloven/lovelace-markdown-mod",
     ]
 }

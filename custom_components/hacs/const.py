@@ -87,5 +87,6 @@ DEFAULT_REPOSITORIES = {
         "finity69x2/fan-control-entity-row",
         "thomasloven/lovelace-card-mod",
         "thomasloven/lovelace-markdown-mod",
+        "thomasloven/lovelace-slider-entity-row",
     ]
 }

@@ -164,11 +164,11 @@ By default all elements that meet the requirements from these orgs are automatic
 
 But you can add any other repository that meets the requirements, to do so go to the "SETTINGS" tab.
 
-![settings](images/settings.png)
+![custom_repositories](images/custom_repositorylist.PNG)
 
-Add the url to the repository under "Custom integration repo's" or "Custom plugin repo's" depending on the type.
+Add the url to the repository under "Custom repositories's" and select a type before clicking the "save icon".
 
-After you add a repository it will scan that repository, if it can be tracked the element will show up under "STORE".
+After you add a repository it will scan that repository, if it can be tracked the element will show up under "STORE", and you will be redirected to that element.
 
 Want to get inspiration on what to add? Check out the [Awesome Home Assistant list](https://www.awesome-ha.com/) it has has links to many custom_components (integration) and custom_cards (plugin).
 

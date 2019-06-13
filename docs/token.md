@@ -1,6 +1,6 @@
 ***
 
-[HOME](/hacs/) | [INSTALLATION](/hacs/install) | [CONFIGURATION](/hacs/configure) | [**TOKEN**](/hacs/token)
+[HOME](/hacs/) | [INSTALLATION](/hacs/install) | [CONFIGURATION](/hacs/configure) | [**TOKEN**](/hacs/token) | [FAQ](/hacs/faq)
 
 ***
 # Github Personal Access Token

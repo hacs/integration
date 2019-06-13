@@ -87,7 +87,7 @@ As a developer you can now add your repository to be included in as a default re
 
 Before you try to add your repository to the default store first make sure that it follows the requirements for that type that are listed below.
 
-Only the owner of the repository or a major contributer to it can submit a PR to have it included as a default.
+Only the owner of the repository or a major contributor to it can submit a PR to have it included as a default.
 
 When all of this is covered, you can add it to `DEFAULT_REPOSITORIES` at the bottom of the [`const.py file`](https://github.com/custom-components/hacs/blob/master/custom_components/hacs/const.py)
 

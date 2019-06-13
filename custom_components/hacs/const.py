@@ -83,6 +83,7 @@ DEFAULT_REPOSITORIES = {
         "nervetattoo/simple-thermostat",
         "nervetattoo/banner-card",
         "kalkih/mini-media-player",
-        "kalkih/mini-graph-card"
+        "kalkih/mini-graph-card",
+        "finity69x2/fan-control-entity-row"
     ]
 }

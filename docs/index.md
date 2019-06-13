@@ -24,7 +24,6 @@ HACS will check for updates to installed elements:
 
 - At startup.
 - Every 30 minutes after HA startup.
-- If you have added a repo manually and that repo is subsequently added to the 'store' then that will be removed from the custom repor you have configured.
 
 ### Everything else
 
@@ -172,6 +171,8 @@ Add the url to the repository under "Custom integration repo's" or "Custom plugi
 After you add a repository it will scan that repository, if it can be tracked the element will show up under "STORE".
 
 Want to get inspiration on what to add? Check out the [Awesome Home Assistant list](https://www.awesome-ha.com/) it has has links to many custom_components (integration) and custom_cards (plugin).
+
+_If you have added a repository manually and that repository is subsequently added to the 'store' then that will be removed from the custom repository list._
 
 ## Contribute
 

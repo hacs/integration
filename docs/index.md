@@ -24,6 +24,7 @@ HACS will check for updates to installed elements:
 
 - At startup.
 - Every 30 minutes after HA startup.
+- If you have added a repo manually and that repo is subsequently added to the 'store' then that will be removed from the custom repor you have configured.
 
 ### Everything else
 

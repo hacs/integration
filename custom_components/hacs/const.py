@@ -81,6 +81,7 @@ DEFAULT_REPOSITORIES = {
         "maykar/lovelace-swipe-navigation",
         "peternijssen/lovelace-postnl-card",
         "nervetattoo/simple-thermostat",
-        "nervetattoo/banner-card"
+        "nervetattoo/banner-card",
+        "finity69x2/fan-control-entity-row"
     ]
 }

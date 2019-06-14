@@ -15,8 +15,6 @@ This integration requires **a lot** of files.
 
 The easiest way to make sure that you have them all is to download the `.zip` file from the repository.
 
-[Not a fan of reading, direct link here.](https://github.com/custom-components/hacs/archive/master.zip)
-
 ## Step 1 - Open browser
 
 _You are probably looking at this in a browser, so we can probably check this off._

@@ -31,6 +31,13 @@ Initialize the download by clicking the "**Source code** (zip)" link at the bott
 
 ![install2](images/install2.png)
 
+To download via terminal, make sure you have git installed and navigate to your custom components folder (see step 5).
+Then run:
+
+`git clone https://github.com/custom-components/hacs.git`
+
+If downloaded via terminal, skip to step 5.
+
 ## Step 4 - Extract the content
 
 There should now be a `hacs-VERSION_NUMBER.zip` (like `hacs-0.2.0.zip`) file in your Download folder.

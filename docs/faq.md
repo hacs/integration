@@ -35,6 +35,15 @@ When you install an element this is what's happening:
 1. The local target directory(folder) is deleted.
 1. A new local target directory is created.
 1. All expected files are downloaded to that directory.
+1. The files it downloads depends on the type.
+
+**Files downloaded for `integrations`:**
+
+_Everything under the first directory in `custom_components`_
+
+**Files downloaded for `plugins`:**
+
+_Every `.js` file in the source directory, this can be on the release page, the `dist` directory, or the root of the repository._
 
 ***
 

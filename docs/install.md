@@ -50,7 +50,7 @@ The folder named `hacs` would need to be copied to your Home Assistant installat
 
 For this use your favorite tool to get stuff to Home Assistant.
 
-If this is your first custom_component you would need to create a new folder (see step 7).
+If this is your first custom_component you would need to create a new folder (see step 6).
 
 If this is not your first, you should know where to place the `hacs` folder, and if this is not your first why are you reading this? you have done this earlier and should know this by now :D
 
@@ -69,7 +69,7 @@ Cool you are still reading.
 Open the folder where you have your `configuration.yaml` file.
 Don't open that file (yet) just the folder for now.
 
-If you see a folder named `custom_components` there, go back to Step 6 if you think you need to do something here.
+If you see a folder named `custom_components` there, go back to Step 5 if you think you need to do something here.
 
 If you **do not** see a `custom_components` folder in **the same** folder as `configuration.yaml`, you need to create it.
 

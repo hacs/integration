@@ -124,7 +124,7 @@ class HacsRepositoryView(HacsViewBase):
                     </i></br></br>
                     <i>
                         To learn more about how to configure this,
-                        click the "REPO" button to get to the repoistory for this integration.
+                        click the "REPO" button to get to the repository for this integration.
                     </i>
                 """.format(repository.local_path)
             else:
@@ -148,7 +148,7 @@ class HacsRepositoryView(HacsViewBase):
                     {}
                     </br></br><i>
                         To learn more about how to configure this,
-                        click the "REPO" button to get to the repoistory for this plugin.
+                        click the "REPO" button to get to the repository for this plugin.
                     </i>
                 """.format(repository.local_path, llnote, jsnote)
 

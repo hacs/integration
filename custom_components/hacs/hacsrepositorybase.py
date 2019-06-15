@@ -29,6 +29,7 @@ class HacsRepositoryBase(HacsBase):
         self.hide = False
         self.info = None
         self.installed = False
+        self.installed_commit = None
         self.last_release_object = None
         self.last_release_tag = None
         self.last_updated = None
@@ -47,7 +48,10 @@ class HacsRepositoryBase(HacsBase):
     def pending_update(self):
         """Return flag if the an update is pending."""
         if self.installed:
-            return bool(self.last_release_tag != self.version_installed)
+            if self.version_installed:
+                return bool(self.last_release_tag != self.version_installed)
+            else:
+                return bool(self.installed_commit != self.last_commit)
         return False
 
     @property
@@ -97,6 +101,11 @@ class HacsRepositoryBase(HacsBase):
         """Set the ID of an repository."""
         return str(self.repository.id)
 
+    @property
+    def last_commit(self):
+        """Set the last commit of an repository."""
+        return self.repository.last_commit
+
     async def setup_repository(self):
         """
         Run initialation to setup a repository.
@@ -127,6 +136,9 @@ class HacsRepositoryBase(HacsBase):
 
         # Set the Gihub repository object
         await self.set_repository()
+
+        # Set latest commit sha
+        await self.repository.set_last_commit()
 
         # Set repository releases
         await self.set_repository_releases()
@@ -206,6 +218,7 @@ class HacsRepositoryBase(HacsBase):
         else:
             self.version_installed = self.last_release_tag
             self.installed = True
+            self.installed_commit = self.last_commit
             if self.repository_type == "integration":
                 self.pending_restart = True
             _LOGGER.info('(%s) - installation completed in %s seconds', self.repository_name, (datetime.now() - start_time).seconds)

@@ -19,7 +19,7 @@ BLACKLIST = [
     "custom-cards/tracker-card",
     "custom-components/blueprint",
     "custom-components/information",
-    "custom-components/custom-updater",
+    "custom-components/custom_updater",
 ]
 ELEMENT_TYPES = ["integration", "plugin"]
 IFRAME = {

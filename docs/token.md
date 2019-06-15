@@ -11,10 +11,11 @@ _You need to generate an Access Token to your account before you start using thi
 
 _You are probably looking at this in a browser, so we can probably check this off._
 
-## Step 2 - Go to your GitHub Developer settings
+## Step 2 - Go to your GitHub "Developer settings"
 
-_And then "Personal access tokens._
-or click here https://github.com/settings/tokens
+_And then "Personal access tokens."_
+or click here: [https://github.com/settings/tokens](https://github.com/settings/tokens)
+
 
 ## Step 3 - Start generation
 

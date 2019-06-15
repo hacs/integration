@@ -8,7 +8,9 @@
 
 ![hacsdemo](images/hacsdemo.gif)
 
-## What is it?
+***
+
+## What can HACS do?
 
 This is a manager for your custom integration (components) and plugin (lovelace elements) needs.
 
@@ -68,6 +70,40 @@ Trust. If this did not download it, there'd be no way to know which version you 
 ## Data
 
 All data it handles are saved to the `hacs` file that is located under `.storage`
+
+## Sensor
+
+During the setup HACS will add a new sensor to your installation (`sensor.hacs`).
+This will have the number of pending updates as the state.
+
+![sensor](https://user-images.githubusercontent.com/15093472/59136215-5ff29d00-8982-11e9-860f-75d382a4d3b7.png)
+
+## Settings
+
+This section is for the settings tab.
+
+### Add custom repos
+
+By default all elements that meet the requirements from these orgs are automatically added:
+
+- [custom-components](https://github.com/custom-components)
+- [custom-cards](https://github.com/custom-cards)
+
+[_Developers can also add their repositories to be included by default_](https://custom-components.github.io/hacs/#include-default-repositories)
+
+But you can add any other repository that meets the requirements, to do so go to the "SETTINGS" tab.
+
+![custom_repositories](images/custom_repositorylist.PNG)
+
+Add the url to the repository under "CUSTOM REPOSITORIES" and select a type before clicking the "save icon".
+
+After adding a repository the repository will be scanned, if it can be tracked the element will show up under "STORE", and you will be redirected to that element.
+
+Want to get inspiration on what to add? Check out the [Awesome Home Assistant list](https://www.awesome-ha.com/) it contains links to many custom_components (integrations) and custom_cards (plugins).
+
+_If you have added a repository manually and that repository is subsequently added to the 'store' then that will be removed from the custom repository list._
+
+***
 
 ## Note for developers
 
@@ -136,38 +172,6 @@ For an integration repository to be valid these are the criteria:
 It will first check the `dist` directory, if nothing is there it will check the root directory. All `.js` files it finds will be downloaded.
 
 A good template to use as a reference is [boilerplate-card](https://github.com/custom-cards/boilerplate-card)
-
-## Sensor
-
-During the setup HACS will add a new sensor to your installation (`sensor.hacs`).
-This will have the number of pending updates as the state.
-
-![sensor](https://user-images.githubusercontent.com/15093472/59136215-5ff29d00-8982-11e9-860f-75d382a4d3b7.png)
-
-## Settings
-
-This section is for the settings tab.
-
-### Add custom repos
-
-By default all elements that meet the requirements from these orgs are automatically added:
-
-- [custom-components](https://github.com/custom-components)
-- [custom-cards](https://github.com/custom-cards)
-
-[_developers can also add their repositories to be included by default_](https://custom-components.github.io/hacs/#include-default-repositories)
-
-But you can add any other repository that meets the requirements, to do so go to the "SETTINGS" tab.
-
-![custom_repositories](images/custom_repositorylist.PNG)
-
-Add the url to the repository under "Custom repositories's" and select a type before clicking the "save icon".
-
-After you add a repository it will scan that repository, if it can be tracked the element will show up under "STORE", and you will be redirected to that element.
-
-Want to get inspiration on what to add? Check out the [Awesome Home Assistant list](https://www.awesome-ha.com/) it has has links to many custom_components (integration) and custom_cards (plugin).
-
-_If you have added a repository manually and that repository is subsequently added to the 'store' then that will be removed from the custom repository list._
 
 ## Contribute
 

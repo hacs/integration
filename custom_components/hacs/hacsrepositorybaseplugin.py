@@ -74,7 +74,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
 
                 # Handler for plugin requirement 3
                 find_file_name = "{}.js".format(self.name.replace("lovelace-", ""))
-                if find_file_name in files:
+                if find_file_name in files or "{}.js".format(self.name) in files:
                     # YES! We got it!
                     self.content_path = ""
                     self.content_objects = objects
@@ -116,7 +116,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
 
                 # Handler for plug requirement 3
                 find_file_name = "{}.js".format(self.name.replace("lovelace-", ""))
-                if find_file_name in files:
+                if find_file_name in files or "{}.js".format(self.name) in files:
                     # YES! We got it!
                     self.content_path = "dist"
                     self.content_objects = objects

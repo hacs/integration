@@ -128,13 +128,10 @@ For an integration repository to be valid these are the criteria:
 
 - There are `.js` files under `ROOT_OF_THE_REPO/dist/` or directly in the root of the repository.
 - One of the `.js` files have the same name as the repository.
-  - With every rule there is an exception, if the repository's name starts with `"lovelace-"`, there must be a `.js` file in the repository matching the repository name with `"lovelace-"` striped from the name, examples:
+  - With every rule there is an exception, if the repository's name starts with `"lovelace-"`, there can be a `.js` file in the repository matching the repository name with `"lovelace-"` striped from the name, example:
     - Accepted:
       - repository name: "lovelace-awesome-card"
-      - file name of one of the files "awesome-card"
-    - Not accepted:
-      - repository name: "lovelace-awesome-card"
-      - file name of one of the files "lovelace-awesome-card"
+      - file name of one of the files "awesome-card.js"
 
 It will first check the `dist` directory, if nothing is there it will check the root directory. All `.js` files it finds will be downloaded.
 

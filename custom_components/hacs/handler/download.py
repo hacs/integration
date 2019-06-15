@@ -46,6 +46,10 @@ async def async_save_file(location, content):
     """Save files."""
     if "-bundle" in location:
         location = location.replace("-bundle", "")
+    if "lovelace-" in location.split('/')[-1]:
+        search = location.split('/')[-1]
+        replace = search.replace("lovelace-", "")
+        location = location.replace(search, replace)
 
     _LOGGER.debug("Saving %s", location)
     mode = 'w'

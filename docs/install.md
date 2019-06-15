@@ -31,12 +31,27 @@ Initialize the download by clicking the "**Source code** (zip)" link at the bott
 
 ![install2](images/install2.png)
 
-To download via terminal, make sure you have git installed and navigate to your custom components folder (see step 5).
-Then run:
+To download via terminal, make sure you have git installed.
 
-`git clone https://github.com/custom-components/hacs.git`
+Next, Navigate to your custom_components directory:
 
-If downloaded via terminal, skip to step 5.
+`cd /config/custom_components` # This location is different from installation to installation (see step 5).
+
+Then run the following commands:
+
+`git clone https://github.com/custom-components/hacs.git hacs_temp`
+
+`cd hacs_temp`
+
+``git checkout $(git describe --tags `git rev-list --tags --max-count=1`)``
+
+`cd ../`
+
+`cp -r hacs_temp/custom_components/hacs hacs`
+
+`rm -R hacs_temp`
+
+If downloaded via terminal, skip step 4 and go to step 5.
 
 ## Step 4 - Extract the content
 

@@ -122,6 +122,9 @@ class HacsAPIView(HacsViewBase):
                 if "https://www.github" in repository_name:
                     repository_name = repository_name.split("https://www.github.com/")[-1]
 
+                # Strip whitespace
+                repository_name = repository_name.split()[0]
+
                 # If it still have content, continue.
                 if repository_name != "":
                     if repository_name in self.blacklist:

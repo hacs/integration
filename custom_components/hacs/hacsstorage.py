@@ -75,7 +75,8 @@ class HacsStorage(HacsBase):
                     try:
                         await repository.setup_repository()
                     except (HacsRequirement, AIOGitHubException) as exception:
-                        _LOGGER.debug("%s - %s", repository.repository_name, exception)
+                        if not self.data["task_running"]:
+                            _LOGGER.error("%s - %s", repository.repository_name, exception)
                         self.blacklist.append(repository.repository_name)
                         continue
 

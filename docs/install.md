@@ -27,7 +27,7 @@ Shortcut: [https://github.com/custom-components/hacs/releases/latest](https://gi
 
 ## Step 3 - Initialize Download
 
-Initialize the download by clicking on "**Source code** (zip)" link at the bottom of the page.
+Initialize the download by clicking on the "**Source code** (zip)" link at the bottom of the page.
 
 ![install2](images/install2.png)
 

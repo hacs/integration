@@ -101,6 +101,7 @@ class AIOGithubRepository(AIOGitHub):
         """Initialize."""
         super().__init__(token, loop, session)
         self.attributes = attributes
+        self._last_commit = None
 
 
     @property
@@ -130,6 +131,10 @@ class AIOGithubRepository(AIOGitHub):
     @property
     def default_branch(self):
         return self.attributes.get("default_branch")
+
+    @property
+    def last_commit(self):
+        return self._last_commit
 
     @backoff.on_exception(backoff.expo, ClientError, max_tries=3)
     async def get_contents(self, path, ref=None):
@@ -180,6 +185,20 @@ class AIOGithubRepository(AIOGitHub):
 
         return contents
 
+    @backoff.on_exception(backoff.expo, ClientError, max_tries=3)
+    async def set_last_commit(self):
+        """Retrun a list of repository release objects."""
+        endpoint = "/repos/" + self.full_name + "/commits/" + self.default_branch
+        url = self.baseapi + endpoint
+
+        async with async_timeout.timeout(20, loop=self.loop):
+            response = await self.session.get(url, headers=self.headers)
+            response = await response.json()
+
+            if response.get("message"):
+                raise AIOGitHubException("No commits")
+
+        self._last_commit = response['sha'][0:7]
 
 class AIOGithubRepositoryContent(AIOGitHub):
     """Repository Conetent Github API implementation."""

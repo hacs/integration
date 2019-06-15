@@ -190,19 +190,19 @@ class HacsRepositoryView(HacsViewBase):
             if repository.version_installed is not None:
                 inst_ver = "<p><b>Installed version:</b> {}</p>".format(repository.version_installed)
             else:
-                inst_ver = ""
+                if repository.installed_commit is not None:
+                    inst_ver = "<p><b>Installed commit:</b> {}</p>".format(repository.installed_commit)
+                else:
+                    inst_ver = ""
 
             if repository.last_release_tag is not None:
                 last_ver = "<p><b>Available version:</b> {}</p>".format(repository.last_release_tag)
             else:
-                last_ver = ""
+                last_ver = "<p><b>Available commit:</b> {}</p>".format(repository.last_commit)
 
-            if repository.last_updated is not None:
-                last_up = "<p><b>Last updated:</b> {}</p>".format(repository.last_updated)
-            else:
-                last_up = ""
+            last_up = ""
 
-            if repository.pending_update:
+            if repository.pending_update and repository.version_installed is not None:
                 changelog = "<a href='https://github.com/{}/releases' target='_blank' style='color: var(--primary-color) !important'>CHANGELOG</a>".format(repository.repository_name)
             else:
                 changelog = ""

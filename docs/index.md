@@ -106,7 +106,6 @@ For an integration repository to be valid these are the criteria:
   - If there are releases:
     - When installing/upgrading it will scan the content in the latest release.
   - If there are no releases:
-    - An update will not be possible (but the user will still be able to install/reinstall it).
     - It will scan files in the branch marked as default.
 - There is only one integration (one directory under `ROOT_OF_THE_REPO/custom_components/`) pr. repository (if you have more, only the first one will be managed.)
 - The integration (all the python files for it) are located under `ROOT_OF_THE_REPO/custom_components/INTEGRATION_NAME/`
@@ -125,7 +124,6 @@ For an integration repository to be valid these are the criteria:
   - If there are releases:
     - When installing/upgrading it will scan the content in the latest release.
   - If there are no releases:
-    - An update will not be possible (but the user will still be able to install/reinstall it).
     - It will scan files in the branch marked as default.
 
 - There are `.js` files under `ROOT_OF_THE_REPO/dist/` or directly in the root of the repository.

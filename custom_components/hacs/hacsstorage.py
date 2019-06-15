@@ -109,6 +109,7 @@ class HacsStorage(HacsBase):
             repositorydata["custom"] = repository.custom
             repositorydata["hide"] = repository.hide
             repositorydata["installed"] = repository.installed
+            repositorydata["installed_commit"] = repository.installed_commit
             repositorydata["name"] = repository.name
             repositorydata["repository_name"] = repository.repository_name
             repositorydata["repository_type"] = repository.repository_type

@@ -15,6 +15,8 @@ This integration requires **a lot** of files.
 
 The easiest way to make sure that you have them all is to download the `.zip` file from the repository.
 
+If you want to download using a terminal, see instructions at the bottom of this page.
+
 ## Step 1 - Open browser
 
 _You are probably looking at this in a browser, so we can probably check this off._
@@ -89,3 +91,24 @@ HACS and [`custom_updater`](https://github.com/custom-components/custom_updater)
 If you used the special endpoint `/customcards/` endpoint for your Lovelace cards, you now need to reinstall that plugin using HACS and use the url provided in the page for that plugin in the HACS UI, if the plugin is not there you need to use `/local/` instead.
 
 As noted under ['Existing elements'](/hacs#existing-elements) You need to click the "INSTALL" button for each element you previously have installed.
+
+## Installation using the terminal
+
+To download via terminal, make sure you have `git` installed.
+
+Next, Navigate to your custom_components directory:
+
+`cd /config/custom_components` # This location is different from installation to installation (see step 5).
+
+Then run the following commands:
+
+```bash
+git clone https://github.com/custom-components/hacs.git hacs_temp
+cd hacs_temp
+git checkout $(git describe --tags 'git rev-list --tags --max-count=1')
+cd ../
+cp -r hacs_temp/custom_components/hacs hacs
+rm -R hacs_temp
+```
+
+When this is done, see step 7.

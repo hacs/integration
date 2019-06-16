@@ -9,8 +9,6 @@
 
 **NB!: If you move from [`custom_updater`](https://github.com/custom-components/custom_updater) to this see the special note at the bottom here.**
 
-**NB!: You need to have added `logger:` to your `configuration.yaml` for this to work. You must add it _and_ restart before trying to add HACS to your `configuration.yaml`.**
-
 This integration requires **a lot** of files.
 
 The easiest way to make sure that you have them all is to download the `.zip` file from the repository.

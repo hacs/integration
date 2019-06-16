@@ -48,8 +48,6 @@ Like any other integration this logs to the `home-assistant.log` file.
 
 You can also click the "OPEN LOG" from the "SETTINGS" tab to show logs only related to this integration (useful when creating a issue)
 
-During the first versions of this it will configure the logger component to use `debug` for this integration. This is done to make sure those exists when you need to report a bug.
-
 ## Startup
 
 During the startup it will scan for know repositories, and there will be a progressbar indicating that it's working.

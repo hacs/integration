@@ -39,9 +39,6 @@ class HacsBase:
         # Store enpoints
         self.data["hacs"]["endpoints"] = self.url_path
 
-        custom_log_level = {"custom_components.hacs": "debug"}
-        await self.hass.services.async_call("logger", "set_level", custom_log_level)
-
         # For installed repositories only.
         async_track_time_interval(self.hass, self.recuring_tasks_installed, timedelta(minutes=30))
 
@@ -73,7 +70,7 @@ class HacsBase:
         from .exceptions import HacsBaseException, HacsRequirement
         from .blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
 
-        _LOGGER.debug("Starting repository registration for %s", repo)
+        _LOGGER.info("Starting repository registration for %s", repo)
 
         if element_type == "integration":
             repository = HacsRepositoryIntegration(repo, repositoryobject)
@@ -120,7 +117,7 @@ class HacsBase:
                         _LOGGER.info("Running update for %s", repository.repository_name)
                         await repository.update()
                 except AIOGitHubException as exception:
-                    _LOGGER.debug("%s - %s", repository.repository_name, exception)
+                    _LOGGER.error("%s - %s", repository.repository_name, exception)
 
         # Register new repositories
         integrations, plugins = await self.get_repositories()
@@ -140,7 +137,7 @@ class HacsBase:
                     try:
                         await self.register_new_repository(repository_type, repository.full_name, repository)
                     except AIOGitHubException as exception:
-                        _LOGGER.debug("%s - %s", repository.full_name, exception)
+                        _LOGGER.error("%s - %s", repository.full_name, exception)
         await self.storage.set()
         self.data["task_running"] = False
 
@@ -174,7 +171,7 @@ class HacsBase:
                 _LOGGER.info("Running update for %s", repository.repository_name)
                 await repository.update()
             except AIOGitHubException as exception:
-                _LOGGER.debug("%s - %s", repository.repository_name, exception)
+                _LOGGER.error("%s - %s", repository.repository_name, exception)
         self.data["task_running"] = False
 
     @property

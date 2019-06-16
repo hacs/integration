@@ -77,6 +77,9 @@ class HacsErrorView(HacsViewBase):
             """.format(random.choice(ERROR), codeblock, ISSUE_URL, self.url_path["api"])
 
         except Exception as exception:
-            _LOGGER.debug("GREAT!, even the error page is broken... (%s)", exception)
+            message = "GREAT!, even the error page is broken... ({})".format(exception)
+            _LOGGER.error(message)
+            content = self.base_content
+            content += message
 
         return web.Response(body=content, content_type="text/html", charset="utf-8")

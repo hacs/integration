@@ -73,7 +73,7 @@ async def async_save_file(location, content):
         _LOGGER.debug(msg)
 
     # Create gz for .js files
-    if location.endswith('.js'):
+    if location.endswith('.js') or location.endswith('.css'):
         with open(location, 'rb') as f_in:
             with gzip.open(location + '.gz', 'wb') as f_out:
                 shutil.copyfileobj(f_in, f_out)

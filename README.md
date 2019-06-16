@@ -30,7 +30,7 @@ HACS is not a full replacement for `custom_updater` and even though their "missi
 
 ## Useful links
 
-- [Generall documentation](https://custom-components.github.io/hacs/)
+- [General documentation](https://custom-components.github.io/hacs/)
 - [Installation](https://custom-components.github.io/hacs/install)
 - [Configuration](https://custom-components.github.io/hacs/configure)
 - [FAQ](https://custom-components.github.io/hacs/faq)

@@ -189,7 +189,10 @@ class AIOGithubRepository(AIOGitHub):
 
             if not isinstance(response, list):
                 if response.get("message"):
-                    raise AIOGitHubException(response["message"])
+                    if response.get("message") == "Not Found":
+                        raise AIOGitHubException("{} does not exist in the repository.".format(path))
+                    else:
+                        raise AIOGitHubException(response["message"])
                 return AIOGithubRepositoryContent(response)
 
             contents = []

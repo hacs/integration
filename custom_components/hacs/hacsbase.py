@@ -113,7 +113,7 @@ class HacsBase:
             await repository.set_repository()
             await repository.setup_repository()
         except (HacsRequirement, HacsBaseException, AIOGitHubException) as exception:
-            _LOGGER.debug("%s - %s", repository.repository_name, exception)
+            _LOGGER.error("%s - %s", repository.repository_name, exception)
             setup_result = False
 
         if setup_result:
@@ -122,7 +122,7 @@ class HacsBase:
         else:
             if repo not in self.blacklist:
                 self.blacklist.append(repo)
-            _LOGGER.debug("%s - Could not register.", repo)
+            _LOGGER.error("%s - Could not register.", repo)
         return repository, setup_result
 
     async def update_repositories(self, now=None):

@@ -8,7 +8,9 @@
 
 ![hacsdemo](images/hacsdemo.gif)
 
-## What is it?
+***
+
+## What can HACS do?
 
 This is a manager for your custom integration (components) and plugin (lovelace elements) needs.
 
@@ -46,8 +48,6 @@ Like any other integration this logs to the `home-assistant.log` file.
 
 You can also click the "OPEN LOG" from the "SETTINGS" tab to show logs only related to this integration (useful when creating a issue)
 
-During the first versions of this it will configure the logger component to use `debug` for this integration. This is done to make sure those exists when you need to report a bug.
-
 ## Startup
 
 During the startup it will scan for know repositories, and there will be a progressbar indicating that it's working.
@@ -68,6 +68,40 @@ Trust. If this did not download it, there'd be no way to know which version you 
 ## Data
 
 All data it handles are saved to the `hacs` file that is located under `.storage`
+
+## Sensor
+
+During the setup HACS will add a new sensor to your installation (`sensor.hacs`).
+This will have the number of pending updates as the state.
+
+![sensor](https://user-images.githubusercontent.com/15093472/59136215-5ff29d00-8982-11e9-860f-75d382a4d3b7.png)
+
+## Settings
+
+This section is for the settings tab.
+
+### Add custom repos
+
+By default all elements that meet the requirements from these orgs are automatically added:
+
+- [custom-components](https://github.com/custom-components)
+- [custom-cards](https://github.com/custom-cards)
+
+[_Developers can also add their repositories to be included by default_](https://custom-components.github.io/hacs/#include-default-repositories)
+
+But you can add any other repository that meets the requirements, to do so go to the "SETTINGS" tab.
+
+![custom_repositories](images/custom_repositorylist.PNG)
+
+Add the url to the repository under "CUSTOM REPOSITORIES" and select a type before clicking the "save icon".
+
+After adding a repository the repository will be scanned, if it can be tracked the element will show up under "STORE", and you will be redirected to that element.
+
+Want to get inspiration on what to add? Check out the [Awesome Home Assistant list](https://www.awesome-ha.com/) it contains links to many custom_components (integrations) and custom_cards (plugins).
+
+_If you have added a repository manually and that repository is subsequently added to the 'store' then that will be removed from the custom repository list._
+
+***
 
 ## Note for developers
 
@@ -106,7 +140,6 @@ For an integration repository to be valid these are the criteria:
   - If there are releases:
     - When installing/upgrading it will scan the content in the latest release.
   - If there are no releases:
-    - An update will not be possible (but the user will still be able to install/reinstall it).
     - It will scan files in the branch marked as default.
 - There is only one integration (one directory under `ROOT_OF_THE_REPO/custom_components/`) pr. repository (if you have more, only the first one will be managed.)
 - The integration (all the python files for it) are located under `ROOT_OF_THE_REPO/custom_components/INTEGRATION_NAME/`
@@ -125,54 +158,18 @@ For an integration repository to be valid these are the criteria:
   - If there are releases:
     - When installing/upgrading it will scan the content in the latest release.
   - If there are no releases:
-    - An update will not be possible (but the user will still be able to install/reinstall it).
     - It will scan files in the branch marked as default.
 
 - There are `.js` files under `ROOT_OF_THE_REPO/dist/` or directly in the root of the repository.
 - One of the `.js` files have the same name as the repository.
-  - With every rule there is an exception, if the repository's name starts with `"lovelace-"`, there must be a `.js` file in the repository matching the repository name with `"lovelace-"` striped from the name, examples:
+  - With every rule there is an exception, if the repository's name starts with `"lovelace-"`, there can be a `.js` file in the repository matching the repository name with `"lovelace-"` striped from the name, example:
     - Accepted:
       - repository name: "lovelace-awesome-card"
-      - file name of one of the files "awesome-card"
-    - Not accepted:
-      - repository name: "lovelace-awesome-card"
-      - file name of one of the files "lovelace-awesome-card"
+      - file name of one of the files "awesome-card.js"
 
 It will first check the `dist` directory, if nothing is there it will check the root directory. All `.js` files it finds will be downloaded.
 
 A good template to use as a reference is [boilerplate-card](https://github.com/custom-cards/boilerplate-card)
-
-## Sensor
-
-During the setup HACS will add a new sensor to your installation (`sensor.hacs`).
-This will have the number of pending updates as the state.
-
-![sensor](https://user-images.githubusercontent.com/15093472/59136215-5ff29d00-8982-11e9-860f-75d382a4d3b7.png)
-
-## Settings
-
-This section is for the settings tab.
-
-### Add custom repos
-
-By default all elements that meet the requirements from these orgs are automatically added:
-
-- [custom-components](https://github.com/custom-components)
-- [custom-cards](https://github.com/custom-cards)
-
-[_developers can also add their repositories to be included by default_](https://custom-components.github.io/hacs/#include-default-repositories)
-
-But you can add any other repository that meets the requirements, to do so go to the "SETTINGS" tab.
-
-![custom_repositories](images/custom_repositorylist.PNG)
-
-Add the url to the repository under "Custom repositories's" and select a type before clicking the "save icon".
-
-After you add a repository it will scan that repository, if it can be tracked the element will show up under "STORE", and you will be redirected to that element.
-
-Want to get inspiration on what to add? Check out the [Awesome Home Assistant list](https://www.awesome-ha.com/) it has has links to many custom_components (integration) and custom_cards (plugin).
-
-_If you have added a repository manually and that repository is subsequently added to the 'store' then that will be removed from the custom repository list._
 
 ## Contribute
 

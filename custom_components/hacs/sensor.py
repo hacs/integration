@@ -4,7 +4,8 @@ from . import hacs
 
 
 async def async_setup_platform(
-        hass, config, async_add_entities, discovery_info=None):  # pylint: disable=unused-argument
+    hass, config, async_add_entities, discovery_info=None
+):  # pylint: disable=unused-argument
     """Setup sensor platform."""
     async_add_entities([HACSSensor()])
 

@@ -19,7 +19,7 @@ BLACKLIST = [
     "custom-cards/tracker-card",
     "custom-components/blueprint",
     "custom-components/information",
-    "custom-components/custom-updater",
+    "custom-components/custom_updater",
 ]
 ELEMENT_TYPES = ["integration", "plugin"]
 IFRAME = {
@@ -73,9 +73,7 @@ ERROR = [
 ################################
 
 DEFAULT_REPOSITORIES = {
-    "integration": [
-        "StyraHem/ShellyForHASS"
-    ],
+    "integration": ["StyraHem/ShellyForHASS"],
     "plugin": [
         "maykar/compact-custom-header",
         "maykar/lovelace-swipe-navigation",
@@ -88,5 +86,5 @@ DEFAULT_REPOSITORIES = {
         "thomasloven/lovelace-card-mod",
         "thomasloven/lovelace-markdown-mod",
         "thomasloven/lovelace-slider-entity-row",
-    ]
+    ],
 }

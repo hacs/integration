@@ -6,7 +6,7 @@ from .aiogithub import AIOGitHubException
 from .blueprints import HacsRepositoryBase
 from .exceptions import HacsRequirement
 
-_LOGGER = logging.getLogger('custom_components.hacs.repository')
+_LOGGER = logging.getLogger("custom_components.hacs.repository")
 
 
 class HacsRepositoryPlugin(HacsRepositoryBase):
@@ -60,7 +60,6 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
             pass
         await self.set_repository_content()
 
-
     async def set_repository_content(self):
         """Set repository content attributes."""
         if self.content_path is None or self.content_path == "":
@@ -74,7 +73,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
 
                 # Handler for plugin requirement 3
                 find_file_name = "{}.js".format(self.name.replace("lovelace-", ""))
-                if find_file_name in files:
+                if find_file_name in files or "{}.js".format(self.name) in files:
                     # YES! We got it!
                     self.content_path = ""
                     self.content_objects = objects
@@ -116,7 +115,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
 
                 # Handler for plug requirement 3
                 find_file_name = "{}.js".format(self.name.replace("lovelace-", ""))
-                if find_file_name in files:
+                if find_file_name in files or "{}.js".format(self.name) in files:
                     # YES! We got it!
                     self.content_path = "dist"
                     self.content_objects = objects

@@ -6,7 +6,7 @@ from aiohttp import web
 from aiohttp.web_exceptions import HTTPNotFound
 from ...blueprints import HacsViewBase
 
-_LOGGER = logging.getLogger('custom_components.hacs.frontend')
+_LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
 
 class HacsPluginView(HacsViewBase):
@@ -24,11 +24,13 @@ class HacsPluginView(HacsViewBase):
 
             file = "{}/www/community/{}".format(self.config_dir, requested_file)
 
+            # Serve .gz if it exist
+            if os.path.exists(file + ".gz"):
+                file += ".gz"
+
             response = None
             if os.path.exists(file):
-                _LOGGER.debug(
-                    "Serving /community_plugin/%s from /www/community/%s", requested_file, requested_file
-                )
+                _LOGGER.debug("Serving %s from %s", requested_file, file)
                 response = web.FileResponse(file)
                 response.headers["Cache-Control"] = "max-age=0, must-revalidate"
             else:
@@ -36,7 +38,9 @@ class HacsPluginView(HacsViewBase):
                 raise HTTPNotFound()
 
         except Exception as error:  # pylint: disable=broad-except
-            _LOGGER.debug("there was an issue trying to serve %s - %s", requested_file, error)
+            _LOGGER.debug(
+                "there was an issue trying to serve %s - %s", requested_file, error
+            )
             raise HTTPNotFound()
 
         return response

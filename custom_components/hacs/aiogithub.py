@@ -9,11 +9,12 @@ from aiohttp import ClientError
 
 import backoff
 
-_LOGGER = logging.getLogger('custom_components.hacs.aiogithub')
+_LOGGER = logging.getLogger("custom_components.hacs.aiogithub")
 
 
 class AIOGitHubException(BaseException):
     """Raise this when something is off."""
+
 
 class AIOGitHub(object):
     """Base Github API implementation."""
@@ -70,7 +71,9 @@ class AIOGitHub(object):
             repositories = []
 
             for repository in response:
-                repositories.append(AIOGithubRepository(repository, self.token, self.loop, self.session))
+                repositories.append(
+                    AIOGithubRepository(repository, self.token, self.loop, self.session)
+                )
 
         return repositories
 
@@ -101,7 +104,7 @@ class AIOGithubRepository(AIOGitHub):
         """Initialize."""
         super().__init__(token, loop, session)
         self.attributes = attributes
-
+        self._last_commit = None
 
     @property
     def id(self):
@@ -130,6 +133,10 @@ class AIOGithubRepository(AIOGitHub):
     @property
     def default_branch(self):
         return self.attributes.get("default_branch")
+
+    @property
+    def last_commit(self):
+        return self._last_commit
 
     @backoff.on_exception(backoff.expo, ClientError, max_tries=3)
     async def get_contents(self, path, ref=None):
@@ -160,7 +167,9 @@ class AIOGithubRepository(AIOGitHub):
     @backoff.on_exception(backoff.expo, ClientError, max_tries=3)
     async def get_releases(self, latest=False):
         """Retrun a list of repository release objects."""
-        endpoint = "/repos/" + self.full_name + "/releases/" + "latest" if latest else ""
+        endpoint = (
+            "/repos/" + self.full_name + "/releases/" + "latest" if latest else ""
+        )
         url = self.baseapi + endpoint
 
         async with async_timeout.timeout(20, loop=self.loop):
@@ -179,6 +188,21 @@ class AIOGithubRepository(AIOGitHub):
                 contents.append(AIOGithubRepositoryRelease(content))
 
         return contents
+
+    @backoff.on_exception(backoff.expo, ClientError, max_tries=3)
+    async def set_last_commit(self):
+        """Retrun a list of repository release objects."""
+        endpoint = "/repos/" + self.full_name + "/commits/" + self.default_branch
+        url = self.baseapi + endpoint
+
+        async with async_timeout.timeout(20, loop=self.loop):
+            response = await self.session.get(url, headers=self.headers)
+            response = await response.json()
+
+            if response.get("message"):
+                raise AIOGitHubException("No commits")
+
+        self._last_commit = response["sha"][0:7]
 
 
 class AIOGithubRepositoryContent(AIOGitHub):
@@ -206,15 +230,20 @@ class AIOGithubRepositoryContent(AIOGitHub):
 
     @property
     def content(self):
-        return base64.b64decode(bytearray(self.attributes.get("content"), "utf-8")).decode()
+        return base64.b64decode(
+            bytearray(self.attributes.get("content"), "utf-8")
+        ).decode()
 
     @property
     def download_url(self):
-        return self.attributes.get("download_url") or self.attributes.get("browser_download_url")
+        return self.attributes.get("download_url") or self.attributes.get(
+            "browser_download_url"
+        )
 
 
 class AIOGithubRepositoryRelease(AIOGitHub):
     """Repository Release Github API implementation."""
+
     def __init__(self, attributes):
         """Initialize."""
         self.attributes = attributes
@@ -229,7 +258,9 @@ class AIOGithubRepositoryRelease(AIOGitHub):
 
     @property
     def published_at(self):
-        return datetime.strptime(self.attributes.get("published_at"), "%Y-%m-%dT%H:%M:%SZ")
+        return datetime.strptime(
+            self.attributes.get("published_at"), "%Y-%m-%dT%H:%M:%SZ"
+        )
 
     @property
     def draft(self):

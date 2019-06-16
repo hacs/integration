@@ -8,11 +8,12 @@ from homeassistant.helpers.event import async_track_time_interval
 from .aiogithub import AIOGitHubException
 from .const import DEFAULT_REPOSITORIES
 
-_LOGGER = logging.getLogger('custom_components.hacs.hacs')
+_LOGGER = logging.getLogger("custom_components.hacs.hacs")
 
 
 class HacsBase:
     """The base class of HACS, nested thoughout the project."""
+
     const = None
     migration = None
     storage = None
@@ -26,12 +27,23 @@ class HacsBase:
     repositories = {}
 
     url_path = {}
-    for endpoint in ["api", "error", "overview", "static", "store", "settings", "repository"]:
-        url_path[endpoint] = "/community_{}-{}".format(str(uuid.uuid4()), str(uuid.uuid4()))
+    for endpoint in [
+        "api",
+        "error",
+        "overview",
+        "static",
+        "store",
+        "settings",
+        "repository",
+    ]:
+        url_path[endpoint] = "/community_{}-{}".format(
+            str(uuid.uuid4()), str(uuid.uuid4())
+        )
 
     async def startup_tasks(self):
         """Run startup_tasks."""
         from .hacsrepositoryintegration import HacsRepositoryIntegration
+
         self.data["task_running"] = True
 
         _LOGGER.info("Runing startup tasks.")
@@ -39,14 +51,15 @@ class HacsBase:
         # Store enpoints
         self.data["hacs"]["endpoints"] = self.url_path
 
-        custom_log_level = {"custom_components.hacs": "debug"}
-        await self.hass.services.async_call("logger", "set_level", custom_log_level)
-
         # For installed repositories only.
-        async_track_time_interval(self.hass, self.recuring_tasks_installed, timedelta(minutes=30))
+        async_track_time_interval(
+            self.hass, self.recuring_tasks_installed, timedelta(minutes=30)
+        )
 
         # For the rest.
-        async_track_time_interval(self.hass, self.update_repositories, timedelta(minutes=500))
+        async_track_time_interval(
+            self.hass, self.update_repositories, timedelta(minutes=500)
+        )
 
         # Check for updates to HACS.
         repository = await self.aiogithub.get_repo("custom-components/hacs")
@@ -73,7 +86,7 @@ class HacsBase:
         from .exceptions import HacsBaseException, HacsRequirement
         from .blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
 
-        _LOGGER.debug("Starting repository registration for %s", repo)
+        _LOGGER.info("Starting repository registration for %s", repo)
 
         if element_type == "integration":
             repository = HacsRepositoryIntegration(repo, repositoryobject)
@@ -112,15 +125,20 @@ class HacsBase:
             for repository in self.repositories:
                 try:
                     repository = self.repositories[repository]
-                    if not repository.track or repository.repository_name in self.blacklist:
+                    if (
+                        not repository.track
+                        or repository.repository_name in self.blacklist
+                    ):
                         continue
                     if repository.hide and repository.repository_id != "172733314":
                         continue
                     if now is not None:
-                        _LOGGER.info("Running update for %s", repository.repository_name)
+                        _LOGGER.info(
+                            "Running update for %s", repository.repository_name
+                        )
                         await repository.update()
                 except AIOGitHubException as exception:
-                    _LOGGER.debug("%s - %s", repository.repository_name, exception)
+                    _LOGGER.error("%s - %s", repository.repository_name, exception)
 
         # Register new repositories
         integrations, plugins = await self.get_repositories()
@@ -138,18 +156,22 @@ class HacsBase:
                     await repository.update()
                 else:
                     try:
-                        await self.register_new_repository(repository_type, repository.full_name, repository)
+                        await self.register_new_repository(
+                            repository_type, repository.full_name, repository
+                        )
                     except AIOGitHubException as exception:
-                        _LOGGER.debug("%s - %s", repository.full_name, exception)
-        await self.storage.set()
+                        _LOGGER.error("%s - %s", repository.full_name, exception)
         self.data["task_running"] = False
+        await self.storage.set()
 
     async def get_repositories(self):
         """Get defined repositories."""
         repositories = {}
 
         # Get org repositories
-        repositories["integration"] = await self.aiogithub.get_org_repos("custom-components")
+        repositories["integration"] = await self.aiogithub.get_org_repos(
+            "custom-components"
+        )
         repositories["plugin"] = await self.aiogithub.get_org_repos("custom-cards")
 
         # Additional repositories (Not implemented)
@@ -160,7 +182,9 @@ class HacsBase:
 
         return repositories["integration"], repositories["plugin"]
 
-    async def recuring_tasks_installed(self, notarealarg):  # pylint: disable=unused-argument
+    async def recuring_tasks_installed(
+        self, notarealarg
+    ):  # pylint: disable=unused-argument
         """Recuring tasks for installed repositories."""
         self.data["task_running"] = True
         _LOGGER.info("Running scheduled update of installed repositories")
@@ -174,7 +198,7 @@ class HacsBase:
                 _LOGGER.info("Running update for %s", repository.repository_name)
                 await repository.update()
             except AIOGitHubException as exception:
-                _LOGGER.debug("%s - %s", repository.repository_name, exception)
+                _LOGGER.error("%s - %s", repository.repository_name, exception)
         self.data["task_running"] = False
 
     @property

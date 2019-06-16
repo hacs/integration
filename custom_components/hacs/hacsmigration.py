@@ -5,7 +5,7 @@ from shutil import copy2
 from .hacsbase import HacsBase
 from .const import STORAGE_VERSION
 
-_LOGGER = logging.getLogger('custom_components.hacs.migration')
+_LOGGER = logging.getLogger("custom_components.hacs.migration")
 
 
 class HacsMigration(HacsBase):
@@ -51,7 +51,9 @@ class HacsMigration(HacsBase):
             if repodata.get("isinstalled"):
                 # Register new repository
                 _LOGGER.info("Migrating %s", repodata["repo"])
-                repository, setup_result = await self.register_new_repository(repodata["element_type"], repodata["repo"])
+                repository, setup_result = await self.register_new_repository(
+                    repodata["element_type"], repodata["repo"]
+                )
 
                 repository.version_installed = repodata["installed_version"]
                 repository.installed = True

@@ -5,6 +5,7 @@ from .hacsbase import HacsBase
 
 class HacsViewBase(HomeAssistantView, HacsBase):
     """Base View Class for HACS."""
+
     requires_auth = False
 
     @property
@@ -18,7 +19,9 @@ class HacsViewBase(HomeAssistantView, HacsBase):
             {}
             <div id="main" class="hacs-content">
             {}
-        """.format(self.imports, self.header, self.progress_bar)
+        """.format(
+            self.imports, self.header, self.progress_bar
+        )
 
     @property
     def imports(self):
@@ -29,7 +32,9 @@ class HacsViewBase(HomeAssistantView, HacsBase):
         <script src="{static}/materialize.min.js.gz"></script>
         <link rel="stylesheet" href="{static}/hacs.css">
         <script src="{static}/hacs.js"></script>
-        """.format(static=self.url_path["static"])
+        """.format(
+            static=self.url_path["static"]
+        )
 
     @property
     def header(self):
@@ -46,7 +51,9 @@ class HacsViewBase(HomeAssistantView, HacsBase):
             </div>
           </nav>
         </div>
-        """.format(self.url_path["overview"], self.url_path["store"], self.url_path["settings"])
+        """.format(
+            self.url_path["overview"], self.url_path["store"], self.url_path["settings"]
+        )
 
     @property
     def progress_bar(self):
@@ -61,7 +68,9 @@ class HacsViewBase(HomeAssistantView, HacsBase):
         <div class="progress hacs-bar-background" id="progressbar" style="display: {}">
             <div class="indeterminate hacs-bar"></div>
         </div>
-        """.format(display, display)
+        """.format(
+            display, display
+        )
 
     @property
     def footer(self):

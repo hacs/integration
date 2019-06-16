@@ -1,11 +1,11 @@
 """Blueprint for HacsBase."""
-# pylint: disable=too-few-public-methods
+# pylint: disable=too-few-public-methods,unused-argument
 import logging
 import uuid
 import os
 from datetime import timedelta
-from homeassistant.helpers.event import async_track_time_interval
-from .aiogithub import AIOGitHubException
+from homeassistant.helpers.event import async_track_time_interval, async_call_later
+from .aiogithub import AIOGitHubException, AIOGitHubRatelimit
 from .const import DEFAULT_REPOSITORIES
 
 _LOGGER = logging.getLogger("custom_components.hacs.hacs")
@@ -40,7 +40,7 @@ class HacsBase:
             str(uuid.uuid4()), str(uuid.uuid4())
         )
 
-    async def startup_tasks(self):
+    async def startup_tasks(self, notarealargument=None):
         """Run startup_tasks."""
         from .hacsrepositoryintegration import HacsRepositoryIntegration
 
@@ -50,6 +50,34 @@ class HacsBase:
 
         # Store enpoints
         self.data["hacs"]["endpoints"] = self.url_path
+
+        try:
+            # Check for updates to HACS.
+            repository = await self.aiogithub.get_repo("custom-components/hacs")
+
+            repository = HacsRepositoryIntegration("custom-components/hacs", repository)
+            await repository.setup_repository()
+            self.repositories[repository.repository_id] = repository
+
+            # After an upgrade from < 0.7.0 some files are missing.
+            # This will handle that.
+            checkpath = "{}/frontend/elements/all.min.css.gz".format(
+                repository.local_path
+            )
+            if not os.path.exists(checkpath):
+                _LOGGER.critical("HACS is missing files, trying to correct.")
+                await repository.install()
+
+            _LOGGER.info("Trying to load existing data.")
+
+            # Check if migration is needed, or load existing data.
+            await self.migration.validate()
+
+        except AIOGitHubRatelimit as exception:
+            _LOGGER.critical(exception)
+            _LOGGER.info("HACS will try to run setup again in 15 minuttes.")
+            async_call_later(self.hass, 900, self.startup_tasks)
+            return False
 
         # For installed repositories only.
         async_track_time_interval(
@@ -61,25 +89,8 @@ class HacsBase:
             self.hass, self.update_repositories, timedelta(minutes=500)
         )
 
-        # Check for updates to HACS.
-        repository = await self.aiogithub.get_repo("custom-components/hacs")
-        repository = HacsRepositoryIntegration("custom-components/hacs", repository)
-        await repository.setup_repository()
-        self.repositories[repository.repository_id] = repository
-
-        # After an upgrade from < 0.7.0 some files are missing.
-        # This will handle that.
-        checkpath = "{}/frontend/elements/all.min.css.gz".format(repository.local_path)
-        if not os.path.exists(checkpath):
-            _LOGGER.critical("HACS is missing files, trying to correct.")
-            await repository.install()
-
-        _LOGGER.info("Trying to load existing data.")
-
-        # Check if migration is needed, or load existing data.
-        await self.migration.validate()
-
         self.data["task_running"] = False
+        return True
 
     async def register_new_repository(self, element_type, repo, repositoryobject=None):
         """Register a new repository."""

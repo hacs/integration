@@ -73,10 +73,7 @@ ERROR = [
 ################################
 
 DEFAULT_REPOSITORIES = {
-    "integration": [
-        "StyraHem/ShellyForHASS",
-        "isabellaalstrom/sensor.krisinformation"
-    ],
+    "integration": ["StyraHem/ShellyForHASS", "isabellaalstrom/sensor.krisinformation"],
     "plugin": [
         "maykar/compact-custom-header",
         "maykar/lovelace-swipe-navigation",
@@ -88,6 +85,6 @@ DEFAULT_REPOSITORIES = {
         "finity69x2/fan-control-entity-row",
         "thomasloven/lovelace-card-mod",
         "thomasloven/lovelace-markdown-mod",
-        "isabellaalstrom/krisinfo-card"
+        "isabellaalstrom/krisinfo-card",
     ],
 }

@@ -41,6 +41,10 @@ HACS is not a full replacement for `custom_updater` and even though their "missi
 
 [![HACS Promo](https://img.youtube.com/vi/vq0qQtDAOW0/0.jpg)](https://www.youtube.com/watch?v=vq0qQtDAOW0 "HACS Promo")
 
+**Showcase by [SV Sognare](https://www.youtube.com/channel/UC3sknm_GUCDESM7EmVvkgzg)**
+
+[![Showcase](https://img.youtube.com/vi/-PIlL1gSUuY/0.jpg)](https://www.youtube.com/watch?v=-PIlL1gSUuY "Showcase")
+
 ## Issues
 
 ~~If~~ When you experience issues/bugs with this the best way to report them is to open an issue in **this** repo.

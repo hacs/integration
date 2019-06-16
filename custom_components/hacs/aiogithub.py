@@ -54,6 +54,9 @@ class AIOGitHub(object):
             self._ratelimit_remaining = response.headers["x-ratelimit-remaining"]
             response = await response.json()
 
+            if self._ratelimit_remaining == 0:
+                raise AIOGitHubRatelimit("GitHub Ratelimit error")
+
             if response.get("message"):
                 raise AIOGitHubException(response["message"])
 
@@ -76,6 +79,9 @@ class AIOGitHub(object):
             response = await self.session.get(url, headers=headers, params=params)
             self._ratelimit_remaining = response.headers["x-ratelimit-remaining"]
             response = await response.json()
+
+            if self._ratelimit_remaining == 0:
+                raise AIOGitHubRatelimit("GitHub Ratelimit error")
 
             if not isinstance(response, list):
                 raise AIOGitHubException(response["message"])
@@ -104,6 +110,9 @@ class AIOGitHub(object):
             response = await self.session.post(url, headers=headers, data=content)
             self._ratelimit_remaining = response.headers["x-ratelimit-remaining"]
             response = await response.text()
+
+            if self._ratelimit_remaining == 0:
+                raise AIOGitHubRatelimit("GitHub Ratelimit error")
 
             if isinstance(response, dict):
                 if response.get("message"):
@@ -175,6 +184,9 @@ class AIOGithubRepository(AIOGitHub):
             self._ratelimit_remaining = response.headers["x-ratelimit-remaining"]
             response = await response.json()
 
+            if self._ratelimit_remaining == 0:
+                raise AIOGitHubRatelimit("GitHub Ratelimit error")
+
             if not isinstance(response, list):
                 if response.get("message"):
                     raise AIOGitHubException(response["message"])
@@ -202,6 +214,9 @@ class AIOGithubRepository(AIOGitHub):
             self._ratelimit_remaining = response.headers["x-ratelimit-remaining"]
             response = await response.json()
 
+            if self._ratelimit_remaining == 0:
+                raise AIOGitHubRatelimit("GitHub Ratelimit error")
+
             if response.get("message"):
                 return False
 
@@ -227,6 +242,9 @@ class AIOGithubRepository(AIOGitHub):
             response = await self.session.get(url, headers=self.headers)
             self._ratelimit_remaining = response.headers["x-ratelimit-remaining"]
             response = await response.json()
+
+            if self._ratelimit_remaining == 0:
+                raise AIOGitHubRatelimit("GitHub Ratelimit error")
 
             if response.get("message"):
                 raise AIOGitHubException("No commits")

@@ -8,7 +8,7 @@ from .hacsbase import HacsBase
 from .exceptions import HacsNotSoBasicException, HacsRequirement
 from .const import STORENAME, GENERIC_ERROR, STORAGE_VERSION
 
-_LOGGER = logging.getLogger('custom_components.hacs.storage')
+_LOGGER = logging.getLogger("custom_components.hacs.storage")
 
 
 class HacsStorage(HacsBase):
@@ -16,16 +16,16 @@ class HacsStorage(HacsBase):
 
     async def get(self):
         """Read HACS data to storage."""
-        from .blueprints import (
-            HacsRepositoryIntegration,
-            HacsRepositoryPlugin,)
+        from .blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
+
         datastore = "{}/.storage/{}".format(self.config_dir, STORENAME)
         _LOGGER.debug("Reading from datastore %s.", datastore)
 
         self.data["task_running"] = True
         try:
             async with aiofiles.open(
-                datastore, mode='r', encoding="utf-8", errors="ignore") as datafile:
+                datastore, mode="r", encoding="utf-8", errors="ignore"
+            ) as datafile:
                 store_data = await datafile.read()
                 store_data = json.loads(store_data)
                 datafile.close()
@@ -45,7 +45,9 @@ class HacsStorage(HacsBase):
             repository = store_data["repositories"][repository]
             if not repository.get("custom"):
                 continue
-            repository, status = await self.register_new_repository(repository["repository_type"], repository["repository_name"])
+            repository, status = await self.register_new_repository(
+                repository["repository_type"], repository["repository_name"]
+            )
             if status:
                 await self.restore(store_data, repository)
 
@@ -65,9 +67,13 @@ class HacsStorage(HacsBase):
                 else:
                     _LOGGER.info("Loading %s", repository.full_name)
                     if repository_type == "integration":
-                        repository = HacsRepositoryIntegration(repository.full_name, repository)
+                        repository = HacsRepositoryIntegration(
+                            repository.full_name, repository
+                        )
                     elif repository_type == "plugin":
-                        repository = HacsRepositoryPlugin(repository.full_name, repository)
+                        repository = HacsRepositoryPlugin(
+                            repository.full_name, repository
+                        )
                     else:
                         raise HacsNotSoBasicException(GENERIC_ERROR)
 
@@ -76,7 +82,9 @@ class HacsStorage(HacsBase):
                         await repository.setup_repository()
                     except (HacsRequirement, AIOGitHubException) as exception:
                         if not self.data["task_running"]:
-                            _LOGGER.error("%s - %s", repository.repository_name, exception)
+                            _LOGGER.error(
+                                "%s - %s", repository.repository_name, exception
+                            )
                         self.blacklist.append(repository.repository_name)
                         continue
 
@@ -89,7 +97,6 @@ class HacsStorage(HacsBase):
         await self.set()
         self.data["task_running"] = False
         return store_data
-
 
     async def set(self):
         """Write HACS data to storage."""
@@ -123,7 +130,8 @@ class HacsStorage(HacsBase):
 
         try:
             async with aiofiles.open(
-                datastore, mode='w', encoding="utf-8", errors="ignore") as outfile:
+                datastore, mode="w", encoding="utf-8", errors="ignore"
+            ) as outfile:
                 await outfile.write(json.dumps(data, indent=4))
                 outfile.close()
 

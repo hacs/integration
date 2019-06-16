@@ -5,7 +5,7 @@ from aiohttp import web
 from ...blueprints import HacsViewBase
 from ...const import NO_ELEMENTS
 
-_LOGGER = logging.getLogger('custom_components.hacs.frontend')
+_LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
 
 class HacsOverviewView(HacsViewBase):
@@ -32,14 +32,22 @@ class HacsOverviewView(HacsViewBase):
             else:
                 for repository in self.repositories_list_name:
 
-                    if not repository.track or repository.hide or not repository.installed:
+                    if (
+                        not repository.track
+                        or repository.hide
+                        or not repository.installed
+                    ):
                         continue
 
                     if repository.pending_restart:
-                        card_icon = "<i class='fas fa-cube card-status pending-restart'></i>"
+                        card_icon = (
+                            "<i class='fas fa-cube card-status pending-restart'></i>"
+                        )
 
                     elif repository.pending_update:
-                        card_icon = "<i class='fas fa-cube card-status pending-update'></i>"
+                        card_icon = (
+                            "<i class='fas fa-cube card-status pending-update'></i>"
+                        )
 
                     elif repository.installed:
                         card_icon = "<i class='fas fa-cube card-status installed'></i>"
@@ -58,7 +66,15 @@ class HacsOverviewView(HacsViewBase):
                             </span>
                         </div>
                     </a>
-                    """.format(self.url_path["repository"], repository.repository_id, repository.topics, repository.authors, card_icon, repository.name, repository.description)
+                    """.format(
+                        self.url_path["repository"],
+                        repository.repository_id,
+                        repository.topics,
+                        repository.authors,
+                        card_icon,
+                        repository.name,
+                        repository.description,
+                    )
 
                     if repository.repository_type == "integration":
                         integrations.append(card)

@@ -9,11 +9,12 @@ from aiohttp import ClientError
 
 import backoff
 
-_LOGGER = logging.getLogger('custom_components.hacs.aiogithub')
+_LOGGER = logging.getLogger("custom_components.hacs.aiogithub")
 
 
 class AIOGitHubException(BaseException):
     """Raise this when something is off."""
+
 
 class AIOGitHub(object):
     """Base Github API implementation."""
@@ -70,7 +71,9 @@ class AIOGitHub(object):
             repositories = []
 
             for repository in response:
-                repositories.append(AIOGithubRepository(repository, self.token, self.loop, self.session))
+                repositories.append(
+                    AIOGithubRepository(repository, self.token, self.loop, self.session)
+                )
 
         return repositories
 
@@ -102,7 +105,6 @@ class AIOGithubRepository(AIOGitHub):
         super().__init__(token, loop, session)
         self.attributes = attributes
         self._last_commit = None
-
 
     @property
     def id(self):
@@ -165,7 +167,9 @@ class AIOGithubRepository(AIOGitHub):
     @backoff.on_exception(backoff.expo, ClientError, max_tries=3)
     async def get_releases(self, latest=False):
         """Retrun a list of repository release objects."""
-        endpoint = "/repos/" + self.full_name + "/releases/" + "latest" if latest else ""
+        endpoint = (
+            "/repos/" + self.full_name + "/releases/" + "latest" if latest else ""
+        )
         url = self.baseapi + endpoint
 
         async with async_timeout.timeout(20, loop=self.loop):
@@ -198,7 +202,8 @@ class AIOGithubRepository(AIOGitHub):
             if response.get("message"):
                 raise AIOGitHubException("No commits")
 
-        self._last_commit = response['sha'][0:7]
+        self._last_commit = response["sha"][0:7]
+
 
 class AIOGithubRepositoryContent(AIOGitHub):
     """Repository Conetent Github API implementation."""
@@ -225,15 +230,20 @@ class AIOGithubRepositoryContent(AIOGitHub):
 
     @property
     def content(self):
-        return base64.b64decode(bytearray(self.attributes.get("content"), "utf-8")).decode()
+        return base64.b64decode(
+            bytearray(self.attributes.get("content"), "utf-8")
+        ).decode()
 
     @property
     def download_url(self):
-        return self.attributes.get("download_url") or self.attributes.get("browser_download_url")
+        return self.attributes.get("download_url") or self.attributes.get(
+            "browser_download_url"
+        )
 
 
 class AIOGithubRepositoryRelease(AIOGitHub):
     """Repository Release Github API implementation."""
+
     def __init__(self, attributes):
         """Initialize."""
         self.attributes = attributes
@@ -248,7 +258,9 @@ class AIOGithubRepositoryRelease(AIOGitHub):
 
     @property
     def published_at(self):
-        return datetime.strptime(self.attributes.get("published_at"), "%Y-%m-%dT%H:%M:%SZ")
+        return datetime.strptime(
+            self.attributes.get("published_at"), "%Y-%m-%dT%H:%M:%SZ"
+        )
 
     @property
     def draft(self):

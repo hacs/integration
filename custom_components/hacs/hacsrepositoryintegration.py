@@ -6,7 +6,7 @@ import json
 from .blueprints import HacsRepositoryBase
 from .exceptions import HacsRequirement
 
-_LOGGER = logging.getLogger('custom_components.hacs.repository')
+_LOGGER = logging.getLogger("custom_components.hacs.repository")
 
 
 class HacsRepositoryIntegration(HacsRepositoryBase):
@@ -43,7 +43,8 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             self.content_path = first[0].path
 
         self.content_objects = await self.repository.get_contents(
-            self.content_path, self.ref)
+            self.content_path, self.ref
+        )
 
         if not isinstance(self.content_objects, list):
             raise HacsRequirement("Repository structure does not meet the requirements")

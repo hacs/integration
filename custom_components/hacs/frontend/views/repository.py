@@ -4,7 +4,7 @@ import logging
 from aiohttp import web
 from ...blueprints import HacsViewBase
 
-_LOGGER = logging.getLogger('custom_components.hacs.frontend')
+_LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
 LOVELACE_EXAMLE_URL = """
 <pre id="LovelaceExample" class="yaml">
@@ -22,6 +22,7 @@ LOVELACE_EXAMLE_URL_TYPE = """
     type: {}
 </pre>
 """
+
 
 class HacsRepositoryView(HacsViewBase):
     """Serve HacsRepositoryView."""
@@ -53,10 +54,11 @@ class HacsRepositoryView(HacsViewBase):
                             </div>
                         </div>
                     </div>
-                """.format(message)
+                """.format(
+                    message
+                )
             else:
                 custom_message = ""
-
 
             if repository.pending_restart:
                 pending_restart = """
@@ -79,20 +81,14 @@ class HacsRepositoryView(HacsViewBase):
 
             if repository.additional_info:
                 if repository.info is None:
-                    info = "</br>" + await self.aiogithub.render_markdown(repository.additional_info)
-                    info = info.replace("<h3>", "<h6>").replace(
-                        "</h3>", "</h6>"
+                    info = "</br>" + await self.aiogithub.render_markdown(
+                        repository.additional_info
                     )
-                    info = info.replace("<h2>", "<h5>").replace(
-                        "</h2>", "</h5>"
-                    )
-                    info = info.replace("<h1>", "<h4>").replace(
-                        "</h1>", "</h4>"
-                    )
+                    info = info.replace("<h3>", "<h6>").replace("</h3>", "</h6>")
+                    info = info.replace("<h2>", "<h5>").replace("</h2>", "</h5>")
+                    info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
                     info = info.replace("<code>", "<code class='codeinfo'>")
-                    info = info.replace(
-                        "<table>", "<table class='white-text'>"
-                    )
+                    info = info.replace("<table>", "<table class='white-text'>")
                     info = info.replace(
                         '<a href="http', '<a target="_blank" href="http'
                     )
@@ -104,13 +100,14 @@ class HacsRepositoryView(HacsViewBase):
             else:
                 info = ""
 
-
             if repository.authors:
                 authors = "<p>Author(s): "
                 for author in repository.authors:
                     if "@" in author:
                         author = author.split("@")[-1]
-                    authors += "<a href='https://github.com/{author}' target='_blank' style='color: var(--primary-color) !important; margin: 2'> @{author}</a>".format(author=author)
+                    authors += "<a href='https://github.com/{author}' target='_blank' style='color: var(--primary-color) !important; margin: 2'> @{author}</a>".format(
+                        author=author
+                    )
                 authors += "</p>"
             else:
                 authors = ""
@@ -126,13 +123,21 @@ class HacsRepositoryView(HacsViewBase):
                         To learn more about how to configure this,
                         click the "REPOSITORY" link below to get to the repository for this integration.
                     </i>
-                """.format(repository.local_path)
+                """.format(
+                    repository.local_path
+                )
             else:
                 if repository.javascript_type is None:
-                    llnote = LOVELACE_EXAMLE_URL.format(repository.name, repository.name.replace("lovelace-", ""))
+                    llnote = LOVELACE_EXAMLE_URL.format(
+                        repository.name, repository.name.replace("lovelace-", "")
+                    )
                     jsnote = MISSING_JS_TYPE
                 else:
-                    llnote = LOVELACE_EXAMLE_URL_TYPE.format(repository.name, repository.name.replace("lovelace-", ""), repository.javascript_type)
+                    llnote = LOVELACE_EXAMLE_URL_TYPE.format(
+                        repository.name,
+                        repository.name.replace("lovelace-", ""),
+                        repository.javascript_type,
+                    )
                     jsnote = ""
                 note = """
                     </br><i>
@@ -150,7 +155,9 @@ class HacsRepositoryView(HacsViewBase):
                         To learn more about how to configure this,
                         click the "REPOSITORY" link below button to get to the repository for this plugin.
                     </i>
-                """.format(repository.local_path, llnote, jsnote)
+                """.format(
+                    repository.local_path, llnote, jsnote
+                )
 
             if not repository.installed:
                 main_action = "INSTALL"
@@ -167,7 +174,9 @@ class HacsRepositoryView(HacsViewBase):
                         name = repository.name.split("lovelace-")[-1]
                     else:
                         name = repository.name
-                    open_plugin = "<a href='/community_plugin/{}/{}.js' target='_blank' style='color: var(--primary-color) !important'>OPEN PLUGIN</a>".format(repository.name, name)
+                    open_plugin = "<a href='/community_plugin/{}/{}.js' target='_blank' style='color: var(--primary-color) !important'>OPEN PLUGIN</a>".format(
+                        repository.name, name
+                    )
             else:
                 open_plugin = ""
 
@@ -178,37 +187,52 @@ class HacsRepositoryView(HacsViewBase):
                 if repository.hide:
                     hide_option = """
                         <li><a class="dropdown-list-item" href="{}/repository_unhide/{}" onclick="ShowProgressBar()">Unhide</a></li>
-                    """.format(self.url_path["api"], repository.repository_id)
+                    """.format(
+                        self.url_path["api"], repository.repository_id
+                    )
                 else:
                     hide_option = """
                         <li><a class="dropdown-list-item" href="{}/repository_hide/{}" onclick="ShowProgressBar()">Hide</a></li>
-                    """.format(self.url_path["api"], repository.repository_id)
-
+                    """.format(
+                        self.url_path["api"], repository.repository_id
+                    )
 
             content = self.base_content
 
             if repository.version_installed is not None:
-                inst_ver = "<p><b>Installed version:</b> {}</p>".format(repository.version_installed)
+                inst_ver = "<p><b>Installed version:</b> {}</p>".format(
+                    repository.version_installed
+                )
             else:
                 if repository.installed_commit is not None:
-                    inst_ver = "<p><b>Installed commit:</b> {}</p>".format(repository.installed_commit)
+                    inst_ver = "<p><b>Installed commit:</b> {}</p>".format(
+                        repository.installed_commit
+                    )
                 else:
                     inst_ver = ""
 
             if repository.last_release_tag is not None:
-                last_ver = "<p><b>Available version:</b> {}</p>".format(repository.last_release_tag)
+                last_ver = "<p><b>Available version:</b> {}</p>".format(
+                    repository.last_release_tag
+                )
             else:
-                last_ver = "<p><b>Available commit:</b> {}</p>".format(repository.last_commit)
+                last_ver = "<p><b>Available commit:</b> {}</p>".format(
+                    repository.last_commit
+                )
 
             last_up = ""
 
             if repository.pending_update and repository.version_installed is not None:
-                changelog = "<a href='https://github.com/{}/releases' target='_blank' style='color: var(--primary-color) !important'>CHANGELOG</a>".format(repository.repository_name)
+                changelog = "<a href='https://github.com/{}/releases' target='_blank' style='color: var(--primary-color) !important'>CHANGELOG</a>".format(
+                    repository.repository_name
+                )
             else:
                 changelog = ""
 
             if repository.installed:
-                uninstall = "<a href='{}/repository_uninstall/{}' style='float: right; color: var(--google-red-500) !important; font-weight: bold;' onclick='ShowProgressBar()'>UNINSTALL</a>".format(self.url_path['api'], repository.repository_id)
+                uninstall = "<a href='{}/repository_uninstall/{}' style='float: right; color: var(--google-red-500) !important; font-weight: bold;' onclick='ShowProgressBar()'>UNINSTALL</a>".format(
+                    self.url_path["api"], repository.repository_id
+                )
             else:
                 uninstall = ""
 
@@ -258,9 +282,30 @@ class HacsRepositoryView(HacsViewBase):
                         </div>
                     </div>
                 </div>
-            """.format(custom_message, pending_restart, repository.name, self.url_path["api"], repository.repository_id, hide_option, repository.repository_name,
-                       repository.name, repository.description, inst_ver, last_ver, last_up, info, authors, note, self.url_path["api"],
-                       repository.repository_id, main_action, changelog, repository.repository_name, open_plugin, uninstall)
+            """.format(
+                custom_message,
+                pending_restart,
+                repository.name,
+                self.url_path["api"],
+                repository.repository_id,
+                hide_option,
+                repository.repository_name,
+                repository.name,
+                repository.description,
+                inst_ver,
+                last_ver,
+                last_up,
+                info,
+                authors,
+                note,
+                self.url_path["api"],
+                repository.repository_id,
+                main_action,
+                changelog,
+                repository.repository_name,
+                open_plugin,
+                uninstall,
+            )
 
         except Exception as exception:
             _LOGGER.error(exception)

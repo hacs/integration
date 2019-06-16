@@ -7,7 +7,7 @@ from homeassistant.const import __version__ as HAVERSION
 from ...blueprints import HacsViewBase
 from ...const import ISSUE_URL, NAME_LONG
 
-_LOGGER = logging.getLogger('custom_components.hacs.frontend')
+_LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
 
 class HacsSettingsView(HacsViewBase):
@@ -74,7 +74,12 @@ class HacsSettingsView(HacsViewBase):
                             </div>
                         </div>
                     </div>
-                """.format(hacs.version_installed, hacs.last_release_tag, self.url_path["api"], hacs.last_release_tag)
+                """.format(
+                    hacs.version_installed,
+                    hacs.last_release_tag,
+                    self.url_path["api"],
+                    hacs.last_release_tag,
+                )
             else:
                 hacs_update = ""
 
@@ -93,10 +98,11 @@ class HacsSettingsView(HacsViewBase):
                             </div>
                         </div>
                     </div>
-                """.format(message)
+                """.format(
+                    message
+                )
             else:
                 custom_message = ""
-
 
             # Repos:
             for repository in self.repositories_list_repo:
@@ -107,7 +113,12 @@ class HacsSettingsView(HacsViewBase):
                         <i title="Unhide" class="fas fa-plus-circle" style="padding-right: 8px"></i></a> 
                         {}
                         <span class="repository-list-badge">{}</span>
-                    """.format(self.url_path["api"], repository.repository_id, repository.repository_name, repository.repository_type)
+                    """.format(
+                        self.url_path["api"],
+                        repository.repository_id,
+                        repository.repository_name,
+                        repository.repository_type,
+                    )
                     line += "</div></li>"
                     hidden.append(line)
 
@@ -117,21 +128,29 @@ class HacsSettingsView(HacsViewBase):
                 line = '<li class="collection-item hacscolor hacslist"><div>'
                 line += """
                     <a href="{}/{}"><span class="repository-list-badge">{}</span> {}</a> 
-                """.format(self.url_path["repository"], repository.repository_id, repository.repository_type, repository.repository_name)
+                """.format(
+                    self.url_path["repository"],
+                    repository.repository_id,
+                    repository.repository_type,
+                    repository.repository_name,
+                )
 
                 if repository.installed:
                     remove = """
                         <i title="Remove is not possible when {} is installed." class="secondary-content fas fa-trash-alt disabledaction"></i>
-                    """.format(repository.repository_type)
+                    """.format(
+                        repository.repository_type
+                    )
                 else:
                     remove = """
                         <a href={}/repository_remove/{} onclick="ShowProgressBar()" class="secondary-content" style="color: var(--primary-color)">
                             <i title="Remove." class="fas fa-trash-alt"></i>
                         </a>
-                    """.format(self.url_path["api"], repository.repository_id)
+                    """.format(
+                        self.url_path["api"], repository.repository_id
+                    )
                 line += remove
                 line += "</div></li>"
-
 
                 repository_lines.append(line)
 
@@ -143,7 +162,9 @@ class HacsSettingsView(HacsViewBase):
                     {}
                     {}
                 </div>
-            """.format(hacs_restart, hacs_update, custom_message)
+            """.format(
+                hacs_restart, hacs_update, custom_message
+            )
 
             # HACS card
             content += """
@@ -155,7 +176,12 @@ class HacsSettingsView(HacsViewBase):
                         <b>Home Assistant version:</b> {}</br>
                     </div>
                 </div>
-            """.format(NAME_LONG, hacs.version_installed, " <b>(RESTART PENDING!)</b>" if hacs.pending_restart else "", HAVERSION)
+            """.format(
+                NAME_LONG,
+                hacs.version_installed,
+                " <b>(RESTART PENDING!)</b>" if hacs.pending_restart else "",
+                HAVERSION,
+            )
 
             # The buttons, must have buttons
             content += """
@@ -173,7 +199,9 @@ class HacsSettingsView(HacsViewBase):
                         OPEN LOG
                     </a>
                 </div>
-            """.format(self.url_path["api"], ISSUE_URL, self.url_path["api"])
+            """.format(
+                self.url_path["api"], ISSUE_URL, self.url_path["api"]
+            )
 
             ## Integration URL's
             content += """
@@ -205,7 +233,9 @@ class HacsSettingsView(HacsViewBase):
                         </form>
                     </div>
                 </div>
-            """.format(self.url_path["api"])
+            """.format(
+                self.url_path["api"]
+            )
 
             ## Hidden repositories
             if hidden:

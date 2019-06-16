@@ -4,7 +4,7 @@ import logging
 from aiohttp import web
 from ...blueprints import HacsViewBase
 
-_LOGGER = logging.getLogger('custom_components.hacs.frontend')
+_LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
 
 class HacsStoreView(HacsViewBase):
@@ -41,10 +41,14 @@ class HacsStoreView(HacsViewBase):
                         continue
 
                     if repository.pending_restart:
-                        card_icon = "<i class='fas fa-cube card-status pending-restart'></i>"
+                        card_icon = (
+                            "<i class='fas fa-cube card-status pending-restart'></i>"
+                        )
 
                     elif repository.pending_update:
-                        card_icon = "<i class='fas fa-cube card-status pending-update'></i>"
+                        card_icon = (
+                            "<i class='fas fa-cube card-status pending-update'></i>"
+                        )
 
                     elif repository.installed:
                         card_icon = "<i class='fas fa-cube card-status installed'></i>"
@@ -63,7 +67,15 @@ class HacsStoreView(HacsViewBase):
                             </span>
                         </div>
                     </a>
-                    """.format(self.url_path["repository"], repository.repository_id, repository.topics, repository.authors, card_icon, repository.name, repository.description)
+                    """.format(
+                        self.url_path["repository"],
+                        repository.repository_id,
+                        repository.topics,
+                        repository.authors,
+                        card_icon,
+                        repository.name,
+                        repository.description,
+                    )
 
                     if repository.repository_type == "integration":
                         integrations.append(card)

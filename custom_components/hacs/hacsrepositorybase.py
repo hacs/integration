@@ -1,5 +1,5 @@
 """Blueprint for HacsRepositoryBase."""
-# pylint: disable=too-many-instance-attributes,invalid-name,broad-except,wildcard-import
+# pylint: disable=too-many-instance-attributes,invalid-name,broad-except,wildcard-import,no-member
 from asyncio import sleep
 from datetime import datetime
 import logging
@@ -9,11 +9,16 @@ import shutil
 
 from .aiogithub import AIOGitHubException
 from .hacsbase import HacsBase
-from .exceptions import HacsRepositoryInfo, HacsUserScrewupException, HacsBaseException, HacsBlacklistException
+from .exceptions import (
+    HacsRepositoryInfo,
+    HacsUserScrewupException,
+    HacsBaseException,
+    HacsBlacklistException,
+)
 from .handler.download import async_download_file, async_save_file
 from .const import DEFAULT_REPOSITORIES, VERSION
 
-_LOGGER = logging.getLogger('custom_components.hacs.repository')
+_LOGGER = logging.getLogger("custom_components.hacs.repository")
 
 
 class HacsRepositoryBase(HacsBase):
@@ -70,10 +75,12 @@ class HacsRepositoryBase(HacsBase):
         """Return local path."""
         local_path = None
         if self.repository_type == "integration":
-            if self.domain is None:  # pylint: disable=no-member
+            if self.domain is None:
                 local_path = None
             else:
-                local_path = "{}/custom_components/{}".format(self.config_dir, self.domain)  # pylint: disable=no-member
+                local_path = "{}/custom_components/{}".format(
+                    self.config_dir, self.domain
+                )
 
         elif self.repository_type == "plugin":
             local_path = "{}/www/community/{}".format(self.config_dir, self.name)
@@ -87,7 +94,9 @@ class HacsRepositoryBase(HacsBase):
     @property
     def description(self):
         """Description."""
-        return "" if self.repository.description is None else self.repository.description
+        return (
+            "" if self.repository.description is None else self.repository.description
+        )
 
     @property
     def ref(self):
@@ -156,35 +165,53 @@ class HacsRepositoryBase(HacsBase):
         except AIOGitHubException:
             pass
 
-    async def download_repository_directory_content(self, repository_directory_path, local_directory, ref):
+    async def download_repository_directory_content(
+        self, repository_directory_path, local_directory, ref
+    ):
         """Download the content of a directory."""
         try:
             # Get content
             if self.content_path == "release":
                 contents = self.content_objects
             else:
-                contents = await self.repository.get_contents(repository_directory_path, ref)
+                contents = await self.repository.get_contents(
+                    repository_directory_path, ref
+                )
 
             for content_object in contents:
                 if content_object.type == "dir":
-                    await self.download_repository_directory_content(content_object.path, local_directory, ref)
+                    await self.download_repository_directory_content(
+                        content_object.path, local_directory, ref
+                    )
                     continue
-                if self.repository_type == "plugin" and not content_object.name.endswith(".js"):
+                if (
+                    self.repository_type == "plugin"
+                    and not content_object.name.endswith(".js")
+                ):
                     # For plugins we currently only need .js files
                     continue
 
                 _LOGGER.debug("Downloading %s", content_object.name)
 
-                filecontent = await async_download_file(self.hass, content_object.download_url)
+                filecontent = await async_download_file(
+                    self.hass, content_object.download_url
+                )
 
                 if filecontent is None:
-                    _LOGGER.debug("There was an error downloading the file %s", content_object.name)
+                    _LOGGER.debug(
+                        "There was an error downloading the file %s",
+                        content_object.name,
+                    )
                     continue
 
                 # Save the content of the file.
                 if self.repository_name == "custom-components/hacs":
-                    local_directory = "{}/{}".format(self.config_dir, content_object.path)
-                    local_directory = local_directory.split("/{}".format(content_object.name))[0]
+                    local_directory = "{}/{}".format(
+                        self.config_dir, content_object.path
+                    )
+                    local_directory = local_directory.split(
+                        "/{}".format(content_object.name)
+                    )[0]
                     _LOGGER.debug(content_object.path)
                     _LOGGER.debug(local_directory)
 
@@ -200,7 +227,7 @@ class HacsRepositoryBase(HacsBase):
     async def install(self):
         """Run install tasks."""
         start_time = datetime.now()
-        _LOGGER.info('(%s) - Starting installation', self.repository_name)
+        _LOGGER.info("(%s) - Starting installation", self.repository_name)
         try:
             # Run update
             await self.update()  # pylint: disable=no-member
@@ -209,7 +236,9 @@ class HacsRepositoryBase(HacsBase):
             await self.check_local_directory()
 
             # Download files
-            await self.download_repository_directory_content(self.content_path, self.local_path, self.ref)
+            await self.download_repository_directory_content(
+                self.content_path, self.local_path, self.ref
+            )
 
         except HacsBaseException as exception:
             _LOGGER.debug("(%s) - %s", self.repository_name, exception)
@@ -221,8 +250,11 @@ class HacsRepositoryBase(HacsBase):
             self.installed_commit = self.last_commit
             if self.repository_type == "integration":
                 self.pending_restart = True
-            _LOGGER.info('(%s) - installation completed in %s seconds', self.repository_name, (datetime.now() - start_time).seconds)
-
+            _LOGGER.info(
+                "(%s) - installation completed in %s seconds",
+                self.repository_name,
+                (datetime.now() - start_time).seconds,
+            )
 
     async def remove(self):
         """Run remove tasks."""
@@ -260,21 +292,33 @@ class HacsRepositoryBase(HacsBase):
             pathlib.Path(local_path).mkdir(parents=True, exist_ok=True)
 
         except Exception as exception:
-            _LOGGER.debug("(%s) - Creating directory %s failed with %s", self.repository_name, local_path, exception)
+            _LOGGER.debug(
+                "(%s) - Creating directory %s failed with %s",
+                self.repository_name,
+                local_path,
+                exception,
+            )
             return
 
     async def remove_local_directory(self):
         """Check the local directory."""
         try:
             if os.path.exists(self.local_path):
-                _LOGGER.debug("(%s) - Removing %s", self.repository_name, self.local_path)
+                _LOGGER.debug(
+                    "(%s) - Removing %s", self.repository_name, self.local_path
+                )
                 shutil.rmtree(self.local_path)
 
                 while os.path.exists(self.local_path):
                     await sleep(1)
 
         except Exception as exception:
-            _LOGGER.debug("(%s) - Removing directory %s failed with %s", self.repository_name, self.local_path, exception)
+            _LOGGER.debug(
+                "(%s) - Removing directory %s failed with %s",
+                self.repository_name,
+                self.local_path,
+                exception,
+            )
             return
 
     async def set_additional_info(self):
@@ -293,11 +337,9 @@ class HacsRepositoryBase(HacsBase):
             # We kinda expect this one to fail
             self.additional_info = ""
 
-
     async def set_repository(self):
         """Set the AIOGitHub repository object."""
         self.repository = await self.aiogithub.get_repo(self.repository_name)
-
 
     async def set_repository_releases(self):
         """Set attributes for releases."""
@@ -313,19 +355,19 @@ class HacsRepositoryBase(HacsBase):
         self.last_release_object = temp
         self.last_release_tag = temp.tag_name
 
-
-
     async def validate_repository_name(self):
         """Validate the given repository_name."""
         if "/" not in self.repository_name:
             raise HacsUserScrewupException(
                 "GitHub repository name "
-                "'{}' is not the correct format".format(self.repository_name))
+                "'{}' is not the correct format".format(self.repository_name)
+            )
 
-        elif len(self.repository_name.split('/')) > 2:
+        elif len(self.repository_name.split("/")) > 2:
             raise HacsUserScrewupException(
                 "GitHub repository name "
-                "'{}' is not the correct format".format(self.repository_name))
+                "'{}' is not the correct format".format(self.repository_name)
+            )
 
     async def return_last_update(self):
         """Return a last update string."""

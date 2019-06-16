@@ -10,7 +10,7 @@ import backoff
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from ..exceptions import HacsNotSoBasicException
 
-_LOGGER = logging.getLogger('custom_components.hacs.download')
+_LOGGER = logging.getLogger("custom_components.hacs.download")
 
 
 @backoff.on_exception(backoff.expo, Exception, max_tries=3)
@@ -39,7 +39,11 @@ async def async_download_file(hass, url):
             else:
                 result = await request.text()
         else:
-            raise HacsNotSoBasicException("Got status code {} when trying to download {}".format(request.status, url))
+            raise HacsNotSoBasicException(
+                "Got status code {} when trying to download {}".format(
+                    request.status, url
+                )
+            )
 
     return result
 
@@ -48,23 +52,25 @@ async def async_save_file(location, content):
     """Save files."""
     if "-bundle" in location:
         location = location.replace("-bundle", "")
-    if "lovelace-" in location.split('/')[-1]:
-        search = location.split('/')[-1]
+    if "lovelace-" in location.split("/")[-1]:
+        search = location.split("/")[-1]
         replace = search.replace("lovelace-", "")
         location = location.replace(search, replace)
 
     _LOGGER.debug("Saving %s", location)
-    mode = 'w'
+    mode = "w"
     encoding = "utf-8"
-    errors="ignore"
+    errors = "ignore"
 
     if not isinstance(content, str):
-        mode = 'wb'
+        mode = "wb"
         encoding = None
         errors = None
 
     try:
-        async with aiofiles.open(location, mode=mode, encoding=encoding, errors=errors) as outfile:
+        async with aiofiles.open(
+            location, mode=mode, encoding=encoding, errors=errors
+        ) as outfile:
             await outfile.write(content)
             outfile.close()
 
@@ -73,7 +79,7 @@ async def async_save_file(location, content):
         _LOGGER.debug(msg)
 
     # Create gz for .js files
-    if location.endswith('.js') or location.endswith('.css'):
-        with open(location, 'rb') as f_in:
-            with gzip.open(location + '.gz', 'wb') as f_out:
+    if location.endswith(".js") or location.endswith(".css"):
+        with open(location, "rb") as f_in:
+            with gzip.open(location + ".gz", "wb") as f_out:
                 shutil.copyfileobj(f_in, f_out)

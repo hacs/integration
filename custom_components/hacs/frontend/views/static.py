@@ -6,7 +6,7 @@ from aiohttp import web
 from aiohttp.web import HTTPNotFound
 from ...blueprints import HacsViewBase
 
-_LOGGER = logging.getLogger('custom_components.hacs.frontend')
+_LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
 
 class HacsStaticView(HacsViewBase):
@@ -21,10 +21,11 @@ class HacsStaticView(HacsViewBase):
     async def get(self, request, requested_file):  # pylint: disable=unused-argument
         """Serve static files."""
         servefile = "{}/custom_components/hacs/frontend/elements/{}".format(
-            self.config_dir, requested_file)
+            self.config_dir, requested_file
+        )
 
-        if os.path.exists(servefile + '.gz'):
-            return web.FileResponse(servefile + '.gz')
+        if os.path.exists(servefile + ".gz"):
+            return web.FileResponse(servefile + ".gz")
         else:
             if os.path.exists(servefile):
                 return web.FileResponse(servefile)

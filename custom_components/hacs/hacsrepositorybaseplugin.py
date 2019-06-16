@@ -6,7 +6,7 @@ from .aiogithub import AIOGitHubException
 from .blueprints import HacsRepositoryBase
 from .exceptions import HacsRequirement
 
-_LOGGER = logging.getLogger('custom_components.hacs.repository')
+_LOGGER = logging.getLogger("custom_components.hacs.repository")
 
 
 class HacsRepositoryPlugin(HacsRepositoryBase):
@@ -59,7 +59,6 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
             # This can fail, no big deal.
             pass
         await self.set_repository_content()
-
 
     async def set_repository_content(self):
         """Set repository content attributes."""

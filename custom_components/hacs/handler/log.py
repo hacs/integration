@@ -5,7 +5,7 @@ import aiofiles
 
 from ..const import STARTUP
 
-_LOGGER = logging.getLogger('custom_components.hacs.log')
+_LOGGER = logging.getLogger("custom_components.hacs.log")
 
 
 async def get_log_file_content(config_dir):
@@ -16,7 +16,8 @@ async def get_log_file_content(config_dir):
 
     try:
         async with aiofiles.open(
-            log_file, mode='r', encoding="utf-8", errors="ignore") as localfile:
+            log_file, mode="r", encoding="utf-8", errors="ignore"
+        ) as localfile:
             logfile = await localfile.readlines()
             localfile.close()
         for line in logfile:
@@ -27,7 +28,9 @@ async def get_log_file_content(config_dir):
                 line = line.replace(" WARNING ", "")
                 line = line.replace(" ERROR ", "")
                 line = line.replace(" CRITICAL ", "")
-                interesting += "<pre style='margin: 0; white-space: pre-wrap'>{}</pre>".format(line)
+                interesting += "<pre style='margin: 0; white-space: pre-wrap'>{}</pre>".format(
+                    line
+                )
     except Exception as exception:
         _LOGGER.error(exception)
     return interesting

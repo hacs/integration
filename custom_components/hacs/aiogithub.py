@@ -34,7 +34,7 @@ class AIOGitHub(object):
         self.token = token
         self.loop = loop
         self.session = session
-        self._ratelimit_remaining = 0
+        self._ratelimit_remaining = None
         self.headers["Authorization"] = "token {}".format(token)
 
     @backoff.on_exception(backoff.expo, ClientError, max_tries=3)

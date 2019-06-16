@@ -1,5 +1,7 @@
 """Download."""
+import gzip
 import logging
+import shutil
 
 import aiofiles
 import async_timeout
@@ -69,3 +71,9 @@ async def async_save_file(location, content):
     except Exception as error:  # pylint: disable=broad-except
         msg = "Could not write data to {} - {}".format(location, error)
         _LOGGER.debug(msg)
+
+    # Create gz for .js files
+    if location.endswith('.js') or location.endswith('.css'):
+        with open(location, 'rb') as f_in:
+            with gzip.open(location + '.gz', 'wb') as f_out:
+                shutil.copyfileobj(f_in, f_out)

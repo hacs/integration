@@ -47,7 +47,7 @@ from .frontend.views import (
 DOMAIN = "{}".format(NAME_SHORT.lower())
 
 # TODO: Remove this when minimum HA version is > 0.93
-REQUIREMENTS = ["aiofiles"]
+REQUIREMENTS = ["aiofiles", "backoff"]
 
 _LOGGER = logging.getLogger("custom_components.hacs")
 

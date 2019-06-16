@@ -93,6 +93,9 @@ class HacsStorage(HacsBase):
 
     async def set(self):
         """Write HACS data to storage."""
+        if self.data["task_running"]:
+            # BG task is running, skip store to this is done.
+            return
         _LOGGER.info("Saving data")
         datastore = "{}/.storage/{}".format(self.config_dir, STORENAME)
 

@@ -73,7 +73,12 @@ ERROR = [
 ################################
 
 DEFAULT_REPOSITORIES = {
-    "integration": ["StyraHem/ShellyForHASS", "isabellaalstrom/sensor.krisinformation", "JurajNyiri/HomeAssistant-Tavos", "JurajNyiri/HomeAssistant-Atrea"],
+    "integration": [
+        "StyraHem/ShellyForHASS",
+        "isabellaalstrom/sensor.krisinformation",
+        "JurajNyiri/HomeAssistant-Tavos",
+        "JurajNyiri/HomeAssistant-Atrea",
+    ],
     "plugin": [
         "maykar/compact-custom-header",
         "maykar/lovelace-swipe-navigation",

@@ -45,6 +45,8 @@ _Everything under the first directory in `custom_components`_
 
 _Every `.js` file in the source directory, this can be on the release page, the `dist` directory, or the root of the repository._
 
+When a `.js` file is downloaded, a compressed `.gz` version of if will be created, this file (if it exist) will be served to the requester to save transfer size/time.
+
 ***
 
 ## How does it work: Upgrade

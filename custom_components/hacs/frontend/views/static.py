@@ -23,10 +23,9 @@ class HacsStaticView(HacsViewBase):
         servefile = "{}/custom_components/hacs/frontend/elements/{}".format(
             self.config_dir, requested_file)
 
-        if os.path.exists(servefile):
-            return web.FileResponse(servefile)
+        if os.path.exists(servefile + '.gz'):
+            return web.FileResponse(servefile + '.gz')
         else:
-            servefile += '.gz'
             if os.path.exists(servefile):
                 return web.FileResponse(servefile)
             else:

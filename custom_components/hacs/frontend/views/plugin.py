@@ -24,11 +24,13 @@ class HacsPluginView(HacsViewBase):
 
             file = "{}/www/community/{}".format(self.config_dir, requested_file)
 
+            # Serve .gz if it exist
+            if os.path.exists(file + '.gz'):
+                file += '.gz'
+
             response = None
             if os.path.exists(file):
-                _LOGGER.debug(
-                    "Serving /community_plugin/%s from /www/community/%s", requested_file, requested_file
-                )
+                _LOGGER.debug("Serving %s from %s", requested_file, file)
                 response = web.FileResponse(file)
                 response.headers["Cache-Control"] = "max-age=0, must-revalidate"
             else:

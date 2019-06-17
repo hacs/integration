@@ -11,7 +11,7 @@
 
 This integration requires **a lot** of files.
 
-The easiest way to make sure that you have them all is to download the `.zip` file from the repository.
+The easiest way to make sure that you have them all is to download the `.zip` file from the repository or, if you're familiar with `git`, clone this repo into your `custom_components` folder.
 
 If you want to download using a terminal, see instructions at the bottom of this page.
 
@@ -101,12 +101,10 @@ Next, Navigate to your custom_components directory:
 Then run the following commands:
 
 ```bash
-git clone https://github.com/custom-components/hacs.git hacs_temp
-cd hacs_temp
+git clone https://github.com/custom-components/hacs.git
+cd hacs
 git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
 cd ../
-cp -r hacs_temp/custom_components/hacs hacs
-rm -R hacs_temp
 ```
 
 When this is done, see step 7.

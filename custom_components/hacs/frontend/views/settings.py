@@ -39,7 +39,7 @@ class HacsSettingsView(HacsViewBase):
                                 <div class="card-panel orange darken-4">
                                     <div class="card-content white-text">
                                         <span>
-                                            You need to restart Home Assisant to start using the latest version of HACS.
+                                            You need to restart Home Assistant to start using the latest version of HACS.
                                         </span>
                                     </div>
                                 </div>

@@ -92,5 +92,6 @@ DEFAULT_REPOSITORIES = {
         "thomasloven/lovelace-markdown-mod",
         "thomasloven/lovelace-slider-entity-row",
         "isabellaalstrom/krisinfo-card",
+        "timsoethout/goodwe-sems-home-assistant",
     ],
 }

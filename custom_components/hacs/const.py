@@ -78,6 +78,7 @@ DEFAULT_REPOSITORIES = {
         "isabellaalstrom/sensor.krisinformation",
         "JurajNyiri/HomeAssistant-Tavos",
         "JurajNyiri/HomeAssistant-Atrea",
+        "timsoethout/goodwe-sems-home-assistant",
     ],
     "plugin": [
         "maykar/compact-custom-header",
@@ -92,6 +93,5 @@ DEFAULT_REPOSITORIES = {
         "thomasloven/lovelace-markdown-mod",
         "thomasloven/lovelace-slider-entity-row",
         "isabellaalstrom/krisinfo-card",
-        "timsoethout/goodwe-sems-home-assistant",
     ],
 }

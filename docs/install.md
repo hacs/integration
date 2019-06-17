@@ -103,7 +103,7 @@ Then run the following commands:
 ```bash
 git clone https://github.com/custom-components/hacs.git hacs_temp
 cd hacs_temp
-git checkout $(git describe --tags 'git rev-list --tags --max-count=1')
+git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
 cd ../
 cp -r hacs_temp/custom_components/hacs hacs
 rm -R hacs_temp

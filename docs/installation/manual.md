@@ -75,7 +75,7 @@ The `custom_components` **needs** to be in **the exact same** folder as `configu
 
 ### Step 7 - ✏️
 
-[You should now be done, next part will be to add it to your configuration.](https://custom-components.github.io/hacs/configure)
+[You should now be done, next part will be to add it to your configuration.](../configuration)
 
 
 ## Moving from [`custom_updater`](https://github.com/custom-components/custom_updater)

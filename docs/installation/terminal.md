@@ -16,3 +16,5 @@ cd ../
 cp -r hacs_temp/custom_components/hacs hacs
 rm -R hacs_temp
 ```
+
+[You should now be done, next part will be to add it to your configuration.](../configuration)

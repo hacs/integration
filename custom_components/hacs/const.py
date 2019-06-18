@@ -87,5 +87,6 @@ DEFAULT_REPOSITORIES = {
         "thomasloven/lovelace-markdown-mod",
         "thomasloven/lovelace-slider-entity-row",
         "isabellaalstrom/krisinfo-card",
+        "tcarlsen/lovelace-light-with-profiles",
     ],
 }

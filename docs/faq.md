@@ -1,8 +1,4 @@
-***
-
-[HOME](/hacs/) | [INSTALLATION](/hacs/install) | [CONFIGURATION](/hacs/configure) | [TOKEN](/hacs/token) | [**FAQ**](/hacs/faq)
-
-***
+# FAQ
 
 ## What is HACS?
 
@@ -10,7 +6,7 @@ HACS is an abbreviation of "Home Assistant Community Store".
 
 Although "Store" is not "technically" correct, since nothing is sold, it's more like a marketplace? but "HACM" didn't have the same ring to it.
 
-**Higlighs of what HACS can do:**
+### Higlighs of what HACS can do
 
 - Help you discover new integrations and plugins.
 - Help you install (download) new integrations and plugins.
@@ -37,11 +33,11 @@ When you install an element this is what's happening:
 1. All expected files are downloaded to that directory.
 1. The files it downloads depends on the type.
 
-**Files downloaded for `integrations`:**
+### Files downloaded for `integrations`
 
 _Everything under the first directory in `custom_components`_
 
-**Files downloaded for `plugins`:**
+### Files downloaded for `plugins`
 
 _Every `.js` file in the source directory, this can be on the release page, the `dist` directory, or the root of the repository._
 
@@ -58,4 +54,4 @@ The same as installation.
 
 ## How can I install this.
 
-Look at the [installation documentation.](/hacs/install)
+Look at the [installation documentation.](../installation/manual/)

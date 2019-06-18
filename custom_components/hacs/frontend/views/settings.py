@@ -68,7 +68,7 @@ class HacsSettingsView(HacsViewBase):
 
                                     <div class="card-action">
                                         <a href="{}/repository_install/172733314" onclick="ShowProgressBar()">UPGRADE</a>
-                                        <a href="https://github.com/custom-components/hacs/releases/tag/{}" target="_blank">CHANGELOG</a>
+                                        <a rel='noreferrer' href="https://github.com/custom-components/hacs/releases/tag/{}" target="_blank">CHANGELOG</a>
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@ class HacsSettingsView(HacsViewBase):
                     <a href='{}/new/choose' class='waves-effect waves-light btn right hacsbutton' target="_blank">
                         OPEN ISSUE
                     </a>
-                    <a href='https://github.com/custom-components/hacs' class='waves-effect waves-light btn right hacsbutton' target="_blank">
+                    <a rel='noreferrer' href='https://github.com/custom-components/hacs' class='waves-effect waves-light btn right hacsbutton' target="_blank">
                         HACS REPO
                     </a>
                     <a href="{}/log/get" class='waves-effect waves-light btn right hacsbutton' onclick="ShowProgressBar()">

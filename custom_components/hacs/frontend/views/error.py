@@ -76,7 +76,7 @@ class HacsErrorView(HacsViewBase):
                     </a>
                 </div>
                 <div class='center-align' style='margin-top: 100px'>
-                    <img src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>
+                    <img rel="noreferrer" src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>
                 </div>
             """.format(
                 random.choice(ERROR), codeblock, ISSUE_URL, self.url_path["api"]

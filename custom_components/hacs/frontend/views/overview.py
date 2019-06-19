@@ -128,7 +128,7 @@ class HacsOverviewView(HacsViewBase):
                                                 <th>Name</th>
                                                 <th class="smal-hide">Description</th>
                                                 <th class="smal-hide">Installed</th>
-                                                <th class="smal-hide">Aviable</th>
+                                                <th class="smal-hide">Available</th>
                                             </tr>
                                         </thead>
                                         <tbody>

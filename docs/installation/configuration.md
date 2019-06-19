@@ -1,13 +1,14 @@
 # Configuration
 
-Configuration for this is quite simple.
-
-Only two lines are needed/supported.
-
 ```yaml
 hacs:
   token: !secret my_github_access_token
 ```
+
+key | optional | default | description
+-- | -- | -- | --
+`token` | False | | A Github Personal Access Token
+`appdaemon` | True | `False` | Enable tracking of AppDaemon apps.
 
 **NB! This needs to be in `configuration.yaml`, _not_ in a "package".**
 
@@ -39,7 +40,7 @@ _If you are asked to login, do so._
 
 ### Step 4 - Choices
 
-First give it a logical name so that you can recognise it.
+First give it a logical name so that you can recognize it.
 
 Then click the "Generate token" button at the bottom.
 

@@ -52,9 +52,9 @@ class HacsStorage(HacsBase):
                 await self.restore(store_data, repository)
 
         # Get new repository objects
-        integrations, plugins = await self.get_repositories()
+        appdaemon, integrations, plugins = await self.get_repositories()
 
-        repository_types = {"integration": integrations, "plugin": plugins}
+        repository_types = {"appdaemon": appdaemon, "integration": integrations, "plugin": plugins}
 
         for repository_type in repository_types:
             for repository in repository_types[repository_type]:

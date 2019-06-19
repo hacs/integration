@@ -105,6 +105,7 @@ class HacsBase:
         _LOGGER.info("Starting repository registration for %s", repo)
 
         if element_type not in ELEMENT_TYPES:
+            _LOGGER.info("%s is not enabled, skipping registration", element_type)
             return None, False
 
         if element_type == "appdaemon":

@@ -61,9 +61,9 @@ class HacsStoreView(HacsViewBase):
                     if self.data.get("hacs", {}).get("view") == "Table":
                         card = """
                             <tr class="hacs-table-row" onclick="window.location='{}/{}';">
-                                <meta topics="{}">
-                                <meta repository_authors="{}">
-                                <meta name="{}">
+                                <!--{}-->
+                                <!--{}-->
+                                <!--{}-->
                                 <td>{}</td>
                                 <td>{}</td>
                                 <td class="hacs-card-content smal-hide">{}</td>
@@ -89,9 +89,9 @@ class HacsStoreView(HacsViewBase):
                         card = """
                         <a href="{}/{}" class="hacs-card"">
                             <div class="hacs-card overview">
-                                <meta topics="{}">
-                                <meta repository_authors="{}">
-                                <meta name="{}">
+                                <!--{}-->
+                                <!--{}-->
+                                <!--{}-->
                                 <span class="hacs-card-title">{} {}</span>
                                 <span class="hacs-card-content">
                                     <p>{}</p>

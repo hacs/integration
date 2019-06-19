@@ -75,7 +75,11 @@ class HacsStoreView(HacsViewBase):
                         repository.authors,
                         repository.name,
                         card_icon,
-                        repository.name.replace('-', ' ').title(),
+                        repository.name
+                        if repository.repository_type == "integration"
+                        else repository.name.replace("-", " ")
+                        .replace("_", " ")
+                        .title(),
                         repository.description,
                     )
 

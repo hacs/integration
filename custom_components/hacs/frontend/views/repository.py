@@ -287,7 +287,9 @@ class HacsRepositoryView(HacsViewBase):
             """.format(
                 custom_message,
                 pending_restart,
-                repository.name.replace('-', ' ').title(),
+                repository.name
+                if repository.repository_type == "integration"
+                else repository.name.replace("-", " ").replace("_", " ").title(),
                 self.url_path["api"],
                 repository.repository_id,
                 hide_option,

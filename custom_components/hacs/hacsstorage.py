@@ -16,7 +16,7 @@ class HacsStorage(HacsBase):
 
     async def get(self):
         """Read HACS data to storage."""
-        from .blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
+        from .blueprints import HacsRepositoryAppDaemon, HacsRepositoryIntegration, HacsRepositoryPlugin
 
         datastore = "{}/.storage/{}".format(self.config_dir, STORENAME)
         _LOGGER.debug("Reading from datastore %s.", datastore)
@@ -66,7 +66,11 @@ class HacsStorage(HacsBase):
                     continue
                 else:
                     _LOGGER.info("Loading %s", repository.full_name)
-                    if repository_type == "integration":
+                    if repository_type == "appdaemon":
+                        repository = HacsRepositoryAppDaemon(
+                            repository.full_name, repository
+                        )
+                    elif repository_type == "integration":
                         repository = HacsRepositoryIntegration(
                             repository.full_name, repository
                         )

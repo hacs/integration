@@ -96,11 +96,14 @@ class HacsBase:
     async def register_new_repository(self, element_type, repo, repositoryobject=None):
         """Register a new repository."""
         from .exceptions import HacsBaseException, HacsRequirement
-        from .blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
+        from .blueprints import HacsRepositoryAppDaemon, HacsRepositoryIntegration, HacsRepositoryPlugin
 
         _LOGGER.info("Starting repository registration for %s", repo)
 
-        if element_type == "integration":
+        if element_type == "appdaemon":
+            repository = HacsRepositoryAppDaemon(repo, repositoryobject)
+
+        elif element_type == "integration":
             repository = HacsRepositoryIntegration(repo, repositoryobject)
 
         elif element_type == "plugin":

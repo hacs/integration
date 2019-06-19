@@ -3,6 +3,7 @@
 import logging
 from aiohttp import web
 from ...blueprints import HacsViewBase
+from ...const import ELEMENT_TYPES
 
 _LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
@@ -21,8 +22,9 @@ class HacsStoreView(HacsViewBase):
         try:
             content = self.base_content
 
-            integrations = []
-            plugins = []
+            types = {}
+            for element_type in ELEMENT_TYPES:
+                types[element_type] = []
 
             if not self.repositories:
                 content += "Loading store items, check back later."
@@ -83,32 +85,21 @@ class HacsStoreView(HacsViewBase):
                         repository.description,
                     )
 
-                    if repository.repository_type == "integration":
-                        integrations.append(card)
+                    types[repository.repository_type].append(card)
 
-                    elif repository.repository_type == "plugin":
-                        plugins.append(card)
+                for element_type in sorted(ELEMENT_TYPES):
+                    if types[element_type]:
+                        content += "<div class='hacs-overview-container'>"
+                        typedisplay = "{}S".format(element_type.upper())
+                        if element_type == "appdaemon":
+                            typedisplay = "APPDAEMON APPS"
+                        content += "<h5>{}</h5>".format(typedisplay)
+                        content += "<div class='hacs-card-container'>"
+                        for card in types[element_type]:
+                            content += card
+                        content += "</div></div></br></br>"
 
-                    else:
-                        continue
-
-                if integrations:
-                    content += "<div class='hacs-overview-container'>"
-                    content += "<h5>CUSTOM INTEGRATIONS</h5>"
-                    content += "<div class='hacs-card-container'>"
-                    for card in integrations:
-                        content += card
-                    content += "</div></div>"
-
-                if plugins:
-                    content += "<div class='hacs-overview-container'>"
-                    content += "<h5>CUSTOM PLUGINS (LOVELACE)</h5>"
-                    content += "<div class='hacs-card-container'>"
-                    for card in plugins:
-                        content += card
-                    content += "</div></div>"
-
-                if not plugins and not integrations:
+                if not types:
                     content = self.base_content
                     content += "Loading store items, check back later."
 

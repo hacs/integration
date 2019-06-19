@@ -16,7 +16,11 @@ class HacsStorage(HacsBase):
 
     async def get(self):
         """Read HACS data to storage."""
-        from .blueprints import HacsRepositoryIntegration, HacsRepositoryPlugin
+        from .blueprints import (
+            HacsRepositoryAppDaemon,
+            HacsRepositoryIntegration,
+            HacsRepositoryPlugin,
+        )
 
         datastore = "{}/.storage/{}".format(self.config_dir, STORENAME)
         _LOGGER.debug("Reading from datastore %s.", datastore)
@@ -53,9 +57,13 @@ class HacsStorage(HacsBase):
                 await self.restore(store_data, repository)
 
         # Get new repository objects
-        integrations, plugins = await self.get_repositories()
+        appdaemon, integrations, plugins = await self.get_repositories()
 
-        repository_types = {"integration": integrations, "plugin": plugins}
+        repository_types = {
+            "appdaemon": appdaemon,
+            "integration": integrations,
+            "plugin": plugins,
+        }
 
         for repository_type in repository_types:
             for repository in repository_types[repository_type]:
@@ -67,7 +75,11 @@ class HacsStorage(HacsBase):
                     continue
                 else:
                     _LOGGER.info("Loading %s", repository.full_name)
-                    if repository_type == "integration":
+                    if repository_type == "appdaemon":
+                        repository = HacsRepositoryAppDaemon(
+                            repository.full_name, repository
+                        )
+                    elif repository_type == "integration":
                         repository = HacsRepositoryIntegration(
                             repository.full_name, repository
                         )
@@ -95,8 +107,8 @@ class HacsStorage(HacsBase):
                     # Restore complete
                     self.repositories[repository.repository_id] = repository
 
-        await self.set()
         self.data["task_running"] = False
+        await self.set()
         return store_data
 
     async def set(self):

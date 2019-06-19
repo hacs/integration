@@ -52,7 +52,15 @@ REQUIREMENTS = ["aiofiles", "backoff"]
 _LOGGER = logging.getLogger("custom_components.hacs")
 
 CONFIG_SCHEMA = vol.Schema(
-    {DOMAIN: vol.Schema({vol.Required("token"): cv.string})}, extra=vol.ALLOW_EXTRA
+    {
+        DOMAIN: vol.Schema(
+            {
+                vol.Required("token"): cv.string,
+                vol.Optional("appdaemon", default=False): cv.boolean,
+            }
+        )
+    },
+    extra=vol.ALLOW_EXTRA,
 )
 
 
@@ -61,6 +69,9 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     _LOGGER.info(STARTUP)
     config_dir = hass.config.path()
     github_token = config[DOMAIN]["token"]
+
+    if config[DOMAIN]["appdaemon"]:
+        ELEMENT_TYPES.append("appdaemon")
 
     # Configure HACS
     await configure_hacs(hass, github_token, config_dir)

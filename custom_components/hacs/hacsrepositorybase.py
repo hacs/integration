@@ -64,6 +64,8 @@ class HacsRepositoryBase(HacsBase):
         """Return flag if the repository is custom."""
         if self.repository_name.split("/")[0] in ["custom-components", "custom-cards"]:
             return False
+        elif self.repository_name in DEFAULT_REPOSITORIES["appdaemon"]:
+            return False
         elif self.repository_name in DEFAULT_REPOSITORIES["integration"]:
             return False
         elif self.repository_name in DEFAULT_REPOSITORIES["plugin"]:
@@ -74,7 +76,10 @@ class HacsRepositoryBase(HacsBase):
     def local_path(self):
         """Return local path."""
         local_path = None
-        if self.repository_type == "integration":
+        if self.repository_type == "appdaemon":
+            local_path = "{}/appdaemon/apps/{}".format(self.config_dir, self.name)
+
+        elif self.repository_type == "integration":
             if self.domain is None:
                 local_path = None
             else:

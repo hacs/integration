@@ -120,15 +120,11 @@ class HacsRepositoryView(HacsViewBase):
                     <i>
                         When installed, this will be located in '{}',
                         you still need to add it to your 'configuration.yaml' file.
-                    </i></br></br>
-                    <i>
-                        To learn more about how to configure this,
-                        click the "REPOSITORY" link below to get to the repository for this integration.
                     </i>
                 """.format(
                     repository.local_path
                 )
-            else:
+            elif repository.repository_type == "plugin":
                 if repository.javascript_type is None:
                     llnote = LOVELACE_EXAMLE_URL.format(
                         repository.name, repository.name.replace("lovelace-", "")
@@ -153,13 +149,32 @@ class HacsRepositoryView(HacsViewBase):
                         {}
                     <a title="Copy content to clipboard" id ="lovelacecopy" onclick="CopyToLovelaceExampleToClipboard()"><i class="fa fa-copy"></i></a>
                     {}
-                    </br></br><i>
-                        To learn more about how to configure this,
-                        click the "REPOSITORY" link below button to get to the repository for this plugin.
-                    </i>
                 """.format(
                     repository.local_path, llnote, jsnote
                 )
+            elif repository.repository_type == "appdaemon":
+                note = """
+                    </br>
+                    <i>
+                        When installed, this will be located in '{}',
+                        you still need to add it to your 'apps.yaml' file.
+                    </i>
+                """.format(
+                    repository.local_path
+                )
+            else:
+                note = ""
+
+            note += """
+                    </br></br><i>
+                        To learn more about how to configure this,
+                        click the "REPOSITORY" link below button to get to the repository for this {}.
+                    </i>
+            """.format(
+                "AppDaemon app"
+                if repository.repository_type == "appdaemon"
+                else repository.repository_type
+            )
 
             if not repository.installed:
                 main_action = "INSTALL"

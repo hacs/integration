@@ -33,6 +33,10 @@ When you install an element this is what's happening:
 1. All expected files are downloaded to that directory.
 1. The files it downloads depends on the type.
 
+### Files downloaded for `appdaemon`
+
+_Everything under the first directory in `apps`_
+
 ### Files downloaded for `integrations`
 
 _Everything under the first directory in `custom_components`_

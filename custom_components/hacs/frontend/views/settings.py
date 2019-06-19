@@ -5,7 +5,7 @@ from aiohttp import web
 from homeassistant.const import __version__ as HAVERSION
 
 from ...blueprints import HacsViewBase
-from ...const import ISSUE_URL, NAME_LONG
+from ...const import ISSUE_URL, NAME_LONG, ELEMENT_TYPES
 
 _LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
@@ -228,6 +228,13 @@ class HacsSettingsView(HacsViewBase):
             """
             for line in repository_lines:
                 content += line
+
+            element_types = ""
+            for element_type in sorted(ELEMENT_TYPES):
+                element_types += "<option value='{}'>{}</option>".format(
+                    element_type, element_type.title()
+                )
+
             content += """
                         </ul>
                         <form action="{}/repository_register/new" 
@@ -238,8 +245,7 @@ class HacsSettingsView(HacsViewBase):
 
                             <select name="repository_type" class="hacs-select">
                                 <option disabled selected value>type</option>
-                                <option value="integration">Integration</option>
-                                <option value="plugin">Plugin</option>
+                                {}
                             </select>
 
                             <button class="btn waves-effect waves-light right" 
@@ -250,7 +256,7 @@ class HacsSettingsView(HacsViewBase):
                     </div>
                 </div>
             """.format(
-                self.url_path["api"]
+                self.url_path["api"], element_types
             )
 
             ## Hidden repositories
@@ -261,7 +267,7 @@ class HacsSettingsView(HacsViewBase):
                             <ul class="collection with-header hacslist">
                                 <li class="collection-header hacscolor hacslist"><h5>HIDDEN REPOSITORIES</h5></li>
                 """
-                for line in hidden:
+                for line in sorted(hidden):
                     content += line
                 content += """
                             </ul>

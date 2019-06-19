@@ -187,6 +187,7 @@ class HacsRepositoryBase(HacsBase):
                 if (
                     self.repository_type == "plugin"
                     and not content_object.name.endswith(".js")
+                    and self.content_path != "dist"
                 ):
                     # For plugins we currently only need .js files
                     continue
@@ -205,18 +206,19 @@ class HacsRepositoryBase(HacsBase):
                     continue
 
                 # Save the content of the file.
-                if self.repository_name == "custom-components/hacs":
-                    local_directory = "{}/{}".format(
-                        self.config_dir, content_object.path
-                    )
-                    local_directory = local_directory.split(
-                        "/{}".format(content_object.name)
-                    )[0]
-                    _LOGGER.debug(content_object.path)
-                    _LOGGER.debug(local_directory)
+                _content_path = content_object.path
+                _content_path = content_object.path.replace("dist/", "")
+                _content_path = _content_path.replace("{}/".format(self.content_path), "")
 
-                    # Check local directory
-                    pathlib.Path(local_directory).mkdir(parents=True, exist_ok=True)
+                local_directory = "{}/{}".format(
+                    self.local_path, _content_path
+                )
+                local_directory = local_directory.split(
+                    "/{}".format(content_object.name)
+                )[0]
+
+                # Check local directory
+                pathlib.Path(local_directory).mkdir(parents=True, exist_ok=True)
 
                 local_file_path = "{}/{}".format(local_directory, content_object.name)
                 await async_save_file(local_file_path, filecontent)

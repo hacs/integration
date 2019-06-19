@@ -335,7 +335,13 @@ class HacsRepositoryBase(HacsBase):
 
         except Exception:
             # We kinda expect this one to fail
-            self.additional_info = ""
+            try:
+                # Maybe the info file is capitalized.
+                temp = await self.repository.get_contents("INFO.md", self.ref)
+                self.additional_info = temp.content
+
+            except Exception:
+                self.additional_info = ""
 
     async def set_repository(self):
         """Set the AIOGitHub repository object."""

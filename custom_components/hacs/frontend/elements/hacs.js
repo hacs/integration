@@ -27,6 +27,14 @@ function Search() {
             nodes[i].style.display = "none";
             }
         }
+        var nodes = document.getElementsByClassName('hacs-table-row');
+        for (i = 0; i < nodes.length; i++) {
+            if (nodes[i].innerHTML.toLowerCase().includes(filter)) {
+            nodes[i].style.display = "table-row";
+            } else {
+            nodes[i].style.display = "none";
+            }
+        }
     }
 }
 

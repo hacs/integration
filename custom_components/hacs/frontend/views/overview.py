@@ -56,46 +56,104 @@ class HacsOverviewView(HacsViewBase):
                     else:
                         card_icon = "<i class='fas fa-cube card-status default'></i>"
 
-                    card = """
-                    <a href="{}/{}" class="hacs-card"">
-                        <div class="hacs-card overview">
-                            <meta topics="{}">
-                            <meta repository_authors="{}">
-                            <meta name="{}">
-                            <span class="hacs-card-title">{} {}</span>
-                            <span class="hacs-card-content">
-                                <p>{}</p>
-                            </span>
-                        </div>
-                    </a>
-                    """.format(
-                        self.url_path["repository"],
-                        repository.repository_id,
-                        repository.topics,
-                        repository.authors,
-                        repository.name,
-                        card_icon,
-                        repository.name
-                        if repository.repository_type == "integration"
-                        else repository.name.replace("-", " ")
-                        .replace("_", " ")
-                        .title(),
-                        repository.description,
-                    )
+                    if self.data.get("hacs", {}).get("view") == "Table":
+                        card = """
+                            <tr class="hacs-table-row">
+                                <td>{}</td>
+                                <td><a href="{}/{}">{}</a></td>
+                                <td class="smal-hide"><i>{}</i></td>
+                                <td class="smal-hide">{}</td>
+                                <td class="smal-hide">{}</td>
+                            </tr>
+                        """.format(
+                            card_icon.replace("<i", "<i style='margin-left: 25%'"),
+                            self.url_path["repository"],
+                            repository.repository_id,
+                            repository.name
+                            if repository.repository_type == "integration"
+                            else repository.name.replace("-", " ")
+                            .replace("_", " ")
+                            .title(),
+                            repository.description,
+                            repository.version_installed
+                            if repository.version_installed
+                            else repository.installed_commit
+                            if repository.installed_commit
+                            else "",
+                            repository.last_release_tag
+                            if repository.last_release_tag
+                            else repository.last_commit,
+                        )
+                        card += "</div></li>"
+
+                    else:
+
+                        card = """
+                        <a href="{}/{}" class="hacs-card"">
+                            <div class="hacs-card overview">
+                                <meta topics="{}">
+                                <meta repository_authors="{}">
+                                <meta name="{}">
+                                <span class="hacs-card-title">{} {}</span>
+                                <span class="hacs-card-content">
+                                    <p>{}</p>
+                                </span>
+                            </div>
+                        </a>
+                        """.format(
+                            self.url_path["repository"],
+                            repository.repository_id,
+                            repository.topics,
+                            repository.authors,
+                            repository.name,
+                            card_icon,
+                            repository.name
+                            if repository.repository_type == "integration"
+                            else repository.name.replace("-", " ")
+                            .replace("_", " ")
+                            .title(),
+                            repository.description,
+                        )
 
                     types[repository.repository_type].append(card)
 
                 for element_type in sorted(ELEMENT_TYPES):
                     if types[element_type]:
-                        content += "<div class='hacs-overview-container'>"
                         typedisplay = "{}S".format(element_type.upper())
                         if element_type == "appdaemon":
                             typedisplay = "APPDAEMON APPS"
-                        content += "<h5>{}</h5>".format(typedisplay)
-                        content += "<div class='hacs-card-container'>"
-                        for card in types[element_type]:
-                            content += card
-                        content += "</div></div>"
+                        if self.data.get("hacs", {}).get("view") == "Table":
+                            content += """
+                            <div class='hacs-overview-container'>
+                                <div class="row">
+                                    <h5>{}</h5>
+                                    <table class="hacs-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Name</th>
+                                                <th class="smal-hide">Description</th>
+                                                <th class="smal-hide">Installed</th>
+                                                <th class="smal-hide">Aviable</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                            """.format(typedisplay)
+                            for card in types[element_type]:
+                                content += card
+                            content += """
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            """
+                        else:
+                            content += "<div class='hacs-overview-container'>"
+                            content += "<h5>{}</h5>".format(typedisplay)
+                            content += "<div class='hacs-card-container'>"
+                            for card in types[element_type]:
+                                content += card
+                            content += "</div></div></br></br>"
 
                 if not types:
                     if not self.data["task_running"]:

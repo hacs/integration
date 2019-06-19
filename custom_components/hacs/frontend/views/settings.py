@@ -215,7 +215,9 @@ class HacsSettingsView(HacsViewBase):
 
             element_types = ""
             for element_type in sorted(ELEMENT_TYPES):
-                element_types += "<option value='{}'>{}</option>".format(element_type, element_type.title())
+                element_types += "<option value='{}'>{}</option>".format(
+                    element_type, element_type.title()
+                )
 
             content += """
                         </ul>

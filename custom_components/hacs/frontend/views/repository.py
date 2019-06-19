@@ -170,7 +170,11 @@ class HacsRepositoryView(HacsViewBase):
                         To learn more about how to configure this,
                         click the "REPOSITORY" link below button to get to the repository for this {}.
                     </i>
-            """.format("AppDaemon app" if repository.repository_type == "appdaemon" else repository.repository_type)
+            """.format(
+                "AppDaemon app"
+                if repository.repository_type == "appdaemon"
+                else repository.repository_type
+            )
 
             if not repository.installed:
                 main_action = "INSTALL"

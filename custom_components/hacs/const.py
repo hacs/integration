@@ -73,7 +73,9 @@ ERROR = [
 ################################
 
 DEFAULT_REPOSITORIES = {
-    "appdaemon": [],
+    "appdaemon": [
+        "awesome-dev/awesome-app",
+    ],
     "integration": [
         "StyraHem/ShellyForHASS",
         "isabellaalstrom/sensor.krisinformation",

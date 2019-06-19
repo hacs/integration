@@ -188,7 +188,7 @@ class HacsSettingsView(HacsViewBase):
                         <b>HACS version:</b> {}{}</br>
                         <b>Home Assistant version:</b> {}</br>
                         </br>
-                        <b>Display:</br> {}
+                        <b>Display:</b> {}
                     </div>
                 </div>
             """.format(

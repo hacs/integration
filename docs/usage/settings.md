@@ -36,7 +36,13 @@ But you can add any other repository that meets the requirements, to do so go to
 
 ![custom_repositories](../images/custom_repositorylist.PNG)
 
-Add the url to the repository under "CUSTOM REPOSITORIES" and select a type before clicking the "save icon".
+Add the url to the repository under "CUSTOM REPOSITORIES" and select a `type` before clicking the "save icon".
+
+Type | Description
+-- | --
+`Appdaemon` | Apps for AppDaemon
+`Integration` | Integrations for Home Assistant (custom_components)
+`Plugin` | Pugins for Lovelace (cards, mods, elements, rows and so on.)
 
 After adding a repository the repository will be scanned, if it can be tracked the element will show up under "STORE", and you will be redirected to that element.
 

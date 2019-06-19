@@ -128,7 +128,7 @@ class HacsRepositoryView(HacsViewBase):
                 """.format(
                     repository.local_path
                 )
-            else:
+            elif repository.repository_type == "plugin":
                 if repository.javascript_type is None:
                     llnote = LOVELACE_EXAMLE_URL.format(
                         repository.name, repository.name.replace("lovelace-", "")
@@ -160,6 +160,8 @@ class HacsRepositoryView(HacsViewBase):
                 """.format(
                     repository.local_path, llnote, jsnote
                 )
+            else:
+                note = ""
 
             if not repository.installed:
                 main_action = "INSTALL"

@@ -15,6 +15,7 @@ class HacsBase:
     """The base class of HACS, nested thoughout the project."""
 
     const = None
+    dev = False
     migration = None
     storage = None
     hacs = None
@@ -182,10 +183,13 @@ class HacsBase:
         repositories = {}
 
         # Get org repositories
-        repositories["integration"] = await self.aiogithub.get_org_repos(
-            "custom-components"
-        )
-        repositories["plugin"] = await self.aiogithub.get_org_repos("custom-cards")
+        if not self.dev:
+            repositories["integration"] = await self.aiogithub.get_org_repos(
+                "custom-components"
+            )
+            repositories["plugin"] = await self.aiogithub.get_org_repos("custom-cards")
+        else:
+            return [], []
 
         # Additional repositories (Not implemented)
         for repository_type in DEFAULT_REPOSITORIES:

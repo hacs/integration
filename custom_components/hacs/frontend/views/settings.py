@@ -222,7 +222,7 @@ class HacsSettingsView(HacsViewBase):
 
                             <select name="repository_type" class="repository-select">
                                 <option disabled selected value>type</option>
-                                <option value="integration">AppDaemon</option>
+                                <option value="appdaemon">AppDaemon</option>
                                 <option value="integration">Integration</option>
                                 <option value="plugin">Plugin</option>
                             </select>

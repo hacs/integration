@@ -89,7 +89,7 @@ class HacsRepositoryView(HacsViewBase):
                     info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
                     info = info.replace("<code>", "<code class='codeinfo'>")
                     info = info.replace(
-                        '<a href="http', '<a target="_blank" href="http'
+                        '<a href="http', '<a rel="noreferrer" target="_blank" href="http'
                     )
                     info = info.replace("<ul>", "")
                     info = info.replace("</ul>", "")

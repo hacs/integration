@@ -35,6 +35,7 @@ class HacsStorage(HacsBase):
 
         # Restore data about HACS
         self.data["hacs"]["schema"] = store_data["hacs"].get("schema")
+        self.data["hacs"]["view"] = store_data["hacs"].get("view")
 
         # Nothing to see here.
         if "repositories" not in store_data:

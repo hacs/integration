@@ -114,7 +114,13 @@ class HacsAPIView(HacsViewBase):
 
         postdata = await request.post()
 
-        if element == "repository_register":
+        if element == "frontend":
+            if action == "view":
+                self.data["hacs"]["view"] = postdata["view_type"]
+                await self.storage.set()
+                raise web.HTTPFound(self.url_path["settings"])
+
+        elif element == "repository_register":
             repository_name = postdata["custom_url"]
             if "repository_type" in postdata:
                 repository_type = postdata["repository_type"]

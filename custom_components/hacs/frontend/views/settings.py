@@ -167,13 +167,28 @@ class HacsSettingsView(HacsViewBase):
             )
 
             # HACS card
+            types = ["Grid", "List"]
+            selected = self.data.get("hacs", {}).get("view", "Grid")
+            types.remove(selected)
+            overview_display = """
+                <form action="{}/frontend/view" name="overview_display"
+                        method="post" accept-charset="utf-8"
+                        enctype="application/x-www-form-urlencoded"
+                        class="hacs-form">
+                    <select name="view_type" class="hacs-select" onchange="document.getElementsByName('overview_display')[0].submit()">
+                        <option value="{selected}">{selected}</option>
+                        <option value="{option}">{option}</option>
+                    </select>
+                </form>
+            """.format(self.url_path["api"], selected=selected, option=types[0])
             content += """
                 <div class='hacs-overview-container'>
                     <div class="hacs-card-standalone">
                         <h5>{}</h5>
-                        <b>HACS version:</b> {}
-                        {}</br>
+                        <b>HACS version:</b> {}{}</br>
                         <b>Home Assistant version:</b> {}</br>
+                        </br>
+                        Display: {}
                     </div>
                 </div>
             """.format(
@@ -181,6 +196,7 @@ class HacsSettingsView(HacsViewBase):
                 hacs.version_installed,
                 " <b>(RESTART PENDING!)</b>" if hacs.pending_restart else "",
                 HAVERSION,
+                overview_display,
             )
 
             # The buttons, must have buttons
@@ -220,7 +236,7 @@ class HacsSettingsView(HacsViewBase):
                             <input id="custom_url" type="text" name="custom_url" 
                                     placeholder="ADD CUSTOM REPOSITORY" style="width: 70%; color: var(--primary-text-color)">
 
-                            <select name="repository_type" class="repository-select">
+                            <select name="repository_type" class="hacs-select">
                                 <option disabled selected value>type</option>
                                 <option value="integration">Integration</option>
                                 <option value="plugin">Plugin</option>

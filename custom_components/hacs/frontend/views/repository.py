@@ -68,7 +68,7 @@ class HacsRepositoryView(HacsViewBase):
                                 <div class="card-panel orange darken-4">
                                     <div class="card-content white-text">
                                         <span>
-                                            You need to restart (and potentially reconfigure) Home Assisant, for your last operation to be loaded.
+                                            You need to restart (and potentially reconfigure) Home Assistant, for your last operation to be loaded.
                                         </span>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@ class HacsRepositoryView(HacsViewBase):
                     for author in repository.authors:
                         if "@" in author:
                             author = author.split("@")[-1]
-                        authors += "<a href='https://github.com/{author}' target='_blank' style='color: var(--primary-color) !important; margin: 2'> @{author}</a>".format(
+                        authors += "<a rel='noreferrer' href='https://github.com/{author}' target='_blank' style='color: var(--primary-color) !important; margin: 2'> @{author}</a>".format(
                             author=author
                         )
                     authors += "</p>"
@@ -225,7 +225,7 @@ class HacsRepositoryView(HacsViewBase):
             last_up = ""
 
             if repository.pending_update and repository.version_installed is not None:
-                changelog = "<a href='https://github.com/{}/releases' target='_blank' style='color: var(--primary-color) !important'>CHANGELOG</a>".format(
+                changelog = "<a rel='noreferrer' href='https://github.com/{}/releases' target='_blank' style='color: var(--primary-color) !important'>CHANGELOG</a>".format(
                     repository.repository_name
                 )
             else:
@@ -256,8 +256,8 @@ class HacsRepositoryView(HacsViewBase):
                                         <ul id='dropdown1' class='dropdown-content'>
                                             <li><a class="dropdown-list-item" href="{}/repository_update_repository/{}" onclick="ShowProgressBar()">Reload</a></li>
                                             {}
-                                            <li><a class="dropdown-list-item" href="https://github.com/{}/issues/" target="_blank">Open a issue</a></li>
-                                            <li><a class="dropdown-list-item" href="https://github.com/custom-components/hacs/issues/new?title={}&labels=flag&assignee=ludeeus&template=flag.md" target="_blank">Flag this</a></li>
+                                            <li><a class="dropdown-list-item" rel='noreferrer' href="https://github.com/{}/issues/" target="_blank">Open a issue</a></li>
+                                            <li><a class="dropdown-list-item" rel='noreferrer' href="https://github.com/custom-components/hacs/issues/new?title={}&labels=flag&assignee=ludeeus&template=flag.md" target="_blank">Flag this</a></li>
                                         </ul>
                                     </span>
                                     <p>{}</p></br>
@@ -275,7 +275,7 @@ class HacsRepositoryView(HacsViewBase):
                                         {}
                                     </a>
                                     {}
-                                    <a href='https://github.com/{}' target='_blank' style='color: var(--primary-color) !important'>repository</a>
+                                    <a rel='noreferrer' href='https://github.com/{}' target='_blank' style='color: var(--primary-color) !important'>repository</a>
                                     {}
                                     {}
                                 </div>

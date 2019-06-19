@@ -31,10 +31,11 @@ HACS is not a full replacement for `custom_updater` and even though their "missi
 ## Useful links
 
 - [General documentation](https://custom-components.github.io/hacs/)
-- [Installation](https://custom-components.github.io/hacs/install)
-- [Configuration](https://custom-components.github.io/hacs/configure)
+- [Installation](https://custom-components.github.io/hacs/installation/manual/)
+- [Configuration](https://custom-components.github.io/hacs/installation/configuration/)
 - [FAQ](https://custom-components.github.io/hacs/faq)
 - [Repository](https://github.com/custom-components/hacs)
+- [Forum post](https://community.home-assistant.io/t/custom-component-hacs/121727)
 - [BuyMeCoffee? :see_no_evil:](https://buymeacoffee.com/ludeeus)
 
 **YouTube Promo for HACS🙈:**

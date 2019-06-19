@@ -328,14 +328,18 @@ class HacsRepositoryBase(HacsBase):
         elif self.ref is None:
             raise HacsRepositoryInfo("GitHub repository ref is missing")
 
-        try:
-            # Assign to a temp var so we can check it before using it.
-            temp = await self.repository.get_contents("info.md", self.ref)
-            self.additional_info = temp.content
-
-        except Exception:
-            # We kinda expect this one to fail
+        # Looking for info file
+        info = None
+        info_files = ["info", "info.md"]
+        root = await self.repository.get_contents("")
+        for file in root:
+            if file.name.lower() in info_files:
+                info = await self.repository.get_contents(file.name)
+                break
+        if info is None:
             self.additional_info = ""
+        else:
+            self.additional_info = info.content
 
     async def set_repository(self):
         """Set the AIOGitHub repository object."""

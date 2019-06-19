@@ -22,10 +22,12 @@ File name of one of the files: "awesome-card.js"
 When searching for accepted files HACS will look in this order:
 
 - The `dist`directory.
-- On the latest release
-- The root of the repository
+- On the latest release.
+- The root of the repository.
 
 All `.js` files it finds in the first location it finds one that matches the name will be downloaded.
+
+If your plugin require files that are not `js` files, use place all files (including the card file) in the `dist` directory.
 
 ### GitHub releases (optional)
 

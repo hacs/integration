@@ -73,6 +73,7 @@ ERROR = [
 ################################
 
 DEFAULT_REPOSITORIES = {
+    "appdaemon": [],
     "integration": [
         "StyraHem/ShellyForHASS",
         "isabellaalstrom/sensor.krisinformation",

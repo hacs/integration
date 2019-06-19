@@ -40,11 +40,11 @@ class HacsRepositoryAppDaemon(HacsRepositoryBase):
 
             self.content_path = first[0].path
 
+            self.name = first[0].name
+
         self.content_objects = await self.repository.get_contents(
             self.content_path, self.ref
         )
-
-        self.name = self.content_path.name
 
         if not isinstance(self.content_objects, list):
             raise HacsRequirement("Repository structure does not meet the requirements")

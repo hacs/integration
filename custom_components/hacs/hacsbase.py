@@ -104,6 +104,9 @@ class HacsBase:
 
         _LOGGER.info("Starting repository registration for %s", repo)
 
+        if element_type not in ELEMENT_TYPES:
+            return None, False
+
         if element_type == "appdaemon":
             repository = HacsRepositoryAppDaemon(repo, repositoryobject)
 
@@ -114,7 +117,7 @@ class HacsBase:
             repository = HacsRepositoryPlugin(repo, repositoryobject)
 
         else:
-            return False
+            return None, False
 
         setup_result = True
         try:

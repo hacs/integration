@@ -106,8 +106,8 @@ class HacsStorage(HacsBase):
                     # Restore complete
                     self.repositories[repository.repository_id] = repository
 
-        await self.set()
         self.data["task_running"] = False
+        await self.set()
         return store_data
 
     async def set(self):

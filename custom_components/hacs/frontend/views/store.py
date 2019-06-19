@@ -97,7 +97,7 @@ class HacsStoreView(HacsViewBase):
                         content += "<div class='hacs-card-container'>"
                         for card in types[element_type]:
                             content += card
-                        content += "</div></div>"
+                        content += "</div></div></br></br>"
 
                 if not types:
                     content = self.base_content

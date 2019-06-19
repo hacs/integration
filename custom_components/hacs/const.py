@@ -81,6 +81,7 @@ DEFAULT_REPOSITORIES = {
         "timsoethout/goodwe-sems-home-assistant",
         "bramkragten/lyric",
         "bramkragten/mind",
+        "bouwew/sems2mqtt",
     ],
     "plugin": [
         "maykar/compact-custom-header",

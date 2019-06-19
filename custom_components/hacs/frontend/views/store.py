@@ -61,6 +61,7 @@ class HacsStoreView(HacsViewBase):
                         <div class="hacs-card overview">
                             <meta topics="{}">
                             <meta repository_authors="{}">
+                            <meta name="{}">
                             <span class="hacs-card-title">{} {}</span>
                             <span class="hacs-card-content">
                                 <p>{}</p>
@@ -72,8 +73,9 @@ class HacsStoreView(HacsViewBase):
                         repository.repository_id,
                         repository.topics,
                         repository.authors,
-                        card_icon,
                         repository.name,
+                        card_icon,
+                        repository.name.replace('-', ' ').title(),
                         repository.description,
                     )
 

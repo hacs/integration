@@ -88,7 +88,6 @@ class HacsRepositoryView(HacsViewBase):
                     info = info.replace("<h2>", "<h5>").replace("</h2>", "</h5>")
                     info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
                     info = info.replace("<code>", "<code class='codeinfo'>")
-                    info = info.replace("<table>", "<table class='white-text'>")
                     info = info.replace(
                         '<a href="http', '<a target="_blank" href="http'
                     )
@@ -101,14 +100,17 @@ class HacsRepositoryView(HacsViewBase):
                 info = ""
 
             if repository.authors:
-                authors = "<p>Author(s): "
-                for author in repository.authors:
-                    if "@" in author:
-                        author = author.split("@")[-1]
-                    authors += "<a rel='noreferrer' href='https://github.com/{author}' target='_blank' style='color: var(--primary-color) !important; margin: 2'> @{author}</a>".format(
-                        author=author
-                    )
-                authors += "</p>"
+                if repository.repository_type == "integration":
+                    authors = "<p>Author(s): "
+                    for author in repository.authors:
+                        if "@" in author:
+                            author = author.split("@")[-1]
+                        authors += "<a rel='noreferrer' href='https://github.com/{author}' target='_blank' style='color: var(--primary-color) !important; margin: 2'> @{author}</a>".format(
+                            author=author
+                        )
+                    authors += "</p>"
+                else:
+                    authors = "<p>Author: {}</p>".format(repository.authors)
             else:
                 authors = ""
 
@@ -285,7 +287,7 @@ class HacsRepositoryView(HacsViewBase):
             """.format(
                 custom_message,
                 pending_restart,
-                repository.name,
+                repository.name.replace('-', ' ').title(),
                 self.url_path["api"],
                 repository.repository_id,
                 hide_option,

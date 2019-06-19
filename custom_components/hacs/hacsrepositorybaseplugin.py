@@ -1,6 +1,7 @@
 """Blueprint for HacsRepositoryPlugin."""
 # pylint: disable=too-many-instance-attributes,invalid-name,broad-except
 import logging
+import json
 
 from .aiogithub import AIOGitHubException
 from .blueprints import HacsRepositoryBase
@@ -58,7 +59,14 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
         except AIOGitHubException:
             # This can fail, no big deal.
             pass
+
         await self.set_repository_content()
+
+        try:
+            await self.get_package_content()
+        except AIOGitHubException:
+            # This can fail, no big deal.
+            pass
 
     async def set_repository_content(self):
         """Set repository content attributes."""
@@ -126,3 +134,13 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
 
         if not self.content_files or not self.content_objects:
             raise HacsRequirement("No acceptable js files found")
+
+    async def get_package_content(self):
+        """Get package content."""
+        package = None
+
+        package = await self.repository.get_contents("package.json")
+        package = json.loads(package.content)
+
+        if package:
+            self.authors = package["author"]

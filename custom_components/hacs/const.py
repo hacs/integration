@@ -1,5 +1,5 @@
 """Constants for HACS"""
-VERSION = "0.8.1"
+VERSION = "0.9.0"
 NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
 STORAGE_VERSION = "1"
@@ -73,7 +73,13 @@ ERROR = [
 ################################
 
 DEFAULT_REPOSITORIES = {
-    "integration": ["StyraHem/ShellyForHASS", "isabellaalstrom/sensor.krisinformation"],
+    "integration": [
+        "StyraHem/ShellyForHASS",
+        "isabellaalstrom/sensor.krisinformation",
+        "JurajNyiri/HomeAssistant-Tavos",
+        "JurajNyiri/HomeAssistant-Atrea",
+        "timsoethout/goodwe-sems-home-assistant",
+    ],
     "plugin": [
         "maykar/compact-custom-header",
         "maykar/lovelace-swipe-navigation",

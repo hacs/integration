@@ -91,9 +91,6 @@ class HacsOverviewView(HacsViewBase):
                         card = """
                         <a href="{}/{}" class="hacs-card"">
                             <div class="hacs-card overview">
-                                <meta topics="{}">
-                                <meta repository_authors="{}">
-                                <meta name="{}">
                                 <span class="hacs-card-title">{} {}</span>
                                 <span class="hacs-card-content">
                                     <p>{}</p>
@@ -103,9 +100,6 @@ class HacsOverviewView(HacsViewBase):
                         """.format(
                             self.url_path["repository"],
                             repository.repository_id,
-                            repository.topics,
-                            repository.authors,
-                            repository.name,
                             card_icon,
                             repository.name
                             if repository.repository_type == "integration"

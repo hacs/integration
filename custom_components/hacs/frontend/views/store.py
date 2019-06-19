@@ -61,6 +61,9 @@ class HacsStoreView(HacsViewBase):
                     if self.data.get("hacs", {}).get("view") == "Table":
                         card = """
                             <tr class="hacs-table-row" onclick="window.location='{}/{}';">
+                                <meta topics="{}">
+                                <meta repository_authors="{}">
+                                <meta name="{}">
                                 <td>{}</td>
                                 <td>{}</td>
                                 <td class="hacs-card-content smal-hide">{}</td>
@@ -68,6 +71,9 @@ class HacsStoreView(HacsViewBase):
                         """.format(
                             self.url_path["repository"],
                             repository.repository_id,
+                            repository.topics,
+                            repository.authors,
+                            repository.name,
                             card_icon.replace("<i", "<i style='margin-left: 25%'"),
                             repository.name
                             if repository.repository_type == "integration"

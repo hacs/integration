@@ -136,6 +136,12 @@ class HacsAPIView(HacsViewBase):
 
                 # If it still have content, continue.
                 if repository_name != "":
+                    is_known_repository = await self.is_known_repository(repository_name)
+                    if is_known_repository:
+                        message = "{} is allready registered, look for it in the store.".format(repository_name)
+                        raise web.HTTPFound(
+                            "{}?message={}".format(self.url_path["settings"], message)
+                        )
                     if repository_name in self.blacklist:
                         self.blacklist.remove(repository_name)
                     repository, result = await self.register_new_repository(

@@ -233,3 +233,11 @@ class HacsBase:
         for repository in self.repositories:
             repositories.append(self.repositories[repository])
         return sorted(repositories, key=lambda x: x.repository_name)
+
+    async def is_known_repository(self, repository_full_name):
+        """Return a bool if the repository is known."""
+        for repository in self.repositories:
+            repository = self.repositories[repository]
+            if repository.repository_name == repository_full_name:
+                return True
+        return False

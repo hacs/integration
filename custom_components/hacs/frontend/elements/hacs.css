@@ -19,12 +19,6 @@
   grid-gap: 10px;
 }
 
-@media all and (min-width: 550px) {
-  .hacs-card-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 .hacs-overview-container {
   width: 95%;
   margin-left: 2.5%;
@@ -135,22 +129,6 @@ body {
   overflow: hidden;
 }
 
-#main::-webkit-scrollbar-track
-{
-	border-radius: 10px;
-}
-
-#main::-webkit-scrollbar
-{
-	width: 12px;
-}
-
-#main::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	background-color: var(--primary-color);
-}
-
 input[type="text"]:not(.browser-default):focus:not([readonly]) {
   border-bottom: 1px solid var(--primary-color);
   -webkit-box-shadow: 0 1px 0 0 var(--primary-color);
@@ -205,4 +183,39 @@ a.dropdown-list-item:hover {
   --paper-card-background-color: #ffffff;
   --dark-primary-color: #00405d;
   --google-red-500: #db4437;
+}
+
+/* big screens */
+@media all and (min-width: 550px) {
+  .hacs-card-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  #main::-webkit-scrollbar-track
+  {
+    border-radius: 10px;
+  }
+
+  #main::-webkit-scrollbar
+  {
+    width: 12px;
+  }
+
+  #main::-webkit-scrollbar-thumb
+  {
+    border-radius: 10px;
+    background-color: var(--primary-color);
+  }
+}
+
+/* smal screens */
+@media all and (max-width: 550px) {
+  body {
+    overflow: scroll !important;
+  }
+
+  .hacs-content {
+    overflow: scroll !important;
+    -webkit-overflow-scrolling: touch;
+  }
 }

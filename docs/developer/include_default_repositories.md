@@ -12,5 +12,6 @@ When a PR for this is merged, it will be a part of the next planned minor releas
 
 **Examples:**
 
-- [`integration`](https://github.com/custom-components/hacs/pull/64)
-- [`plugin`](https://github.com/custom-components/hacs/pull/65)
+- [`AppDaemon App`](https://github.com/custom-components/hacs/pull/139)
+- [`Integration`](https://github.com/custom-components/hacs/pull/64)
+- [`Plugin`](https://github.com/custom-components/hacs/pull/65)

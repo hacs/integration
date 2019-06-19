@@ -61,7 +61,7 @@ class HacsOverviewView(HacsViewBase):
                             <tr class="hacs-table-row">
                                 <td>{}</td>
                                 <td><a href="{}/{}">{}</a></td>
-                                <td class="smal-hide"><i>{}</i></td>
+                                <td class="hacs-card-content smal-hide">{}</td>
                                 <td class="smal-hide">{}</td>
                                 <td class="smal-hide">{}</td>
                             </tr>

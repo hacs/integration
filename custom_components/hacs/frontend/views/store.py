@@ -63,7 +63,7 @@ class HacsStoreView(HacsViewBase):
                             <tr class="hacs-table-row" onclick="window.location='{}/{}';">
                                 <td>{}</td>
                                 <td>{}</td>
-                                <td class="smal-hide"><i>{}</i></td>
+                                <td class="hacs-card-content smal-hide">{}</td>
                             </tr>
                         """.format(
                             self.url_path["repository"],

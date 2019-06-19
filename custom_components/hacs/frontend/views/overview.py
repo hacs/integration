@@ -66,9 +66,9 @@ class HacsOverviewView(HacsViewBase):
                                 <td class="smal-hide">{}</td>
                             </tr>
                         """.format(
-                            card_icon.replace("<i", "<i style='margin-left: 25%'"),
                             self.url_path["repository"],
                             repository.repository_id,
+                            card_icon.replace("<i", "<i style='margin-left: 25%'"),
                             repository.name
                             if repository.repository_type == "integration"
                             else repository.name.replace("-", " ")

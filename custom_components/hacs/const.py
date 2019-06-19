@@ -96,6 +96,7 @@ DEFAULT_REPOSITORIES = {
         "thomasloven/lovelace-card-mod",
         "thomasloven/lovelace-markdown-mod",
         "thomasloven/lovelace-slider-entity-row",
+        "thomasloven/lovelace-fold-entity-row",
         "isabellaalstrom/krisinfo-card",
         "tcarlsen/lovelace-light-with-profiles",
         "atomic7777/atomic_calendar",

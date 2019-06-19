@@ -94,5 +94,6 @@ DEFAULT_REPOSITORIES = {
         "thomasloven/lovelace-slider-entity-row",
         "isabellaalstrom/krisinfo-card",
         "tcarlsen/lovelace-light-with-profiles",
+        "atomic7777/atomic_calendar",
     ],
 }

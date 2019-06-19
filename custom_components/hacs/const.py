@@ -79,6 +79,8 @@ DEFAULT_REPOSITORIES = {
         "JurajNyiri/HomeAssistant-Tavos",
         "JurajNyiri/HomeAssistant-Atrea",
         "timsoethout/goodwe-sems-home-assistant",
+        "bramkragten/lyric",
+        "bramkragten/mind",
     ],
     "plugin": [
         "maykar/compact-custom-header",
@@ -95,5 +97,7 @@ DEFAULT_REPOSITORIES = {
         "isabellaalstrom/krisinfo-card",
         "tcarlsen/lovelace-light-with-profiles",
         "atomic7777/atomic_calendar",
+        "bramkragten/weather-card",
+        "bramkragten/swipe-card",
     ],
 }

@@ -37,9 +37,14 @@ When you install an element this is what's happening:
 
 _Everything under the first directory in `apps`_
 
+The files are downloaded to `<config_dir>/appdaemon/apps/*`
+
 ### Files downloaded for `integrations`
 
 _Everything under the first directory in `custom_components`_
+
+
+The files are downloaded to `<config_dir>/custom_components/*`
 
 ### Files downloaded for `plugins`
 
@@ -47,6 +52,9 @@ _Every `.js` file in the source directory, this can be on the release page, the 
 
 When a `.js` file is downloaded, a compressed `.gz` version of if will be created, this file (if it exist) will be served to the requester to save transfer size/time.
 If you make local changes to a plugin in the `.js` file, delete the `.gz` variant to have HACS serve up that one.
+
+
+The files are downloaded to `<config_dir>/www/community/*`
 
 ***
 

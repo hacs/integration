@@ -6,6 +6,8 @@ The overview tab in HACS contain all the repositories HACS manages that you have
 
 ![overview](../images/overview.png)
 
+To change the layout have a look at the [HACS Display option](../settings/#hacs-option-display).
+
 The repositories are sorted by type.
 
 If you click anywhere on the card you will get to the [Repository view](./repository.md) of that repository.

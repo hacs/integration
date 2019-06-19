@@ -1,16 +1,18 @@
 # Configuration
 
+**NB! This needs to be in `configuration.yaml`, _not_ in a "package".**
+
+## Example configuration
+
 ```yaml
 hacs:
-  token: !secret my_github_access_token
+  token: d73jds8f73jkr9d8sufv2br8sd9fy92nr9f80u23r97fhse
 ```
 
 key | optional | default | description
 -- | -- | -- | --
 `token` | False | | A Github Personal Access Token
 `appdaemon` | True | `False` | Enable tracking of AppDaemon apps.
-
-**NB! This needs to be in `configuration.yaml`, _not_ in a "package".**
 
 ***
 

@@ -9,7 +9,19 @@ _During startup HACS loads all known repositories, when it does you will see a p
 At the top of the settings page you will see the current version of both HACS and Home Assistant.
 If there is an update to HACS you will get a notification above this section.
 
-![settings](../images/hacs_update.png)
+![hacs_update](../images/hacs_update.png)
+
+### HACS Option: `Display`
+
+This setting changes how both "OVERVIEW" and "STORE" looks, you can choose between `Grid` and `Table`.
+
+#### Grid
+
+![grid](../images/grid.png)
+
+#### Table
+
+![table](../images/table.png)
 
 ## Add custom repositories
 
@@ -36,3 +48,5 @@ _If you have added a repository manually and that repository is subsequently add
 
 This is a list of all your hidden repositories.  
 Click the "+" icon to the left to unhide them.
+
+![unhide](../images/unhide.png)

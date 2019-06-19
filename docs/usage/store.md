@@ -6,6 +6,8 @@ The store tab in HACS contain all the repositories HACS manages.
 
 ![overview](../images/store.png)
 
+To change the layout have a look at the [HACS Display option](../settings/#hacs-option-display).
+
 At the top of the store there is a search bar, this can be used to easily search though all the repositories.
 
 The repositories are sorted by type.

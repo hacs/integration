@@ -5,7 +5,7 @@ from aiohttp import web
 from homeassistant.const import __version__ as HAVERSION
 
 from ...blueprints import HacsViewBase
-from ...const import ISSUE_URL, NAME_LONG, ELEMENT_TYPES
+from ...const import ISSUE_URL, NAME_LONG, ELEMENT_TYPES, VERSION
 
 _LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
@@ -34,6 +34,9 @@ class HacsSettingsView(HacsViewBase):
 
             # Get the message sendt to us:
             message = request.rel_url.query.get("message")
+            if message is None:
+                if VERSION == "DEV":
+                    message = "You are running a DEV version of HACS, this is not intended for regular use."
 
             if message != None:
                 custom_message = """

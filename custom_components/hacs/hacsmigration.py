@@ -69,6 +69,7 @@ class HacsMigration(HacsBase):
         for repository in self.repositories:
             repository = self.repositories[repository]
             repository.show_beta = False
+            await repository.set_repository_releases()
             self.repositories[repository.repository_id] = repository
         self.data["hacs"]["schema"] = "2"
         _LOGGER.info("Migration of HACS data from 1 to 2 is complete.")

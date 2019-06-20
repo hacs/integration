@@ -27,6 +27,9 @@ class HacsSettingsView(HacsViewBase):
             hidden = []
             hacs = self.repositories.get("172733314")
 
+            if hacs is None:
+                return web.Response(body=self.base_content, content_type="text/html", charset="utf-8")
+
             # Get the message sendt to us:
             message = request.rel_url.query.get("message")
 

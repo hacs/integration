@@ -79,7 +79,7 @@ DEFAULT_REPOSITORIES = {
         "isabellaalstrom/sensor.krisinformation",
         "JurajNyiri/HomeAssistant-Tavos",
         "JurajNyiri/HomeAssistant-Atrea",
-        "timsoethout/goodwe-sems-home-assistant",
+        "TimSoethout/goodwe-sems-home-assistant",
         "bramkragten/lyric",
         "bramkragten/mind",
         "bouwew/sems2mqtt",

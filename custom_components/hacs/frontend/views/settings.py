@@ -28,7 +28,9 @@ class HacsSettingsView(HacsViewBase):
             hacs = self.repositories.get("172733314")
 
             if hacs is None:
-                return web.Response(body=self.base_content, content_type="text/html", charset="utf-8")
+                return web.Response(
+                    body=self.base_content, content_type="text/html", charset="utf-8"
+                )
 
             # Get the message sendt to us:
             message = request.rel_url.query.get("message")
@@ -110,7 +112,9 @@ class HacsSettingsView(HacsViewBase):
                 <div class='hacs-overview-container'>
                     {}
                 </div>
-            """.format(custom_message)
+            """.format(
+                custom_message
+            )
 
             # HACS card
             types = ["Grid", "Table"]
@@ -127,7 +131,9 @@ class HacsSettingsView(HacsViewBase):
                         <option value="{option}">{option}</option>
                     </select>
                 </form>
-            """.format(self.url_path["api"], selected=selected, option=types[0])
+            """.format(
+                self.url_path["api"], selected=selected, option=types[0]
+            )
             content += """
                 <div class='hacs-overview-container'>
                     <div class="hacs-card-standalone">

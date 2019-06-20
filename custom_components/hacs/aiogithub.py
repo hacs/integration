@@ -38,7 +38,9 @@ class AIOGitHub(object):
         self._ratelimit_remaining = None
         self.headers["Authorization"] = "token {}".format(token)
 
-    @backoff.on_exception(backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=3)
+    @backoff.on_exception(
+        backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=3
+    )
     async def get_repo(self, repo: str):
         """Retrun AIOGithubRepository object."""
         if self._ratelimit_remaining == "0":
@@ -63,7 +65,9 @@ class AIOGitHub(object):
 
         return AIOGithubRepository(response, self.token, self.loop, self.session)
 
-    @backoff.on_exception(backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=3)
+    @backoff.on_exception(
+        backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=3
+    )
     async def get_org_repos(self, org: str, page=1):
         """Retrun a list of AIOGithubRepository objects."""
         if self._ratelimit_remaining == "0":
@@ -96,7 +100,9 @@ class AIOGitHub(object):
 
         return repositories
 
-    @backoff.on_exception(backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=3)
+    @backoff.on_exception(
+        backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=3
+    )
     async def render_markdown(self, content: str):
         """Retrun AIOGithubRepository object."""
         if self._ratelimit_remaining == "0":
@@ -168,7 +174,9 @@ class AIOGithubRepository(AIOGitHub):
     def last_commit(self):
         return self._last_commit
 
-    @backoff.on_exception(backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=3)
+    @backoff.on_exception(
+        backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=3
+    )
     async def get_contents(self, path, ref=None):
         """Retrun a list of repository content objects."""
         if self._ratelimit_remaining == "0":
@@ -205,12 +213,14 @@ class AIOGithubRepository(AIOGitHub):
 
         return contents
 
-    @backoff.on_exception(backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=3)
+    @backoff.on_exception(
+        backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=3
+    )
     async def get_releases(self, latest=False):
         """Retrun a list of repository release objects."""
         if self._ratelimit_remaining == "0":
             raise AIOGitHubRatelimit("GitHub Ratelimit error")
-        endpoint = ("/repos/{}/releases/latest".format(self.full_name))
+        endpoint = "/repos/{}/releases/latest".format(self.full_name)
         url = self.baseapi + endpoint
         if not latest:
             url = url.replace("/latest", "")
@@ -237,7 +247,9 @@ class AIOGithubRepository(AIOGitHub):
 
         return contents
 
-    @backoff.on_exception(backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=3)
+    @backoff.on_exception(
+        backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=3
+    )
     async def set_last_commit(self):
         """Retrun a list of repository release objects."""
         if self._ratelimit_remaining == "0":

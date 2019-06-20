@@ -132,7 +132,9 @@ class HacsOverviewView(HacsViewBase):
                                             </tr>
                                         </thead>
                                         <tbody>
-                            """.format(typedisplay)
+                            """.format(
+                                typedisplay
+                            )
                             for card in types[element_type]:
                                 content += card
                             content += """

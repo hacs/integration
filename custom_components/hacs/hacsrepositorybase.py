@@ -212,11 +212,11 @@ class HacsRepositoryBase(HacsBase):
 
                 # Save the content of the file.
                 _content_path = content_object.path
-                _content_path = _content_path.replace("{}/".format(self.content_path), "")
-
-                local_directory = "{}/{}".format(
-                    self.local_path, _content_path
+                _content_path = _content_path.replace(
+                    "{}/".format(self.content_path), ""
                 )
+
+                local_directory = "{}/{}".format(self.local_path, _content_path)
                 local_directory = local_directory.split(
                     "/{}".format(content_object.name)
                 )[0]

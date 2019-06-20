@@ -89,7 +89,8 @@ class HacsRepositoryView(HacsViewBase):
                     info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
                     info = info.replace("<code>", "<code class='codeinfo'>")
                     info = info.replace(
-                        '<a href="http', '<a rel="noreferrer" target="_blank" href="http'
+                        '<a href="http',
+                        '<a rel="noreferrer" target="_blank" href="http',
                     )
                     info = info.replace("<ul>", "")
                     info = info.replace("</ul>", "")
@@ -114,7 +115,10 @@ class HacsRepositoryView(HacsViewBase):
             else:
                 authors = ""
 
-            if repository.repository_type == "integration" and repository.repository_id != "172733314":
+            if (
+                repository.repository_type == "integration"
+                and repository.repository_id != "172733314"
+            ):
                 note = """
                     </br>
                     <i>
@@ -218,9 +222,19 @@ class HacsRepositoryView(HacsViewBase):
             if repository.last_release_tag is not None:
                 show_beta = '<li><a class="dropdown-list-item" href="{}/repository_{}_beta/{}" onclick="ShowProgressBar()">{}</a></li>'
                 if repository.show_beta:
-                    show_beta = show_beta.format(self.url_path["api"], "hide", repository.repository_id, "Hide Beta")
+                    show_beta = show_beta.format(
+                        self.url_path["api"],
+                        "hide",
+                        repository.repository_id,
+                        "Hide Beta",
+                    )
                 else:
-                    show_beta = show_beta.format(self.url_path["api"], "show", repository.repository_id, "Show Beta")
+                    show_beta = show_beta.format(
+                        self.url_path["api"],
+                        "show",
+                        repository.repository_id,
+                        "Show Beta",
+                    )
             else:
                 show_beta = ""
 

@@ -357,7 +357,12 @@ class HacsRepositoryBase(HacsBase):
             raise HacsRepositoryInfo("GitHub repository object is missing")
 
         # Assign to a temp vars so we can check it before using it.
-        temp = await self.repository.get_releases(True)
+        if self.show_beta:
+            temp = await self.repository.get_releases()
+            if temp:
+                temp = temp[0]
+        else:
+            temp = await self.repository.get_releases(True)
 
         if not temp:
             return

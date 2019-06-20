@@ -210,10 +210,10 @@ class AIOGithubRepository(AIOGitHub):
         """Retrun a list of repository release objects."""
         if self._ratelimit_remaining == "0":
             raise AIOGitHubRatelimit("GitHub Ratelimit error")
-        endpoint = (
-            "/repos/" + self.full_name + "/releases/" + "latest" if latest else ""
-        )
+        endpoint = ("/repos/{}/releases/latest".format(self.full_name))
         url = self.baseapi + endpoint
+        if not latest:
+            url = url.replace("/latest", "")
 
         async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.get(url, headers=self.headers)
@@ -223,8 +223,9 @@ class AIOGithubRepository(AIOGitHub):
             if self._ratelimit_remaining == "0":
                 raise AIOGitHubRatelimit("GitHub Ratelimit error")
 
-            if response.get("message"):
-                return False
+            if not isinstance(response, list):
+                if response.get("message"):
+                    return False
 
             if latest:
                 return AIOGithubRepositoryRelease(response)

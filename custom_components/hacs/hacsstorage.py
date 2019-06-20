@@ -104,6 +104,9 @@ class HacsStorage(HacsBase):
                     # Restore attributes
                     await self.restore(store_data, repository)
 
+                    # If BETA get the proper release
+                    await repository.set_repository_releases()
+
                     # Restore complete
                     self.repositories[repository.repository_id] = repository
 

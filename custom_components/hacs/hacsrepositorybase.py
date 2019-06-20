@@ -45,7 +45,7 @@ class HacsRepositoryBase(HacsBase):
         self.repository = None
         self.repository_name = None
         self.repository_type = None
-        self.show_beta = True
+        self.show_beta = False
         self.track = True
         self.version_installed = None
 

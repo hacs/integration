@@ -337,10 +337,10 @@ class HacsRepositoryBase(HacsBase):
         # Looking for info file
         info = None
         info_files = ["info", "info.md"]
-        root = await self.repository.get_contents("")
+        root = await self.repository.get_contents("", self.ref)
         for file in root:
             if file.name.lower() in info_files:
-                info = await self.repository.get_contents(file.name)
+                info = await self.repository.get_contents(file.name, self.ref)
                 break
         if info is None:
             self.additional_info = ""

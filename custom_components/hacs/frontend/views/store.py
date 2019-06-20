@@ -39,7 +39,7 @@ class HacsStoreView(HacsViewBase):
 
                 for repository in self.repositories_list_name:
 
-                    if not repository.track or repository.hide:
+                    if not repository.track or repository.hide or repository.repository_id == "172733314":
                         continue
 
                     if repository.pending_restart:

@@ -114,7 +114,7 @@ class HacsRepositoryView(HacsViewBase):
             else:
                 authors = ""
 
-            if repository.repository_type == "integration":
+            if repository.repository_type == "integration" and repository.repository_id != "172733314":
                 note = """
                     </br>
                     <i>
@@ -246,7 +246,7 @@ class HacsRepositoryView(HacsViewBase):
             else:
                 changelog = ""
 
-            if repository.installed:
+            if repository.installed and repository.repository_id != "172733314":
                 uninstall = "<a href='{}/repository_uninstall/{}' style='float: right; color: var(--google-red-500) !important; font-weight: bold;' onclick='ShowProgressBar()'>UNINSTALL</a>".format(
                     self.url_path["api"], repository.repository_id
                 )

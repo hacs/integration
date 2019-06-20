@@ -132,7 +132,7 @@ class HacsRepositoryBase(HacsBase):
 
         # Hide HACS
         if self.repository_name == "custom-components/hacs":
-            self.hide = True
+            self.hide = False
             self.installed = True
             self.version_installed = VERSION
 

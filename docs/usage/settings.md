@@ -7,9 +7,6 @@ _During startup HACS loads all known repositories, when it does you will see a p
 ## HACS Information
 
 At the top of the settings page you will see the current version of both HACS and Home Assistant.
-If there is an update to HACS you will get a notification above this section.
-
-![hacs_update](../images/hacs_update.png)
 
 ### HACS Option: `Display`
 

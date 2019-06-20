@@ -30,59 +30,6 @@ class HacsSettingsView(HacsViewBase):
             # Get the message sendt to us:
             message = request.rel_url.query.get("message")
 
-            # HACS restart pending
-            if hacs.pending_restart:
-                hacs_restart = """
-                    <div class='container'>
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="card-panel orange darken-4">
-                                    <div class="card-content white-text">
-                                        <span>
-                                            You need to restart Home Assistant to start using the latest version of HACS.
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                """
-            else:
-                hacs_restart = ""
-
-            # HACS update pending
-            if hacs.pending_update:
-                hacs_update = """
-                    <div class='container'>
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="card  red darken-4">
-                                    <div class="card-content white-text">
-                                        <span class="card-title">UPDATE PENDING</span>
-
-                                        <p>There is an update pending for HACS!.</p>
-                                        </br>
-                                        <p><b>Current version:</b> {}</p>
-                                        <p><b>Available version:</b> {}</p>
-                                    </div>
-
-                                    <div class="card-action">
-                                        <a href="{}/repository_install/172733314" onclick="ShowProgressBar()">UPGRADE</a>
-                                        <a rel='noreferrer' href="https://github.com/custom-components/hacs/releases/tag/{}" target="_blank">CHANGELOG</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                """.format(
-                    hacs.version_installed,
-                    hacs.last_release_tag,
-                    self.url_path["api"],
-                    hacs.last_release_tag,
-                )
-            else:
-                hacs_update = ""
-
             if message != None:
                 custom_message = """
                     <div class='container'>
@@ -159,12 +106,8 @@ class HacsSettingsView(HacsViewBase):
             content += """
                 <div class='hacs-overview-container'>
                     {}
-                    {}
-                    {}
                 </div>
-            """.format(
-                hacs_restart, hacs_update, custom_message
-            )
+            """.format(custom_message)
 
             # HACS card
             types = ["Grid", "Table"]

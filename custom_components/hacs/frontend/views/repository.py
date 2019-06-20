@@ -214,6 +214,16 @@ class HacsRepositoryView(HacsViewBase):
                         self.url_path["api"], repository.repository_id
                     )
 
+            # Beta
+            if repository.last_release_tag is not None:
+                show_beta = '<li><a class="dropdown-list-item" href="{}/repository_{}_beta/{}" onclick="ShowProgressBar()">{}</a></li>'
+                if repository.show_beta:
+                    show_beta = show_beta.format(self.url_path["api"], "hide", repository.repository_id, "Hide Beta")
+                else:
+                    show_beta = show_beta.format(self.url_path["api"], "show", repository.repository_id, "Show Beta")
+            else:
+                show_beta = ""
+
             content = self.base_content
 
             if repository.version_installed is not None:
@@ -271,6 +281,7 @@ class HacsRepositoryView(HacsViewBase):
                                         <ul id='dropdown1' class='dropdown-content'>
                                             <li><a class="dropdown-list-item" href="{}/repository_update_repository/{}" onclick="ShowProgressBar()">Reload</a></li>
                                             {}
+                                            {}
                                             <li><a class="dropdown-list-item" rel='noreferrer' href="https://github.com/{}/issues/" target="_blank">Open a issue</a></li>
                                             <li><a class="dropdown-list-item" rel='noreferrer' href="https://github.com/custom-components/hacs/issues/new?title={}&labels=flag&assignee=ludeeus&template=flag.md" target="_blank">Flag this</a></li>
                                         </ul>
@@ -307,6 +318,7 @@ class HacsRepositoryView(HacsViewBase):
                 else repository.name.replace("-", " ").replace("_", " ").title(),
                 self.url_path["api"],
                 repository.repository_id,
+                show_beta,
                 hide_option,
                 repository.repository_name,
                 repository.name,

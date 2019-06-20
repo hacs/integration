@@ -19,6 +19,11 @@ The repository view will be different depending on:
 
 This will reload the information about this repository.
 
+### Hide/Show Beta
+
+Define if you want to hide/show beta releases (pre-releases) from the repository.
+This will only show if the repository uses releases.
+
 ### Hide
 
 This will hide this repository from the overview/store.

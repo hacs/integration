@@ -54,7 +54,9 @@ class HacsStorage(HacsBase):
                 repository["repository_type"], repository["repository_name"]
             )
             if status:
-                await self.restore(store_data, repository)
+                repository = await self.restore(store_data, repository)
+                if repository.show_beta:
+                    await repository.set_repository_releases()
 
         # Get new repository objects
         appdaemon, integrations, plugins = await self.get_repositories()
@@ -102,10 +104,11 @@ class HacsStorage(HacsBase):
                         continue
 
                     # Restore attributes
-                    await self.restore(store_data, repository)
+                    repository = await self.restore(store_data, repository)
 
                     # If BETA get the proper release
-                    await repository.set_repository_releases()
+                    if repository.show_beta:
+                        await repository.set_repository_releases()
 
                     # Restore complete
                     self.repositories[repository.repository_id] = repository
@@ -158,7 +161,7 @@ class HacsStorage(HacsBase):
     async def restore(self, store_data, repository):
         """Restore saved data to a repository object."""
         if str(repository.repository_id) not in store_data["repositories"]:
-            return
+            return repository
 
         storeddata = store_data["repositories"][str(repository.repository_id)]
 
@@ -169,3 +172,5 @@ class HacsStorage(HacsBase):
             if attribute in ["custom"]:
                 continue
             repository.__setattr__(attribute, storeddata[attribute])
+
+        return repository

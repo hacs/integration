@@ -262,6 +262,17 @@ class HacsRepositoryBase(HacsBase):
                 (datetime.now() - start_time).seconds,
             )
 
+        # Dynamic version bump
+        if self.repository_name == "custom-components/hacs":
+            _LOGGER.info("Setting version for HACS.")
+            const = "{}/const.py".format(self.local_path)
+            with open(const) as f:
+                newText = f.read().replace(
+                    'VERSION = "DEV"', 'VERSION = "{}"'.format(self.version_installed)
+                )
+            with open(const, "w") as f:
+                f.write(newText)
+
     async def remove(self):
         """Run remove tasks."""
         _LOGGER.debug("(%s) - Starting removal", self.repository_name)

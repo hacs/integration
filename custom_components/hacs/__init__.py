@@ -75,7 +75,9 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
 
     # Print DEV warning
     if VERSION == "DEV":
-        _LOGGER.error("You are running a DEV version of HACS, this is not intended for regular use.")
+        _LOGGER.error(
+            "You are running a DEV version of HACS, this is not intended for regular use."
+        )
 
     # Configure HACS
     await configure_hacs(hass, github_token, config_dir)

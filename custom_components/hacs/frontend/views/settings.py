@@ -112,7 +112,8 @@ class HacsSettingsView(HacsViewBase):
             # HACS card
             types = ["Grid", "Table"]
             selected = self.data.get("hacs", {}).get("view", "Grid")
-            types.remove(selected)
+            if selected in types:
+                types.remove(selected)
             overview_display = """
                 <form action="{}/frontend/view" name="overview_display"
                         method="post" accept-charset="utf-8"

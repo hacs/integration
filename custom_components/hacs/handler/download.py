@@ -34,10 +34,7 @@ async def async_download_file(hass, url):
 
         # Make sure that we got a valid result
         if request.status == 200:
-            if url.endswith(".gz"):
-                result = await request.read()
-            else:
-                result = await request.text()
+            result = await request.read()
         else:
             raise HacsNotSoBasicException(
                 "Got status code {} when trying to download {}".format(

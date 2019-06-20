@@ -163,6 +163,14 @@ class HacsAPIView(HacsViewBase):
 
                 # If it still have content, continue.
                 if repository_name != "":
+                    if len(repository_name.split("/")) != 2:
+                        message = "{} is not a valid format correct format is 'https://github.com/DEVELOPER/REPOSITORY' or 'DEVELOPER/REPOSITORY'.".format(
+                            repository_name
+                        )
+
+                        raise web.HTTPFound(
+                            "{}?message={}".format(self.url_path["settings"], message)
+                        )
                     is_known_repository = await self.is_known_repository(
                         repository_name
                     )

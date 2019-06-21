@@ -144,8 +144,8 @@ class HacsSettingsView(HacsViewBase):
                         enctype="application/x-www-form-urlencoded"
                         class="hacs-form">
                     <select name="view_type" class="hacs-select" onchange="document.getElementsByName('overview_display')[0].submit()">
-                        <option value="{selected}">{selected}</option>
-                        <option value="{option}">{option}</option>
+                        <option class="hacscolor" value="{selected}">{selected}</option>
+                        <option class="hacscolor" value="{option}">{option}</option>
                     </select>
                 </form>
             """.format(
@@ -236,7 +236,7 @@ class HacsSettingsView(HacsViewBase):
 
             element_types = ""
             for element_type in sorted(ELEMENT_TYPES):
-                element_types += "<option value='{}'>{}</option>".format(
+                element_types += "<option class='hacscolor' value='{}'>{}</option>".format(
                     element_type, element_type.title()
                 )
 

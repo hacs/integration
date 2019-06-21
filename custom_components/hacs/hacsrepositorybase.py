@@ -225,14 +225,14 @@ class HacsRepositoryBase(HacsBase):
                     continue
 
                 # Save the content of the file.
-                _content_path = content_object.path
-                _content_path = _content_path.replace(
-                    "{}/".format(self.content_path), ""
-                )
-
-                if self.repository_type in ["python_script", "theme"]:
+                if self.repository_type in ["python_script", "theme"] or self.content_path == "release":
                     local_directory = self.local_path
                 else:
+                    _content_path = content_object.path
+                    _content_path = _content_path.replace(
+                        "{}/".format(self.content_path), ""
+                    )
+
                     local_directory = "{}/{}".format(self.local_path, _content_path)
                     local_directory = local_directory.split(
                         "/{}".format(content_object.name)

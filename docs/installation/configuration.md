@@ -13,6 +13,7 @@ key | optional | default | description
 -- | -- | -- | --
 `token` | False | | A Github Personal Access Token
 `appdaemon` | True | `False` | Enable tracking of AppDaemon apps.
+`python_script` | True | `False` | Enable tracking of python scripts.
 
 ***
 

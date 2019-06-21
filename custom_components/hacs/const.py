@@ -103,4 +103,5 @@ DEFAULT_REPOSITORIES = {
         "bramkragten/weather-card",
         "bramkragten/swipe-card",
     ],
+    "python_script": [],
 }

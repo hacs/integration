@@ -8,6 +8,8 @@ _During startup HACS loads all known repositories, when it does you will see a p
 
 At the top of the settings page you will see the current version of both HACS and Home Assistant.
 
+_The "UPGRADE ALL" button will only show if there are pending upgrades._
+
 ### HACS Option: `Display`
 
 This setting changes how both "OVERVIEW" and "STORE" looks, you can choose between `Grid` and `Table`.

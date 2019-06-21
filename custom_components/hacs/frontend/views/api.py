@@ -104,6 +104,14 @@ class HacsAPIView(HacsViewBase):
             self.hass.async_create_task(self.update_repositories("Run it!"))
             raise web.HTTPFound(self.url_path["settings"])
 
+        elif element == "repositories_upgrade_all":
+            for repository in self.repositories:
+                repository = self.repositories[repository]
+                if repository.pending_update:
+                    await repository.install()
+
+            raise web.HTTPFound(self.url_path["settings"])
+
         # Show content of hacs
         elif element == "hacs" and action == "inspect":
             jsons = {}

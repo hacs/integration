@@ -59,8 +59,20 @@ class HacsSettingsView(HacsViewBase):
             else:
                 custom_message = ""
 
+            pending = ""
             # Repos:
             for repository in self.repositories_list_repo:
+                if repository.pending_update:
+                    pending += "<p>- {} ({} -> {})</p></br>".format(
+                        repository.name,
+                        repository.version_installed
+                        if repository.version_installed is not None
+                        else repository.installed_commit,
+                        repository.last_release_tag
+                        if repository.last_release_tag is not None
+                        else repository.last_commit,
+                    )
+
                 if repository.hide and repository.repository_id != "172733314":
                     line = '<li class="collection-item hacscolor hacslist"><div>'
                     line += """
@@ -158,11 +170,42 @@ class HacsSettingsView(HacsViewBase):
             )
 
             # The buttons, must have buttons
+            modal1 = """
+                <div id="modal1" class="modal hacscolor">
+                    <div class="modal-content">
+                    <h5>Pending Upgrades</h5>
+                    {}
+                    </div>
+                    <div class="modal-footer hacscolor">
+                        {}
+                        <a {} href="{}/repositories_upgrade_all/notinuse" class='waves-effect waves-light btn hacsbutton' onclick="ShowProgressBar()" style="background-color: var(--google-red-500) !important; font-weight: bold;">
+                            UPGRADE ALL
+                        </a>
+                    </div>
+                </div>
+            """.format(
+                pending,
+                "<p>Background task is running, upgrade is disabled.</p>"
+                if self.data["task_running"]
+                else "",
+                "style='display: none'" if self.data["task_running"] else "",
+                self.url_path["api"],
+            )
+
+            upgrade_all_btn = """
+                <a class="waves-effect waves-light btn modal-trigger hacsbutton" href="#modal1" onclick="ShowProgressBar()" style="background-color: var(--google-red-500) !important; font-weight: bold;">UPGRADE ALL</a>
+            """
+
+            if pending == "":
+                upgrade_all_btn = ""
+
             content += """
+                {}
                 <div class='hacs-overview-container'>
                     <a href="{}/repositories_reload/notinuse" class='waves-effect waves-light btn hacsbutton' onclick="ShowProgressBar()">
                         RELOAD DATA
                     </a>
+                    {}
                     <a href='{}/new/choose' class='waves-effect waves-light btn right hacsbutton' target="_blank">
                         OPEN ISSUE
                     </a>
@@ -174,7 +217,11 @@ class HacsSettingsView(HacsViewBase):
                     </a>
                 </div>
             """.format(
-                self.url_path["api"], ISSUE_URL, self.url_path["api"]
+                modal1,
+                self.url_path["api"],
+                upgrade_all_btn,
+                ISSUE_URL,
+                self.url_path["api"],
             )
 
             ## Integration URL's

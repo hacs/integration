@@ -102,5 +102,6 @@ DEFAULT_REPOSITORIES = {
         "atomic7777/atomic_calendar",
         "bramkragten/weather-card",
         "bramkragten/swipe-card",
+        "cyrisxd/love-lock-card"
     ],
 }

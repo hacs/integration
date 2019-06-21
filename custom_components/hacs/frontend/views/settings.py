@@ -122,6 +122,8 @@ class HacsSettingsView(HacsViewBase):
             # HACS card
             types = ["Grid", "Table"]
             selected = self.data.get("hacs", {}).get("view", "Grid")
+            if selected is None:
+                selected = "Grid"
             if selected in types:
                 types.remove(selected)
             overview_display = """

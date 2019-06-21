@@ -29,15 +29,15 @@ Some examples of `info.md` files:
 
 ### [Compact Custom Header](https://github.com/maykar/compact-custom-header/blob/1.0.4b9/info.md)
 
-  ![cch](../../images/info_cch.PNG)
+  ![cch](../images/info_cch.PNG)
 
 ###[Lovelace Swipe Navigation](https://github.com/maykar/lovelace-swipe-navigation/blob/1.2.0/info.md)
 
-![swipe](../../images/info_swipe.PNG)
+![swipe](../images/info_swipe.PNG)
 
 ### [HomeAssistant-Atrea](https://github.com/JurajNyiri/HomeAssistant-Atrea/blob/2.1/info.md)  
 
-![Atrea](../../images/info_atrea.PNG)
+![Atrea](../images/info_atrea.PNG)
 
 
 ### Want to add your repository to the store as a default?

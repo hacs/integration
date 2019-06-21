@@ -175,6 +175,8 @@ class HacsSettingsView(HacsViewBase):
                     <div class="modal-content">
                     <h5>Pending Upgrades</h5>
                     {}
+                    <p>Be carefull using this feature, elements may contain breaking changes,
+                    make sure you read the release notes for all the elements in the list above.</p>
                     </div>
                     <div class="modal-footer hacscolor">
                         {}

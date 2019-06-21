@@ -124,6 +124,8 @@ class HacsStoreView(HacsViewBase):
                         typedisplay = "{}S".format(element_type.upper())
                         if element_type == "appdaemon":
                             typedisplay = "APPDAEMON APPS"
+                        elif element_type == "python_script":
+                            typedisplay = "PYTHON SCRIPTS"
                         if self.data.get("hacs", {}).get("view") == "Table":
                             content += """
                             <div class='hacs-overview-container'>

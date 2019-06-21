@@ -70,6 +70,8 @@ class HacsRepositoryBase(HacsBase):
             return False
         elif self.repository_name in DEFAULT_REPOSITORIES["plugin"]:
             return False
+        elif self.repository_name in DEFAULT_REPOSITORIES["python_script"]:
+            return False
         return True
 
     @property
@@ -89,6 +91,10 @@ class HacsRepositoryBase(HacsBase):
 
         elif self.repository_type == "plugin":
             local_path = "{}/www/community/{}".format(self.config_dir, self.name)
+
+        elif self.repository_type == "python_script":
+            local_path = "{}/python_scripts".format(self.config_dir)
+
         return local_path
 
     @property
@@ -176,7 +182,10 @@ class HacsRepositoryBase(HacsBase):
         """Download the content of a directory."""
         try:
             # Get content
-            if self.content_path == "release":
+            if (
+                self.content_path == "release"
+                or self.repository_type == "python_script"
+            ):
                 contents = self.content_objects
             else:
                 contents = await self.repository.get_contents(
@@ -216,10 +225,13 @@ class HacsRepositoryBase(HacsBase):
                     "{}/".format(self.content_path), ""
                 )
 
-                local_directory = "{}/{}".format(self.local_path, _content_path)
-                local_directory = local_directory.split(
-                    "/{}".format(content_object.name)
-                )[0]
+                if self.repository_type == "python_script":
+                    local_directory = self.local_path
+                else:
+                    local_directory = "{}/{}".format(self.local_path, _content_path)
+                    local_directory = local_directory.split(
+                        "/{}".format(content_object.name)
+                    )[0]
 
                 # Check local directory
                 pathlib.Path(local_directory).mkdir(parents=True, exist_ok=True)
@@ -320,20 +332,27 @@ class HacsRepositoryBase(HacsBase):
     async def remove_local_directory(self):
         """Check the local directory."""
         try:
-            if os.path.exists(self.local_path):
-                _LOGGER.debug(
-                    "(%s) - Removing %s", self.repository_name, self.local_path
-                )
-                shutil.rmtree(self.local_path)
+            if self.repository_type == "python_script":
+                local_path = "{}/{}.py".format(self.local_path, self.name)
+            else:
+                local_path = self.local_path
 
-                while os.path.exists(self.local_path):
+            if os.path.exists(local_path):
+                _LOGGER.debug("(%s) - Removing %s", self.repository_name, local_path)
+
+                if self.repository_type == "python_script":
+                    os.remove(local_path)
+                else:
+                    shutil.rmtree(local_path)
+
+                while os.path.exists(local_path):
                     await sleep(1)
 
         except Exception as exception:
             _LOGGER.debug(
-                "(%s) - Removing directory %s failed with %s",
+                "(%s) - Removing %s failed with %s",
                 self.repository_name,
-                self.local_path,
+                local_path,
                 exception,
             )
             return

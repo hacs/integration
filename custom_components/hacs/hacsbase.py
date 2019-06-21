@@ -100,6 +100,7 @@ class HacsBase:
             HacsRepositoryAppDaemon,
             HacsRepositoryIntegration,
             HacsRepositoryPlugin,
+            HacsRepositoryPythonScripts,
         )
 
         _LOGGER.info("Starting repository registration for %s", repo)
@@ -116,6 +117,9 @@ class HacsBase:
 
         elif element_type == "plugin":
             repository = HacsRepositoryPlugin(repo, repositoryobject)
+
+        elif element_type == "python_script":
+            repository = HacsRepositoryPythonScripts(repo, repositoryobject)
 
         else:
             return None, False

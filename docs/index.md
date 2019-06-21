@@ -6,7 +6,7 @@
 
 ## What can HACS do?
 
-This is a manager for your custom integration (components) plugin (lovelace elements) and AppDaemon needs.
+This is a manager for your custom Home Assistant needs.
 
 It can help you download and update elements.
 

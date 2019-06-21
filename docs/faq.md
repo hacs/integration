@@ -8,9 +8,9 @@ Although "Store" is not "technically" correct, since nothing is sold, it's more 
 
 ### Highlights of what HACS can do
 
-- Help you discover new integrations and plugins.
-- Help you install (download) new integrations and plugins.
-- Help you keep track of your integrations and plugins.
+- Help you discover new custom elements.
+- Help you install (download) new custom elements.
+- Help you keep track of your custom elements.
 
 ***
 
@@ -57,6 +57,12 @@ If you make local changes to a plugin in the `.js` file, delete the `.gz` varian
 
 
 The files are downloaded to `<config_dir>/www/community/*`
+
+### Files downloaded for `python_script`
+
+The first file under the `python_scripts` directory._
+
+The files are downloaded to `<config_dir>/python_scripts/*`
 
 ***
 

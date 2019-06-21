@@ -40,6 +40,7 @@ Type | Description
 `Appdaemon` | Apps for AppDaemon
 `Integration` | Integrations for Home Assistant (custom_components)
 `Plugin` | Pugins for Lovelace (cards, mods, elements, rows and so on.)
+`Python_Script` | Python scripts for the [`python_script` integration](https://www.home-assistant.io/components/python_script/)
 
 After adding a repository the repository will be scanned, if it can be tracked the element will show up under "STORE", and you will be redirected to that element.
 

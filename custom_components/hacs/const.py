@@ -104,4 +104,5 @@ DEFAULT_REPOSITORIES = {
         "bramkragten/swipe-card",
         "CyrisXD/love-lock-card",
     ],
+    "python_script": [],
 }

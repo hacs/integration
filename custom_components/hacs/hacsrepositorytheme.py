@@ -1,4 +1,4 @@
-"""Blueprint for HacsRepositoryPythonScripts."""
+"""Blueprint for HacsRepositoryThemes."""
 # pylint: disable=too-many-instance-attributes,invalid-name,broad-except
 import logging
 
@@ -8,20 +8,20 @@ from .exceptions import HacsRequirement
 _LOGGER = logging.getLogger("custom_components.hacs.repository")
 
 
-class HacsRepositoryPythonScripts(HacsRepositoryBase):
+class HacsRepositoryThemes(HacsRepositoryBase):
     """
-    Set up a HacsRepositoryPythonScripts object.
+    Set up a HacsRepositoryThemes object.
 
     repository_name(str): The full name of a repository
     (example: awesome-dev/awesome-repo)
     """
 
     def __init__(self, repository_name: str, repositoryobject=None):
-        """Initialize a HacsRepositoryPythonScripts object."""
+        """Initialize a HacsRepositoryThemes object."""
         super().__init__()
         self.repository = repositoryobject
         self.repository_name = repository_name
-        self.repository_type = "python_script"
+        self.repository_type = "theme"
         self.manifest_content = None
 
     async def update(self):
@@ -36,12 +36,12 @@ class HacsRepositoryPythonScripts(HacsRepositoryBase):
 
         if self.content_path is None:
             self.content_objects = await self.repository.get_contents(
-                "python_scripts", self.ref
+                "themes", self.ref
             )
 
             self.content_path = self.content_objects[0].path
 
-            self.name = self.content_objects[0].name.replace(".py", "")
+            self.name = self.content_objects[0].name.replace(".yaml", "")
 
         if not isinstance(self.content_objects, list):
             raise HacsRequirement("Repository structure does not meet the requirements")

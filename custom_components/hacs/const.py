@@ -105,4 +105,5 @@ DEFAULT_REPOSITORIES = {
         "CyrisXD/love-lock-card",
     ],
     "python_script": [],
+    "theme": [],
 }

@@ -20,6 +20,7 @@ python_scripts/awesome.py
 info.md
 README.md
 ```
+
 #### Not OK example:
 
 ```text

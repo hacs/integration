@@ -58,6 +58,7 @@ CONFIG_SCHEMA = vol.Schema(
                 vol.Required("token"): cv.string,
                 vol.Optional("appdaemon", default=False): cv.boolean,
                 vol.Optional("python_script", default=False): cv.boolean,
+                vol.Optional("theme", default=False): cv.boolean,
             }
         )
     },
@@ -75,6 +76,8 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
         ELEMENT_TYPES.append("appdaemon")
     if config[DOMAIN]["python_script"]:
         ELEMENT_TYPES.append("python_script")
+    if config[DOMAIN]["theme"]:
+        ELEMENT_TYPES.append("theme")
 
     # Print DEV warning
     if VERSION == "DEV":

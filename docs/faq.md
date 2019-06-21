@@ -64,6 +64,19 @@ The first file under the `python_scripts` directory._
 
 The files are downloaded to `<config_dir>/python_scripts/*`
 
+### Files downloaded for `theme`
+
+The first file under the `themes` directory._
+
+The files are downloaded to `<config_dir>/themes/*`
+
+For this to work you need to include the themes directory like this:
+
+```yaml
+frontend:
+  themes: !include_dir_named themes
+```
+
 ***
 
 ## How does it work: Upgrade

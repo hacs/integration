@@ -72,6 +72,8 @@ class HacsRepositoryBase(HacsBase):
             return False
         elif self.repository_name in DEFAULT_REPOSITORIES["python_script"]:
             return False
+        elif self.repository_name in DEFAULT_REPOSITORIES["theme"]:
+            return False
         return True
 
     @property
@@ -94,6 +96,9 @@ class HacsRepositoryBase(HacsBase):
 
         elif self.repository_type == "python_script":
             local_path = "{}/python_scripts".format(self.config_dir)
+
+        elif self.repository_type == "theme":
+            local_path = "{}/themes".format(self.config_dir)
 
         return local_path
 
@@ -182,10 +187,10 @@ class HacsRepositoryBase(HacsBase):
         """Download the content of a directory."""
         try:
             # Get content
-            if (
-                self.content_path == "release"
-                or self.repository_type == "python_script"
-            ):
+            if self.content_path == "release" or self.repository_type in [
+                "python_script",
+                "theme",
+            ]:
                 contents = self.content_objects
             else:
                 contents = await self.repository.get_contents(
@@ -225,7 +230,7 @@ class HacsRepositoryBase(HacsBase):
                     "{}/".format(self.content_path), ""
                 )
 
-                if self.repository_type == "python_script":
+                if self.repository_type in ["python_script", "theme"]:
                     local_directory = self.local_path
                 else:
                     local_directory = "{}/{}".format(self.local_path, _content_path)
@@ -334,13 +339,15 @@ class HacsRepositoryBase(HacsBase):
         try:
             if self.repository_type == "python_script":
                 local_path = "{}/{}.py".format(self.local_path, self.name)
+            elif self.repository_type == "theme":
+                local_path = "{}/{}.yaml".format(self.local_path, self.name)
             else:
                 local_path = self.local_path
 
             if os.path.exists(local_path):
                 _LOGGER.debug("(%s) - Removing %s", self.repository_name, local_path)
 
-                if self.repository_type == "python_script":
+                if self.repository_type in ["python_script", "theme"]:
                     os.remove(local_path)
                 else:
                     shutil.rmtree(local_path)

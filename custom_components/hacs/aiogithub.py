@@ -54,7 +54,7 @@ class AIOGitHub(object):
 
         async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.get(url, headers=headers)
-            self._ratelimit_remaining = response.headers["x-ratelimit-remaining"]
+            self._ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.json()
 
             if self._ratelimit_remaining == "0":
@@ -82,7 +82,7 @@ class AIOGitHub(object):
 
         async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.get(url, headers=headers, params=params)
-            self._ratelimit_remaining = response.headers["x-ratelimit-remaining"]
+            self._ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.json()
 
             if self._ratelimit_remaining == "0":
@@ -115,7 +115,7 @@ class AIOGitHub(object):
 
         async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.post(url, headers=headers, data=content)
-            self._ratelimit_remaining = response.headers["x-ratelimit-remaining"]
+            self._ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.text()
 
             if self._ratelimit_remaining == "0":
@@ -190,7 +190,7 @@ class AIOGithubRepository(AIOGitHub):
 
         async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.get(url, headers=self.headers, params=params)
-            self._ratelimit_remaining = response.headers["x-ratelimit-remaining"]
+            self._ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.json()
 
             if self._ratelimit_remaining == "0":
@@ -227,7 +227,7 @@ class AIOGithubRepository(AIOGitHub):
 
         async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.get(url, headers=self.headers)
-            self._ratelimit_remaining = response.headers["x-ratelimit-remaining"]
+            self._ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.json()
 
             if self._ratelimit_remaining == "0":
@@ -259,7 +259,7 @@ class AIOGithubRepository(AIOGitHub):
 
         async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.get(url, headers=self.headers)
-            self._ratelimit_remaining = response.headers["x-ratelimit-remaining"]
+            self._ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.json()
 
             if self._ratelimit_remaining == "0":

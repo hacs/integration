@@ -1,0 +1,18 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-16.04'
+
+steps:
+  - checkout: self
+    persistCredentials: true
+
+  - script: python3 -m pip install --upgrade pip setuptools wheel
+    displayName: 'Install tools'
+
+  - script: "python3 -m pip install mkdocs pymdown-extensions --user"
+    displayName: 'Install dependencies'
+
+  - script: "python3 -m mkdocs gh-deploy"
+    displayName: 'Publish documentation'

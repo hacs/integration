@@ -87,6 +87,7 @@ DEFAULT_REPOSITORIES = {
         "bramkragten/lyric",
         "bramkragten/mind",
         "bouwew/sems2mqtt",
+        "akasma74/Hass-Custom-Alarm"
     ],
     "plugin": [
         "maykar/compact-custom-header",

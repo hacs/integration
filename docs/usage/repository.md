@@ -71,5 +71,5 @@ This will delete the files on the file system and tell HACS that you do not want
 This will only show on installed repositories.
 
 <!-- Disable sidebar -->
-<style>.bs-sidebar{display: none !important}</style>
+<script>document.getElementsByClassName("bs-sidebar").item(0).style.display = "none";</script>
 <!-- Disable sidebar -->

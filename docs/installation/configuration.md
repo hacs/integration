@@ -59,5 +59,5 @@ Now you see the generated token, this will be the **only** time you see it, make
 ![token4](../images/token4.png)
 
 <!-- Disable sidebar -->
-<style>.bs-sidebar{display: none !important}</style>
+<script>document.getElementsByClassName("bs-sidebar").item(0).style.display = "none";</script>
 <!-- Disable sidebar -->

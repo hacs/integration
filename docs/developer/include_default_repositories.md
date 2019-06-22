@@ -21,5 +21,5 @@ _Contributions for the integration should go against the `next` branch._
 - [`Plugin`](https://github.com/custom-components/hacs/pull/65)
 
 <!-- Disable sidebar -->
-<style>.bs-sidebar{display: none !important}</style>
+<script>document.getElementsByClassName("bs-sidebar").item(0).style.display = "none";</script>
 <!-- Disable sidebar -->

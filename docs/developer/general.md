@@ -44,7 +44,7 @@ Some examples of `info.md` files:
 
 [See here for how to add a custom repository.](../include_default_repositories)
 
-## Bages
+## Badges
 
 Tell your users that your repository can be tracked with HACS.
 

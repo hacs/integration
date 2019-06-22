@@ -36,5 +36,10 @@ Read | There is an restart pending.
 No color (the default text color of the theme) | Repository is not installed/managed by HACS.
 
 <!-- Disable sidebar -->
-<script>document.getElementsByClassName("bs-sidebar").item(0).style.display = "none";</script>
+<script>
+let sidebar = document.getElementsByClassName("col-md-3")[0];
+document.getElementsByClassName("col-md-9")[0];
+sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style.width = "100%";
+</script>
 <!-- Disable sidebar -->

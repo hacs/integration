@@ -20,5 +20,10 @@ rm -R hacs_temp
 [You should now be done, next part will be to add it to your configuration.](../configuration)
 
 <!-- Disable sidebar -->
-<script>document.getElementsByClassName("bs-sidebar").item(0).style.display = "none";</script>
+<script>
+let sidebar = document.getElementsByClassName("col-md-3")[0];
+document.getElementsByClassName("col-md-9")[0];
+sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style.width = "100%";
+</script>
 <!-- Disable sidebar -->

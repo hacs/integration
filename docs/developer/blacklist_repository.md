@@ -9,5 +9,10 @@ To add a repository to the blacklist add it to `BLACKLIST` at the bottom of the 
 _NB!: The list is case sensitive._
 
 <!-- Disable sidebar -->
-<script>document.getElementsByClassName("bs-sidebar").item(0).style.display = "none";</script>
+<script>
+let sidebar = document.getElementsByClassName("col-md-3")[0];
+document.getElementsByClassName("col-md-9")[0];
+sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style.width = "100%";
+</script>
 <!-- Disable sidebar -->

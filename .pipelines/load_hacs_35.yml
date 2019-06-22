@@ -1,0 +1,32 @@
+trigger:
+  - "*"
+
+pool:
+  vmImage: 'ubuntu-16.04'
+
+steps:
+  - task: UsePythonVersion@0
+    displayName: 'Set 3.5.x as Python version'
+    inputs:
+      versionSpec: '3.5.x'
+
+  - script: python3 -m pip install --upgrade pip setuptools wheel
+    displayName: 'Install tools'
+
+  - script: |
+      python3 -m pip install homeassistant
+      python3 -m pip install -r requirements.txt
+    displayName: 'Install dependencies'
+
+  - script: "python3 -c 'from custom_components import hacs'"
+    displayName: 'Load HACS (in pyhton)'
+
+  - script: |
+      echo "default_config:" | tee configuration.yaml
+      echo "hacs:" | tee -a configuration.yaml
+      echo "  token:  xxx" | tee -a configuration.yaml
+      echo "blabla:  xxx" | tee -a configuration.yaml
+    displayName: 'Inject Home Assistant configuration'
+
+  - script: "hass --script check_config --config ."
+    displayName: 'Home Assistant configuration check'

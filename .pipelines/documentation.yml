@@ -1,5 +1,11 @@
 trigger:
-- master
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - docs/*
+      - "mkdocs.yml"
 
 pool:
   vmImage: 'ubuntu-16.04'
@@ -7,6 +13,11 @@ pool:
 steps:
   - checkout: self
     persistCredentials: true
+
+  - task: UsePythonVersion@0
+    displayName: 'Set 3.7.X as Python version'
+    inputs:
+      versionSpec: '3.7.x'
 
   - script: python3 -m pip install --upgrade pip setuptools wheel
     displayName: 'Install tools'

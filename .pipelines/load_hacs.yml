@@ -1,0 +1,22 @@
+trigger:
+  - "*"
+
+pool:
+  vmImage: 'ubuntu-16.04'
+
+steps:
+  - task: UsePythonVersion@0
+    displayName: 'Set 3.7.x as Python version'
+    inputs:
+      versionSpec: '3.7.x'
+
+  - script: python3 -m pip install --upgrade pip setuptools wheel
+    displayName: 'Install tools'
+
+  - script: |
+      python3 -m pip install homeassistant
+      python3 -m pip install -r requirements.txt
+    displayName: 'Install dependencies'
+
+  - script: "python3 -c 'from custom_components import hacs'"
+    displayName: 'Load HACS'

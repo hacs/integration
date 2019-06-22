@@ -108,6 +108,7 @@ DEFAULT_REPOSITORIES = {
         "bramkragten/weather-card",
         "bramkragten/swipe-card",
         "CyrisXD/love-lock-card",
+        "dimagoltsman/content-card-remote-control",
     ],
     "python_script": [],
     "theme": [],

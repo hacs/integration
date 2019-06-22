@@ -9,5 +9,5 @@ To add a repository to the blacklist add it to `BLACKLIST` at the bottom of the 
 _NB!: The list is case sensitive._
 
 <!-- Disable sidebar -->
-<style>.bs-sidebar{display: none !important}>/style>
+<style>.bs-sidebar{display: none !important}</style>
 <!-- Disable sidebar -->

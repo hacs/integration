@@ -49,8 +49,7 @@ It will scan files in the branch marked as default.
 <!-- Disable sidebar -->
 <script>
 let sidebar = document.getElementsByClassName("col-md-3")[0];
-document.getElementsByClassName("col-md-9")[0];
 sidebar.parentNode.removeChild(sidebar);
-document.getElementsByClassName("col-md-9")[0].style.width = "100%";
+document.getElementsByClassName("col-md-9")[0].style.cssText = "width:70%;display:block;margin-left:15%";
 </script>
 <!-- Disable sidebar -->

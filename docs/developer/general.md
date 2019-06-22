@@ -46,7 +46,7 @@ Some examples of `info.md` files:
 
 ## Bages
 
-Tell your users that your repository can be tracked with HACS! :tada:
+Tell your users that your repository can be tracked with HACS.
 
 ### Default repository
 

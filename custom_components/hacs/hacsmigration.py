@@ -36,6 +36,11 @@ class HacsMigration(HacsBase):
             await self.update_repositories()
 
         elif self.old["hacs"]["schema"] == "1":
+            # Creating backup.
+            source = "{}/.storage/hacs".format(self.config_dir)
+            destination = "{}.1".format(source)
+            _LOGGER.info("Backing up current file to '%s'", destination)
+            copy2(source, destination)
             await self.from_1_to_2()
 
         elif self.old["hacs"].get("schema") == STORAGE_VERSION:

@@ -103,7 +103,8 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
                 # Handler for plugin requirement 3
                 find_file_name1 = "{}.js".format(self.name)
                 find_file_name2 = "{}-bundle.js".format(self.name)
-                if find_file_name1 in files or find_file_name2 in files:
+                find_file_name3 = "{}.bundle.js".format(self.name)
+                if find_file_name1 in files or find_file_name2 in files or find_file_name3 in files:
                     # YES! We got it!
                     self.content_path = "release"
                     self.content_objects = self.last_release_object.assets

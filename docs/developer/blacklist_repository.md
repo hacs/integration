@@ -12,5 +12,6 @@ _NB!: The list is case sensitive._
 <script>
 let sidebar = document.getElementsByClassName("col-md-3")[0];
 sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style['padding-left'] = "0";
 </script>
 <!-- Disable sidebar -->

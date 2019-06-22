@@ -41,5 +41,6 @@ No color (the default text color of the theme) | Repository is not installed/man
 <script>
 let sidebar = document.getElementsByClassName("col-md-3")[0];
 sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style['padding-left'] = "0";
 </script>
 <!-- Disable sidebar -->

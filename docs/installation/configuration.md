@@ -62,5 +62,6 @@ Now you see the generated token, this will be the **only** time you see it, make
 <script>
 let sidebar = document.getElementsByClassName("col-md-3")[0];
 sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style['padding-left'] = "0";
 </script>
 <!-- Disable sidebar -->

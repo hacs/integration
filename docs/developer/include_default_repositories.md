@@ -24,5 +24,6 @@ _Contributions for the integration should go against the `next` branch._
 <script>
 let sidebar = document.getElementsByClassName("col-md-3")[0];
 sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style['padding-left'] = "0";
 </script>
 <!-- Disable sidebar -->

@@ -6,11 +6,13 @@ Before you try to add your repository to the default store first make sure that 
 
 Only the owner of the repository or a major contributor to it can submit a PR to have it included as a default.
 
-When all of this is covered, you can add it to `DEFAULT_REPOSITORIES` at the bottom of the [`const.py file`](https://github.com/custom-components/hacs/blob/master/custom_components/hacs/const.py)
+When all of this is covered, you can add it to `DEFAULT_REPOSITORIES` at the bottom of the [`const.py file`](https://github.com/custom-components/hacs/blob/next/custom_components/hacs/const.py)
 
 _NB!: The list is case sensitive._
 
 When a PR for this is merged, it will be a part of the next planned minor release (0.X.0), if no release is planed a release will be created about a week after the first addition.
+
+_Contributions for the integration should go against the `next` branch._
 
 **Examples:**
 

@@ -73,7 +73,11 @@ ERROR = [
 ################################
 
 DEFAULT_REPOSITORIES = {
-    "appdaemon": [],
+    "appdaemon": [
+        "apop880/SmartThings-Button",
+        "apop880/White-Noise",
+        "apop880/Night-Mode"
+    ],
     "integration": [
         "StyraHem/ShellyForHASS",
         "isabellaalstrom/sensor.krisinformation",

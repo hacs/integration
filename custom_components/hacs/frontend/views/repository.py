@@ -264,8 +264,8 @@ class HacsRepositoryView(HacsViewBase):
             last_up = ""
 
             if repository.pending_update and repository.version_installed is not None:
-                changelog = "<a rel='noreferrer' href='https://github.com/{}/releases' target='_blank' style='color: var(--primary-color) !important'>CHANGELOG</a>".format(
-                    repository.repository_name
+                changelog = "<a rel='noreferrer' href='https://github.com/{}/releases/{}' target='_blank' style='color: var(--primary-color) !important'>CHANGELOG</a>".format(
+                    repository.repository_name, repository.ref.replace("/tags", "")
                 )
             else:
                 changelog = ""

@@ -76,7 +76,7 @@ DEFAULT_REPOSITORIES = {
     "appdaemon": [
         "apop880/SmartThings-Button",
         "apop880/White-Noise",
-        "apop880/Night-Mode"
+        "apop880/Night-Mode",
     ],
     "integration": [
         "StyraHem/ShellyForHASS",

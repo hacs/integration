@@ -20,6 +20,8 @@ class HacsStorage(HacsBase):
             HacsRepositoryAppDaemon,
             HacsRepositoryIntegration,
             HacsRepositoryPlugin,
+            HacsRepositoryPythonScripts,
+            HacsRepositoryThemes,
         )
 
         datastore = "{}/.storage/{}".format(self.config_dir, STORENAME)
@@ -59,12 +61,16 @@ class HacsStorage(HacsBase):
                     await repository.set_repository_releases()
 
         # Get new repository objects
-        appdaemon, integrations, plugins = await self.get_repositories()
+        appdaemon, integrations, plugins, python_scripts, themes = (
+            await self.get_repositories()
+        )
 
         repository_types = {
             "appdaemon": appdaemon,
             "integration": integrations,
             "plugin": plugins,
+            "python_script": python_scripts,
+            "theme": themes,
         }
 
         for repository_type in repository_types:
@@ -87,6 +93,14 @@ class HacsStorage(HacsBase):
                         )
                     elif repository_type == "plugin":
                         repository = HacsRepositoryPlugin(
+                            repository.full_name, repository
+                        )
+                    elif repository_type == "python_script":
+                        repository = HacsRepositoryPythonScripts(
+                            repository.full_name, repository
+                        )
+                    elif repository_type == "theme":
+                        repository = HacsRepositoryThemes(
                             repository.full_name, repository
                         )
                     else:

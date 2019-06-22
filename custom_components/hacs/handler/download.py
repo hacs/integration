@@ -13,7 +13,7 @@ from ..exceptions import HacsNotSoBasicException
 _LOGGER = logging.getLogger("custom_components.hacs.download")
 
 
-@backoff.on_exception(backoff.expo, Exception, max_tries=3)
+@backoff.on_exception(backoff.expo, Exception, max_tries=5)
 async def async_download_file(hass, url):
     """
     Download files, and return the content.

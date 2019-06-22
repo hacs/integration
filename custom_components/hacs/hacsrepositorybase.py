@@ -225,7 +225,10 @@ class HacsRepositoryBase(HacsBase):
                     continue
 
                 # Save the content of the file.
-                if self.repository_type in ["python_script", "theme"] or self.content_path == "release":
+                if (
+                    self.repository_type in ["python_script", "theme"]
+                    or self.content_path == "release"
+                ):
                     local_directory = self.local_path
                 else:
                     _content_path = content_object.path

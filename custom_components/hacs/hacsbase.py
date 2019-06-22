@@ -101,6 +101,7 @@ class HacsBase:
             HacsRepositoryIntegration,
             HacsRepositoryPlugin,
             HacsRepositoryPythonScripts,
+            HacsRepositoryThemes,
         )
 
         _LOGGER.info("Starting repository registration for %s", repo)
@@ -120,6 +121,9 @@ class HacsBase:
 
         elif element_type == "python_script":
             repository = HacsRepositoryPythonScripts(repo, repositoryobject)
+
+        elif element_type == "theme":
+            repository = HacsRepositoryThemes(repo, repositoryobject)
 
         else:
             return None, False
@@ -170,12 +174,16 @@ class HacsBase:
                     _LOGGER.error("%s - %s", repository.repository_name, exception)
 
         # Register new repositories
-        appdaemon, integrations, plugins = await self.get_repositories()
+        appdaemon, integrations, plugins, python_scripts, themes = (
+            await self.get_repositories()
+        )
 
         repository_types = {
             "appdaemon": appdaemon,
             "integration": integrations,
             "plugin": plugins,
+            "python_script": python_scripts,
+            "theme": themes,
         }
 
         for repository_type in repository_types:
@@ -199,7 +207,13 @@ class HacsBase:
 
     async def get_repositories(self):
         """Get defined repositories."""
-        repositories = {"appdaemon": [], "integration": [], "plugin": []}
+        repositories = {
+            "appdaemon": [],
+            "integration": [],
+            "plugin": [],
+            "python_script": [],
+            "theme": [],
+        }
 
         # Get org repositories
         if not self.dev:
@@ -219,6 +233,8 @@ class HacsBase:
             repositories["appdaemon"],
             repositories["integration"],
             repositories["plugin"],
+            repositories["python_script"],
+            repositories["theme"],
         )
 
     async def recuring_tasks_installed(

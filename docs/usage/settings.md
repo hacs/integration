@@ -33,6 +33,8 @@ By default all elements that meet the requirements from these orgs are automatic
 
 But you can add any other repository that meets the requirements, to do so go to the "SETTINGS" tab.
 
+**NB!: Don't try to add a users configuration repository, you _may_ be able to add it but it will not give you the result you expect.**
+
 ![custom_repositories](../images/custom_repositorylist.PNG)
 
 Add the url to the repository under "CUSTOM REPOSITORIES" and select a `type` before clicking the "save icon".

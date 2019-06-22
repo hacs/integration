@@ -19,3 +19,7 @@ _Contributions for the integration should go against the `next` branch._
 - [`AppDaemon App`](https://github.com/custom-components/hacs/pull/139)
 - [`Integration`](https://github.com/custom-components/hacs/pull/64)
 - [`Plugin`](https://github.com/custom-components/hacs/pull/65)
+
+<!-- Disable sidebar -->
+<style>.bs-sidebar{display: none !important}>/style>
+<!-- Disable sidebar -->

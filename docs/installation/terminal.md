@@ -18,3 +18,7 @@ rm -R hacs_temp
 ```
 
 [You should now be done, next part will be to add it to your configuration.](../configuration)
+
+<!-- Disable sidebar -->
+<style>.bs-sidebar{display: none !important}>/style>
+<!-- Disable sidebar -->

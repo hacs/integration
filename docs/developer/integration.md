@@ -56,3 +56,7 @@ When installing/upgrading it will scan the content in the latest release.
 #### If there are no releases
 
 It will scan files in the branch marked as default.
+
+<!-- Disable sidebar -->
+<style>.bs-sidebar{display: none !important}>/style>
+<!-- Disable sidebar -->

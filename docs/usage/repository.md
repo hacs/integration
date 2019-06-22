@@ -69,3 +69,7 @@ This will take you to the GitHub repository for the repository.
 
 This will delete the files on the file system and tell HACS that you do not want to keep tracking it.
 This will only show on installed repositories.
+
+<!-- Disable sidebar -->
+<style>.bs-sidebar{display: none !important}>/style>
+<!-- Disable sidebar -->

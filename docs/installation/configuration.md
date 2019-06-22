@@ -57,3 +57,7 @@ You **do not** need to check _any_ of the boxes.
 Now you see the generated token, this will be the **only** time you see it, make sure that you copy it manually or by clicking the clipboard icon.
 
 ![token4](../images/token4.png)
+
+<!-- Disable sidebar -->
+<style>.bs-sidebar{display: none !important}>/style>
+<!-- Disable sidebar -->

@@ -61,6 +61,5 @@ It will scan files in the branch marked as default.
 <script>
 let sidebar = document.getElementsByClassName("col-md-3")[0];
 sidebar.parentNode.removeChild(sidebar);
-document.getElementsByClassName("col-md-9")[0].style.cssText = "width:70%;display:block;margin-left:15%";
 </script>
 <!-- Disable sidebar -->

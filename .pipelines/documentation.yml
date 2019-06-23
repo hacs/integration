@@ -22,8 +22,20 @@ steps:
   - script: python3 -m pip install --upgrade pip setuptools wheel
     displayName: 'Install tools'
 
-  - script: "python3 -m pip install mkdocs pymdown-extensions --user"
+  - script: "python3 -m pip install ghp-import mkdocs pymdown-extensions --user"
     displayName: 'Install dependencies'
 
-  - script: "python3 -m mkdocs gh-deploy"
+  - script: |
+      git checkout master
+      sed -i "s|site_dir: site/next|site_dir: site|" mkdocs.yml
+      python3 -m mkdocs build
+    displayName: 'Generate documentation for master'
+
+  - script: |
+      git checkout next
+      sed -i "s|site_dir: site/next|site_dir: site|" mkdocs.yml
+      python3 -m mkdocs build
+    displayName: 'Generate documentation for next'
+
+  - script: "ghp-import site -n -m 'Automagically documentation publish'"
     displayName: 'Publish documentation'

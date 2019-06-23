@@ -71,6 +71,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             self.authors = manifest["codeowners"]
             self.name = manifest["name"]
             self.domain = manifest["domain"]
+            self.homeassistant_version = manifest.get("homeassistant")
             return
 
         raise HacsRequirement("manifest.json does not contain expected values.")

@@ -1,4 +1,4 @@
-"""Tests for PyPi."""
+"""Tests for AIOGitHub."""
 
 import json
 
@@ -19,7 +19,9 @@ async def test_get_repo_awesome(aresponses, event_loop, response_get_repo_awesom
         "api.github.com",
         "/repos/awesome-dev/awesome-repo",
         "GET",
-        aresponses.Response(text=json.dumps(response_get_repo_awesome), status=200, headers=HEADERS),
+        aresponses.Response(
+            text=json.dumps(response_get_repo_awesome), status=200, headers=HEADERS
+        ),
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:

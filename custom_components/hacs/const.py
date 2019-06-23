@@ -37,6 +37,8 @@ This cannot be used with custom_updater.
 To use this you need to remove custom_updater form {}
 """
 
+NOT_SUPPORTED_HA_VERSION = "You have version '{}' of Home Assistant, but version '{}' of '{}' require version '{}' of Home Assistant, install and upgrades are disabled for this integration untill you upgrade Home Assistant."
+
 STARTUP = """
 -------------------------------------------------------------------
 {}

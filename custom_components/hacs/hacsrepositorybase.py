@@ -6,7 +6,8 @@ import logging
 import pathlib
 import os
 import shutil
-
+from packaging.version import Version
+from homeassistant.const import __version__ as HAVERSION
 from .aiogithub import AIOGitHubException
 from .hacsbase import HacsBase
 from .exceptions import (
@@ -16,7 +17,7 @@ from .exceptions import (
     HacsBlacklistException,
 )
 from .handler.download import async_download_file, async_save_file
-from .const import DEFAULT_REPOSITORIES, VERSION
+from .const import DEFAULT_REPOSITORIES, VERSION, NOT_SUPPORTED_HA_VERSION
 
 _LOGGER = logging.getLogger("custom_components.hacs.repository")
 
@@ -38,6 +39,7 @@ class HacsRepositoryBase(HacsBase):
         self.last_release_object = None
         self.last_release_tag = None
         self.last_updated = None
+        self.homeassistant_version = None
         self.name = None
         self.pending_restart = False
         self.reasons = []
@@ -257,6 +259,20 @@ class HacsRepositoryBase(HacsBase):
         try:
             # Run update
             await self.update()  # pylint: disable=no-member
+
+            if (
+                self.homeassistant_version is not None
+                and self.last_release_tag is not None
+            ):
+                if Version(HAVERSION[0:6]) < Version(str(self.homeassistant_version)):
+                    message = NOT_SUPPORTED_HA_VERSION.format(
+                        HAVERSION,
+                        self.last_release_tag,
+                        self.name,
+                        str(self.homeassistant_version),
+                    )
+                    _LOGGER.error(message)
+                    return False
 
             # Check local directory
             await self.check_local_directory()

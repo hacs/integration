@@ -2,7 +2,11 @@
 # pylint: disable=broad-except
 import logging
 from aiohttp import web
+from packaging.version import Version
+from homeassistant.const import __version__ as HAVERSION
+
 from ...blueprints import HacsViewBase
+from ...const import NOT_SUPPORTED_HA_VERSION
 
 _LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
@@ -180,12 +184,25 @@ class HacsRepositoryView(HacsViewBase):
                 else repository.repository_type
             )
 
+            main_action = """
+                <a href="{}/repository_install/{}"
+                    onclick="ShowProgressBar()" style='color: var(--primary-color) !important'>
+                    {}
+                </a>
+            """
+
             if not repository.installed:
-                main_action = "INSTALL"
+                main_action = main_action.format(
+                    self.url_path["api"], repository.repository_id, "INSTALL"
+                )
             elif repository.pending_update:
-                main_action = "UPGRADE"
+                main_action = main_action.format(
+                    self.url_path["api"], repository.repository_id, "UPGRADE"
+                )
             else:
-                main_action = "REINSTALL"
+                main_action = main_action.format(
+                    self.url_path["api"], repository.repository_id, "REINSTALL"
+                )
 
             if repository.repository_type == "plugin":
                 if not repository.installed:
@@ -239,6 +256,38 @@ class HacsRepositoryView(HacsViewBase):
                 show_beta = ""
 
             content = self.base_content
+
+            if (
+                repository.homeassistant_version is not None
+                and repository.last_release_tag is not None
+            ):
+                if Version(HAVERSION[0:6]) < Version(
+                    str(repository.homeassistant_version)
+                ):
+                    content += """
+                        <div id="haversion" class="modal hacscolor">
+                            <div class="modal-content">
+                            <h5>Unsupported Home Assistant version</h5>
+                            <p>{}</p>
+                            </div>
+                        </div>
+                    """.format(
+                        NOT_SUPPORTED_HA_VERSION.format(
+                            HAVERSION,
+                            repository.last_release_tag,
+                            repository.name,
+                            str(repository.homeassistant_version),
+                        )
+                    )
+                    main_action = main_action.replace(
+                        "<a ", "<a class='modal-trigger' "
+                    )
+                    main_action = main_action.replace(
+                        "{}/repository_install/{}".format(
+                            self.url_path["api"], repository.repository_id
+                        ),
+                        "#haversion",
+                    )
 
             if repository.version_installed is not None:
                 inst_ver = "<p><b>Installed version:</b> {}</p>".format(
@@ -310,10 +359,7 @@ class HacsRepositoryView(HacsViewBase):
                                     {}
                                 </div>
                                 <div class="card-action">
-                                    <a href="{}/repository_install/{}"
-                                        onclick="ShowProgressBar()" style='color: var(--primary-color) !important'>
-                                        {}
-                                    </a>
+                                    {}
                                     {}
                                     <a rel='noreferrer' href='https://github.com/{}' target='_blank' style='color: var(--primary-color) !important'>repository</a>
                                     {}
@@ -343,8 +389,6 @@ class HacsRepositoryView(HacsViewBase):
                 info,
                 authors,
                 note,
-                self.url_path["api"],
-                repository.repository_id,
                 main_action,
                 changelog,
                 repository.repository_name,

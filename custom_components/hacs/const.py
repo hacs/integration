@@ -91,6 +91,7 @@ DEFAULT_REPOSITORIES = {
         "bouwew/sems2mqtt",
         "akasma74/Hass-Custom-Alarm",
         "keatontaylor/alexa_media_player",
+        "albertogeniola/meross-homeassistant"
     ],
     "plugin": [
         "maykar/compact-custom-header",

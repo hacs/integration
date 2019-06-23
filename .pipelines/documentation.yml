@@ -34,5 +34,7 @@ steps:
       python3 -m mkdocs build
     displayName: 'Generate documentation for next'
 
-  - script: "ghp-import site -n -m 'Automagically documentation publish'"
+  - script: |
+      ghp-import site -b gh-pages -n -m 'Automagically publish documentation'
+      git push origin gh-pages
     displayName: 'Publish documentation'

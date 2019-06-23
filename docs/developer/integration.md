@@ -53,6 +53,20 @@ In the integration directory, there is a [`manifest.json`](https://developers.ho
 
 When installing/upgrading it will scan the content in the latest release.
 
+If you are using releases you can also set a minimum HA version in the `manifest.json` file, example:
+
+https://github.com/ludeeus/integration-hacs/blob/0.2.0/custom_components/integration-hacs/manifest.json
+
+```json
+{
+  "homeassistant": "0.96.0"
+}
+```
+
+If the user try to install this and the minimum HA requirement is not met, the user will receive a warning and it will block install/upgrade until HA is upgraded.
+
+![min_version](../images/min_version_warning.png)
+
 #### If there are no releases
 
 It will scan files in the branch marked as default.

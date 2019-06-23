@@ -92,7 +92,8 @@ DEFAULT_REPOSITORIES = {
         "akasma74/Hass-Custom-Alarm",
         "keatontaylor/alexa_media_player",
         "albertogeniola/meross-homeassistant",
-        "mudape/iphonedetect"
+        "mudape/iphonedetect",
+        "bertbert72/HomeAssistant_VirginTivo",
     ],
     "plugin": [
         "maykar/compact-custom-header",

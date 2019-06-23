@@ -180,6 +180,19 @@ class HacsRepositoryBase(HacsBase):
         try:
             # Set additional info
             await self.set_additional_info()
+            if self.additional_info is not None:
+                info = await self.aiogithub.render_markdown(self.additional_info)
+                info = info.replace("<h3>", "<h6>").replace("</h3>", "</h6>")
+                info = info.replace("<h2>", "<h5>").replace("</h2>", "</h5>")
+                info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
+                info = info.replace("<code>", "<code class='codeinfo'>")
+                info = info.replace(
+                    '<a href="http',
+                    '<a rel="noreferrer" target="_blank" href="http',
+                )
+                info = info.replace("<ul>", "")
+                info = info.replace("</ul>", "")
+                self.additional_info = info
         except AIOGitHubException:
             pass
 

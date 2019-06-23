@@ -84,23 +84,7 @@ class HacsRepositoryView(HacsViewBase):
                 pending_restart = ""
 
             if repository.additional_info:
-                if repository.info is None:
-                    info = "</br>" + await self.aiogithub.render_markdown(
-                        repository.additional_info
-                    )
-                    info = info.replace("<h3>", "<h6>").replace("</h3>", "</h6>")
-                    info = info.replace("<h2>", "<h5>").replace("</h2>", "</h5>")
-                    info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
-                    info = info.replace("<code>", "<code class='codeinfo'>")
-                    info = info.replace(
-                        '<a href="http',
-                        '<a rel="noreferrer" target="_blank" href="http',
-                    )
-                    info = info.replace("<ul>", "")
-                    info = info.replace("</ul>", "")
-                    repository.info = info
-                else:
-                    info = repository.info
+                info = repository.additional_info
             else:
                 info = ""
 

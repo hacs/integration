@@ -87,7 +87,8 @@ DEFAULT_REPOSITORIES = {
         "bramkragten/lyric",
         "bramkragten/mind",
         "bouwew/sems2mqtt",
-        "akasma74/Hass-Custom-Alarm"
+        "akasma74/Hass-Custom-Alarm",
+        "keatontaylor/alexa_media_player"
     ],
     "plugin": [
         "maykar/compact-custom-header",

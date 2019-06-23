@@ -194,7 +194,7 @@ class HacsRepositoryBase(HacsBase):
                 info = info.replace("</ul>", "")
                 self.additional_info = info
         except AIOGitHubException:
-            pass
+            self.additional_info = None
 
     async def download_repository_directory_content(
         self, repository_directory_path, local_directory, ref

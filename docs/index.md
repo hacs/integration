@@ -12,6 +12,14 @@ It can help you download and update elements.
 
 It can also help you discover new awesome stuff.
 
+### What can it track/discover?
+
+- Custom integrations (components/platforms/custom_component) for Home Assistant
+- Custom plugins (cards/rows/mods) for Lovelace
+- AppDaemon apps for [AppDaemon](https://appdaemon.readthedocs.io/en/latest/)
+- Themes for the [frontend component](https://www.home-assistant.io/components/frontend/) in Home Assistant
+- "python_scripts" for the [`python_scripts` component](https://www.home-assistant.io/components/python_script/) in Home Assistant
+
 ## Updates
 
 ### Installed elements

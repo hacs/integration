@@ -94,6 +94,7 @@ DEFAULT_REPOSITORIES = {
         "albertogeniola/meross-homeassistant",
         "mudape/iphonedetect",
         "bertbert72/HomeAssistant_VirginTivo",
+        "nstrelow/ha_philips_android_tv",
     ],
     "plugin": [
         "maykar/compact-custom-header",

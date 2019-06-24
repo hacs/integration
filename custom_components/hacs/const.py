@@ -87,6 +87,7 @@ DEFAULT_REPOSITORIES = {
         "bramkragten/lyric",
         "bramkragten/mind",
         "bouwew/sems2mqtt",
+        "nstrelow/ha_philips_android_tv",
     ],
     "plugin": [
         "maykar/compact-custom-header",

@@ -2,6 +2,9 @@
 
 **NB! This needs to be in `configuration.yaml`, _not_ in a "package".**
 
+HACS uses the GitHub API to gather information.  Without authentication the usage of the API is limited to 60 calls per hour.
+The token generated below will only have read-only access to public information.
+
 ## Example configuration
 
 ```yaml

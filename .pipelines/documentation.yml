@@ -24,6 +24,12 @@ steps:
     displayName: 'Install dependencies'
 
   - script: |
+      git checkout gh-pages
+      git reset --hard ROOT
+      git push -f
+    displayName: 'Clear current documentation'
+
+  - script: |
       git checkout master
       sed -i "s|site_dir: site/next|site_dir: site|" mkdocs.yml
       python3 -m mkdocs build -c

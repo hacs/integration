@@ -87,6 +87,7 @@ DEFAULT_REPOSITORIES = {
         "bramkragten/lyric",
         "bramkragten/mind",
         "bouwew/sems2mqtt",
+        "rsnodgrass/hass-integrations"
     ],
     "plugin": [
         "maykar/compact-custom-header",

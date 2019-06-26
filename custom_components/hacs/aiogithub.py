@@ -1,8 +1,8 @@
 """Async Github API implementation."""
-# pylint: disable=super-init-not-called,missing-docstring,invalid-name
+# pylint: disable=super-init-not-called,missing-docstring,invalid-name,redefined-builtin
 import base64
 import logging
-from asyncio import CancelledError
+from asyncio import CancelledError, TimeoutError
 from datetime import datetime
 
 import async_timeout

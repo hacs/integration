@@ -14,6 +14,7 @@ Issues not containing the minimum requirements will be closed:
 -->
 
 ## Version of HACS
+
 <!-- If you are not using the newest version, download and try that before opening an issue
 If you are unsure about the version check the "SETTINGS" tab.
 -->
@@ -25,9 +26,7 @@ A clear and concise description of what the bug is.
 
 ## Debug log
 
-<!-- To enable debug logs check this https://www.home-assistant.io/components/logger/ 
-You can get the log by clicking the "OPEN LOG" button under the "SETTINGS" tab.
--->
+<!-- To enable debug logs check this https://www.home-assistant.io/components/logger/ -->
 
 ```text
 

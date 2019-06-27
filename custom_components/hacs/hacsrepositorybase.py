@@ -41,6 +41,7 @@ class HacsRepositoryBase(HacsBase):
         self.last_updated = None
         self.homeassistant_version = None
         self.name = None
+        self.new = True
         self.pending_restart = False
         self.reasons = []
         self.releases = None

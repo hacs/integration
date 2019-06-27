@@ -43,6 +43,14 @@ class HacsMigration(HacsBase):
             copy2(source, destination)
             await self.from_1_to_2()
 
+        elif self.old["hacs"]["schema"] == "2":
+            # Creating backup.
+            source = "{}/.storage/hacs".format(self.config_dir)
+            destination = "{}.2".format(source)
+            _LOGGER.info("Backing up current file to '%s'", destination)
+            copy2(source, destination)
+            await self.from_2_to_3()
+
         elif self.old["hacs"].get("schema") == STORAGE_VERSION:
             pass
 
@@ -78,3 +86,16 @@ class HacsMigration(HacsBase):
             self.repositories[repository.repository_id] = repository
         self.data["hacs"]["schema"] = "2"
         _LOGGER.info("Migration of HACS data from 1 to 2 is complete.")
+
+    async def from_2_to_3(self):
+        """Migrate from storage version 2 to storage version 3."""
+        _LOGGER.info("Starting migration of HACS data from 2 to 3.")
+
+        for repository in self.repositories:
+            repository = self.repositories[repository]
+            if repository.installed:
+                repository.new = False
+                await repository.set_repository_releases()
+                self.repositories[repository.repository_id] = repository
+        self.data["hacs"]["schema"] = "2"
+        _LOGGER.info("Migration of HACS data from 2 to 3 is complete.")

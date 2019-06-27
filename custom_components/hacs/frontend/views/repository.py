@@ -42,6 +42,8 @@ class HacsRepositoryView(HacsViewBase):
         try:
             message = request.rel_url.query.get("message")
             repository = self.repositories[str(repository_id)]
+            repository.new = False
+            await self.storage.set()
 
             if message != None:
                 custom_message = """

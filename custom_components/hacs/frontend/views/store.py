@@ -62,14 +62,18 @@ class HacsStoreView(HacsViewBase):
                     else:
                         card_icon = "<i class='fas fa-cube card-status default'></i>"
 
+                    badge = ""
+
                     if self.data.get("hacs", {}).get("view") == "Table":
+                        if repository.new:
+                            badge = '<span class="repository-list-badge hacs-table-badge">NEW</span>'
                         card = """
                             <tr class="hacs-table-row" onclick="window.location='{}/{}';">
                                 <!--{}-->
                                 <!--{}-->
                                 <!--{}-->
                                 <td>{}</td>
-                                <td>{}</td>
+                                <td>{}{}</td>
                                 <td class="hacs-card-content smal-hide">{}</td>
                             </tr>
                         """.format(
@@ -84,19 +88,21 @@ class HacsStoreView(HacsViewBase):
                             else repository.name.replace("-", " ")
                             .replace("_", " ")
                             .title(),
+                            badge,
                             repository.description,
                         )
                         card += "</div></li>"
 
                     else:
-
+                        if repository.new:
+                            badge = '<span class="repository-list-badge hacs-grid-badge">NEW</span>'
                         card = """
                         <a href="{}/{}" class="hacs-card"">
                             <div class="hacs-card overview">
                                 <!--{}-->
                                 <!--{}-->
                                 <!--{}-->
-                                <span class="hacs-card-title">{} {}</span>
+                                <span class="hacs-card-title">{} {}{}</span>
                                 <span class="hacs-card-content">
                                     <p>{}</p>
                                 </span>
@@ -114,6 +120,7 @@ class HacsStoreView(HacsViewBase):
                             else repository.name.replace("-", " ")
                             .replace("_", " ")
                             .title(),
+                            badge,
                             repository.description,
                         )
 

@@ -157,6 +157,7 @@ class HacsStorage(HacsBase):
             repositorydata["repository_name"] = repository.repository_name
             repositorydata["repository_type"] = repository.repository_type
             repositorydata["show_beta"] = repository.show_beta
+            repositorydata["new"] = repository.new
             repositorydata["version_installed"] = repository.version_installed
 
             data["repositories"][repository.repository_id] = repositorydata

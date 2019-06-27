@@ -14,9 +14,9 @@ HACS is a component that gives the user a powerful UI to handle downloads of cus
 
 **Highlights of what HACS can do:**
 
-- Help you discover new integrations and plugins.
-- Help you install (download) new integrations and plugins.
-- Help you keep track of your integrations and plugins.
+- Help you discover new custom elements.
+- Help you install (download) new custom elements.
+- Help you keep track of your custom elements.
   - Manage(Install/Upgrade/Remove)
   - Shortcuts to repositories/issue tracker
 

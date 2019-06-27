@@ -98,6 +98,7 @@ DEFAULT_REPOSITORIES = {
         "rsnodgrass/hass-integrations",
         "Ceerbeerus/beerbolaget",  # TOOD: Check this before 0.10.0 release!
         "thomasloven/hass-browser_mod",
+        "claytonjn/hass-circadian_lighting",
     ],
     "plugin": [
         "maykar/compact-custom-header",

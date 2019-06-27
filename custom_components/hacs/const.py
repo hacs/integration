@@ -87,6 +87,7 @@ DEFAULT_REPOSITORIES = {
         "bramkragten/lyric",
         "bramkragten/mind",
         "bouwew/sems2mqtt",
+        "Ceerbeerus/beerbolaget",
     ],
     "plugin": [
         "maykar/compact-custom-header",

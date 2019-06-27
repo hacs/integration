@@ -97,6 +97,7 @@ DEFAULT_REPOSITORIES = {
         "nstrelow/ha_philips_android_tv",
         "rsnodgrass/hass-integrations",
         "Ceerbeerus/beerbolaget",  # TOOD: Check this before 0.10.0 release!
+        "claytonjn/hass-circadian_lighting",
     ],
     "plugin": [
         "maykar/compact-custom-header",

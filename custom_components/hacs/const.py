@@ -96,7 +96,7 @@ DEFAULT_REPOSITORIES = {
         "bertbert72/HomeAssistant_VirginTivo",
         "nstrelow/ha_philips_android_tv",
         "rsnodgrass/hass-integrations",
-        "Ceerbeerus/beerbolaget",
+        "Ceerbeerus/beerbolaget",  # TOOD: Check this before 0.10.0 release!
     ],
     "plugin": [
         "maykar/compact-custom-header",

@@ -331,7 +331,7 @@ class HacsRepositoryView(HacsViewBase):
                                             <li><a class="dropdown-list-item" href="{}/repository_update_repository/{}" onclick="ShowProgressBar()">Reload</a></li>
                                             {}
                                             {}
-                                            <li><a class="dropdown-list-item" rel='noreferrer' href="https://github.com/{}/issues/" target="_blank">Open a issue</a></li>
+                                            <li><a class="dropdown-list-item" rel='noreferrer' href="https://github.com/{}/issues/" target="_blank">Open issue</a></li>
                                             <li><a class="dropdown-list-item" rel='noreferrer' href="https://github.com/custom-components/hacs/issues/new?title={}&labels=flag&assignee=ludeeus&template=flag.md" target="_blank">Flag this</a></li>
                                         </ul>
                                     </span>

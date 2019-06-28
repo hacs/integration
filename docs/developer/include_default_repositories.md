@@ -10,7 +10,7 @@ When all of this is covered, you can add it to repository type files in the [`da
 
 _NB!: The list is case sensitive._
 
-When a PR for this is merged, it will be a part of the next planned minor release (0.X.0), if no release is planed a release will be created about a week after the first addition.
+When a PR for this is merged, it will show up in HACS after the first scheduled scan (every 500min).
 
 **Examples:**
 

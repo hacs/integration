@@ -96,7 +96,7 @@ DEFAULT_REPOSITORIES = {
         "bertbert72/HomeAssistant_VirginTivo",
         "nstrelow/ha_philips_android_tv",
         "rsnodgrass/hass-integrations",
-        "Ceerbeerus/beerbolaget",  # TOOD: Check this before 0.10.0 release!
+        "Ceerbeerus/beerbolaget",
         "thomasloven/hass-browser_mod",
         "claytonjn/hass-circadian_lighting",
     ],

@@ -1,0 +1,21 @@
+trigger:
+  branches:
+    include:
+    - data
+  paths:
+    include:
+    - repositories/*
+pr:
+  - data
+
+jobs:
+  - job: 'JQ'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - script: sudo apt-get install -y jq
+        displayName: 'Install JQ'
+      - bash: |
+          shopt -s globstar
+          cat repositories/* | jq '.'
+        displayName: 'Run JQ'

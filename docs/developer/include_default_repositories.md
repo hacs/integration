@@ -11,9 +11,3 @@ When all of this is covered, you can add it to repository type files in the [`da
 _NB!: The list is case sensitive._
 
 When a PR for this is merged, it will show up in HACS after the first scheduled scan (every 500min).
-
-**Examples:**
-
-- [`AppDaemon App`](https://github.com/custom-components/hacs/pull/139)
-- [`Integration`](https://github.com/custom-components/hacs/pull/64)
-- [`Plugin`](https://github.com/custom-components/hacs/pull/65)

@@ -99,6 +99,7 @@ DEFAULT_REPOSITORIES = {
         "Ceerbeerus/beerbolaget",
         "thomasloven/hass-browser_mod",
         "claytonjn/hass-circadian_lighting",
+        "xMrVizzy/Philips-AirPurifier",
     ],
     "plugin": [
         "maykar/compact-custom-header",

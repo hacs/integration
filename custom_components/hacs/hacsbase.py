@@ -23,9 +23,11 @@ class HacsBase:
     data = {"hacs": {}}
     data["task_running"] = True
     hass = None
+    _default_repositories = []
     config_dir = None
     aiogithub = None
     blacklist = []
+    hacs_github = None
     repositories = {}
 
     url_path = {}
@@ -55,9 +57,7 @@ class HacsBase:
 
         try:
             # Check for updates to HACS.
-            repository = await self.aiogithub.get_repo("custom-components/hacs")
-
-            repository = HacsRepositoryIntegration("custom-components/hacs", repository)
+            repository = HacsRepositoryIntegration("custom-components/hacs", self.hacs_github)
             await repository.setup_repository()
             self.repositories[repository.repository_id] = repository
 
@@ -223,14 +223,21 @@ class HacsBase:
             )
             repositories["plugin"] = await self.aiogithub.get_org_repos("custom-cards")
 
-        # Additional repositories
-        default = await self.aiogithub.get_repo('custom-components/hacs')
-        _LOGGER.critical(default)
+        _LOGGER.info("Fetching updated blacklist")
+        blacklist = await self.hacs_github.get_contents("repositories/blacklist", 'data')
+
+        for item in json.loads(blacklist.content):
+            if item not in self.blacklist:
+                self.blacklist.append(item)
+
+
+        # Additional default repositories
         for repository_type in ELEMENT_TYPES:
-            default_repositories = await default.get_contents("repositories/{}".format(repository_type), 'data')
-            _LOGGER.critical(default_repositories.content)
+            _LOGGER.info("Fetching updated %s repository list", repository_type)
+            default_repositories = await self.hacs_github.get_contents("repositories/{}".format(repository_type), 'data')
             for repository in json.loads(default_repositories.content):
-                _LOGGER.critical(repository)
+                if repository not in self._default_repositories:
+                    self._default_repositories.append(repository)
                 result = await self.aiogithub.get_repo(repository)
                 repositories[repository_type].append(result)
 

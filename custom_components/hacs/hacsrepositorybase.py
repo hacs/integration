@@ -17,7 +17,7 @@ from .exceptions import (
     HacsBlacklistException,
 )
 from .handler.download import async_download_file, async_save_file
-from .const import DEFAULT_REPOSITORIES, VERSION, NOT_SUPPORTED_HA_VERSION
+from .const import VERSION, NOT_SUPPORTED_HA_VERSION
 
 _LOGGER = logging.getLogger("custom_components.hacs.repository")
 
@@ -67,17 +67,8 @@ class HacsRepositoryBase(HacsBase):
         """Return flag if the repository is custom."""
         if self.repository_name.split("/")[0] in ["custom-components", "custom-cards"]:
             return False
-        elif self.repository_name in DEFAULT_REPOSITORIES["appdaemon"]:
+        elif self.repository_name in self._default_repositories:
             return False
-        elif self.repository_name in DEFAULT_REPOSITORIES["integration"]:
-            return False
-        elif self.repository_name in DEFAULT_REPOSITORIES["plugin"]:
-            return False
-        elif self.repository_name in DEFAULT_REPOSITORIES["python_script"]:
-            return False
-        elif self.repository_name in DEFAULT_REPOSITORIES["theme"]:
-            return False
-        return True
 
     @property
     def local_path(self):

@@ -12,15 +12,7 @@ CUSTOM_UPDATER_LOCATIONS = [
 GENERIC_ERROR = "Possible error codes: 1D10T, PICNIC, B0110CK5."
 ISSUE_URL = "{}issues".format(PROJECT_URL)
 DOMAIN_DATA = "{}_data".format(NAME_SHORT.lower())
-BLACKLIST = [
-    "custom-cards/boilerplate-card",
-    "custom-cards/custom-card-helpers",
-    "custom-cards/information",
-    "custom-cards/tracker-card",
-    "custom-components/blueprint",
-    "custom-components/information",
-    "custom-components/custom_updater",
-]
+
 ELEMENT_TYPES = ["integration", "plugin"]
 IFRAME = {
     "title": "Community",
@@ -68,67 +60,3 @@ ERROR = [
     "If we knew what it was we were doing, it would not be called research, would it?",
     "Wait a minute, Doc. Ah… Are you telling me you built a time machine… out of a DeLorean?",
 ]
-
-
-################################
-##  Extra default repositories #
-################################
-
-DEFAULT_REPOSITORIES = {
-    "appdaemon": [
-        "apop880/SmartThings-Button",
-        "apop880/White-Noise",
-        "apop880/Night-Mode",
-    ],
-    "integration": [
-        "StyraHem/ShellyForHASS",
-        "isabellaalstrom/sensor.krisinformation",
-        "JurajNyiri/HomeAssistant-Tavos",
-        "JurajNyiri/HomeAssistant-Atrea",
-        "TimSoethout/goodwe-sems-home-assistant",
-        "bramkragten/lyric",
-        "bramkragten/mind",
-        "bouwew/sems2mqtt",
-        "akasma74/Hass-Custom-Alarm",
-        "keatontaylor/alexa_media_player",
-        "albertogeniola/meross-homeassistant",
-        "mudape/iphonedetect",
-        "bertbert72/HomeAssistant_VirginTivo",
-        "nstrelow/ha_philips_android_tv",
-        "rsnodgrass/hass-integrations",
-        "Ceerbeerus/beerbolaget",
-        "thomasloven/hass-browser_mod",
-        "claytonjn/hass-circadian_lighting",
-        "xMrVizzy/Philips-AirPurifier",
-    ],
-    "plugin": [
-        "maykar/compact-custom-header",
-        "maykar/lovelace-swipe-navigation",
-        "peternijssen/lovelace-postnl-card",
-        "nervetattoo/simple-thermostat",
-        "nervetattoo/banner-card",
-        "kalkih/mini-media-player",
-        "kalkih/mini-graph-card",
-        "finity69x2/fan-control-entity-row",
-        "thomasloven/lovelace-card-mod",
-        "thomasloven/lovelace-markdown-mod",
-        "thomasloven/lovelace-slider-entity-row",
-        "thomasloven/lovelace-fold-entity-row",
-        "isabellaalstrom/krisinfo-card",
-        "tcarlsen/lovelace-light-with-profiles",
-        "atomic7777/atomic_calendar",
-        "bramkragten/weather-card",
-        "bramkragten/swipe-card",
-        "CyrisXD/love-lock-card",
-        "dimagoltsman/content-card-remote-control",
-        "ljmerza/calendar-card",
-        "ljmerza/light-entity-card",
-        "ljmerza/fitbit-card",
-        "ljmerza/github-card",
-        "ljmerza/waze-card",
-        "ljmerza/reddit-card",
-        "ljmerza/tracking-number-card",
-    ],
-    "python_script": [],
-    "theme": [],
-}

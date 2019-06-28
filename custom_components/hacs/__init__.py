@@ -30,7 +30,6 @@ from .const import (
     ELEMENT_TYPES,
     VERSION,
     IFRAME,
-    BLACKLIST,
 )
 
 from .frontend.views import (
@@ -156,6 +155,7 @@ async def configure_hacs(hass, github_token, hass_config_dir):
         github_token, hass.loop, async_create_clientsession(hass)
     )
 
+    hacs.hacs_github = await hacs.aiogithub.get_repo('custom-components/hacs')
+
     hacs.hass = hass
     hacs.config_dir = hass_config_dir
-    hacs.blacklist = BLACKLIST

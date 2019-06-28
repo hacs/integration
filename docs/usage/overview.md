@@ -32,7 +32,7 @@ color | description
 -- | --
 Green | The repository is installed and there is no pending actions.
 Orange | There is an update pending.
-Read | There is an restart pending.
+Red | There is an restart pending.
 No color (the default text color of the theme) | Repository is not installed/managed by HACS.
 
 <!-- Disable sidebar -->

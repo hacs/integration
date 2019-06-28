@@ -2,11 +2,12 @@
 # pylint: disable=too-few-public-methods,unused-argument
 import logging
 import uuid
+import json
 import os
 from datetime import timedelta
 from homeassistant.helpers.event import async_track_time_interval, async_call_later
 from .aiogithub import AIOGitHubException, AIOGitHubRatelimit
-from .const import DEFAULT_REPOSITORIES, ELEMENT_TYPES
+from .const import ELEMENT_TYPES
 
 _LOGGER = logging.getLogger("custom_components.hacs.hacs")
 
@@ -15,7 +16,7 @@ class HacsBase:
     """The base class of HACS, nested thoughout the project."""
 
     const = None
-    dev = False
+    dev = True
     migration = None
     storage = None
     hacs = None
@@ -223,11 +224,15 @@ class HacsBase:
             repositories["plugin"] = await self.aiogithub.get_org_repos("custom-cards")
 
         # Additional repositories
-        for repository_type in DEFAULT_REPOSITORIES:
-            if repository_type in ELEMENT_TYPES:
-                for repository in DEFAULT_REPOSITORIES[repository_type]:
-                    result = await self.aiogithub.get_repo(repository)
-                    repositories[repository_type].append(result)
+        default = await self.aiogithub.get_repo('custom-components/hacs')
+        _LOGGER.critical(default)
+        for repository_type in ELEMENT_TYPES:
+            default_repositories = await default.get_contents("repositories/{}".format(repository_type), 'data')
+            _LOGGER.critical(default_repositories.content)
+            for repository in json.loads(default_repositories.content):
+                _LOGGER.critical(repository)
+                result = await self.aiogithub.get_repo(repository)
+                repositories[repository_type].append(result)
 
         return (
             repositories["appdaemon"],

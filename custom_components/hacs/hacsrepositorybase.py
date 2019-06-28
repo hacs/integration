@@ -69,6 +69,7 @@ class HacsRepositoryBase(HacsBase):
             return False
         elif self.repository_name in self._default_repositories:
             return False
+        return True
 
     @property
     def local_path(self):

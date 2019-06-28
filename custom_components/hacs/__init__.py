@@ -46,7 +46,7 @@ from .frontend.views import (
 DOMAIN = "{}".format(NAME_SHORT.lower())
 
 # TODO: Remove this when minimum HA version is > 0.93
-REQUIREMENTS = ["aiofiles==0.4.0", "backoff==1.8.0"]
+REQUIREMENTS = ["aiofiles==0.4.0", "backoff==1.8.0", "packaging==19.0"]
 
 _LOGGER = logging.getLogger("custom_components.hacs")
 
@@ -155,7 +155,7 @@ async def configure_hacs(hass, github_token, hass_config_dir):
         github_token, hass.loop, async_create_clientsession(hass)
     )
 
-    hacs.hacs_github = await hacs.aiogithub.get_repo('custom-components/hacs')
+    hacs.hacs_github = await hacs.aiogithub.get_repo("custom-components/hacs")
 
     hacs.hass = hass
     hacs.config_dir = hass_config_dir

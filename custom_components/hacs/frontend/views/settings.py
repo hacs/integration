@@ -216,10 +216,7 @@ class HacsSettingsView(HacsViewBase):
                     </a>
                 </div>
             """.format(
-                modal1,
-                self.url_path["api"],
-                upgrade_all_btn,
-                ISSUE_URL,
+                modal1, self.url_path["api"], upgrade_all_btn, ISSUE_URL
             )
 
             ## Integration URL's

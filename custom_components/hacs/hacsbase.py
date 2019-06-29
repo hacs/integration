@@ -16,7 +16,7 @@ class HacsBase:
     """The base class of HACS, nested thoughout the project."""
 
     const = None
-    dev = True
+    dev = False
     migration = None
     storage = None
     hacs = None
@@ -225,13 +225,6 @@ class HacsBase:
             "theme": [],
         }
 
-        # Get org repositories
-        if not self.dev:
-            repositories["integration"] = await self.aiogithub.get_org_repos(
-                "custom-components"
-            )
-            repositories["plugin"] = await self.aiogithub.get_org_repos("custom-cards")
-
         _LOGGER.info("Fetching updated blacklist")
         blacklist = await self.hacs_github.get_contents(
             "repositories/blacklist", "data"
@@ -241,17 +234,24 @@ class HacsBase:
             if item not in self.blacklist:
                 self.blacklist.append(item)
 
-        # Additional default repositories
-        for repository_type in ELEMENT_TYPES:
-            _LOGGER.info("Fetching updated %s repository list", repository_type)
-            default_repositories = await self.hacs_github.get_contents(
-                "repositories/{}".format(repository_type), "data"
+        # Get org repositories
+        if not self.dev:
+            repositories["integration"] = await self.aiogithub.get_org_repos(
+                "custom-components"
             )
-            for repository in json.loads(default_repositories.content):
-                if repository not in self._default_repositories:
-                    self._default_repositories.append(repository)
-                result = await self.aiogithub.get_repo(repository)
-                repositories[repository_type].append(result)
+            repositories["plugin"] = await self.aiogithub.get_org_repos("custom-cards")
+
+            # Additional default repositories
+            for repository_type in ELEMENT_TYPES:
+                _LOGGER.info("Fetching updated %s repository list", repository_type)
+                default_repositories = await self.hacs_github.get_contents(
+                    "repositories/{}".format(repository_type), "data"
+                )
+                for repository in json.loads(default_repositories.content):
+                    if repository not in self._default_repositories:
+                        self._default_repositories.append(repository)
+                    result = await self.aiogithub.get_repo(repository)
+                    repositories[repository_type].append(result)
 
         return (
             repositories["appdaemon"],

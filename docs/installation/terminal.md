@@ -11,11 +11,13 @@ Then run the following commands:
 ```bash
 git clone https://github.com/custom-components/hacs.git hacs_temp
 cd hacs_temp
-git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
+git checkout $(git describe --tags --always $(git rev-list --tags --max-count=1000) | grep -e "[0-9]\+\.[0-9]\+\.[0-9]\+$" | head -n 1)
 cd ../
 cp -r hacs_temp/custom_components/hacs hacs
 rm -R hacs_temp
 ```
+
+Restart Home Assistant once before moving on to the configuration.
 
 [You should now be done, next part will be to add it to your configuration.](../configuration)
 

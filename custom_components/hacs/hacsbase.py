@@ -2,11 +2,12 @@
 # pylint: disable=too-few-public-methods,unused-argument
 import logging
 import uuid
+import json
 import os
 from datetime import timedelta
 from homeassistant.helpers.event import async_track_time_interval, async_call_later
 from .aiogithub import AIOGitHubException, AIOGitHubRatelimit
-from .const import DEFAULT_REPOSITORIES, ELEMENT_TYPES
+from .const import ELEMENT_TYPES
 
 _LOGGER = logging.getLogger("custom_components.hacs.hacs")
 
@@ -22,9 +23,11 @@ class HacsBase:
     data = {"hacs": {}}
     data["task_running"] = True
     hass = None
+    _default_repositories = []
     config_dir = None
     aiogithub = None
     blacklist = []
+    hacs_github = None
     repositories = {}
 
     url_path = {}
@@ -53,11 +56,21 @@ class HacsBase:
         self.data["hacs"]["endpoints"] = self.url_path
 
         try:
-            # Check for updates to HACS.
-            repository = await self.aiogithub.get_repo("custom-components/hacs")
+            _LOGGER.info("Trying to load existing data.")
 
-            repository = HacsRepositoryIntegration("custom-components/hacs", repository)
+            # Check if migration is needed, or load existing data.
+            await self.migration.validate()
+
+            # Check for updates to HACS.
+            repository = HacsRepositoryIntegration(
+                "custom-components/hacs", self.hacs_github
+            )
             await repository.setup_repository()
+            old = await self.storage.get(True)
+            old_hacs = old.get("repositories", {}).get(repository.repository_id, {})
+            if old_hacs.get("show_beta", False):
+                repository.show_beta = old_hacs.get("show_beta", False)
+                await repository.update()
             self.repositories[repository.repository_id] = repository
 
             # After an upgrade from < 0.7.0 some files are missing.
@@ -69,10 +82,7 @@ class HacsBase:
                 _LOGGER.critical("HACS is missing files, trying to correct.")
                 await repository.install()
 
-            _LOGGER.info("Trying to load existing data.")
-
-            # Check if migration is needed, or load existing data.
-            await self.migration.validate()
+            await self.storage.get()
 
         except AIOGitHubRatelimit as exception:
             _LOGGER.critical(exception)
@@ -215,6 +225,15 @@ class HacsBase:
             "theme": [],
         }
 
+        _LOGGER.info("Fetching updated blacklist")
+        blacklist = await self.hacs_github.get_contents(
+            "repositories/blacklist", "data"
+        )
+
+        for item in json.loads(blacklist.content):
+            if item not in self.blacklist:
+                self.blacklist.append(item)
+
         # Get org repositories
         if not self.dev:
             repositories["integration"] = await self.aiogithub.get_org_repos(
@@ -222,10 +241,15 @@ class HacsBase:
             )
             repositories["plugin"] = await self.aiogithub.get_org_repos("custom-cards")
 
-        # Additional repositories
-        for repository_type in DEFAULT_REPOSITORIES:
-            if repository_type in ELEMENT_TYPES:
-                for repository in DEFAULT_REPOSITORIES[repository_type]:
+            # Additional default repositories
+            for repository_type in ELEMENT_TYPES:
+                _LOGGER.info("Fetching updated %s repository list", repository_type)
+                default_repositories = await self.hacs_github.get_contents(
+                    "repositories/{}".format(repository_type), "data"
+                )
+                for repository in json.loads(default_repositories.content):
+                    if repository not in self._default_repositories:
+                        self._default_repositories.append(repository)
                     result = await self.aiogithub.get_repo(repository)
                     repositories[repository_type].append(result)
 

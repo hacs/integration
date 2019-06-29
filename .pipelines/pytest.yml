@@ -21,14 +21,5 @@ steps:
       python3 -m pip install -r requirements.txt
     displayName: 'Install dependencies'
 
-  - script: "python3 -c 'from custom_components import hacs'"
-    displayName: 'Load HACS (in pyhton)'
-
-  - script: |
-      echo "default_config:" | tee configuration.yaml
-      echo "hacs:" | tee -a configuration.yaml
-      echo "  token:  xxx" | tee -a configuration.yaml
-    displayName: 'Inject Home Assistant configuration'
-
-  - script: "hass --script check_config --config ."
-    displayName: 'Home Assistant configuration check'
+  - script: "python3 -m pytest"
+    displayName: 'Run PyTest'

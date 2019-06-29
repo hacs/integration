@@ -214,16 +214,9 @@ class HacsSettingsView(HacsViewBase):
                     <a rel='noreferrer' href='https://github.com/custom-components/hacs' class='waves-effect waves-light btn right hacsbutton' target="_blank">
                         HACS REPO
                     </a>
-                    <a href="{}/log/get" class='waves-effect waves-light btn right hacsbutton' onclick="ShowProgressBar()">
-                        OPEN LOG
-                    </a>
                 </div>
             """.format(
-                modal1,
-                self.url_path["api"],
-                upgrade_all_btn,
-                ISSUE_URL,
-                self.url_path["api"],
+                modal1, self.url_path["api"], upgrade_all_btn, ISSUE_URL
             )
 
             ## Integration URL's

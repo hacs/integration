@@ -1,10 +1,14 @@
+# PRE RELEASE (BETA)!
+
+# [pre-release documentation](https://custom-components.github.io/hacs/next/)
+
 ![gif](https://custom-components.github.io/hacs/images/hacsdemo.gif)
 
 ## Highlights of what HACS can do
 
-- Help you discover new integrations, plugins and AppDaemon apps.
-- Help you install (download) new integrations, plugins and AppDaemon apps.
-- Help you keep track of your integrations, plugins and AppDaemon apps.
+- Help you discover new custom elements.
+- Help you install (download) new custom elements.
+- Help you keep track of your custom elements.
   - Manage(Install/Upgrade/Remove)
   - Shortcuts to repositories/issue tracker
 

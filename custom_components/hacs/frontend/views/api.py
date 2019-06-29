@@ -27,8 +27,6 @@ class HacsAPIView(HacsViewBase):
             repository = self.repositories[action]
             await repository.install()
             await self.storage.set()
-            if action == "172733314":
-                raise web.HTTPFound(self.url_path["settings"])
             raise web.HTTPFound(
                 "{}/{}".format(self.url_path["repository"], repository.repository_id)
             )
@@ -125,13 +123,6 @@ class HacsAPIView(HacsViewBase):
                         continue
                     jsons[repository.repository_id][item] = var[item]
             return self.json(jsons)
-
-        elif element == "log" and action == "get":
-            from ...handler.log import get_log_file_content
-
-            content = self.base_content
-            content += await get_log_file_content(self.config_dir)
-            return web.Response(body=content, content_type="text/html", charset="utf-8")
 
         raise web.HTTPFound(self.url_path["error"])
 

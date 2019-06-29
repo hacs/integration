@@ -14,7 +14,7 @@ _LOGGER = logging.getLogger("custom_components.hacs.storage")
 class HacsStorage(HacsBase):
     """HACS storage handler."""
 
-    async def get(self):
+    async def get(self, raw=False):
         """Read HACS data to storage."""
         from .blueprints import (
             HacsRepositoryAppDaemon,
@@ -38,6 +38,9 @@ class HacsStorage(HacsBase):
         except Exception:
             # Issues reading the file (if it exists.)
             return False
+
+        if raw:
+            return store_data
 
         # Restore data about HACS
         self.data["hacs"]["schema"] = store_data["hacs"].get("schema")
@@ -157,6 +160,7 @@ class HacsStorage(HacsBase):
             repositorydata["repository_name"] = repository.repository_name
             repositorydata["repository_type"] = repository.repository_type
             repositorydata["show_beta"] = repository.show_beta
+            repositorydata["new"] = repository.new
             repositorydata["version_installed"] = repository.version_installed
 
             data["repositories"][repository.repository_id] = repositorydata

@@ -1,8 +1,8 @@
 """Async Github API implementation."""
-# pylint: disable=super-init-not-called,missing-docstring,invalid-name
+# pylint: disable=super-init-not-called,missing-docstring,invalid-name,redefined-builtin
 import base64
 import logging
-from asyncio import CancelledError
+from asyncio import CancelledError, TimeoutError
 from datetime import datetime
 
 import async_timeout
@@ -186,7 +186,7 @@ class AIOGithubRepository(AIOGitHub):
 
         params = {"path": path}
         if ref is not None:
-            params["ref"] = ref
+            params["ref"] = ref.replace("tags/", "")
 
         async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.get(url, headers=self.headers, params=params)

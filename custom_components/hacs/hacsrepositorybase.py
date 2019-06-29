@@ -6,7 +6,8 @@ import logging
 import pathlib
 import os
 import shutil
-
+from packaging.version import Version
+from homeassistant.const import __version__ as HAVERSION
 from .aiogithub import AIOGitHubException
 from .hacsbase import HacsBase
 from .exceptions import (
@@ -16,7 +17,7 @@ from .exceptions import (
     HacsBlacklistException,
 )
 from .handler.download import async_download_file, async_save_file
-from .const import DEFAULT_REPOSITORIES, VERSION
+from .const import VERSION, NOT_SUPPORTED_HA_VERSION
 
 _LOGGER = logging.getLogger("custom_components.hacs.repository")
 
@@ -38,7 +39,9 @@ class HacsRepositoryBase(HacsBase):
         self.last_release_object = None
         self.last_release_tag = None
         self.last_updated = None
+        self.homeassistant_version = None
         self.name = None
+        self.new = True
         self.pending_restart = False
         self.reasons = []
         self.releases = None
@@ -64,15 +67,7 @@ class HacsRepositoryBase(HacsBase):
         """Return flag if the repository is custom."""
         if self.repository_name.split("/")[0] in ["custom-components", "custom-cards"]:
             return False
-        elif self.repository_name in DEFAULT_REPOSITORIES["appdaemon"]:
-            return False
-        elif self.repository_name in DEFAULT_REPOSITORIES["integration"]:
-            return False
-        elif self.repository_name in DEFAULT_REPOSITORIES["plugin"]:
-            return False
-        elif self.repository_name in DEFAULT_REPOSITORIES["python_script"]:
-            return False
-        elif self.repository_name in DEFAULT_REPOSITORIES["theme"]:
+        elif self.repository_name in self._default_repositories:
             return False
         return True
 
@@ -178,8 +173,20 @@ class HacsRepositoryBase(HacsBase):
         try:
             # Set additional info
             await self.set_additional_info()
+            if self.additional_info is not None:
+                info = await self.aiogithub.render_markdown(self.additional_info)
+                info = info.replace("<h3>", "<h6>").replace("</h3>", "</h6>")
+                info = info.replace("<h2>", "<h5>").replace("</h2>", "</h5>")
+                info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
+                info = info.replace("<code>", "<code class='codeinfo'>")
+                info = info.replace(
+                    '<a href="http', '<a rel="noreferrer" target="_blank" href="http'
+                )
+                info = info.replace("<ul>", "")
+                info = info.replace("</ul>", "")
+                self.additional_info = info
         except AIOGitHubException:
-            pass
+            self.additional_info = None
 
     async def download_repository_directory_content(
         self, repository_directory_path, local_directory, ref
@@ -198,7 +205,7 @@ class HacsRepositoryBase(HacsBase):
                 )
 
             for content_object in contents:
-                if content_object.type == "dir":
+                if content_object.type == "dir" and self.content_path != "":
                     await self.download_repository_directory_content(
                         content_object.path, local_directory, ref
                     )
@@ -257,6 +264,20 @@ class HacsRepositoryBase(HacsBase):
         try:
             # Run update
             await self.update()  # pylint: disable=no-member
+
+            if (
+                self.homeassistant_version is not None
+                and self.last_release_tag is not None
+            ):
+                if Version(HAVERSION[0:6]) < Version(str(self.homeassistant_version)):
+                    message = NOT_SUPPORTED_HA_VERSION.format(
+                        HAVERSION,
+                        self.last_release_tag,
+                        self.name,
+                        str(self.homeassistant_version),
+                    )
+                    _LOGGER.error(message)
+                    return False
 
             # Check local directory
             await self.check_local_directory()

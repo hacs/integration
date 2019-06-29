@@ -6,24 +6,8 @@ Before you try to add your repository to the default store first make sure that 
 
 Only the owner of the repository or a major contributor to it can submit a PR to have it included as a default.
 
-When all of this is covered, you can add it to `DEFAULT_REPOSITORIES` at the bottom of the [`const.py file`](https://github.com/custom-components/hacs/blob/next/custom_components/hacs/const.py)
+When all of this is covered, you can add it to repository type files in the [`data` branch](https://github.com/custom-components/hacs/blob/data/repositories)
 
 _NB!: The list is case sensitive._
 
-When a PR for this is merged, it will be a part of the next planned minor release (0.X.0), if no release is planed a release will be created about a week after the first addition.
-
-_Contributions for the integration should go against the `next` branch._
-
-**Examples:**
-
-- [`AppDaemon App`](https://github.com/custom-components/hacs/pull/139)
-- [`Integration`](https://github.com/custom-components/hacs/pull/64)
-- [`Plugin`](https://github.com/custom-components/hacs/pull/65)
-
-<!-- Disable sidebar -->
-<script>
-let sidebar = document.getElementsByClassName("col-md-3")[0];
-sidebar.parentNode.removeChild(sidebar);
-document.getElementsByClassName("col-md-9")[0].style['padding-left'] = "0";
-</script>
-<!-- Disable sidebar -->
+When a PR for this is merged, it will show up in HACS after the first scheduled scan (every 500min).

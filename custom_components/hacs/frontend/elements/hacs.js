@@ -50,3 +50,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems, {});
   });
+
+
+// Loader
+function toggleLoading(){
+    var loadingOverlay = document.querySelector('.loading');
+    loadingOverlay.classList.remove('hidden')
+    document.activeElement.blur();
+}

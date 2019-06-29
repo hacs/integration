@@ -68,6 +68,11 @@ class HacsViewBase(HomeAssistantView, HacsBase):
         <div class="progress hacs-bar-background" id="progressbar" style="display: {}">
             <div class="indeterminate hacs-bar"></div>
         </div>
+        <div class="loading hidden">
+        <div class='uil-ring-css' style='transform:scale(0.79);'>
+            <div></div>
+        </div>
+        </div>
         """.format(
             display, display
         )

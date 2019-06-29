@@ -68,7 +68,7 @@ class HacsStoreView(HacsViewBase):
                         if repository.new:
                             badge = '<span class="repository-list-badge hacs-table-badge">NEW</span>'
                         card = """
-                            <tr class="hacs-table-row" onclick="window.location='{}/{}';">
+                            <tr class="hacs-table-row" onclick="toggleLoading();window.location='{}/{}';">
                                 <!--{}-->
                                 <!--{}-->
                                 <!--{}-->
@@ -97,7 +97,7 @@ class HacsStoreView(HacsViewBase):
                         if repository.new:
                             badge = '<span class="repository-list-badge hacs-grid-badge">NEW</span>'
                         card = """
-                        <a href="{}/{}" class="hacs-card"">
+                        <a href="{}/{}" class="hacs-card" onclick="toggleLoading()">
                             <div class="hacs-card overview">
                                 <!--{}-->
                                 <!--{}-->

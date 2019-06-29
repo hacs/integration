@@ -58,7 +58,7 @@ class HacsOverviewView(HacsViewBase):
 
                     if self.data.get("hacs", {}).get("view") == "Table":
                         card = """
-                            <tr class="hacs-table-row" onclick="window.location='{}/{}';">
+                            <tr class="hacs-table-row" onclick="toggleLoading();window.location='{}/{}';">
                                 <td>{}</td>
                                 <td>{}</td>
                                 <td class="hacs-card-content smal-hide">{}</td>
@@ -89,7 +89,7 @@ class HacsOverviewView(HacsViewBase):
                     else:
 
                         card = """
-                        <a href="{}/{}" class="hacs-card"">
+                        <a href="{}/{}" class="hacs-card" onclick="toggleLoading()">
                             <div class="hacs-card overview">
                                 <span class="hacs-card-title">{} {}</span>
                                 <span class="hacs-card-content">

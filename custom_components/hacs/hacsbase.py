@@ -16,7 +16,7 @@ class HacsBase:
     """The base class of HACS, nested thoughout the project."""
 
     const = None
-    dev = False
+    dev = True
     migration = None
     storage = None
     hacs = None
@@ -67,10 +67,11 @@ class HacsBase:
             )
             await repository.setup_repository()
             old = await self.storage.get(True)
-            old_hacs = old.get("repositories", {}).get(repository.repository_id, {})
-            if old_hacs.get("show_beta", False):
-                repository.show_beta = old_hacs.get("show_beta", False)
-                await repository.update()
+            if old:
+                old_hacs = old.get("repositories", {}).get(repository.repository_id, {})
+                if old_hacs.get("show_beta", False):
+                    repository.show_beta = old_hacs.get("show_beta", False)
+                    await repository.update()
             self.repositories[repository.repository_id] = repository
 
             # After an upgrade from < 0.7.0 some files are missing.

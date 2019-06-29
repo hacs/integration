@@ -8,6 +8,14 @@ class HacsViewBase(HomeAssistantView, HacsBase):
 
     requires_auth = False
 
+    def load_element(self, element):
+        """return element content."""
+        location = "{}/custom_components/hacs/frontend/elements/{}.html".format(self.config_dir, element)
+        with open(location, "r") as elementfile:
+            content = elementfile.read()
+            elementfile.close()
+        return content
+
     @property
     def base_content(self):
         """Base content."""

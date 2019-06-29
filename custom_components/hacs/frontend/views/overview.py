@@ -57,6 +57,20 @@ class HacsOverviewView(HacsViewBase):
                         card_icon = "<i class='fas fa-cube card-status default'></i>"
 
                     if self.data.get("hacs", {}).get("view") == "Table":
+                        if repository.repository_type == "integration":
+                            name = repository.name
+                        else:
+                            name = repository.name.replace("-", " ").replace("_", " ").title()
+
+                        card = self.load_element("repository_card")
+                        card = card.replace("{API}", self.url_path["repository"])
+                        card = card.replace("{ID}", repository.repository_id)
+                        card = card.replace("{ICON}", card_icon)
+                        card = card.replace("{NAME}", name)
+                        card = card.replace("{DESCRIPTION}", repository.description)
+                        card = card.replace("{INSTALLED}", "installed")
+                        card = card.replace("{AVAILABLE}", "available")
+
                         card = """
                             <tr class="hacs-table-row" onclick="toggleLoading();window.location='{}/{}';">
                                 <td>{}</td>
@@ -87,27 +101,17 @@ class HacsOverviewView(HacsViewBase):
                         card += "</div></li>"
 
                     else:
+                        if repository.repository_type == "integration":
+                            name = repository.name
+                        else:
+                            name = repository.name.replace("-", " ").replace("_", " ").title()
 
-                        card = """
-                        <a href="{}/{}" class="hacs-card" onclick="toggleLoading()">
-                            <div class="hacs-card overview">
-                                <span class="hacs-card-title">{} {}</span>
-                                <span class="hacs-card-content">
-                                    <p>{}</p>
-                                </span>
-                            </div>
-                        </a>
-                        """.format(
-                            self.url_path["repository"],
-                            repository.repository_id,
-                            card_icon,
-                            repository.name
-                            if repository.repository_type == "integration"
-                            else repository.name.replace("-", " ")
-                            .replace("_", " ")
-                            .title(),
-                            repository.description,
-                        )
+                        card = self.load_element("repository_card")
+                        card = card.replace("{API}", self.url_path["repository"])
+                        card = card.replace("{ID}", repository.repository_id)
+                        card = card.replace("{ICON}", card_icon)
+                        card = card.replace("{NAME}", name)
+                        card = card.replace("{DESCRIPTION}", repository.description)
 
                     types[repository.repository_type].append(card)
 

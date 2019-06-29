@@ -186,7 +186,7 @@ class AIOGithubRepository(AIOGitHub):
 
         params = {"path": path}
         if ref is not None:
-            params["ref"] = ref
+            params["ref"] = ref.replace("tags/", "")
 
         async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.get(url, headers=self.headers, params=params)

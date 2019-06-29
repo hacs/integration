@@ -38,7 +38,7 @@ class HacsStorage(HacsBase):
         except Exception:
             # Issues reading the file (if it exists.)
             return False
-        
+
         if raw:
             return store_data
 

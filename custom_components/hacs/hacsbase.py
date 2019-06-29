@@ -56,11 +56,21 @@ class HacsBase:
         self.data["hacs"]["endpoints"] = self.url_path
 
         try:
+            _LOGGER.info("Trying to load existing data.")
+
+            # Check if migration is needed, or load existing data.
+            await self.migration.validate()
+
             # Check for updates to HACS.
             repository = HacsRepositoryIntegration(
                 "custom-components/hacs", self.hacs_github
             )
             await repository.setup_repository()
+            old = await self.storage.get(True)
+            old_hacs = old.get("repositories", {}).get(repository.repository_id, {})
+            if old_hacs.get("show_beta", False):
+                repository.show_beta = old_hacs.get("show_beta", False)
+                await repository.update()
             self.repositories[repository.repository_id] = repository
 
             # After an upgrade from < 0.7.0 some files are missing.
@@ -72,10 +82,7 @@ class HacsBase:
                 _LOGGER.critical("HACS is missing files, trying to correct.")
                 await repository.install()
 
-            _LOGGER.info("Trying to load existing data.")
-
-            # Check if migration is needed, or load existing data.
-            await self.migration.validate()
+            await self.storage.get()
 
         except AIOGitHubRatelimit as exception:
             _LOGGER.critical(exception)

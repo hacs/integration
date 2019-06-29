@@ -62,43 +62,27 @@ class HacsOverviewView(HacsViewBase):
                         else:
                             name = repository.name.replace("-", " ").replace("_", " ").title()
 
-                        card = self.load_element("repository_card")
+                        if repository.version_installed:
+                            installed = repository.version_installed
+                        else:
+                            if repository.installed_commit:
+                                installed = repository.version_installed
+                            else:
+                                installed = ""
+
+                        if repository.last_release_tag:
+                            available = repository.last_release_tag
+                        else:
+                            available = repository.last_commit
+
+                        card = self.load_element("repository/row_overview")
                         card = card.replace("{API}", self.url_path["repository"])
                         card = card.replace("{ID}", repository.repository_id)
-                        card = card.replace("{ICON}", card_icon)
+                        card = card.replace("{ICON}", card_icon.replace("<i", "<i style='margin-left: 25%'"))
                         card = card.replace("{NAME}", name)
                         card = card.replace("{DESCRIPTION}", repository.description)
-                        card = card.replace("{INSTALLED}", "installed")
-                        card = card.replace("{AVAILABLE}", "available")
-
-                        card = """
-                            <tr class="hacs-table-row" onclick="toggleLoading();window.location='{}/{}';">
-                                <td>{}</td>
-                                <td>{}</td>
-                                <td class="hacs-card-content smal-hide">{}</td>
-                                <td class="smal-hide">{}</td>
-                                <td class="smal-hide">{}</td>
-                            </tr>
-                        """.format(
-                            self.url_path["repository"],
-                            repository.repository_id,
-                            card_icon.replace("<i", "<i style='margin-left: 25%'"),
-                            repository.name
-                            if repository.repository_type == "integration"
-                            else repository.name.replace("-", " ")
-                            .replace("_", " ")
-                            .title(),
-                            repository.description,
-                            repository.version_installed
-                            if repository.version_installed
-                            else repository.installed_commit
-                            if repository.installed_commit
-                            else "",
-                            repository.last_release_tag
-                            if repository.last_release_tag
-                            else repository.last_commit,
-                        )
-                        card += "</div></li>"
+                        card = card.replace("{INSTALLED}", installed)
+                        card = card.replace("{AVAILABLE}", available)
 
                     else:
                         if repository.repository_type == "integration":
@@ -106,7 +90,7 @@ class HacsOverviewView(HacsViewBase):
                         else:
                             name = repository.name.replace("-", " ").replace("_", " ").title()
 
-                        card = self.load_element("repository_card")
+                        card = self.load_element("repository/card")
                         card = card.replace("{API}", self.url_path["repository"])
                         card = card.replace("{ID}", repository.repository_id)
                         card = card.replace("{ICON}", card_icon)
@@ -123,39 +107,23 @@ class HacsOverviewView(HacsViewBase):
                         elif element_type == "python_script":
                             typedisplay = "PYTHON SCRIPTS"
                         if self.data.get("hacs", {}).get("view") == "Table":
-                            content += """
-                            <div class='hacs-overview-container'>
-                                <div class="row">
-                                    <h5>{}</h5>
-                                    <table class="hacs-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Status</th>
-                                                <th>Name</th>
-                                                <th class="smal-hide">Description</th>
-                                                <th class="smal-hide">Installed</th>
-                                                <th class="smal-hide">Available</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                            """.format(
-                                typedisplay
-                            )
+                            rows = ""
                             for card in types[element_type]:
-                                content += card
-                            content += """
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            """
+                                rows += card
+                            table = self.load_element("overview/table")
+                            table = table.replace("{TYPE}", typedisplay)
+                            table = table.replace("{ROWS}", rows)
+                            content += table
+
                         else:
-                            content += "<div class='hacs-overview-container'>"
-                            content += "<h5>{}</h5>".format(typedisplay)
-                            content += "<div class='hacs-card-container'>"
+                            cards = ""
                             for card in types[element_type]:
-                                content += card
-                            content += "</div></div></br></br>"
+                                cards += card
+                            grid = self.load_element("overview/grid")
+                            grid = grid.replace("{TYPE}", typedisplay)
+                            grid = grid.replace("{CARDS}", cards)
+                            content += grid
+
 
                 if not types:
                     if not self.data["task_running"]:

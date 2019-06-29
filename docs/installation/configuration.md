@@ -18,6 +18,8 @@ key | optional | default | description
 
 ***
 
+After adding it to the configuration you need to restart Home Assistant.
+
 ## Github Personal Access Token
 
 _You need to generate an Access Token to your account before you start using this._

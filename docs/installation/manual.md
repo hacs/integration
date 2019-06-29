@@ -73,7 +73,11 @@ If you **do not** see a `custom_components` folder in **the same** folder as `co
 
 The `custom_components` **needs** to be in **the exact same** folder as `configuration.yaml`
 
-### Step 7 - ✏️
+### Step 7 - Restart Home Assistant
+
+Restart Home Assistant once before moving on to step 8.
+
+### Step 8 - ✏️
 
 [You should now be done, next part will be to add it to your configuration.](../configuration)
 

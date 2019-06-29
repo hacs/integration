@@ -205,7 +205,7 @@ class HacsRepositoryBase(HacsBase):
                 )
 
             for content_object in contents:
-                if content_object.type == "dir":
+                if content_object.type == "dir" and self.content_path != "":
                     await self.download_repository_directory_content(
                         content_object.path, local_directory, ref
                     )

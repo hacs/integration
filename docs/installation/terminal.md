@@ -20,3 +20,11 @@ rm -R hacs_temp
 Restart Home Assistant once before moving on to the configuration.
 
 [You should now be done, next part will be to add it to your configuration.](../configuration)
+
+<!-- Disable sidebar -->
+<script>
+let sidebar = document.getElementsByClassName("col-md-3")[0];
+sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style['padding-left'] = "0";
+</script>
+<!-- Disable sidebar -->

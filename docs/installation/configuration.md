@@ -2,6 +2,9 @@
 
 **NB! This needs to be in `configuration.yaml`, _not_ in a "package".**
 
+HACS uses the GitHub API to gather information.  Without authentication the usage of the API is limited to 60 calls per hour.
+The token generated below will only have read-only access to public information.
+
 ## Example configuration
 
 ```yaml
@@ -59,3 +62,11 @@ You **do not** need to check _any_ of the boxes.
 Now you see the generated token, this will be the **only** time you see it, make sure that you copy it manually or by clicking the clipboard icon.
 
 ![token4](../images/token4.png)
+
+<!-- Disable sidebar -->
+<script>
+let sidebar = document.getElementsByClassName("col-md-3")[0];
+sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style['padding-left'] = "0";
+</script>
+<!-- Disable sidebar -->

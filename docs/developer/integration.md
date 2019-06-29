@@ -70,3 +70,11 @@ If the user try to install this and the minimum HA requirement is not met, the u
 #### If there are no releases
 
 It will scan files in the branch marked as default.
+
+<!-- Disable sidebar -->
+<script>
+let sidebar = document.getElementsByClassName("col-md-3")[0];
+sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style['padding-left'] = "0";
+</script>
+<!-- Disable sidebar -->

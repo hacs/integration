@@ -69,3 +69,11 @@ This will take you to the GitHub repository for the repository.
 
 This will delete the files on the file system and tell HACS that you do not want to keep tracking it.
 This will only show on installed repositories.
+
+<!-- Disable sidebar -->
+<script>
+let sidebar = document.getElementsByClassName("col-md-3")[0];
+sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style['padding-left'] = "0";
+</script>
+<!-- Disable sidebar -->

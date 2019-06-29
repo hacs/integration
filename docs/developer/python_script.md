@@ -38,3 +38,11 @@ When installing/upgrading it will scan the content in the latest release.
 #### If there are no releases
 
 It will scan files in the branch marked as default.
+
+<!-- Disable sidebar -->
+<script>
+let sidebar = document.getElementsByClassName("col-md-3")[0];
+sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style['padding-left'] = "0";
+</script>
+<!-- Disable sidebar -->

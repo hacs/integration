@@ -36,3 +36,11 @@ Green | The repository is installed and there is no pending actions.
 Orange | There is an update pending.
 Read | There is an restart pending.
 No color (the default text color of the theme) | Repository is not installed/managed by HACS.
+
+<!-- Disable sidebar -->
+<script>
+let sidebar = document.getElementsByClassName("col-md-3")[0];
+sidebar.parentNode.removeChild(sidebar);
+document.getElementsByClassName("col-md-9")[0].style['padding-left'] = "0";
+</script>
+<!-- Disable sidebar -->

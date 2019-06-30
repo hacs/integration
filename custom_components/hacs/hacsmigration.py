@@ -44,8 +44,8 @@ class HacsMigration(HacsBase):
             _LOGGER.info("Backing up current file to '%s'", destination)
             copy2(source, destination)
             await self.from_2_to_3()
-            await self.from_3_to_4()
             await self.flush_data()
+            await self.from_3_to_4()
 
         elif self._old["hacs"]["schema"] == "3":
             # Creating backup.

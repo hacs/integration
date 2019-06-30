@@ -26,12 +26,13 @@ class HacsOverviewView(HacsViewBase):
             for element_type in ELEMENT_TYPES:
                 types[element_type] = []
 
-            if not self.repositories:
+            if not self.store.repositories:
                 if not self.data["task_running"]:
                     content += NO_ELEMENTS
 
             else:
-                for repository in self.repositories_list_name:
+                for repository in self.store.repositories:
+                    repository = self.store.repositories[repository]
 
                     if (
                         not repository.track

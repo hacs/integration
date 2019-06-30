@@ -53,6 +53,7 @@ class HacsMigration(HacsBase):
     async def flush_data(self):
         """Flush validated data."""
         _LOGGER.info("Flushing data to storage.")
+        return
 
         datastore = "{}/.storage/{}".format(self.config_dir, STORENAME)
 

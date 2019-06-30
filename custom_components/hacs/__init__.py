@@ -19,6 +19,7 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers import discovery
 
 from .hacsbase import HacsBase as hacs
+from .hacsdatastore import HacsDataStore
 from .const import (
     CUSTOM_UPDATER_LOCATIONS,
     STARTUP,
@@ -159,3 +160,5 @@ async def configure_hacs(hass, github_token, hass_config_dir):
 
     hacs.hass = hass
     hacs.config_dir = hass_config_dir
+    hacs.store = HacsDataStore(hass_config_dir)
+    hacs.store.restore_values()

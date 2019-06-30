@@ -41,7 +41,10 @@ class HacsRepositoryView(HacsViewBase):
         """Serve HacsRepositoryView."""
         try:
             message = request.rel_url.query.get("message")
-            repository = self.repositories[str(repository_id)]
+            repository = self.store.repositories[str(repository_id)]
+            if repository.repository is None:
+                await repository.set_repository()
+                await repository.update()
             repository.new = False
             await self.storage.set()
 

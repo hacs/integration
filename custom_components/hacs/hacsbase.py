@@ -1,6 +1,6 @@
 """Blueprint for HacsBase."""
 # pylint: disable=too-few-public-methods,unused-argument
-import logging
+
 import uuid
 import json
 import os
@@ -8,9 +8,7 @@ from datetime import timedelta
 from homeassistant.helpers.event import async_track_time_interval, async_call_later
 from .aiogithub import AIOGitHubException, AIOGitHubRatelimit
 from .const import ELEMENT_TYPES
-
-_LOGGER = logging.getLogger("custom_components.hacs.hacs")
-
+from .hacslogger import HacsLogger
 
 class HacsBase:
     """The base class of HACS, nested thoughout the project."""
@@ -20,6 +18,7 @@ class HacsBase:
     migration = None
     storage = None
     hacs = None
+    logger = HacsLogger()
     data = {"hacs": {}}
     data["task_running"] = True
     hass = None
@@ -27,6 +26,7 @@ class HacsBase:
     config_dir = None
     aiogithub = None
     blacklist = []
+    store = None
     hacs_github = None
     repositories = {}
 
@@ -50,13 +50,13 @@ class HacsBase:
 
         self.data["task_running"] = True
 
-        _LOGGER.info("Runing startup tasks.")
+        self.logger.info("Runing startup tasks.")
 
         # Store enpoints
         self.data["hacs"]["endpoints"] = self.url_path
 
         try:
-            _LOGGER.info("Trying to load existing data.")
+            self.logger.info("Trying to load existing data.")
 
             # Check if migration is needed, or load existing data.
             await self.migration.validate()
@@ -72,7 +72,7 @@ class HacsBase:
                 if old_hacs.get("show_beta", False):
                     repository.show_beta = old_hacs.get("show_beta", False)
                     await repository.update()
-            self.repositories[repository.repository_id] = repository
+            self.store.repositories[repository.repository_id] = repository
 
             # After an upgrade from < 0.7.0 some files are missing.
             # This will handle that.
@@ -80,14 +80,14 @@ class HacsBase:
                 repository.local_path
             )
             if not os.path.exists(checkpath):
-                _LOGGER.critical("HACS is missing files, trying to correct.")
+                self.logger.critical("HACS is missing files, trying to correct.")
                 await repository.install()
 
             await self.storage.get()
 
         except AIOGitHubRatelimit as exception:
-            _LOGGER.critical(exception)
-            _LOGGER.info("HACS will try to run setup again in 15 minuttes.")
+            self.logger.critical(exception)
+            self.logger.info("HACS will try to run setup again in 15 minuttes.")
             async_call_later(self.hass, 900, self.startup_tasks)
             return False
 
@@ -115,10 +115,10 @@ class HacsBase:
             HacsRepositoryThemes,
         )
 
-        _LOGGER.info("Starting repository registration for %s", repo)
+        self.logger.info("Starting repository registration for %s", repo)
 
         if element_type not in ELEMENT_TYPES:
-            _LOGGER.info("%s is not enabled, skipping registration", element_type)
+            self.logger.info("%s is not enabled, skipping registration", element_type)
             return None, False
 
         if element_type == "appdaemon":
@@ -145,30 +145,30 @@ class HacsBase:
             await repository.setup_repository()
         except (HacsRequirement, HacsBaseException, AIOGitHubException) as exception:
             if not self.data["task_running"]:
-                _LOGGER.error("%s - %s", repository.repository_name, exception)
+                self.logger.error("{} - {}".format(repository.repository_name, exception))
             setup_result = False
 
         if setup_result:
-            self.repositories[repository.repository_id] = repository
+            self.store.repositories[repository.repository_id] = repository
 
         else:
             if repo not in self.blacklist:
                 self.blacklist.append(repo)
             if not self.data["task_running"]:
-                _LOGGER.error("%s - Could not register.", repo)
+                self.logger.error("%s - Could not register.", repo)
         return repository, setup_result
 
     async def update_repositories(self, now=None):
         """Run update on registerd repositories, and register new."""
         self.data["task_running"] = True
 
-        _LOGGER.debug("Skipping repositories in blacklist %s", str(self.blacklist))
+        self.logger.debug("Skipping repositories in blacklist %s", str(self.blacklist))
 
         # Running update on registerd repositories
-        if self.repositories:
-            for repository in self.repositories:
+        if self.store.repositories:
+            for repository in self.store.repositories:
                 try:
-                    repository = self.repositories[repository]
+                    repository = self.store.repositories[repository]
                     if (
                         not repository.track
                         or repository.repository_name in self.blacklist
@@ -177,12 +177,12 @@ class HacsBase:
                     if repository.hide and repository.repository_id != "172733314":
                         continue
                     if now is not None:
-                        _LOGGER.info(
+                        self.logger.info(
                             "Running update for %s", repository.repository_name
                         )
                         await repository.update()
                 except AIOGitHubException as exception:
-                    _LOGGER.error("%s - %s", repository.repository_name, exception)
+                    self.logger.error("{} - {}".format(repository.repository_name, exception))
 
         # Register new repositories
         appdaemon, integrations, plugins, python_scripts, themes = (
@@ -203,8 +203,8 @@ class HacsBase:
                     continue
                 elif repository.full_name in self.blacklist:
                     continue
-                elif str(repository.id) in self.repositories:
-                    repository = self.repositories[str(repository.id)]
+                elif str(repository.id) in self.store.repositories:
+                    repository = self.store.repositories[str(repository.id)]
                     await repository.update()
                 else:
                     try:
@@ -212,7 +212,7 @@ class HacsBase:
                             repository_type, repository.full_name, repository
                         )
                     except AIOGitHubException as exception:
-                        _LOGGER.error("%s - %s", repository.full_name, exception)
+                        self.logger.error("{} - {}".format(repository.repository_name, exception))
         self.data["task_running"] = False
         await self.storage.set()
 
@@ -226,7 +226,7 @@ class HacsBase:
             "theme": [],
         }
 
-        _LOGGER.info("Fetching updated blacklist")
+        self.logger.info("Fetching updated blacklist")
         blacklist = await self.hacs_github.get_contents(
             "repositories/blacklist", "data"
         )
@@ -244,7 +244,7 @@ class HacsBase:
 
             # Additional default repositories
             for repository_type in ELEMENT_TYPES:
-                _LOGGER.info("Fetching updated %s repository list", repository_type)
+                self.logger.info("Fetching updated %s repository list", repository_type)
                 default_repositories = await self.hacs_github.get_contents(
                     "repositories/{}".format(repository_type), "data"
                 )
@@ -267,25 +267,25 @@ class HacsBase:
     ):  # pylint: disable=unused-argument
         """Recuring tasks for installed repositories."""
         self.data["task_running"] = True
-        _LOGGER.info("Running scheduled update of installed repositories")
-        for repository in self.repositories:
+        self.logger.info("Running scheduled update of installed repositories")
+        for repository in self.store.repositories:
             try:
-                repository = self.repositories[repository]
+                repository = self.store.repositories[repository]
                 if not repository.track or repository.repository_name in self.blacklist:
                     continue
                 if not repository.installed:
                     continue
-                _LOGGER.info("Running update for %s", repository.repository_name)
+                self.logger.info("Running update for %s", repository.repository_name)
                 await repository.update()
             except AIOGitHubException as exception:
-                _LOGGER.error("%s - %s", repository.repository_name, exception)
+                self.logger.error("{} - {}".format(repository.repository_name, exception))
         self.data["task_running"] = False
 
     @property
     def repositories_list_name(self):
         """Return a sorted(by name) list of repository objects."""
         repositories = []
-        for repository in self.repositories:
+        for repository in self.store.repositories:
             repositories.append(self.repositories[repository])
         return sorted(repositories, key=lambda x: x.name.lower())
 
@@ -293,14 +293,14 @@ class HacsBase:
     def repositories_list_repo(self):
         """Return a sorted(by repository_name) list of repository objects."""
         repositories = []
-        for repository in self.repositories:
-            repositories.append(self.repositories[repository])
+        for repository in self.store.repositories:
+            repositories.append(self.store.repositories[repository])
         return sorted(repositories, key=lambda x: x.repository_name)
 
     async def is_known_repository(self, repository_full_name):
         """Return a bool if the repository is known."""
-        for repository in self.repositories:
-            repository = self.repositories[repository]
+        for repository in self.store.repositories:
+            repository = self.store.repositories[repository]
             if repository.repository_name == repository_full_name:
                 return True
         return False

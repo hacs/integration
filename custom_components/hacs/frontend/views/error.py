@@ -70,17 +70,12 @@ class HacsErrorView(HacsViewBase):
                 <div class='container'>
                     <a href='{}/new/choose' class='waves-effect waves-light btn right hacsbutton'
                         target="_blank">OPEN ISSUE</a>
-
-                    <a href='{}/log/get' class='waves-effect waves-light btn right hacsbutton'>
-                        OPEN LOG
-                    </a>
                 </div>
                 <div class='center-align' style='margin-top: 100px'>
                     <img rel="noreferrer" src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>
                 </div>
             """.format(
-                random.choice(ERROR), codeblock, ISSUE_URL, self.url_path["api"]
-            )
+                random.choice(ERROR), codeblock, ISSUE_URL)
 
         except Exception as exception:
             message = "GREAT!, even the error page is broken... ({})".format(exception)

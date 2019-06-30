@@ -180,7 +180,7 @@ class HacsSettingsView(HacsViewBase):
                     </div>
                     <div class="modal-footer hacscolor">
                         {}
-                        <a {} href="{}/repositories_upgrade_all/notinuse" class='waves-effect waves-light btn hacsbutton' onclick="toggleLoading()" style="background-color: var(--google-red-500) !important; font-weight: bold;">
+                        <a {} href="{}/repositories_upgrade_all/notinuse" class='waves-effect waves-light btn hacsbutton' style="background-color: var(--google-red-500) !important; font-weight: bold;">
                             UPGRADE ALL
                         </a>
                     </div>

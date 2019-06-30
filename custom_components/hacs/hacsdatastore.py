@@ -66,6 +66,7 @@ class HacsDataStore:
                 "show_beta": repository.show_beta,
                 "topics": repository.topics,
                 "track": repository.track,
+                "last_release_tag": repository.last_release_tag,
                 "version_installed": repository.version_installed,
             }
 
@@ -126,6 +127,8 @@ class HacsDataStore:
                     repositories[repo_id].repository_id = repo_id
                     repositories[repo_id].topics = repository.get("topics", [])
                     repositories[repo_id].track = repository.get("track", True)
-                    repositories[repo_id].version_installed = repository["version_installed"]
+                    repositories[repo_id].version_installed = repository.get("version_installed")
+                    repositories[repo_id].last_release_tag = repository.get("last_release_tag")
+                    repositories[repo_id].installed_commit = repository.get("installed_commit")
 
                 self.repositories = repositories

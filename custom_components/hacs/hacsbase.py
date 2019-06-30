@@ -96,10 +96,10 @@ class HacsBase:
             HacsRepositoryThemes,
         )
 
-        self.logger.info("Starting repository registration for %s", repo)
+        self.logger.info("Starting repository registration for", repo)
 
         if element_type not in ELEMENT_TYPES:
-            self.logger.info("%s is not enabled, skipping registration", element_type)
+            self.logger.info("is not enabled, skipping registration", element_type)
             return None, False
 
         if element_type == "appdaemon":
@@ -143,7 +143,7 @@ class HacsBase:
         """Run update on registerd repositories, and register new."""
         self.store.task_running = True
 
-        self.logger.debug("Skipping repositories in blacklist %s", str(self.blacklist))
+        self.logger.debug("Skipping repositories in blacklist {}".format(str(self.blacklist)))
 
         # Running update on registerd repositories
         if self.store.repositories:
@@ -159,7 +159,7 @@ class HacsBase:
                         continue
                     if now is not None:
                         self.logger.info(
-                            "Running update for %s", repository.repository_name
+                            "Running update", repository.repository_name
                         )
                         await repository.set_repository()
                 except AIOGitHubException as exception:
@@ -199,6 +199,7 @@ class HacsBase:
 
     async def get_repositories(self):
         """Get defined repositories."""
+        self.store.task_running = True
         repositories = {
             "appdaemon": [],
             "integration": [],
@@ -225,7 +226,7 @@ class HacsBase:
 
             # Additional default repositories
             for repository_type in ELEMENT_TYPES:
-                self.logger.info("Fetching updated %s repository list", repository_type)
+                self.logger.info("Fetching updated repository list", repository_type)
                 default_repositories = await self.hacs_github.get_contents(
                     "repositories/{}".format(repository_type), "data"
                 )
@@ -234,6 +235,8 @@ class HacsBase:
                         self._default_repositories.append(repository)
                     result = await self.aiogithub.get_repo(repository)
                     repositories[repository_type].append(result)
+
+        self.store.task_running = False
 
         return (
             repositories["appdaemon"],
@@ -256,7 +259,7 @@ class HacsBase:
                     continue
                 if not repository.installed:
                     continue
-                self.logger.info("Running update for %s", repository.repository_name)
+                self.logger.info("Running update", repository.repository_name)
                 await repository.update()
             except AIOGitHubException as exception:
                 self.logger.error("{} - {}".format(repository.repository_name, exception))

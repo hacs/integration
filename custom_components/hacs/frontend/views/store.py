@@ -38,8 +38,8 @@ class HacsStoreView(HacsViewBase):
                     </div>
                 """
 
-                for repository in self.store.repositories:
-                    repository = RepositoryInformation(self.store.repositories[repository])
+                for repository in self.repositories_list_name:
+                    repository = RepositoryInformation(self.store.repositories[repository.repository_id])
 
                     if (
                         not repository.track

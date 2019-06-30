@@ -61,65 +61,66 @@ class HacsSettingsView(HacsViewBase):
 
             pending = ""
             # Repos:
-            for repository in self.repositories_list_repo:
-                if repository.pending_update:
-                    pending += "<p>- {} ({} -> {})</p></br>".format(
-                        repository.name,
-                        repository.version_installed
-                        if repository.version_installed is not None
-                        else repository.installed_commit,
-                        repository.last_release_tag
-                        if repository.last_release_tag is not None
-                        else repository.last_commit,
-                    )
+            if not self.store.task_running:
+                for repository in self.repositories_list_repo:
+                    if repository.pending_update:
+                        pending += "<p>- {} ({} -> {})</p></br>".format(
+                            repository.name,
+                            repository.version_installed
+                            if repository.version_installed is not None
+                            else repository.installed_commit,
+                            repository.last_release_tag
+                            if repository.last_release_tag is not None
+                            else repository.last_commit,
+                        )
 
-                if repository.hide and repository.repository_id != "172733314":
+                    if repository.hide and repository.repository_id != "172733314":
+                        line = '<li class="collection-item hacscolor hacslist"><div>'
+                        line += """
+                            <a href="{}/repository_unhide/{}">
+                            <i title="Unhide" class="fas fa-plus-circle" style="padding-right: 8px"></i></a> 
+                            {}
+                            <span class="repository-list-badge">{}</span>
+                        """.format(
+                            self.url_path["api"],
+                            repository.repository_id,
+                            repository.repository_name,
+                            repository.repository_type,
+                        )
+                        line += "</div></li>"
+                        hidden.append(line)
+
+                    if not repository.custom:
+                        continue
+
                     line = '<li class="collection-item hacscolor hacslist"><div>'
                     line += """
-                        <a href="{}/repository_unhide/{}">
-                        <i title="Unhide" class="fas fa-plus-circle" style="padding-right: 8px"></i></a> 
-                        {}
-                        <span class="repository-list-badge">{}</span>
+                        <a href="{}/{}"><span class="repository-list-badge">{}</span> {}</a> 
                     """.format(
-                        self.url_path["api"],
+                        self.url_path["repository"],
                         repository.repository_id,
-                        repository.repository_name,
                         repository.repository_type,
+                        repository.repository_name,
                     )
+
+                    if repository.installed:
+                        remove = """
+                            <i title="Remove is not possible when {} is installed." class="secondary-content fas fa-trash-alt disabledaction"></i>
+                        """.format(
+                            repository.repository_type
+                        )
+                    else:
+                        remove = """
+                            <a href={}/repository_remove/{} onclick="toggleLoading()" class="secondary-content" style="color: var(--primary-color)">
+                                <i title="Remove." class="fas fa-trash-alt"></i>
+                            </a>
+                        """.format(
+                            self.url_path["api"], repository.repository_id
+                        )
+                    line += remove
                     line += "</div></li>"
-                    hidden.append(line)
 
-                if not repository.custom:
-                    continue
-
-                line = '<li class="collection-item hacscolor hacslist"><div>'
-                line += """
-                    <a href="{}/{}"><span class="repository-list-badge">{}</span> {}</a> 
-                """.format(
-                    self.url_path["repository"],
-                    repository.repository_id,
-                    repository.repository_type,
-                    repository.repository_name,
-                )
-
-                if repository.installed:
-                    remove = """
-                        <i title="Remove is not possible when {} is installed." class="secondary-content fas fa-trash-alt disabledaction"></i>
-                    """.format(
-                        repository.repository_type
-                    )
-                else:
-                    remove = """
-                        <a href={}/repository_remove/{} onclick="toggleLoading()" class="secondary-content" style="color: var(--primary-color)">
-                            <i title="Remove." class="fas fa-trash-alt"></i>
-                        </a>
-                    """.format(
-                        self.url_path["api"], repository.repository_id
-                    )
-                line += remove
-                line += "</div></li>"
-
-                repository_lines.append(line)
+                    repository_lines.append(line)
 
             # Generate content to display
             content = self.base_content

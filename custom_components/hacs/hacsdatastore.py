@@ -54,19 +54,19 @@ class HacsDataStore:
             repository = self.repositories[repository]
             repositorydata = {
                 "custom": repository.custom,
+                "description": repository.description,
                 "hide": repository.hide,
-                "installed": repository.installed,
                 "installed_commit": repository.installed_commit,
+                "installed": repository.installed,
+                "last_commit": repository.last_commit,
+                "name": repository.name,
+                "new": repository.new,
                 "repository_name": repository.repository_name,
                 "repository_type": repository.repository_type,
                 "show_beta": repository.show_beta,
-                "new": repository.new,
-                "version_installed": repository.version_installed,
                 "topics": repository.topics,
-                "description": repository.description,
-                "last_commit": repository.last_commit,
                 "track": repository.track,
-                "name": repository.name,
+                "version_installed": repository.version_installed,
             }
 
 
@@ -118,14 +118,14 @@ class HacsDataStore:
                     else:
                         continue
 
-                    repositories[repo_id].repository_id = repo_id
-                    repositories[repo_id].name = repository["name"]
-                    repositories[repo_id].installed = repository["installed"]
-                    repositories[repo_id].new = repository["new"]
-                    repositories[repo_id].version_installed = repository["version_installed"]
-                    repositories[repo_id].track = repository.get("track", True)
-                    repositories[repo_id].last_commit = repository.get("last_commit", "")
                     repositories[repo_id].description = repository.get("description", "")
+                    repositories[repo_id].installed = repository["installed"]
+                    repositories[repo_id].last_commit = repository.get("last_commit", "")
+                    repositories[repo_id].name = repository["name"]
+                    repositories[repo_id].new = repository["new"]
+                    repositories[repo_id].repository_id = repo_id
                     repositories[repo_id].topics = repository.get("topics", [])
+                    repositories[repo_id].track = repository.get("track", True)
+                    repositories[repo_id].version_installed = repository["version_installed"]
 
                 self.repositories = repositories

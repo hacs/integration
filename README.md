@@ -10,7 +10,7 @@ HACS is an abbreviation of "Home Assistant Community Store".
 
 _Although "Store" is not "technically" correct since nothing is sold, it’s more like a marketplace? but "HACM" didn’t have the same ring to it._
 
-HACS is a component that gives the user a powerful UI to handle downloads of custom integrations and plugins.
+HACS is a integration that gives the user a powerful UI to handle downloads of custom integrations and plugins.
 
 **Highlights of what HACS can do:**
 

@@ -19,8 +19,7 @@ class HACSSensor(Entity):
 
     async def async_update(self):
         """Update the sensor."""
-        # Send update "signal" to the component
-        if hacs.data["task_running"]:
+        if hacs.store.task_running:
             return
 
         updates = 0

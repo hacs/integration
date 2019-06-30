@@ -14,7 +14,7 @@ class HacsBase:
     """The base class of HACS, nested thoughout the project."""
 
     const = None
-    dev = True
+    dev = False
     migration = None
     storage = None
     hacs = None

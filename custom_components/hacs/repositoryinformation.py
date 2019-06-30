@@ -17,6 +17,8 @@ class RepositoryInformation:
 
     @property
     def description(self):
+        if self.repository.description is None:
+            return ""
         return self.repository.description
 
     @property

@@ -25,6 +25,7 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         self.repository_type = "integration"
         self.manifest_content = None
         self.domain = None
+        self.name = repository_name.split("/")[-1]
 
     async def update(self):
         """Run update tasks."""

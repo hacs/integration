@@ -24,7 +24,7 @@ class HacsAPIView(HacsViewBase):
 
         # Register new repository
         if element == "repository_install":
-            repository = self.repositories[action]
+            repository = self.store.repositories[action]
             await repository.install()
             await self.storage.set()
             raise web.HTTPFound(
@@ -33,7 +33,7 @@ class HacsAPIView(HacsViewBase):
 
         # Update a repository
         elif element == "repository_update_repository":
-            repository = self.repositories[action]
+            repository = self.store.repositories[action]
             await repository.update()
             await self.storage.set()
             raise web.HTTPFound(
@@ -42,35 +42,35 @@ class HacsAPIView(HacsViewBase):
 
         # Update a repository
         elif element == "repository_update_settings":
-            repository = self.repositories[action]
+            repository = self.store.repositories[action]
             await repository.update()
             await self.storage.set()
             raise web.HTTPFound(self.url_path["settings"])
 
         # Uninstall a element from the repository view
         elif element == "repository_uninstall":
-            repository = self.repositories[action]
+            repository = self.store.repositories[action]
             await repository.uninstall()
             await self.storage.set()
             raise web.HTTPFound(self.url_path["store"])
 
         # Remove a custom repository from the settings view
         elif element == "repository_remove":
-            repository = self.repositories[action]
+            repository = self.store.repositories[action]
             await repository.remove()
             await self.storage.set()
             raise web.HTTPFound(self.url_path["settings"])
 
         # Hide a repository.
         elif element == "repository_hide":
-            repository = self.repositories[action]
+            repository = self.store.repositories[action]
             repository.hide = True
             await self.storage.set()
             raise web.HTTPFound(self.url_path["store"])
 
         # Unhide a repository.
         elif element == "repository_unhide":
-            repository = self.repositories[action]
+            repository = self.store.repositories[action]
             repository.hide = False
             await repository.update()
             await self.storage.set()
@@ -79,7 +79,7 @@ class HacsAPIView(HacsViewBase):
         # Beta
         ## Show beta
         elif element == "repository_show_beta":
-            repository = self.repositories[action]
+            repository = self.store.repositories[action]
             repository.show_beta = True
             await repository.update()
             await self.storage.set()
@@ -89,7 +89,7 @@ class HacsAPIView(HacsViewBase):
 
         ## Hide beta
         elif element == "repository_hide_beta":
-            repository = self.repositories[action]
+            repository = self.store.repositories[action]
             repository.show_beta = False
             await repository.update()
             await self.storage.set()
@@ -103,8 +103,8 @@ class HacsAPIView(HacsViewBase):
             raise web.HTTPFound(self.url_path["settings"])
 
         elif element == "repositories_upgrade_all":
-            for repository in self.repositories:
-                repository = self.repositories[repository]
+            for repository in self.store.repositories:
+                repository = self.store.repositories[repository]
                 if repository.pending_update:
                     await repository.install()
 
@@ -114,8 +114,8 @@ class HacsAPIView(HacsViewBase):
         elif element == "hacs" and action == "inspect":
             jsons = {}
             skip = ["content_objects", "last_release_object", "repository"]
-            for repository in self.repositories:
-                repository = self.repositories[repository]
+            for repository in self.store.repositories:
+                repository = self.store.repositories[repository]
                 jsons[repository.repository_id] = {}
                 var = vars(repository)
                 for item in var:

@@ -25,7 +25,7 @@ class HacsSettingsView(HacsViewBase):
             # We use these later:
             repository_lines = []
             hidden = []
-            hacs = self.repositories.get("172733314")
+            hacs = self.store.repositories.get("172733314")
 
             if hacs is None:
                 return web.Response(
@@ -188,9 +188,9 @@ class HacsSettingsView(HacsViewBase):
             """.format(
                 pending,
                 "<p>Background task is running, upgrade is disabled.</p>"
-                if self.data["task_running"]
+                if self.store.task_running
                 else "",
-                "style='display: none'" if self.data["task_running"] else "",
+                "style='display: none'" if self.store.task_running else "",
                 self.url_path["api"],
             )
 

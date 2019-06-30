@@ -4,6 +4,7 @@ import logging
 from aiohttp import web
 from ...blueprints import HacsViewBase
 from ...const import NO_ELEMENTS, ELEMENT_TYPES
+from ...repositoryinformation import RepositoryInformation
 
 _LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
@@ -27,12 +28,12 @@ class HacsOverviewView(HacsViewBase):
                 types[element_type] = []
 
             if not self.store.repositories:
-                if not self.data["task_running"]:
+                if not self.store.task_running:
                     content += NO_ELEMENTS
 
             else:
                 for repository in self.store.repositories:
-                    repository = self.store.repositories[repository]
+                    repository = RepositoryInformation(self.store.repositories[repository])
 
                     if (
                         not repository.track
@@ -40,63 +41,22 @@ class HacsOverviewView(HacsViewBase):
                         or not repository.installed
                     ):
                         continue
-
-                    if repository.pending_restart:
-                        card_icon = (
-                            "<i class='fas fa-cube card-status pending-restart'></i>"
-                        )
-
-                    elif repository.pending_update:
-                        card_icon = (
-                            "<i class='fas fa-cube card-status pending-update'></i>"
-                        )
-
-                    elif repository.installed:
-                        card_icon = "<i class='fas fa-cube card-status installed'></i>"
-
-                    else:
-                        card_icon = "<i class='fas fa-cube card-status default'></i>"
+                    card_icon = "<i class='fas fa-cube card-status {}'></i>".format(repository.status)
 
                     if self.data.get("hacs", {}).get("view") == "Table":
-                        if repository.repository_type == "integration":
-                            name = repository.name
-                        else:
-                            name = repository.name.replace("-", " ").replace("_", " ").title()
-
-                        if repository.version_installed:
-                            installed = repository.version_installed
-                        else:
-                            if repository.installed_commit:
-                                installed = repository.version_installed
-                            else:
-                                installed = ""
-
-                        if repository.last_release_tag:
-                            available = repository.last_release_tag
-                        else:
-                            available = repository.last_commit
-
                         card = self.load_element("repository/row_overview")
-                        card = card.replace("{API}", self.url_path["repository"])
-                        card = card.replace("{ID}", repository.repository_id)
                         card = card.replace("{ICON}", card_icon.replace("<i", "<i style='margin-left: 25%'"))
-                        card = card.replace("{NAME}", name)
-                        card = card.replace("{DESCRIPTION}", repository.description)
-                        card = card.replace("{INSTALLED}", installed)
-                        card = card.replace("{AVAILABLE}", available)
 
                     else:
-                        if repository.repository_type == "integration":
-                            name = repository.name
-                        else:
-                            name = repository.name.replace("-", " ").replace("_", " ").title()
-
-                        card = self.load_element("repository/card")
-                        card = card.replace("{API}", self.url_path["repository"])
-                        card = card.replace("{ID}", repository.repository_id)
+                        card = self.load_element("repository/card_overview")
                         card = card.replace("{ICON}", card_icon)
-                        card = card.replace("{NAME}", name)
-                        card = card.replace("{DESCRIPTION}", repository.description)
+
+                    card = card.replace("{INSTALLED}", repository.installed_version)
+                    card = card.replace("{AVAILABLE}", repository.available_version)
+                    card = card.replace("{API}", self.url_path["repository"])
+                    card = card.replace("{ID}", repository.repository_id)
+                    card = card.replace("{NAME}", repository.name)
+                    card = card.replace("{DESCRIPTION}", repository.description)
 
                     types[repository.repository_type].append(card)
 
@@ -125,9 +85,8 @@ class HacsOverviewView(HacsViewBase):
                             grid = grid.replace("{CARDS}", cards)
                             content += grid
 
-
                 if not types:
-                    if not self.data["task_running"]:
+                    if not self.store.task_running:
                         content += NO_ELEMENTS
 
                 content += self.footer

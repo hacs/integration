@@ -27,7 +27,7 @@ class HacsStorage(HacsBase):
         datastore = "{}/.storage/{}".format(self.config_dir, STORENAME)
         _LOGGER.debug("Reading from datastore %s.", datastore)
 
-        self.data["task_running"] = True
+        self.store.task_running = True
         try:
             async with aiofiles.open(
                 datastore, mode="r", encoding="utf-8", errors="ignore"
@@ -113,7 +113,7 @@ class HacsStorage(HacsBase):
                     try:
                         await repository.setup_repository()
                     except (HacsRequirement, AIOGitHubException) as exception:
-                        if not self.data["task_running"]:
+                        if not self.store.task_running:
                             _LOGGER.error(
                                 "%s - %s", repository.repository_name, exception
                             )
@@ -130,7 +130,7 @@ class HacsStorage(HacsBase):
                     # Restore complete
                     self.repositories[repository.repository_id] = repository
 
-        self.data["task_running"] = False
+        self.store.task_running = False
         await self.set()
         return store_data
 

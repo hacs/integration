@@ -174,7 +174,7 @@ class HacsAPIView(HacsViewBase):
                         repository_name
                     )
                     if is_known_repository:
-                        message = "{} is allready registered, look for it in the store.".format(
+                        message = "{} is already registered, look for it in the store.".format(
                             repository_name
                         )
                         raise web.HTTPFound(

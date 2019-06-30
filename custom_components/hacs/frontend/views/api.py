@@ -136,8 +136,8 @@ class HacsAPIView(HacsViewBase):
 
         if element == "frontend":
             if action == "view":
-                self.data["hacs"]["view"] = postdata["view_type"]
-                await self.storage.set()
+                self.store.frontend_mode = postdata["view_type"]
+                self.store.write()
                 raise web.HTTPFound(self.url_path["settings"])
 
         elif element == "repository_register":

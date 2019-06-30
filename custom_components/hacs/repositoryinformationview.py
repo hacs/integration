@@ -6,7 +6,9 @@ class RepositoryInformationView(RepositoryInformation):
 
     @property
     def additional_info(self):
-        return self.repository.additional_info
+        if self.repository.additional_info is not None:
+            return self.repository.additional_info
+        return ""
 
     @property
     def main_action(self):
@@ -48,3 +50,7 @@ class RepositoryInformationView(RepositoryInformation):
     @property
     def show_beta(self):
         return self.repository.show_beta
+
+    @property
+    def full_name(self):
+        return self.repository_name.split("/")[-1]

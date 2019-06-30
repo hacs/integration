@@ -43,7 +43,7 @@ class HacsOverviewView(HacsViewBase):
                         continue
                     card_icon = "<i class='fas fa-cube card-status {}'></i>".format(repository.status)
 
-                    if self.data.get("hacs", {}).get("view") == "Table":
+                    if self.store.frontend_mode == "Table":
                         card = self.load_element("repository/row_overview")
                         card = card.replace("{ICON}", card_icon.replace("<i", "<i style='margin-left: 25%'"))
 
@@ -67,7 +67,7 @@ class HacsOverviewView(HacsViewBase):
                             typedisplay = "APPDAEMON APPS"
                         elif element_type == "python_script":
                             typedisplay = "PYTHON SCRIPTS"
-                        if self.data.get("hacs", {}).get("view") == "Table":
+                        if self.store.frontend_mode == "Table":
                             rows = ""
                             for card in types[element_type]:
                                 rows += card

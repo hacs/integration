@@ -61,29 +61,10 @@ class HacsBase:
             # Check if migration is needed, or load existing data.
             await self.migration.validate()
 
-            # Check for updates to HACS.
-            repository = HacsRepositoryIntegration(
-                "custom-components/hacs", self.hacs_github
-            )
-            await repository.setup_repository()
-            old = await self.storage.get(True)
-            if old:
-                old_hacs = old.get("repositories", {}).get(repository.repository_id, {})
-                if old_hacs.get("show_beta", False):
-                    repository.show_beta = old_hacs.get("show_beta", False)
-                    await repository.update()
-            self.store.repositories[repository.repository_id] = repository
+            await self.recuring_tasks_installed(True)
 
-            # After an upgrade from < 0.7.0 some files are missing.
-            # This will handle that.
-            checkpath = "{}/frontend/elements/all.min.css.gz".format(
-                repository.local_path
-            )
-            if not os.path.exists(checkpath):
-                self.logger.critical("HACS is missing files, trying to correct.")
-                await repository.install()
-
-            await self.storage.get()
+            # Update repository lists
+            await self.get_repositories()
 
         except AIOGitHubRatelimit as exception:
             self.logger.critical(exception)
@@ -180,7 +161,7 @@ class HacsBase:
                         self.logger.info(
                             "Running update for %s", repository.repository_name
                         )
-                        await repository.update()
+                        await repository.set_repository()
                 except AIOGitHubException as exception:
                     self.logger.error("{} - {}".format(repository.repository_name, exception))
 
@@ -205,7 +186,7 @@ class HacsBase:
                     continue
                 elif str(repository.id) in self.store.repositories:
                     repository = self.store.repositories[str(repository.id)]
-                    await repository.update()
+                    await repository.set_repository()
                 else:
                     try:
                         await self.register_new_repository(

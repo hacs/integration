@@ -39,7 +39,7 @@ class HacsDataStore:
         if self.task_running:
             return
 
-        self.logger.info("Saving data", "store")
+        self.logger.debug("Saving data", "store")
 
         data = {
             "hacs": {
@@ -123,7 +123,7 @@ class HacsDataStore:
                     repositories[repo_id].installed = repository["installed"]
                     repositories[repo_id].last_commit = repository.get("last_commit", "")
                     repositories[repo_id].name = repository["name"]
-                    repositories[repo_id].new = repository["new"]
+                    repositories[repo_id].new = repository.get("new", True)
                     repositories[repo_id].repository_id = repo_id
                     repositories[repo_id].topics = repository.get("topics", [])
                     repositories[repo_id].track = repository.get("track", True)

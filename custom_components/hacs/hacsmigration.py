@@ -18,12 +18,13 @@ class HacsMigration(HacsBase):
 
     async def validate(self):
         """Check the current storage version to determine if migration is needed."""
-        self._old = await self.storage.get(True)
+        self._old = self.store.read()
 
         if not self._old:
             # Could not read the current file, it probably does not exist.
             # Running full scan.
             await self.update_repositories()
+            await self.flush_data()
 
         elif self._old["hacs"]["schema"] == "1":
             # Creating backup.
@@ -32,6 +33,9 @@ class HacsMigration(HacsBase):
             _LOGGER.info("Backing up current file to '%s'", destination)
             copy2(source, destination)
             await self.from_1_to_2()
+            await self.from_2_to_3()
+            await self.from_3_to_4()
+            await self.flush_data()
 
         elif self._old["hacs"]["schema"] == "2":
             # Creating backup.
@@ -40,6 +44,17 @@ class HacsMigration(HacsBase):
             _LOGGER.info("Backing up current file to '%s'", destination)
             copy2(source, destination)
             await self.from_2_to_3()
+            await self.from_3_to_4()
+            await self.flush_data()
+
+        elif self._old["hacs"]["schema"] == "3":
+            # Creating backup.
+            source = "{}/.storage/hacs".format(self.config_dir)
+            destination = "{}.3".format(source)
+            _LOGGER.info("Backing up current file to '%s'", destination)
+            copy2(source, destination)
+            await self.from_3_to_4()
+            self.store.write()
 
         elif self._old["hacs"].get("schema") == STORAGE_VERSION:
             pass
@@ -47,13 +62,11 @@ class HacsMigration(HacsBase):
         else:
             # Should not get here, but do a full scan just in case...
             await self.update_repositories()
-
-        await self.flush_data()
+            await self.flush_data()
 
     async def flush_data(self):
         """Flush validated data."""
         _LOGGER.info("Flushing data to storage.")
-        return
 
         datastore = "{}/.storage/{}".format(self.config_dir, STORENAME)
 
@@ -86,5 +99,15 @@ class HacsMigration(HacsBase):
         for repository in self._old["repositories"]:
             if self._old["repositories"][repository]["installed"]:
                 self._old["repositories"][repository]["new"] = False
-        self._old["hacs"]["schema"] = "2"
+        self._old["hacs"]["schema"] = "3"
         _LOGGER.info("Migration of HACS data from 2 to 3 is complete.")
+
+    async def from_3_to_4(self):
+        """Migrate from storage version 3 to storage version 4."""
+        _LOGGER.info("Starting migration of HACS data from 3 to 4.")
+
+        for repository in self.store.repositories:
+            repository = self.store.repositories[repository]
+            await repository.set_repository()
+        self._old["hacs"]["schema"] = "4"
+        _LOGGER.info("Migration of HACS data from 3 to 4 is complete.")

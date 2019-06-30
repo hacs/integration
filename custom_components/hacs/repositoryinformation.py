@@ -81,21 +81,21 @@ class RepositoryInformation:
 
     @property
     def installed_version(self):
-        if self.repository.version_installed:
+        if self.repository.version_installed is not None:
             installed = self.repository.version_installed
         else:
-            if self.repository.installed_commit:
-                installed = self.repository.version_installed
+            if self.repository.installed_commit is not None:
+                installed = self.repository.installed_commit
             else:
                 installed = ""
         return installed
 
     @property
     def available_version(self):
-        if self.repository.last_release_tag:
+        if self.repository.last_release_tag is not None:
             available = self.repository.last_release_tag
         else:
-            if self.repository.last_commit:
+            if self.repository.last_commit is not None:
                 available = self.repository.last_commit
             else:
                 available = ""
@@ -103,7 +103,7 @@ class RepositoryInformation:
 
     @property
     def version_or_commit(self):
-        if self.repository.last_release_tag:
+        if self.repository.last_release_tag is not None:
             version_or_commit = "version"
         else:
             version_or_commit = "commit"

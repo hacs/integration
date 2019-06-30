@@ -110,7 +110,7 @@ class HacsSettingsView(HacsViewBase):
                     )
                 else:
                     remove = """
-                        <a href={}/repository_remove/{} onclick="ShowProgressBar()" class="secondary-content" style="color: var(--primary-color)">
+                        <a href={}/repository_remove/{} onclick="toggleLoading()" class="secondary-content" style="color: var(--primary-color)">
                             <i title="Remove." class="fas fa-trash-alt"></i>
                         </a>
                     """.format(
@@ -133,7 +133,7 @@ class HacsSettingsView(HacsViewBase):
 
             # HACS card
             types = ["Grid", "Table"]
-            selected = self.data.get("hacs", {}).get("view", "Grid")
+            selected = self.store.frontend_mode
             if selected is None:
                 selected = "Grid"
             if selected in types:
@@ -180,7 +180,7 @@ class HacsSettingsView(HacsViewBase):
                     </div>
                     <div class="modal-footer hacscolor">
                         {}
-                        <a {} href="{}/repositories_upgrade_all/notinuse" class='waves-effect waves-light btn hacsbutton' onclick="ShowProgressBar()" style="background-color: var(--google-red-500) !important; font-weight: bold;">
+                        <a {} href="{}/repositories_upgrade_all/notinuse" class='waves-effect waves-light btn hacsbutton' onclick="toggleLoading()" style="background-color: var(--google-red-500) !important; font-weight: bold;">
                             UPGRADE ALL
                         </a>
                     </div>
@@ -195,7 +195,7 @@ class HacsSettingsView(HacsViewBase):
             )
 
             upgrade_all_btn = """
-                <a class="waves-effect waves-light btn modal-trigger hacsbutton" href="#modal1" onclick="ShowProgressBar()" style="background-color: var(--google-red-500) !important; font-weight: bold;">UPGRADE ALL</a>
+                <a class="waves-effect waves-light btn modal-trigger hacsbutton" href="#modal1" onclick="toggleLoading()" style="background-color: var(--google-red-500) !important; font-weight: bold;">UPGRADE ALL</a>
             """
 
             if pending == "":
@@ -204,7 +204,7 @@ class HacsSettingsView(HacsViewBase):
             content += """
                 {}
                 <div class='hacs-overview-container'>
-                    <a href="{}/repositories_reload/notinuse" class='waves-effect waves-light btn hacsbutton' onclick="ShowProgressBar()">
+                    <a href="{}/repositories_reload/notinuse" class='waves-effect waves-light btn hacsbutton' onclick="toggleLoading()">
                         RELOAD DATA
                     </a>
                     {}
@@ -249,7 +249,7 @@ class HacsSettingsView(HacsViewBase):
                             </select>
 
                             <button class="btn waves-effect waves-light right" 
-                                    type="submit" name="add" onclick="ShowProgressBar()" style="background-color: var(--primary-color); height: 44px;">
+                                    type="submit" name="add" onclick="toggleLoading()" style="background-color: var(--primary-color); height: 44px;">
                                 <i class="fas fa-save"></i>
                             </button>
                         </form>

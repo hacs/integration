@@ -53,6 +53,7 @@ class HacsRepositoryBase(HacsBase):
         self.show_beta = False
         self.track = True
         self.topics = []
+        self.updated_info = False
         self.version_installed = None
 
     @property
@@ -140,6 +141,7 @@ class HacsRepositoryBase(HacsBase):
 
         # Set latest commit sha
         await self.repository.set_last_commit()
+        self.last_commit = self.repository.last_commit
 
         # Set repository releases
         await self.set_repository_releases()

@@ -43,9 +43,10 @@ class HacsRepositoryView(HacsViewBase):
         try:
             message = request.rel_url.query.get("message")
             repository = self.store.repositories[str(repository_id)]
-            if repository.repository is None:
+            if not repository.updated_info:
                 await repository.set_repository()
                 await repository.update()
+                repository.updated_info = True
             repository.new = False
             await self.storage.set()
 
@@ -75,13 +76,13 @@ class HacsRepositoryView(HacsViewBase):
             elif repository.repository_type == "plugin":
                 if repository.javascript_type is None:
                     llnote = LOVELACE_EXAMLE_URL.format(
-                        repository.name, repository.name.replace("lovelace-", "")
+                        repository.full_name, repository.full_name.replace("lovelace-", "")
                     )
                     jsnote = MISSING_JS_TYPE
                 else:
                     llnote = LOVELACE_EXAMLE_URL_TYPE.format(
-                        repository.name,
-                        repository.name.replace("lovelace-", ""),
+                        repository.full_name,
+                        repository.full_name.replace("lovelace-", ""),
                         repository.javascript_type,
                     )
                     jsnote = ""
@@ -126,7 +127,7 @@ class HacsRepositoryView(HacsViewBase):
 
             main_action = """
                 <a href="{}/repository_install/{}"
-                    onclick="ShowProgressBar()" style='color: var(--primary-color) !important'>
+                    onclick="toggleLoading()" style='color: var(--primary-color) !important'>
                     {}
                 </a>
             """.format(
@@ -137,12 +138,12 @@ class HacsRepositoryView(HacsViewBase):
                 if not repository.installed:
                     open_plugin = ""
                 else:
-                    if "lovelace-" in repository.name:
-                        name = repository.name.split("lovelace-")[-1]
+                    if "lovelace-" in repository.full_name:
+                        name = repository.full_name.split("lovelace-")[-1]
                     else:
-                        name = repository.name
+                        name = repository.full_name
                     open_plugin = "<a href='/community_plugin/{}/{}.js' target='_blank' style='color: var(--primary-color) !important'>OPEN PLUGIN</a>".format(
-                        repository.name, name
+                        repository.full_name, name
                     )
             else:
                 open_plugin = ""
@@ -153,20 +154,20 @@ class HacsRepositoryView(HacsViewBase):
             else:
                 if repository.hide:
                     hide_option = """
-                        <li><a class="dropdown-list-item" href="{}/repository_unhide/{}" onclick="ShowProgressBar()">Unhide</a></li>
+                        <li><a class="dropdown-list-item" href="{}/repository_unhide/{}" onclick="toggleLoading()">Unhide</a></li>
                     """.format(
                         self.url_path["api"], repository.repository_id
                     )
                 else:
                     hide_option = """
-                        <li><a class="dropdown-list-item" href="{}/repository_hide/{}" onclick="ShowProgressBar()">Hide</a></li>
+                        <li><a class="dropdown-list-item" href="{}/repository_hide/{}" onclick="toggleLoading()">Hide</a></li>
                     """.format(
                         self.url_path["api"], repository.repository_id
                     )
 
             # Beta
             if repository.version_or_commit == "version":
-                show_beta = '<li><a class="dropdown-list-item" href="{}/repository_{}_beta/{}" onclick="ShowProgressBar()">{}</a></li>'
+                show_beta = '<li><a class="dropdown-list-item" href="{}/repository_{}_beta/{}" onclick="toggleLoading()">{}</a></li>'
                 if repository.show_beta:
                     show_beta = show_beta.format(
                         self.url_path["api"],
@@ -237,7 +238,7 @@ class HacsRepositoryView(HacsViewBase):
                 changelog = ""
 
             if repository.installed and repository.repository_id != "172733314":
-                uninstall = "<a href='{}/repository_uninstall/{}' style='float: right; color: var(--google-red-500) !important; font-weight: bold;' onclick='ShowProgressBar()'>UNINSTALL</a>".format(
+                uninstall = "<a href='{}/repository_uninstall/{}' style='float: right; color: var(--google-red-500) !important; font-weight: bold;' onclick='toggleLoading()'>UNINSTALL</a>".format(
                     self.url_path["api"], repository.repository_id
                 )
             else:
@@ -268,7 +269,8 @@ class HacsRepositoryView(HacsViewBase):
 
             content += self.footer
 
-        except Exception as exception:
+        except IOError as exception:
+        #except Exception as exception:
             _LOGGER.error(exception)
             raise web.HTTPFound(self.url_path["error"])
 

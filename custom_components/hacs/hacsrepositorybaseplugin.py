@@ -68,6 +68,7 @@ class HacsRepositoryPlugin(HacsRepositoryBase):
             # This can fail, no big deal.
             pass
 
+
     async def set_repository_content(self):
         """Set repository content attributes."""
         if self.content_path is None or self.content_path == "dist":

@@ -53,6 +53,9 @@ In the integration directory, there is a [`manifest.json`](https://developers.ho
 
 When installing/upgrading it will scan the content in the latest release.
 
+If there are multiple releases in the repository the user have some options to install a specific version.
+The choices will be the last 5 releases and the default branch.
+
 If you are using releases you can also set a minimum HA version in the `manifest.json` file, example:
 
 https://github.com/ludeeus/integration-hacs/blob/0.2.0/custom_components/integration-hacs/manifest.json

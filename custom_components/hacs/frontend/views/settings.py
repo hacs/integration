@@ -181,7 +181,7 @@ class HacsSettingsView(HacsViewBase):
                     </div>
                     <div class="modal-footer hacscolor">
                         {}
-                        <a {} href="{}/repositories_upgrade_all/notinuse" class='waves-effect waves-light btn hacsbutton' style="background-color: var(--google-red-500) !important; font-weight: bold;">
+                        <a {} href="{}/repositories_upgrade_all/notinuse"  onclick="toggleLoading()" class='waves-effect waves-light btn hacsbutton' style="background-color: var(--google-red-500) !important; font-weight: bold;">
                             UPGRADE ALL
                         </a>
                     </div>
@@ -196,7 +196,7 @@ class HacsSettingsView(HacsViewBase):
             )
 
             upgrade_all_btn = """
-                <a class="waves-effect waves-light btn modal-trigger hacsbutton" href="#modal1" onclick="toggleLoading()" style="background-color: var(--google-red-500) !important; font-weight: bold;">UPGRADE ALL</a>
+                <a class="waves-effect waves-light btn modal-trigger hacsbutton" href="#modal1" style="background-color: var(--google-red-500) !important; font-weight: bold;">UPGRADE ALL</a>
             """
 
             if pending == "":

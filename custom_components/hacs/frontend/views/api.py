@@ -3,6 +3,8 @@
 import logging
 from aiohttp import web
 from ...blueprints import HacsViewBase
+from ...exceptions import HacsRequirement
+from ...aiogithub import AIOGitHubException
 
 _LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
@@ -139,6 +141,25 @@ class HacsAPIView(HacsViewBase):
                 self.store.frontend_mode = postdata["view_type"]
                 self.store.write()
                 raise web.HTTPFound(self.url_path["settings"])
+
+        elif element == "repository_select_tag":
+            repository = self.store.repositories[action]
+            if postdata["selected_tag"] == repository.last_release_tag:
+                repository.selected_tag = None
+            else:
+                repository.selected_tag = postdata["selected_tag"]
+            try:
+                await repository.update()
+            except (AIOGitHubException, HacsRequirement):
+                repository.selected_tag = repository.last_release_tag
+                await repository.update()
+                message = "The version {} is not valid for use with HACS.".format(postdata["selected_tag"])
+                raise web.HTTPFound(
+                    "{}/{}?message={}".format(self.url_path["repository"], repository.repository_id, message)
+                )
+            raise web.HTTPFound(
+                "{}/{}".format(self.url_path["repository"], repository.repository_id)
+            )
 
         elif element == "repository_register":
             repository_name = postdata["custom_url"]

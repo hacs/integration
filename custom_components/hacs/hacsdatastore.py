@@ -68,6 +68,7 @@ class HacsDataStore:
                 "track": repository.track,
                 "last_release_tag": repository.last_release_tag,
                 "version_installed": repository.version_installed,
+                "selected_tag": repository.selected_tag,
             }
 
 
@@ -127,9 +128,11 @@ class HacsDataStore:
                     repositories[repo_id].repository_id = repo_id
                     repositories[repo_id].topics = repository.get("topics", [])
                     repositories[repo_id].track = repository.get("track", True)
+                    repositories[repo_id].show_beta = repository.get("show_beta", False)
                     repositories[repo_id].version_installed = repository.get("version_installed")
                     repositories[repo_id].last_release_tag = repository.get("last_release_tag")
                     repositories[repo_id].installed_commit = repository.get("installed_commit")
+                    repositories[repo_id].selected_tag = repository.get("selected_tag")
                     if repo_id == "172733314":
                         repositories[repo_id].version_installed = VERSION
 

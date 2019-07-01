@@ -50,6 +50,8 @@ class HacsRepositoryBase(HacsBase):
         self.repository_name = None
         self.repository_type = None
         self.repository_id = None
+        self.published_tags = []
+        self.selected_tag = None
         self.show_beta = False
         self.track = True
         self.topics = []
@@ -104,7 +106,12 @@ class HacsRepositoryBase(HacsBase):
     @property
     def ref(self):
         """Return the repository ref."""
-        if self.last_release_tag is not None:
+        if self.selected_tag is not None:
+            if self.selected_tag == self.repository.default_branch:
+                return self.repository.default_branch
+            else:
+                return "tags/{}".format(self.selected_tag)
+        elif self.last_release_tag is not None:
             return "tags/{}".format(self.last_release_tag)
         return self.repository.default_branch
 
@@ -146,12 +153,8 @@ class HacsRepositoryBase(HacsBase):
         # Set repository releases
         await self.set_repository_releases()
 
-        # Check if last updated string changed.
-        current = self.last_updated
-        new = await self.return_last_update()
-        if current == new and current is not None:
-            return True
-        self.last_updated = new
+        # Setlast updated.
+        self.last_updated = await self.return_last_update()
 
         try:
             # Set additional info
@@ -275,7 +278,10 @@ class HacsRepositoryBase(HacsBase):
             return False
 
         else:
-            self.version_installed = self.last_release_tag
+            if self.selected_tag is not None:
+                self.version_installed = self.selected_tag
+            else:
+                self.version_installed = self.last_release_tag
             self.installed = True
             self.installed_commit = self.last_commit
             if self.repository_type == "integration":
@@ -406,17 +412,20 @@ class HacsRepositoryBase(HacsBase):
 
         # Assign to a temp vars so we can check it before using it.
         if self.show_beta:
-            temp = await self.repository.get_releases()
-            if temp:
-                temp = temp[0]
+            temp = await self.repository.get_releases(prerelease=True)
         else:
-            temp = await self.repository.get_releases(True)
+            temp = await self.repository.get_releases(prerelease=False)
 
         if not temp:
             return
 
-        self.last_release_object = temp
-        self.last_release_tag = temp.tag_name
+        self.published_tags = []
+
+        for release in temp:
+            self.published_tags.append(release.tag_name)
+
+        self.last_release_object = temp[0]
+        self.last_release_tag = temp[0].tag_name
 
     async def validate_repository_name(self):
         """Validate the given repository_name."""

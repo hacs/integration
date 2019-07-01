@@ -54,6 +54,18 @@ class RepositoryInformation:
         return self.repository.repository_name
 
     @property
+    def selected_tag(self):
+        return self.repository.selected_tag
+
+    @property
+    def published_tags(self):
+        return self.repository.published_tags
+
+    @property
+    def default_branch(self):
+        return self.repository.repository.default_branch
+
+    @property
     def homeassistant_version(self):
         return self.repository.homeassistant_version
 

@@ -244,6 +244,42 @@ class HacsRepositoryView(HacsViewBase):
             else:
                 uninstall = ""
 
+            ##################################################
+            #          Version select
+            if repository.published_tags and repository.repository_id != "172733314":
+                options = ""
+                for tag_name in repository.published_tags:
+                    options += "<option class='hacscolor' value='{option}'>{option}</option>".format(option=tag_name)
+
+                options += "<option class='hacscolor' value='{option}'>{option}</option>".format(option=repository.default_branch)
+                if repository.selected_tag is not None:
+                    selected = repository.selected_tag
+                else:
+                    selected = repository.available_version
+
+
+                select_tag = """
+                    <form action="{}/repository_select_tag/{}" name="selected_tag"
+                            method="post" accept-charset="utf-8"
+                            enctype="application/x-www-form-urlencoded"
+                            class="hacs-form">
+                        <select name="selected_tag" class="hacs-select" onchange="toggleLoading();document.getElementsByName('selected_tag')[0].submit()">
+                            <option class="hacscolor" value="{}" selected hidden>{}</option>
+                            {}
+                        </select>
+                    </form>
+                """.format(
+                    self.url_path["api"], repository.repository_id, selected, selected, options
+                )
+                last_ver = "<b>Available versions:</b> {}".format(select_tag)
+            ##################################################
+
+
+
+            #
+            # CONTSTRUCT THE CARDS
+            #
+
             main_content = self.load_element("repository/view_main")
             main_content = main_content.replace("{API}", self.url_path["api"])
             main_content = main_content.replace("{ID}", repository.repository_id)

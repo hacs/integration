@@ -24,6 +24,7 @@ class HacsMigration(HacsBase):
             # Could not read the current file, it probably does not exist.
             # Running full scan.
             await self.update_repositories()
+            self.store.schema = STORAGE_VERSION
             await self.flush_data()
 
         elif self._old["hacs"]["schema"] == "1":
@@ -34,8 +35,8 @@ class HacsMigration(HacsBase):
             copy2(source, destination)
             await self.from_1_to_2()
             await self.from_2_to_3()
-            await self.from_3_to_4()
             await self.flush_data()
+            await self.from_3_to_4()
 
         elif self._old["hacs"]["schema"] == "2":
             # Creating backup.
@@ -62,11 +63,16 @@ class HacsMigration(HacsBase):
         else:
             # Should not get here, but do a full scan just in case...
             await self.update_repositories()
+            self.store.schema = STORAGE_VERSION
             await self.flush_data()
 
     async def flush_data(self):
         """Flush validated data."""
         _LOGGER.info("Flushing data to storage.")
+
+        if self._old is None:
+            self.store.write()
+            return
 
         datastore = "{}/.storage/{}".format(self.config_dir, STORENAME)
 
@@ -109,5 +115,5 @@ class HacsMigration(HacsBase):
         for repository in self.store.repositories:
             repository = self.store.repositories[repository]
             await repository.set_repository()
-        self._old["hacs"]["schema"] = "4"
+        self.store.schema = "4"
         _LOGGER.info("Migration of HACS data from 3 to 4 is complete.")

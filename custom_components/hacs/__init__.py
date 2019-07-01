@@ -139,6 +139,28 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
             require_admin=IFRAME["require_admin"],
         )
 
+    # Service registration
+    async def service_hacs_isntall(call):
+        """Install a repository."""
+        repository = str(call.data["repository"])
+        if repository not in hacs().store.repositories:
+            _LOGGER.error("%s is not a konwn repository!", repository)
+            return
+        repository = hacs().store.repositories[repository]
+        await repository.install()
+
+    async def service_hacs_register(call):
+        """register a repository."""
+        repository = call.data["repository"]
+        repository_type = call.data["repository_type"]
+        if await hacs().is_known_repository(repository):
+            _LOGGER.error("%s is already a konwn repository!", repository)
+            return
+        await hacs().register_new_repository(repository_type, repository)
+
+    hass.services.async_register("hacs", 'install', service_hacs_isntall)
+    hass.services.async_register("hacs", 'register', service_hacs_register)
+
     # Mischief managed!
     return True
 

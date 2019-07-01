@@ -311,11 +311,9 @@ class HacsRepositoryBase(HacsBase):
         """Run remove tasks."""
         _LOGGER.debug("(%s) - Starting removal", self.repository_name)
 
-        await self.remove_local_directory()
-
-        if self.repository_id in self.repositories:
+        if self.repository_id in self.store.repositories:
             if not self.installed:
-                del self.repositories[self.repository_id]
+                del self.store.repositories[self.repository_id]
 
     async def uninstall(self):
         """Run uninstall tasks."""

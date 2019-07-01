@@ -165,7 +165,7 @@ class HacsBase:
                         self.logger.info(
                             "Running update", repository.repository_name
                         )
-                        await repository.set_repository()
+                        await repository.update()
                 except AIOGitHubException as exception:
                     self.logger.error("{} - {}".format(repository.repository_name, exception))
 

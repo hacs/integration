@@ -24,8 +24,8 @@ class HACSSensor(Entity):
 
         updates = 0
 
-        for repository in hacs.repositories:
-            repository = hacs.repositories[repository]
+        for repository in hacs.store.repositories:
+            repository = hacs.store.repositories[repository]
             if repository.pending_update:
                 updates += 1
 

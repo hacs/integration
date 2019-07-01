@@ -1,5 +1,5 @@
 """Constants for HACS"""
-VERSION = "0.11.0"
+VERSION = "0.11.1"
 NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
 STORAGE_VERSION = "4"

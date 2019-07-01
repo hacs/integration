@@ -248,6 +248,10 @@ class HacsRepositoryBase(HacsBase):
         start_time = datetime.now()
         _LOGGER.info("(%s) - Starting installation", self.repository_name)
         try:
+            if self.content_path == "release" and self.selected_tag == self.repository.default_branch:
+                _LOGGER.error("Version %s can not be installed.", self.selected_tag)
+                return
+
             # Run update
             await self.update()  # pylint: disable=no-member
 
@@ -425,6 +429,12 @@ class HacsRepositoryBase(HacsBase):
             self.published_tags.append(release.tag_name)
 
         self.last_release_object = temp[0]
+        if self.selected_tag is not None:
+            if self.selected_tag != self.repository.default_branch:
+                for release in temp:
+                    if release.tag_name == self.selected_tag:
+                        self.last_release_object = release
+                        break
         self.last_release_tag = temp[0].tag_name
 
     async def validate_repository_name(self):

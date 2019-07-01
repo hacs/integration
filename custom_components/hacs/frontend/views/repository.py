@@ -235,7 +235,7 @@ class HacsRepositoryView(HacsViewBase):
 
             if repository.status == "pending-update" and repository.version_or_commit == "version":
                 changelog = "<a rel='noreferrer' href='https://github.com/{}/releases/{}' target='_blank' style='color: var(--primary-color) !important'>CHANGELOG</a>".format(
-                    repository.repository_name, repository.installed_version
+                    repository.repository_name, repository.available_version
                 )
             else:
                 changelog = ""

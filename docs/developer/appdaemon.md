@@ -42,6 +42,9 @@ README.md
 
 When installing/upgrading it will scan the content in the latest release.
 
+If there are multiple releases in the repository the user have some options to install a specific version.
+The choices will be the last 5 releases and the default branch.
+
 #### If there are no releases
 
 It will scan files in the branch marked as default.

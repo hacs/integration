@@ -4,6 +4,7 @@ import logging
 from aiohttp import web
 from ...blueprints import HacsViewBase
 from ...const import NO_ELEMENTS, ELEMENT_TYPES
+from ...repositoryinformation import RepositoryInformation
 
 _LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
@@ -26,12 +27,13 @@ class HacsOverviewView(HacsViewBase):
             for element_type in ELEMENT_TYPES:
                 types[element_type] = []
 
-            if not self.repositories:
-                if not self.data["task_running"]:
+            if not self.store.repositories:
+                if not self.store.task_running:
                     content += NO_ELEMENTS
 
             else:
                 for repository in self.repositories_list_name:
+                    repository = RepositoryInformation(self.store.repositories[repository.repository_id])
 
                     if (
                         not repository.track
@@ -39,75 +41,22 @@ class HacsOverviewView(HacsViewBase):
                         or not repository.installed
                     ):
                         continue
+                    card_icon = "<i class='fas fa-cube card-status {}'></i>".format(repository.status)
 
-                    if repository.pending_restart:
-                        card_icon = (
-                            "<i class='fas fa-cube card-status pending-restart'></i>"
-                        )
-
-                    elif repository.pending_update:
-                        card_icon = (
-                            "<i class='fas fa-cube card-status pending-update'></i>"
-                        )
-
-                    elif repository.installed:
-                        card_icon = "<i class='fas fa-cube card-status installed'></i>"
+                    if self.store.frontend_mode == "Table":
+                        card = self.load_element("repository/row_overview")
+                        card = card.replace("{ICON}", card_icon.replace("<i", "<i style='margin-left: 25%'"))
 
                     else:
-                        card_icon = "<i class='fas fa-cube card-status default'></i>"
+                        card = self.load_element("repository/card_overview")
+                        card = card.replace("{ICON}", card_icon)
 
-                    if self.data.get("hacs", {}).get("view") == "Table":
-                        card = """
-                            <tr class="hacs-table-row" onclick="window.location='{}/{}';">
-                                <td>{}</td>
-                                <td>{}</td>
-                                <td class="hacs-card-content smal-hide">{}</td>
-                                <td class="smal-hide">{}</td>
-                                <td class="smal-hide">{}</td>
-                            </tr>
-                        """.format(
-                            self.url_path["repository"],
-                            repository.repository_id,
-                            card_icon.replace("<i", "<i style='margin-left: 25%'"),
-                            repository.name
-                            if repository.repository_type == "integration"
-                            else repository.name.replace("-", " ")
-                            .replace("_", " ")
-                            .title(),
-                            repository.description,
-                            repository.version_installed
-                            if repository.version_installed
-                            else repository.installed_commit
-                            if repository.installed_commit
-                            else "",
-                            repository.last_release_tag
-                            if repository.last_release_tag
-                            else repository.last_commit,
-                        )
-                        card += "</div></li>"
-
-                    else:
-
-                        card = """
-                        <a href="{}/{}" class="hacs-card"">
-                            <div class="hacs-card overview">
-                                <span class="hacs-card-title">{} {}</span>
-                                <span class="hacs-card-content">
-                                    <p>{}</p>
-                                </span>
-                            </div>
-                        </a>
-                        """.format(
-                            self.url_path["repository"],
-                            repository.repository_id,
-                            card_icon,
-                            repository.name
-                            if repository.repository_type == "integration"
-                            else repository.name.replace("-", " ")
-                            .replace("_", " ")
-                            .title(),
-                            repository.description,
-                        )
+                    card = card.replace("{INSTALLED}", repository.installed_version)
+                    card = card.replace("{AVAILABLE}", repository.available_version)
+                    card = card.replace("{API}", self.url_path["repository"])
+                    card = card.replace("{ID}", repository.repository_id)
+                    card = card.replace("{NAME}", repository.name)
+                    card = card.replace("{DESCRIPTION}", repository.description)
 
                     types[repository.repository_type].append(card)
 
@@ -118,43 +67,26 @@ class HacsOverviewView(HacsViewBase):
                             typedisplay = "APPDAEMON APPS"
                         elif element_type == "python_script":
                             typedisplay = "PYTHON SCRIPTS"
-                        if self.data.get("hacs", {}).get("view") == "Table":
-                            content += """
-                            <div class='hacs-overview-container'>
-                                <div class="row">
-                                    <h5>{}</h5>
-                                    <table class="hacs-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Status</th>
-                                                <th>Name</th>
-                                                <th class="smal-hide">Description</th>
-                                                <th class="smal-hide">Installed</th>
-                                                <th class="smal-hide">Available</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                            """.format(
-                                typedisplay
-                            )
+                        if self.store.frontend_mode == "Table":
+                            rows = ""
                             for card in types[element_type]:
-                                content += card
-                            content += """
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            """
+                                rows += card
+                            table = self.load_element("overview/table")
+                            table = table.replace("{TYPE}", typedisplay)
+                            table = table.replace("{ROWS}", rows)
+                            content += table
+
                         else:
-                            content += "<div class='hacs-overview-container'>"
-                            content += "<h5>{}</h5>".format(typedisplay)
-                            content += "<div class='hacs-card-container'>"
+                            cards = ""
                             for card in types[element_type]:
-                                content += card
-                            content += "</div></div></br></br>"
+                                cards += card
+                            grid = self.load_element("overview/grid")
+                            grid = grid.replace("{TYPE}", typedisplay)
+                            grid = grid.replace("{CARDS}", cards)
+                            content += grid
 
                 if not types:
-                    if not self.data["task_running"]:
+                    if not self.store.task_running:
                         content += NO_ELEMENTS
 
                 content += self.footer

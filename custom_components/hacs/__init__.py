@@ -1,7 +1,7 @@
 """
 Custom element manager for community created elements.
 
-For more details about this component, please refer to the documentation at
+For more details about this integration, please refer to the documentation at
 https://custom-components.github.io/hacs/
 """
 import logging
@@ -19,6 +19,7 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers import discovery
 
 from .hacsbase import HacsBase as hacs
+from .hacsdatastore import HacsDataStore
 from .const import (
     CUSTOM_UPDATER_LOCATIONS,
     STARTUP,
@@ -66,7 +67,7 @@ CONFIG_SCHEMA = vol.Schema(
 
 
 async def async_setup(hass, config):  # pylint: disable=unused-argument
-    """Set up this component."""
+    """Set up this integration."""
     _LOGGER.info(STARTUP)
     config_dir = hass.config.path()
     github_token = config[DOMAIN]["token"]
@@ -159,3 +160,5 @@ async def configure_hacs(hass, github_token, hass_config_dir):
 
     hacs.hass = hass
     hacs.config_dir = hass_config_dir
+    hacs.store = HacsDataStore(hass_config_dir)
+    hacs.store.restore_values()

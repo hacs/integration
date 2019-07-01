@@ -19,14 +19,13 @@ class HACSSensor(Entity):
 
     async def async_update(self):
         """Update the sensor."""
-        # Send update "signal" to the component
-        if hacs.data["task_running"]:
+        if hacs.store.task_running:
             return
 
         updates = 0
 
-        for repository in hacs.repositories:
-            repository = hacs.repositories[repository]
+        for repository in hacs.store.repositories:
+            repository = hacs.store.repositories[repository]
             if repository.pending_update:
                 updates += 1
 

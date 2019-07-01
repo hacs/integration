@@ -7,6 +7,7 @@ from homeassistant.const import __version__ as HAVERSION
 
 from ...blueprints import HacsViewBase
 from ...const import NOT_SUPPORTED_HA_VERSION
+from ...repositoryinformationview import RepositoryInformationView
 
 _LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
@@ -41,69 +42,26 @@ class HacsRepositoryView(HacsViewBase):
         """Serve HacsRepositoryView."""
         try:
             message = request.rel_url.query.get("message")
-            repository = self.repositories[str(repository_id)]
-            repository.new = False
-            await self.storage.set()
+            repository = self.store.repositories[str(repository_id)]
+            if not repository.updated_info:
+                await repository.set_repository()
+                await repository.update()
+                repository.updated_info = True
+                await self.storage.set()
+
+            if repository.new:
+                repository.new = False
+                await self.storage.set()
+
+            repository = RepositoryInformationView(repository)
+            content = self.base_content
 
             if message != None:
-                custom_message = """
-                    <div class='container'>
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="card-panel orange darken-4">
-                                    <div class="card-content white-text">
-                                        <span>
-                                            {}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                """.format(
-                    message
-                )
-            else:
-                custom_message = ""
+                content += self.load_element("custom_message").replace("{MESSAGE}", message)
 
-            if repository.pending_restart:
-                pending_restart = """
-                    <div class='container''>
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="card-panel orange darken-4">
-                                    <div class="card-content white-text">
-                                        <span>
-                                            You need to restart (and potentially reconfigure) Home Assistant, for your last operation to be loaded.
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                """
-            else:
-                pending_restart = ""
+            if repository.status == "pending-restart":
+                content += self.load_element("repository/pending_restart")
 
-            if repository.additional_info:
-                info = repository.additional_info
-            else:
-                info = ""
-
-            if repository.authors:
-                if repository.repository_type == "integration":
-                    authors = "<p>Author(s): "
-                    for author in repository.authors:
-                        if "@" in author:
-                            author = author.split("@")[-1]
-                        authors += "<a rel='noreferrer' href='https://github.com/{author}' target='_blank' style='color: var(--primary-color) !important; margin: 2'> @{author}</a>".format(
-                            author=author
-                        )
-                    authors += "</p>"
-                else:
-                    authors = "<p>Author: {}</p>".format(repository.authors)
-            else:
-                authors = ""
 
             if (
                 repository.repository_type == "integration"
@@ -121,13 +79,13 @@ class HacsRepositoryView(HacsViewBase):
             elif repository.repository_type == "plugin":
                 if repository.javascript_type is None:
                     llnote = LOVELACE_EXAMLE_URL.format(
-                        repository.name, repository.name.replace("lovelace-", "")
+                        repository.full_name, repository.full_name.replace("lovelace-", "")
                     )
                     jsnote = MISSING_JS_TYPE
                 else:
                     llnote = LOVELACE_EXAMLE_URL_TYPE.format(
-                        repository.name,
-                        repository.name.replace("lovelace-", ""),
+                        repository.full_name,
+                        repository.full_name.replace("lovelace-", ""),
                         repository.javascript_type,
                     )
                     jsnote = ""
@@ -162,7 +120,7 @@ class HacsRepositoryView(HacsViewBase):
             note += """
                     </br></br><i>
                         To learn more about how to configure this,
-                        click the "REPOSITORY" link below button to get to the repository for this {}.
+                        click the "REPOSITORY" link button to get to the repository for this {}.
                     </i>
             """.format(
                 "AppDaemon app"
@@ -172,34 +130,23 @@ class HacsRepositoryView(HacsViewBase):
 
             main_action = """
                 <a href="{}/repository_install/{}"
-                    onclick="ShowProgressBar()" style='color: var(--primary-color) !important'>
+                    onclick="toggleLoading()" style='color: var(--primary-color) !important'>
                     {}
                 </a>
-            """
-
-            if not repository.installed:
-                main_action = main_action.format(
-                    self.url_path["api"], repository.repository_id, "INSTALL"
-                )
-            elif repository.pending_update:
-                main_action = main_action.format(
-                    self.url_path["api"], repository.repository_id, "UPGRADE"
-                )
-            else:
-                main_action = main_action.format(
-                    self.url_path["api"], repository.repository_id, "REINSTALL"
+            """.format(
+                    self.url_path["api"], repository.repository_id, repository.main_action
                 )
 
             if repository.repository_type == "plugin":
                 if not repository.installed:
                     open_plugin = ""
                 else:
-                    if "lovelace-" in repository.name:
-                        name = repository.name.split("lovelace-")[-1]
+                    if "lovelace-" in repository.full_name:
+                        name = repository.full_name.split("lovelace-")[-1]
                     else:
-                        name = repository.name
+                        name = repository.full_name
                     open_plugin = "<a href='/community_plugin/{}/{}.js' target='_blank' style='color: var(--primary-color) !important'>OPEN PLUGIN</a>".format(
-                        repository.name, name
+                        repository.full_name, name
                     )
             else:
                 open_plugin = ""
@@ -210,20 +157,20 @@ class HacsRepositoryView(HacsViewBase):
             else:
                 if repository.hide:
                     hide_option = """
-                        <li><a class="dropdown-list-item" href="{}/repository_unhide/{}" onclick="ShowProgressBar()">Unhide</a></li>
+                        <li><a class="dropdown-list-item" href="{}/repository_unhide/{}" onclick="toggleLoading()">Unhide</a></li>
                     """.format(
                         self.url_path["api"], repository.repository_id
                     )
                 else:
                     hide_option = """
-                        <li><a class="dropdown-list-item" href="{}/repository_hide/{}" onclick="ShowProgressBar()">Hide</a></li>
+                        <li><a class="dropdown-list-item" href="{}/repository_hide/{}" onclick="toggleLoading()">Hide</a></li>
                     """.format(
                         self.url_path["api"], repository.repository_id
                     )
 
             # Beta
-            if repository.last_release_tag is not None:
-                show_beta = '<li><a class="dropdown-list-item" href="{}/repository_{}_beta/{}" onclick="ShowProgressBar()">{}</a></li>'
+            if repository.version_or_commit == "version":
+                show_beta = '<li><a class="dropdown-list-item" href="{}/repository_{}_beta/{}" onclick="toggleLoading()">{}</a></li>'
                 if repository.show_beta:
                     show_beta = show_beta.format(
                         self.url_path["api"],
@@ -241,11 +188,9 @@ class HacsRepositoryView(HacsViewBase):
             else:
                 show_beta = ""
 
-            content = self.base_content
-
             if (
                 repository.homeassistant_version is not None
-                and repository.last_release_tag is not None
+                and repository.version_or_commit == "version"
             ):
                 if Version(HAVERSION[0:6]) < Version(
                     str(repository.homeassistant_version)
@@ -260,7 +205,7 @@ class HacsRepositoryView(HacsViewBase):
                     """.format(
                         NOT_SUPPORTED_HA_VERSION.format(
                             HAVERSION,
-                            repository.last_release_tag,
+                            repository.available_version,
                             repository.name,
                             str(repository.homeassistant_version),
                         )
@@ -275,114 +220,96 @@ class HacsRepositoryView(HacsViewBase):
                         "#haversion",
                     )
 
-            if repository.version_installed is not None:
-                inst_ver = "<p><b>Installed version:</b> {}</p>".format(
-                    repository.version_installed
+            if repository.installed:
+                inst_ver = "<p><b>Installed {}:</b> {}</p>".format(
+                    repository.version_or_commit,
+                    repository.installed_version
                 )
             else:
-                if repository.installed_commit is not None:
-                    inst_ver = "<p><b>Installed commit:</b> {}</p>".format(
-                        repository.installed_commit
-                    )
-                else:
-                    inst_ver = ""
+                inst_ver = ""
 
-            if repository.last_release_tag is not None:
-                last_ver = "<p><b>Available version:</b> {}</p>".format(
-                    repository.last_release_tag
-                )
-            else:
-                last_ver = "<p><b>Available commit:</b> {}</p>".format(
-                    repository.last_commit
-                )
+            last_ver = "<p><b>Available {}:</b> {}</p>".format(
+                repository.version_or_commit,
+                repository.available_version
+            )
 
-            last_up = ""
-
-            if repository.pending_update and repository.version_installed is not None:
+            if repository.status == "pending-update" and repository.version_or_commit == "version":
                 changelog = "<a rel='noreferrer' href='https://github.com/{}/releases/{}' target='_blank' style='color: var(--primary-color) !important'>CHANGELOG</a>".format(
-                    repository.repository_name, repository.ref.replace("tags/", "")
+                    repository.repository_name, repository.available_version
                 )
             else:
                 changelog = ""
 
             if repository.installed and repository.repository_id != "172733314":
-                uninstall = "<a href='{}/repository_uninstall/{}' style='float: right; color: var(--google-red-500) !important; font-weight: bold;' onclick='ShowProgressBar()'>UNINSTALL</a>".format(
+                uninstall = "<a href='{}/repository_uninstall/{}' style='float: right; color: var(--google-red-500) !important; font-weight: bold;' onclick='toggleLoading()'>UNINSTALL</a>".format(
                     self.url_path["api"], repository.repository_id
                 )
             else:
                 uninstall = ""
 
-            content += """
-                {}
-                {}
-                <div class='hacs-overview-container'>
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="card hacscolor">
-                                <div class="card-content">
-                                    <span class="card-title">
-                                        <b>{}</b>
+            ##################################################
+            #          Version select
+            if repository.published_tags and repository.repository_id != "172733314":
+                options = ""
+                for tag_name in repository.published_tags:
+                    options += "<option class='hacscolor' value='{option}'>{option}</option>".format(option=tag_name)
 
-                                        <a class='dropdown-trigger btn right' href='#' data-target='dropdown1' style="background-color: var(--primary-color); padding-top: 8px; height: 48">
-                                            <i class="fas fa-bars"></i>
-                                        </a>
+                options += "<option class='hacscolor' value='{option}'>{option}</option>".format(option=repository.default_branch)
+                if repository.selected_tag is not None:
+                    selected = repository.selected_tag
+                else:
+                    selected = repository.available_version
 
-                                        <ul id='dropdown1' class='dropdown-content'>
-                                            <li><a class="dropdown-list-item" href="{}/repository_update_repository/{}" onclick="ShowProgressBar()">Reload</a></li>
-                                            {}
-                                            {}
-                                            <li><a class="dropdown-list-item" rel='noreferrer' href="https://github.com/{}/issues/" target="_blank">Open issue</a></li>
-                                            <li><a class="dropdown-list-item" rel='noreferrer' href="https://github.com/custom-components/hacs/issues/new?title={}&labels=flag&assignee=ludeeus&template=flag.md" target="_blank">Flag this</a></li>
-                                        </ul>
-                                    </span>
-                                    <p>{}</p></br>
-                                    {}
-                                    {}
-                                    {}
-                                    <span>{}</span>
-                                    </br>
-                                    {}
-                                    {}
-                                </div>
-                                <div class="card-action">
-                                    {}
-                                    {}
-                                    <a rel='noreferrer' href='https://github.com/{}' target='_blank' style='color: var(--primary-color) !important'>repository</a>
-                                    {}
-                                    {}
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            """.format(
-                custom_message,
-                pending_restart,
-                repository.name
-                if repository.repository_type == "integration"
-                else repository.name.replace("-", " ").replace("_", " ").title(),
-                self.url_path["api"],
-                repository.repository_id,
-                show_beta,
-                hide_option,
-                repository.repository_name,
-                repository.name,
-                repository.description,
-                inst_ver,
-                last_ver,
-                last_up,
-                info,
-                authors,
-                note,
-                main_action,
-                changelog,
-                repository.repository_name,
-                open_plugin,
-                uninstall,
-            )
 
-        except Exception as exception:
+                select_tag = """
+                    <form action="{}/repository_select_tag/{}" name="selected_tag"
+                            method="post" accept-charset="utf-8"
+                            enctype="application/x-www-form-urlencoded"
+                            class="hacs-form">
+                        <select name="selected_tag" class="hacs-select" onchange="toggleLoading();document.getElementsByName('selected_tag')[0].submit()">
+                            <option class="hacscolor" value="{}" selected hidden>{}</option>
+                            {}
+                        </select>
+                    </form>
+                """.format(
+                    self.url_path["api"], repository.repository_id, selected, selected, options
+                )
+                last_ver = "<b>Available versions:</b> {}".format(select_tag)
+            ##################################################
+
+
+
+            #
+            # CONTSTRUCT THE CARDS
+            #
+
+            main_content = self.load_element("repository/view_main")
+            main_content = main_content.replace("{API}", self.url_path["api"])
+            main_content = main_content.replace("{ID}", repository.repository_id)
+            main_content = main_content.replace("{NAME}", repository.name)
+            main_content = main_content.replace("{DESCRIPTION}", repository.description)
+            main_content = main_content.replace("{REPOSITORY_NAME}", repository.repository_name)
+            main_content = main_content.replace("{AUTHORS}", repository.display_authors)
+            main_content = main_content.replace("{MAIN_ACTION}", main_action)
+            main_content = main_content.replace("{UNINSTALL}", uninstall)
+            main_content = main_content.replace("{CHANGELOG}", changelog)
+            main_content = main_content.replace("{DROP-BETA}", show_beta)
+            main_content = main_content.replace("{DROP-HIDE}", hide_option)
+            main_content = main_content.replace("{INSTALLED}", inst_ver)
+            main_content = main_content.replace("{AVAILABLE}", last_ver)
+            main_content = main_content.replace("{OPEN_PLUGIN}", open_plugin)
+
+            content += main_content
+
+            info_container = self.load_element("repository/view_info")
+            info_container = info_container.replace("{CONTENT}", repository.additional_info)
+            info_container = info_container.replace("{NOTE}", note)
+            content += info_container
+
+            content += self.footer
+
+        except IOError as exception:
+        #except Exception as exception:
             _LOGGER.error(exception)
             raise web.HTTPFound(self.url_path["error"])
 

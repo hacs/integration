@@ -8,6 +8,14 @@ class HacsViewBase(HomeAssistantView, HacsBase):
 
     requires_auth = False
 
+    def load_element(self, element):
+        """return element content."""
+        location = "{}/custom_components/hacs/frontend/elements/{}.html".format(self.config_dir, element)
+        with open(location, "r") as elementfile:
+            content = elementfile.read()
+            elementfile.close()
+        return content
+
     @property
     def base_content(self):
         """Base content."""
@@ -58,7 +66,7 @@ class HacsViewBase(HomeAssistantView, HacsBase):
     @property
     def progress_bar(self):
         """Load progress bar."""
-        if self.data["task_running"]:
+        if self.store.task_running:
             display = "block"
         else:
             display = "none"
@@ -67,6 +75,11 @@ class HacsViewBase(HomeAssistantView, HacsBase):
         <div style="display: {}"><p>Background task running, refresh the page in a little while.</p></div>
         <div class="progress hacs-bar-background" id="progressbar" style="display: {}">
             <div class="indeterminate hacs-bar"></div>
+        </div>
+        <div class="loading hidden">
+        <div class='uil-ring-css' style='transform:scale(0.79);'>
+            <div></div>
+        </div>
         </div>
         """.format(
             display, display

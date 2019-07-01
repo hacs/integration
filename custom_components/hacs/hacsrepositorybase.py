@@ -32,15 +32,16 @@ class HacsRepositoryBase(HacsBase):
         self.content_files = None
         self.content_objects = None
         self.content_path = None
+        self.description = ""
         self.hide = False
         self.info = None
         self.installed = False
         self.installed_commit = None
+        self.last_commit = None
         self.last_release_object = None
         self.last_release_tag = None
         self.last_updated = None
         self.homeassistant_version = None
-        self.name = None
         self.new = True
         self.pending_restart = False
         self.reasons = []
@@ -48,8 +49,13 @@ class HacsRepositoryBase(HacsBase):
         self.repository = None
         self.repository_name = None
         self.repository_type = None
+        self.repository_id = None
+        self.published_tags = []
+        self.selected_tag = None
         self.show_beta = False
         self.track = True
+        self.topics = []
+        self.updated_info = False
         self.version_installed = None
 
     @property
@@ -98,33 +104,16 @@ class HacsRepositoryBase(HacsBase):
         return local_path
 
     @property
-    def topics(self):
-        """Return repository topics."""
-        return self.repository.topics
-
-    @property
-    def description(self):
-        """Description."""
-        return (
-            "" if self.repository.description is None else self.repository.description
-        )
-
-    @property
     def ref(self):
         """Return the repository ref."""
-        if self.last_release_tag is not None:
+        if self.selected_tag is not None:
+            if self.selected_tag == self.repository.default_branch:
+                return self.repository.default_branch
+            else:
+                return "tags/{}".format(self.selected_tag)
+        elif self.last_release_tag is not None:
             return "tags/{}".format(self.last_release_tag)
         return self.repository.default_branch
-
-    @property
-    def repository_id(self):
-        """Set the ID of an repository."""
-        return str(self.repository.id)
-
-    @property
-    def last_commit(self):
-        """Set the last commit of an repository."""
-        return self.repository.last_commit
 
     async def setup_repository(self):
         """
@@ -159,16 +148,13 @@ class HacsRepositoryBase(HacsBase):
 
         # Set latest commit sha
         await self.repository.set_last_commit()
+        self.last_commit = self.repository.last_commit
 
         # Set repository releases
         await self.set_repository_releases()
 
-        # Check if last updated string changed.
-        current = self.last_updated
-        new = await self.return_last_update()
-        if current == new and current is not None:
-            return True
-        self.last_updated = new
+        # Setlast updated.
+        self.last_updated = await self.return_last_update()
 
         try:
             # Set additional info
@@ -262,6 +248,10 @@ class HacsRepositoryBase(HacsBase):
         start_time = datetime.now()
         _LOGGER.info("(%s) - Starting installation", self.repository_name)
         try:
+            if self.content_path == "release" and self.selected_tag == self.repository.default_branch:
+                _LOGGER.error("Version %s can not be installed.", self.selected_tag)
+                return
+
             # Run update
             await self.update()  # pylint: disable=no-member
 
@@ -292,7 +282,10 @@ class HacsRepositoryBase(HacsBase):
             return False
 
         else:
-            self.version_installed = self.last_release_tag
+            if self.selected_tag is not None:
+                self.version_installed = self.selected_tag
+            else:
+                self.version_installed = self.last_release_tag
             self.installed = True
             self.installed_commit = self.last_commit
             if self.repository_type == "integration":
@@ -411,6 +404,10 @@ class HacsRepositoryBase(HacsBase):
     async def set_repository(self):
         """Set the AIOGitHub repository object."""
         self.repository = await self.aiogithub.get_repo(self.repository_name)
+        self.last_commit = self.repository.last_commit
+        self.repository_id = str(self.repository.id)
+        self.description = self.repository.description
+        self.topics = self.repository.topics
 
     async def set_repository_releases(self):
         """Set attributes for releases."""
@@ -419,17 +416,26 @@ class HacsRepositoryBase(HacsBase):
 
         # Assign to a temp vars so we can check it before using it.
         if self.show_beta:
-            temp = await self.repository.get_releases()
-            if temp:
-                temp = temp[0]
+            temp = await self.repository.get_releases(prerelease=True)
         else:
-            temp = await self.repository.get_releases(True)
+            temp = await self.repository.get_releases(prerelease=False)
 
         if not temp:
             return
 
-        self.last_release_object = temp
-        self.last_release_tag = temp.tag_name
+        self.published_tags = []
+
+        for release in temp:
+            self.published_tags.append(release.tag_name)
+
+        self.last_release_object = temp[0]
+        if self.selected_tag is not None:
+            if self.selected_tag != self.repository.default_branch:
+                for release in temp:
+                    if release.tag_name == self.selected_tag:
+                        self.last_release_object = release
+                        break
+        self.last_release_tag = temp[0].tag_name
 
     async def validate_repository_name(self):
         """Validate the given repository_name."""
@@ -457,3 +463,5 @@ class HacsRepositoryBase(HacsBase):
             temp = self.repository.pushed_at
 
         return temp.strftime("%d %b %Y %H:%M")
+
+

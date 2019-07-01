@@ -216,14 +216,12 @@ class AIOGithubRepository(AIOGitHub):
     @backoff.on_exception(
         backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=5
     )
-    async def get_releases(self, latest=False):
+    async def get_releases(self, prerelease=False):
         """Retrun a list of repository release objects."""
         if self._ratelimit_remaining == "0":
             raise AIOGitHubRatelimit("GitHub Ratelimit error")
-        endpoint = "/repos/{}/releases/latest".format(self.full_name)
+        endpoint = "/repos/{}/releases".format(self.full_name)
         url = self.baseapi + endpoint
-        if not latest:
-            url = url.replace("/latest", "")
 
         async with async_timeout.timeout(20, loop=self.loop):
             response = await self.session.get(url, headers=self.headers)
@@ -237,12 +235,14 @@ class AIOGithubRepository(AIOGitHub):
                 if response.get("message"):
                     return False
 
-            if latest:
-                return AIOGithubRepositoryRelease(response)
-
             contents = []
 
             for content in response:
+                if len(contents) == 5:
+                    break
+                if not prerelease:
+                    if content.get("prerelease", False):
+                        continue
                 contents.append(AIOGithubRepositoryRelease(content))
 
         return contents

@@ -23,6 +23,7 @@ class HacsRepositoryThemes(HacsRepositoryBase):
         self.repository_name = repository_name
         self.repository_type = "theme"
         self.manifest_content = None
+        self.name = repository_name.split("/")[-1]
 
     async def update(self):
         """Run update tasks."""

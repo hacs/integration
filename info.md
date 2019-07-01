@@ -1,7 +1,3 @@
-# PRE RELEASE (BETA)!
-
-# [pre-release documentation](https://custom-components.github.io/hacs/next/)
-
 ![gif](https://custom-components.github.io/hacs/images/hacsdemo.gif)
 
 ## Highlights of what HACS can do

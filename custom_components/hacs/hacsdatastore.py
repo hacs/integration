@@ -1,7 +1,7 @@
 """HACS Data store."""
 import os
 import json
-from .const import STORENAME
+from .const import STORENAME, VERSION
 from .hacslogger import HacsLogger
 from .blueprints import HacsRepositoryAppDaemon, HacsRepositoryIntegration, HacsRepositoryPlugin, HacsRepositoryPythonScripts, HacsRepositoryThemes
 
@@ -130,5 +130,7 @@ class HacsDataStore:
                     repositories[repo_id].version_installed = repository.get("version_installed")
                     repositories[repo_id].last_release_tag = repository.get("last_release_tag")
                     repositories[repo_id].installed_commit = repository.get("installed_commit")
+                    if repo_id == "172733314":
+                        repositories[repo_id].version_installed = VERSION
 
                 self.repositories = repositories

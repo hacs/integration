@@ -96,7 +96,10 @@ class HacsBase:
             HacsRepositoryThemes,
         )
 
-        self.logger.info("Starting repository registration for", repo)
+        if await self.is_known_repository(repo):
+            return
+
+        self.logger.info("Starting repository registration", repo)
 
         if element_type not in ELEMENT_TYPES:
             self.logger.info("is not enabled, skipping registration", element_type)
@@ -122,7 +125,8 @@ class HacsBase:
 
         setup_result = True
         try:
-            await repository.set_repository()
+            if not self.store.task_running:
+                await repository.set_repository()
             await repository.setup_repository()
         except (HacsRequirement, HacsBaseException, AIOGitHubException) as exception:
             if not self.store.task_running:
@@ -136,7 +140,7 @@ class HacsBase:
             if repo not in self.blacklist:
                 self.blacklist.append(repo)
             if not self.store.task_running:
-                self.logger.error("%s - Could not register.", repo)
+                self.logger.error("Could not register.", repo)
         return repository, setup_result
 
     async def update_repositories(self, now=None):
@@ -199,7 +203,6 @@ class HacsBase:
 
     async def get_repositories(self):
         """Get defined repositories."""
-        self.store.task_running = True
         repositories = {
             "appdaemon": [],
             "integration": [],
@@ -233,10 +236,10 @@ class HacsBase:
                 for repository in json.loads(default_repositories.content):
                     if repository not in self._default_repositories:
                         self._default_repositories.append(repository)
-                    result = await self.aiogithub.get_repo(repository)
-                    repositories[repository_type].append(result)
 
-        self.store.task_running = False
+                    if not await self.is_known_repository(repository):
+                        result = await self.aiogithub.get_repo(repository)
+                        repositories[repository_type].append(result)
 
         return (
             repositories["appdaemon"],

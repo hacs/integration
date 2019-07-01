@@ -2,7 +2,7 @@
 VERSION = "DEV"
 NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
-STORAGE_VERSION = "3"
+STORAGE_VERSION = "4"
 STORENAME = "hacs"
 PROJECT_URL = "https://github.com/custom-components/hacs/"
 CUSTOM_UPDATER_LOCATIONS = [
@@ -35,7 +35,7 @@ STARTUP = """
 -------------------------------------------------------------------
 {}
 Version: {}
-This is a custom component
+This is a custom integration
 If you have any issues with this you need to open an issue here:
 {}
 -------------------------------------------------------------------

@@ -88,6 +88,7 @@ class HacsBase:
     async def register_new_repository(self, element_type, repo, repositoryobject=None):
         """Register a new repository."""
         from .exceptions import HacsBaseException, HacsRequirement
+        from .repositoryinformationview import RepositoryInformationView
         from .blueprints import (
             HacsRepositoryAppDaemon,
             HacsRepositoryIntegration,
@@ -135,6 +136,7 @@ class HacsBase:
 
         if setup_result:
             self.store.repositories[repository.repository_id] = repository
+            self.store.frontend.append(RepositoryInformationView(repository))
 
         else:
             if repo not in self.blacklist:

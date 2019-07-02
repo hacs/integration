@@ -4,6 +4,7 @@ import json
 from .const import STORENAME, VERSION
 from .hacslogger import HacsLogger
 from .blueprints import HacsRepositoryAppDaemon, HacsRepositoryIntegration, HacsRepositoryPlugin, HacsRepositoryPythonScripts, HacsRepositoryThemes
+from .repositoryinformationview import RepositoryInformationView
 
 class HacsDataStore:
     """HacsDataStore class."""
@@ -136,5 +137,6 @@ class HacsDataStore:
                     repositories[repo_id].selected_tag = repository.get("selected_tag")
                     if repo_id == "172733314":
                         repositories[repo_id].version_installed = VERSION
+                    self.frontend.append(RepositoryInformationView(repositories[repo_id]))
 
                 self.repositories = repositories

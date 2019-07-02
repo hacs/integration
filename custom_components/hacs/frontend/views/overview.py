@@ -20,12 +20,6 @@ class HacsOverviewView(HacsViewBase):
     async def get(self, request):  # pylint: disable=unused-argument
         """Serve HacsOverviewView."""
         try:
-            self.store.frontend = []
-            for repository in self.repositories_list_name:
-                self.store.frontend.append(
-                    RepositoryInformation(
-                        self.store.repositories[repository.repository_id]))
-
             render = self.render('overviews', 'overview')
             return web.Response(body=render, content_type="text/html", charset="utf-8")
 

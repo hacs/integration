@@ -314,6 +314,9 @@ class HacsRepositoryBase(HacsBase):
         if self.repository_id in self.store.repositories:
             if not self.installed:
                 del self.store.repositories[self.repository_id]
+        for repository in self.store.frontend:
+            if repository.repository_id == self.repository_id:
+                self.store.frontend.remove(repository)
 
     async def uninstall(self):
         """Run uninstall tasks."""

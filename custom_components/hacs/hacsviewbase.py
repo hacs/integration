@@ -1,12 +1,19 @@
 """Blueprint for HacsViewBase."""
 from homeassistant.components.http import HomeAssistantView
-from .hacsbase import HacsBase
+from jinja2 import Environment, PackageLoader
 
+from .hacsbase import HacsBase
 
 class HacsViewBase(HomeAssistantView, HacsBase):
     """Base View Class for HACS."""
 
     requires_auth = False
+
+    def render(self, templatefile, repository_id=None):
+        """Render a template file."""
+        loader = Environment(loader=PackageLoader('custom_components.hacs.frontend'))
+        template = loader.get_template(templatefile + '.html')
+        return template.render({"hacs": self, "repository_id": repository_id})
 
     def load_element(self, element):
         """return element content."""
@@ -19,71 +26,7 @@ class HacsViewBase(HomeAssistantView, HacsBase):
     @property
     def base_content(self):
         """Base content."""
-        return """
-            <head>
-                {}
-            </head>
-            <body>
-            {}
-            <div id="main" class="hacs-content">
-            {}
-        """.format(
-            self.imports, self.header, self.progress_bar
-        )
-
-    @property
-    def imports(self):
-        """Load imports."""
-        return """
-        <link rel="stylesheet" href="{static}/materialize.min.css.gz">
-        <link rel="stylesheet" href="{static}/all.min.css.gz">
-        <script src="{static}/materialize.min.js.gz"></script>
-        <link rel="stylesheet" href="{static}/hacs.css">
-        <script src="{static}/hacs.js"></script>
-        """.format(
-            static=self.url_path["static"]
-        )
-
-    @property
-    def header(self):
-        """Load header."""
-        return """
-        <div class="navbar-fixed">
-          <nav class="nav-extended hacs-nav">
-            <div class="nav-content">
-              <ul class="right tabs tabs-transparent">
-                <li class="tab"><a href="{}">overview</a></li>
-                <li class="tab"><a href="{}">store</a></li>
-                <li class="tab right"><a href="{}">settings</a></li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-        """.format(
-            self.url_path["overview"], self.url_path["store"], self.url_path["settings"]
-        )
-
-    @property
-    def progress_bar(self):
-        """Load progress bar."""
-        if self.store.task_running:
-            display = "block"
-        else:
-            display = "none"
-
-        return """
-        <div style="display: {}"><p>Background task running, refresh the page in a little while.</p></div>
-        <div class="progress hacs-bar-background" id="progressbar" style="display: {}">
-            <div class="indeterminate hacs-bar"></div>
-        </div>
-        <div class="loading hidden">
-        <div class='uil-ring-css' style='transform:scale(0.79);'>
-            <div></div>
-        </div>
-        </div>
-        """.format(
-            display, display
-        )
+        return self.render('base')
 
     @property
     def footer(self):

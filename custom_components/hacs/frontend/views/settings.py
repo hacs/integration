@@ -27,6 +27,8 @@ class HacsSettingsView(HacsViewBase):
             hidden = []
             hacs = self.store.repositories.get("172733314")
 
+            self.render('layout')
+
             if hacs is None:
                 return web.Response(
                     body=self.base_content, content_type="text/html", charset="utf-8"

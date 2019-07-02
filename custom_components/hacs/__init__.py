@@ -31,6 +31,7 @@ from .const import (
     ELEMENT_TYPES,
     VERSION,
     IFRAME,
+    DOMAIN,
 )
 
 from .frontend.views import (
@@ -43,8 +44,6 @@ from .frontend.views import (
     HacsRepositoryView,
     HacsAPIView,
 )
-
-DOMAIN = "{}".format(NAME_SHORT.lower())
 
 # TODO: Remove this when minimum HA version is > 0.93
 REQUIREMENTS = ["aiofiles==0.4.0", "backoff==1.8.0", "packaging==19.0"]

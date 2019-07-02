@@ -16,6 +16,7 @@ class HacsDataStore:
         self.config_dir = config_dir
         self.schema = None
         self.endpoints = {}
+        self.frontend = []
         self.task_running = False
 
     @property

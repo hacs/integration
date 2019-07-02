@@ -184,3 +184,4 @@ async def configure_hacs(hass, github_token, hass_config_dir):
     hacs.config_dir = hass_config_dir
     hacs.store = HacsDataStore(hass_config_dir)
     hacs.store.restore_values()
+    hacs.element_types = sorted(ELEMENT_TYPES)

@@ -1,0 +1,23 @@
+  <div class='hacs-overview-container'>
+    <h5>{{ type }}</h5>
+    <div class='hacs-card-container'>
+      {% for repository in repositories.repositories %}
+        <a href="{{ url.repository }}/{{ repository.repository_id }}" class="hacs-card" onclick="toggleLoading()">
+          <div class="hacs-card overview">
+              <span class="hacs-card-title">
+                <i class='fas fa-cube card-status {{repository.status}}'></i>
+                {{repository.name}}
+                {% if location == 'store' and repository.new %}
+                  <span class='repository-list-badge hacs-grid-badge'>NEW</span>
+                {% endif %}
+              </span>
+              <span class="hacs-card-content">
+                  <p>{{repository.description}}</p>
+              </span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  </br>
+  </br>

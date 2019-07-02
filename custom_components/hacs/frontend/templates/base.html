@@ -1,23 +1,30 @@
 
 {% set progressbar = 'block' if hacs.store.task_running else 'none' %}
+{% set url = namespace(
+  static=hacs.url_path['static'],
+  api=hacs.url_path['api'],
+  store=hacs.url_path['store'],
+  overview=hacs.url_path['overview'],
+  settings=hacs.url_path['settings'],
+  repository=hacs.url_path['repository']) %}
 
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" href="{{hacs.url_path['static']}}/materialize.min.css.gz">
-    <link rel="stylesheet" href="{{hacs.url_path['static']}}/all.min.css.gz">
-    <script src="{{hacs.url_path['static']}}/materialize.min.js.gz"></script>
-    <link rel="stylesheet" href="{{hacs.url_path['static']}}/hacs.css">
-    <script src="{{hacs.url_path['static']}}/hacs.js"></script>
+    <link rel="stylesheet" href="{{ url.static }}/materialize.min.css.gz">
+    <link rel="stylesheet" href="{{ url.static }}/all.min.css.gz">
+    <script src="{{ url.static }}/materialize.min.js.gz"></script>
+    <link rel="stylesheet" href="{{ url.static }}/hacs.css">
+    <script src="{{ url.static }}/hacs.js"></script>
   </head>
   <body>
   <div class="navbar-fixed">
       <nav class="nav-extended hacs-nav">
         <div class="nav-content">
           <ul class="right tabs tabs-transparent">
-            <li class="tab"><a href="{{hacs.url_path['overview']}}">overview</a></li>
-            <li class="tab"><a href="{{hacs.url_path['store']}}">store</a></li>
-            <li class="tab right"><a href="{{hacs.url_path['settings']}}">settings</a></li>
+            <li class="tab"><a href="{{ url.overview }}">overview</a></li>
+            <li class="tab"><a href="{{ url.store }}">store</a></li>
+            <li class="tab right"><a href="{{ url.settings }}">settings</a></li>
           </ul>
         </div>
       </nav>

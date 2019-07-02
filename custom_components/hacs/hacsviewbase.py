@@ -9,11 +9,11 @@ class HacsViewBase(HomeAssistantView, HacsBase):
 
     requires_auth = False
 
-    def render(self, templatefile, repository_id=None):
+    def render(self, templatefile, location=None, repository=None):
         """Render a template file."""
         loader = Environment(loader=PackageLoader('custom_components.hacs.frontend'))
         template = loader.get_template(templatefile + '.html')
-        return template.render({"hacs": self, "repository_id": repository_id})
+        return template.render({"hacs": self, "location": location, "repository": repository})
 
     def load_element(self, element):
         """return element content."""

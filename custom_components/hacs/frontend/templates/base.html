@@ -3,44 +3,46 @@
 {% set url = namespace(
   static=hacs.url_path['static'],
   api=hacs.url_path['api'],
+  admin=hacs.url_path['admin'],
+  adminapi=hacs.url_path['admin-api'],
   store=hacs.url_path['store'],
   overview=hacs.url_path['overview'],
   settings=hacs.url_path['settings'],
   repository=hacs.url_path['repository']) %}
 
-<!doctype html>
-<html>
-  <head>
-    <link rel="stylesheet" href="{{ url.static }}/materialize.min.css.gz">
-    <link rel="stylesheet" href="{{ url.static }}/all.min.css.gz">
-    <script src="{{ url.static }}/materialize.min.js.gz"></script>
-    <link rel="stylesheet" href="{{ url.static }}/hacs.css">
-    <script src="{{ url.static }}/hacs.js"></script>
-  </head>
-  <body>
-    <div class="navbar-fixed">
-        <nav class="nav-extended hacs-nav">
-          <div class="nav-content">
-            <ul class="right tabs tabs-transparent">
-              <li class="tab"><a href="{{ url.overview }}">overview</a></li>
-              <li class="tab"><a href="{{ url.store }}">store</a></li>
-              <li class="tab right"><a href="{{ url.settings }}">settings</a></li>
-            </ul>
-          </div>
-        </nav>
+  <!doctype html>
+  <html>
+    <head>
+      <link rel="stylesheet" href="{{ url.static }}/materialize.min.css.gz">
+      <link rel="stylesheet" href="{{ url.static }}/all.min.css.gz">
+      <script src="{{ url.static }}/materialize.min.js.gz"></script>
+      <link rel="stylesheet" href="{{ url.static }}/hacs.css">
+      <script src="{{ url.static }}/hacs.js"></script>
+    </head>
+    <body>
+      <div class="navbar-fixed">
+          <nav class="nav-extended hacs-nav">
+            <div class="nav-content">
+              <ul class="right tabs tabs-transparent">
+                <li class="tab"><a href="{{ url.overview }}">overview</a></li>
+                <li class="tab"><a href="{{ url.store }}">store</a></li>
+                <li class="tab right"><a href="{{ url.settings }}">settings</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div id="main" class="hacs-content">
+            <div style="display: {{ progressbar }}"><p>Background task running, refresh the page in a little while.</p></div>
+            <div class="progress hacs-bar-background" id="progressbar" style="display: {{ progressbar }}">
+                <div class="indeterminate hacs-bar"></div>
+            </div>
+            <div class="loading hidden">
+            <div class='uil-ring-css' style='transform:scale(0.79);'>
+                <div></div>
+            </div>
+            </div>
+          {% block content %}
+          {% endblock %}
       </div>
-      <div id="main" class="hacs-content">
-          <div style="display: {{ progressbar }}"><p>Background task running, refresh the page in a little while.</p></div>
-          <div class="progress hacs-bar-background" id="progressbar" style="display: {{ progressbar }}">
-              <div class="indeterminate hacs-bar"></div>
-          </div>
-          <div class="loading hidden">
-          <div class='uil-ring-css' style='transform:scale(0.79);'>
-              <div></div>
-          </div>
-          </div>
-        {% block content %}
-        {% endblock %}
-    </div>
-  </body>
-</html>
+    </body>
+  </html>

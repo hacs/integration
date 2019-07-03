@@ -1,0 +1,11 @@
+<!-- Used for both overview and store-->
+{% extends "base.html" %}
+{% block content %}
+  {% for button in ["remove_new_flag", "repositories"] %}
+    <a {} href="{{url.adminapi}}/{{button}}"  onclick="toggleLoading()" class='waves-effect waves-light btn hacsbutton'>
+      {{ button.replace("_"," ") | upper }}
+    </a>
+  {% endfor %}
+  {% block admin %}
+  {% endblock %}
+{% endblock %}

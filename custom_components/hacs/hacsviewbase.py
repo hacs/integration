@@ -1,6 +1,7 @@
 """Blueprint for HacsViewBase."""
 from homeassistant.components.http import HomeAssistantView
 from jinja2 import Environment, PackageLoader
+from aiohttp import web
 
 from .hacsbase import HacsBase
 
@@ -32,3 +33,42 @@ class HacsViewBase(HomeAssistantView, HacsBase):
     def footer(self):
         """Return the end of the document."""
         return "</div></body>"
+
+
+class HacsAdmin(HacsViewBase):
+    """Admin."""
+
+    name = "hacs_admin"
+    requires_auth = False
+    
+
+    def __init__(self):
+        """Initilize."""
+        self.url = "/api/panel_custom/hacs_admin"
+
+    async def get(self, request):  # pylint: disable=unused-argument
+        """Serve HacsAdmin."""
+        try:
+            render = self.render('admin')
+            return web.Response(body=render, content_type="text/html", charset="utf-8")
+
+        except Exception:
+            raise web.HTTPFound(self.url_path["error"])
+
+class HacsAdminAPI(HacsViewBase):
+    """Admin."""
+
+    name = "admin-api"
+
+    def __init__(self):
+        """Initilize."""
+        self.url = self.url_path["admin-api"]
+
+    async def get(self, request):  # pylint: disable=unused-argument
+        """Serve HacsAdmin."""
+        try:
+            render = self.render('admin')
+            return web.Response(body=render, content_type="text/html", charset="utf-8")
+
+        except Exception:
+            raise web.HTTPFound(self.url_path["error"])

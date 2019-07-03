@@ -33,6 +33,8 @@ class HacsBase:
     url_path = {}
     for endpoint in [
         "api",
+        "admin",
+        "admin-api",
         "error",
         "overview",
         "static",

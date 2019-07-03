@@ -108,6 +108,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs().startup_tasks())
 
     # Register the views
+    from .hacsviewbase import HacsAdmin
     hass.http.register_view(HacsStaticView())
     hass.http.register_view(HacsErrorView())
     hass.http.register_view(HacsPluginView())
@@ -116,6 +117,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hass.http.register_view(HacsSettingsView())
     hass.http.register_view(HacsRepositoryView())
     hass.http.register_view(HacsAPIView())
+    hass.http.register_view(HacsAdmin())
 
     # Add to sidepanel
     # TODO: Remove this check when minimum HA version is > 0.94

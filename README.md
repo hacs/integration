@@ -46,6 +46,10 @@ HACS is not a full replacement for `custom_updater` and even though their "missi
 
 [![Showcase](https://img.youtube.com/vi/-PIlL1gSUuY/0.jpg)](https://www.youtube.com/watch?v=-PIlL1gSUuY "Showcase")
 
+**Install and Setup Walkthrough by [DrZzs](https://www.youtube.com/channel/UC7G4tLa4Kt6A9e3hJ-HO8ng)**
+
+[![Walkthrough](https://img.youtube.com/vi/aJTTCAvzpIU/0.jpg)](https://www.youtube.com/watch?v=aJTTCAvzpIU "Walkthrough")
+
 ## Issues
 
 ~~If~~ When you experience issues/bugs with this the best way to report them is to open an issue in **this** repo.

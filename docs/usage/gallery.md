@@ -31,3 +31,7 @@
 ### Showcase by [SV Sognare](https://www.youtube.com/channel/UC3sknm_GUCDESM7EmVvkgzg)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-PIlL1gSUuY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Install and Setup Walkthrough by [DrZzs](https://www.youtube.com/channel/UC7G4tLa4Kt6A9e3hJ-HO8ng)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/aJTTCAvzpIU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

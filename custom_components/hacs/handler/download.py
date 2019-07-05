@@ -8,7 +8,7 @@ import async_timeout
 
 import backoff
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from ..exceptions import HacsNotSoBasicException
+from ..hacsbase.exceptions import HacsNotSoBasicException
 
 _LOGGER = logging.getLogger("custom_components.hacs.download")
 

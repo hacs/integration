@@ -1,14 +1,13 @@
-"""Blueprint for HacsBase."""
-# pylint: disable=too-few-public-methods,unused-argument
+"""Initialize the HACS base."""
+"""# pylint: disable=too-few-public-methods,unused-argument"""
 
 import uuid
 import json
-import os
 from datetime import timedelta
 from homeassistant.helpers.event import async_track_time_interval, async_call_later
-from .aiogithub import AIOGitHubException, AIOGitHubRatelimit
+from ..aiogithub.exceptions import AIOGitHubException, AIOGitHubRatelimit
 from .const import ELEMENT_TYPES
-from .hacslogger import HacsLogger
+from ..handler.logger import HacsLogger
 
 class HacsBase:
     """The base class of HACS, nested thoughout the project."""
@@ -48,8 +47,6 @@ class HacsBase:
 
     async def startup_tasks(self, notarealargument=None):
         """Run startup_tasks."""
-        from .hacsrepositoryintegration import HacsRepositoryIntegration
-
         self.store.task_running = True
 
         self.logger.info("Runing startup tasks.")
@@ -90,14 +87,12 @@ class HacsBase:
     async def register_new_repository(self, element_type, repo, repositoryobject=None):
         """Register a new repository."""
         from .exceptions import HacsBaseException, HacsRequirement
-        from .repositoryinformationview import RepositoryInformationView
-        from .blueprints import (
-            HacsRepositoryAppDaemon,
-            HacsRepositoryIntegration,
-            HacsRepositoryPlugin,
-            HacsRepositoryPythonScripts,
-            HacsRepositoryThemes,
-        )
+        from ..repositories.repositoryinformationview import RepositoryInformationView
+        from ..repositories.hacsrepositoryappdaemon import HacsRepositoryAppDaemon
+        from ..repositories.hacsrepositoryintegration import HacsRepositoryIntegration
+        from ..repositories.hacsrepositorybaseplugin import HacsRepositoryPlugin
+        from ..repositories.hacsrepositorypythonscript import HacsRepositoryPythonScripts
+        from ..repositories.hacsrepositorytheme import HacsRepositoryThemes
 
         if await self.is_known_repository(repo):
             return

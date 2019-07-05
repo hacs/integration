@@ -1,28 +1,27 @@
-"""Blueprint for HacsRepositoryAppDaemon."""
-# pylint: disable=too-many-instance-attributes,invalid-name,broad-except
+"""Blueprint for HacsRepositoryPythonScripts."""
+# pylint: disable=too-many-instance-attributes,invalid-name,broad-except,access-member-before-definition
 import logging
-import json
 
-from .blueprints import HacsRepositoryBase
-from .exceptions import HacsRequirement
+from .hacsrepositorybase import HacsRepositoryBase
+from ..hacsbase.exceptions import HacsRequirement
 
 _LOGGER = logging.getLogger("custom_components.hacs.repository")
 
 
-class HacsRepositoryAppDaemon(HacsRepositoryBase):
+class HacsRepositoryPythonScripts(HacsRepositoryBase):
     """
-    Set up a HacsRepositoryAppDaemon object.
+    Set up a HacsRepositoryPythonScripts object.
 
     repository_name(str): The full name of a repository
     (example: awesome-dev/awesome-repo)
     """
 
     def __init__(self, repository_name: str, repositoryobject=None):
-        """Initialize a HacsRepositoryAppDaemon object."""
+        """Initialize a HacsRepositoryPythonScripts object."""
         super().__init__()
         self.repository = repositoryobject
         self.repository_name = repository_name
-        self.repository_type = "appdaemon"
+        self.repository_type = "python_script"
         self.manifest_content = None
         self.name = repository_name.split("/")[-1]
 
@@ -37,15 +36,13 @@ class HacsRepositoryAppDaemon(HacsRepositoryBase):
         contentfiles = []
 
         if self.content_path is None:
-            first = await self.repository.get_contents("apps", self.ref)
+            self.content_objects = await self.repository.get_contents(
+                "python_scripts", self.ref
+            )
 
-            self.content_path = first[0].path
+            self.content_path = self.content_objects[0].path
 
-            self.name = first[0].name
-
-        self.content_objects = await self.repository.get_contents(
-            self.content_path, self.ref
-        )
+            self.name = self.content_objects[0].name.replace(".py", "")
 
         if not isinstance(self.content_objects, list):
             raise HacsRequirement("Repository structure does not meet the requirements")

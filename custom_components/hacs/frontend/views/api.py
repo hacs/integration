@@ -2,9 +2,9 @@
 # pylint: disable=broad-except
 import logging
 from aiohttp import web
-from ...blueprints import HacsViewBase
-from ...exceptions import HacsRequirement
-from ...aiogithub import AIOGitHubException
+from ...http import HacsViewBase
+from ...hacsbase.exceptions import HacsRequirement
+from ...aiogithub.exceptions import AIOGitHubException
 
 _LOGGER = logging.getLogger("custom_components.hacs.frontend")
 

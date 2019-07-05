@@ -1,11 +1,11 @@
 """Blueprint for HacsRepositoryPlugin."""
-# pylint: disable=too-many-instance-attributes,invalid-name,broad-except
+# pylint: disable=too-many-instance-attributes,invalid-name,broad-except,access-member-before-definition
 import logging
 import json
 
-from .aiogithub import AIOGitHubException
-from .blueprints import HacsRepositoryBase
-from .exceptions import HacsRequirement
+from .hacsrepositorybase import HacsRepositoryBase
+from ..aiogithub.exceptions import AIOGitHubException
+from ..hacsbase.exceptions import HacsRequirement
 
 _LOGGER = logging.getLogger("custom_components.hacs.repository")
 

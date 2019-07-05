@@ -1,6 +1,6 @@
 """Sensor platform for HACS."""
 from homeassistant.helpers.entity import Entity
-from . import hacs
+from .hacsbase import HacsBase as hacs
 
 
 async def async_setup_platform(
@@ -27,6 +27,7 @@ class HACSSensor(Entity):
         for repository in hacs.store.repositories:
             repository = hacs.store.repositories[repository]
             if repository.pending_update:
+                hacs.logger.debug(repository.repository_name, "sensor.pending_update")
                 updates += 1
 
         self._state = updates

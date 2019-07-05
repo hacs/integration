@@ -18,8 +18,6 @@ from homeassistant.helpers.aiohttp_client import async_create_clientsession
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers import discovery
 
-from .hacsbase import HacsBase as hacs
-from .hacsdatastore import HacsDataStore
 from .const import (
     CUSTOM_UPDATER_LOCATIONS,
     STARTUP,
@@ -34,16 +32,6 @@ from .const import (
     DOMAIN,
 )
 
-from .frontend.views import (
-    HacsStaticView,
-    HacsErrorView,
-    HacsPluginView,
-    HacsOverviewView,
-    HacsStoreView,
-    HacsSettingsView,
-    HacsRepositoryView,
-    HacsAPIView,
-)
 
 # TODO: Remove this when minimum HA version is > 0.93
 REQUIREMENTS = ["aiofiles==0.4.0", "backoff==1.8.0", "packaging==19.0"]
@@ -67,6 +55,9 @@ CONFIG_SCHEMA = vol.Schema(
 
 async def async_setup(hass, config):  # pylint: disable=unused-argument
     """Set up this integration."""
+    from .aiogithub.exceptions import AIOGitHubAuthentication, AIOGitHubException, AIOGitHubRatelimit
+    from .hacsbase import HacsBase as hacs
+
     _LOGGER.info(STARTUP)
     config_dir = hass.config.path()
     github_token = config[DOMAIN]["token"]
@@ -85,7 +76,15 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
         )
 
     # Configure HACS
-    await configure_hacs(hass, github_token, config_dir)
+    try:
+        await configure_hacs(hass, github_token, config_dir)
+    except AIOGitHubAuthentication as exception:
+        _LOGGER.error(exception)
+        return False
+    except AIOGitHubRatelimit as exception:
+        _LOGGER.warning(exception)
+    except AIOGitHubException as exception:
+        _LOGGER.warning(exception)
 
     # Check if custom_updater exists
     for location in CUSTOM_UPDATER_LOCATIONS:
@@ -107,38 +106,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     # Setup startup tasks
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs().startup_tasks())
 
-    # Register the views
-    from .hacsviewbase import HacsAdmin
-    hass.http.register_view(HacsStaticView())
-    hass.http.register_view(HacsErrorView())
-    hass.http.register_view(HacsPluginView())
-    hass.http.register_view(HacsStoreView())
-    hass.http.register_view(HacsOverviewView())
-    hass.http.register_view(HacsSettingsView())
-    hass.http.register_view(HacsRepositoryView())
-    hass.http.register_view(HacsAPIView())
-    hass.http.register_view(HacsAdmin())
-
-    # Add to sidepanel
-    # TODO: Remove this check when minimum HA version is > 0.94
-    if parse_version(HAVERSION) < parse_version("0.93.9"):
-        await hass.components.frontend.async_register_built_in_panel(
-            "iframe",
-            IFRAME["title"],
-            IFRAME["icon"],
-            IFRAME["path"],
-            {"url": hacs.url_path["overview"]},
-            require_admin=IFRAME["require_admin"],
-        )
-    else:
-        hass.components.frontend.async_register_built_in_panel(
-            "iframe",
-            IFRAME["title"],
-            IFRAME["icon"],
-            IFRAME["path"],
-            {"url": hacs.url_path["overview"]},
-            require_admin=IFRAME["require_admin"],
-        )
+    await setup_frontend(hass, hacs)
 
     # Service registration
     async def service_hacs_isntall(call):
@@ -169,11 +137,14 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
 async def configure_hacs(hass, github_token, hass_config_dir):
     """Configure HACS."""
     from .aiogithub import AIOGitHub
-    from .hacsmigration import HacsMigration
-    from .hacsstorage import HacsStorage
+    from .hacsbase import HacsBase as hacs
+    from .hacsbase.data import HacsData
+    from .hacsbase.migration import HacsMigration
+    #from .hacsbase.storage import HacsStorage
+
 
     hacs.migration = HacsMigration()
-    hacs.storage = HacsStorage()
+    #hacs.storage = HacsStorage()
 
     hacs.aiogithub = AIOGitHub(
         github_token, hass.loop, async_create_clientsession(hass)
@@ -183,6 +154,53 @@ async def configure_hacs(hass, github_token, hass_config_dir):
 
     hacs.hass = hass
     hacs.config_dir = hass_config_dir
-    hacs.store = HacsDataStore(hass_config_dir)
+    hacs.store = HacsData(hass_config_dir)
     hacs.store.restore_values()
     hacs.element_types = sorted(ELEMENT_TYPES)
+
+
+async def setup_frontend(hass, hacs):
+    """Configure the HACS frontend elements."""
+    from .http import HacsAdmin
+    from .frontend.views import (
+        HacsStaticView,
+        HacsErrorView,
+        HacsPluginView,
+        HacsOverviewView,
+        HacsStoreView,
+        HacsSettingsView,
+        HacsRepositoryView,
+        HacsAPIView,
+    )
+
+    # Define views
+    hass.http.register_view(HacsStaticView())
+    hass.http.register_view(HacsErrorView())
+    hass.http.register_view(HacsPluginView())
+    hass.http.register_view(HacsStoreView())
+    hass.http.register_view(HacsOverviewView())
+    hass.http.register_view(HacsSettingsView())
+    hass.http.register_view(HacsRepositoryView())
+    hass.http.register_view(HacsAPIView())
+    hass.http.register_view(HacsAdmin())
+
+    # Add to sidepanel
+    # TODO: Remove this check when minimum HA version is > 0.94
+    if parse_version(HAVERSION) < parse_version("0.93.9"):
+        await hass.components.frontend.async_register_built_in_panel(
+            "iframe",
+            IFRAME["title"],
+            IFRAME["icon"],
+            IFRAME["path"],
+            {"url": hacs.url_path["overview"]},
+            require_admin=IFRAME["require_admin"],
+        )
+    else:
+        hass.components.frontend.async_register_built_in_panel(
+            "iframe",
+            IFRAME["title"],
+            IFRAME["icon"],
+            IFRAME["path"],
+            {"url": hacs.url_path["overview"]},
+            require_admin=IFRAME["require_admin"],
+        )

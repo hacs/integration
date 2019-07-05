@@ -1,11 +1,11 @@
-"""Blueprint for HacsMigration."""
+"""HACS Migration logic."""
 import logging
 import json
 from shutil import copy2
 
 import aiofiles
 
-from .hacsbase import HacsBase
+from . import HacsBase
 from .const import STORAGE_VERSION, STORENAME
 
 _LOGGER = logging.getLogger("custom_components.hacs.migration")

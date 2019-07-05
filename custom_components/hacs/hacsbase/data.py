@@ -1,13 +1,18 @@
-"""HACS Data store."""
+"""Data handler for HACS."""
 import os
 import json
 from .const import STORENAME, VERSION
-from .hacslogger import HacsLogger
-from .blueprints import HacsRepositoryAppDaemon, HacsRepositoryIntegration, HacsRepositoryPlugin, HacsRepositoryPythonScripts, HacsRepositoryThemes
-from .repositoryinformationview import RepositoryInformationView
+from ..handler.logger import HacsLogger
+from ..repositories.repositoryinformationview import RepositoryInformationView
+from ..repositories.hacsrepositoryappdaemon import HacsRepositoryAppDaemon
+from ..repositories.hacsrepositoryintegration import HacsRepositoryIntegration
+from ..repositories.hacsrepositorybaseplugin import HacsRepositoryPlugin
+from ..repositories.hacsrepositorypythonscript import HacsRepositoryPythonScripts
+from ..repositories.hacsrepositorytheme import HacsRepositoryThemes
+from ..repositories.repositoryinformationview import RepositoryInformationView
 
-class HacsDataStore:
-    """HacsDataStore class."""
+class HacsData:
+    """HacsData class."""
 
     def __init__(self, config_dir):
         """Initialize."""

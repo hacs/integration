@@ -5,9 +5,9 @@ from aiohttp import web
 from packaging.version import Version
 from homeassistant.const import __version__ as HAVERSION
 
-from ...blueprints import HacsViewBase
-from ...const import NOT_SUPPORTED_HA_VERSION
-from ...repositoryinformationview import RepositoryInformationView
+from ...http import HacsViewBase
+from ...hacsbase.const import NOT_SUPPORTED_HA_VERSION
+from ...repositories.repositoryinformationview import RepositoryInformationView
 
 _LOGGER = logging.getLogger("custom_components.hacs.frontend")
 

@@ -1,10 +1,10 @@
 """Blueprint for HacsRepositoryIntegration."""
-# pylint: disable=too-many-instance-attributes,invalid-name,broad-except
+# pylint: disable=too-many-instance-attributes,invalid-name,broad-except,access-member-before-definition
 import logging
 import json
 
-from .blueprints import HacsRepositoryBase
-from .exceptions import HacsRequirement
+from .hacsrepositorybase import HacsRepositoryBase
+from ..hacsbase.exceptions import HacsRequirement
 
 _LOGGER = logging.getLogger("custom_components.hacs.repository")
 

@@ -4,7 +4,7 @@ import logging
 from aiohttp import web
 from homeassistant.const import __version__ as HAVERSION
 
-from ...blueprints import HacsViewBase
+from ...http import HacsViewBase
 from ...const import ISSUE_URL, NAME_LONG, ELEMENT_TYPES, VERSION
 
 _LOGGER = logging.getLogger("custom_components.hacs.frontend")

@@ -8,16 +8,16 @@ import os
 import shutil
 from packaging.version import Version
 from homeassistant.const import __version__ as HAVERSION
-from .aiogithub import AIOGitHubException
-from .hacsbase import HacsBase
-from .exceptions import (
+from ..aiogithub.exceptions import AIOGitHubException
+from ..hacsbase import HacsBase
+from ..hacsbase.exceptions import (
     HacsRepositoryInfo,
     HacsUserScrewupException,
     HacsBaseException,
     HacsBlacklistException,
 )
-from .handler.download import async_download_file, async_save_file
-from .const import VERSION, NOT_SUPPORTED_HA_VERSION
+from ..handler.download import async_download_file, async_save_file
+from ..hacsbase.const import VERSION, NOT_SUPPORTED_HA_VERSION
 
 _LOGGER = logging.getLogger("custom_components.hacs.repository")
 

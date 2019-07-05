@@ -7,8 +7,9 @@ import traceback
 
 from aiohttp import web
 
-from ...blueprints import HacsViewBase
-from ...const import ERROR, ISSUE_URL
+from ...http import HacsViewBase
+from ...const import ISSUE_URL
+from ...hacsbase.const import ERROR
 
 _LOGGER = logging.getLogger("custom_components.hacs..frontend")
 

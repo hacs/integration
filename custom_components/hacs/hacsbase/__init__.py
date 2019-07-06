@@ -198,7 +198,7 @@ class HacsBase:
                     except AIOGitHubException as exception:
                         self.logger.error("{} - {}".format(repository.repository_name, exception))
         self.store.task_running = False
-        await self.storage.set()
+        self.store.write()
 
     async def get_repositories(self):
         """Get defined repositories."""

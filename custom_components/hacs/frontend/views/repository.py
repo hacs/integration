@@ -47,11 +47,11 @@ class HacsRepositoryView(HacsViewBase):
                 await repository.set_repository()
                 await repository.update()
                 repository.updated_info = True
-                await self.storage.set()
+                self.store.write()
 
             if repository.new:
                 repository.new = False
-                await self.storage.set()
+                self.store.write()
 
             repository = RepositoryInformationView(repository)
             content = self.base_content

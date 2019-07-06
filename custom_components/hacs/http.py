@@ -64,8 +64,8 @@ class HacsAdminAPI(HacsViewBase):
         """Initilize."""
         self.url = self.url_path["admin-api"]
 
-    async def get(self, request):  # pylint: disable=unused-argument
-        """Serve HacsAdmin."""
+    async def post(self, request):  # pylint: disable=unused-argument
+        """Serve HacsAdminAPI requests."""
         try:
             render = self.render('admin')
             return web.Response(body=render, content_type="text/html", charset="utf-8")

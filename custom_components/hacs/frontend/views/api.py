@@ -28,7 +28,7 @@ class HacsAPIView(HacsViewBase):
         if element == "repository_install":
             repository = self.store.repositories[action]
             await repository.install()
-            await self.storage.set()
+            self.store.write()
             raise web.HTTPFound(
                 "{}/{}".format(self.url_path["repository"], repository.repository_id)
             )
@@ -37,7 +37,7 @@ class HacsAPIView(HacsViewBase):
         elif element == "repository_update_repository":
             repository = self.store.repositories[action]
             await repository.update()
-            await self.storage.set()
+            self.store.write()
             raise web.HTTPFound(
                 "{}/{}".format(self.url_path["repository"], repository.repository_id)
             )
@@ -46,28 +46,28 @@ class HacsAPIView(HacsViewBase):
         elif element == "repository_update_settings":
             repository = self.store.repositories[action]
             await repository.update()
-            await self.storage.set()
+            self.store.write()
             raise web.HTTPFound(self.url_path["settings"])
 
         # Uninstall a element from the repository view
         elif element == "repository_uninstall":
             repository = self.store.repositories[action]
             await repository.uninstall()
-            await self.storage.set()
+            self.store.write()
             raise web.HTTPFound(self.url_path["store"])
 
         # Remove a custom repository from the settings view
         elif element == "repository_remove":
             repository = self.store.repositories[action]
             await repository.remove()
-            await self.storage.set()
+            self.store.write()
             raise web.HTTPFound(self.url_path["settings"])
 
         # Hide a repository.
         elif element == "repository_hide":
             repository = self.store.repositories[action]
             repository.hide = True
-            await self.storage.set()
+            self.store.write()
             raise web.HTTPFound(self.url_path["store"])
 
         # Unhide a repository.
@@ -75,7 +75,7 @@ class HacsAPIView(HacsViewBase):
             repository = self.store.repositories[action]
             repository.hide = False
             await repository.update()
-            await self.storage.set()
+            self.store.write()
             raise web.HTTPFound(self.url_path["settings"])
 
         # Beta
@@ -84,7 +84,7 @@ class HacsAPIView(HacsViewBase):
             repository = self.store.repositories[action]
             repository.show_beta = True
             await repository.update()
-            await self.storage.set()
+            self.store.write()
             raise web.HTTPFound(
                 "{}/{}".format(self.url_path["repository"], repository.repository_id)
             )
@@ -94,7 +94,7 @@ class HacsAPIView(HacsViewBase):
             repository = self.store.repositories[action]
             repository.show_beta = False
             await repository.update()
-            await self.storage.set()
+            self.store.write()
             raise web.HTTPFound(
                 "{}/{}".format(self.url_path["repository"], repository.repository_id)
             )
@@ -207,7 +207,7 @@ class HacsAPIView(HacsViewBase):
                         repository_type, repository_name
                     )
                     if result:
-                        await self.storage.set()
+                        self.store.write()
                         raise web.HTTPFound(
                             "{}/{}".format(
                                 self.url_path["repository"], repository.repository_id

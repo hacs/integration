@@ -27,6 +27,13 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
         self.domain = None
         self.name = repository_name.split("/")[-1]
 
+    @property
+    def config_flow(self):
+        """Return bool if integration has config_flow."""
+        if self.manifest_content is None:
+            return self.manifest_content.get("config_flow", False)
+        return False
+
     async def update(self):
         """Run update tasks."""
         if await self.common_update():

@@ -17,6 +17,7 @@ class HacsBase:
     migration = None
     storage = None
     hacs = None
+    config = None
     logger = HacsLogger()
     data = {"hacs": {}}
     data["task_running"] = True

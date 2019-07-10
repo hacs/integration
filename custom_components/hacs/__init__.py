@@ -43,6 +43,8 @@ CONFIG_SCHEMA = vol.Schema(
         DOMAIN: vol.Schema(
             {
                 vol.Required("token"): cv.string,
+                vol.Optional("sidepanel_title"): cv.string,
+                vol.Optional("sidepanel_icon"): cv.string,
                 vol.Optional("appdaemon", default=False): cv.boolean,
                 vol.Optional("python_script", default=False): cv.boolean,
                 vol.Optional("theme", default=False): cv.boolean,
@@ -60,24 +62,10 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
 
     _LOGGER.info(STARTUP)
     config_dir = hass.config.path()
-    github_token = config[DOMAIN]["token"]
-
-    if config[DOMAIN]["appdaemon"]:
-        ELEMENT_TYPES.append("appdaemon")
-    if config[DOMAIN]["python_script"]:
-        ELEMENT_TYPES.append("python_script")
-    if config[DOMAIN]["theme"]:
-        ELEMENT_TYPES.append("theme")
-
-    # Print DEV warning
-    if VERSION == "DEV":
-        _LOGGER.error(
-            "You are running a DEV version of HACS, this is not intended for regular use."
-        )
 
     # Configure HACS
     try:
-        await configure_hacs(hass, github_token, config_dir)
+        await configure_hacs(hass, config[DOMAIN], config_dir)
     except AIOGitHubAuthentication as exception:
         _LOGGER.error(exception)
         return False
@@ -134,20 +122,35 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     return True
 
 
-async def configure_hacs(hass, github_token, hass_config_dir):
+async def configure_hacs(hass, configuration, hass_config_dir):
     """Configure HACS."""
     from .aiogithub import AIOGitHub
     from .hacsbase import HacsBase as hacs
+    from .hacsbase.configuration import HacsConfiguration
     from .hacsbase.data import HacsData
     from .hacsbase.migration import HacsMigration
     #from .hacsbase.storage import HacsStorage
 
+    hacs.config = HacsConfiguration(configuration)
+
+    if hacs.config.appdaemon:
+        ELEMENT_TYPES.append("appdaemon")
+    if hacs.config.python_script:
+        ELEMENT_TYPES.append("python_script")
+    if hacs.config.theme:
+        ELEMENT_TYPES.append("theme")
+
+    # Print DEV warning
+    if hacs.config.dev:
+        _LOGGER.error(
+            "You are running a DEV version of HACS, this is not intended for regular use."
+        )
 
     hacs.migration = HacsMigration()
     #hacs.storage = HacsStorage()
 
     hacs.aiogithub = AIOGitHub(
-        github_token, hass.loop, async_create_clientsession(hass)
+        hacs.config.token, hass.loop, async_create_clientsession(hass)
     )
 
     hacs.hacs_github = await hacs.aiogithub.get_repo("custom-components/hacs")
@@ -189,8 +192,8 @@ async def setup_frontend(hass, hacs):
     if parse_version(HAVERSION) < parse_version("0.93.9"):
         await hass.components.frontend.async_register_built_in_panel(
             "iframe",
-            IFRAME["title"],
-            IFRAME["icon"],
+            hacs.config.sidepanel_title,
+            hacs.config.sidepanel_icon,
             IFRAME["path"],
             {"url": hacs.url_path["overview"]},
             require_admin=IFRAME["require_admin"],
@@ -198,8 +201,8 @@ async def setup_frontend(hass, hacs):
     else:
         hass.components.frontend.async_register_built_in_panel(
             "iframe",
-            IFRAME["title"],
-            IFRAME["icon"],
+            hacs.config.sidepanel_title,
+            hacs.config.sidepanel_icon,
             IFRAME["path"],
             {"url": hacs.url_path["overview"]},
             require_admin=IFRAME["require_admin"],

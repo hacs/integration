@@ -129,6 +129,8 @@ async def configure_hacs(hass, configuration, hass_config_dir):
     from .hacsbase import HacsBase as hacs
     from .hacsbase.configuration import HacsConfiguration
     from .hacsbase.data import HacsData
+    from . import const as const
+    from .hacsbase import const as hacsconst
     from .hacsbase.migration import HacsMigration
     #from .hacsbase.storage import HacsStorage
 
@@ -144,7 +146,12 @@ async def configure_hacs(hass, configuration, hass_config_dir):
     # Print DEV warning
     if hacs.config.dev:
         _LOGGER.error(
-            "You have 'dev' enabled for HACS, this is not intended for regular use, no support will be given if you break something."
+            const.DEV_MODE
+        )
+        hass.components.persistent_notification.create(
+            title="HACS DEV MODE",
+            message=const.DEV_MODE,
+            notification_id="hacs_dev_mode"
         )
 
     hacs.migration = HacsMigration()
@@ -157,6 +164,8 @@ async def configure_hacs(hass, configuration, hass_config_dir):
     hacs.hacs_github = await hacs.aiogithub.get_repo("custom-components/hacs")
 
     hacs.hass = hass
+    hacs.const = const
+    hacs.hacsconst = hacsconst
     hacs.config_dir = hass_config_dir
     hacs.store = HacsData(hass_config_dir)
     hacs.store.restore_values()

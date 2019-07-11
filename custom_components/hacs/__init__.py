@@ -45,6 +45,7 @@ CONFIG_SCHEMA = vol.Schema(
                 vol.Required("token"): cv.string,
                 vol.Optional("sidepanel_title"): cv.string,
                 vol.Optional("sidepanel_icon"): cv.string,
+                vol.Optional("dev", default=False): cv.boolean,
                 vol.Optional("appdaemon", default=False): cv.boolean,
                 vol.Optional("python_script", default=False): cv.boolean,
                 vol.Optional("theme", default=False): cv.boolean,

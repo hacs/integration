@@ -13,7 +13,6 @@ class HacsBase:
     """The base class of HACS, nested thoughout the project."""
 
     const = None
-    dev = False
     migration = None
     storage = None
     hacs = None
@@ -221,7 +220,7 @@ class HacsBase:
                 self.blacklist.append(item)
 
         # Get org repositories
-        if not self.dev:
+        if not self.config.dev:
             repositories["integration"] = await self.aiogithub.get_org_repos(
                 "custom-components"
             )

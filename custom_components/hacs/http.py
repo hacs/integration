@@ -5,9 +5,15 @@ from aiohttp import web
 
 from .hacsbase import HacsBase
 
+APIRESPONSE = {}
+
+def apiresponse(classname):
+    """Decorator used to API Responses."""
+    APIRESPONSE[classname.name] = classname
+    return classname
+
 class HacsViewBase(HomeAssistantView, HacsBase):
     """Base View Class for HACS."""
-
     requires_auth = False
 
     def render(self, templatefile, location=None, repository=None):
@@ -16,59 +22,35 @@ class HacsViewBase(HomeAssistantView, HacsBase):
         template = loader.get_template(templatefile + '.html')
         return template.render({"hacs": self, "location": location, "repository": repository})
 
-    def load_element(self, element):
-        """return element content."""
-        location = "{}/custom_components/hacs/frontend/elements/{}.html".format(self.config_dir, element)
-        with open(location, "r") as elementfile:
-            content = elementfile.read()
-            elementfile.close()
-        return content
 
-    @property
-    def base_content(self):
-        """Base content."""
-        return self.render('base')
-
-    @property
-    def footer(self):
-        """Return the end of the document."""
-        return "</div></body>"
-
-
-class HacsAdmin(HacsViewBase):
-    """Admin."""
-
-    name = "hacs_admin"
-    requires_auth = False
-    
-
-    def __init__(self):
-        """Initilize."""
-        self.url = "/api/panel_custom/hacs_admin"
-
+class HacsRunningTask(HacsViewBase):
+    """Return if BG task is running."""
+    name = "hacs:task"
+    url = "/hacs_task"
     async def get(self, request):  # pylint: disable=unused-argument
-        """Serve HacsAdmin."""
-        try:
-            render = self.render('admin')
-            return web.Response(body=render, content_type="text/html", charset="utf-8")
-
-        except Exception:
-            raise web.HTTPFound(self.url_path["error"])
+        self.hacs.store.task_running
 
 class HacsAdminAPI(HacsViewBase):
-    """Admin."""
-
-    name = "admin-api"
+    """Admin API."""
+    name = "adminapi"
 
     def __init__(self):
         """Initilize."""
-        self.url = self.url_path["admin-api"]
+        self.url = self.url_path["admin-api"] + r"/{endpoint}"
 
-    async def post(self, request):  # pylint: disable=unused-argument
+    async def post(self, request, endpoint):  # pylint: disable=unused-argument
         """Serve HacsAdminAPI requests."""
-        try:
-            render = self.render('admin')
-            return web.Response(body=render, content_type="text/html", charset="utf-8")
+        self.logger.debug("Endpoint ({}) called".format(endpoint), "admin")
+        if endpoint in APIRESPONSE:
+            apiaction = APIRESPONSE[endpoint]
+            return await apiaction.response(HacsBase, request)
+        return await APIRESPONSE["generic"].response(HacsBase, endpoint)
 
-        except Exception:
-            raise web.HTTPFound(self.url_path["error"])
+@apiresponse
+class APIResponseGeneric(HacsBase):
+    """Generic API response."""
+    name = "generic"
+    async def response(self, endpoint):
+        """Response."""
+        self.logger.error("Unknown endpoint '{}'".format(endpoint), "adminapi")
+        raise web.HTTPFound(self.url_path["settings"])

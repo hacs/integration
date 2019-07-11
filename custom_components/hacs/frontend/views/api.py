@@ -8,6 +8,12 @@ from ...aiogithub.exceptions import AIOGitHubException
 
 _LOGGER = logging.getLogger("custom_components.hacs.frontend")
 
+APIRESPONSE = {}
+
+def APIResponse(classname):
+    """Decorator used to API Responses."""
+    APIRESPONSE[classname.name] = classname
+    return classname
 
 class HacsAPIView(HacsViewBase):
     """Serve HacsAPIView."""

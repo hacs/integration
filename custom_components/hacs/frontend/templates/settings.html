@@ -5,7 +5,16 @@
     {% include 'message.html' with context %}
   {% endif %}
 
+  {% include 'modal/upgrade_all.html' with context %}
+
+
+  {% include 'settings/hacs_info.html' with context %}
+  {% include 'settings/buttons.html' with context %}
+  {% include 'settings/custom_repositories.html' with context %}
+  {% include 'settings/hidden_repositories.html' with context %}
+
+
   {% if hacs.config.dev %}
-    {% include 'admin.html' with context %}
+    {% include 'settings/admin.html' with context %}
   {% endif %}
 {% endblock %}

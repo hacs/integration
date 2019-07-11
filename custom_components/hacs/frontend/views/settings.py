@@ -21,6 +21,15 @@ class HacsSettingsView(HacsViewBase):
 
     async def get(self, request):
         """Serve HacsOverviewView."""
+
+
+        try:
+            render = self.render('settings')
+            return web.Response(body=render, content_type="text/html", charset="utf-8")
+
+        except Exception as exception:
+            _LOGGER.error(exception)
+            raise web.HTTPFound(self.url_path["error"])
         try:
             # We use these later:
             repository_lines = []

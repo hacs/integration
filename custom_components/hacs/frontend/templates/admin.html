@@ -1,11 +1,10 @@
-<!-- Used for both overview and store-->
-{% extends "base.html" %}
-{% block content %}
+<div class="hacs-overview-container hacs-color">
+  <h5>ADMIN TOOLS</h5>
   {% for button in ["remove_new_flag", "repositories"] %}
-    <a {} href="{{url.adminapi}}/{{button}}"  onclick="toggleLoading()" class='waves-effect waves-light btn hacsbutton'>
-      {{ button.replace("_"," ") | upper }}
-    </a>
+    <form style="display: contents" action="{{hacs.url.adminapi}}/{{button}}"  method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+      <button class="waves-effect waves-light btn hacsadminbutton" type="submit" onclick="toggleLoading()">
+          {{ button.replace("_"," ")}}
+      </button>
+    </form>
   {% endfor %}
-  {% block admin %}
-  {% endblock %}
-{% endblock %}
+</div>

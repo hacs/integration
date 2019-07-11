@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if hacs.config.dev %}
+    {% set message = "You have 'dev' enabled for HACS, this is not intended for regular use, no support will be given if you break something." %}
+    {% include 'message.html' with context %}
+  {% endif %}
+
+  {% if hacs.config.dev %}
+    {% include 'admin.html' with context %}
+  {% endif %}
+{% endblock %}

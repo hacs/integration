@@ -144,7 +144,7 @@ async def configure_hacs(hass, configuration, hass_config_dir):
     # Print DEV warning
     if hacs.config.dev:
         _LOGGER.error(
-            "You are running a DEV version of HACS, this is not intended for regular use."
+            "You have 'dev' enabled for HACS, this is not intended for regular use, no support will be given if you break something."
         )
 
     hacs.migration = HacsMigration()

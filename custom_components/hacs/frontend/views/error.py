@@ -61,8 +61,7 @@ class HacsErrorView(HacsViewBase):
                 codeblock = ""
 
             # Generate content
-            content = self.base_content
-            content += """
+            content = """
                 <div class='container'>
                     <h2>Something is wrong...</h2>
                     <b>Error code:</b> <i>{}</i>
@@ -81,7 +80,6 @@ class HacsErrorView(HacsViewBase):
         except Exception as exception:
             message = "GREAT!, even the error page is broken... ({})".format(exception)
             _LOGGER.error(message)
-            content = self.base_content
-            content += message
+            content = "<h3>" + message + "</h3>"
 
-        return web.Response(body=content, content_type="text/html", charset="utf-8")
+        return web.Response(body=self.render('error', message=content), content_type="text/html", charset="utf-8")

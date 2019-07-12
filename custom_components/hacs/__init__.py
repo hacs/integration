@@ -174,7 +174,7 @@ async def configure_hacs(hass, configuration, hass_config_dir):
 
 async def setup_frontend(hass, hacs):
     """Configure the HACS frontend elements."""
-    from .http import HacsAdminAPI
+    from .http import HacsAdminAPI, HacsRunningTask
     from .frontend.views import (
         HacsStaticView,
         HacsErrorView,
@@ -196,6 +196,7 @@ async def setup_frontend(hass, hacs):
     hass.http.register_view(HacsRepositoryView())
     hass.http.register_view(HacsAPIView())
     hass.http.register_view(HacsAdminAPI())
+    hass.http.register_view(HacsRunningTask())
 
     # Add to sidepanel
     # TODO: Remove this check when minimum HA version is > 0.94

@@ -28,7 +28,8 @@ class HacsRunningTask(HacsViewBase):
     name = "hacs:task"
     url = "/hacs_task"
     async def get(self, request):  # pylint: disable=unused-argument
-        self.hacs.store.task_running
+        """Handle GET request."""
+        return web.json_response({"task": self.store.task_running})
 
 class HacsAdminAPI(HacsViewBase):
     """Admin API."""

@@ -14,7 +14,7 @@
   {% include 'settings/hidden_repositories.html' with context %}
 
 
-  {% if hacs.config.dev %}
+  {% if hacs.config.dev and not hacs.store.task_running %}
     {% include 'settings/admin.html' with context %}
   {% endif %}
 {% endblock %}

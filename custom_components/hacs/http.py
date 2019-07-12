@@ -20,7 +20,7 @@ class HacsViewBase(HomeAssistantView, HacsBase):
         """Render a template file."""
         loader = Environment(loader=PackageLoader('custom_components.hacs.frontend'))
         template = loader.get_template(templatefile + '.html')
-        return template.render({"hacs": self, "location": location, "repository": repository})
+        return template.render({"hacs": self, "location": location, "repository": repository, "message": message})
 
 
 class HacsRunningTask(HacsViewBase):
@@ -31,27 +31,64 @@ class HacsRunningTask(HacsViewBase):
         """Handle GET request."""
         return web.json_response({"task": self.store.task_running})
 
-class HacsAdminAPI(HacsViewBase):
+class HacsAdminAPI(HacsViewBase, HacsBase):
     """Admin API."""
     name = "adminapi"
 
     def __init__(self):
         """Initilize."""
         self.url = self.url_path["admin-api"] + r"/{endpoint}"
+        self.postdata = None
+        self.request = None
+        self.endpoint = None
 
     async def post(self, request, endpoint):  # pylint: disable=unused-argument
         """Serve HacsAdminAPI requests."""
+        self.postdata = await request.post()
+        self.request = request
+        self.endpoint = endpoint
         self.logger.debug("Endpoint ({}) called".format(endpoint), "admin")
         if endpoint in APIRESPONSE:
             apiaction = APIRESPONSE[endpoint]
-            return await apiaction.response(HacsBase, request)
-        return await APIRESPONSE["generic"].response(HacsBase, endpoint)
+            return await apiaction.response(self)
+        return await APIRESPONSE["generic"].response(self)
 
 @apiresponse
-class APIResponseGeneric(HacsBase):
+class Generic(HacsAdminAPI):
     """Generic API response."""
     name = "generic"
-    async def response(self, endpoint):
+    async def response(self):
         """Response."""
-        self.logger.error("Unknown endpoint '{}'".format(endpoint), "adminapi")
+        self.logger.error("Unknown endpoint '{}'".format(self.endpoint), "adminapi")
         raise web.HTTPFound(self.url_path["settings"])
+
+@apiresponse
+class RemoveNewFlag(HacsAdminAPI):
+    """Remove new flag on all repositories."""
+    name = "remove_new_flag"
+    async def response(self):
+        """Response."""
+        for repository in self.store.repositories:
+            repository = self.store.repositories[repository]
+            repository.new = False
+        self.store.write()
+        raise web.HTTPFound(self.url_path["settings"])
+
+@apiresponse
+class Repositories(HacsAdminAPI):
+    """List all repositories."""
+    name = "repositories"
+    async def response(self):
+        """Response."""
+        render = HacsViewBase().render('settings/repositories')
+        return web.Response(body=render, content_type="text/html", charset="utf-8")
+
+@apiresponse
+class Repository(HacsAdminAPI):
+    """List Repository options."""
+    name = "repository"
+    async def response(self):
+        """Response."""
+        self.logger.info(self.postdata)
+        render = HacsViewBase().render('settings/repositories')
+        return web.Response(body=render, content_type="text/html", charset="utf-8")

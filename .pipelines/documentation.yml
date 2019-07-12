@@ -28,23 +28,7 @@ steps:
     displayName: 'Install dependencies'
 
   - script: |
-      git checkout gh-pages
-      git reset --hard 3bf1223
-      git push -f
-    displayName: 'Clear current documentation'
-
-  - script: |
       git checkout master
       sed -i "s|site_dir: site/next|site_dir: site|" mkdocs.yml
-      python3 -m mkdocs build -c
+      python3 -m mkdocs ghdeploy -c
     displayName: 'Generate documentation for master'
-
-  - script: |
-      git checkout next
-      sed -i "s|site_dir: site|site_dir: site/next|" mkdocs.yml
-      python3 -m mkdocs build
-    displayName: 'Generate documentation for next'
-
-  - script: |
-      ghp-import site -p -b gh-pages -n -m 'Automagically publish documentation'
-    displayName: 'Publish documentation'

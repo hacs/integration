@@ -1,0 +1,40 @@
+{% if not repository.can_install %}
+  {% include 'modal/wrong_ha_version.html' with context %}
+{% endif %}
+
+<div class="card-action">
+
+  {% if repository.can_install %}
+    <a class="actionlink" href="{{url.api}}/repository_install/{{repository.repository_id}}" onclick="toggleLoading()">
+      {{repository.main_action}}
+    </a>
+  {% else %}
+    <a class="modal-trigger actionlink" href="#haversion">
+      {{repository.main_action}}
+    </a>
+  {% endif %}
+
+  {% if repository.status == "pending-update" and repository.version_or_commit == "version" %}
+  <a class="actionlink"  rel='noreferrer' href='https://github.com/{{repository.repository_name}}/releases/{{repository.available_version}}' target='_blank'>
+    CHANGELOG
+  </a>
+  {% endif %}
+
+  <a class="actionlink"  rel='noreferrer' href='https://github.com/{{repository.repository_name}}' target='_blank'>
+    repository
+  </a>
+
+  {% if repository.installed and repository.repository_type == "plugin" %}
+    {% set name = repository.full_name.split("lovelace-")[-1] %}
+    <a class="actionlink"  href='/community_plugin/{repository.full_name}/{{name}}.js' target='_blank'>
+      OPEN PLUGIN
+    </a>
+  {% endif %}
+
+  {% if repository.installed and repository.repository_id != "172733314"  %}
+    <a class="actionlink uninstall"  href='{{url.api}}/repository_uninstall/{{repository.repository_id}}' onclick='toggleLoading()'>
+      UNINSTALL
+    </a>
+  {% endif %}
+
+</div>

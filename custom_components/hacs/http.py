@@ -16,7 +16,7 @@ class HacsViewBase(HomeAssistantView, HacsBase):
     """Base View Class for HACS."""
     requires_auth = False
 
-    def render(self, templatefile, location=None, repository=None):
+    def render(self, templatefile, location=None, repository=None, message=None):
         """Render a template file."""
         loader = Environment(loader=PackageLoader('custom_components.hacs.frontend'))
         template = loader.get_template(templatefile + '.html')

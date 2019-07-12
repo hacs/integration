@@ -17,6 +17,7 @@ class HacsBase:
     migration = None
     storage = None
     hacs = None
+    ha_version = None
     config = None
     logger = HacsLogger()
     data = {"hacs": {}}

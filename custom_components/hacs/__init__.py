@@ -165,6 +165,7 @@ async def configure_hacs(hass, configuration, hass_config_dir):
 
     hacs.hass = hass
     hacs.const = const
+    hacs.ha_version = VERSION
     hacs.hacsconst = hacsconst
     hacs.config_dir = hass_config_dir
     hacs.store = HacsData(hass_config_dir)

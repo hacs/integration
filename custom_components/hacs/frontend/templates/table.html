@@ -16,12 +16,14 @@
       <tbody>
         {% for repository in repositories.repositories %}
           <tr class="hacs-table-row" onclick="toggleLoading();window.location='{{ url.repository }}/{{ repository.repository_id }}';">
-            <td><i style='margin-left: 25%' class='fas fa-cube card-status {{repository.status}}'></i></td>
+            <td>
+              {% if location == 'store' and repository.new %}
+                <span style='margin-left: 25%' class='repository-list-badge hacs-badge'>NEW</span>
+              {% else %}
+                <i style='margin-left: 25%' class='fas fa-cube card-status {{repository.status}}'></i></td>
+              {% endif %}
             <td>
               {{repository.name}}
-              {% if location == 'store' and repository.new %}
-                <span class='repository-list-badge hacs-table-badge'>NEW</span>
-              {% endif %}
             </td>
             <td class="hacs-card-content smal-hide">{{repository.description}}</td>
             {% if location == 'overview' %}

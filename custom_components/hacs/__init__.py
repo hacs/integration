@@ -196,7 +196,7 @@ async def setup_frontend(hass, hacs):
             "iframe",
             hacs.config.sidepanel_title,
             hacs.config.sidepanel_icon,
-            IFRAME["path"],
+            hacs.config.sidepanel_title.lower().replace(" ", "_").replace("-", "_"),
             {"url": hacs.hacsweb + "/overview"},
             require_admin=IFRAME["require_admin"],
         )
@@ -205,7 +205,7 @@ async def setup_frontend(hass, hacs):
             "iframe",
             hacs.config.sidepanel_title,
             hacs.config.sidepanel_icon,
-            IFRAME["path"],
+            hacs.config.sidepanel_title.lower().replace(" ", "_").replace("-", "_"),
             {"url": hacs.hacsweb + "/overview"},
             require_admin=IFRAME["require_admin"],
         )

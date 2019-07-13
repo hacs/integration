@@ -48,7 +48,7 @@ class HacsBase:
             str(uuid.uuid4()), str(uuid.uuid4())
         )
     token = "{}-{}".format(str(uuid.uuid4()), str(uuid.uuid4()))
-    hacsweb = "/hacs/{}".format(token)
+    hacsweb = "/hacsweb/{}".format(token)
     hacsapi = "/hacsapi/{}".format(token)
 
     async def startup_tasks(self, notarealargument=None):

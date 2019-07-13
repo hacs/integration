@@ -110,7 +110,8 @@ class Settings(HacsWebResponse):
     endpoint = "settings"
     async def response(self):
         """Serve HacsOverviewView."""
-        render = self.render('settings')
+        message = self.request.rel_url.query.get("message")
+        render = self.render('settings', message=message)
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
 

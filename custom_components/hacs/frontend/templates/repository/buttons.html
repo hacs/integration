@@ -5,7 +5,7 @@
 <div class="card-action">
 
   {% if repository.can_install %}
-    <a class="actionlink" href="{{url.api}}/repository_install/{{repository.repository_id}}" onclick="toggleLoading()">
+    <a class="actionlink" href="/hacsapi/{{ hacs.token }}/repository_install/{{repository.repository_id}}" onclick="toggleLoading()">
       {{repository.main_action}}
     </a>
   {% else %}
@@ -32,7 +32,7 @@
   {% endif %}
 
   {% if repository.installed and repository.repository_id != "172733314"  %}
-    <a class="actionlink uninstall"  href='{{url.api}}/repository_uninstall/{{repository.repository_id}}' onclick='toggleLoading()'>
+    <a class="actionlink uninstall"  href='/hacsapi/{{ hacs.token }}/repository_uninstall/{{repository.repository_id}}' onclick='toggleLoading()'>
       UNINSTALL
     </a>
   {% endif %}

@@ -10,7 +10,7 @@
         <b>Version:</b> {{hacs.const.VERSION}}{{pending_restart}}
         </br>
         <b>Display:</b>
-        <form action="{{url.api}}/frontend/view" name="overview_display" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+        <form action="/hacsapi/{{ hacs.token }}/frontend/view" name="overview_display" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
           <select name="view_type" class="hacs-select" onchange="document.getElementsByName('overview_display')[0].submit()">
             {% for displayoption in ["Grid", "Table"] %}
               <option {{"selected" if hacs.store.frontend_mode == displayoption else ""}} class="hacscolor" value="{{displayoption}}">{{displayoption}}</option>

@@ -33,25 +33,31 @@ class HacsBase:
 
     url_path = {}
     for endpoint in [
-        "api",
-        "admin",
-        "admin-api",
-        "error",
-        "overview",
-        "static",
-        "store",
-        "settings",
-        "repository",
+            "api",
+            "admin",
+            "admin-api",
+            "base",
+            "error",
+            "overview",
+            "static",
+            "store",
+            "settings",
+            "repository",
     ]:
         url_path[endpoint] = "/community_{}-{}".format(
             str(uuid.uuid4()), str(uuid.uuid4())
         )
+    token = "{}-{}".format(str(uuid.uuid4()), str(uuid.uuid4()))
+    hacsweb = "/hacs/{}".format(token)
+    hacsapi = "/hacsapi/{}".format(token)
 
     async def startup_tasks(self, notarealargument=None):
         """Run startup_tasks."""
         self.store.task_running = True
 
         self.logger.info("Runing startup tasks.")
+
+        self.logger.debug(self.token, "token")
 
         # Store enpoints
         self.data["hacs"]["endpoints"] = self.url_path

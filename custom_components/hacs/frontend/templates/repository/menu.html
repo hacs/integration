@@ -1,7 +1,7 @@
 <ul id='dropdown1' class='dropdown-content'>
 
   <li>
-    <a class="dropdown-list-item" href="{{url.api}}/repository_update_repository/{{repository.repository_id}}" onclick="toggleLoading()">
+    <a class="dropdown-list-item" href="/hacsapi/{{ hacs.token }}/repository_update_repository/{{repository.repository_id}}" onclick="toggleLoading()">
       Reload
     </a>
   </li>
@@ -9,7 +9,7 @@
   {% if repository.version_or_commit == "version" %}
     {% set hide_show = "hide" if repository.show_beta else "show" %}
     <li>
-      <a class="dropdown-list-item" href="{{url.api}}/repository_{{hide_show}}_beta/{{repository.repository_id}}" onclick="toggleLoading()">
+      <a class="dropdown-list-item" href="/hacsapi/{{ hacs.token }}/repository_{{hide_show}}_beta/{{repository.repository_id}}" onclick="toggleLoading()">
         {{hide_show | title}} beta
       </a>
     </li>
@@ -19,7 +19,7 @@
     {% if not repository.custom %}
       {% if repository.repository_id != "172733314" %}
         <li>
-          <a class="dropdown-list-item" href="{{url.api}}/repository_hide/{{repository.repository_id}}" onclick="toggleLoading()">
+          <a class="dropdown-list-item" href="/hacsapi/{{ hacs.token }}/repository_hide/{{repository.repository_id}}" onclick="toggleLoading()">
             Hide
           </a>
         </li>

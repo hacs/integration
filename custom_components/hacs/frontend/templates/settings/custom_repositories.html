@@ -13,7 +13,7 @@
           {% if repository.custom %}
             <li class="collection-item hacscolor hacslist">
               <div>
-                <a href="{{url.repository}}/{{repository.repository_id}}">
+                <a href="/hacs/{{ hacs.token }}/repository/{{repository.repository_id}}">
                   <span class="hacs-badge">
                     {{repository.repository_type | upper}}
                   </span>
@@ -22,7 +22,7 @@
                 {% if repository.installed %}
                   <i title="Remove is not possible when installed." class="secondary-content fas fa-trash-alt disabledaction"></i>
                 {% else %}
-                  <a href="{{url.api}}/repository_remove/{{repository.repository_id}}" onclick="toggleLoading()" class="secondary-content" style="color: var(--primary-color)">
+                  <a href="/hacsapi/{{ hacs.token }}/repository_remove/{{repository.repository_id}}" onclick="toggleLoading()" class="secondary-content" style="color: var(--primary-color)">
                     <i title="Remove." class="fas fa-trash-alt"></i>
                   </a>
                 {% endif %}
@@ -34,7 +34,7 @@
     </ul>
 
     {% if not hacs.store.task_running %}
-      <form class="minigrid" action="{{url.api}}/repository_register/new" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+      <form class="minigrid" action="/hacsapi/{{ hacs.token }}/repository_register" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
         <input id="custom_url" type="text" name="custom_url" placeholder="  ADD CUSTOM REPOSITORY" style="width: 70%; color: var(--primary-text-color)">
         <select name="repository_type" class="hacs-select">
           <option disabled selected value>type</option>

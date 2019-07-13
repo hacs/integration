@@ -1,20 +1,55 @@
-"""Blueprint for HacsViewBase."""
+"""Blueprint for HacsWebResponse."""
+import os
 from homeassistant.components.http import HomeAssistantView
 from jinja2 import Environment, PackageLoader
 from aiohttp import web
 
 from .hacsbase import HacsBase
+from .repositories.repositoryinformationview import RepositoryInformationView
 
-APIRESPONSE = {}
+WEBRESPONSE = {}
 
-def apiresponse(classname):
-    """Decorator used to API Responses."""
-    APIRESPONSE[classname.name] = classname
+def webresponse(classname):
+    """Decorator used to register Web Responses."""
+    WEBRESPONSE[classname.endpoint] = classname
     return classname
 
-class HacsViewBase(HomeAssistantView, HacsBase):
+class HacsWebResponse(HomeAssistantView, HacsBase):
     """Base View Class for HACS."""
     requires_auth = False
+    name = "hacs"
+
+    def __init__(self):
+        """Initialize."""
+        self.url = self.hacsweb + "/{path:.+}"
+        self.endpoint = None
+        self.postdata = None
+        self.raw_headers = None
+        self.request = None
+        self.requested_file = None
+
+    async def get(self, request, path):  # pylint: disable=unused-argument
+        """Handle HACS Web requests."""
+        self.endpoint = path.split("/")[0]
+        self.raw_headers = request.raw_headers
+        self.request = request
+        self.requested_file = path.replace(self.endpoint+"/", "")
+        self.logger.debug("Endpoint ({}) called".format(self.endpoint), "web")
+        if self.config.dev:
+            self.logger.debug("Raw headers ({})".format(self.raw_headers), "web")
+            self.logger.debug("Postdata ({})".format(self.postdata), "web")
+        if self.endpoint in WEBRESPONSE:
+            response = WEBRESPONSE[self.endpoint]
+            response = await response.response(self)
+        else:
+            # Return default response.
+            response = await WEBRESPONSE["generic"].response(self)
+
+        # set headers
+        response.headers["Cache-Control"] = "max-age=0, must-revalidate"
+
+        # serve the response
+        return response
 
     def render(self, templatefile, location=None, repository=None, message=None):
         """Render a template file."""
@@ -23,72 +58,118 @@ class HacsViewBase(HomeAssistantView, HacsBase):
         return template.render({"hacs": self, "location": location, "repository": repository, "message": message})
 
 
-class HacsRunningTask(HacsViewBase):
-    """Return if BG task is running."""
-    name = "hacs:task"
-    url = "/hacs_task"
-    async def get(self, request):  # pylint: disable=unused-argument
-        """Handle GET request."""
-        return web.json_response({"task": self.store.task_running})
-
-class HacsAdminAPI(HacsViewBase, HacsBase):
-    """Admin API."""
-    name = "adminapi"
+class HacsPluginView(HacsWebResponse):
+    """Serve plugins."""
+    name = "hacs:plugin"
 
     def __init__(self):
-        """Initilize."""
-        self.url = self.url_path["admin-api"] + r"/{endpoint}"
-        self.postdata = None
-        self.request = None
-        self.endpoint = None
+        """Initialize."""
+        self.url = r"/community_plugin/{requested_file:.+}"
 
-    async def post(self, request, endpoint):  # pylint: disable=unused-argument
-        """Serve HacsAdminAPI requests."""
-        self.postdata = await request.post()
-        self.request = request
-        self.endpoint = endpoint
-        self.logger.debug("Endpoint ({}) called".format(endpoint), "admin")
-        if endpoint in APIRESPONSE:
-            apiaction = APIRESPONSE[endpoint]
-            return await apiaction.response(self)
-        return await APIRESPONSE["generic"].response(self)
+    async def get(self, request, requested_file):  # pylint: disable=unused-argument
+        """Serve plugins for lovelace."""
+        try:
+            # Strip '?' from URL
+            if "?" in requested_file:
+                requested_file = requested_file.split("?")[0]
 
-@apiresponse
-class Generic(HacsAdminAPI):
-    """Generic API response."""
-    name = "generic"
+            file = "{}/www/community/{}".format(self.config_dir, requested_file)
+
+            # Serve .gz if it exist
+            if os.path.exists(file + ".gz"):
+                file += ".gz"
+
+            response = None
+            if os.path.exists(file):
+                self.logger.debug("Serving {} from {}".format(requested_file, file))
+                response = web.FileResponse(file)
+                response.headers["Cache-Control"] = "max-age=0, must-revalidate"
+            else:
+                self.logger.debug("Tried to serve up '%s' but it does not exist", file)
+                response = web.Response(status=404)
+
+        except Exception as error:  # pylint: disable=broad-except
+            self.logger.debug(
+                "there was an issue trying to serve {} - {}".format(requested_file, error
+            ))
+            response = web.Response(status=404)
+
+        return response
+
+class HacsPlugin(HacsPluginView):
+    """Alias for HacsPluginView."""
+    def __init__(self):
+        """Initialize."""
+        self.url = r"/hacsplugin/{requested_file:.+}"
+
+
+
+@webresponse
+class Settings(HacsWebResponse):
+    """Serve HacsSettingsView."""
+    endpoint = "settings"
     async def response(self):
-        """Response."""
-        self.logger.error("Unknown endpoint '{}'".format(self.endpoint), "adminapi")
-        raise web.HTTPFound(self.url_path["settings"])
-
-@apiresponse
-class RemoveNewFlag(HacsAdminAPI):
-    """Remove new flag on all repositories."""
-    name = "remove_new_flag"
-    async def response(self):
-        """Response."""
-        for repository in self.store.repositories:
-            repository = self.store.repositories[repository]
-            repository.new = False
-        self.store.write()
-        raise web.HTTPFound(self.url_path["settings"])
-
-@apiresponse
-class Repositories(HacsAdminAPI):
-    """List all repositories."""
-    name = "repositories"
-    async def response(self):
-        """Response."""
-        render = HacsViewBase().render('settings/repositories')
+        """Serve HacsOverviewView."""
+        render = self.render('settings')
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
-@apiresponse
-class Repository(HacsAdminAPI):
-    """List Repository options."""
-    name = "repository"
+
+@webresponse
+class Static(HacsWebResponse):
+    """Serve static files."""
+    endpoint = "static"
     async def response(self):
-        """Response."""
-        self.logger.info(self.postdata)
-        render = HacsViewBase().render('settings/repositories')
+        """Serve static files."""
+        servefile = "{}/custom_components/hacs/frontend/elements/{}".format(
+            self.config_dir, self.requested_file
+        )
+        if os.path.exists(servefile + ".gz"):
+            return web.FileResponse(servefile + ".gz")
+        else:
+            if os.path.exists(servefile):
+                return web.FileResponse(servefile)
+            else:
+                return web.Response(status=404)
+
+
+@webresponse
+class Store(HacsWebResponse):
+    """Serve HacsOverviewView."""
+    endpoint = "store"
+    async def response(self):
+        """Serve HacsStoreView."""
+        render = self.render('overviews', 'store')
+        return web.Response(body=render, content_type="text/html", charset="utf-8")
+
+
+@webresponse
+class Overview(HacsWebResponse):
+    """Serve HacsOverviewView."""
+    endpoint = "overview"
+    async def response(self):
+        """Serve HacsOverviewView."""
+        render = self.render('overviews', 'overview')
+        return web.Response(body=render, content_type="text/html", charset="utf-8")
+
+
+@webresponse
+class Repository(HacsWebResponse):
+    """Serve HacsRepositoryView."""
+    endpoint = "repository"
+    async def response(self):
+        """Serve HacsRepositoryView."""
+        message = self.request.rel_url.query.get("message")
+        repository = self.store.repositories[str(self.requested_file)]
+        if not repository.updated_info:
+            await repository.set_repository()
+            await repository.update()
+            repository.updated_info = True
+            self.store.write()
+
+        if repository.new:
+            repository.new = False
+            self.store.write()
+
+        repository = RepositoryInformationView(repository)
+        render = self.render('repository', repository=repository, message=message)
         return web.Response(body=render, content_type="text/html", charset="utf-8")

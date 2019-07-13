@@ -175,29 +175,19 @@ async def configure_hacs(hass, configuration, hass_config_dir):
 
 async def setup_frontend(hass, hacs):
     """Configure the HACS frontend elements."""
-    from .http import HacsAdminAPI, HacsRunningTask
+    from .api import HacsAPI, HacsRunningTask
+    from .http import HacsWebResponse, HacsPluginView, HacsPlugin
     from .frontend.views import (
-        HacsStaticView,
         HacsErrorView,
-        HacsPluginView,
-        HacsOverviewView,
-        HacsStoreView,
-        HacsSettingsView,
-        HacsRepositoryView,
-        HacsAPIView,
     )
 
     # Define views
-    hass.http.register_view(HacsStaticView())
+    hass.http.register_view(HacsAPI())
     hass.http.register_view(HacsErrorView())
+    hass.http.register_view(HacsPlugin())
     hass.http.register_view(HacsPluginView())
-    hass.http.register_view(HacsStoreView())
-    hass.http.register_view(HacsOverviewView())
-    hass.http.register_view(HacsSettingsView())
-    hass.http.register_view(HacsRepositoryView())
-    hass.http.register_view(HacsAPIView())
-    hass.http.register_view(HacsAdminAPI())
     hass.http.register_view(HacsRunningTask())
+    hass.http.register_view(HacsWebResponse())
 
     # Add to sidepanel
     # TODO: Remove this check when minimum HA version is > 0.94
@@ -207,7 +197,7 @@ async def setup_frontend(hass, hacs):
             hacs.config.sidepanel_title,
             hacs.config.sidepanel_icon,
             IFRAME["path"],
-            {"url": hacs.url_path["overview"]},
+            {"url": hacs.hacsweb + "/overview"},
             require_admin=IFRAME["require_admin"],
         )
     else:
@@ -216,6 +206,6 @@ async def setup_frontend(hass, hacs):
             hacs.config.sidepanel_title,
             hacs.config.sidepanel_icon,
             IFRAME["path"],
-            {"url": hacs.url_path["overview"]},
+            {"url": hacs.hacsweb + "/overview"},
             require_admin=IFRAME["require_admin"],
         )

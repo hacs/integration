@@ -7,14 +7,14 @@ import traceback
 
 from aiohttp import web
 
-from ...http import HacsViewBase
+from ...http import HacsWebResponse
 from ...const import ISSUE_URL
 from ...hacsbase.const import ERROR
 
 _LOGGER = logging.getLogger("custom_components.hacs..frontend")
 
 
-class HacsErrorView(HacsViewBase):
+class HacsErrorView(HacsWebResponse):
     """Serve error."""
 
     name = "community_error"

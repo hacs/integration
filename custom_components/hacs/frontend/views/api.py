@@ -2,7 +2,7 @@
 # pylint: disable=broad-except
 import logging
 from aiohttp import web
-from ...http import HacsViewBase
+from ...http import HacsWebResponse
 from ...hacsbase.exceptions import HacsRequirement
 from ...aiogithub.exceptions import AIOGitHubException
 
@@ -15,7 +15,7 @@ def APIResponse(classname):
     APIRESPONSE[classname.name] = classname
     return classname
 
-class HacsAPIView(HacsViewBase):
+class HacsAPIView(HacsWebResponse):
     """Serve HacsAPIView."""
 
     name = "community_api"

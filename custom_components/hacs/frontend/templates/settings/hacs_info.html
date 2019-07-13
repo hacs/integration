@@ -11,7 +11,7 @@
         </br>
         <b>Display:</b>
         <form action="/hacsapi/{{ hacs.token }}/frontend_mode" name="overview_display" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
-          <select name="view_type" class="hacs-select" onchange="document.getElementsByName('overview_display')[0].submit()">
+          <select name="view_type" class="hacs-select" onchange="toggleLoading();document.getElementsByName('overview_display')[0].submit()">
             {% for displayoption in ["Grid", "Table"] %}
               <option {{"selected" if hacs.store.frontend_mode == displayoption else ""}} class="hacscolor" value="{{displayoption}}">{{displayoption}}</option>
             {% endfor %}

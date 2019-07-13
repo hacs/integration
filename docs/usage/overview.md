@@ -1,8 +1,8 @@
 # Overview
 
-_During startup HACS loads all known repositories, when it does you will see a progressbar at the top of the page, if will not go away on it's own, try refreshing the bowers window after a couple of minutes._
+_During startup HACS loads all known repositories. When it does you will see a progress bar at the top of the page, if will not go away on it's own, try refreshing the browser window after a couple of minutes._
 
-The overview tab in HACS contain all the repositories HACS manages that you have installed.
+The overview tab in HACS contains all the repositories HACS manages that you have installed.
 
 ![overview](../images/overview.png)
 
@@ -14,24 +14,16 @@ If you click anywhere on the card you will get to the [Repository view](./reposi
 
 ## Card elements
 
-Every repository is represented as a card, each card contains 3 elements.
-
-### Title
-
-At the top of the card there is a title for the repository.
-
-### Description
-
-Below the title there is a description for the repository.
+Every repository is represented as a card. Each card displays the title and description of the repository and an icon indicating the current status.
 
 ### Repository status
 
-The status icon give you a quick indication of the status of the repository.
+The status icon gives you a quick indication of the status of the repository.
 
 color | description
 -- | --
 Green | The repository is installed and there is no pending actions.
-Orange | There is an update pending.
+Orange | There is an update available.
 Red | There is an restart pending.
 No color (the default text color of the theme) | Repository is not installed/managed by HACS.
 

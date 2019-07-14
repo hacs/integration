@@ -4,9 +4,12 @@
 
 <div class="card-action">
   {% if repository.repository.can_install %}
-    <a class="actionlink" href="/hacsapi/{{ hacs.token }}/repository_install/{{repository.repository_id}}" onclick="toggleLoading()">
-      {{repository.main_action}}
-    </a>
+    <form action="/hacsapi/{{ hacs.token }}/repository_install" name="install" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+      <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
+        <a class="actionlink" href="#" onclick="toggleLoading();document.getElementsByName('install')[0].submit()">
+          {{repository.main_action}}
+        </a>
+    </form>
   {% else %}
     <a class="modal-trigger actionlink" href="#haversion">
       {{repository.main_action}}
@@ -31,9 +34,12 @@
   {% endif %}
 
   {% if repository.installed and repository.repository_id != "172733314"  %}
-    <a class="actionlink uninstall"  href='/hacsapi/{{ hacs.token }}/repository_uninstall/{{repository.repository_id}}' onclick='toggleLoading()'>
-      UNINSTALL
-    </a>
+  <form action="/hacsapi/{{ hacs.token }}/repository_uninstall" name="uninstall" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+    <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
+      <a class="actionlink uninstall"  href='#' onclick="toggleLoading();document.getElementsByName('uninstall')[0].submit()">
+        UNINSTALL
+      </a>
+  </form>
   {% endif %}
 
 </div>

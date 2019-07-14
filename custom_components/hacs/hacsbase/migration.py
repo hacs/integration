@@ -27,7 +27,7 @@ class HacsMigration(HacsBase):
             self.store.schema = STORAGE_VERSION
             await self.flush_data()
 
-        elif self._old["hacs"]["schema"] == "1":
+        elif self._old.get("hacs", {}).get("schema") == "1":
             # Creating backup.
             source = "{}/.storage/hacs".format(self.config_dir)
             destination = "{}.1".format(source)
@@ -38,7 +38,7 @@ class HacsMigration(HacsBase):
             await self.flush_data()
             await self.from_3_to_4()
 
-        elif self._old["hacs"]["schema"] == "2":
+        elif self._old.get("hacs", {}).get("schema") == "2":
             # Creating backup.
             source = "{}/.storage/hacs".format(self.config_dir)
             destination = "{}.2".format(source)
@@ -48,7 +48,7 @@ class HacsMigration(HacsBase):
             await self.flush_data()
             await self.from_3_to_4()
 
-        elif self._old["hacs"]["schema"] == "3":
+        elif self._old.get("hacs", {}).get("schema") == "3":
             # Creating backup.
             source = "{}/.storage/hacs".format(self.config_dir)
             destination = "{}.3".format(source)
@@ -57,7 +57,7 @@ class HacsMigration(HacsBase):
             await self.from_3_to_4()
             self.store.write()
 
-        elif self._old["hacs"].get("schema") == STORAGE_VERSION:
+        elif self._old.get("hacs", {}).get("schema") == STORAGE_VERSION:
             pass
 
         else:
@@ -94,7 +94,7 @@ class HacsMigration(HacsBase):
 
         for repository in self._old["repositories"]:
             self._old["repositories"][repository]["show_beta"] = False
-        self._old["hacs"]["schema"] = "2"
+        self._old.get("hacs", {})["schema"] = "2"
         _LOGGER.info("Migration of HACS data from 1 to 2 is complete.")
 
     async def from_2_to_3(self):
@@ -105,7 +105,7 @@ class HacsMigration(HacsBase):
         for repository in self._old["repositories"]:
             if self._old["repositories"][repository]["installed"]:
                 self._old["repositories"][repository]["new"] = False
-        self._old["hacs"]["schema"] = "3"
+        self._old.get("hacs", {})["schema"] = "3"
         _LOGGER.info("Migration of HACS data from 2 to 3 is complete.")
 
     async def from_3_to_4(self):

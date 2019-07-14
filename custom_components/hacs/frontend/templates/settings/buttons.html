@@ -1,10 +1,10 @@
 <div class='hacs-overview-container minigrid'>
 
-    <a href="/hacsapi/{{ hacs.token }}/repositories_reload"
-        class='waves-effect waves-light btn hacsbutton'
-        onclick="toggleLoading()">
-      RELOAD DATA
-    </a>
+    <form action="/hacsapi/{{ hacs.token }}/repositories_reload" name="reload" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+        <a class="waves-effect waves-light btn modal-trigger hacsbutton" href="#" onclick="toggleLoading();document.getElementsByName('reload')[0].submit()">
+          RELOAD DATA
+        </a>
+    </form>
 
     <a href="#modal_upgrade_all" 
         class="waves-effect waves-light btn modal-trigger hacsbutton"

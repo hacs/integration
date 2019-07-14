@@ -18,14 +18,17 @@
         </li>
       {% else %}
         {% for repository in hacs.repositories_list_repo %}
-          {% if repository.hidden %}
+          {% if repository.hide %}
             <li class="collection-item hacscolor hacslist">
               <div>
-                <a href="/hacsapi/{{ hacs.token }}/repository_unhide/{{repository.repository_id}}">
-                  <i title="Unhide" class="fas fa-plus-circle" style="padding-right: 8px"></i>
-                </a> 
-                {{repository.repository_name}}
-                <span class="hacs-badge">{{repository.repository_type}}</span>
+                <form action="/hacsapi/{{ hacs.token }}/repository_unhide" name="remove" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+                  <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
+                    <a href="#" onclick="toggleLoading();document.getElementsByName('remove')[0].submit()"style=" color: var(--primary-color)">
+                        <i title="Unhide" class="fas fa-plus-circle" style="padding-right: 8px"></i>
+                    </a>
+                    {{repository.repository_name}}
+                    <span class="hacs-badge">{{repository.repository_type}}</span>
+                </form>
               </div>
             </li>
           {% endif %}

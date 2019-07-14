@@ -22,9 +22,12 @@
                 {% if repository.installed %}
                   <i title="Remove is not possible when installed." class="secondary-content fas fa-trash-alt disabledaction"></i>
                 {% else %}
-                  <a href="/hacsapi/{{ hacs.token }}/repository_remove/{{repository.repository_id}}" onclick="toggleLoading()" class="secondary-content" style="color: var(--primary-color)">
-                    <i title="Remove." class="fas fa-trash-alt"></i>
-                  </a>
+                  <form action="/hacsapi/{{ hacs.token }}/repository_remove" name="remove" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+                    <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
+                      <a class="secondary-content" href="#" onclick="toggleLoading();document.getElementsByName('remove')[0].submit()"style=" color: var(--primary-color)">
+                        <i title="Remove." class="fas fa-trash-alt"></i>
+                      </a>
+                  </form>
                 {% endif %}
               </div>
             </li>

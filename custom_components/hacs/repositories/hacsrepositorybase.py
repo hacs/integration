@@ -390,6 +390,7 @@ class HacsRepositoryBase(HacsBase):
 
     async def set_additional_info(self):
         """Add additional info (from info.md)."""
+        from jinja2 import Template
         if self.repository is None:
             raise HacsRepositoryInfo("GitHub repository object is missing")
         elif self.ref is None:
@@ -406,7 +407,10 @@ class HacsRepositoryBase(HacsBase):
         if info is None:
             self.additional_info = ""
         else:
-            self.additional_info = info.content
+            try:
+                self.additional_info = Template(info.content).render(repository=self)
+            except Exception:
+                self.additional_info = info.content
 
     async def set_repository(self):
         """Set the AIOGitHub repository object."""

@@ -2,14 +2,16 @@
 
 **NB! This needs to be in `configuration.yaml`, _not_ in a "package".**
 
-HACS uses the GitHub API to gather information.  Without authentication the usage of the API is limited to 60 calls per hour.
-The token generated below will only have read-only access to public information.
+***
+
+HACS uses the GitHub API to gather information.  
+Without a valid token, HACS will **not** start.  
 
 ## Example configuration
 
 ```yaml
 hacs:
-  token: d73jds8f73jkr9d8sufv2br8sd9fy92nr9f80u23r97fhse
+  token: d73jds8f73jkr9d8sufv2br8sd9fy92nr9f80u23r97fhse (Don't copy+paste this token, create your own)
 ```
 
 key | optional | default | description
@@ -26,6 +28,8 @@ key | optional | default | description
 After adding it to the configuration you need to restart Home Assistant.
 
 ## Github Personal Access Token
+
+The token generated below will only have read-only access to public information.
 
 _You need to generate an Access Token to your account before you start using this._
 

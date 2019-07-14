@@ -2,7 +2,7 @@
 
 For your repository to be added there are a few criteria that need to be met.
 
-- See [Integration developer](../intgegration) for integrations.
+- See [Integration developer](../integration) for integrations.
 - See [Plugin developer](../plugin) for plugins.
 
 ## Repository information

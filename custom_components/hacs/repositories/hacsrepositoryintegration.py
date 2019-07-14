@@ -34,6 +34,9 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             return self.manifest_content.get("config_flow", False)
         return False
 
+    async def reload_config_flows(self):
+        """Reload config flows in HA."""
+
     async def update(self):
         """Run update tasks."""
         if await self.common_update():

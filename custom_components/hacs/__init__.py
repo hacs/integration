@@ -176,13 +176,9 @@ async def setup_frontend(hass, hacs):
     """Configure the HACS frontend elements."""
     from .api import HacsAPI, HacsRunningTask
     from .http import HacsWebResponse, HacsPluginView, HacsPlugin
-    from .frontend.views import (
-        HacsErrorView,
-    )
 
     # Define views
     hass.http.register_view(HacsAPI())
-    hass.http.register_view(HacsErrorView())
     hass.http.register_view(HacsPlugin())
     hass.http.register_view(HacsPluginView())
     hass.http.register_view(HacsRunningTask())

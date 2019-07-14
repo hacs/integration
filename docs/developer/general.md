@@ -39,6 +39,14 @@ selected_tag | The selected version.
 version_available | The latest available version.
 version_installed | The installed version
 
+**Examlpe:**
+
+```yaml
+{% if prerelease %}
+## NB!: This is a Beta version!
+{% endif %}
+```
+
 ### Some examples of `info.md` files
 
 #### [Compact Custom Header](https://github.com/maykar/compact-custom-header/blob/1.0.4b9/info.md)

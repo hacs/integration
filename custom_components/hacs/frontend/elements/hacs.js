@@ -61,6 +61,9 @@ function toggleLoading(){
 
 
 // Check if we can reload
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
 function CheckIfWeCanReload() {
     var data = true;
     const hacsrequest = new XMLHttpRequest()
@@ -69,8 +72,10 @@ function CheckIfWeCanReload() {
         data = JSON.parse(this.response)
         data = data["task"]
         if (!data) {
-            console.log("Background task is no longer running, reloading.")
-            location.reload()
+            console.log("Background task is no longer running, reloading in 5s...")
+            sleep(5000).then(() => {
+                location.reload()
+            });
         }
     }
     hacsrequest.send()
@@ -97,3 +102,5 @@ window.setInterval(function(){
         CheckIfWeCanReload();
     }
   }, 5000);
+
+

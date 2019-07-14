@@ -5,7 +5,8 @@ import json
 import aiohttp
 import pytest
 
-from custom_components.hacs.aiogithub import AIOGitHub, AIOGithubRepository
+from custom_components.hacs.aiogithub import AIOGitHub
+from custom_components.hacs.aiogithub.aiogithubrepository import AIOGithubRepository
 from .data.aiogithub import response_get_repo_awesome
 
 TOKEN = "xxx"

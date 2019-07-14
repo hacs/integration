@@ -25,17 +25,41 @@ If the repository does not use those, the 7 first charachters of the last commit
 
 If you want to add a richer experience for your users you can add an `info.md` file to the root of your repository (this is optional), this file will be rendered under the repository description, it does not support the full styling options as Github so use with care.
 
-Some examples of `info.md` files:
+### Templates
 
-### [Compact Custom Header](https://github.com/maykar/compact-custom-header/blob/1.0.4b9/info.md)
+You can use Jijna2 templates to controll what and how the info is displayed.
+In addition to the defaut templates of Jijna these are added:
+
+Template value | Description
+-- | --
+installed | True / False if it is installed.
+pending_update | True / False if a update is pending.
+prerelease | True / False if it's a pre release.
+selected_tag | The selected version.
+version_available | The latest available version.
+version_installed | The installed version
+
+**Examlpe:**
+
+```yaml
+{% if prerelease %}
+## NB!: This is a Beta version!
+{% endif %}
+```
+
+![beta](../images/beta.png)
+
+### Some examples of `info.md` files
+
+#### [Compact Custom Header](https://github.com/maykar/compact-custom-header/blob/1.0.4b9/info.md)
 
   ![cch](../images/info_cch.PNG)
 
-###[Lovelace Swipe Navigation](https://github.com/maykar/lovelace-swipe-navigation/blob/1.2.0/info.md)
+####[Lovelace Swipe Navigation](https://github.com/maykar/lovelace-swipe-navigation/blob/1.2.0/info.md)
 
 ![swipe](../images/info_swipe.PNG)
 
-### [HomeAssistant-Atrea](https://github.com/JurajNyiri/HomeAssistant-Atrea/blob/2.1/info.md)  
+#### [HomeAssistant-Atrea](https://github.com/JurajNyiri/HomeAssistant-Atrea/blob/2.1/info.md)  
 
 ![Atrea](../images/info_atrea.PNG)
 

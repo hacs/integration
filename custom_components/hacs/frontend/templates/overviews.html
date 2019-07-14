@@ -1,0 +1,48 @@
+<!-- Used for both overview and store-->
+{% extends "base.html" %}
+{% block content %}
+  {% if location == 'store' %}
+    <div class='hacs-overview-container'>
+        <input type="text" id="Search" onkeyup="Search()" placeholder="Please enter a search term.." title="Type in a name" autofocus style="color: var(--primary-text-color)">
+    </div>
+  {% endif %}
+
+  {% for type in hacs.element_types %}
+
+    {% if type == 'appdaemon' %}
+      {% set displaytype = 'APPDAEMON APPS' %}
+    {% elif type == 'python_script' %}
+      {% set displaytype = 'PYTHON SCRIPTS' %}
+    {% else %}
+      {% set displaytype = (type + 's') | upper  %}
+    {% endif %}
+
+    {% set repositories = namespace(repositories=[]) %}
+
+    {% for repository in hacs.store.frontend|sort(attribute='name') %}
+      {% if not repository.hide or repository.track %}
+        {% if repository.repository_type == type %}
+          {% if location == 'overview' %}
+            {% if repository.installed %}
+              {% set repositories.repositories = repositories.repositories+[repository] %}
+            {% endif %}
+          {% else %}
+            {% if repository.repository_id != "172733314" %}
+              {% set repositories.repositories = repositories.repositories+[repository] %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% if repositories.repositories %}
+      {% if hacs.store.frontend_mode == "Grid" %}
+        {% include 'grid.html' with context %}
+      {% else %}
+        {% include 'table.html' with context %}
+      {% endif %}
+    {% endif %}
+
+  {% endfor %}
+
+{% endblock %}

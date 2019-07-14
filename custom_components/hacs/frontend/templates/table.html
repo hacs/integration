@@ -1,0 +1,38 @@
+<div class='hacs-overview-container'>
+  <div class="row">
+    <h5>{{ displaytype }}</h5>
+    <table class="hacs-table">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Name</th>
+          <th class="smal-hide">Description</th>
+          {% if location == 'overview' %}
+            <th class="smal-hide">Installed</th>
+            <th class="smal-hide">Available</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for repository in repositories.repositories %}
+          <tr class="hacs-table-row" onclick="toggleLoading();window.location='/hacsweb/{{ hacs.token }}/repository/{{ repository.repository_id }}';">
+            <td>
+              {% if location == 'store' and repository.new %}
+                <span style='margin-left: 25%' class='repository-list-badge hacs-badge'>NEW</span>
+              {% else %}
+                <i style='margin-left: 25%' class='fas fa-cube card-status {{repository.status}}'></i></td>
+              {% endif %}
+            <td>
+              {{repository.name}}
+            </td>
+            <td class="hacs-card-content smal-hide">{{repository.description}}</td>
+            {% if location == 'overview' %}
+              <td class="smal-hide">{{repository.installed_version}}</td>
+              <td class="smal-hide">{{repository.available_version}}</td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -58,3 +58,49 @@ function toggleLoading(){
     loadingOverlay.classList.remove('hidden')
     document.activeElement.blur();
 }
+
+
+// Check if we can reload
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
+function CheckIfWeCanReload() {
+    var data = true;
+    const hacsrequest = new XMLHttpRequest()
+    hacsrequest.open('GET', '/hacs_task', true)
+    hacsrequest.onload = function() {
+        data = JSON.parse(this.response)
+        data = data["task"]
+        if (!data) {
+            console.log("Background task is no longer running, reloading in 5s...")
+            sleep(5000).then(() => {
+                location.reload()
+            });
+        }
+    }
+    hacsrequest.send()
+}
+
+function IsTaskRunning() {
+    let retval = false;
+    let disp = document.getElementsByClassName("progress")
+    if (disp) {
+        disp = disp.item(0).style.display;
+        if (disp == "block") {
+            retval = true
+        } else {
+            retval = false
+        }
+    }
+    return retval
+}
+
+window.setInterval(function(){
+    var running = false;
+    running = IsTaskRunning();
+    if (running) {
+        CheckIfWeCanReload();
+    }
+  }, 10000);
+
+

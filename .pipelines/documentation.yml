@@ -2,7 +2,6 @@ trigger:
   branches:
     include:
       - master
-      - next
   paths:
     include:
       - docs/*
@@ -24,27 +23,8 @@ steps:
   - script: python3 -m pip install --upgrade pip setuptools wheel
     displayName: 'Install tools'
 
-  - script: "pip3 install ghp-import mkdocs pymdown-extensions"
+  - script: "pip3 install mkdocs pymdown-extensions"
     displayName: 'Install dependencies'
 
-  - script: |
-      git checkout gh-pages
-      git reset --hard 3bf1223
-      git push -f
-    displayName: 'Clear current documentation'
-
-  - script: |
-      git checkout master
-      sed -i "s|site_dir: site/next|site_dir: site|" mkdocs.yml
-      python3 -m mkdocs build -c
+  - script: mkdocs gh-deploy -c
     displayName: 'Generate documentation for master'
-
-  - script: |
-      git checkout next
-      sed -i "s|site_dir: site|site_dir: site/next|" mkdocs.yml
-      python3 -m mkdocs build
-    displayName: 'Generate documentation for next'
-
-  - script: |
-      ghp-import site -p -b gh-pages -n -m 'Automagically publish documentation'
-    displayName: 'Publish documentation'

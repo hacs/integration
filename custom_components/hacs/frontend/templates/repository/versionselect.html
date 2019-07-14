@@ -1,0 +1,18 @@
+{% set tags = repository.published_tags | sort(True) %}
+{% set tags = tags + [repository.default_branch] %}
+
+{% if repository.selected_tag %}
+  {% set selected_tag = repository.selected_tag %}
+{% else %}
+  {% set selected_tag = repository.available_version %}
+{% endif %}
+
+<b>Available versions:</b>
+<form action="/hacsapi/{{ hacs.token }}/repository_select_tag" name="selected_tag" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+  <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
+  <select name="selected_tag" class="hacs-select" onchange="toggleLoading();document.getElementsByName('selected_tag')[0].submit()">
+  {% for tag in tags %}
+    <option {{'selected' if selected_tag == tag else ''}} class='hacscolor' value='{{tag}}'>{{tag}}</option>
+  {% endfor %}
+  </select>
+</form>

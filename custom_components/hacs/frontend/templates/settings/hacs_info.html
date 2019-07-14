@@ -1,0 +1,21 @@
+{% if hacs.store.repositories["172733314"].pending_restart %}
+  {% set pending_restart = " <b>(RESTART PENDING!)</b>" %}
+{% else %}
+  {% set pending_restart = "" %}
+{% endif %}
+
+<div class='hacs-overview-container'>
+    <div class="hacs-card-standalone">
+        <h5>{{hacs.const.NAME_LONG}}</h5>
+        <b>Version:</b> {{hacs.const.VERSION}}{{pending_restart}}
+        </br>
+        <b>Display:</b>
+        <form action="/hacsapi/{{ hacs.token }}/frontend_mode" name="overview_display" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+          <select name="view_type" class="hacs-select" onchange="toggleLoading();document.getElementsByName('overview_display')[0].submit()">
+            {% for displayoption in ["Grid", "Table"] %}
+              <option {{"selected" if hacs.store.frontend_mode == displayoption else ""}} class="hacscolor" value="{{displayoption}}">{{displayoption}}</option>
+            {% endfor %}
+          </select>
+        </form>
+    </div>
+</div>

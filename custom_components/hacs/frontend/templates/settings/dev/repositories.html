@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+{% for repository in hacs.store.frontend|sort(attribute='name') %}
+<form style="display: contents" action="/hacsapi/{{ hacs.token }}/devrepository"  method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+  <input type="hidden" name="repository" value="{{repository.repository_id}}">
+  <button class="waves-effect waves-light btn hacsadminbutton" type="submit" onclick="toggleLoading()">
+      {{ repository.name }}
+  </button>
+</form>
+{% endfor %}
+{% endblock %}

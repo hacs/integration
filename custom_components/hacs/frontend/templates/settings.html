@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if hacs.config.dev %}
+    {% set message = "You have 'dev' enabled for HACS, this is not intended for regular use, no support will be given if you break something." %}
+    {% include 'message.html' with context %}
+  {% endif %}
+
+  {% include 'modal/upgrade_all.html' with context %}
+
+
+  {% include 'settings/hacs_info.html' with context %}
+  {% include 'settings/buttons.html' with context %}
+  {% include 'settings/custom_repositories.html' with context %}
+  {% include 'settings/hidden_repositories.html' with context %}
+
+
+  {% if hacs.config.dev and not hacs.store.task_running %}
+    {% include 'settings/developer.html' with context %}
+  {% endif %}
+{% endblock %}

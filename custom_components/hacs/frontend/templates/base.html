@@ -1,0 +1,51 @@
+
+{% set progressbar = 'block' if hacs.store.task_running else 'none' %}
+{% set url = namespace(
+  base=hacs.url_path['base'],
+  static=hacs.url_path['base']+'/static',
+  api=hacs.url_path['api'],
+  adminapi=hacs.url_path['admin-api'],
+  store=hacs.url_path['base']+'/store',
+  overview=hacs.url_path['base']+'/overview',
+  settings=hacs.url_path['base']+'/settings',
+  repository=hacs.url_path['base']+'/repository') %}
+
+  <!doctype html>
+  <html>
+    <head>
+      <link rel="stylesheet" href="/hacsweb/{{ hacs.token }}/static/materialize.min.css.gz">
+      <link rel="stylesheet" href="/hacsweb/{{ hacs.token }}/static/all.min.css.gz">
+      <script src="/hacsweb/{{ hacs.token }}/static/materialize.min.js.gz"></script>
+      <link rel="stylesheet" href="/hacsweb/{{ hacs.token }}/static/static/hacs.css">
+      <script src="/hacsweb/{{ hacs.token }}/static/hacs.js"></script>
+    </head>
+    <body>
+      <div class="navbar-fixed">
+          <nav class="nav-extended hacs-nav">
+            <div class="nav-content">
+              <ul class="right tabs tabs-transparent">
+                <li class="tab"><a href="/hacsweb/{{ hacs.token }}/overview">overview</a></li>
+                <li class="tab"><a href="/hacsweb/{{ hacs.token }}/store">store</a></li>
+                <li class="tab right"><a href="/hacsweb/{{ hacs.token }}/settings">settings</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div id="main" class="hacs-content">
+            <div style="display: {{ progressbar }}"><p>Background task running, this page will reload when it's done.</p></div>
+            <div class="progress hacs-bar-background" id="progressbar" style="display: {{ progressbar }}">
+                <div class="indeterminate hacs-bar"></div>
+            </div>
+            <div class="loading hidden">
+            <div class='uil-ring-css' style='transform:scale(0.79);'>
+                <div></div>
+            </div>
+            </div>
+          {% if message %}
+            {% include 'message.html' with context %}
+          {% endif %}
+          {% block content %}
+          {% endblock %}
+      </div>
+    </body>
+  </html>

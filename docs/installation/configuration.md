@@ -17,6 +17,8 @@ hacs:
 key | optional | default | description
 -- | -- | -- | --
 `token` | False | | A Github Personal Access Token
+`sidepanel_title` | True | Community | The name used for the sidepanel link.
+`sidepanel_icon` | True | "mdi:alpha-c-box" | The icon used for the sidepanel link.
 `appdaemon` | True | `False` | Enable tracking of AppDaemon apps.
 `python_script` | True | `False` | Enable tracking of python scripts.
 `theme` | True | `False` | Enable tracking of themes.

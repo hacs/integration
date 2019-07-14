@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+{% if repository.status == "pending-restart" %}
+  {% set message = "You need to restart (and potentially reconfigure) Home Assistant, for your last operation to be loaded." %}
+{% endif %}
+
+  <div class='hacs-overview-container'>
+    <div class="row">
+      <div class="col s12">
+        <div class="card hacscolor">
+          <div class="card-content">
+            <span class="card-title">
+              <b>{{repository.name}}</b>
+              <a class='dropdown-trigger btn right' href='#' data-target='dropdown1' style="background-color: var(--primary-color); padding-top: 8px; height: 48px">
+              <i class="fas fa-bars"></i>
+              </a>
+
+              {% include 'repository/menu.html' with context %}
+            </span>
+            <p>{{repository.description}}</p></br>
+            {% if repository.installed %}
+              <p><b>Installed {{repository.repository.version_or_commit}}:</b> {{repository.installed_version}}</p>
+            {% endif %}
+            {% if repository.published_tags and repository.repository_id != "172733314" %}
+              {% include 'repository/versionselect.html' with context %}
+            {% else %}
+              <p><b>Available {{repository.repository.version_or_commit}}:</b> {{repository.available_version}}</p>
+            {% endif %}
+            </br>
+            {{repository.display_authors}}
+            </div>
+            {% include 'repository/buttons.html' with context %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='hacs-overview-container'>
+    <div class="row">
+      <div class="col s12">
+        <div class="card hacscolor">
+          <div class="card-content">
+            {{repository.additional_info}}
+            {% include 'repository/note.html' with context %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

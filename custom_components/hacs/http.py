@@ -1,15 +1,11 @@
 """Blueprint for HacsWebResponse."""
 import os
+import random
+import sys
+import traceback
 from homeassistant.components.http import HomeAssistantView
 from jinja2 import Environment, PackageLoader
 from aiohttp import web
-
-
-
-from distutils.version import LooseVersion
-from homeassistant.const import __version__ as HAVERSION
-
-
 
 from .hacsbase import HacsBase
 from .repositories.repositoryinformationview import RepositoryInformationView
@@ -51,7 +47,7 @@ class HacsWebResponse(HomeAssistantView, HacsBase):
             response = await response.response(self)
         else:
             # Return default response.
-            response = await WEBRESPONSE["generic"].response(self)
+            response = await WEBRESPONSE["error"].response(self)
 
         # set headers
         response.headers["Cache-Control"] = "max-age=0, must-revalidate"
@@ -180,7 +176,71 @@ class Repository(HacsWebResponse):
             self.store.write()
 
         repository = RepositoryInformationView(repository)
-        self.logger.info("{} --- {}".format(LooseVersion(self.store.ha_version), LooseVersion(str(repository.homeassistant_version))))
-        self.logger.error(repository.repository.can_install)
         render = self.render('repository', repository=repository, message=message)
         return web.Response(body=render, content_type="text/html", charset="utf-8")
+
+
+@webresponse
+class Error(HacsWebResponse):
+    """Serve error page."""
+    endpoint = "error"
+    async def response(self):
+        """Serve error page."""
+        try:
+            # Get last error
+            ex_type, ex_value, ex_traceback = sys.exc_info()
+            trace_back = traceback.extract_tb(ex_traceback)
+            stack_trace = list()
+
+            for trace in trace_back:
+                stack_trace.append(
+                    "File : {} , Line : {}, Func.Name : {}, Message : {}",
+                    format(trace[0], trace[1], trace[2], trace[3]),
+                )
+
+            # HARD styling
+            stacks = ""
+            for stack in stack_trace:
+                stacks += stack
+            stacks = stacks.replace(
+                "File :",
+                "</br>---------------------------------------------------------------</br><b>File :</b>",
+            )
+            stacks = stacks.replace(", Line :", "</br><b>Line :</b>")
+            stacks = stacks.replace(", Func.Name :", "</br><b>Func.Name :</b>")
+            stacks = stacks.replace(", Message :", "</br><b>Message :</b>")[86:-1]
+
+            if ex_type is not None:
+                codeblock = """
+                    <p><b>Exception type:</b> {}</p>
+                    <p><b>Exception message:</b> {}</p>
+                    <code class="codeblock errorview"">{}</code>
+                """.format(
+                    ex_type.__name__, ex_value, stacks
+                )
+            else:
+                codeblock = ""
+
+            # Generate content
+            content = """
+                <div class='container'>
+                    <h2>Something is wrong...</h2>
+                    <b>Error code:</b> <i>{}</i>
+                    {}
+                </div>
+                <div class='container'>
+                    <a href='{}/new/choose' class='waves-effect waves-light btn right hacsbutton'
+                        target="_blank">OPEN ISSUE</a>
+                </div>
+                <div class='center-align' style='margin-top: 100px'>
+                    <img rel="noreferrer" src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>
+                </div>
+            """.format(
+                random.choice(self.hacsconst.ERROR), codeblock, self.const.ISSUE_URL)
+
+        except Exception as exception:
+            message = "GREAT!, even the error page is broken... ({})".format(exception)
+            self.logger.error(message)
+            content = "<h3>" + message + "</h3>"
+
+        return web.Response(body=self.render('error', message=content), content_type="text/html", charset="utf-8")

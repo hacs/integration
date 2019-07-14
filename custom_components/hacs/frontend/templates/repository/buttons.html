@@ -1,10 +1,9 @@
-{% if not repository.can_install %}
+{% if not repository.repository.can_install %}
   {% include 'modal/wrong_ha_version.html' with context %}
 {% endif %}
 
 <div class="card-action">
-
-  {% if repository.can_install %}
+  {% if repository.repository.can_install %}
     <a class="actionlink" href="/hacsapi/{{ hacs.token }}/repository_install/{{repository.repository_id}}" onclick="toggleLoading()">
       {{repository.main_action}}
     </a>

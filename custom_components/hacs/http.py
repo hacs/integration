@@ -4,6 +4,13 @@ from homeassistant.components.http import HomeAssistantView
 from jinja2 import Environment, PackageLoader
 from aiohttp import web
 
+
+
+from distutils.version import LooseVersion
+from homeassistant.const import __version__ as HAVERSION
+
+
+
 from .hacsbase import HacsBase
 from .repositories.repositoryinformationview import RepositoryInformationView
 
@@ -34,6 +41,7 @@ class HacsWebResponse(HomeAssistantView, HacsBase):
         self.raw_headers = request.raw_headers
         self.request = request
         self.requested_file = path.replace(self.endpoint+"/", "")
+        self.repository_id = path.replace(self.endpoint+"/", "")
         self.logger.debug("Endpoint ({}) called".format(self.endpoint), "web")
         if self.config.dev:
             self.logger.debug("Raw headers ({})".format(self.raw_headers), "web")
@@ -160,7 +168,7 @@ class Repository(HacsWebResponse):
     async def response(self):
         """Serve HacsRepositoryView."""
         message = self.request.rel_url.query.get("message")
-        repository = self.store.repositories[str(self.requested_file)]
+        repository = self.store.repositories[str(self.repository_id)]
         if not repository.updated_info:
             await repository.set_repository()
             await repository.update()
@@ -172,5 +180,7 @@ class Repository(HacsWebResponse):
             self.store.write()
 
         repository = RepositoryInformationView(repository)
+        self.logger.info("{} --- {}".format(LooseVersion(self.store.ha_version), LooseVersion(str(repository.homeassistant_version))))
+        self.logger.error(repository.repository.can_install)
         render = self.render('repository', repository=repository, message=message)
         return web.Response(body=render, content_type="text/html", charset="utf-8")

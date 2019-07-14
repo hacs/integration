@@ -56,11 +56,3 @@ class RepositoryInformationView(RepositoryInformation):
     @property
     def full_name(self):
         return self.repository_name.split("/")[-1]
-
-    @property
-    def can_install(self):
-        if self.repository.homeassistant_version is not None:
-            if self.repository.version_or_commit == "version":
-                if LooseVersion(HAVERSION) < LooseVersion(str(self.repository.homeassistant_version)):
-                    return False
-        return True

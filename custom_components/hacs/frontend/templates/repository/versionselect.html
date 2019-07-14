@@ -8,9 +8,9 @@
 {% endif %}
 
 <b>Available versions:</b>
-<form action="/hacsapi/{{ hacs.token }}/repository_select_tag/{{repository.repository_id}}" name="selected_tag" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+<form action="/hacsapi/{{ hacs.token }}/repository_select_tag" name="selected_tag" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+  <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
   <select name="selected_tag" class="hacs-select" onchange="toggleLoading();document.getElementsByName('selected_tag')[0].submit()">
-  <option class="hacscolor" value="{}" selected hidden>{}</option>
   {% for tag in tags %}
     <option {{'selected' if selected_tag == tag else ''}} class='hacscolor' value='{{tag}}'>{{tag}}</option>
   {% endfor %}

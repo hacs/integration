@@ -21,12 +21,12 @@
             </span>
             <p>{{repository.description}}</p></br>
             {% if repository.installed %}
-              <p><b>Installed {{repository.version_or_commit}}:</b> {{repository.installed_version}}</p>
+              <p><b>Installed {{repository.repository.version_or_commit}}:</b> {{repository.installed_version}}</p>
             {% endif %}
             {% if repository.published_tags and repository.repository_id != "172733314" %}
               {% include 'repository/versionselect.html' with context %}
             {% else %}
-              <p><b>Available {{repository.version_or_commit}}:</b> {{repository.available_version}}</p>
+              <p><b>Available {{repository.repository.version_or_commit}}:</b> {{repository.available_version}}</p>
             {% endif %}
             </br>
             {{repository.display_authors}}

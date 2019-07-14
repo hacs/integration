@@ -81,7 +81,27 @@ class Repositories(HacsAPI):
     name = "repositories"
     async def response(self):
         """Response."""
-        render = self.render('settings/repositories')
+        render = self.render('settings/dev/repositories')
+        return web.Response(body=render, content_type="text/html", charset="utf-8")
+
+
+@apiresponse
+class SetHAVersionView(HacsAPI):
+    """Set HA version view."""
+    name = "set_ha_version"
+    async def response(self):
+        """Response."""
+        render = self.render('settings/dev/set_ha_version')
+        return web.Response(body=render, content_type="text/html", charset="utf-8")
+
+@apiresponse
+class SetHAVersionAction(HacsAPI):
+    """Set HA version action."""
+    name = "set_ha_version_action"
+    async def response(self):
+        """Response."""
+        self.store.ha_version = self.postdata["ha_version"]
+        render = self.render('settings/dev/set_ha_version')
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
 
@@ -91,7 +111,7 @@ class DevRepository(HacsAPI):
     name = "devrepository"
     async def response(self):
         """Response."""
-        render = self.render('settings/repositories')
+        render = self.render('settings/dev/repositories')
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
 
@@ -282,6 +302,7 @@ class RepositorySelectTag(HacsAPI):
             await repository.update()
             message = "The version {} is not valid for use with HACS.".format(self.postdata["selected_tag"])
             raise web.HTTPFound("/hacsweb/{}/settings?message={}".format(self.token, message))
+        self.store.write()
         return web.HTTPFound("/hacsweb/{}/repository/{}".format(self.token, repository.repository_id))
 
 

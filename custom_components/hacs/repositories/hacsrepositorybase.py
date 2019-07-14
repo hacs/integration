@@ -7,7 +7,6 @@ import pathlib
 import os
 import shutil
 from distutils.version import LooseVersion
-from homeassistant.const import __version__ as HAVERSION
 from ..aiogithub.exceptions import AIOGitHubException
 from ..hacsbase import HacsBase
 from ..hacsbase.exceptions import (
@@ -114,6 +113,24 @@ class HacsRepositoryBase(HacsBase):
         elif self.last_release_tag is not None:
             return "tags/{}".format(self.last_release_tag)
         return self.repository.default_branch
+
+    @property
+    def can_install(self):
+        """Return bool if repository can be installed."""
+        if self.homeassistant_version is not None:
+            if self.version_or_commit == "version":
+                if LooseVersion(self.store.ha_version) < LooseVersion(self.homeassistant_version):
+                    return False
+        return True
+
+    @property
+    def version_or_commit(self):
+        """Does the repositoriy use releases or commits?"""
+        if self.last_release_tag is not None:
+            version_or_commit = "version"
+        else:
+            version_or_commit = "commit"
+        return version_or_commit
 
     async def setup_repository(self):
         """
@@ -255,19 +272,15 @@ class HacsRepositoryBase(HacsBase):
             # Run update
             await self.update()  # pylint: disable=no-member
 
-            if (
-                self.homeassistant_version is not None
-                and self.last_release_tag is not None
-            ):
-                if LooseVersion(HAVERSION) < LooseVersion(str(self.repository.homeassistant_version)):
-                    message = NOT_SUPPORTED_HA_VERSION.format(
-                        HAVERSION,
-                        self.last_release_tag,
-                        self.name,
-                        str(self.homeassistant_version),
-                    )
-                    _LOGGER.error(message)
-                    return False
+            if not self.can_install:
+                message = NOT_SUPPORTED_HA_VERSION.format(
+                    self.ha_version,
+                    self.last_release_tag,
+                    self.name,
+                    str(self.homeassistant_version),
+                )
+                _LOGGER.error(message)
+                return False
 
             # Check local directory
             await self.check_local_directory()

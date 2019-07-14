@@ -114,14 +114,6 @@ class RepositoryInformation:
         return available
 
     @property
-    def version_or_commit(self):
-        if self.repository.last_release_tag is not None:
-            version_or_commit = "version"
-        else:
-            version_or_commit = "commit"
-        return version_or_commit
-
-    @property
     def topics(self):
         return str(self.repository.topics)
 

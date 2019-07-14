@@ -1,6 +1,7 @@
 """Data handler for HACS."""
 import os
 import json
+from homeassistant.const import __version__ as HAVERSION
 from .const import STORENAME, VERSION
 from ..handler.logger import HacsLogger
 from ..repositories.repositoryinformationview import RepositoryInformationView
@@ -20,6 +21,7 @@ class HacsData:
         self.repositories = {}
         self.logger = HacsLogger()
         self.config_dir = config_dir
+        self.ha_version = HAVERSION
         self.schema = None
         self.endpoints = {}
         self.frontend = []

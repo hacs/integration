@@ -98,7 +98,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     await setup_frontend(hass, hacs)
 
     # Service registration
-    async def service_hacs_isntall(call):
+    async def service_hacs_install(call):
         """Install a repository."""
         repository = str(call.data["repository"])
         if repository not in hacs().store.repositories:
@@ -116,7 +116,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
             return
         await hacs().register_new_repository(repository_type, repository)
 
-    hass.services.async_register("hacs", 'install', service_hacs_isntall)
+    hass.services.async_register("hacs", 'install', service_hacs_install)
     hass.services.async_register("hacs", 'register', service_hacs_register)
 
     # Mischief managed!

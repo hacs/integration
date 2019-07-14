@@ -227,6 +227,13 @@ class HacsBase:
             if item not in self.blacklist:
                 self.blacklist.append(item)
 
+        # Remove blacklisted repositories
+        for repository in self.blacklist:
+            self.logger.debug(repository, "blacklist")
+            if await self.is_known_repository(repository):
+                repository = await self.get_repository_by_name(repository)
+                await repository.remove()
+
         # Get org repositories
         repositories["integration"] = await self.aiogithub.get_org_repos(
             "custom-components"
@@ -297,3 +304,10 @@ class HacsBase:
             if repository.repository_name == repository_full_name:
                 return True
         return False
+
+    async def get_repository_by_name(self, repository_name):
+        """Return a repository by it's name."""
+        for repository in self.store.repositories:
+            repository = self.store.repositories[repository]
+            if repository.repository_name == repository_name:
+                return repository

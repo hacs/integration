@@ -59,7 +59,7 @@ class Generic(HacsAPI):
     async def response(self):
         """Response."""
         self.logger.error("Unknown endpoint '{}'".format(self.endpoint), "adminapi")
-        return web.HTTPFound(self.url_path["settings"])
+        return web.HTTPFound("/hacsweb/{}/settings".format(self.token))
 
 
 @apiresponse
@@ -72,26 +72,16 @@ class RemoveNewFlag(HacsAPI):
             repository = self.store.repositories[repository]
             repository.new = False
         self.store.write()
-        return web.HTTPFound(self.url_path["settings"])
+        return web.HTTPFound("/hacsweb/{}/settings".format(self.token))
 
 
 @apiresponse
-class Repositories(HacsAPI):
-    """List all repositories."""
-    name = "repositories"
-    async def response(self):
-        """Response."""
-        render = self.render('settings/dev/repositories')
-        return web.Response(body=render, content_type="text/html", charset="utf-8")
-
-
-@apiresponse
-class SetHAVersionView(HacsAPI):
+class DevView(HacsAPI):
     """Set HA version view."""
-    name = "set_ha_version"
+    name = "devview"
     async def response(self):
         """Response."""
-        render = self.render('settings/dev/set_ha_version')
+        render = self.render('settings/dev/{}'.format(self.postdata["view"]))
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
 @apiresponse
@@ -103,17 +93,6 @@ class SetHAVersionAction(HacsAPI):
         self.store.ha_version = self.postdata["ha_version"]
         render = self.render('settings/dev/set_ha_version')
         return web.Response(body=render, content_type="text/html", charset="utf-8")
-
-
-@apiresponse
-class DevRepository(HacsAPI):
-    """List Repository options."""
-    name = "devrepository"
-    async def response(self):
-        """Response."""
-        render = self.render('settings/dev/repositories')
-        return web.Response(body=render, content_type="text/html", charset="utf-8")
-
 
 @apiresponse
 class RepositoryInstall(HacsAPI):

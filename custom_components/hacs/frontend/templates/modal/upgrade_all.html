@@ -28,9 +28,11 @@
         {% if hacs.store.task_running %}
             <p>Background task is running, batch upgrade is disabled.</p>
         {% else %}
-            <a href="{{url.api}}/repositories_upgrade_all/notinuse"  onclick="toggleLoading()" class='waves-effect waves-light btn hacsbutton' style="background-color: var(--google-red-500) !important; font-weight: bold;">
+            <form action="/hacsapi/{{ hacs.token }}/repositories_upgrade_all" name="upgrade_all" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+              <a href="#" onclick="toggleLoading();document.getElementsByName('upgrade_all')[0].submit()" class='waves-effect waves-light btn hacsbutton' style="background-color: var(--google-red-500) !important; font-weight: bold;">
                 UPGRADE ALL
-            </a>
+              </a>
+          </form>
         {% endif %}
     </div>
 </div>

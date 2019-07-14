@@ -34,7 +34,7 @@ Template value | Description
 -- | --
 installed | True / False if it is installed.
 pending_update | True / False if a update is pending.
-prerelease | True / False if it's a prerelease.
+prerelease | True / False if it's a pre release.
 selected_tag | The selected version.
 version_available | The latest available version.
 version_installed | The installed version

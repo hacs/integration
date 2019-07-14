@@ -6,7 +6,7 @@ import logging
 import pathlib
 import os
 import shutil
-from packaging.version import Version
+from distutils.version import LooseVersion
 from homeassistant.const import __version__ as HAVERSION
 from ..aiogithub.exceptions import AIOGitHubException
 from ..hacsbase import HacsBase
@@ -259,7 +259,7 @@ class HacsRepositoryBase(HacsBase):
                 self.homeassistant_version is not None
                 and self.last_release_tag is not None
             ):
-                if Version(HAVERSION[0:6]) < Version(str(self.homeassistant_version)):
+                if LooseVersion(HAVERSION) < LooseVersion(str(self.repository.homeassistant_version)):
                     message = NOT_SUPPORTED_HA_VERSION.format(
                         HAVERSION,
                         self.last_release_tag,

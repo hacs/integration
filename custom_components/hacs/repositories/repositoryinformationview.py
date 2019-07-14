@@ -1,6 +1,6 @@
 """RepositoryInformationView, used for the frontend."""
 # pylint: disable=missing-docstring
-from packaging.version import Version
+from distutils.version import LooseVersion
 from homeassistant.const import __version__ as HAVERSION
 from .repositoryinformation import RepositoryInformation
 
@@ -61,6 +61,6 @@ class RepositoryInformationView(RepositoryInformation):
     def can_install(self):
         if self.repository.homeassistant_version is not None:
             if self.repository.version_or_commit == "version":
-                if Version(HAVERSION[0:6]) < Version(str(self.repository.homeassistant_version)):
+                if LooseVersion(HAVERSION) < LooseVersion(str(self.repository.homeassistant_version)):
                     return False
         return True

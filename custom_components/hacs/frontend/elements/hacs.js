@@ -101,6 +101,6 @@ window.setInterval(function(){
     if (running) {
         CheckIfWeCanReload();
     }
-  }, 5000);
+  }, 10000);
 
 

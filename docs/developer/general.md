@@ -47,6 +47,8 @@ version_installed | The installed version
 {% endif %}
 ```
 
+![beta](../images/beta.png)
+
 ### Some examples of `info.md` files
 
 #### [Compact Custom Header](https://github.com/maykar/compact-custom-header/blob/1.0.4b9/info.md)

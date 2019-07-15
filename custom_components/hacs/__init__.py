@@ -9,7 +9,7 @@ import os.path
 import json
 import asyncio
 from datetime import datetime, timedelta
-from pkg_resources import parse_version
+from distutils.version import LooseVersion
 import aiohttp
 
 import voluptuous as vol
@@ -60,6 +60,11 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     _LOGGER.info(STARTUP)
     config_dir = hass.config.path()
 
+    # Check if HA is the required version.
+    if LooseVersion(HAVERSION) < LooseVersion("0.97.0"):
+        _LOGGER.critical("You need HA version 97 or newer to use this integration.")
+        return False
+
     # Configure HACS
     try:
         await configure_hacs(hass, config[DOMAIN], config_dir)
@@ -77,11 +82,6 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
             msg = CUSTOM_UPDATER_WARNING.format(location.format(config_dir))
             _LOGGER.critical(msg)
             return False
-
-    # Check if HA is the required version.
-    if parse_version(HAVERSION) < parse_version("0.97.0"):
-        _LOGGER.critical("You need HA version 97 or newer to use this integration.")
-        return False
 
     # Add sensor
     hass.async_create_task(

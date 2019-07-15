@@ -221,8 +221,16 @@ class RepositoryRegister(HacsAPI):
     name = "repository_register"
     async def response(self):
         """Response."""
-        repository_name = self.postdata["custom_url"]
-        repository_type = self.postdata["repository_type"]
+        repository_name = self.postdata.get("custom_url")
+        repository_type = self.postdata.get("repository_type")
+
+        # Validate data
+        if not repository_name:
+            message = "Repository URL is missing."
+            return web.HTTPFound("/hacsweb/{}/settings?message={}".format(self.token, message))
+        if repository_type is None:
+            message = "Type is missing for '{}'.".format(repository_name)
+            return web.HTTPFound("/hacsweb/{}/settings?message={}".format(self.token, message))
 
         # Stip first part if it's an URL.
         if "github" in repository_name:
@@ -244,7 +252,7 @@ class RepositoryRegister(HacsAPI):
 
             is_known_repository = await self.is_known_repository(repository_name)
             if is_known_repository:
-                message = "{} is already registered, look for it in the store.".format(repository_name)
+                message = "'{}' is already registered, look for it in the store.".format(repository_name)
                 return web.HTTPFound("/hacsweb/{}/settings?message={}".format(self.token, message))
 
             if repository_name in self.blacklist:
@@ -256,7 +264,9 @@ class RepositoryRegister(HacsAPI):
                 self.store.write()
                 return web.HTTPFound("/hacsweb/{}/repository/{}".format(self.token, repository.repository_id))
 
-        message = "Could not add {} at this time, check the log for more details.".format(repository_name)
+        message = """
+        Could not add '{}' with type '{}' at this time.</br>
+        If you used the correct type, check the log for more details.""".format(repository_name, repository_type)
         return web.HTTPFound("/hacsweb/{}/settings?message={}".format(self.token, message))
 
 

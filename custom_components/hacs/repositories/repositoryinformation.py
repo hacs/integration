@@ -77,6 +77,8 @@ class RepositoryInformation:
             status = "pending-update"
         elif self.repository.installed:
             status = "installed"
+        elif self.repository.new:
+            status = "new"
         else:
             status = "default"
         return status
@@ -87,7 +89,8 @@ class RepositoryInformation:
             "default": "Not installed.",
             "pending-restart": "Restart pending.",
             "pending-update": "Update pending.",
-            "installed": "No action required."
+            "installed": "No action required.",
+            "new": "This is a newly added repository."
         }
         return description[self.status]
 

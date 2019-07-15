@@ -10,9 +10,9 @@
               <div id="title">
                   <span class="hacs-card-title">
                     {% if location == 'store' and repository.new %}
-                      <span class='hacs-badge'>NEW</span>
+                      <span title="{{ repository.status_description }}" class='hacs-badge'>NEW</span>
                     {% else %}
-                      <i class='fas fa-cube card-status {{repository.status}}'></i>
+                      <i  title="{{ repository.status_description }}" class='fas fa-cube card-status {{repository.status}}'></i>
                     {% endif %}
                     {{repository.name}}
                   </span>

@@ -171,6 +171,9 @@ async def configure_hacs(hass, configuration, hass_config_dir):
     hacs.store.restore_values()
     hacs.element_types = sorted(ELEMENT_TYPES)
 
+    if hacs.config.dev:
+        hacs.logger.prefix = "custom_components.hacs.dev"
+
 
 async def setup_frontend(hass, hacs):
     """Configure the HACS frontend elements."""

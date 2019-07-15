@@ -76,6 +76,35 @@ class RemoveNewFlag(HacsAPI):
 
 
 @apiresponse
+class DevTemplate(HacsAPI):
+    """Remove new flag on all repositories."""
+    name = "dev_template"
+    async def response(self):
+        """Response."""
+        from .handler.template import render_template
+        if "set" in self.postdata:
+            self.dev_template_id = self.postdata.get("repository_id")
+            repository = self.store.repositories.get(self.dev_template_id)
+            template = render_template(self.postdata.get("template", ""), repository)
+            info = await self.aiogithub.render_markdown(template)
+            info = info.replace("<h3>", "<h6>").replace("</h3>", "</h6>")
+            info = info.replace("<h2>", "<h5>").replace("</h2>", "</h5>")
+            info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
+            info = info.replace("<code>", "<code class='codeinfo'>")
+            info = info.replace(
+                '<a href="http', '<a rel="noreferrer" target="_blank" href="http'
+            )
+            info = info.replace("<ul>", "")
+            info = info.replace("</ul>", "")
+            self.dev_template = info
+        else:
+            self.dev_template = ""
+            self.dev_template_id = "Repository ID"
+        render = self.render('settings/dev/template_test')
+        return web.Response(body=render, content_type="text/html", charset="utf-8")
+
+
+@apiresponse
 class DevView(HacsAPI):
     """Set HA version view."""
     name = "devview"

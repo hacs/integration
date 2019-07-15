@@ -17,6 +17,8 @@ class HacsBase:
     migration = None
     storage = None
     hacs = None
+    dev_template = ""
+    dev_template_id = "Repository ID"
     ha_version = None
     config = None
     logger = HacsLogger()

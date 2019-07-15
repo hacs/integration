@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class='hacs-overview-container'>
+  <div class="hacs-card-standalone">
+    <form style="display: contents" action="/hacsapi/{{ hacs.token }}/dev_template" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+      <input class="hacscolor" type="text" name="repository_id" value="{{ hacs.dev_template_id }}">
+      <textarea class="hacscolor" name="template" style="width:100%;height:250px;"></textarea></br>
+      <button name="set" class="waves-effect waves-light btn hacsadminbutton" type="submit" onclick="toggleLoading()">
+          TEST
+      </button>
+      <button name="clear" class="waves-effect waves-light btn hacsadminbutton" type="submit" onclick="toggleLoading()">
+        CLEAR
+    </button>
+    </form>
+  </div>
+</div>
+
+{% if hacs.dev_template %}
+<div class='hacs-overview-container'>
+  <div class="hacs-card-standalone">
+    {{ hacs.dev_template }}
+  </div>
+</div>
+{% endif %}
+{% endblock %}

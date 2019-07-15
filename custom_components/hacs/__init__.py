@@ -32,10 +32,6 @@ from .const import (
     DOMAIN,
 )
 
-
-# TODO: Remove this when minimum HA version is > 0.93
-REQUIREMENTS = ["aiofiles==0.4.0", "backoff==1.8.0", "packaging==19.0"]
-
 _LOGGER = logging.getLogger("custom_components.hacs")
 
 CONFIG_SCHEMA = vol.Schema(
@@ -83,8 +79,8 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
             return False
 
     # Check if HA is the required version.
-    if parse_version(HAVERSION) < parse_version("0.92.0"):
-        _LOGGER.critical("You need HA version 92 or newer to use this integration.")
+    if parse_version(HAVERSION) < parse_version("0.97.0"):
+        _LOGGER.critical("You need HA version 97 or newer to use this integration.")
         return False
 
     # Add sensor
@@ -188,22 +184,11 @@ async def setup_frontend(hass, hacs):
     hass.http.register_view(HacsWebResponse())
 
     # Add to sidepanel
-    # TODO: Remove this check when minimum HA version is > 0.94
-    if parse_version(HAVERSION) < parse_version("0.93.9"):
-        await hass.components.frontend.async_register_built_in_panel(
-            "iframe",
-            hacs.config.sidepanel_title,
-            hacs.config.sidepanel_icon,
-            hacs.config.sidepanel_title.lower().replace(" ", "_").replace("-", "_"),
-            {"url": hacs.hacsweb + "/overview"},
-            require_admin=IFRAME["require_admin"],
-        )
-    else:
-        hass.components.frontend.async_register_built_in_panel(
-            "iframe",
-            hacs.config.sidepanel_title,
-            hacs.config.sidepanel_icon,
-            hacs.config.sidepanel_title.lower().replace(" ", "_").replace("-", "_"),
-            {"url": hacs.hacsweb + "/overview"},
-            require_admin=IFRAME["require_admin"],
-        )
+    hass.components.frontend.async_register_built_in_panel(
+        "iframe",
+        hacs.config.sidepanel_title,
+        hacs.config.sidepanel_icon,
+        hacs.config.sidepanel_title.lower().replace(" ", "_").replace("-", "_"),
+        {"url": hacs.hacsweb + "/overview"},
+        require_admin=IFRAME["require_admin"],
+    )

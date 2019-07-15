@@ -29,13 +29,12 @@
   </i></br>
     <pre id="LovelaceExample" class="yaml">
 - url: /community_plugin/{{repository.full_name}}/{{name}}.js
-  {%- if repository.js_type == "appdaemon" -%}
-  type: {{repository.js_type}}
-  {% else %}
+  {% if repository.repository.javascript_type -%}
+  type: {{repository.repository.javascript_type}}
+  {%- else -%}
   type: Could not determine the type of this plugin, check the repository.
   {%- endif -%}
-
-    </pre>
+</pre>
     <a title="Copy content to clipboard" id ="lovelacecopy" onclick="CopyToLovelaceExampleToClipboard()">
       <i class="fa fa-copy"></i>
     </a>

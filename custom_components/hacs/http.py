@@ -53,7 +53,8 @@ class HacsWebResponse(HomeAssistantView, HacsBase):
             response = await WEBRESPONSE["error"].response(self)
 
         # set headers
-        response.headers["Cache-Control"] = "max-age=0, must-revalidate"
+        response.headers["Cache-Control"] = "no-cache, must-revalidate, s-max_age=0"
+        response.headers["Pragma"] = "no-cache"
 
         # serve the response
         return response

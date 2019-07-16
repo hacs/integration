@@ -105,6 +105,18 @@ If the contribution is minor, make the change and open a PR (Pull Request).
 
 For new features, changes to existing features, or other big changes, please open an RFC (Request for comment) issue before you start the work.
 
+### Devcontainer
+
+[The easiest way to contribute is to spin up a devcontainer.](https://code.visualstudio.com/docs/remote/containers) with VSCode, it has all the tools you need included, and it does not interfare with your system.
+
+**Requirements:**
+
+- Docker
+- VS Code
+- Remote - Containers (VS Code extention)
+
+Make your changes, then run the task "Start Home Assistant" to test them, HA will run on port 8124.
+
 ***
 
 ## Last notes from the initial developer

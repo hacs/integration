@@ -4,13 +4,16 @@ from .http import HacsWebResponse
 
 APIRESPONSE = {}
 
+
 def apiresponse(classname):
     """Decorator used to register API Responses."""
     APIRESPONSE[classname.name] = classname
     return classname
 
+
 class HacsAPI(HacsWebResponse):
     """HacsAPI class."""
+
     name = "hacsapi"
 
     def __init__(self):
@@ -43,10 +46,13 @@ class HacsAPI(HacsWebResponse):
 
 class HacsRunningTask(HacsAPI):
     """Return if BG task is running."""
+
     name = "hacs:task"
+
     def __init__(self):
         """Initialize."""
         self.url = "/hacs_task"
+
     async def get(self, request):  # pylint: disable=unused-argument
         """Handle GET request."""
         return web.json_response({"task": self.store.task_running})
@@ -55,7 +61,9 @@ class HacsRunningTask(HacsAPI):
 @apiresponse
 class Generic(HacsAPI):
     """Generic API response."""
+
     name = "generic"
+
     async def response(self):
         """Response."""
         self.logger.error("Unknown endpoint '{}'".format(self.endpoint), "adminapi")
@@ -65,7 +73,9 @@ class Generic(HacsAPI):
 @apiresponse
 class RemoveNewFlag(HacsAPI):
     """Remove new flag on all repositories."""
+
     name = "remove_new_flag"
+
     async def response(self):
         """Response."""
         for repository in self.store.repositories:
@@ -78,10 +88,13 @@ class RemoveNewFlag(HacsAPI):
 @apiresponse
 class DevTemplate(HacsAPI):
     """Remove new flag on all repositories."""
+
     name = "dev_template"
+
     async def response(self):
         """Response."""
         from .handler.template import render_template
+
         if "set" in self.postdata:
             self.dev_template_id = self.postdata.get("repository_id")
             repository = self.store.repositories.get(self.dev_template_id)
@@ -100,57 +113,73 @@ class DevTemplate(HacsAPI):
         else:
             self.dev_template = ""
             self.dev_template_id = "Repository ID"
-        render = self.render('settings/dev/template_test')
+        render = self.render("settings/dev/template_test")
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
 
 @apiresponse
 class DevView(HacsAPI):
     """Set HA version view."""
+
     name = "devview"
+
     async def response(self):
         """Response."""
-        render = self.render('settings/dev/{}'.format(self.postdata["view"]))
+        render = self.render("settings/dev/{}".format(self.postdata["view"]))
         return web.Response(body=render, content_type="text/html", charset="utf-8")
+
 
 @apiresponse
 class SetHAVersionAction(HacsAPI):
     """Set HA version action."""
+
     name = "set_ha_version_action"
+
     async def response(self):
         """Response."""
         self.store.ha_version = self.postdata["ha_version"]
-        render = self.render('settings/dev/set_ha_version')
+        render = self.render("settings/dev/set_ha_version")
         return web.Response(body=render, content_type="text/html", charset="utf-8")
+
 
 @apiresponse
 class RepositoryInstall(HacsAPI):
     """Install repository."""
+
     name = "repository_install"
+
     async def response(self):
         """Response."""
         repository = self.store.repositories[self.postdata["repository_id"]]
         await repository.install()
         self.store.write()
-        return web.HTTPFound("/hacsweb/{}/repository/{}".format(self.token, repository.repository_id))
+        return web.HTTPFound(
+            "/hacsweb/{}/repository/{}".format(self.token, repository.repository_id)
+        )
 
 
 @apiresponse
 class RepositoryUpdate(HacsAPI):
     """Update repository."""
+
     name = "repository_update"
+
     async def response(self):
         """Response."""
         repository = self.store.repositories[self.postdata["repository_id"]]
         await repository.update()
         self.store.write()
-        return web.HTTPFound("/hacsweb/{}/repository/{}".format(self.token, repository.repository_id))
+        return web.HTTPFound(
+            "/hacsweb/{}/repository/{}".format(self.token, repository.repository_id)
+        )
 
 
 @apiresponse
 class RepositoryUninstall(HacsAPI):
     """Uninstall repository."""
+
     name = "repository_uninstall"
+
     async def response(self):
         """Response."""
         repository = self.store.repositories[self.postdata["repository_id"]]
@@ -162,7 +191,9 @@ class RepositoryUninstall(HacsAPI):
 @apiresponse
 class RepositoryRemove(HacsAPI):
     """Remove repository."""
+
     name = "repository_remove"
+
     async def response(self):
         """Response."""
         repository = self.store.repositories[self.postdata["repository_id"]]
@@ -174,7 +205,9 @@ class RepositoryRemove(HacsAPI):
 @apiresponse
 class RepositoryHide(HacsAPI):
     """Hide repository."""
+
     name = "repository_hide"
+
     async def response(self):
         """Response."""
         repository = self.store.repositories[self.postdata["repository_id"]]
@@ -186,7 +219,9 @@ class RepositoryHide(HacsAPI):
 @apiresponse
 class RepositoryUnhide(HacsAPI):
     """Unhide repository."""
+
     name = "repository_unhide"
+
     async def response(self):
         """Response."""
         repository = self.store.repositories[self.postdata["repository_id"]]
@@ -198,33 +233,43 @@ class RepositoryUnhide(HacsAPI):
 @apiresponse
 class RepositoryBetaHide(HacsAPI):
     """Hide Beta repository."""
+
     name = "repository_beta_hide"
+
     async def response(self):
         """Response."""
         repository = self.store.repositories[self.postdata["repository_id"]]
         repository.show_beta = False
         await repository.update()
         self.store.write()
-        return web.HTTPFound("/hacsweb/{}/repository/{}".format(self.token, repository.repository_id))
+        return web.HTTPFound(
+            "/hacsweb/{}/repository/{}".format(self.token, repository.repository_id)
+        )
 
 
 @apiresponse
 class RepositoryBetaShow(HacsAPI):
     """Show Beta repository."""
+
     name = "repository_beta_show"
+
     async def response(self):
         """Response."""
         repository = self.store.repositories[self.postdata["repository_id"]]
         repository.show_beta = True
         await repository.update()
         self.store.write()
-        return web.HTTPFound("/hacsweb/{}/repository/{}".format(self.token, repository.repository_id))
+        return web.HTTPFound(
+            "/hacsweb/{}/repository/{}".format(self.token, repository.repository_id)
+        )
 
 
 @apiresponse
 class RepositoriesReload(HacsAPI):
     """Reload repository data."""
+
     name = "repositories_reload"
+
     async def response(self):
         """Response."""
         self.hass.async_create_task(self.update_repositories("Run it!"))
@@ -234,7 +279,9 @@ class RepositoriesReload(HacsAPI):
 @apiresponse
 class RepositoriesUpgradeAll(HacsAPI):
     """Upgrade all repositories."""
+
     name = "repositories_upgrade_all"
+
     async def response(self):
         """Response."""
         for repository in self.store.repositories:
@@ -247,7 +294,9 @@ class RepositoriesUpgradeAll(HacsAPI):
 @apiresponse
 class RepositoryRegister(HacsAPI):
     """Register repository."""
+
     name = "repository_register"
+
     async def response(self):
         """Response."""
         repository_name = self.postdata.get("custom_url")
@@ -256,10 +305,14 @@ class RepositoryRegister(HacsAPI):
         # Validate data
         if not repository_name:
             message = "Repository URL is missing."
-            return web.HTTPFound("/hacsweb/{}/settings?message={}".format(self.token, message))
+            return web.HTTPFound(
+                "/hacsweb/{}/settings?message={}".format(self.token, message)
+            )
         if repository_type is None:
             message = "Type is missing for '{}'.".format(repository_name)
-            return web.HTTPFound("/hacsweb/{}/settings?message={}".format(self.token, message))
+            return web.HTTPFound(
+                "/hacsweb/{}/settings?message={}".format(self.token, message)
+            )
 
         # Stip first part if it's an URL.
         if "github" in repository_name:
@@ -275,34 +328,54 @@ class RepositoryRegister(HacsAPI):
                     {} is not a valid format.
                     Correct format is 'https://github.com/DEVELOPER/REPOSITORY'
                     or 'DEVELOPER/REPOSITORY'.
-                    """.format(repository_name)
+                    """.format(
+                    repository_name
+                )
 
-                return web.HTTPFound("/hacsweb/{}/settings?message={}".format(self.token, message))
+                return web.HTTPFound(
+                    "/hacsweb/{}/settings?message={}".format(self.token, message)
+                )
 
             is_known_repository = await self.is_known_repository(repository_name)
             if is_known_repository:
-                message = "'{}' is already registered, look for it in the store.".format(repository_name)
-                return web.HTTPFound("/hacsweb/{}/settings?message={}".format(self.token, message))
+                message = "'{}' is already registered, look for it in the store.".format(
+                    repository_name
+                )
+                return web.HTTPFound(
+                    "/hacsweb/{}/settings?message={}".format(self.token, message)
+                )
 
             if repository_name in self.blacklist:
                 self.blacklist.remove(repository_name)
 
-            repository, result = await self.register_new_repository(repository_type, repository_name)
+            repository, result = await self.register_new_repository(
+                repository_type, repository_name
+            )
 
             if result:
                 self.store.write()
-                return web.HTTPFound("/hacsweb/{}/repository/{}".format(self.token, repository.repository_id))
+                return web.HTTPFound(
+                    "/hacsweb/{}/repository/{}".format(
+                        self.token, repository.repository_id
+                    )
+                )
 
         message = """
         Could not add '{}' with type '{}' at this time.</br>
-        If you used the correct type, check the log for more details.""".format(repository_name, repository_type)
-        return web.HTTPFound("/hacsweb/{}/settings?message={}".format(self.token, message))
+        If you used the correct type, check the log for more details.""".format(
+            repository_name, repository_type
+        )
+        return web.HTTPFound(
+            "/hacsweb/{}/settings?message={}".format(self.token, message)
+        )
 
 
 @apiresponse
 class RepositorySelectTag(HacsAPI):
     """Select tag for Repository."""
+
     name = "repository_select_tag"
+
     async def response(self):
         """Response."""
         from .aiogithub.exceptions import AIOGitHubException
@@ -318,16 +391,24 @@ class RepositorySelectTag(HacsAPI):
         except (AIOGitHubException, HacsRequirement):
             repository.selected_tag = repository.last_release_tag
             await repository.update()
-            message = "The version {} is not valid for use with HACS.".format(self.postdata["selected_tag"])
-            raise web.HTTPFound("/hacsweb/{}/settings?message={}".format(self.token, message))
+            message = "The version {} is not valid for use with HACS.".format(
+                self.postdata["selected_tag"]
+            )
+            raise web.HTTPFound(
+                "/hacsweb/{}/settings?message={}".format(self.token, message)
+            )
         self.store.write()
-        return web.HTTPFound("/hacsweb/{}/repository/{}".format(self.token, repository.repository_id))
+        return web.HTTPFound(
+            "/hacsweb/{}/repository/{}".format(self.token, repository.repository_id)
+        )
 
 
 @apiresponse
 class FrontentMode(HacsAPI):
     """Set the frontend mode."""
+
     name = "frontend_mode"
+
     async def response(self):
         """Response."""
         self.store.frontend_mode = self.postdata["view_type"]

@@ -119,7 +119,9 @@ class HacsRepositoryBase(HacsBase):
         """Return bool if repository can be installed."""
         if self.homeassistant_version is not None:
             if self.version_or_commit == "version":
-                if LooseVersion(self.store.ha_version) < LooseVersion(self.homeassistant_version):
+                if LooseVersion(self.store.ha_version) < LooseVersion(
+                    self.homeassistant_version
+                ):
                     return False
         return True
 
@@ -265,7 +267,10 @@ class HacsRepositoryBase(HacsBase):
         start_time = datetime.now()
         _LOGGER.info("(%s) - Starting installation", self.repository_name)
         try:
-            if self.content_path == "release" and self.selected_tag == self.repository.default_branch:
+            if (
+                self.content_path == "release"
+                and self.selected_tag == self.repository.default_branch
+            ):
                 _LOGGER.error("Version %s can not be installed.", self.selected_tag)
                 return
 
@@ -390,6 +395,7 @@ class HacsRepositoryBase(HacsBase):
     async def set_additional_info(self):
         """Add additional info (from info.md)."""
         from ..handler.template import render_template
+
         if self.repository is None:
             raise HacsRepositoryInfo("GitHub repository object is missing")
         elif self.ref is None:
@@ -470,5 +476,3 @@ class HacsRepositoryBase(HacsBase):
             temp = self.repository.pushed_at
 
         return temp.strftime("%d %b %Y %H:%M")
-
-

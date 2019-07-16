@@ -1,8 +1,11 @@
 """HacsLogger"""
 
-class HacsLogger():
+
+class HacsLogger:
     """Custom logger class for HACS."""
+
     import logging
+
     prefix = "custom_components.hacs"
 
     def debug(self, message, part=None):

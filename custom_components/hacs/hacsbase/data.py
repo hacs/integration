@@ -12,6 +12,7 @@ from ..repositories.hacsrepositorypythonscript import HacsRepositoryPythonScript
 from ..repositories.hacsrepositorytheme import HacsRepositoryThemes
 from ..repositories.repositoryinformationview import RepositoryInformationView
 
+
 class HacsData:
     """HacsData class."""
 
@@ -36,7 +37,9 @@ class HacsData:
         """Read from store."""
         content = None
         try:
-            with open(self.store_path, "r", encoding="utf-8", errors="ignore") as storefile:
+            with open(
+                self.store_path, "r", encoding="utf-8", errors="ignore"
+            ) as storefile:
                 content = storefile.read()
                 content = json.loads(content)
         except FileNotFoundError:
@@ -54,9 +57,9 @@ class HacsData:
             "hacs": {
                 "view": self.frontend_mode,
                 "schema": self.schema,
-                "endpoints": self.endpoints
+                "endpoints": self.endpoints,
             },
-            "repositories": {}
+            "repositories": {},
         }
 
         for repository in self.repositories:
@@ -80,11 +83,12 @@ class HacsData:
                 "selected_tag": repository.selected_tag,
             }
 
-
             data["repositories"][repository.repository_id] = repositorydata
 
         try:
-            with open(self.store_path, "w", encoding="utf-8", errors="ignore") as storefile:
+            with open(
+                self.store_path, "w", encoding="utf-8", errors="ignore"
+            ) as storefile:
                 json.dump(data, storefile, indent=4)
         except FileNotFoundError:
             pass
@@ -112,38 +116,60 @@ class HacsData:
                     self.logger.info(repository["repository_name"], "restore")
 
                     if repository["repository_type"] == "appdaemon":
-                        repositories[repo_id] = HacsRepositoryAppDaemon(repository["repository_name"])
+                        repositories[repo_id] = HacsRepositoryAppDaemon(
+                            repository["repository_name"]
+                        )
 
                     elif repository["repository_type"] == "integration":
-                        repositories[repo_id] = HacsRepositoryIntegration(repository["repository_name"])
+                        repositories[repo_id] = HacsRepositoryIntegration(
+                            repository["repository_name"]
+                        )
 
                     elif repository["repository_type"] == "plugin":
-                        repositories[repo_id] = HacsRepositoryPlugin(repository["repository_name"])
+                        repositories[repo_id] = HacsRepositoryPlugin(
+                            repository["repository_name"]
+                        )
 
                     elif repository["repository_type"] == "python_script":
-                        repositories[repo_id] = HacsRepositoryPythonScripts(repository["repository_name"])
+                        repositories[repo_id] = HacsRepositoryPythonScripts(
+                            repository["repository_name"]
+                        )
 
                     elif repository["repository_type"] == "theme":
-                        repositories[repo_id] = HacsRepositoryThemes(repository["repository_name"])
+                        repositories[repo_id] = HacsRepositoryThemes(
+                            repository["repository_name"]
+                        )
 
                     else:
                         continue
 
-                    repositories[repo_id].description = repository.get("description", "")
+                    repositories[repo_id].description = repository.get(
+                        "description", ""
+                    )
                     repositories[repo_id].installed = repository["installed"]
-                    repositories[repo_id].last_commit = repository.get("last_commit", "")
+                    repositories[repo_id].last_commit = repository.get(
+                        "last_commit", ""
+                    )
                     repositories[repo_id].name = repository["name"]
                     repositories[repo_id].new = repository.get("new", True)
                     repositories[repo_id].repository_id = repo_id
                     repositories[repo_id].topics = repository.get("topics", [])
                     repositories[repo_id].track = repository.get("track", True)
                     repositories[repo_id].show_beta = repository.get("show_beta", False)
-                    repositories[repo_id].version_installed = repository.get("version_installed")
-                    repositories[repo_id].last_release_tag = repository.get("last_release_tag")
-                    repositories[repo_id].installed_commit = repository.get("installed_commit")
+                    repositories[repo_id].version_installed = repository.get(
+                        "version_installed"
+                    )
+                    repositories[repo_id].last_release_tag = repository.get(
+                        "last_release_tag"
+                    )
+                    repositories[repo_id].installed_commit = repository.get(
+                        "installed_commit"
+                    )
                     repositories[repo_id].selected_tag = repository.get("selected_tag")
                     if repo_id == "172733314":
                         repositories[repo_id].version_installed = VERSION
-                    self.frontend.append(RepositoryInformationView(repositories[repo_id]))
+                    self.frontend.append(
+                        RepositoryInformationView(repositories[repo_id])
+                    )
 
                 self.repositories = repositories

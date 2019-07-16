@@ -32,6 +32,7 @@ class AIOGitHub(object):
     async def get_repo(self, repo: str):
         """Retrun AIOGithubRepository object."""
         from .aiogithubrepository import AIOGithubRepository
+
         if self.ratelimit_remaining == "0":
             raise AIOGitHubRatelimit("GitHub Ratelimit error")
 
@@ -63,6 +64,7 @@ class AIOGitHub(object):
     async def get_org_repos(self, org: str, page=1):
         """Retrun a list of AIOGithubRepository objects."""
         from .aiogithubrepository import AIOGithubRepository
+
         if self.ratelimit_remaining == "0":
             raise AIOGitHubRatelimit("GitHub Ratelimit error")
         endpoint = "/orgs/" + org + "/repos?page=" + str(page)

@@ -9,6 +9,7 @@ from ..aiogithub.exceptions import AIOGitHubException, AIOGitHubRatelimit
 from .const import ELEMENT_TYPES
 from ..handler.logger import HacsLogger
 
+
 class HacsBase:
     """The base class of HACS, nested thoughout the project."""
 
@@ -35,16 +36,16 @@ class HacsBase:
 
     url_path = {}
     for endpoint in [
-            "api",
-            "admin",
-            "admin-api",
-            "base",
-            "error",
-            "overview",
-            "static",
-            "store",
-            "settings",
-            "repository",
+        "api",
+        "admin",
+        "admin-api",
+        "base",
+        "error",
+        "overview",
+        "static",
+        "store",
+        "settings",
+        "repository",
     ]:
         url_path[endpoint] = "/community_{}-{}".format(
             str(uuid.uuid4()), str(uuid.uuid4())
@@ -101,7 +102,9 @@ class HacsBase:
         from ..repositories.hacsrepositoryappdaemon import HacsRepositoryAppDaemon
         from ..repositories.hacsrepositoryintegration import HacsRepositoryIntegration
         from ..repositories.hacsrepositorybaseplugin import HacsRepositoryPlugin
-        from ..repositories.hacsrepositorypythonscript import HacsRepositoryPythonScripts
+        from ..repositories.hacsrepositorypythonscript import (
+            HacsRepositoryPythonScripts,
+        )
         from ..repositories.hacsrepositorytheme import HacsRepositoryThemes
 
         if await self.is_known_repository(repo):
@@ -138,7 +141,9 @@ class HacsBase:
             await repository.setup_repository()
         except (HacsRequirement, HacsBaseException, AIOGitHubException) as exception:
             if not self.store.task_running:
-                self.logger.error("{} - {}".format(repository.repository_name, exception))
+                self.logger.error(
+                    "{} - {}".format(repository.repository_name, exception)
+                )
             setup_result = False
 
         if setup_result:
@@ -156,7 +161,9 @@ class HacsBase:
         """Run update on registerd repositories, and register new."""
         self.store.task_running = True
 
-        self.logger.debug("Skipping repositories in blacklist {}".format(str(self.blacklist)))
+        self.logger.debug(
+            "Skipping repositories in blacklist {}".format(str(self.blacklist))
+        )
 
         # Running update on registerd repositories
         if self.store.repositories:
@@ -171,12 +178,12 @@ class HacsBase:
                     if repository.hide and repository.repository_id != "172733314":
                         continue
                     if now is not None:
-                        self.logger.info(
-                            "Running update", repository.repository_name
-                        )
+                        self.logger.info("Running update", repository.repository_name)
                         await repository.update()
                 except AIOGitHubException as exception:
-                    self.logger.error("{} - {}".format(repository.repository_name, exception))
+                    self.logger.error(
+                        "{} - {}".format(repository.repository_name, exception)
+                    )
 
         # Register new repositories
         appdaemon, integrations, plugins, python_scripts, themes = (
@@ -206,7 +213,9 @@ class HacsBase:
                             repository_type, repository.full_name, repository
                         )
                     except AIOGitHubException as exception:
-                        self.logger.error("{} - {}".format(repository.repository_name, exception))
+                        self.logger.error(
+                            "{} - {}".format(repository.repository_name, exception)
+                        )
         self.store.task_running = False
         self.store.write()
 
@@ -280,7 +289,9 @@ class HacsBase:
                 self.logger.info("Running update", repository.repository_name)
                 await repository.update()
             except AIOGitHubException as exception:
-                self.logger.error("{} - {}".format(repository.repository_name, exception))
+                self.logger.error(
+                    "{} - {}".format(repository.repository_name, exception)
+                )
         self.store.task_running = False
 
     @property

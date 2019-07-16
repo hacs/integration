@@ -1,6 +1,7 @@
 """Custom template support."""
 from jinja2 import Template
 
+
 def render_template(content, context):
     """Render templates in content."""
     # Fix None issues
@@ -8,9 +9,6 @@ def render_template(content, context):
         prerelease = context.last_release_object.prerelease
     else:
         prerelease = False
-
-
-
 
     # Render the template
     try:
@@ -21,9 +19,11 @@ def render_template(content, context):
             prerelease=prerelease,
             selected_tag=context.selected_tag,
             version_available=context.last_release_tag,
-            version_installed=context.version_installed
+            version_installed=context.version_installed,
         )
         return render
     except Exception as exception:
-        context.logger.warning("Error rendering info template {}".format(exception), "template")
+        context.logger.warning(
+            "Error rendering info template {}".format(exception), "template"
+        )
         return content

@@ -1,0 +1,61 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+      {
+          "label": "Start Home Assistant",
+          "type": "shell",
+          "command": "cp -f .devcontainer/configuration.yaml /config && cp -rf custom_components/hacs /config/custom_components/hacs && hass -c /config",
+          "group": {
+              "kind": "test",
+              "isDefault": true,
+          },
+          "presentation": {
+              "reveal": "always",
+              "panel": "new"
+          },
+          "problemMatcher": []
+      },
+      {
+        "label": "Black format",
+        "type": "shell",
+        "command": "pip3 install -U black && black custom_components/hacs",
+        "group": {
+            "kind": "test",
+            "isDefault": true,
+        },
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        },
+        "problemMatcher": []
+    },
+    {
+      "label": "Pytest",
+      "type": "shell",
+      "command": "pip3 install -r requirements.txt && pytest",
+      "group": {
+          "kind": "test",
+          "isDefault": true,
+      },
+      "presentation": {
+          "reveal": "always",
+          "panel": "new"
+      },
+      "problemMatcher": []
+  },
+  {
+    "label": "Upgrade Home Assistant",
+    "type": "shell",
+    "command": "python -m pip install --upgrade git+git://github.com/home-assistant/home-assistant.git@dev",
+    "group": {
+        "kind": "test",
+        "isDefault": true,
+    },
+    "presentation": {
+        "reveal": "always",
+        "panel": "new"
+    },
+    "problemMatcher": []
+}
+  ]
+}

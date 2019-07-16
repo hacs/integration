@@ -1,11 +1,10 @@
 """RepositoryInformationView, used for the frontend."""
 # pylint: disable=missing-docstring
-from distutils.version import LooseVersion
 from homeassistant.const import __version__ as HAVERSION
 from .repositoryinformation import RepositoryInformation
 
-class RepositoryInformationView(RepositoryInformation):
 
+class RepositoryInformationView(RepositoryInformation):
     @property
     def additional_info(self):
         if self.repository.additional_info is not None:
@@ -18,10 +17,9 @@ class RepositoryInformationView(RepositoryInformation):
             "default": "INSTALL",
             "installed": "REINSTALL",
             "pending-restart": "REINSTALL",
-            "pending-update": "UPGRADE"
+            "pending-update": "UPGRADE",
         }
         return actions[self.status]
-
 
     @property
     def display_authors(self):

@@ -54,7 +54,11 @@ CONFIG_SCHEMA = vol.Schema(
 
 async def async_setup(hass, config):  # pylint: disable=unused-argument
     """Set up this integration."""
-    from .aiogithub.exceptions import AIOGitHubAuthentication, AIOGitHubException, AIOGitHubRatelimit
+    from .aiogithub.exceptions import (
+        AIOGitHubAuthentication,
+        AIOGitHubException,
+        AIOGitHubRatelimit,
+    )
     from .hacsbase import HacsBase as hacs
 
     _LOGGER.info(STARTUP)
@@ -112,8 +116,8 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
             return
         await hacs().register_new_repository(repository_type, repository)
 
-    hass.services.async_register("hacs", 'install', service_hacs_install)
-    hass.services.async_register("hacs", 'register', service_hacs_register)
+    hass.services.async_register("hacs", "install", service_hacs_install)
+    hass.services.async_register("hacs", "register", service_hacs_register)
 
     # Mischief managed!
     return True
@@ -128,7 +132,8 @@ async def configure_hacs(hass, configuration, hass_config_dir):
     from . import const as const
     from .hacsbase import const as hacsconst
     from .hacsbase.migration import HacsMigration
-    #from .hacsbase.storage import HacsStorage
+
+    # from .hacsbase.storage import HacsStorage
 
     hacs.config = HacsConfiguration(configuration)
 
@@ -141,17 +146,15 @@ async def configure_hacs(hass, configuration, hass_config_dir):
 
     # Print DEV warning
     if hacs.config.dev:
-        _LOGGER.error(
-            const.DEV_MODE
-        )
+        _LOGGER.error(const.DEV_MODE)
         hass.components.persistent_notification.create(
             title="HACS DEV MODE",
             message=const.DEV_MODE,
-            notification_id="hacs_dev_mode"
+            notification_id="hacs_dev_mode",
         )
 
     hacs.migration = HacsMigration()
-    #hacs.storage = HacsStorage()
+    # hacs.storage = HacsStorage()
 
     hacs.aiogithub = AIOGitHub(
         hacs.config.token, hass.loop, async_create_clientsession(hass)

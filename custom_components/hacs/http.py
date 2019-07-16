@@ -12,13 +12,16 @@ from .repositories.repositoryinformationview import RepositoryInformationView
 
 WEBRESPONSE = {}
 
+
 def webresponse(classname):
     """Decorator used to register Web Responses."""
     WEBRESPONSE[classname.endpoint] = classname
     return classname
 
+
 class HacsWebResponse(HomeAssistantView, HacsBase):
     """Base View Class for HACS."""
+
     requires_auth = False
     name = "hacs"
 
@@ -36,8 +39,8 @@ class HacsWebResponse(HomeAssistantView, HacsBase):
         self.endpoint = path.split("/")[0]
         self.raw_headers = request.raw_headers
         self.request = request
-        self.requested_file = path.replace(self.endpoint+"/", "")
-        self.repository_id = path.replace(self.endpoint+"/", "")
+        self.requested_file = path.replace(self.endpoint + "/", "")
+        self.repository_id = path.replace(self.endpoint + "/", "")
         self.logger.debug("Endpoint ({}) called".format(self.endpoint), "web")
         if self.config.dev:
             self.logger.debug("Raw headers ({})".format(self.raw_headers), "web")
@@ -57,13 +60,21 @@ class HacsWebResponse(HomeAssistantView, HacsBase):
 
     def render(self, templatefile, location=None, repository=None, message=None):
         """Render a template file."""
-        loader = Environment(loader=PackageLoader('custom_components.hacs.frontend'))
-        template = loader.get_template(templatefile + '.html')
-        return template.render({"hacs": self, "location": location, "repository": repository, "message": message})
+        loader = Environment(loader=PackageLoader("custom_components.hacs.frontend"))
+        template = loader.get_template(templatefile + ".html")
+        return template.render(
+            {
+                "hacs": self,
+                "location": location,
+                "repository": repository,
+                "message": message,
+            }
+        )
 
 
 class HacsPluginView(HacsWebResponse):
     """Serve plugins."""
+
     name = "hacs:plugin"
 
     def __init__(self):
@@ -94,35 +105,42 @@ class HacsPluginView(HacsWebResponse):
 
         except Exception as error:  # pylint: disable=broad-except
             self.logger.debug(
-                "there was an issue trying to serve {} - {}".format(requested_file, error
-            ))
+                "there was an issue trying to serve {} - {}".format(
+                    requested_file, error
+                )
+            )
             response = web.Response(status=404)
 
         return response
 
+
 class HacsPlugin(HacsPluginView):
     """Alias for HacsPluginView."""
+
     def __init__(self):
         """Initialize."""
         self.url = r"/hacsplugin/{requested_file:.+}"
 
 
-
 @webresponse
 class Settings(HacsWebResponse):
     """Serve HacsSettingsView."""
+
     endpoint = "settings"
+
     async def response(self):
         """Serve HacsOverviewView."""
         message = self.request.rel_url.query.get("message")
-        render = self.render('settings', message=message)
+        render = self.render("settings", message=message)
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
 
 @webresponse
 class Static(HacsWebResponse):
     """Serve static files."""
+
     endpoint = "static"
+
     async def response(self):
         """Serve static files."""
         servefile = "{}/custom_components/hacs/frontend/elements/{}".format(
@@ -140,27 +158,33 @@ class Static(HacsWebResponse):
 @webresponse
 class Store(HacsWebResponse):
     """Serve HacsOverviewView."""
+
     endpoint = "store"
+
     async def response(self):
         """Serve HacsStoreView."""
-        render = self.render('overviews', 'store')
+        render = self.render("overviews", "store")
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
 
 @webresponse
 class Overview(HacsWebResponse):
     """Serve HacsOverviewView."""
+
     endpoint = "overview"
+
     async def response(self):
         """Serve HacsOverviewView."""
-        render = self.render('overviews', 'overview')
+        render = self.render("overviews", "overview")
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
 
 @webresponse
 class Repository(HacsWebResponse):
     """Serve HacsRepositoryView."""
+
     endpoint = "repository"
+
     async def response(self):
         """Serve HacsRepositoryView."""
         message = self.request.rel_url.query.get("message")
@@ -176,14 +200,16 @@ class Repository(HacsWebResponse):
             self.store.write()
 
         repository = RepositoryInformationView(repository)
-        render = self.render('repository', repository=repository, message=message)
+        render = self.render("repository", repository=repository, message=message)
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
 
 @webresponse
 class Error(HacsWebResponse):
     """Serve error page."""
+
     endpoint = "error"
+
     async def response(self):
         """Serve error page."""
         try:
@@ -236,11 +262,16 @@ class Error(HacsWebResponse):
                     <img rel="noreferrer" src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>
                 </div>
             """.format(
-                random.choice(self.hacsconst.ERROR), codeblock, self.const.ISSUE_URL)
+                random.choice(self.hacsconst.ERROR), codeblock, self.const.ISSUE_URL
+            )
 
         except Exception as exception:
             message = "GREAT!, even the error page is broken... ({})".format(exception)
             self.logger.error(message)
             content = "<h3>" + message + "</h3>"
 
-        return web.Response(body=self.render('error', message=content), content_type="text/html", charset="utf-8")
+        return web.Response(
+            body=self.render("error", message=content),
+            content_type="text/html",
+            charset="utf-8",
+        )

@@ -1,8 +1,8 @@
 """RepositoryInformation, used for the frontend."""
 # pylint: disable=missing-docstring
 
-class RepositoryInformation:
 
+class RepositoryInformation:
     def __init__(self, repository):
         self.repository = repository
 
@@ -90,7 +90,7 @@ class RepositoryInformation:
             "pending-restart": "Restart pending.",
             "pending-update": "Update pending.",
             "installed": "No action required.",
-            "new": "This is a newly added repository."
+            "new": "This is a newly added repository.",
         }
         return description[self.status]
 

@@ -1,8 +1,9 @@
 echo "Copy configuration.yaml"
-cp -rf .devcontainer/configuration.yaml /config || echo ".devcontainer/configuration.yaml are missing!" exit 1
+cp -f .devcontainer/configuration.yaml /config || echo ".devcontainer/configuration.yaml are missing!" exit 1
 
 echo "Copy the custom component"
-cp -r custom_components/hacs /config/custom_components/hacs || echo "Could not copy the custom_component" exit 1
+rm -R /config/custom_components/ || echo ""
+cp -r custom_components /config/custom_components/ || echo "Could not copy the custom_component" exit 1
 
 echo "Start Home Assistant"
 hass -c /config

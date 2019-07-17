@@ -2,9 +2,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Start Home Assistant",
+            "label": "Start Home Assistant on port 8124",
             "type": "shell",
-            "command": "bash .devcontainer/custom_component_helper",
+            "command": "source .devcontainer/custom_component_helper && StartHomeAssistant",
             "group": {
                 "kind": "test",
                 "isDefault": true,
@@ -16,9 +16,9 @@
             "problemMatcher": []
         },
         {
-            "label": "Pytest",
+            "label": "Upgrade Home Assistant to latest dev",
             "type": "shell",
-            "command": "pip3 install -r requirements.txt && pytest",
+            "command": "source .devcontainer/custom_component_helper && UpdgradeHomeAssistantDev",
             "group": {
                 "kind": "test",
                 "isDefault": true,
@@ -30,9 +30,23 @@
             "problemMatcher": []
         },
         {
-            "label": "Upgrade Home Assistant",
+            "label": "Set Home Assistant Version",
             "type": "shell",
-            "command": "python -m pip install --upgrade git+git://github.com/home-assistant/home-assistant.git@dev",
+            "command": "source .devcontainer/custom_component_helper && SetHomeAssistantVersion",
+            "group": {
+                "kind": "test",
+                "isDefault": true,
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Home Assistant Config Check",
+            "type": "shell",
+            "command": "source .devcontainer/custom_component_helper && HomeAssistantConfigCheck",
             "group": {
                 "kind": "test",
                 "isDefault": true,

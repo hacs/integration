@@ -9,11 +9,11 @@ _The easiest way to contribute to and/or test this repository._
 - [VS Code](https://code.visualstudio.com/)
 - [Remote - Containers (VSC Extention)](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-[More info about requirements and devcontainer in generall](https://code.visualstudio.com/docs/remote/containers#_getting-started)
+[More info about requirements and devcontainer in general](https://code.visualstudio.com/docs/remote/containers#_getting-started)
 
 ## How to use Devcontainer for development/test
 
-1. Make sure your computer meets the requrements.
+1. Make sure your computer meets the requirements.
 1. Fork this repository.
 1. Clone the repository to your computer.
 1. Open the repository using VS Code.
@@ -52,7 +52,7 @@ This will upgrade Home Assistant to the latest dev version.
 
 ### Set Home Assistant Version
 
-This allows you to spesify a version of Home Assistant to install inside the devcontainer.
+This allows you to specify a version of Home Assistant to install inside the devcontainer.
 
 ### Home Assistant Config Check
 

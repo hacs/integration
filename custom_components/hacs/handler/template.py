@@ -22,8 +22,5 @@ def render_template(content, context):
             version_installed=context.version_installed,
         )
         return render
-    except Exception as exception:
-        context.logger.warning(
-            "Error rendering info template {}".format(exception), "template"
-        )
+    except Exception:
         return content

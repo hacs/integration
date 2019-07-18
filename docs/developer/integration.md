@@ -18,7 +18,7 @@ For a integration repository to be valid these are the requirements:
 ```text
 custom_components/awesome/__init_.py
 custom_components/awesome/sensor.py
-custom_components/awesome/manifest.py
+custom_components/awesome/manifest.json
 info.md
 README.md
 ```
@@ -28,7 +28,7 @@ README.md
 ```text
 awesome/__init_.py
 awesome/sensor.py
-awesome/manifest.py
+awesome/manifest.json
 info.md
 README.md
 ```
@@ -38,7 +38,7 @@ README.md
 ```text
 __init_.py
 sensor.py
-manifest.py
+manifest.json
 info.md
 README.md
 ```

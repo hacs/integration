@@ -119,9 +119,23 @@ class HacsRepositoryBase(HacsBase):
         """Return bool if repository can be installed."""
         if self.homeassistant_version is not None:
             if self.version_or_commit == "version":
-                if LooseVersion(self.store.ha_version) < LooseVersion(
-                    self.homeassistant_version
-                ):
+                required = LooseVersion(self.homeassistant_version)
+                running = LooseVersion(self.store.ha_version)
+                if "b" in required.version and "b" not in running.version:
+                    if (
+                        (required.version[0] > running.version[0])
+                        or (required.version[1] > running.version[1])
+                        or (required.version[2] > running.version[2])
+                    ):
+                        return False
+                elif "dev" in required.version and "dev" not in running.version:
+                    if (
+                        (required.version[0] > running.version[0])
+                        or (required.version[1] > running.version[1])
+                        or (required.version[2] > running.version[2])
+                    ):
+                        return False
+                elif running < required:
                     return False
         return True
 

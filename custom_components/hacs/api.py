@@ -69,7 +69,7 @@ class Generic(HacsAPI):
         """Response."""
         self.logger.error("Unknown endpoint '{}'".format(self.endpoint), "adminapi")
         return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token), time()
+            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
         )
 
 
@@ -86,7 +86,7 @@ class RemoveNewFlag(HacsAPI):
             repository.new = False
         self.store.write()
         return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token), time()
+            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
         )
 
 
@@ -195,7 +195,7 @@ class RepositoryUninstall(HacsAPI):
         await repository.uninstall()
         self.store.write()
         return web.HTTPFound(
-            "/hacsweb/{}/store?timestamp={}".format(self.token), time()
+            "/hacsweb/{}/store?timestamp={}".format(self.token, time())
         )
 
 
@@ -211,7 +211,7 @@ class RepositoryRemove(HacsAPI):
         await repository.remove()
         self.store.write()
         return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token), time()
+            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
         )
 
 
@@ -227,7 +227,7 @@ class RepositoryHide(HacsAPI):
         repository.hide = True
         self.store.write()
         return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token), time()
+            "/hacsweb/{}/store?timestamp={}".format(self.token, time())
         )
 
 
@@ -243,7 +243,7 @@ class RepositoryUnhide(HacsAPI):
         repository.hide = False
         self.store.write()
         return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token), time()
+            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
         )
 
 
@@ -295,7 +295,7 @@ class RepositoriesReload(HacsAPI):
         """Response."""
         self.hass.async_create_task(self.update_repositories("Run it!"))
         return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token), time()
+            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
         )
 
 
@@ -312,7 +312,7 @@ class RepositoriesUpgradeAll(HacsAPI):
             if repository.pending_update:
                 await repository.install()
         return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token), time()
+            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
         )
 
 
@@ -331,16 +331,16 @@ class RepositoryRegister(HacsAPI):
         if not repository_name:
             message = "Repository URL is missing."
             return web.HTTPFound(
-                "/hacsweb/{}/settings?timestamp={}&message={}".format(self.token),
-                time(),
-                message,
+                "/hacsweb/{}/settings?timestamp={}&message={}".format(
+                    self.token, time(), message
+                )
             )
         if repository_type is None:
             message = "Type is missing for '{}'.".format(repository_name)
             return web.HTTPFound(
-                "/hacsweb/{}/settings?timestamp={}&message={}".format(self.token),
-                time(),
-                message,
+                "/hacsweb/{}/settings?timestamp={}&message={}".format(
+                    self.token, time(), message
+                )
             )
 
         # Stip first part if it's an URL.
@@ -453,6 +453,6 @@ class FrontentMode(HacsAPI):
         self.store.frontend_mode = self.postdata["view_type"]
         self.store.write()
         return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token), time()
+            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
         )
 

@@ -37,6 +37,7 @@ class HacsMigration(HacsBase):
             await self.from_2_to_3()
             await self.flush_data()
             await self.from_3_to_4()
+            await self.from_4_to_5()
 
         elif self._old.get("hacs", {}).get("schema") == "2":
             # Creating backup.
@@ -47,6 +48,7 @@ class HacsMigration(HacsBase):
             await self.from_2_to_3()
             await self.flush_data()
             await self.from_3_to_4()
+            await self.from_4_to_5()
 
         elif self._old.get("hacs", {}).get("schema") == "3":
             # Creating backup.
@@ -55,6 +57,16 @@ class HacsMigration(HacsBase):
             _LOGGER.info("Backing up current file to '%s'", destination)
             copy2(source, destination)
             await self.from_3_to_4()
+            await self.from_4_to_5()
+            self.store.write()
+
+        elif self._old.get("hacs", {}).get("schema") == "4":
+            # Creating backup.
+            source = "{}/.storage/hacs".format(self.config_dir)
+            destination = "{}.4".format(source)
+            _LOGGER.info("Backing up current file to '%s'", destination)
+            copy2(source, destination)
+            await self.from_4_to_5()
             self.store.write()
 
         elif self._old.get("hacs", {}).get("schema") == STORAGE_VERSION:
@@ -117,3 +129,14 @@ class HacsMigration(HacsBase):
             await repository.set_repository()
         self.store.schema = "4"
         _LOGGER.info("Migration of HACS data from 3 to 4 is complete.")
+
+    async def from_4_to_5(self):
+        """Migrate from storage version 3 to storage version 4."""
+        _LOGGER.info("Starting migration of HACS data from 4 to 5.")
+
+        for repository in self.store.repositories:
+            repository = self.store.repositories[repository]
+            if not repository.installed:
+                repository.show_beta = False
+        self.store.schema = "5"
+        _LOGGER.info("Migration of HACS data from 4 to 5 is complete.")

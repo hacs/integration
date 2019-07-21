@@ -362,9 +362,9 @@ class RepositoryRegister(HacsAPI):
                 )
 
                 return web.HTTPFound(
-                    "/hacsweb/{}/settings?timestamp={}&message={}".format(self.token),
-                    time(),
-                    message,
+                    "/hacsweb/{}/settings?timestamp={}&message={}".format(
+                        self.token, time(), message
+                    )
                 )
 
             is_known_repository = await self.is_known_repository(repository_name)
@@ -373,9 +373,9 @@ class RepositoryRegister(HacsAPI):
                     repository_name
                 )
                 return web.HTTPFound(
-                    "/hacsweb/{}/settings?timestamp={}&message={}".format(self.token),
-                    time(),
-                    message,
+                    "/hacsweb/{}/settings?timestamp={}&message={}".format(
+                        self.token, time(), message
+                    )
                 )
 
             if repository_name in self.blacklist:
@@ -399,9 +399,9 @@ class RepositoryRegister(HacsAPI):
             repository_name, repository_type
         )
         return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}&message={}".format(self.token),
-            time(),
-            message,
+            "/hacsweb/{}/settings?timestamp={}&message={}".format(
+                self.token, time(), message
+            )
         )
 
 

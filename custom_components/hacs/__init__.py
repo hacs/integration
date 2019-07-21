@@ -129,7 +129,7 @@ async def configure_hacs(hass, configuration, hass_config_dir):
     from .hacsbase import HacsBase as hacs
     from .hacsbase.configuration import HacsConfiguration
     from .hacsbase.data import HacsData
-    from . import const as const
+    from . import const
     from .hacsbase import const as hacsconst
     from .hacsbase.migration import HacsMigration
 

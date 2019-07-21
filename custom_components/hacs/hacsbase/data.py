@@ -10,7 +10,6 @@ from ..repositories.hacsrepositoryintegration import HacsRepositoryIntegration
 from ..repositories.hacsrepositorybaseplugin import HacsRepositoryPlugin
 from ..repositories.hacsrepositorypythonscript import HacsRepositoryPythonScripts
 from ..repositories.hacsrepositorytheme import HacsRepositoryThemes
-from ..repositories.repositoryinformationview import RepositoryInformationView
 
 
 class HacsData:

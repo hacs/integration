@@ -189,6 +189,9 @@ class Repository(HacsWebResponse):
     async def response(self):
         """Serve HacsRepositoryView."""
         message = self.request.rel_url.query.get("message")
+        if str(self.repository_id) not in self.store.repositories:
+            return web.Response(status=404)
+
         repository = self.store.repositories[str(self.repository_id)]
         if not repository.updated_info:
             await repository.set_repository()

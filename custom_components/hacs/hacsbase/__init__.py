@@ -5,6 +5,8 @@ from datetime import timedelta
 
 from homeassistant.helpers.event import async_call_later, async_track_time_interval
 
+from integrationhelper.version import Version
+
 from ..aiogithub.exceptions import AIOGitHubException, AIOGitHubRatelimit
 from ..handler.logger import HacsLogger
 from .system import System
@@ -20,6 +22,7 @@ class Hacs:
     logger = HacsLogger()
     github = None
     hass = None
+    version = Version(0, 13, 0)
     system = System()
 
 
@@ -237,17 +240,18 @@ class HacsBase:
 
     async def get_repositories(self):
         """Get defined repositories."""
-        if Hacs.developer.devcontainer:
-            return (
-                [await self.aiogithub.get_repo("ludeeus/ad-hacs")],
-                [
-                    await self.aiogithub.get_repo("custom-components/hacs"),
-                    await self.aiogithub.get_repo("ludeeus/integration-hacs"),
-                ],
-                [await self.aiogithub.get_repo("maykar/compact-custom-header")],
-                [await self.aiogithub.get_repo("ludeeus/ps-hacs")],
-                [await self.aiogithub.get_repo("ludeeus/theme-hacs")],
-            )
+        if Hacs.configuration.dev:
+            if Hacs.developer.devcontainer:
+                return (
+                    [await self.aiogithub.get_repo("ludeeus/ad-hacs")],
+                    [
+                        await self.aiogithub.get_repo("custom-components/hacs"),
+                        await self.aiogithub.get_repo("ludeeus/integration-hacs"),
+                    ],
+                    [await self.aiogithub.get_repo("maykar/compact-custom-header")],
+                    [await self.aiogithub.get_repo("ludeeus/ps-hacs")],
+                    [await self.aiogithub.get_repo("ludeeus/theme-hacs")],
+                )
 
         repositories = {
             "appdaemon": [],

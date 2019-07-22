@@ -1,5 +1,4 @@
 """Constants for HACS"""
-VERSION = "0.13.0"
 NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
 DOMAIN = "hacs"

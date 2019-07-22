@@ -2,6 +2,7 @@
 import os
 import random
 import sys
+from time import time
 import traceback
 from homeassistant.components.http import HomeAssistantView
 from jinja2 import Environment, PackageLoader
@@ -69,6 +70,7 @@ class HacsWebResponse(HomeAssistantView, HacsBase):
                 "location": location,
                 "repository": repository,
                 "message": message,
+                "timestamp": time(),
             }
         )
 
@@ -197,6 +199,7 @@ class Repository(HacsWebResponse):
             await repository.set_repository()
             await repository.update()
             repository.updated_info = True
+
             self.store.write()
 
         if repository.new:

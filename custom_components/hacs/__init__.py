@@ -60,18 +60,31 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
         AIOGitHubRatelimit,
     )
     from .hacsbase import HacsBase as hacs
+    from .hacsbase import Hacs
+    from .hacsbase.configuration import Configuration
 
     _LOGGER.info(STARTUP)
-    config_dir = hass.config.path()
+    Hacs.configuration = Configuration(config[DOMAIN])
+    Hacs.configuration.path = hass.config.path()
+    Hacs.system.ha_version = HAVERSION
+
+    # Load manifest
+    with open(
+        f"{Hacs.configuration.path}/custom_components/hacs/manifest.json", "r"
+    ) as read:
+        manifest = json.loads(read.read())
 
     # Check if HA is the required version.
-    if LooseVersion(HAVERSION) < LooseVersion("0.97.0"):
-        _LOGGER.critical("You need HA version 97 or newer to use this integration.")
+    if LooseVersion(Hacs.system.ha_version) < LooseVersion(manifest["homeassistant"]):
+        _LOGGER.critical(
+            "You need HA version %s or newer to use this integration.",
+            manifest["homeassistant"],
+        )
         return False
 
     # Configure HACS
     try:
-        await configure_hacs(hass, config[DOMAIN], config_dir)
+        await configure_hacs(hass)
     except AIOGitHubAuthentication as exception:
         _LOGGER.error(exception)
         return False
@@ -82,8 +95,10 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
 
     # Check if custom_updater exists
     for location in CUSTOM_UPDATER_LOCATIONS:
-        if os.path.exists(location.format(config_dir)):
-            msg = CUSTOM_UPDATER_WARNING.format(location.format(config_dir))
+        if os.path.exists(location.format(Hacs.configuration.path)):
+            msg = CUSTOM_UPDATER_WARNING.format(
+                location.format(Hacs.configuration.path)
+            )
             _LOGGER.critical(msg)
             return False
 
@@ -123,19 +138,18 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     return True
 
 
-async def configure_hacs(hass, configuration, hass_config_dir):
+async def configure_hacs(hass):
     """Configure HACS."""
     from .aiogithub import AIOGitHub
-    from .hacsbase import HacsBase as hacs
-    from .hacsbase.configuration import HacsConfiguration
+    from .hacsbase import HacsBase as hacs, Hacs
     from .hacsbase.data import HacsData
+    from .hacsbase.developer import Developer
+    from .hacsbase.repositories import HacsRepositories
     from . import const
     from .hacsbase import const as hacsconst
     from .hacsbase.migration import HacsMigration
 
-    # from .hacsbase.storage import HacsStorage
-
-    hacs.config = HacsConfiguration(configuration)
+    hacs.config = Hacs.configuration
 
     if hacs.config.appdaemon:
         ELEMENT_TYPES.append("appdaemon")
@@ -153,25 +167,35 @@ async def configure_hacs(hass, configuration, hass_config_dir):
             notification_id="hacs_dev_mode",
         )
 
-    hacs.migration = HacsMigration()
-    # hacs.storage = HacsStorage()
+    ######################################################################
+    ### NEW SETUP ####
+    ######################################################################
 
-    hacs.aiogithub = AIOGitHub(
-        hacs.config.token, hass.loop, async_create_clientsession(hass)
-    )
+    Hacs.hass = hass
+    Hacs.developer = Developer()
+    Hacs.github = AIOGitHub(Hacs.configuration.token, async_create_clientsession(hass))
+    Hacs.repositories = HacsRepositories()
+    Hacs.migration = HacsMigration()
 
+    ######################################################################
+    ### OLD ###
+    ######################################################################
+
+    hacs.migration = Hacs.migration
+
+    hacs.aiogithub = Hacs.github
     hacs.hacs_github = await hacs.aiogithub.get_repo("custom-components/hacs")
 
     hacs.hass = hass
     hacs.const = const
     hacs.hacsconst = hacsconst
-    hacs.config_dir = hass_config_dir
-    hacs.store = HacsData(hass_config_dir)
+    hacs.config_dir = Hacs.configuration.path
+    hacs.store = HacsData(Hacs.configuration.path)
     hacs.store.restore_values()
     hacs.element_types = sorted(ELEMENT_TYPES)
 
     if hacs.config.dev:
-        hacs.logger.prefix = "custom_components.hacs.dev"
+        hacs.logger.prefix += ".dev"
 
 
 async def setup_frontend(hass, hacs):

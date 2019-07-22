@@ -1,12 +1,13 @@
 """HACS Configuration."""
 
 
-class HacsConfiguration:
-    """HacsConfiguration class."""
+class Configuration:
+    """Configuration class."""
 
     def __init__(self, config):
         """Initialize."""
         self.config = config
+        self.path = None
 
     @property
     def token(self):

@@ -1,5 +1,5 @@
 """AioGitHub: Repository"""
-from asyncio import CancelledError, TimeoutError
+from asyncio import CancelledError, TimeoutError, get_event_loop
 from datetime import datetime
 
 import async_timeout
@@ -16,9 +16,9 @@ from .exceptions import AIOGitHubException, AIOGitHubRatelimit
 class AIOGithubRepository(AIOGitHub):
     """Repository Github API implementation."""
 
-    def __init__(self, attributes, token, loop, session):
+    def __init__(self, attributes, token, session):
         """Initialize."""
-        super().__init__(token, loop, session)
+        super().__init__(token, session)
         self.attributes = attributes
         self._last_commit = None
 
@@ -68,7 +68,7 @@ class AIOGithubRepository(AIOGitHub):
         if ref is not None:
             params["ref"] = ref.replace("tags/", "")
 
-        async with async_timeout.timeout(20, loop=self.loop):
+        async with async_timeout.timeout(20, loop=get_event_loop()):
             response = await self.session.get(url, headers=self.headers, params=params)
             self.ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.json()
@@ -103,7 +103,7 @@ class AIOGithubRepository(AIOGitHub):
         endpoint = "/repos/{}/releases".format(self.full_name)
         url = BASE_URL + endpoint
 
-        async with async_timeout.timeout(20, loop=self.loop):
+        async with async_timeout.timeout(20, loop=get_event_loop()):
             response = await self.session.get(url, headers=self.headers)
             self.ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.json()
@@ -137,7 +137,7 @@ class AIOGithubRepository(AIOGitHub):
         endpoint = "/repos/" + self.full_name + "/commits/" + self.default_branch
         url = BASE_URL + endpoint
 
-        async with async_timeout.timeout(20, loop=self.loop):
+        async with async_timeout.timeout(20, loop=get_event_loop()):
             response = await self.session.get(url, headers=self.headers)
             self.ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.json()

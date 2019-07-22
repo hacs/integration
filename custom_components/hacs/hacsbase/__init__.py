@@ -1,13 +1,26 @@
 """Initialize the HACS base."""
-"""# pylint: disable=too-few-public-methods,unused-argument"""
-
-import uuid
 import json
+import uuid
 from datetime import timedelta
-from homeassistant.helpers.event import async_track_time_interval, async_call_later
+
+from homeassistant.helpers.event import async_call_later, async_track_time_interval
+
 from ..aiogithub.exceptions import AIOGitHubException, AIOGitHubRatelimit
-from .const import ELEMENT_TYPES
 from ..handler.logger import HacsLogger
+from .system import System
+from .const import ELEMENT_TYPES
+
+
+class Hacs:
+    """The base class of HACS, nested thoughout the project."""
+
+    repositories = []
+    developer = None
+    configuration = None
+    logger = HacsLogger()
+    github = None
+    hass = None
+    system = System()
 
 
 class HacsBase:
@@ -56,6 +69,9 @@ class HacsBase:
 
     async def startup_tasks(self, notarealargument=None):
         """Run startup_tasks."""
+        from .startup import HacsStartup
+
+        await HacsStartup().run_startup()
         self.store.task_running = True
 
         self.logger.info("Runing startup tasks.")
@@ -221,6 +237,18 @@ class HacsBase:
 
     async def get_repositories(self):
         """Get defined repositories."""
+        if Hacs.developer.devcontainer:
+            return (
+                [await self.aiogithub.get_repo("ludeeus/ad-hacs")],
+                [
+                    await self.aiogithub.get_repo("custom-components/hacs"),
+                    await self.aiogithub.get_repo("ludeeus/integration-hacs"),
+                ],
+                [await self.aiogithub.get_repo("maykar/compact-custom-header")],
+                [await self.aiogithub.get_repo("ludeeus/ps-hacs")],
+                [await self.aiogithub.get_repo("ludeeus/theme-hacs")],
+            )
+
         repositories = {
             "appdaemon": [],
             "integration": [],

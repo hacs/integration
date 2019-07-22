@@ -1,7 +1,7 @@
 """AioGitHub: Base"""
 # pylint: disable=super-init-not-called,missing-docstring,invalid-name,redefined-builtin
 import logging
-from asyncio import CancelledError, TimeoutError
+from asyncio import CancelledError, TimeoutError, get_event_loop
 
 import async_timeout
 from aiohttp import ClientError
@@ -17,10 +17,9 @@ _LOGGER = logging.getLogger("AioGitHub")
 class AIOGitHub(object):
     """Base Github API implementation."""
 
-    def __init__(self, token, loop, session):
+    def __init__(self, token, session):
         """Must be called before anything else."""
         self.token = token
-        self.loop = loop
         self.session = session
         self.ratelimit_remaining = None
         self.headers = BASE_HEADERS
@@ -42,7 +41,7 @@ class AIOGitHub(object):
         headers = self.headers
         headers["Accept"] = "application/vnd.github.mercy-preview+json"
 
-        async with async_timeout.timeout(20, loop=self.loop):
+        async with async_timeout.timeout(20, loop=get_event_loop()):
             response = await self.session.get(url, headers=headers)
             self.ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.json()
@@ -56,7 +55,7 @@ class AIOGitHub(object):
                 else:
                     raise AIOGitHubException(response["message"])
 
-        return AIOGithubRepository(response, self.token, self.loop, self.session)
+        return AIOGithubRepository(response, self.token, self.session)
 
     @backoff.on_exception(
         backoff.expo, (ClientError, CancelledError, TimeoutError, KeyError), max_tries=5
@@ -75,7 +74,7 @@ class AIOGitHub(object):
         headers = self.headers
         headers["Accept"] = "application/vnd.github.mercy-preview+json"
 
-        async with async_timeout.timeout(20, loop=self.loop):
+        async with async_timeout.timeout(20, loop=get_event_loop()):
             response = await self.session.get(url, headers=headers, params=params)
             self.ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.json()
@@ -93,7 +92,7 @@ class AIOGitHub(object):
 
             for repository in response:
                 repositories.append(
-                    AIOGithubRepository(repository, self.token, self.loop, self.session)
+                    AIOGithubRepository(repository, self.token, self.session)
                 )
 
         return repositories
@@ -111,7 +110,7 @@ class AIOGitHub(object):
         headers = self.headers
         headers["Content-Type"] = "text/plain"
 
-        async with async_timeout.timeout(20, loop=self.loop):
+        async with async_timeout.timeout(20, loop=get_event_loop()):
             response = await self.session.post(url, headers=headers, data=content)
             self.ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.text()

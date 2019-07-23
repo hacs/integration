@@ -13,6 +13,19 @@ from .system import System
 from .const import ELEMENT_TYPES
 
 
+class HacsStatus:
+    """HacsStatus."""
+
+    startup = True
+    background_task = True
+
+
+class HacsCommon:
+    """Common for HACS."""
+
+    status = HacsStatus()
+
+
 class Hacs:
     """The base class of HACS, nested thoughout the project."""
 
@@ -24,6 +37,7 @@ class Hacs:
     hass = None
     version = Version(0, 13, 0)
     system = System()
+    common = HacsCommon()
 
 
 class HacsBase:

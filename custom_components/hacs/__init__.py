@@ -133,6 +133,14 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hass.services.async_register("hacs", "install", service_hacs_install)
     hass.services.async_register("hacs", "register", service_hacs_register)
 
+    from .repositories.theme import HacsTheme
+    from .repositories.repository import RERPOSITORY_CLASSES
+
+    test = HacsTheme("ludeeus/theme-hacs")
+    await test.validate_repository()
+
+    _LOGGER.critical(RERPOSITORY_CLASSES)
+
     # Mischief managed!
     return True
 

@@ -1,5 +1,6 @@
 """Repository."""
-from integrationhelper import Validate
+# pylint: disable=broad-except
+from integrationhelper import Validate, Logger
 from ..hacsbase import Hacs
 
 
@@ -8,7 +9,7 @@ RERPOSITORY_CLASSES = {}
 
 def register_repository_class(cls):
     """Register class."""
-    RERPOSITORY_CLASSES[cls.name] = cls
+    RERPOSITORY_CLASSES[cls.category] = cls
     return cls
 
 
@@ -55,7 +56,7 @@ class RepositoryInformation:
     description = ""
     full_name = None
     homeassistant_version = None
-    id = None
+    uid = None
     info = None
     local_path = None
     name = None
@@ -89,12 +90,51 @@ class HacsRepository(Hacs):
         self.information = RepositoryInformation()
         self.repository_object = None
         self.status = RepositoryStatus()
-        self.validate = Validate()
+        self.validate = None
         self.versions = RepositoryVersions()
+        self.logger = None
 
     async def common_validate(self):
         """Common validation steps of the repository."""
+        # Attach helpers
         self.validate = Validate()
+        self.logger = Logger(
+            f"hacs.repository.{self.information.category}.{self.information.full_name}"
+        )
+
+        # Step 1: Make sure the repository exist.
+        self.logger.debug("Checking repository.")
+        try:
+            self.repository_object = await self.github.get_repo(
+                self.information.full_name
+            )
+        except SystemError as exception:  # Gotta Catch 'Em All
+            if not self.common.status.startup:
+                self.logger.error(exception)
+            self.validate.errors.append(
+                f"Repository {self.information.full_name} does not exist."
+            )
+            return
+
+    async def common_registration(self):
+        """Common registration steps of the repository."""
+        # Attach logger
+        if self.logger is None:
+            self.logger = Logger(
+                f"hacs.repository.{self.information.category}.{self.information.full_name}"
+            )
+        # Attach repository
+        if self.repository_object is None:
+            self.repository_object = await self.github.get_repo(
+                self.information.full_name
+            )
+
+        # Set values
+        ## Set repository name
+        self.information.name = self.information.full_name.split("/")[1]
+
+        ## Set id
+        self.information.uid = str(self.repository_object.id)
 
     async def common_update(self):
         """Common information update steps of the repository."""

@@ -133,9 +133,6 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hass.services.async_register("hacs", "install", service_hacs_install)
     hass.services.async_register("hacs", "register", service_hacs_register)
 
-    from .repositories.theme import HacsTheme
-    from .repositories.repository import RERPOSITORY_CLASSES
-
     # Mischief managed!
     return True
 
@@ -146,7 +143,6 @@ async def configure_hacs(hass):
     from .hacsbase import HacsBase as hacs, Hacs
     from .hacsbase.data import HacsData
     from .hacsbase.developer import Developer
-    from .hacsbase.repositories import HacsRepositories
     from . import const
     from .hacsbase import const as hacsconst
     from .hacsbase.migration import HacsMigration
@@ -177,8 +173,9 @@ async def configure_hacs(hass):
     Hacs.developer = Developer()
     Hacs.github = AIOGitHub(Hacs.configuration.token, async_create_clientsession(hass))
     Hacs.migration = HacsMigration()
+    Hacs.data = HacsData(Hacs.configuration.path)
 
-    #    await Hacs().register_repository("custom-components/hacs", "integration")
+    await Hacs().register_repository("ludeeus/theme-hacs", "theme")
 
     ######################################################################
     ### OLD ###

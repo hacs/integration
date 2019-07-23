@@ -7,7 +7,6 @@ class Configuration:
     def __init__(self, config):
         """Initialize."""
         self.config = config
-        self.path = None
 
     @property
     def token(self):

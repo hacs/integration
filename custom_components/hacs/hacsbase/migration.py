@@ -1,142 +1,104 @@
 """HACS Migration logic."""
-import logging
+# pylint: disable=broad-except,no-member
 import json
 from shutil import copy2
 
-import aiofiles
+from integrationhelper import Logger, Validate
 
 from . import HacsBase
+from . import Hacs
 from .const import STORAGE_VERSION, STORENAME
 
-_LOGGER = logging.getLogger("custom_components.hacs.migration")
+
+MIGRATIONS = {}
+
+
+def register(cls):
+    """Register steps."""
+    MIGRATIONS[cls.from_version] = cls
+    return cls
+
+
+class ValidateData(Hacs):
+    """Validate."""
+
+    def validate_local_data_file(self):
+        """Validate content."""
+        validate = Validate()
+        old_data = self.data.read()
+
+        if not old_data or old_data.get("hacs", {}).get("schema") is None:
+            # new install.
+            pass
+
+        if old_data.get("hacs", {}).get("schema") == STORAGE_VERSION:
+            # Newest version, no need to do anything.
+            return
+
+        current = old_data.get("hacs", {}).get("schema")
+
+        for version in range(current, STORAGE_VERSION + 1):
+            if version in MIGRATIONS:
+                MIGRATIONS[version].migrate()
+            else:
+                validate.errors.append(f"Missing migration step for {version}")
+
+        if validate.errors:
+            for error in validate.errors:
+                self.logger.critical(error)
+        return validate.success
 
 
 class HacsMigration(HacsBase):
     """HACS data migration handler."""
 
-    _old = None
-
     async def validate(self):
-        """Check the current storage version to determine if migration is needed."""
-        self._old = self.store.read()
+        return
 
-        if not self._old:
-            # Could not read the current file, it probably does not exist.
-            # Running full scan.
-            await self.update_repositories()
-            self.store.schema = STORAGE_VERSION
-            await self.flush_data()
 
-        elif self._old.get("hacs", {}).get("schema") == "1":
-            # Creating backup.
-            source = "{}/.storage/hacs".format(self.config_dir)
-            destination = "{}.1".format(source)
-            _LOGGER.info("Backing up current file to '%s'", destination)
-            copy2(source, destination)
-            await self.from_1_to_2()
-            await self.from_2_to_3()
-            await self.flush_data()
-            await self.from_3_to_4()
-            await self.from_4_to_5()
+class Migration(Hacs):
+    """Hacs migrations"""
 
-        elif self._old.get("hacs", {}).get("schema") == "2":
-            # Creating backup.
-            source = "{}/.storage/hacs".format(self.config_dir)
-            destination = "{}.2".format(source)
-            _LOGGER.info("Backing up current file to '%s'", destination)
-            copy2(source, destination)
-            await self.from_2_to_3()
-            await self.flush_data()
-            await self.from_3_to_4()
-            await self.from_4_to_5()
+    def __init__(self, old_data):
+        """initialize migration."""
+        self.old_data = old_data
+        self.logger = Logger(f"hacs.migration")
+        self.source = f"{self.system.config_path}/.storage/hacs"
+        self.cleanup()
+        self.backup()
 
-        elif self._old.get("hacs", {}).get("schema") == "3":
-            # Creating backup.
-            source = "{}/.storage/hacs".format(self.config_dir)
-            destination = "{}.3".format(source)
-            _LOGGER.info("Backing up current file to '%s'", destination)
-            copy2(source, destination)
-            await self.from_3_to_4()
-            await self.from_4_to_5()
-            self.store.write()
+    def cleanup(self):
+        """Remove files no longer in use."""
 
-        elif self._old.get("hacs", {}).get("schema") == "4":
-            # Creating backup.
-            source = "{}/.storage/hacs".format(self.config_dir)
-            destination = "{}.4".format(source)
-            _LOGGER.info("Backing up current file to '%s'", destination)
-            copy2(source, destination)
-            await self.from_4_to_5()
-            self.store.write()
+    def backup(self):
+        """Back up old file."""
+        destination = f"{self.source}.{self.from_version - 1}"
+        self.logger.info(f"Backing up current file to '{destination}'")
+        copy2(self.source, destination)
 
-        elif self._old.get("hacs", {}).get("schema") == STORAGE_VERSION:
-            pass
-
-        else:
-            # Should not get here, but do a full scan just in case...
-            await self.update_repositories()
-            self.store.schema = STORAGE_VERSION
-            await self.flush_data()
-
-    async def flush_data(self):
-        """Flush validated data."""
-        _LOGGER.info("Flushing data to storage.")
-
-        if self._old is None:
-            self.store.write()
-            return
-
-        datastore = "{}/.storage/{}".format(self.config_dir, STORENAME)
+    def save(self):
+        """Save the content."""
+        datastore = f"{self.system.config_path}/.storage/{STORENAME}"
 
         try:
-            async with aiofiles.open(
+            with open(
                 datastore, mode="w", encoding="utf-8", errors="ignore"
             ) as outfile:
-                await outfile.write(json.dumps(self._old, indent=4))
-                outfile.close()
+                outfile.write(json.dumps(self.old_data, indent=4))
 
-        except Exception as error:
-            msg = "Could not write data to {} - {}".format(datastore, error)
-            _LOGGER.error(msg)
+        except Exception as error:  # Gotta Catch 'Em All
+            self.logger.error(f"Could not write data to {datastore} - {error}")
 
-    async def from_1_to_2(self):
-        """Migrate from storage version 1 to storage version 2."""
-        _LOGGER.info("Starting migration of HACS data from 1 to 2.")
-        self.data = self._old
 
-        for repository in self._old["repositories"]:
-            self._old["repositories"][repository]["show_beta"] = False
-        self._old.get("hacs", {})["schema"] = "2"
-        _LOGGER.info("Migration of HACS data from 1 to 2 is complete.")
+@register
+class FromVersion4(Migration):
+    """Migrate from version 4"""
 
-    async def from_2_to_3(self):
-        """Migrate from storage version 2 to storage version 3."""
-        _LOGGER.info("Starting migration of HACS data from 2 to 3.")
-        self.data = self._old
+    from_version = 4
 
-        for repository in self._old["repositories"]:
-            if self._old["repositories"][repository]["installed"]:
-                self._old["repositories"][repository]["new"] = False
-        self._old.get("hacs", {})["schema"] = "3"
-        _LOGGER.info("Migration of HACS data from 2 to 3 is complete.")
-
-    async def from_3_to_4(self):
-        """Migrate from storage version 3 to storage version 4."""
-        _LOGGER.info("Starting migration of HACS data from 3 to 4.")
-
-        for repository in self.store.repositories:
-            repository = self.store.repositories[repository]
-            await repository.set_repository()
-        self.store.schema = "4"
-        _LOGGER.info("Migration of HACS data from 3 to 4 is complete.")
-
-    async def from_4_to_5(self):
-        """Migrate from storage version 3 to storage version 4."""
-        _LOGGER.info("Starting migration of HACS data from 4 to 5.")
-
-        for repository in self.store.repositories:
-            repository = self.store.repositories[repository]
-            if not repository.installed:
-                repository.show_beta = False
-        self.store.schema = "5"
-        _LOGGER.info("Migration of HACS data from 4 to 5 is complete.")
+    def migrate(self):
+        """Start migration."""
+        self.logger.info(f"Starting migration from {self.from_version}")
+        for repository in self.old_data:
+            if not self.old_data[repository]["installed"]:
+                self.old_data[repository]["show_beta"] = False

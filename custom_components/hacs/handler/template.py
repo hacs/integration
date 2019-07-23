@@ -1,4 +1,5 @@
 """Custom template support."""
+# pylint: disable=broad-except
 from jinja2 import Template
 
 
@@ -22,5 +23,5 @@ def render_template(content, context):
             version_installed=context.version_installed,
         )
         return render
-    except Exception:
+    except Exception:  # Gotta Catch 'Em All
         return content

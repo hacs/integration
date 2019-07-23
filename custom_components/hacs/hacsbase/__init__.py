@@ -1,4 +1,5 @@
 """Initialize the HACS base."""
+# pylint: disable=unused-argument, bad-continuation
 import json
 import uuid
 from datetime import timedelta
@@ -24,6 +25,8 @@ class HacsCommon:
     """Common for HACS."""
 
     status = HacsStatus()
+    blacklist = []
+    default = []
 
 
 class Hacs:
@@ -31,6 +34,7 @@ class Hacs:
 
     repositories = []
     developer = None
+    data = None
     configuration = None
     logger = Logger("hacs")
     github = None
@@ -48,13 +52,13 @@ class Hacs:
             return False
 
         repository = RERPOSITORY_CLASSES[category](full_name)
-        if not await repository.validate_repository():
+        await repository.registration()
+        if repository.validate.errors:
             self.logger.error(f"Validation for {full_name} failed.")
             return repository.validate.errors
 
-        await repository.registration()
         self.repositories.append(repository)
-        return True
+        repository.logger.info("Registration complete")
 
 
 class HacsBase:

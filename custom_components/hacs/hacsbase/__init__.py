@@ -5,7 +5,7 @@ from datetime import timedelta
 
 from homeassistant.helpers.event import async_call_later, async_track_time_interval
 
-from integrationhelper.version import Version
+from integrationhelper import Version, Logger
 
 from ..aiogithub.exceptions import AIOGitHubException, AIOGitHubRatelimit
 from ..handler.logger import HacsLogger
@@ -32,12 +32,29 @@ class Hacs:
     repositories = []
     developer = None
     configuration = None
-    logger = HacsLogger()
+    logger = Logger("hacs")
     github = None
     hass = None
     version = Version(0, 13, 0)
     system = System()
     common = HacsCommon()
+
+    async def register_repository(self, full_name, category):
+        """Register a repository."""
+        from ..repositories.repository import RERPOSITORY_CLASSES
+
+        if category not in RERPOSITORY_CLASSES:
+            self.logger.error(f"{category} is not a valid repository category.")
+            return False
+
+        repository = RERPOSITORY_CLASSES[category](full_name)
+        if not await repository.validate_repository():
+            self.logger.error(f"Validation for {full_name} failed.")
+            return repository.validate.errors
+
+        await repository.registration()
+        self.repositories.append(repository)
+        return True
 
 
 class HacsBase:

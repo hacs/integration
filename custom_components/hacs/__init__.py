@@ -136,11 +136,6 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     from .repositories.theme import HacsTheme
     from .repositories.repository import RERPOSITORY_CLASSES
 
-    test = HacsTheme("ludeeus/theme-hacs")
-    await test.validate_repository()
-
-    _LOGGER.critical(RERPOSITORY_CLASSES)
-
     # Mischief managed!
     return True
 
@@ -181,8 +176,9 @@ async def configure_hacs(hass):
     Hacs.hass = hass
     Hacs.developer = Developer()
     Hacs.github = AIOGitHub(Hacs.configuration.token, async_create_clientsession(hass))
-    Hacs.repositories = HacsRepositories()
     Hacs.migration = HacsMigration()
+
+    #    await Hacs().register_repository("custom-components/hacs", "integration")
 
     ######################################################################
     ### OLD ###

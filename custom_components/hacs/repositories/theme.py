@@ -23,3 +23,7 @@ class HacsTheme(HacsRepository):
                 if not self.common.status.startup:
                     self.logger.error(error)
         return self.validate.success
+
+    async def registration(self):
+        """Registration."""
+        await self.common_registration()

@@ -16,7 +16,7 @@ from ..hacsbase.exceptions import (
     HacsBlacklistException,
 )
 from ..handler.download import async_download_file, async_save_file
-from ..hacsbase.const import VERSION, NOT_SUPPORTED_HA_VERSION
+from ..hacsbase.const import NOT_SUPPORTED_HA_VERSION
 
 _LOGGER = logging.getLogger("custom_components.hacs.repository")
 
@@ -162,7 +162,7 @@ class HacsRepositoryBase(HacsBase):
         if self.repository_name == "custom-components/hacs":
             self.hide = False
             self.installed = True
-            self.version_installed = VERSION
+            self.version_installed = "x.x.x"
 
         # Validate the repository name
         await self.validate_repository_name()

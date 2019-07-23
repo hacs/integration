@@ -32,6 +32,7 @@ class HacsWebResponse(HomeAssistantView, HacsBase):
         self.endpoint = None
         self.postdata = None
         self.raw_headers = None
+        self.repository_id = None
         self.request = None
         self.requested_file = None
 

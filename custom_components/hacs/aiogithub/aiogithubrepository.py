@@ -3,10 +3,10 @@ from asyncio import CancelledError, TimeoutError, get_event_loop
 from datetime import datetime
 
 import async_timeout
-import backoff
 from aiohttp import ClientError
-
 from integrationhelper.const import GOOD_HTTP_CODES
+
+import backoff
 
 from .aiogithub import AIOGitHub
 from .aiogithubrepositorycontent import AIOGithubRepositoryContent

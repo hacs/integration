@@ -2,7 +2,7 @@
 import os
 import json
 from homeassistant.const import __version__ as HAVERSION
-from .const import STORENAME, VERSION
+from .const import STORENAME
 from ..handler.logger import HacsLogger
 from ..repositories.repositoryinformationview import RepositoryInformationView
 from ..repositories.hacsrepositoryappdaemon import HacsRepositoryAppDaemon
@@ -166,7 +166,7 @@ class HacsData:
                     )
                     repositories[repo_id].selected_tag = repository.get("selected_tag")
                     if repo_id == "172733314":
-                        repositories[repo_id].version_installed = VERSION
+                        repositories[repo_id].version_installed = "x.x.x"
                     self.frontend.append(
                         RepositoryInformationView(repositories[repo_id])
                     )

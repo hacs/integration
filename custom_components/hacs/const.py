@@ -33,11 +33,11 @@ DEV_MODE = "You have 'dev' enabled for HACS, this is not intended for regular us
 STARTUP = """
 -------------------------------------------------------------------
 {}
-Version: {}
+
 This is a custom integration
 If you have any issues with this you need to open an issue here:
 {}
 -------------------------------------------------------------------
 """.format(
-    NAME_LONG, VERSION, ISSUE_URL
+    NAME_LONG, ISSUE_URL
 )

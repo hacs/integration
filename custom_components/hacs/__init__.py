@@ -27,7 +27,6 @@ from .const import (
     NAME_SHORT,
     DOMAIN_DATA,
     ELEMENT_TYPES,
-    VERSION,
     IFRAME,
     DOMAIN,
 )

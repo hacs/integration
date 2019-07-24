@@ -12,6 +12,9 @@ Without a valid token, HACS will **not** start.
 ```yaml
 hacs:
   token: d73jds8f73jkr9d8sufv2br8sd9fy92nr9f80u23r97fhse (Don't copy+paste this token, create your own)
+  appdaemon: true
+  python_script: true
+  theme: true
 ```
 
 key | optional | default | description

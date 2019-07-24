@@ -221,4 +221,3 @@ async def test_repositories(hacs):
     await hacs().register_repository("jonkristian/entur-card", "plugin")  # Dist
     await hacs().register_repository("kalkih/mini-media-player", "plugin")  # Release
     await hacs().register_repository("custom-cards/monster-card", "plugin")  # root
-

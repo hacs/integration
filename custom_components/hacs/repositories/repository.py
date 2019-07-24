@@ -179,6 +179,47 @@ class HacsRepository(Hacs):
         }
         return description[self.display_status]
 
+    @property
+    def display_authors(self):
+        """Return display_authors"""
+        if self.repository.authors:
+            if self.repository.information.category == "integration":
+                authors = "<p>Author(s): "
+                for author in self.information.authors:
+                    if "@" in author:
+                        author = author.split("@")[-1]
+                    authors += f"<a rel='noreferrer' href='https://github.com/{author}' target='_blank' style='color: var(--primary-color) !important; margin: 2'> @{author}</a>"
+                authors += "</p>"
+            else:
+                authors = f"<p>Author: {self.information.authors}</p>"
+        else:
+            authors = ""
+        return authors
+
+    @property
+    def display_installed_version(self):
+        """Return display_authors"""
+        if self.repository.installed is not None:
+            installed = self.repository.installed
+        else:
+            if self.versions.commit is not None:
+                installed = self.versions.commit
+            else:
+                installed = ""
+        return installed
+
+    @property
+    def display_available_version(self):
+        """Return display_authors"""
+        if self.versions.available is not None:
+            available = self.versions.available
+        else:
+            if self.versions.available_commit is not None:
+                available = self.versions.available_commit
+            else:
+                available = ""
+        return available
+
     async def common_validate(self):
         """Common validation steps of the repository."""
         # Attach helpers

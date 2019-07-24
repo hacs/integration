@@ -178,7 +178,7 @@ class HacsBase:
         from .startup import HacsStartup
 
         await HacsStartup().run_startup()
-        self.store.task_running = True
+        self.common.status.background_task = True
 
         self.logger.info("Runing startup tasks.")
 
@@ -214,7 +214,7 @@ class HacsBase:
             self.hass, self.update_repositories, timedelta(minutes=500)
         )
 
-        self.store.task_running = False
+        self.common.status.background_task = False
         return True
 
     async def register_new_repository(self, element_type, repo, repositoryobject=None):
@@ -258,11 +258,11 @@ class HacsBase:
 
         setup_result = True
         try:
-            if not self.store.task_running:
+            if not self.common.status.background_task:
                 await repository.set_repository()
             await repository.setup_repository()
         except (HacsRequirement, HacsBaseException, AIOGitHubException) as exception:
-            if not self.store.task_running:
+            if not self.common.status.background_task:
                 self.logger.error(
                     "{} - {}".format(repository.repository_name, exception)
                 )
@@ -275,13 +275,13 @@ class HacsBase:
         else:
             if repo not in self.blacklist:
                 self.blacklist.append(repo)
-            if not self.store.task_running:
+            if not self.common.status.background_task:
                 self.logger.error("Could not register.", repo)
         return repository, setup_result
 
     async def update_repositories(self, now=None):
         """Run update on registerd repositories, and register new."""
-        self.store.task_running = True
+        self.common.status.background_task = True
 
         self.logger.debug(
             "Skipping repositories in blacklist {}".format(str(self.blacklist))
@@ -338,7 +338,7 @@ class HacsBase:
                         self.logger.error(
                             "{} - {}".format(repository.repository_name, exception)
                         )
-        self.store.task_running = False
+        self.common.status.background_task = False
         self.store.write()
 
     async def get_repositories(self):
@@ -412,7 +412,7 @@ class HacsBase:
         self, notarealarg
     ):  # pylint: disable=unused-argument
         """Recuring tasks for installed repositories."""
-        self.store.task_running = True
+        self.common.status.background_task = True
         self.logger.info("Running scheduled update of installed repositories")
         for repository in self.store.repositories:
             try:
@@ -427,7 +427,7 @@ class HacsBase:
                 self.logger.error(
                     "{} - {}".format(repository.repository_name, exception)
                 )
-        self.store.task_running = False
+        self.common.status.background_task = False
 
     @property
     def repositories_list_name(self):

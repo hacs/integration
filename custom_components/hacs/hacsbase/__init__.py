@@ -10,7 +10,6 @@ from integrationhelper import Version, Logger
 
 from ..aiogithub.exceptions import AIOGitHubException, AIOGitHubRatelimit
 from ..handler.logger import HacsLogger
-from .system import System
 from .const import ELEMENT_TYPES
 
 
@@ -27,6 +26,14 @@ class HacsCommon:
     status = HacsStatus()
     blacklist = []
     default = []
+
+
+class System:
+    """System info."""
+
+    config_path = None
+    ha_version = None
+    status = HacsStatus()
 
 
 class Hacs:

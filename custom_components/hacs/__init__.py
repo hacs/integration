@@ -177,7 +177,9 @@ async def configure_hacs(hass):
 
     # await Hacs().register_repository("ludeeus/theme-hacs", "theme")
     # await Hacs().register_repository("ludeeus/ps-hacs", "python_script")
-    await Hacs().register_repository("ludeeus/integration-hacs", "integration")
+    # await Hacs().register_repository("ludeeus/integration-hacs", "integration")
+    # await Hacs().register_repository("ludeeus/ad-hacs", "appdaemon")
+    await Hacs().register_repository("jonkristian/entur-card", "plugin")
     for repo in Hacs.repositories:
         await repo.install()
 

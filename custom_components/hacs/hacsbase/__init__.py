@@ -36,11 +36,28 @@ class System:
     status = HacsStatus()
 
 
+class Developer:
+    """Developer settings/tools."""
+
+    template_id = "Repository ID"
+    template_content = ""
+    template_raw = ""
+
+    @property
+    def devcontainer(self):
+        """Is it a devcontainer?"""
+        import os
+
+        if "DEVCONTAINER" in os.environ:
+            return True
+        return False
+
+
 class Hacs:
     """The base class of HACS, nested thoughout the project."""
 
     repositories = []
-    developer = None
+    developer = Developer()
     data = None
     configuration = None
     logger = Logger("hacs")

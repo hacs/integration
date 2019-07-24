@@ -289,7 +289,7 @@ class HacsRepository(Hacs):
             for content in contents:
                 if content.type == "dir" and self.content.path.remote != "":
                     await self.download_content(
-                        validate, directory_path, local_directory, ref
+                        validate, content.path, local_directory, ref
                     )
                     continue
                 if self.information.category == "plugin":
@@ -300,8 +300,6 @@ class HacsRepository(Hacs):
                 self.logger.debug(f"Downloading {content.name}")
 
                 filecontent = await async_download_file(self.hass, content.download_url)
-
-                self.logger.info("download complete")
 
                 if filecontent is None:
                     validate.errors.append(f"[{content.name}] was not downloaded.")
@@ -317,15 +315,19 @@ class HacsRepository(Hacs):
                     )
 
                     local_directory = f"{self.content.path.local}/{_content_path}"
-                    local_directory = local_directory.split(f"/{content.name}")[0]
+                    local_directory = local_directory.split("/")
+                    del local_directory[-1]
+                    local_directory = "/".join(local_directory)
 
                 # Check local directory
                 pathlib.Path(local_directory).mkdir(parents=True, exist_ok=True)
 
                 local_file_path = f"{local_directory}/{content.name}"
                 result = await async_save_file(local_file_path, filecontent)
-                if not result:
-                    validate.errors.append(f"[{content.name}] was not downloaded.")
+                if result:
+                    self.logger.info(f"download of {content.name} complete")
+                    continue
+                validate.errors.append(f"[{content.name}] was not downloaded.")
 
         except SystemError:
             pass

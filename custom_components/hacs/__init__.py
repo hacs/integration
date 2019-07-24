@@ -142,7 +142,6 @@ async def configure_hacs(hass):
     from .aiogithub import AIOGitHub
     from .hacsbase import HacsBase as hacs, Hacs
     from .hacsbase.data import HacsData
-    from .hacsbase.developer import Developer
     from . import const
     from .hacsbase import const as hacsconst
     from .hacsbase.migration import HacsMigration
@@ -170,16 +169,18 @@ async def configure_hacs(hass):
     ######################################################################
 
     Hacs.hass = hass
-    Hacs.developer = Developer()
     Hacs.github = AIOGitHub(Hacs.configuration.token, async_create_clientsession(hass))
     Hacs.migration = HacsMigration()
     Hacs.data = HacsData(Hacs.system.config_path)
 
     # TEST NEW SETUP
-    # await Hacs().register_repository("ludeeus/theme-hacs", "theme")
-    # await Hacs().register_repository("ludeeus/ps-hacs", "python_script")
-    # await Hacs().register_repository("ludeeus/integration-hacs", "integration")
-    # await Hacs().register_repository("ludeeus/ad-hacs", "appdaemon")
+    await Hacs().register_repository("ludeeus/theme-hacs", "theme")
+    await Hacs().register_repository("ludeeus/ps-hacs", "python_script")
+    await Hacs().register_repository("ludeeus/integration-hacs", "integration")
+    await Hacs().register_repository(
+        "rgruebel/ha_zigbee2mqtt_networkmap", "integration"
+    )
+    await Hacs().register_repository("ludeeus/ad-hacs", "appdaemon")
     await Hacs().register_repository("jonkristian/entur-card", "plugin")  # Dist
     await Hacs().register_repository("kalkih/mini-media-player", "plugin")  # Release
     await Hacs().register_repository("custom-cards/monster-card", "plugin")  # root

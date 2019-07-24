@@ -144,6 +144,41 @@ class HacsRepository(Hacs):
                     return False
         return True
 
+    @property
+    def display_name(self):
+        """Return display name."""
+        if self.information.category != "integration":
+            if self.information.name:
+                return self.information.name.replace("-", " ").replace("_", " ").title()
+        return self.manifest["name"]
+
+    @property
+    def display_status(self):
+        """Return display_status."""
+        if self.status.pending.restart:
+            status = "pending-restart"
+        elif self.status.pending.update:
+            status = "pending-update"
+        elif self.status.installed:
+            status = "installed"
+        elif self.status.new:
+            status = "new"
+        else:
+            status = "default"
+        return status
+
+    @property
+    def display_status_description(self):
+        """Return display_status_description."""
+        description = {
+            "default": "Not installed.",
+            "pending-restart": "Restart pending.",
+            "pending-update": "Update pending.",
+            "installed": "No action required.",
+            "new": "This is a newly added repository.",
+        }
+        return description[self.display_status]
+
     async def common_validate(self):
         """Common validation steps of the repository."""
         # Attach helpers

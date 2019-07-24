@@ -91,6 +91,43 @@ class Hacs:
     async def startup_tasks(self):
         """Tasks tha are started after startup."""
 
+    def get_by_id(self, repository_id):
+        """Get repository by ID."""
+        try:
+            for repository in self.repositories:
+                if repository.repository_id == repository_id:
+                    return repository
+        except Exception:  # pylint: disable=broad-except
+            pass
+        return None
+
+    def get_by_name(self, repository_full_name):
+        """Get repository by full_name."""
+        try:
+            for repository in self.repositories:
+                if repository.information.full_name == repository_full_name:
+                    return repository
+        except Exception:  # pylint: disable=broad-except
+            pass
+        return None
+
+    def is_known(self, repository_full_name):
+        """Return a bool if the repository is known."""
+        for repository in self.repositories:
+            if repository.information.full_name == repository_full_name:
+                return True
+        return False
+
+    @property
+    def sorted_by_name(self):
+        """Return a sorted(by name) list of repository objects."""
+        return sorted(self.repositories, key=lambda x: x.information.name.lower())
+
+    @property
+    def sorted_by_repository_name(self):
+        """Return a sorted(by repository_name) list of repository objects."""
+        return sorted(self.repositories, key=lambda x: x.information.full_name)
+
 
 class HacsBase:
     """The base class of HACS, nested thoughout the project."""

@@ -7,6 +7,7 @@ class Configuration:
     def __init__(self, config):
         """Initialize."""
         self.config = config
+        self.frontend_mode = "Grid"
 
     @property
     def token(self):

@@ -59,7 +59,6 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
 
 async def hacs_startup(hacs):
     """HACS startup tasks."""
-    hacs.logger = Logger("hacs")
     hacs.version = const.VERSION
     hacs.logger.info(const.STARTUP)
     hacs.system.config_path = hacs.hass.config.path()
@@ -99,7 +98,7 @@ async def hacs_startup(hacs):
             message=const.DEV_MODE,
             notification_id="hacs_dev_mode",
         )
-        # await test_repositories(hacs)
+        await test_repositories(hacs)
 
     # Add sensor
     hacs.hass.async_create_task(
@@ -114,10 +113,8 @@ async def hacs_startup(hacs):
     # Set up services
     await add_services(hacs)
 
-    return True
-
     # Setup startup tasks
-    hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs.startup_tasks())
+    hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs().startup_tasks())
 
     # Mischief managed!
     return True
@@ -143,6 +140,8 @@ async def load_hacs_repository(hacs):
     """Load HACS repositroy."""
     try:
         await hacs().register_repository("custom-components/hacs", "integration")
+        repository = hacs().get_by_name("custom-components/hacs")
+        repository.status.installed = True
     except (
         AIOGitHubException,
         AIOGitHubRatelimit,
@@ -222,5 +221,4 @@ async def test_repositories(hacs):
     await hacs().register_repository("jonkristian/entur-card", "plugin")  # Dist
     await hacs().register_repository("kalkih/mini-media-player", "plugin")  # Release
     await hacs().register_repository("custom-cards/monster-card", "plugin")  # root
-    for repo in hacs.repositories:
-        await repo.install()
+

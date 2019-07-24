@@ -31,10 +31,10 @@ class HacsAPI(HacsWebResponse):
         self.postdata = await request.post()
         self.raw_headers = request.raw_headers
         self.request = request
-        self.logger.debug("Endpoint ({endpoint}) called")
+        self.logger.debug(f"Endpoint ({endpoint}) called")
         if self.configuration.dev:
-            self.logger.debug("Raw headers ({self.raw_headers})")
-            self.logger.debug("Postdata ({self.postdata})")
+            self.logger.debug(f"Raw headers ({self.raw_headers})")
+            self.logger.debug(f"Postdata ({self.postdata})")
         if self.endpoint in APIRESPONSE:
             response = APIRESPONSE[self.endpoint]
             response = await response.response(self)
@@ -60,7 +60,7 @@ class HacsRunningTask(HacsAPI):
 
     async def get(self, request):  # pylint: disable=unused-argument
         """Handle GET request."""
-        return web.json_response({"task": self.store.task_running})
+        return web.json_response({"task": self.system.status.background_task})
 
 
 @apiresponse
@@ -71,10 +71,8 @@ class Generic(HacsAPI):
 
     async def response(self):
         """Response."""
-        self.logger.error("Unknown endpoint '{}'".format(self.endpoint), "adminapi")
-        return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
-        )
+        self.logger.error(f"Unknown endpoint '{self.endpoint}'")
+        return web.HTTPFound(f"/hacsweb/{self.token}/settings?timestamp={time()}")
 
 
 @apiresponse

@@ -46,10 +46,10 @@ class HacsWebResponse(HomeAssistantView, Hacs):
         self.request = request
         self.requested_file = path.replace(self.endpoint + "/", "")
         self.repository_id = path.replace(self.endpoint + "/", "")
-        self.logger.debug("Endpoint ({endpoint}) called")
+        self.logger.debug(f"Endpoint ({self.endpoint}) called")
         if self.configuration.dev:
-            self.logger.debug("Raw headers ({self.raw_headers})")
-            self.logger.debug("Postdata ({self.postdata})")
+            self.logger.debug(f"Raw headers ({self.raw_headers})")
+            self.logger.debug(f"Postdata ({self.postdata})")
         if self.endpoint in WEBRESPONSE:
             response = WEBRESPONSE[self.endpoint]
             response = await response.response(self)
@@ -150,9 +150,7 @@ class Static(HacsWebResponse):
 
     async def response(self):
         """Serve static files."""
-        servefile = "{}/custom_components/hacs/frontend/elements/{}".format(
-            self.config_dir, self.requested_file
-        )
+        servefile = f"{self.system.config_path}/custom_components/hacs/frontend/elements/{self.requested_file}"
         if os.path.exists(servefile + ".gz"):
             return web.FileResponse(servefile + ".gz")
         else:

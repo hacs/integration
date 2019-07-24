@@ -1,14 +1,4 @@
-{% set progressbar = 'block' if hacs.store.task_running else 'none' %}
-{% set url = namespace(
-  base=hacs.url_path['base'],
-  static=hacs.url_path['base']+'/static',
-  api=hacs.url_path['api'],
-  adminapi=hacs.url_path['admin-api'],
-  store=hacs.url_path['base']+'/store',
-  overview=hacs.url_path['base']+'/overview',
-  settings=hacs.url_path['base']+'/settings',
-  repository=hacs.url_path['base']+'/repository') %}
-
+{% set progressbar = 'block' if hacs.system.status.background_task else 'none' %}
 <!doctype html>
 <html>
 

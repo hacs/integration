@@ -8,7 +8,7 @@
 </div>
 {% endif %}
 
-{% for type in hacs.element_types %}
+{% for type in hacs.common.categories %}
 
 {% if type == 'appdaemon' %}
 {% set displaytype = 'APPDAEMON APPS' %}
@@ -20,11 +20,11 @@
 
 {% set repositories = namespace(repositories=[]) %}
 
-{% for repository in hacs.store.frontend|sort(attribute='name') %}
-{% if not repository.hide %}
-{% if repository.repository_type == type %}
+{% for repository in hacs.sorted_by_name %}
+{% if not repository.status.hide %}
+{% if repository.information.category == type %}
 {% if location == 'overview' %}
-{% if repository.installed %}
+{% if repository.status.installed %}
 {% set repositories.repositories = repositories.repositories+[repository] %}
 {% endif %}
 {% else %}
@@ -37,7 +37,7 @@
 {% endfor %}
 
 {% if repositories.repositories %}
-{% if hacs.store.frontend_mode == "Grid" %}
+{% if hacs.configuration.frontend_mode == "Grid" %}
 {% include 'grid.html' with context %}
 {% else %}
 {% include 'table.html' with context %}

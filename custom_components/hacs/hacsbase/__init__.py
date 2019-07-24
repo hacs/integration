@@ -6,9 +6,10 @@ from datetime import timedelta
 
 from homeassistant.helpers.event import async_call_later, async_track_time_interval
 
+from aiogithubapi import AIOGitHubException, AIOGitHubRatelimit
 from integrationhelper import Logger
 
-from ..aiogithub.exceptions import AIOGitHubException, AIOGitHubRatelimit
+
 from ..handler.logger import HacsLogger
 from .const import ELEMENT_TYPES
 

@@ -4,7 +4,7 @@ import logging
 import json
 
 from .hacsrepositorybase import HacsRepositoryBase
-from ..aiogithub.exceptions import AIOGitHubException
+from aiogithubapi import AIOGitHubException
 from ..hacsbase.exceptions import HacsRequirement
 
 _LOGGER = logging.getLogger("custom_components.hacs.repository")

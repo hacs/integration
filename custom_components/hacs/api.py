@@ -415,7 +415,7 @@ class RepositorySelectTag(HacsAPI):
 
     async def response(self):
         """Response."""
-        from .aiogithub.exceptions import AIOGitHubException
+        from aiogithubapi import AIOGitHubException
         from .hacsbase.exceptions import HacsRequirement
 
         repository = self.store.repositories[self.postdata["repository_id"]]

@@ -1,7 +1,7 @@
 """Class for plugins in HACS."""
 import json
 from .repository import HacsRepository, register_repository_class
-from ..aiogithub.exceptions import AIOGitHubException
+from aiogithubapi import AIOGitHubException
 
 
 @register_repository_class

@@ -7,7 +7,7 @@ import pathlib
 import os
 import shutil
 from distutils.version import LooseVersion
-from ..aiogithub.exceptions import AIOGitHubException
+from aiogithubapi import AIOGitHubException
 from ..hacsbase import HacsBase
 from ..hacsbase.exceptions import (
     HacsRepositoryInfo,

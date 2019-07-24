@@ -16,13 +16,14 @@ from homeassistant.helpers.aiohttp_client import async_create_clientsession
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers import discovery
 
-from integrationhelper import Logger, Version
-from .aiogithub import AIOGitHub
-from .aiogithub.exceptions import (
+from aiogithubapi import (
+    AIOGitHub,
     AIOGitHubAuthentication,
     AIOGitHubException,
     AIOGitHubRatelimit,
 )
+from integrationhelper import Logger, Version
+
 from . import const
 from .api import HacsAPI, HacsRunningTask
 from .http import HacsWebResponse, HacsPluginView, HacsPlugin

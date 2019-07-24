@@ -1,6 +1,7 @@
 """Class for plugins in HACS."""
 import json
 from .repository import HacsRepository, register_repository_class
+from ..aiogithub.exceptions import AIOGitHubException
 
 
 @register_repository_class
@@ -14,9 +15,8 @@ class HacsPlugin(HacsRepository):
         super().__init__()
         self.information.full_name = full_name
         self.information.category = self.category
-        self.information.name = full_name.split("/")[-1]
         self.content.path.local = (
-            f"{self.system.config_path}/www/community/{self.information.name}"
+            f"{self.system.config_path}/www/community/{full_name.split('/')[-1]}"
         )
 
     async def validate_repository(self):
@@ -77,23 +77,40 @@ class HacsPlugin(HacsRepository):
 
         possible_locations = ["dist", "release", ""]
         for location in possible_locations:
+            if self.content.path.remote is not None:
+                continue
             try:
                 files = []
                 if location != "release":
-                    objects = await self.repository_object.get_contents(
-                        location, self.ref
-                    )
-                    for item in objects:
-                        if item.name.endswith(".js"):
-                            files.append(item.name)
+                    try:
+                        objects = await self.repository_object.get_contents(
+                            location, self.ref
+                        )
+                    except AIOGitHubException:
+                        continue
+                else:
+                    await self.get_releases()
+                    if self.releases.releases:
+                        if self.releases.last_release_object.assets is not None:
+                            objects = self.releases.last_release_object.assets
+
+                for item in objects:
+                    if item.name.endswith(".js"):
+                        files.append(item.name)
 
                 # Handler for plug requirement 3
-                find_file_name = f"{self.information.name.replace('lovelace-', '')}.js"
-                if find_file_name in files or f"{self.information.name}.js" in files:
-                    # YES! We got it!
-                    self.content.path.remote = location
-                    self.content.objects = objects
-                    self.content.files = files
+                valid_filenames = [
+                    f"{self.information.name.replace('lovelace-', '')}.js",
+                    f"{self.information.name}.js",
+                    f"{self.information.name}-bundle.js",
+                ]
+                for name in valid_filenames:
+                    if name in files:
+                        # YES! We got it!
+                        self.content.path.remote = location
+                        self.content.objects = objects
+                        self.content.files = files
+                        break
 
             except SystemError:
                 pass

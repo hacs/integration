@@ -39,7 +39,7 @@ class PendingActions:
 class RepositoryStatus:
     """Repository status."""
 
-    pending = PendingActions()
+    pending = None
     hide = False
     installed = False
     last_updated = None
@@ -85,7 +85,7 @@ class RepositoryPath:
 class RepositoryContent:
     """RepositoryContent."""
 
-    path = RepositoryPath()
+    path = None
     files = []
     objects = []
     single = False
@@ -98,9 +98,11 @@ class HacsRepository(Hacs):
         """Set up HacsRepository."""
 
         self.content = RepositoryContent()
+        self.content.path = RepositoryPath()
         self.information = RepositoryInformation()
         self.repository_object = None
         self.status = RepositoryStatus()
+        self.status.pending = PendingActions()
         self.validate = None
         self.releases = RepositoryReleases()
         self.versions = RepositoryVersions()
@@ -178,6 +180,9 @@ class HacsRepository(Hacs):
         # Step 5: Get releases.
         await self.get_releases()
 
+        # Set repository name
+        self.information.name = self.information.full_name.split("/")[1]
+
     async def common_registration(self):
         """Common registration steps of the repository."""
         # Attach logger
@@ -191,9 +196,6 @@ class HacsRepository(Hacs):
             self.repository_object = await self.github.get_repo(
                 self.information.full_name
             )
-
-        # Set repository name
-        self.information.name = self.information.full_name.split("/")[1]
 
         # Set id
         self.information.uid = str(self.repository_object.id)
@@ -277,7 +279,6 @@ class HacsRepository(Hacs):
         """Download the content of a directory."""
         try:
             # Get content
-
             if self.content.single:
                 contents = self.content.objects
             else:
@@ -370,6 +371,8 @@ class HacsRepository(Hacs):
 
         if not temp:
             return
+
+        self.releases.releases = True
 
         self.releases.published_tags = []
 

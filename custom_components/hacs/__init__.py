@@ -175,11 +175,14 @@ async def configure_hacs(hass):
     Hacs.migration = HacsMigration()
     Hacs.data = HacsData(Hacs.system.config_path)
 
+    # TEST NEW SETUP
     # await Hacs().register_repository("ludeeus/theme-hacs", "theme")
     # await Hacs().register_repository("ludeeus/ps-hacs", "python_script")
     # await Hacs().register_repository("ludeeus/integration-hacs", "integration")
     # await Hacs().register_repository("ludeeus/ad-hacs", "appdaemon")
-    await Hacs().register_repository("jonkristian/entur-card", "plugin")
+    await Hacs().register_repository("jonkristian/entur-card", "plugin")  # Dist
+    await Hacs().register_repository("kalkih/mini-media-player", "plugin")  # Release
+    await Hacs().register_repository("custom-cards/monster-card", "plugin")  # root
     for repo in Hacs.repositories:
         await repo.install()
 

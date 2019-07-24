@@ -46,7 +46,7 @@ class AIOGitHub(object):
         async with async_timeout.timeout(20, loop=get_event_loop()):
             response = await self.session.get(url, headers=headers)
             if response.status not in GOOD_HTTP_CODES:
-                raise AIOGitHubException(f"GitHub returned {response.status}")
+                raise AIOGitHubException(f"GitHub returned {response.status} for {url}")
             self.ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.json()
 
@@ -81,7 +81,7 @@ class AIOGitHub(object):
         async with async_timeout.timeout(20, loop=get_event_loop()):
             response = await self.session.get(url, headers=headers, params=params)
             if response.status not in GOOD_HTTP_CODES:
-                raise AIOGitHubException(f"GitHub returned {response.status}")
+                raise AIOGitHubException(f"GitHub returned {response.status} for {url}")
             self.ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.json()
 
@@ -119,7 +119,7 @@ class AIOGitHub(object):
         async with async_timeout.timeout(20, loop=get_event_loop()):
             response = await self.session.post(url, headers=headers, data=content)
             if response.status not in GOOD_HTTP_CODES:
-                raise AIOGitHubException(f"GitHub returned {response.status}")
+                raise AIOGitHubException(f"GitHub returned {response.status} for {url}")
             self.ratelimit_remaining = response.headers.get("x-ratelimit-remaining")
             response = await response.text()
 

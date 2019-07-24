@@ -1,20 +1,20 @@
-"""Class for themes in HACS."""
+"""Class for python_scripts in HACS."""
 from .repository import HacsRepository, register_repository_class
 
 
 @register_repository_class
-class HacsTheme(HacsRepository):
-    """Themes in HACS."""
+class HacsPythonScript(HacsRepository):
+    """python_scripts in HACS."""
 
-    category = "theme"
+    category = "python_script"
 
     def __init__(self, full_name):
         """Initialize."""
         super().__init__()
         self.information.full_name = full_name
         self.information.category = self.category
-        self.content.path.remote = "themes"
-        self.content.path.local = f"{self.system.config_path}/themes"
+        self.content.path.remote = "python_scripts"
+        self.content.path.local = f"{self.system.config_path}/python_scripts"
         self.content.single = True
 
     async def validate_repository(self):
@@ -49,14 +49,14 @@ class HacsTheme(HacsRepository):
         await self.common_registration()
 
         # Set name
-        self.information.name = self.content.objects[0].name.replace(".yaml", "")
+        self.information.name = self.content.objects[0].name.replace(".py", "")
 
     async def update_repository(self):
         """Update."""
         # Run common update steps.
         await self.common_update()
 
-        # Get theme objects.
+        # Get python_script objects.
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )
@@ -66,7 +66,7 @@ class HacsTheme(HacsRepository):
             self.content.files.append(filename.name)
 
         # Update name
-        self.information.name = self.content.objects[0].name.replace(".yaml", "")
+        self.information.name = self.content.objects[0].name.replace(".py", "")
 
         self.content.files = []
         for filename in self.content.objects:

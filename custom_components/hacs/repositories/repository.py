@@ -1,9 +1,11 @@
 """Repository."""
 # pylint: disable=broad-except, bad-continuation, no-member
+import pathlib
 from distutils.version import LooseVersion
 from integrationhelper import Validate, Logger
 from ..hacsbase import Hacs
 from ..hacsbase.backup import Backup
+from ..handler.download import async_download_file, async_save_file
 
 
 RERPOSITORY_CLASSES = {}
@@ -60,9 +62,7 @@ class RepositoryInformation:
     homeassistant_version = None
     uid = None
     info = None
-    local_path = None
     name = None
-    remote_path = None
     topics = []
 
 
@@ -75,11 +75,20 @@ class RepositoryReleases:
     releases = False
 
 
+class RepositoryPath:
+    """RepositoryPath."""
+
+    local = None
+    remote = None
+
+
 class RepositoryContent:
     """RepositoryContent."""
 
+    path = RepositoryPath()
     files = []
     objects = []
+    single = False
 
 
 class HacsRepository(Hacs):
@@ -163,7 +172,10 @@ class HacsRepository(Hacs):
             self.validate.errors.append("Repository is in the blacklist.")
             return
 
-        # Step 4: Get releases.
+        # Step 4: default branch
+        self.information.default_branch = self.repository_object.default_branch
+
+        # Step 5: Get releases.
         await self.get_releases()
 
     async def common_registration(self):
@@ -193,9 +205,6 @@ class HacsRepository(Hacs):
         if self.repository_object.description:
             self.information.description = self.repository_object.description
 
-        # Get releases
-        await self.get_releases()
-
     async def common_update(self):
         """Common information update steps of the repository."""
         # Attach logger
@@ -205,10 +214,7 @@ class HacsRepository(Hacs):
             )
 
         # Attach repository
-        if self.repository_object is None:
-            self.repository_object = await self.github.get_repo(
-                self.information.full_name
-            )
+        self.repository_object = await self.github.get_repo(self.information.full_name)
 
         # Update description
         if self.repository_object.description:
@@ -229,14 +235,19 @@ class HacsRepository(Hacs):
         # Update releases
         await self.get_releases()
 
-    async def common_install(self):
+    async def install(self):
         """Common installation steps of the repository."""
         validate = Validate()
+
+        await self.update_repository()
+
         if self.status.installed:
-            backup = Backup(self.information.local_path)
+            backup = Backup(self.content.path.local)
             backup.create()
 
-        validate = await self.download_content(validate)
+        validate = await self.download_content(
+            validate, self.content.path.remote, self.content.path.local, self.ref
+        )
 
         if validate.errors:
             for error in validate.errors:
@@ -261,6 +272,63 @@ class HacsRepository(Hacs):
                     await self.reload_config_flows()
                 else:
                     self.status.pending.restart = True
+
+    async def download_content(self, validate, directory_path, local_directory, ref):
+        """Download the content of a directory."""
+        try:
+            # Get content
+
+            if self.content.single:
+                contents = self.content.objects
+            else:
+                contents = await self.repository_object.get_contents(
+                    directory_path, self.ref
+                )
+
+            for content in contents:
+                if content.type == "dir" and self.content.path.remote != "":
+                    await self.download_content(
+                        validate, directory_path, local_directory, ref
+                    )
+                    continue
+                if self.information.category == "plugin":
+                    if not content.name.endswith(".js"):
+                        if self.content.path.remote != "dist":
+                            continue
+
+                self.logger.debug(f"Downloading {content.name}")
+
+                filecontent = await async_download_file(self.hass, content.download_url)
+
+                self.logger.info("download complete")
+
+                if filecontent is None:
+                    validate.errors.append(f"[{content.name}] was not downloaded.")
+                    continue
+
+                # Save the content of the file.
+                if self.content.single:
+                    local_directory = self.content.path.local
+                else:
+                    _content_path = content.path
+                    _content_path = _content_path.replace(
+                        f"{self.content.path.remote}/", ""
+                    )
+
+                    local_directory = f"{self.content.path.local}/{_content_path}"
+                    local_directory = local_directory.split(f"/{content.name}")[0]
+
+                # Check local directory
+                pathlib.Path(local_directory).mkdir(parents=True, exist_ok=True)
+
+                local_file_path = f"{local_directory}/{content.name}"
+                result = await async_save_file(local_file_path, filecontent)
+                if not result:
+                    validate.errors.append(f"[{content.name}] was not downloaded.")
+
+        except SystemError:
+            pass
+        return validate
 
     async def get_info_md_content(self):
         """Get the content of info.md"""
@@ -317,13 +385,3 @@ class HacsRepository(Hacs):
                         break
         self.versions.available = temp[0].tag_name
 
-    async def download_content(self, validate):
-        """Download repository content."""
-        remote = []
-        local = []
-
-        for item in remote:
-            if item not in local:
-                validate.errors.append(f"{item} not downloaded.")
-
-        return validate

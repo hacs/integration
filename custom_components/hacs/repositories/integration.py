@@ -1,4 +1,5 @@
 """Class for integrations in HACS."""
+import json
 from .repository import HacsRepository, register_repository_class
 
 
@@ -6,32 +7,46 @@ from .repository import HacsRepository, register_repository_class
 class HacsIntegration(HacsRepository):
     """Integrations in HACS."""
 
-    category = "theme"
+    category = "integration"
 
     def __init__(self, full_name):
         """Initialize."""
         super().__init__()
         self.information.full_name = full_name
         self.information.category = self.category
-        self.content.path = "integration"
+        self.manifest = None
         self.domain = None
-        self.config_flow = False
+        self.content.path.local = self.localpath
 
     @property
-    def local_path(self):
-        """Return local path."""
+    def localpath(self):
+        """Return localpath."""
         return f"{self.system.config_path}/custom_components/{self.domain}"
+
+    @property
+    def config_flow(self):
+        """Return bool if integration has config_flow."""
+        if self.manifest is None:
+            return self.manifest.get("config_flow", False)
+        return False
 
     async def validate_repository(self):
         """Validate."""
         await self.common_validate()
 
         # Custom step 1: Validate content.
-        self.content.objects = await self.repository_object.get_contents(
-            self.content.path, self.ref
-        )
-        if not isinstance(self.content.objects, list):
+        ccdir = await self.repository_object.get_contents("custom_components", self.ref)
+        if not isinstance(ccdir, list):
             self.validate.errors.append("Repostitory structure not compliant")
+
+        self.content.path.remote = ccdir[0].path
+        self.content.objects = await self.repository_object.get_contents(
+            self.content.path.remote, self.ref
+        )
+
+        self.content.files = []
+        for filename in self.content.objects:
+            self.content.files.append(filename.name)
 
         # Handle potential errors
         if self.validate.errors:
@@ -51,16 +66,19 @@ class HacsIntegration(HacsRepository):
         # Get the content of the manifest file.
         await self.get_manifest()
 
+        # Set local path
+        self.content.path.local = self.localpath
+
     async def update_repository(self):
         """Update."""
         await self.common_update()
 
-        # Get theme objects.
+        # Get integration objects.
+        ccdir = await self.repository_object.get_contents("custom_components", self.ref)
+        self.content.path.remote = ccdir[0].path
         self.content.objects = await self.repository_object.get_contents(
-            self.content.path, self.ref
+            self.content.path.remote, self.ref
         )
-
-        self.information.name = self.content.objects[0].name.replace(".yaml", "")
 
         self.content.files = []
         for filename in self.content.objects:
@@ -68,8 +86,26 @@ class HacsIntegration(HacsRepository):
 
         await self.get_manifest()
 
+        # Set local path
+        self.content.path.local = self.localpath
+
     async def reload_config_flows(self):
         """Reload config_flows."""
 
     async def get_manifest(self):
         """Get info from the manifest file."""
+        manifest_path = f"{self.content.path.remote}/manifest.json"
+        manifest = None
+
+        if "manifest.json" not in self.content.files:
+            return
+
+        manifest = await self.repository_object.get_contents(manifest_path, self.ref)
+        manifest = json.loads(manifest.content)
+
+        if manifest:
+            self.manifest = manifest
+            self.information.authors = manifest["codeowners"]
+            self.domain = manifest["domain"]
+            self.information.homeassistant_version = manifest.get("homeassistant")
+            return

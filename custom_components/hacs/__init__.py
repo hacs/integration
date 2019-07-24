@@ -64,12 +64,12 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
 
     _LOGGER.info(STARTUP)
     Hacs.configuration = Configuration(config[DOMAIN])
-    Hacs.configuration.path = hass.config.path()
+    Hacs.system.config_path = hass.config.path()
     Hacs.system.ha_version = HAVERSION
 
     # Load manifest
     with open(
-        f"{Hacs.configuration.path}/custom_components/hacs/manifest.json", "r"
+        f"{Hacs.system.config_path}/custom_components/hacs/manifest.json", "r"
     ) as read:
         manifest = json.loads(read.read())
 
@@ -94,9 +94,9 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
 
     # Check if custom_updater exists
     for location in CUSTOM_UPDATER_LOCATIONS:
-        if os.path.exists(location.format(Hacs.configuration.path)):
+        if os.path.exists(location.format(Hacs.system.config_path)):
             msg = CUSTOM_UPDATER_WARNING.format(
-                location.format(Hacs.configuration.path)
+                location.format(Hacs.system.config_path)
             )
             _LOGGER.critical(msg)
             return False
@@ -173,9 +173,13 @@ async def configure_hacs(hass):
     Hacs.developer = Developer()
     Hacs.github = AIOGitHub(Hacs.configuration.token, async_create_clientsession(hass))
     Hacs.migration = HacsMigration()
-    Hacs.data = HacsData(Hacs.configuration.path)
+    Hacs.data = HacsData(Hacs.system.config_path)
 
-    await Hacs().register_repository("ludeeus/theme-hacs", "theme")
+    # await Hacs().register_repository("ludeeus/theme-hacs", "theme")
+    # await Hacs().register_repository("ludeeus/ps-hacs", "python_script")
+    await Hacs().register_repository("ludeeus/integration-hacs", "integration")
+    for repo in Hacs.repositories:
+        await repo.install()
 
     ######################################################################
     ### OLD ###
@@ -189,8 +193,8 @@ async def configure_hacs(hass):
     hacs.hass = hass
     hacs.const = const
     hacs.hacsconst = hacsconst
-    hacs.config_dir = Hacs.configuration.path
-    hacs.store = HacsData(Hacs.configuration.path)
+    hacs.config_dir = Hacs.system.config_path
+    hacs.store = HacsData(Hacs.system.config_path)
     hacs.store.restore_values()
     hacs.element_types = sorted(ELEMENT_TYPES)
 

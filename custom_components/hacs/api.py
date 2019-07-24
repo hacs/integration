@@ -1,6 +1,9 @@
 """API Endpoins."""
 from time import time
 from aiohttp import web
+
+from integrationhelper import Logger
+
 from .http import HacsWebResponse
 
 APIRESPONSE = {}
@@ -19,6 +22,7 @@ class HacsAPI(HacsWebResponse):
 
     def __init__(self):
         """Initialize."""
+        self.logger = Logger("hacs.api")
         self.url = self.hacsapi + "/{endpoint}"
 
     async def post(self, request, endpoint):  # pylint: disable=unused-argument
@@ -27,10 +31,10 @@ class HacsAPI(HacsWebResponse):
         self.postdata = await request.post()
         self.raw_headers = request.raw_headers
         self.request = request
-        self.logger.debug("Endpoint ({}) called".format(endpoint), "api")
-        if self.config.dev:
-            self.logger.debug("Raw headers ({})".format(self.raw_headers), "api")
-            self.logger.debug("Postdata ({})".format(self.postdata), "api")
+        self.logger.debug("Endpoint ({endpoint}) called")
+        if self.configuration.dev:
+            self.logger.debug("Raw headers ({self.raw_headers})")
+            self.logger.debug("Postdata ({self.postdata})")
         if self.endpoint in APIRESPONSE:
             response = APIRESPONSE[self.endpoint]
             response = await response.response(self)

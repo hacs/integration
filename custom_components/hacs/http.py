@@ -8,7 +8,9 @@ from homeassistant.components.http import HomeAssistantView
 from jinja2 import Environment, PackageLoader
 from aiohttp import web
 
-from .hacsbase import HacsBase
+from integrationhelper import Logger
+
+from .hacsbase import Hacs
 from .repositories.repositoryinformationview import RepositoryInformationView
 
 WEBRESPONSE = {}
@@ -20,7 +22,7 @@ def webresponse(classname):
     return classname
 
 
-class HacsWebResponse(HomeAssistantView, HacsBase):
+class HacsWebResponse(HomeAssistantView, Hacs):
     """Base View Class for HACS."""
 
     requires_auth = False
@@ -28,6 +30,7 @@ class HacsWebResponse(HomeAssistantView, HacsBase):
 
     def __init__(self):
         """Initialize."""
+        self.logger = Logger("hacs.http")
         self.url = self.hacsweb + "/{path:.+}"
         self.endpoint = None
         self.postdata = None
@@ -43,10 +46,10 @@ class HacsWebResponse(HomeAssistantView, HacsBase):
         self.request = request
         self.requested_file = path.replace(self.endpoint + "/", "")
         self.repository_id = path.replace(self.endpoint + "/", "")
-        self.logger.debug("Endpoint ({}) called".format(self.endpoint), "web")
-        if self.config.dev:
-            self.logger.debug("Raw headers ({})".format(self.raw_headers), "web")
-            self.logger.debug("Postdata ({})".format(self.postdata), "web")
+        self.logger.debug("Endpoint ({endpoint}) called")
+        if self.configuration.dev:
+            self.logger.debug("Raw headers ({self.raw_headers})")
+            self.logger.debug("Postdata ({self.postdata})")
         if self.endpoint in WEBRESPONSE:
             response = WEBRESPONSE[self.endpoint]
             response = await response.response(self)

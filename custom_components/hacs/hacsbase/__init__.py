@@ -6,7 +6,7 @@ from datetime import timedelta
 
 from homeassistant.helpers.event import async_call_later, async_track_time_interval
 
-from integrationhelper import Version, Logger
+from integrationhelper import Logger
 
 from ..aiogithub.exceptions import AIOGitHubException, AIOGitHubRatelimit
 from ..handler.logger import HacsLogger
@@ -24,6 +24,7 @@ class HacsCommon:
     """Common for HACS."""
 
     status = HacsStatus()
+    categories = None
     blacklist = []
     default = []
 
@@ -56,6 +57,9 @@ class Developer:
 class Hacs:
     """The base class of HACS, nested thoughout the project."""
 
+    token = f"{str(uuid.uuid4())}-{str(uuid.uuid4())}"
+    hacsweb = f"/hacsweb/{token}"
+    hacsapi = f"/hacsapi/{token}"
     repositories = []
     developer = Developer()
     data = None
@@ -63,7 +67,7 @@ class Hacs:
     logger = Logger("hacs")
     github = None
     hass = None
-    version = Version(0, 13, 0)
+    version = None
     system = System()
     common = HacsCommon()
 
@@ -83,6 +87,9 @@ class Hacs:
 
         self.repositories.append(repository)
         repository.logger.info("Registration complete")
+
+    async def startup_tasks(self):
+        """Tasks tha are started after startup."""
 
 
 class HacsBase:

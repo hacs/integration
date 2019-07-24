@@ -34,6 +34,12 @@ class HacsIntegration(HacsRepository):
         """Validate."""
         await self.common_validate()
 
+        # Attach repository
+        if self.repository_object is None:
+            self.repository_object = await self.github.get_repo(
+                self.information.full_name
+            )
+
         # Custom step 1: Validate content.
         ccdir = await self.repository_object.get_contents("custom_components", self.ref)
         if not isinstance(ccdir, list):

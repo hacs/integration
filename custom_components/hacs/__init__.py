@@ -11,6 +11,7 @@ from distutils.version import LooseVersion
 import aiohttp
 
 import voluptuous as vol
+from homeassistant import config_entries
 from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 import homeassistant.helpers.config_validation as cv
@@ -51,9 +52,31 @@ CONFIG_SCHEMA = vol.Schema(
 
 
 async def async_setup(hass, config):  # pylint: disable=unused-argument
-    """Set up this integration."""
+    """Set up this integration using yaml."""
+    if const.DOMAIN not in config:
+        return True
+    hass.data[const.DOMAIN] = config
     Hacs.hass = hass
     Hacs.configuration = Configuration(config[const.DOMAIN])
+    startup_result = await hacs_startup(Hacs)
+    hass.data[const.DOMAIN] = config
+    if startup_result:
+        hass.async_create_task(
+            hass.config_entries.flow.async_init(
+                const.DOMAIN, context={"source": config_entries.SOURCE_IMPORT}, data={}
+            )
+        )
+    return startup_result
+
+
+async def async_setup_entry(hass, config_entry):
+    """Set up this integration using UI."""
+    conf = hass.data.get(const.DOMAIN)
+    if conf is None and config_entry.source == config_entries.SOURCE_IMPORT:
+        hass.async_create_task(hass.config_entries.async_remove(config_entry.entry_id))
+        return False
+    Hacs.hass = hass
+    Hacs.configuration = Configuration(config_entry.data)
     startup_result = await hacs_startup(Hacs)
     return startup_result
 

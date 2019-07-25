@@ -14,7 +14,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 @config_entries.HANDLERS.register(DOMAIN)
-class RecyclingFlowHandler(config_entries.ConfigFlow):
+class HacsFlowHandler(config_entries.ConfigFlow):
     """Config flow for HACS."""
 
     VERSION = 1

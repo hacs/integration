@@ -1,15 +1,19 @@
 """Sensor platform for HACS."""
+# pylint: disable=unused-argument
+from integrationhelper import Logger
 from homeassistant.helpers.entity import Entity
 from .hacsbase import Hacs as hacs
+from .const import DOMAIN, VERSION, NAME_LONG
 
-from integrationhelper import Logger
 
-
-async def async_setup_platform(
-    hass, config, async_add_entities, discovery_info=None
-):  # pylint: disable=unused-argument
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup sensor platform."""
     async_add_entities([HACSSensor()])
+
+
+async def async_setup_entry(hass, config_entry, async_add_devices):
+    """Setup sensor platform."""
+    async_add_devices([HACSSensor()])
 
 
 class HACSSensor(Entity):
@@ -43,6 +47,13 @@ class HACSSensor(Entity):
         self.has_update = has_update
 
     @property
+    def unique_id(self):
+        """Return a unique ID to use for this sensor."""
+        return (
+            "0717a0cd-745c-48fd-9b16-c8534c9704f9-bc944b0f-fd42-4a58-a072-ade38d1444cd"
+        )
+
+    @property
     def name(self):
         """Return the name of the sensor."""
         return "hacs"
@@ -61,3 +72,11 @@ class HACSSensor(Entity):
     def unit_of_measurement(self):
         """Return the unit of measurement."""
         return "pending update(s)"
+
+    @property
+    def device_info(self):
+        return {
+            "identifiers": {(DOMAIN, self.unique_id)},
+            "name": NAME_LONG,
+            "sw_version": VERSION,
+        }

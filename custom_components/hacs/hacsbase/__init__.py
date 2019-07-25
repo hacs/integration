@@ -35,6 +35,7 @@ class System:
 
     config_path = None
     ha_version = None
+    disabled = False
     status = HacsStatus()
 
 
@@ -70,6 +71,7 @@ class Hacs:
     hass = None
     version = None
     system = System()
+    tasks = []
     common = HacsCommon()
 
     async def register_repository(self, full_name, category):
@@ -91,6 +93,11 @@ class Hacs:
 
     async def startup_tasks(self):
         """Tasks tha are started after startup."""
+        self.tasks.append(
+            async_track_time_interval(
+                self.hass, self.recuring_tasks_installed, timedelta(minutes=1)
+            )
+        )
 
     def get_by_id(self, repository_id):
         """Get repository by ID."""
@@ -128,6 +135,10 @@ class Hacs:
     def sorted_by_repository_name(self):
         """Return a sorted(by repository_name) list of repository objects."""
         return sorted(self.repositories, key=lambda x: x.information.full_name)
+
+    async def recuring_tasks_installed(self, notarealarg):
+        """Recuring tasks for installed repositories."""
+        self.logger.info("Starting task")
 
 
 class HacsBase:

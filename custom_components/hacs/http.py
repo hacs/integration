@@ -41,6 +41,8 @@ class HacsWebResponse(HomeAssistantView, Hacs):
 
     async def get(self, request, path):  # pylint: disable=unused-argument
         """Handle HACS Web requests."""
+        if self.system.disabled:
+            return web.Response(status=404)
         self.endpoint = path.split("/")[0]
         self.raw_headers = request.raw_headers
         self.request = request

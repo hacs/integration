@@ -27,6 +27,8 @@ class HacsAPI(HacsWebResponse):
 
     async def post(self, request, endpoint):  # pylint: disable=unused-argument
         """Handle HACS API requests."""
+        if self.system.disabled:
+            return web.Response(status=404)
         self.endpoint = endpoint
         self.postdata = await request.post()
         self.raw_headers = request.raw_headers

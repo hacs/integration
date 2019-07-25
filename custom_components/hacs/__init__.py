@@ -15,7 +15,8 @@ from homeassistant import config_entries
 from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 import homeassistant.helpers.config_validation as cv
-from homeassistant.helpers import discovery
+from homeassistant.helpers import discovery, device_registry as dr
+from homeassistant.helpers.event import async_call_later
 
 from aiogithubapi import (
     AIOGitHub,
@@ -58,6 +59,7 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     hass.data[const.DOMAIN] = config
     Hacs.hass = hass
     Hacs.configuration = Configuration(config[const.DOMAIN])
+    Hacs.configuration.config_type = "yaml"
     startup_result = await hacs_startup(Hacs)
     hass.data[const.DOMAIN] = config
     if startup_result:
@@ -77,6 +79,8 @@ async def async_setup_entry(hass, config_entry):
         return False
     Hacs.hass = hass
     Hacs.configuration = Configuration(config_entry.data)
+    Hacs.configuration.config_type = "flow"
+    Hacs.configuration.config_entry = config_entry
     startup_result = await hacs_startup(Hacs)
     return startup_result
 
@@ -87,6 +91,7 @@ async def hacs_startup(hacs):
     hacs.logger.info(const.STARTUP)
     hacs.system.config_path = hacs.hass.config.path()
     hacs.system.ha_version = HAVERSION
+    hacs.system.disabled = False
     hacs.github = AIOGitHub(
         hacs.configuration.token, async_create_clientsession(hacs.hass)
     )
@@ -114,6 +119,14 @@ async def hacs_startup(hacs):
         const.ELEMENT_TYPES.append("theme")
     hacs.common.categories = sorted(const.ELEMENT_TYPES)
 
+    # Setup startup tasks
+    if hacs.configuration.config_type == "yaml":
+        hacs.hass.bus.async_listen_once(
+            EVENT_HOMEASSISTANT_START, hacs().startup_tasks()
+        )
+    else:
+        async_call_later(hacs.hass, 5, hacs().startup_tasks())
+
     # Print DEV warning
     if hacs.configuration.dev:
         hacs.logger.error(const.DEV_MODE)
@@ -125,20 +138,13 @@ async def hacs_startup(hacs):
         await test_repositories(hacs)
 
     # Add sensor
-    hacs.hass.async_create_task(
-        discovery.async_load_platform(
-            hacs.hass, "sensor", const.DOMAIN, {}, hacs.configuration.config
-        )
-    )
+    add_sensor(hacs)
 
     # Set up frontend
     await setup_frontend(hacs)
 
     # Set up services
     await add_services(hacs)
-
-    # Setup startup tasks
-    hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs().startup_tasks())
 
     # Mischief managed!
     return True
@@ -186,6 +192,22 @@ def check_custom_updater(hacs):
             hacs.logger.critical(msg)
             return False
     return True
+
+
+def add_sensor(hacs):
+    """Add sensor."""
+    if hacs.configuration.config_type == "yaml":
+        hacs.hass.async_create_task(
+            discovery.async_load_platform(
+                hacs.hass, "sensor", const.DOMAIN, {}, hacs.configuration.config
+            )
+        )
+    else:
+        hacs.hass.async_add_job(
+            hacs.hass.config_entries.async_forward_entry_setup(
+                hacs.configuration.config_entry, "sensor"
+            )
+        )
 
 
 async def setup_frontend(hacs):
@@ -245,3 +267,19 @@ async def test_repositories(hacs):
     await hacs().register_repository("jonkristian/entur-card", "plugin")  # Dist
     await hacs().register_repository("kalkih/mini-media-player", "plugin")  # Release
     await hacs().register_repository("custom-cards/monster-card", "plugin")  # root
+
+
+async def async_remove_entry(hass, config_entry):
+    """Handle removal of an entry."""
+    Hacs().logger.info("Disabling HACS")
+    Hacs().logger.info("Removing recuring tasks")
+    for task in Hacs().tasks:
+        task()
+    Hacs().logger.info("Removing sensor")
+    await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")
+    Hacs().logger.info("Removing sidepanel")
+    hass.components.frontend.async_remove_panel(
+        Hacs.configuration.sidepanel_title.lower().replace(" ", "_").replace("-", "_")
+    )
+    Hacs().system.disabled = True
+    Hacs().logger.info("HACS is now disabled")

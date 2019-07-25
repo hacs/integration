@@ -4,7 +4,7 @@
       <li class="collection-header hacscolor hacslist">
         <h5>CUSTOM REPOSITORIES</h5>
       </li>
-      {% if hacs.common.status.background_task %}
+      {% if not hacs.common.status.background_task %}
       <li class="collection-item hacscolor hacslist">
         Loading custom repositories...
       </li>
@@ -40,14 +40,14 @@
       {% endif %}
     </ul>
 
-    {% if not hacs.common.status.background_task %}
+    {% if hacs.common.status.background_task %}
     <form class="minigrid" action="/hacsapi/{{ hacs.token }}/repository_register" method="post" accept-charset="utf-8"
       enctype="application/x-www-form-urlencoded">
       <input id="custom_url" type="text" name="custom_url" placeholder="  ADD CUSTOM REPOSITORY"
         style="width: 70%; color: var(--primary-text-color)">
       <select name="repository_type" class="hacs-select">
         <option disabled selected value>type</option>
-        {% for element_type in hacs.const.ELEMENT_TYPES | sort %}
+        {% for element_type in hacs.common.categories | sort %}
         <option class='hacscolor' value='{{element_type}}'>{{element_type | title}}</option>
         {% endfor %}
       </select>

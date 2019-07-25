@@ -103,7 +103,7 @@ class Hacs:
         """Get repository by ID."""
         try:
             for repository in self.repositories:
-                if repository.repository_id == repository_id:
+                if repository.information.uid == repository_id:
                     return repository
         except Exception:  # pylint: disable=broad-except
             pass

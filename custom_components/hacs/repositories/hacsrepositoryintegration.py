@@ -2,7 +2,7 @@
 # pylint: disable=too-many-instance-attributes,invalid-name,broad-except,access-member-before-definition
 import logging
 import json
-
+from homeassistant.loader import async_get_custom_components
 from .hacsrepositorybase import HacsRepositoryBase
 from ..hacsbase.exceptions import HacsRequirement
 
@@ -34,8 +34,10 @@ class HacsRepositoryIntegration(HacsRepositoryBase):
             return self.manifest_content.get("config_flow", False)
         return False
 
-    async def reload_config_flows(self):
-        """Reload config flows in HA."""
+    async def reload_custom_components(self):
+        """Reload custom_components (and config flows)in HA."""
+        del self.hass.data["custom_components"]
+        await async_get_custom_components(self.hass)
 
     async def update(self):
         """Run update tasks."""

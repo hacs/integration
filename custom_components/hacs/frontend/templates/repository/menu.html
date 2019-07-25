@@ -2,7 +2,7 @@
 
   <form action="/hacsapi/{{ hacs.token }}/repository_update" name="update" method="post" accept-charset="utf-8"
     enctype="application/x-www-form-urlencoded">
-    <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
+    <input type="hidden" name="repository_id" value="{{repository.information.uid}}">
     <li>
       <a class="dropdown-list-item" href='#' onclick="toggleLoading();document.getElementsByName('update')[0].submit()">
         Reload
@@ -10,11 +10,11 @@
     </li>
   </form>
 
-  {% if repository.repository.version_or_commit == "version" %}
+  {% if repository.display_version_or_commit == "version" %}
   {% set hide_show = "hide" if repository.show_beta else "show" %}
   <form action="/hacsapi/{{ hacs.token }}/repository_beta_{{hide_show}}" name="beta" method="post"
     accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
-    <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
+    <input type="hidden" name="repository_id" value="{{repository.information.uid}}">
     <li>
       <a class="dropdown-list-item" href='#' onclick="toggleLoading();document.getElementsByName('beta')[0].submit()">
         {{hide_show | title}} beta
@@ -23,12 +23,12 @@
   </form>
   {% endif %}
 
-  {% if not repository.installed %}
-  {% if not repository.custom %}
-  {% if repository.repository_id != "172733314" %}
+  {% if not repository.status.installed %}
+  {% if not repository.status.custom %}
+  {% if repository.information.uid != "172733314" %}
   <form action="/hacsapi/{{ hacs.token }}/repository_hide" name="repository_hide" method="post" accept-charset="utf-8"
     enctype="application/x-www-form-urlencoded">
-    <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
+    <input type="hidden" name="repository_id" value="{{repository.information.uid}}">
     <li>
       <a class="dropdown-list-item" href='#'
         onclick="toggleLoading();document.getElementsByName('repository_hide')[0].submit()">
@@ -41,17 +41,17 @@
   {% endif %}
 
   <li>
-    <a class="dropdown-list-item" rel='noreferrer' href="https://github.com/{{repository.repository_name}}/issues/"
-      target="_blank">
+    <a class="dropdown-list-item" rel='noreferrer'
+      href="https://github.com/{{repository.information.full_name}}/issues/" target="_blank">
       Open issue
     </a>
   </li>
 
 
-  {% if repository.repository_id != "172733314" %}
+  {% if repository.information.uid != "172733314" %}
   <li>
     <a class="dropdown-list-item" rel='noreferrer'
-      href="https://github.com/custom-components/hacs/issues/new?title={{repository.name}}&labels=flag&assignee=ludeeus&template=flag.md"
+      href="https://github.com/custom-components/hacs/issues/new?title={{repository.information.full_name}}&labels=flag&assignee=ludeeus&template=flag.md"
       target="_blank">
       Flag this
     </a>

@@ -195,22 +195,21 @@ class Repository(HacsWebResponse):
     async def response(self):
         """Serve HacsRepositoryView."""
         message = self.request.rel_url.query.get("message")
-        if str(self.repository_id) not in self.store.repositories:
+        repository = self.get_by_id(str(self.repository_id))
+        if repository is None:
+            self.logger.error(f"No repository found with ID {str(self.repository_id)}")
             return web.Response(status=404)
 
-        repository = self.store.repositories[str(self.repository_id)]
-        if not repository.updated_info:
-            await repository.set_repository()
-            await repository.update()
-            repository.updated_info = True
+        if not repository.status.updated_info:
+            await repository.update_repository()
+            repository.status.updated_info = True
 
-            self.store.write()
+            self.data.write()
 
-        if repository.new:
-            repository.new = False
-            self.store.write()
+        if repository.status.new:
+            repository.status.new = False
+            self.data.write()
 
-        repository = RepositoryInformationView(repository)
         render = self.render("repository", repository=repository, message=message)
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 

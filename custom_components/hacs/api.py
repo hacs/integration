@@ -159,12 +159,12 @@ class RepositoryInstall(HacsAPI):
 
     async def response(self):
         """Response."""
-        repository = self.store.repositories[self.postdata["repository_id"]]
+        repository = self.get_by_id(self.postdata["repository_id"])
         await repository.install()
-        self.store.write()
+        self.data.write()
         return web.HTTPFound(
             "/hacsweb/{}/repository/{}?timestamp={}".format(
-                self.token, repository.repository_id, time()
+                self.token, repository.information.uid, time()
             )
         )
 
@@ -371,7 +371,7 @@ class RepositoryRegister(HacsAPI):
                     )
                 )
 
-            is_known_repository = await self.is_known_repository(repository_name)
+            is_known_repository = self.is_known(repository_name)
             if is_known_repository:
                 message = "'{}' is already registered, look for it in the store.".format(
                     repository_name
@@ -382,18 +382,16 @@ class RepositoryRegister(HacsAPI):
                     )
                 )
 
-            if repository_name in self.blacklist:
-                self.blacklist.remove(repository_name)
+            if repository_name in self.common.blacklist:
+                self.common.blacklist.remove(repository_name)
 
-            repository, result = await self.register_new_repository(
-                repository_type, repository_name
-            )
+            await self.register_repository(repository_name, repository_type)
 
-            if result:
-                self.store.write()
+            repository = self.get_by_name(repository_name)
+            if repository is not None:
                 return web.HTTPFound(
                     "/hacsweb/{}/repository/{}?timestamp={}".format(
-                        self.token, repository.repository_id, time()
+                        self.token, repository.information.uid, time()
                     )
                 )
 

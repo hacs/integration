@@ -138,7 +138,7 @@ async def hacs_startup(hacs):
             message=const.DEV_MODE,
             notification_id="hacs_dev_mode",
         )
-        await test_repositories(hacs)
+        # await test_repositories(hacs)
 
     # Add sensor
     add_sensor(hacs)
@@ -254,8 +254,16 @@ async def add_services(hacs):
             return
         await hacs().register_new_repository(repository_type, repository)
 
+    async def service_hacs_load(call):
+        """register a repository."""
+        from homeassistant.loader import async_get_custom_components
+
+        del hacs.hass.data["custom_components"]
+        await async_get_custom_components(hacs.hass)
+
     hacs.hass.services.async_register("hacs", "install", service_hacs_install)
     hacs.hass.services.async_register("hacs", "register", service_hacs_register)
+    hacs.hass.services.async_register("hacs", "load", service_hacs_load)
 
 
 async def test_repositories(hacs):

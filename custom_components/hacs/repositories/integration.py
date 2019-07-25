@@ -1,5 +1,6 @@
 """Class for integrations in HACS."""
 import json
+from homeassistant.loader import async_get_custom_components
 from .repository import HacsRepository, register_repository_class
 
 
@@ -95,8 +96,11 @@ class HacsIntegration(HacsRepository):
         # Set local path
         self.content.path.local = self.localpath
 
-    async def reload_config_flows(self):
-        """Reload config_flows."""
+    async def reload_custom_components(self):
+        """Reload custom_components (and config flows)in HA."""
+        self.logger.info("Reloading custom_component cache")
+        del self.hass.data["custom_components"]
+        await async_get_custom_components(self.hass)
 
     async def get_manifest(self):
         """Get info from the manifest file."""

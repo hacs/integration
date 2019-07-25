@@ -220,6 +220,27 @@ class HacsRepository(Hacs):
                 available = ""
         return available
 
+    @property
+    def display_version_or_commit(self):
+        """Does the repositoriy use releases or commits?"""
+        if self.releases.releases:
+            version_or_commit = "version"
+        else:
+            version_or_commit = "commit"
+        return version_or_commit
+
+    @property
+    def main_action(self):
+        """Return the main action."""
+        actions = {
+            "new": "INSTALL",
+            "default": "INSTALL",
+            "installed": "REINSTALL",
+            "pending-restart": "REINSTALL",
+            "pending-update": "UPGRADE",
+        }
+        return actions[self.display_status]
+
     async def common_validate(self):
         """Common validation steps of the repository."""
         # Attach helpers
@@ -347,9 +368,10 @@ class HacsRepository(Hacs):
 
             if self.information.category == "integration":
                 if self.config_flow:
-                    await self.reload_config_flows()
+                    await self.reload_custom_components()
                 else:
                     self.status.pending.restart = True
+                await self.reload_custom_components()
 
     async def download_content(self, validate, directory_path, local_directory, ref):
         """Download the content of a directory."""

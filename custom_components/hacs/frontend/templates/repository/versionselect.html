@@ -1,21 +1,21 @@
-{% set tags = repository.published_tags | sort(True) %}
-{% if repository.repository_id == "172733314" %}
+{% set tags = repository.releases.published_tags | sort(True) %}
+{% if repository.information.uid == "172733314" %}
 {% set tags = tags + ["next"] %}
 {% else %}
-{% set tags = tags + [repository.default_branch] %}
+{% set tags = tags + [repository.information.default_branch] %}
 {% endif %}
 
 
-{% if repository.selected_tag %}
-{% set selected_tag = repository.selected_tag %}
+{% if repository.releases.selected_tag %}
+{% set selected_tag = repository.releases.selected_tag %}
 {% else %}
-{% set selected_tag = repository.available_version %}
+{% set selected_tag = repository.versions.available %}
 {% endif %}
 
 <b>Available versions:</b>
 <form action="/hacsapi/{{ hacs.token }}/repository_select_tag" name="selected_tag" method="post" accept-charset="utf-8"
   enctype="application/x-www-form-urlencoded" class="hacs-form">
-  <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
+  <input type="hidden" name="repository_id" value="{{repository.information.uid}}">
   <select name="selected_tag" class="hacs-select"
     onchange="toggleLoading();document.getElementsByName('selected_tag')[0].submit()">
     {% for tag in tags %}

@@ -74,8 +74,11 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
 async def async_setup_entry(hass, config_entry):
     """Set up this integration using UI."""
     conf = hass.data.get(const.DOMAIN)
-    if conf is None and config_entry.source == config_entries.SOURCE_IMPORT:
-        hass.async_create_task(hass.config_entries.async_remove(config_entry.entry_id))
+    if config_entry.source == config_entries.SOURCE_IMPORT:
+        if conf is None:
+            hass.async_create_task(
+                hass.config_entries.async_remove(config_entry.entry_id)
+            )
         return False
     Hacs.hass = hass
     Hacs.configuration = Configuration(config_entry.data)

@@ -351,7 +351,7 @@ class HacsBase:
                             "{} - {}".format(repository.repository_name, exception)
                         )
         self.common.status.background_task = False
-        self.store.write()
+        self.data.write()
 
     async def get_repositories(self):
         """Get defined repositories."""

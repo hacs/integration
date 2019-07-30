@@ -85,13 +85,10 @@ class RemoveNewFlag(HacsAPI):
 
     async def response(self):
         """Response."""
-        for repository in self.store.repositories:
-            repository = self.store.repositories[repository]
+        for repository in self.repositories:
             repository.new = False
-        self.store.write()
-        return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
-        )
+        self.data.write()
+        return web.HTTPFound(f"/hacsweb/{self.token}/settings?timestamp={time()}")
 
 
 @apiresponse
@@ -105,10 +102,10 @@ class DevTemplate(HacsAPI):
         from .handler.template import render_template
 
         if "set" in self.postdata:
-            self.dev_template_id = self.postdata.get("repository_id")
-            repository = self.store.repositories.get(self.dev_template_id)
+            self.developer.template_id = self.postdata.get("repository_id")
+            repository = self.get_by_id(self.developer.template_id)
             template = render_template(self.postdata.get("template", ""), repository)
-            info = await self.aiogithub.render_markdown(template)
+            info = await self.github.render_markdown(template)
             info = info.replace("<h3>", "<h6>").replace("</h3>", "</h6>")
             info = info.replace("<h2>", "<h5>").replace("</h2>", "</h5>")
             info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
@@ -118,10 +115,10 @@ class DevTemplate(HacsAPI):
             )
             info = info.replace("<ul>", "")
             info = info.replace("</ul>", "")
-            self.dev_template = info
+            self.developer.template_content = info
         else:
-            self.dev_template = ""
-            self.dev_template_id = "Repository ID"
+            self.developer.template_content = ""
+            self.developer.template_id = "Repository ID"
         render = self.render("settings/dev/template_test")
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
@@ -134,7 +131,7 @@ class DevView(HacsAPI):
 
     async def response(self):
         """Response."""
-        render = self.render("settings/dev/{}".format(self.postdata["view"]))
+        render = self.render(f"settings/dev/{self.postdata['view']}")
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
 
@@ -175,13 +172,11 @@ class RepositoryUpdate(HacsAPI):
 
     async def response(self):
         """Response."""
-        repository = self.store.repositories[self.postdata["repository_id"]]
+        repository = self.get_by_id(self.postdata["repository_id"])
         await repository.update()
-        self.store.write()
+        self.data.write()
         return web.HTTPFound(
-            "/hacsweb/{}/repository/{}?timestamp={}".format(
-                self.token, repository.repository_id, time()
-            )
+            f"/hacsweb/{self.token}/repository/{repository.information.uid}?timestamp={time()}"
         )
 
 
@@ -193,12 +188,10 @@ class RepositoryUninstall(HacsAPI):
 
     async def response(self):
         """Response."""
-        repository = self.store.repositories[self.postdata["repository_id"]]
+        repository = self.get_by_id(self.postdata["repository_id"])
         await repository.uninstall()
-        self.store.write()
-        return web.HTTPFound(
-            "/hacsweb/{}/store?timestamp={}".format(self.token, time())
-        )
+        self.data.write()
+        return web.HTTPFound(f"/hacsweb/{self.token}/store?timestamp={time()}")
 
 
 @apiresponse
@@ -209,12 +202,10 @@ class RepositoryRemove(HacsAPI):
 
     async def response(self):
         """Response."""
-        repository = self.store.repositories[self.postdata["repository_id"]]
+        repository = self.get_by_id(self.postdata["repository_id"])
         await repository.remove()
-        self.store.write()
-        return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
-        )
+        self.data.write()
+        return web.HTTPFound(f"/hacsweb/{self.token}/settings?timestamp={time()}")
 
 
 @apiresponse
@@ -225,12 +216,10 @@ class RepositoryHide(HacsAPI):
 
     async def response(self):
         """Response."""
-        repository = self.store.repositories[self.postdata["repository_id"]]
+        repository = self.get_by_id(self.postdata["repository_id"])
         repository.hide = True
-        self.store.write()
-        return web.HTTPFound(
-            "/hacsweb/{}/store?timestamp={}".format(self.token, time())
-        )
+        self.data.write()
+        return web.HTTPFound(f"/hacsweb/{self.token}/store?timestamp={time()}")
 
 
 @apiresponse
@@ -241,12 +230,10 @@ class RepositoryUnhide(HacsAPI):
 
     async def response(self):
         """Response."""
-        repository = self.store.repositories[self.postdata["repository_id"]]
+        repository = self.get_by_id(self.postdata["repository_id"])
         repository.hide = False
-        self.store.write()
-        return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
-        )
+        self.data.write()
+        return web.HTTPFound(f"/hacsweb/{self.token}/settings?timestamp={time()}")
 
 
 @apiresponse
@@ -257,14 +244,12 @@ class RepositoryBetaHide(HacsAPI):
 
     async def response(self):
         """Response."""
-        repository = self.store.repositories[self.postdata["repository_id"]]
+        repository = self.get_by_id(self.postdata["repository_id"])
         repository.show_beta = False
         await repository.update()
-        self.store.write()
+        self.data.write()
         return web.HTTPFound(
-            "/hacsweb/{}/repository/{}?timestamp={}".format(
-                self.token, repository.repository_id, time()
-            )
+            f"/hacsweb/{self.token}/repository/{repository.repository_id}?timestamp={time()}"
         )
 
 
@@ -276,14 +261,12 @@ class RepositoryBetaShow(HacsAPI):
 
     async def response(self):
         """Response."""
-        repository = self.store.repositories[self.postdata["repository_id"]]
+        repository = self.get_by_id(self.postdata["repository_id"])
         repository.show_beta = True
         await repository.update()
-        self.store.write()
+        self.data.write()
         return web.HTTPFound(
-            "/hacsweb/{}/repository/{}?timestamp={}".format(
-                self.token, repository.repository_id, time()
-            )
+            f"/hacsweb/{self.token}/repository/{repository.repository_id}?timestamp={time()}"
         )
 
 
@@ -296,9 +279,7 @@ class RepositoriesReload(HacsAPI):
     async def response(self):
         """Response."""
         self.hass.async_create_task(self.update_repositories("Run it!"))
-        return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
-        )
+        return web.HTTPFound(f"/hacsweb/{self.token}/settings?timestamp={time()}")
 
 
 @apiresponse
@@ -309,13 +290,10 @@ class RepositoriesUpgradeAll(HacsAPI):
 
     async def response(self):
         """Response."""
-        for repository in self.store.repositories:
-            repository = self.store.repositories[repository]
-            if repository.pending_update:
+        for repository in self.repositories:
+            if repository.status.pending.upgrade:
                 await repository.install()
-        return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
-        )
+        return web.HTTPFound(f"/hacsweb/{self.token}/settings?timestamp={time()}")
 
 
 @apiresponse
@@ -333,16 +311,12 @@ class RepositoryRegister(HacsAPI):
         if not repository_name:
             message = "Repository URL is missing."
             return web.HTTPFound(
-                "/hacsweb/{}/settings?timestamp={}&message={}".format(
-                    self.token, time(), message
-                )
+                f"/hacsweb/{self.token}/settings?timestamp={time()}&message={message}"
             )
         if repository_type is None:
             message = "Type is missing for '{}'.".format(repository_name)
             return web.HTTPFound(
-                "/hacsweb/{}/settings?timestamp={}&message={}".format(
-                    self.token, time(), message
-                )
+                f"/hacsweb/{self.token}/settings?timestamp={time()}&message={message}"
             )
 
         # Stip first part if it's an URL.
@@ -355,29 +329,21 @@ class RepositoryRegister(HacsAPI):
         # If it still have content, continue.
         if repository_name != "":
             if len(repository_name.split("/")) != 2:
-                message = """
-                    {} is not a valid format.
+                message = f"""
+                    {repository_name} is not a valid format.
                     Correct format is 'https://github.com/DEVELOPER/REPOSITORY'
                     or 'DEVELOPER/REPOSITORY'.
-                    """.format(
-                    repository_name
-                )
+                    """
 
                 return web.HTTPFound(
-                    "/hacsweb/{}/settings?timestamp={}&message={}".format(
-                        self.token, time(), message
-                    )
+                    f"/hacsweb/{self.token}/settings?timestamp={time()}&message={message}"
                 )
 
             is_known_repository = self.is_known(repository_name)
             if is_known_repository:
-                message = "'{}' is already registered, look for it in the store.".format(
-                    repository_name
-                )
+                message = f"'{repository_name}' is already registered, look for it in the store."
                 return web.HTTPFound(
-                    "/hacsweb/{}/settings?timestamp={}&message={}".format(
-                        self.token, time(), message
-                    )
+                    f"/hacsweb/{self.token}/settings?timestamp={time()}&message={message}"
                 )
 
             if repository_name in self.common.blacklist:
@@ -388,20 +354,14 @@ class RepositoryRegister(HacsAPI):
             repository = self.get_by_name(repository_name)
             if repository is not None:
                 return web.HTTPFound(
-                    "/hacsweb/{}/repository/{}?timestamp={}".format(
-                        self.token, repository.information.uid, time()
-                    )
+                    f"/hacsweb/{self.token}/repository/{repository.information.uid}?timestamp={time()}"
                 )
 
-        message = """
-        Could not add '{}' with type '{}' at this time.</br>
-        If you used the correct type, check the log for more details.""".format(
-            repository_name, repository_type
-        )
+        message = f"""
+        Could not add '{repository_name}' with type '{repository_type}' at this time.</br>
+        If you used the correct type, check the log for more details."""
         return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}&message={}".format(
-                self.token, time(), message
-            )
+            f"/hacsweb/{self.token}/settings?timestamp={time()}&message={message}"
         )
 
 
@@ -416,7 +376,7 @@ class RepositorySelectTag(HacsAPI):
         from aiogithubapi import AIOGitHubException
         from .hacsbase.exceptions import HacsRequirement
 
-        repository = self.store.repositories[self.postdata["repository_id"]]
+        repository = self.get_by_id(self.postdata["repository_id"])
         if self.postdata["selected_tag"] == repository.last_release_tag:
             repository.selected_tag = None
         else:
@@ -430,15 +390,11 @@ class RepositorySelectTag(HacsAPI):
                 self.postdata["selected_tag"]
             )
             return web.HTTPFound(
-                "/hacsweb/{}/repository/{}?timestamp={}&message={}".format(
-                    self.token, repository.repository_id, time(), message
-                )
+                f"/hacsweb/{self.token}/repository/{repository.repository_id}?timestamp={time()}&message={message}"
             )
-        self.store.write()
+        self.data.write()
         return web.HTTPFound(
-            "/hacsweb/{}/repository/{}?timestamp={}".format(
-                self.token, repository.repository_id, time()
-            )
+            f"/hacsweb/{self.token}/repository/{repository.repository_id}?timestamp={time()}"
         )
 
 
@@ -450,9 +406,6 @@ class FrontentMode(HacsAPI):
 
     async def response(self):
         """Response."""
-        self.store.frontend_mode = self.postdata["view_type"]
-        self.store.write()
-        return web.HTTPFound(
-            "/hacsweb/{}/settings?timestamp={}".format(self.token, time())
-        )
-
+        self.configuration.frontend_mode = self.postdata["view_type"]
+        self.data.write()
+        return web.HTTPFound(f"/hacsweb/{self.token}/settings?timestamp={time()}")

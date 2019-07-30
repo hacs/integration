@@ -4,7 +4,7 @@
       <li class="collection-header hacscolor hacslist">
         <h5>CUSTOM REPOSITORIES</h5>
       </li>
-      {% if not hacs.common.status.background_task %}
+      {% if hacs.common.status.background_task %}
       <li class="collection-item hacscolor hacslist">
         Loading custom repositories...
       </li>
@@ -40,7 +40,7 @@
       {% endif %}
     </ul>
 
-    {% if hacs.common.status.background_task %}
+    {% if not hacs.common.status.background_task %}
     <form class="minigrid" action="/hacsapi/{{ hacs.token }}/repository_register" method="post" accept-charset="utf-8"
       enctype="application/x-www-form-urlencoded">
       <input id="custom_url" type="text" name="custom_url" placeholder="  ADD CUSTOM REPOSITORY"

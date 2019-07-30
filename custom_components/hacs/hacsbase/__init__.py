@@ -17,8 +17,8 @@ from .const import ELEMENT_TYPES
 class HacsStatus:
     """HacsStatus."""
 
-    startup = True
-    background_task = True
+    startup = False
+    background_task = False
 
 
 class HacsCommon:

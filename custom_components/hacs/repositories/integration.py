@@ -27,7 +27,7 @@ class HacsIntegration(HacsRepository):
     @property
     def config_flow(self):
         """Return bool if integration has config_flow."""
-        if self.manifest is None:
+        if self.manifest is not None:
             return self.manifest.get("config_flow", False)
         return False
 

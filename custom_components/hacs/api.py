@@ -163,9 +163,7 @@ class RepositoryInstall(HacsAPI):
         await repository.install()
         self.data.write()
         return web.HTTPFound(
-            "/hacsweb/{}/repository/{}?timestamp={}".format(
-                self.token, repository.information.uid, time()
-            )
+            f"/hacsweb/{self.token}/repository/{repository.information.uid}?timestamp={time()}"
         )
 
 

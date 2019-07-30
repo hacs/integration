@@ -24,3 +24,15 @@ function SetHomeAssistantVersion {
 function HomeAssistantConfigCheck {
   hass -c /config --script check_config
 }
+
+function InstallTabNine {
+  echo "Enable TabNine autocomplete"
+  mkdir -p /root/.config/TabNine
+  cp -f .devcontainer/tabnine_config.json /root/.config/TabNine
+  while [ -z "$CLOUD_KEY" ]; do
+    echo "Enter cloudkey:"
+    read CLOUD_KEY
+  done
+  sed -i "s/REPLACE_CLOUD_KEY/$CLOUD_KEY/g" /root/.config/TabNine/tabnine_config.json
+  echo "TabNine autocomplete done!"
+}

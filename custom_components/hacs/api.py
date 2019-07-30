@@ -146,7 +146,7 @@ class SetHAVersionAction(HacsAPI):
 
     async def response(self):
         """Response."""
-        self.store.ha_version = self.postdata["ha_version"]
+        self.common.ha_version = self.postdata["ha_version"]
         render = self.render("settings/dev/set_ha_version")
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 

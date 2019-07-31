@@ -75,7 +75,7 @@ class Hacs:
     tasks = []
     common = HacsCommon()
 
-    async def register_repository(self, full_name, category):
+    async def register_repository(self, full_name, category, check=True):
         """Register a repository."""
         from ..repositories.repository import RERPOSITORY_CLASSES
 
@@ -84,13 +84,13 @@ class Hacs:
             return False
 
         repository = RERPOSITORY_CLASSES[category](full_name)
-        await repository.registration()
-        if repository.validate.errors:
-            self.logger.error(f"Validation for {full_name} failed.")
-            return repository.validate.errors
-
+        if check:
+            await repository.registration()
+            if repository.validate.errors:
+                self.logger.error(f"Validation for {full_name} failed.")
+                return repository.validate.errors
+            repository.logger.info("Registration complete")
         self.repositories.append(repository)
-        repository.logger.info("Registration complete")
 
     async def startup_tasks(self):
         """Tasks tha are started after startup."""

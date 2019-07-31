@@ -62,7 +62,7 @@ class Migration(Hacs):
     def __init__(self, old_data=None):
         """initialize migration."""
         self.old_data = old_data
-        self.logger = Logger(f"hacs.migration")
+        self.logger = Logger("hacs.migration")
         self.source = f"{self.system.config_path}/.storage/hacs"
         self.cleanup()
         self.backup()

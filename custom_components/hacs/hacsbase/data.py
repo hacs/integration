@@ -5,6 +5,7 @@ from homeassistant.const import __version__ as HAVERSION
 from integrationhelper import Logger
 from . import Hacs
 from .const import STORAGE_VERSION
+from ..const import VERSION
 from ..repositories.repositoryinformationview import RepositoryInformationView
 from ..repositories.hacsrepositoryappdaemon import HacsRepositoryAppDaemon
 from ..repositories.hacsrepositoryintegration import HacsRepositoryIntegration
@@ -41,6 +42,8 @@ class HacsData(Hacs):
         if self.common.status.background_task:
             return
 
+        self.logger.debug("Saving data")
+
         # Hacs
         path = f"{self.system.config_path}/.storage/{STORES['hacs']}"
         content = {"view": self.configuration.frontend_mode}
@@ -68,14 +71,16 @@ class HacsData(Hacs):
                 "name": repository.information.name,
                 "new": repository.status.new,
                 "selected_tag": repository.status.selected_tag,
+                "pending_upgrade": repository.status.pending.upgrade,
                 "show_beta": repository.status.show_beta,
-                "topics": repository.information.topics,
                 "version_installed": repository.versions.installed,
             }
         save(path, content)
 
-    def restore(self):
+    async def restore(self):
         """Restore saved data."""
+        self.logger.info("Restore started")
+
         # Hacs
         content = self.read("hacs")
         if content is not None:
@@ -86,15 +91,67 @@ class HacsData(Hacs):
         content = self.read("installed")
         if content is not None:
             content = content["data"]
-            self.common.installed = content["data"]
+            self.common.installed = content
 
         # Repositories
         content = self.read("repositories")
         if content is not None:
             content = content["data"]
             for repo in content:
-                repo = content["repo"]
-                self.logger.error(repo)
+                repo = content[repo]
+                if repo["full_name"] != "custom-components/hacs":
+                    await self.register_repository(
+                        repo["full_name"], repo["category"], False
+                    )
+                repository = self.get_by_name(repo["full_name"])
+                if repository is None:
+                    self.logger.error(f"Did not find {repo['full_name']}")
+                    continue
+
+                # Restore repository attributes
+                if repo.get("authors") is not None:
+                    repository.information.authors = repo["authors"]
+
+                if repo.get("description") is not None:
+                    repository.information.description = repo["description"]
+
+                if repo.get("name") is not None:
+                    repository.information.name = repo["name"]
+
+                if repo.get("last_release_tag") is not None:
+                    repository.releases.last_release = repo["last_release_tag"]
+
+                if repo.get("hide") is not None:
+                    repository.status.hide = repo["hide"]
+
+                if repo.get("installed") is not None:
+                    repository.status.installed = repo["installed"]
+
+                if repo.get("new") is not None:
+                    repository.status.new = repo["new"]
+
+                if repo.get("selected_tag") is not None:
+                    repository.status.selected_tag = repo["selected_tag"]
+
+                if repo.get("show_beta") is not None:
+                    repository.status.show_beta = repo["show_beta"]
+
+                if repo.get("pending_upgrade") is not None:
+                    repository.status.pending.upgrade = repo["pending_upgrade"]
+
+                if repo.get("last_commit") is not None:
+                    repository.versions.available_commit = repo["last_commit"]
+
+                if repo["full_name"] == "custom-components/hacs":
+                    repository.versions.installed = VERSION
+                else:
+                    if repo.get("installed") is not None:
+                        repository.versions.installed = repo["installed"]
+
+                    if repo.get("installed_commit") is not None:
+                        repository.versions.installed_commit = repo["installed_commit"]
+
+        self.logger.info("Restore done")
 
 
 def save(path, content):
@@ -102,81 +159,3 @@ def save(path, content):
     content = {"data": content, "schema": STORAGE_VERSION}
     with open(path, "w", encoding="utf-8", errors="ignore") as storefile:
         json.dump(content, storefile, indent=4)
-
-
-class OldHacsData:
-    def restore_values(self):
-        """Restore stored values."""
-
-        path = STORES["hacs"]
-        if os.path.exists(path):
-            hacs = self.read("hacs")
-            if hacs:
-                self.frontend_mode = hacs.get("hacs", {}).get("view", "Grid")
-                self.schema = hacs.get("hacs", {}).get("schema")
-                self.endpoints = hacs.get("hacs", {}).get("endpoints", {})
-                repositories = {}
-                for repository in hacs.get("repositories", {}):
-                    repo_id = repository
-                    repository = hacs["repositories"][repo_id]
-
-                    self.logger.info(repository["repository_name"], "restore")
-
-                    if repository["repository_type"] == "appdaemon":
-                        repositories[repo_id] = HacsRepositoryAppDaemon(
-                            repository["repository_name"]
-                        )
-
-                    elif repository["repository_type"] == "integration":
-                        repositories[repo_id] = HacsRepositoryIntegration(
-                            repository["repository_name"]
-                        )
-
-                    elif repository["repository_type"] == "plugin":
-                        repositories[repo_id] = HacsRepositoryPlugin(
-                            repository["repository_name"]
-                        )
-
-                    elif repository["repository_type"] == "python_script":
-                        repositories[repo_id] = HacsRepositoryPythonScripts(
-                            repository["repository_name"]
-                        )
-
-                    elif repository["repository_type"] == "theme":
-                        repositories[repo_id] = HacsRepositoryThemes(
-                            repository["repository_name"]
-                        )
-
-                    else:
-                        continue
-
-                    repositories[repo_id].description = repository.get(
-                        "description", ""
-                    )
-                    repositories[repo_id].installed = repository["installed"]
-                    repositories[repo_id].last_commit = repository.get(
-                        "last_commit", ""
-                    )
-                    repositories[repo_id].name = repository["name"]
-                    repositories[repo_id].new = repository.get("new", True)
-                    repositories[repo_id].repository_id = repo_id
-                    repositories[repo_id].topics = repository.get("topics", [])
-                    repositories[repo_id].track = repository.get("track", True)
-                    repositories[repo_id].show_beta = repository.get("show_beta", False)
-                    repositories[repo_id].version_installed = repository.get(
-                        "version_installed"
-                    )
-                    repositories[repo_id].last_release_tag = repository.get(
-                        "last_release_tag"
-                    )
-                    repositories[repo_id].installed_commit = repository.get(
-                        "installed_commit"
-                    )
-                    repositories[repo_id].selected_tag = repository.get("selected_tag")
-                    if repo_id == "172733314":
-                        repositories[repo_id].version_installed = "x.x.x"
-                    self.frontend.append(
-                        RepositoryInformationView(repositories[repo_id])
-                    )
-
-                self.repositories = repositories

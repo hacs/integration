@@ -136,9 +136,6 @@ class Settings(HacsWebResponse):
 
     async def response(self):
         """Serve HacsOverviewView."""
-        self.logger.error(self.sorted_by_name)
-        self.logger.error(self.sorted_by_repository_name)
-        self.logger.error(self.repositories)
         message = self.request.rel_url.query.get("message")
         render = self.render("settings", message=message)
         return web.Response(body=render, content_type="text/html", charset="utf-8")

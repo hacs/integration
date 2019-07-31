@@ -125,7 +125,7 @@ async def hacs_startup(hacs):
     # TODO: Migration HERE!
 
     # Restore from storefiles
-    hacs.data.restore()
+    await hacs.data.restore()
 
     # Setup startup tasks
     if hacs.configuration.config_type == "yaml":

@@ -30,10 +30,7 @@ class PendingActions:
     """Pending actions."""
 
     restart = False
-
-    @property
-    def upgrade(self):
-        """Return bool if benting upgrade."""
+    upgrade = False
 
 
 class RepositoryStatus:
@@ -237,7 +234,7 @@ class HacsRepository(Hacs):
             "default": "INSTALL",
             "installed": "REINSTALL",
             "pending-restart": "REINSTALL",
-            "pending-update": "UPGRADE",
+            "pending-upgrade": "UPGRADE",
         }
         return actions[self.display_status]
 
@@ -333,6 +330,19 @@ class HacsRepository(Hacs):
 
         # Update releases
         await self.get_releases()
+
+        # Set pending upgrade
+        if self.status.installed:
+            if self.versions.installed:
+                self.status.pending.upgrade = bool(
+                    self.versions.available != self.versions.installed
+                )
+            else:
+                self.status.pending.upgrade = bool(
+                    self.versions.available_commit != self.versions.installed_commit
+                )
+        else:
+            self.status.pending.upgrade = False
 
     async def install(self):
         """Common installation steps of the repository."""

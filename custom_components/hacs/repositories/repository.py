@@ -144,10 +144,23 @@ class HacsRepository(Hacs):
     @property
     def display_name(self):
         """Return display name."""
-        if self.information.category != "integration":
-            if self.information.name:
-                return self.information.name.replace("-", " ").replace("_", " ").title()
-        return self.manifest["name"]
+        name = None
+        if self.information.category == "integration":
+            if self.manifest is not None:
+                name = self.manifest["name"]
+
+        if name is not None:
+            return name
+
+        if self.information.name:
+            name = self.information.name.replace("-", " ").replace("_", " ").title()
+
+        if name is not None:
+            return name
+
+        name = self.information.full_name
+
+        return name
 
     @property
     def display_status(self):

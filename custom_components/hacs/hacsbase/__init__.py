@@ -25,7 +25,7 @@ class HacsCommon:
     """Common for HACS."""
 
     status = HacsStatus()
-    categories = None
+    categories = []
     blacklist = []
     default = []
     installed = []
@@ -100,6 +100,8 @@ class Hacs:
             )
         )
 
+        await self.load_known_repositories()
+
     def get_by_id(self, repository_id):
         """Get repository by ID."""
         try:
@@ -140,6 +142,52 @@ class Hacs:
     async def recuring_tasks_installed(self, notarealarg):
         """Recuring tasks for installed repositories."""
         self.logger.info("Starting task")
+
+    async def get_repositories(self):
+        """Return a list of repositories."""
+        repositories = {}
+        hacs = self.get_by_name("custom-components/hacs")
+        hacs = hacs.repository_object
+        if self.configuration.dev:
+            if self.developer.devcontainer:
+                repositories = {
+                    "appdaemon": ["ludeeus/ad-hacs"],
+                    "integration": ["ludeeus/integration-hacs"],
+                    "plugin": ["maykar/compact-custom-header"],
+                    "python_script": ["ludeeus/ps-hacs"],
+                    "theme": ["ludeeus/theme-hacs"],
+                }
+                return repositories
+
+        for category in self.common.categories:
+            repositories[category] = []
+            if category == "plugin":
+                org = await self.github.get_repositories("custom-cards")
+                for repo in org:
+                    repositories[category].append(repo.repository_name)
+
+    async def load_known_repositories(self):
+        """Load known repositories."""
+        self.logger.info("Loading known repositories")
+        hacs = self.get_by_name("custom-components/hacs")
+        hacs = hacs.repository_object
+        blacklist = await hacs.get_contents("repositories/blacklist", "data")
+        repositories = await self.get_repositories()
+
+        for item in json.loads(blacklist.content):
+            if item not in self.common.blacklist:
+                self.common.blacklist.append(item)
+
+        for category in repositories:
+            for repo in repositories[category]:
+                if repo in self.common.blacklist:
+                    continue
+                if repo in self.common.default:
+                    continue
+                if self.is_known(repo):
+                    continue
+                self.common.default.append(repo)
+                await self.register_repository(repo, category)
 
 
 class HacsBase:

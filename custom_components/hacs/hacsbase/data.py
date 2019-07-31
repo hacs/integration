@@ -121,9 +121,6 @@ class HacsData(Hacs):
                 if repo.get("installed") is not None:
                     repository.status.installed = repo["installed"]
 
-                if repo.get("new") is not None:
-                    repository.status.new = repo["new"]
-
                 if repo.get("selected_tag") is not None:
                     repository.status.selected_tag = repo["selected_tag"]
 
@@ -138,8 +135,12 @@ class HacsData(Hacs):
 
                 if repo["full_name"] == "custom-components/hacs":
                     repository.versions.installed = VERSION
+                    repository.status.new = False
                 else:
                     repository.information.uid = entry
+
+                    if repo.get("new") is not None:
+                        repository.status.new = repo["new"]
 
                     if repo.get("installed") is not None:
                         repository.versions.installed = repo["installed"]

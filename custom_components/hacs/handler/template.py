@@ -15,13 +15,13 @@ def render_template(content, context):
     try:
         render = Template(content)
         render = render.render(
-            installed=context.installed,
-            pending_update=context.pending_update,
+            installed=context.status.installed,
+            pending_update=context.status.pending.upgrade,
             prerelease=prerelease,
-            selected_tag=context.selected_tag,
-            version_available=context.last_release_tag,
-            version_installed=context.version_installed,
+            selected_tag=context.status.selected_tag,
+            version_available=context.releases.last_release,
+            version_installed=context.display_installed_version,
         )
         return render
-    except Exception:  # Gotta Catch 'Em All
+    except Exception:
         return content

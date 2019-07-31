@@ -28,6 +28,7 @@ class HacsCommon:
     categories = None
     blacklist = []
     default = []
+    installed = []
 
 
 class System:
@@ -129,7 +130,7 @@ class Hacs:
     @property
     def sorted_by_name(self):
         """Return a sorted(by name) list of repository objects."""
-        return sorted(self.repositories, key=lambda x: x.information.name.lower())
+        return sorted(self.repositories, key=lambda x: x.display_name)
 
     @property
     def sorted_by_repository_name(self):
@@ -281,7 +282,7 @@ class HacsBase:
             setup_result = False
 
         if setup_result:
-            self.store.repositories[repository.repository_id] = repository
+            self.store.repositories[repository.information.uid] = repository
             self.store.frontend.append(RepositoryInformationView(repository))
 
         else:
@@ -309,11 +310,11 @@ class HacsBase:
                         or repository.repository_name in self.blacklist
                     ):
                         continue
-                    if repository.hide and repository.repository_id != "172733314":
+                    if repository.hide and repository.information.uid != "172733314":
                         continue
                     if now is not None:
                         self.logger.info("Running update", repository.repository_name)
-                        await repository.update()
+                        await repository.update_repository()
                 except AIOGitHubException as exception:
                     self.logger.error(
                         "{} - {}".format(repository.repository_name, exception)
@@ -434,7 +435,7 @@ class HacsBase:
                 if not repository.installed:
                     continue
                 self.logger.info("Running update", repository.repository_name)
-                await repository.update()
+                await repository.update_repository()
             except AIOGitHubException as exception:
                 self.logger.error(
                     "{} - {}".format(repository.repository_name, exception)

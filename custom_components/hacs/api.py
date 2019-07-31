@@ -175,7 +175,7 @@ class RepositoryUpdate(HacsAPI):
     async def response(self):
         """Response."""
         repository = self.get_by_id(self.postdata["repository_id"])
-        await repository.update()
+        await repository.update_repository()
         self.data.write()
         return web.HTTPFound(
             f"/hacsweb/{self.token}/repository/{repository.information.uid}?timestamp={time()}"
@@ -248,10 +248,10 @@ class RepositoryBetaHide(HacsAPI):
         """Response."""
         repository = self.get_by_id(self.postdata["repository_id"])
         repository.show_beta = False
-        await repository.update()
+        await repository.update_repository()
         self.data.write()
         return web.HTTPFound(
-            f"/hacsweb/{self.token}/repository/{repository.repository_id}?timestamp={time()}"
+            f"/hacsweb/{self.token}/repository/{repository.information.uid}?timestamp={time()}"
         )
 
 
@@ -265,10 +265,10 @@ class RepositoryBetaShow(HacsAPI):
         """Response."""
         repository = self.get_by_id(self.postdata["repository_id"])
         repository.show_beta = True
-        await repository.update()
+        await repository.update_repository()
         self.data.write()
         return web.HTTPFound(
-            f"/hacsweb/{self.token}/repository/{repository.repository_id}?timestamp={time()}"
+            f"/hacsweb/{self.token}/repository/{repository.information.uid}?timestamp={time()}"
         )
 
 
@@ -379,24 +379,25 @@ class RepositorySelectTag(HacsAPI):
         from .hacsbase.exceptions import HacsRequirement
 
         repository = self.get_by_id(self.postdata["repository_id"])
-        if self.postdata["selected_tag"] == repository.last_release_tag:
-            repository.selected_tag = None
+        if self.postdata["selected_tag"] == repository.releases.last_release:
+            repository.status.selected_tag = None
         else:
-            repository.selected_tag = self.postdata["selected_tag"]
+            repository.status.selected_tag = self.postdata["selected_tag"]
+
         try:
-            await repository.update()
+            await repository.update_repository()
         except (AIOGitHubException, HacsRequirement):
-            repository.selected_tag = repository.last_release_tag
-            await repository.update()
+            repository.status.selected_tag = repository.releases.last_release
+            await repository.update_repository()
             message = "The version {} is not valid for use with HACS.".format(
                 self.postdata["selected_tag"]
             )
             return web.HTTPFound(
-                f"/hacsweb/{self.token}/repository/{repository.repository_id}?timestamp={time()}&message={message}"
+                f"/hacsweb/{self.token}/repository/{repository.information.uid}?timestamp={time()}&message={message}"
             )
         self.data.write()
         return web.HTTPFound(
-            f"/hacsweb/{self.token}/repository/{repository.repository_id}?timestamp={time()}"
+            f"/hacsweb/{self.token}/repository/{repository.information.uid}?timestamp={time()}"
         )
 
 

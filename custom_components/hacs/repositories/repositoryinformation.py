@@ -47,7 +47,7 @@ class RepositoryInformation:
 
     @property
     def repository_id(self):
-        return self.repository.repository_id
+        return self.repository.information.uid
 
     @property
     def repository_name(self):

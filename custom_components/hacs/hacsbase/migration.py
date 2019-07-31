@@ -39,7 +39,7 @@ class ValidateData(Hacs):
 
         for version in range(current, STORAGE_VERSION + 1):
             if version in MIGRATIONS:
-                MIGRATIONS[version].migrate()
+                MIGRATIONS[version](current).migrate()
             else:
                 validate.errors.append(f"Missing migration step for {version}")
 
@@ -59,7 +59,7 @@ class HacsMigration(HacsBase):
 class Migration(Hacs):
     """Hacs migrations"""
 
-    def __init__(self, old_data):
+    def __init__(self, old_data=None):
         """initialize migration."""
         self.old_data = old_data
         self.logger = Logger(f"hacs.migration")

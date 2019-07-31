@@ -2,8 +2,9 @@
 import os
 import json
 from homeassistant.const import __version__ as HAVERSION
-from .const import STORENAME
-from ..handler.logger import HacsLogger
+from integrationhelper import Logger
+from . import Hacs
+from .const import STORAGE_VERSION
 from ..repositories.repositoryinformationview import RepositoryInformationView
 from ..repositories.hacsrepositoryappdaemon import HacsRepositoryAppDaemon
 from ..repositories.hacsrepositoryintegration import HacsRepositoryIntegration
@@ -11,106 +12,113 @@ from ..repositories.hacsrepositorybaseplugin import HacsRepositoryPlugin
 from ..repositories.hacsrepositorypythonscript import HacsRepositoryPythonScripts
 from ..repositories.hacsrepositorytheme import HacsRepositoryThemes
 
+STORES = {
+    "hacs": "hacs.hacs",
+    "installed": "hacs.installed",
+    "repositories": "hacs.repositories",
+}
 
-class HacsData:
+
+class HacsData(Hacs):
     """HacsData class."""
 
-    def __init__(self, config_dir):
+    def __init__(self):
         """Initialize."""
-        self.frontend_mode = "Grid"
-        self.repositories = {}
-        self.logger = HacsLogger()
-        self.config_dir = config_dir
-        self.ha_version = HAVERSION
-        self.schema = None
-        self.endpoints = {}
-        self.frontend = []
-        self.task_running = False
+        self.logger = Logger("hacs.data")
 
-    @property
-    def store_path(self):
-        """Return the path to the store file."""
-        return "{}/.storage/{}".format(self.config_dir, STORENAME)
-
-    def read(self):
-        """Read from store."""
+    def read(self, store):
+        """Return data from a store."""
+        path = f"{self.system.config_path}/.storage/{STORES[store]}"
         content = None
-        try:
-            with open(
-                self.store_path, "r", encoding="utf-8", errors="ignore"
-            ) as storefile:
+        if os.path.exists(path):
+            with open(path, "r", encoding="utf-8", errors="ignore") as storefile:
                 content = storefile.read()
                 content = json.loads(content)
-        except FileNotFoundError:
-            pass
         return content
 
     def write(self):
-        """Write to store."""
-        if self.task_running:
+        """Write content to the store files."""
+        if self.common.status.background_task:
             return
 
-        self.logger.debug("Saving data", "store")
+        # Hacs
+        path = f"{self.system.config_path}/.storage/{STORES['hacs']}"
+        content = {"view": self.configuration.frontend_mode}
+        save(path, content)
 
-        data = {
-            "hacs": {
-                "view": self.frontend_mode,
-                "schema": self.schema,
-                "endpoints": self.endpoints,
-            },
-            "repositories": {},
-        }
+        # Installed
+        path = f"{self.system.config_path}/.storage/{STORES['installed']}"
+        content = self.common.installed
+        save(path, content)
 
+        # Repositories
+        path = f"{self.system.config_path}/.storage/{STORES['repositories']}"
+        content = {}
         for repository in self.repositories:
-            repository = self.repositories[repository]
-            repositorydata = {
-                "custom": repository.custom,
-                "description": repository.description,
-                "hide": repository.hide,
-                "installed_commit": repository.installed_commit,
-                "installed": repository.installed,
-                "last_commit": repository.last_commit,
-                "name": repository.name,
-                "new": repository.new,
-                "repository_name": repository.repository_name,
-                "repository_type": repository.repository_type,
-                "show_beta": repository.show_beta,
-                "topics": repository.topics,
-                "track": repository.track,
-                "last_release_tag": repository.last_release_tag,
-                "version_installed": repository.version_installed,
-                "selected_tag": repository.selected_tag,
+            content[repository.information.uid] = {
+                "authors": repository.information.authors,
+                "category": repository.information.category,
+                "description": repository.information.description,
+                "full_name": repository.information.full_name,
+                "hide": repository.status.hide,
+                "installed_commit": repository.versions.installed_commit,
+                "installed": repository.status.installed,
+                "last_commit": repository.versions.available_commit,
+                "last_release_tag": repository.releases.last_release,
+                "name": repository.information.name,
+                "new": repository.status.new,
+                "selected_tag": repository.status.selected_tag,
+                "show_beta": repository.status.show_beta,
+                "topics": repository.information.topics,
+                "version_installed": repository.versions.installed,
             }
+        save(path, content)
 
-            data["repositories"][repository.repository_id] = repositorydata
+    def restore(self):
+        """Restore saved data."""
+        # Hacs
+        content = self.read("hacs")
+        if content is not None:
+            content = content["data"]
+            self.configuration.frontend_mode = content["view"]
 
-        try:
-            with open(
-                self.store_path, "w", encoding="utf-8", errors="ignore"
-            ) as storefile:
-                json.dump(data, storefile, indent=4)
-        except FileNotFoundError:
-            pass
+        # Installed
+        content = self.read("installed")
+        if content is not None:
+            content = content["data"]
+            self.common.installed = content["data"]
 
-    def repository(self, repository_id):
-        """Retrurn the stored repository object, or None."""
-        repository_object = None
-        if repository_id in self.repositories:
-            repository_object = self.repositories[repository_object]
-        return repository_object
+        # Repositories
+        content = self.read("repositories")
+        if content is not None:
+            content = content["data"]
+            for repo in content:
+                repo = content["repo"]
+                self.logger.error(repo)
 
+
+def save(path, content):
+    """Save file."""
+    content = {"data": content, "schema": STORAGE_VERSION}
+    with open(path, "w", encoding="utf-8", errors="ignore") as storefile:
+        json.dump(content, storefile, indent=4)
+
+
+class OldHacsData:
     def restore_values(self):
         """Restore stored values."""
-        if os.path.exists(self.store_path):
-            store = self.read()
-            if store:
-                self.frontend_mode = store.get("hacs", {}).get("view", "Grid")
-                self.schema = store.get("hacs", {}).get("schema")
-                self.endpoints = store.get("hacs", {}).get("endpoints", {})
+
+        path = STORES["hacs"]
+        if os.path.exists(path):
+            hacs = self.read("hacs")
+            if hacs:
+                self.frontend_mode = hacs.get("hacs", {}).get("view", "Grid")
+                self.schema = hacs.get("hacs", {}).get("schema")
+                self.endpoints = hacs.get("hacs", {}).get("endpoints", {})
                 repositories = {}
-                for repository in store.get("repositories", {}):
+                for repository in hacs.get("repositories", {}):
                     repo_id = repository
-                    repository = store["repositories"][repo_id]
+                    repository = hacs["repositories"][repo_id]
 
                     self.logger.info(repository["repository_name"], "restore")
 

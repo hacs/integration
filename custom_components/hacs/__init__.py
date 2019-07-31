@@ -99,7 +99,7 @@ async def hacs_startup(hacs):
         hacs.configuration.token, async_create_clientsession(hacs.hass)
     )
     hacs.migration = HacsMigration()
-    hacs.data = HacsData(Hacs.system.config_path)
+    hacs.data = HacsData()
 
     # Check minimum version
     if not check_version(hacs):
@@ -121,6 +121,11 @@ async def hacs_startup(hacs):
     if hacs.configuration.theme:
         const.ELEMENT_TYPES.append("theme")
     hacs.common.categories = sorted(const.ELEMENT_TYPES)
+
+    # TODO: Migration HERE!
+
+    # Restore from storefiles
+    hacs.data.restore()
 
     # Setup startup tasks
     if hacs.configuration.config_type == "yaml":

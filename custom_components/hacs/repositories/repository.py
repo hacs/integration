@@ -202,8 +202,8 @@ class HacsRepository(Hacs):
         if self.versions.installed is not None:
             installed = self.versions.installed
         else:
-            if self.versions.commit is not None:
-                installed = self.versions.commit
+            if self.versions.installed_commit is not None:
+                installed = self.versions.installed_commit
             else:
                 installed = ""
         return installed
@@ -358,6 +358,8 @@ class HacsRepository(Hacs):
             backup.cleanup()
 
         if validate.success:
+            if self.information.full_name not in self.common.installed:
+                self.common.installed.append(self.information.full_name)
             self.status.installed = True
             self.versions.installed_commit = self.versions.available_commit
 

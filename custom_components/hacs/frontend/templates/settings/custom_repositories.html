@@ -9,7 +9,7 @@
         Loading custom repositories...
       </li>
       {% else %}
-      {% for repository in hacs.sorted_by_repository_name %}
+      {% for repository in hacs.sorted_by_name %}
       {% if repository.custom %}
       <li class="collection-item hacscolor hacslist">
         <div>
@@ -25,7 +25,7 @@
           {% else %}
           <form action="/hacsapi/{{ hacs.token }}/repository_remove" name="remove" method="post" accept-charset="utf-8"
             enctype="application/x-www-form-urlencoded" class="hacs-form">
-            <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
+            <input type="hidden" name="repository_id" value="{{repository.information.uid}}">
             <a class="secondary-content" href="#"
               onclick="toggleLoading();document.getElementsByName('remove')[0].submit()"
               style=" color: var(--primary-color)">
@@ -46,7 +46,7 @@
       <input id="custom_url" type="text" name="custom_url" placeholder="  ADD CUSTOM REPOSITORY"
         style="width: 70%; color: var(--primary-text-color)">
       <select name="repository_type" class="hacs-select">
-        <option disabled selected value>type</option>
+        <option disabled selected value>Category</option>
         {% for element_type in hacs.common.categories | sort %}
         <option class='hacscolor' value='{{element_type}}'>{{element_type | title}}</option>
         {% endfor %}

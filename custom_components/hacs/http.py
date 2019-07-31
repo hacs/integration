@@ -1,9 +1,6 @@
 """Blueprint for HacsWebResponse."""
 import os
-import random
-import sys
 from time import time
-import traceback
 from homeassistant.components.http import HomeAssistantView
 from jinja2 import Environment, PackageLoader
 from aiohttp import web
@@ -97,7 +94,7 @@ class HacsPluginView(HacsWebResponse):
             if "?" in requested_file:
                 requested_file = requested_file.split("?")[0]
 
-            file = "{}/www/community/{}".format(self.config_dir, requested_file)
+            file = f"{self.system.config_path}/www/community/{requested_file}"
 
             # Serve .gz if it exist
             if os.path.exists(file + ".gz"):
@@ -109,7 +106,7 @@ class HacsPluginView(HacsWebResponse):
                 response = web.FileResponse(file)
                 response.headers["Cache-Control"] = "max-age=0, must-revalidate"
             else:
-                self.logger.debug("Tried to serve up '%s' but it does not exist", file)
+                self.logger.error(f"Tried to serve up '{file}' but it does not exist")
                 response = web.Response(status=404)
 
         except Exception as error:  # pylint: disable=broad-except
@@ -139,6 +136,9 @@ class Settings(HacsWebResponse):
 
     async def response(self):
         """Serve HacsOverviewView."""
+        self.logger.error(self.sorted_by_name)
+        self.logger.error(self.sorted_by_repository_name)
+        self.logger.error(self.repositories)
         message = self.request.rel_url.query.get("message")
         render = self.render("settings", message=message)
         return web.Response(body=render, content_type="text/html", charset="utf-8")
@@ -222,63 +222,12 @@ class Error(HacsWebResponse):
 
     async def response(self):
         """Serve error page."""
-        try:
-            # Get last error
-            ex_type, ex_value, ex_traceback = sys.exc_info()
-            trace_back = traceback.extract_tb(ex_traceback)
-            stack_trace = list()
-
-            for trace in trace_back:
-                stack_trace.append(
-                    "File : {} , Line : {}, Func.Name : {}, Message : {}",
-                    format(trace[0], trace[1], trace[2], trace[3]),
-                )
-
-            # HARD styling
-            stacks = ""
-            for stack in stack_trace:
-                stacks += stack
-            stacks = stacks.replace(
-                "File :",
-                "</br>---------------------------------------------------------------</br><b>File :</b>",
-            )
-            stacks = stacks.replace(", Line :", "</br><b>Line :</b>")
-            stacks = stacks.replace(", Func.Name :", "</br><b>Func.Name :</b>")
-            stacks = stacks.replace(", Message :", "</br><b>Message :</b>")[86:-1]
-
-            if ex_type is not None:
-                codeblock = """
-                    <p><b>Exception type:</b> {}</p>
-                    <p><b>Exception message:</b> {}</p>
-                    <code class="codeblock errorview"">{}</code>
-                """.format(
-                    ex_type.__name__, ex_value, stacks
-                )
-            else:
-                codeblock = ""
-
-            # Generate content
-            content = """
-                <div class='container'>
-                    <h2>Something is wrong...</h2>
-                    <b>Error code:</b> <i>{}</i>
-                    {}
-                </div>
-                <div class='container'>
-                    <a href='{}/new/choose' class='waves-effect waves-light btn right hacsbutton'
-                        target="_blank">OPEN ISSUE</a>
-                </div>
-                <div class='center-align' style='margin-top: 100px'>
-                    <img rel="noreferrer" src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>
-                </div>
-            """.format(
-                random.choice(self.hacsconst.ERROR), codeblock, self.const.ISSUE_URL
-            )
-
-        except Exception as exception:
-            message = "GREAT!, even the error page is broken... ({})".format(exception)
-            self.logger.error(message)
-            content = "<h3>" + message + "</h3>"
+        # Generate content
+        content = """
+            <div class='center-align' style='margin-top: 20px'>
+                <img rel="noreferrer" src='https://i.pinimg.com/originals/ec/85/67/ec856744fac64a5a9e407733f190da5a.png'>
+            </div>
+        """
 
         return web.Response(
             body=self.render("error", message=content),

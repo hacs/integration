@@ -86,9 +86,11 @@ class RemoveNewFlag(HacsAPI):
     async def response(self):
         """Response."""
         for repository in self.repositories:
-            repository.new = False
+            repository.status.new = False
         self.data.write()
-        return web.HTTPFound(f"/hacsweb/{self.token}/settings?timestamp={time()}")
+        return web.HTTPFound(
+            f"/hacsweb/{self.token}/{self.postdata['return']}?timestamp={time()}"
+        )
 
 
 @apiresponse

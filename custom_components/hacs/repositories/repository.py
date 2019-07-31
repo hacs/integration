@@ -155,14 +155,14 @@ class HacsRepository(Hacs):
     @property
     def display_status(self):
         """Return display_status."""
-        if self.status.pending.restart:
+        if self.status.new:
+            status = "new"
+        elif self.status.pending.restart:
             status = "pending-restart"
-        elif self.status.pending.update:
-            status = "pending-update"
+        elif self.status.pending.upgrade:
+            status = "pending-upgrade"
         elif self.status.installed:
             status = "installed"
-        elif self.status.new:
-            status = "new"
         else:
             status = "default"
         return status
@@ -173,7 +173,7 @@ class HacsRepository(Hacs):
         description = {
             "default": "Not installed.",
             "pending-restart": "Restart pending.",
-            "pending-update": "Update pending.",
+            "pending-upgrade": "Upgrade pending.",
             "installed": "No action required.",
             "new": "This is a newly added repository.",
         }
@@ -199,8 +199,8 @@ class HacsRepository(Hacs):
     @property
     def display_installed_version(self):
         """Return display_authors"""
-        if self.repository.installed is not None:
-            installed = self.repository.installed
+        if self.versions.installed is not None:
+            installed = self.versions.installed
         else:
             if self.versions.commit is not None:
                 installed = self.versions.commit
@@ -447,7 +447,7 @@ class HacsRepository(Hacs):
             if info is None:
                 self.information.additional_info = ""
             else:
-                info = info.content
+                info = await self.github.render_markdown(info.content)
                 info = info.replace("<h3>", "<h6>").replace("</h3>", "</h6>")
                 info = info.replace("<h2>", "<h5>").replace("</h2>", "</h5>")
                 info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
@@ -457,6 +457,7 @@ class HacsRepository(Hacs):
                 )
                 info = info.replace("<ul>", "")
                 info = info.replace("</ul>", "")
+                info += "</br>"
                 self.information.additional_info = render_template(info, self)
 
         except Exception:  # Gotta Catch 'Em All

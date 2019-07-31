@@ -25,8 +25,8 @@
 
             {% include 'repository/menu.html' with context %}
           </span>
-          <p>{{repository.description}}</p></br>
-          {% if repository.installed %}
+          <p>{{repository.information.description}}</p></br>
+          {% if repository.status.installed %}
           <p><b>Installed {{repository.display_version_or_commit}}:</b> {{repository.display_installed_version}}</p>
           {% endif %}
           {% if repository.releases.published_tags %}
@@ -47,8 +47,8 @@
   <div class="row">
     <div class="col s12">
       <div class="card hacscolor">
-        <div class="card-content">
-          {{repository.additional_info}}
+        <div class="card-content" style="margin-top: -20px;">
+          {{ repository.information.additional_info }}
           {% include 'repository/note.html' with context %}
         </div>
       </div>

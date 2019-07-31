@@ -1,17 +1,11 @@
 """Data handler for HACS."""
 import os
 import json
-from homeassistant.const import __version__ as HAVERSION
 from integrationhelper import Logger
 from . import Hacs
 from .const import STORAGE_VERSION
 from ..const import VERSION
-from ..repositories.repositoryinformationview import RepositoryInformationView
-from ..repositories.hacsrepositoryappdaemon import HacsRepositoryAppDaemon
-from ..repositories.hacsrepositoryintegration import HacsRepositoryIntegration
-from ..repositories.hacsrepositorybaseplugin import HacsRepositoryPlugin
-from ..repositories.hacsrepositorypythonscript import HacsRepositoryPythonScripts
-from ..repositories.hacsrepositorytheme import HacsRepositoryThemes
+
 
 STORES = {
     "hacs": "hacs.hacs",
@@ -97,8 +91,8 @@ class HacsData(Hacs):
         content = self.read("repositories")
         if content is not None:
             content = content["data"]
-            for repo in content:
-                repo = content[repo]
+            for entry in content:
+                repo = content[entry]
                 if repo["full_name"] != "custom-components/hacs":
                     await self.register_repository(
                         repo["full_name"], repo["category"], False
@@ -145,6 +139,8 @@ class HacsData(Hacs):
                 if repo["full_name"] == "custom-components/hacs":
                     repository.versions.installed = VERSION
                 else:
+                    repository.information.uid = entry
+
                     if repo.get("installed") is not None:
                         repository.versions.installed = repo["installed"]
 

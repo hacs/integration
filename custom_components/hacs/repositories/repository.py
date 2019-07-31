@@ -501,3 +501,51 @@ class HacsRepository(Hacs):
                         break
         self.versions.available = temp[0].tag_name
 
+    def remove(self):
+        """Run remove tasks."""
+        self.logger.info("Starting removal")
+
+        if self.information.uid in self.common.installed:
+            self.common.installed.remove(self.information.uid)
+        for repository in self.repositories:
+            if repository.information.uid == self.repository_id:
+                self.repositories.remove(repository)
+
+    async def uninstall(self):
+        """Run uninstall tasks."""
+        self.logger.info("Uninstalling")
+        await self.remove_local_directory()
+        self.status.installed = False
+        if self.information.category == "integration":
+            self.status.pending.restart = True
+        self.versions.installed = None
+        self.versions.installed_commit = None
+
+    async def remove_local_directory(self):
+        """Check the local directory."""
+        import os
+        import shutil
+        from asyncio import sleep
+
+        try:
+            if self.information.category == "python_script":
+                local_path = "{}/{}.py".format(self.local_path, self.name)
+            elif self.information.category == "theme":
+                local_path = "{}/{}.yaml".format(self.local_path, self.name)
+            else:
+                local_path = self.local_path
+
+            if os.path.exists(local_path):
+                self.logger.debug(f"Removing {local_path}")
+
+                if self.information.category in ["python_script", "theme"]:
+                    os.remove(local_path)
+                else:
+                    shutil.rmtree(local_path)
+
+                while os.path.exists(local_path):
+                    await sleep(1)
+
+        except Exception as exception:
+            self.logger.debug(f"Removing {local_path} failed with {exception}")
+            return

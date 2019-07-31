@@ -1,6 +1,8 @@
 """Backup."""
 import os
-from shutil import copy2
+from time import sleep
+from shutil import copy2, rmtree
+from distutils.dir_util import copy_tree
 
 from integrationhelper import Logger
 
@@ -17,14 +19,19 @@ class Backup:
     def create(self):
         """Create a backup in /tmp"""
         if os.path.exists(self.backup_path):
-            os.removedirs(self.backup_path)
+            rmtree(self.backup_path)
+            while os.path.exists(self.backup_path):
+                sleep(0.1)
         os.makedirs(self.backup_path, exist_ok=True)
 
-        copy2(self.local_path, self.backup_path)
         if os.path.isfile(self.local_path):
+            copy2(self.local_path, self.backup_path)
             os.remove(self.local_path)
         else:
-            os.removedirs(self.local_path)
+            copy_tree(self.local_path, self.backup_path)
+            rmtree(self.local_path)
+            while os.path.exists(self.local_path):
+                sleep(0.1)
         self.logger.info(f"Backup for {self.local_path}, created in {self.backup_path}")
 
     def restore(self):
@@ -32,11 +39,15 @@ class Backup:
         if os.path.isfile(self.local_path):
             os.remove(self.local_path)
         else:
-            os.removedirs(self.local_path)
+            rmtree(self.local_path)
+            while os.path.exists(self.local_path):
+                sleep(0.1)
         copy2(self.backup_path, self.local_path)
         self.logger.info(f"Restored {self.local_path}, from backup {self.backup_path}")
 
     def cleanup(self):
         """Cleanup backup files."""
-        os.removedirs(self.backup_path)
+        rmtree(self.backup_path)
+        while os.path.exists(self.backup_path):
+            sleep(0.1)
         self.logger.info(f"Backup dir {self.backup_path} cleared")

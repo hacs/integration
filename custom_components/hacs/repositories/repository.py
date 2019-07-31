@@ -255,6 +255,7 @@ class HacsRepository(Hacs):
         """Common validation steps of the repository."""
         # Attach helpers
         self.validate = Validate()
+        self.validate.errors = []
         self.logger = Logger(
             f"hacs.repository.{self.information.category}.{self.information.full_name}"
         )

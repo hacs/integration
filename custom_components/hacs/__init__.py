@@ -143,7 +143,6 @@ async def hacs_startup(hacs):
             message=const.DEV_MODE,
             notification_id="hacs_dev_mode",
         )
-        # await test_repositories(hacs)
 
     # Add sensor
     add_sensor(hacs)
@@ -180,6 +179,7 @@ async def load_hacs_repository(hacs):
         await hacs().register_repository("custom-components/hacs", "integration")
         repository = hacs().get_by_name("custom-components/hacs")
         repository.status.installed = True
+        hacs.repo = repository.repository_object
     except (
         AIOGitHubException,
         AIOGitHubRatelimit,

@@ -19,7 +19,6 @@
     <table class="hacs-table">
       <thead>
         <tr>
-          <th>Status</th>
           <th>Category</th>
           <th>Name</th>
           <th class="smal-hide">Description</th>
@@ -29,8 +28,6 @@
         {% for repository in repositories.repositories %}
         <tr class="hacs-table-row"
           onclick="toggleLoading();window.location='/hacsweb/{{ hacs.token }}/repository/{{ repository.information.uid }}?timestamp={{ timestamp }}';">
-          <td title="{{ repository.display_status_description }}">
-            <span style='margin-left: 25%' class='repository-list-badge hacs-badge'>NEW</span>
           <td>
             <span class="hacs-badge">{{repository.information.category | upper}}</span>
           </td>

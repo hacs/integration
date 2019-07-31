@@ -17,8 +17,8 @@ from .const import ELEMENT_TYPES
 class HacsStatus:
     """HacsStatus."""
 
-    startup = False
-    background_task = False
+    startup = True
+    background_task = True
 
 
 class HacsCommon:
@@ -64,6 +64,7 @@ class Hacs:
     hacsweb = f"/hacsweb/{token}"
     hacsapi = f"/hacsapi/{token}"
     repositories = []
+    repo = None
     developer = Developer()
     data = None
     configuration = None
@@ -85,22 +86,29 @@ class Hacs:
 
         repository = RERPOSITORY_CLASSES[category](full_name)
         if check:
-            await repository.registration()
-            if repository.validate.errors:
-                self.logger.error(f"Validation for {full_name} failed.")
-                return repository.validate.errors
-            repository.logger.info("Registration complete")
+            try:
+                await repository.registration()
+                if repository.validate.errors:
+                    if not self.common.status.startup:
+                        self.logger.error(f"Validation for {full_name} failed.")
+                    return repository.validate.errors
+                repository.logger.info("Registration complete")
+            # except AIOGitHubException:
+            except SystemError:
+                pass
         self.repositories.append(repository)
 
     async def startup_tasks(self):
         """Tasks tha are started after startup."""
+        await self.load_known_repositories()
         self.tasks.append(
             async_track_time_interval(
                 self.hass, self.recuring_tasks_installed, timedelta(minutes=1)
             )
         )
 
-        await self.load_known_repositories()
+        self.data.write()
+        self.common.status.startup = False
 
     def get_by_id(self, repository_id):
         """Get repository by ID."""
@@ -142,12 +150,13 @@ class Hacs:
     async def recuring_tasks_installed(self, notarealarg):
         """Recuring tasks for installed repositories."""
         self.logger.info("Starting task")
+        self.common.status.background_task = True
+        self.data.write()
+        self.common.status.background_task = False
 
     async def get_repositories(self):
         """Return a list of repositories."""
         repositories = {}
-        hacs = self.get_by_name("custom-components/hacs")
-        hacs = hacs.repository_object
         if self.configuration.dev:
             if self.developer.devcontainer:
                 repositories = {
@@ -160,18 +169,22 @@ class Hacs:
                 return repositories
 
         for category in self.common.categories:
-            repositories[category] = []
+            remote = await self.repo.get_contents(f"repositories/{category}", "data")
+            repositories[category] = json.loads(remote.content)
             if category == "plugin":
-                org = await self.github.get_repositories("custom-cards")
+                org = await self.github.get_org_repos("custom-cards")
                 for repo in org:
-                    repositories[category].append(repo.repository_name)
+                    repositories[category].append(repo.full_name)
+            if category == "integration":
+                org = await self.github.get_org_repos("custom-components")
+                for repo in org:
+                    repositories[category].append(repo.full_name)
+        return repositories
 
     async def load_known_repositories(self):
         """Load known repositories."""
         self.logger.info("Loading known repositories")
-        hacs = self.get_by_name("custom-components/hacs")
-        hacs = hacs.repository_object
-        blacklist = await hacs.get_contents("repositories/blacklist", "data")
+        blacklist = await self.repo.get_contents("repositories/blacklist", "data")
         repositories = await self.get_repositories()
 
         for item in json.loads(blacklist.content):
@@ -180,14 +193,17 @@ class Hacs:
 
         for category in repositories:
             for repo in repositories[category]:
+                self.common.default.append(repo)
                 if repo in self.common.blacklist:
                     continue
                 if repo in self.common.default:
                     continue
                 if self.is_known(repo):
                     continue
-                self.common.default.append(repo)
-                await self.register_repository(repo, category)
+                try:
+                    await self.register_repository(repo, category)
+                except Exception:
+                    pass
 
 
 class HacsBase:

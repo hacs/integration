@@ -75,6 +75,43 @@ class Hacs:
     tasks = []
     common = HacsCommon()
 
+    def get_by_id(self, repository_id):
+        """Get repository by ID."""
+        try:
+            for repository in self.repositories:
+                if repository.information.uid == repository_id:
+                    return repository
+        except Exception:  # pylint: disable=broad-except
+            pass
+        return None
+
+    def get_by_name(self, repository_full_name):
+        """Get repository by full_name."""
+        try:
+            for repository in self.repositories:
+                if repository.information.full_name == repository_full_name:
+                    return repository
+        except Exception:  # pylint: disable=broad-except
+            pass
+        return None
+
+    def is_known(self, repository_full_name):
+        """Return a bool if the repository is known."""
+        for repository in self.repositories:
+            if repository.information.full_name == repository_full_name:
+                return True
+        return False
+
+    @property
+    def sorted_by_name(self):
+        """Return a sorted(by name) list of repository objects."""
+        return sorted(self.repositories, key=lambda x: x.display_name)
+
+    @property
+    def sorted_by_repository_name(self):
+        """Return a sorted(by repository_name) list of repository objects."""
+        return sorted(self.repositories, key=lambda x: x.information.full_name)
+
     async def register_repository(self, full_name, category, check=True):
         """Register a repository."""
         from ..repositories.repository import RERPOSITORY_CLASSES
@@ -114,49 +151,12 @@ class Hacs:
         self.data.write()
         self.system.status.startup = False
 
-    def get_by_id(self, repository_id):
-        """Get repository by ID."""
-        try:
-            for repository in self.repositories:
-                if repository.information.uid == repository_id:
-                    return repository
-        except Exception:  # pylint: disable=broad-except
-            pass
-        return None
-
-    def get_by_name(self, repository_full_name):
-        """Get repository by full_name."""
-        try:
-            for repository in self.repositories:
-                if repository.information.full_name == repository_full_name:
-                    return repository
-        except Exception:  # pylint: disable=broad-except
-            pass
-        return None
-
-    def is_known(self, repository_full_name):
-        """Return a bool if the repository is known."""
-        for repository in self.repositories:
-            if repository.information.full_name == repository_full_name:
-                return True
-        return False
-
-    @property
-    def sorted_by_name(self):
-        """Return a sorted(by name) list of repository objects."""
-        return sorted(self.repositories, key=lambda x: x.display_name)
-
-    @property
-    def sorted_by_repository_name(self):
-        """Return a sorted(by repository_name) list of repository objects."""
-        return sorted(self.repositories, key=lambda x: x.information.full_name)
-
     async def recuring_tasks_installed(self, notarealarg):
         """Recuring tasks for installed repositories."""
         self.logger.info("Starting recuring background task for installed repositories")
         self.system.status.background_task = True
         for repository in self.repositories:
-            if repository.information.installed:
+            if repository.status.installed:
                 repository.logger.debug("Updating repository information")
                 await repository.update_repository()
         self.system.status.background_task = False
@@ -168,9 +168,8 @@ class Hacs:
         self.logger.info("Starting recuring background task for all repositories")
         self.system.status.background_task = True
         for repository in self.repositories:
-            if repository.information.installed:
-                repository.logger.debug("Updating repository information")
-                await repository.update_repository()
+            repository.logger.debug("Updating repository information")
+            await repository.update_repository()
 
         await self.load_known_repositories()
         self.system.status.background_task = False

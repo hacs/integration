@@ -45,6 +45,7 @@ class RepositoryStatus:
     show_beta = False
     track = True
     updated_info = False
+    first_install = True
 
 
 class RepositoryInformation:
@@ -419,7 +420,6 @@ class HacsRepository(Hacs):
                     await self.reload_custom_components()
                 else:
                     self.status.pending.restart = True
-                await self.reload_custom_components()
 
     async def download_content(self, validate, directory_path, local_directory, ref):
         """Download the content of a directory."""
@@ -565,7 +565,10 @@ class HacsRepository(Hacs):
         await self.remove_local_directory()
         self.status.installed = False
         if self.information.category == "integration":
-            self.status.pending.restart = True
+            if self.config_flow:
+                await self.reload_custom_components()
+            else:
+                self.status.pending.restart = True
         self.versions.installed = None
         self.versions.installed_commit = None
 
@@ -577,11 +580,15 @@ class HacsRepository(Hacs):
 
         try:
             if self.information.category == "python_script":
-                local_path = "{}/{}.py".format(self.local_path, self.name)
+                local_path = "{}/{}.py".format(
+                    self.content.path.local, self.information.name
+                )
             elif self.information.category == "theme":
-                local_path = "{}/{}.yaml".format(self.local_path, self.name)
+                local_path = "{}/{}.yaml".format(
+                    self.content.path.local, self.information.name
+                )
             else:
-                local_path = self.local_path
+                local_path = self.content.path.local
 
             if os.path.exists(local_path):
                 self.logger.debug(f"Removing {local_path}")

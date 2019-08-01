@@ -24,15 +24,20 @@ class Backup:
                 sleep(0.1)
         os.makedirs(self.backup_path, exist_ok=True)
 
-        if os.path.isfile(self.local_path):
-            copy2(self.local_path, self.backup_path)
-            os.remove(self.local_path)
-        else:
-            copy_tree(self.local_path, self.backup_path)
-            rmtree(self.local_path)
-            while os.path.exists(self.local_path):
-                sleep(0.1)
-        self.logger.info(f"Backup for {self.local_path}, created in {self.backup_path}")
+        try:
+            if os.path.isfile(self.local_path):
+                copy2(self.local_path, self.backup_path)
+                os.remove(self.local_path)
+            else:
+                copy_tree(self.local_path, self.backup_path)
+                rmtree(self.local_path)
+                while os.path.exists(self.local_path):
+                    sleep(0.1)
+            self.logger.info(
+                f"Backup for {self.local_path}, created in {self.backup_path}"
+            )
+        except Exception:  # pylint: disable=broad-except
+            pass
 
     def restore(self):
         """Restore from backup."""

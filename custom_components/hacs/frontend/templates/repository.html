@@ -6,6 +6,16 @@
 {% set message = "You need to restart (and potentially reconfigure) Home Assistant, for your last operation to be loaded." %}
 {% endif %}
 
+{% if repository.information.category == "integration" and repository.status.first_install and repository.status.installed and repository.config_flow %}
+{% set message = "
+  <b>Good news!</b></br>
+  This integration supports config flows!</br>
+  This means that you can go to 'Configuration' --> 'Integrations' --> '+' to configure it.</br>
+  The best part if you do that, is that you do <b>not</b> need to restart Home Assistant.</br></br>
+  <i>You may need to clear the cache on the integrations page before it shows in the list (+).</i>"%}
+{% endif %}
+
+
 {% if message %}
 {% include 'message.html' with context %}
 {% endif %}

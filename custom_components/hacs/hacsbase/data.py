@@ -98,6 +98,9 @@ class HacsData(Hacs):
                         repo["full_name"], repo["category"], False
                     )
                 repository = self.get_by_name(repo["full_name"])
+                self.logger.info(
+                    f"Restored {repository.information.full_name} from saved data with {repo}"
+                )
                 if repository is None:
                     self.logger.error(f"Did not find {repo['full_name']}")
                     continue
@@ -117,6 +120,8 @@ class HacsData(Hacs):
 
                 if repo.get("installed") is not None:
                     repository.status.installed = repo["installed"]
+                    if repository.status.installed:
+                        repository.status.first_install = False
 
                 if repo.get("selected_tag") is not None:
                     repository.status.selected_tag = repo["selected_tag"]

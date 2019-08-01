@@ -42,7 +42,7 @@ class HacsAppdaemon(HacsRepository):
         # Handle potential errors
         if self.validate.errors:
             for error in self.validate.errors:
-                if not self.common.status.startup:
+                if not self.system.status.startup:
                     self.logger.error(error)
         return self.validate.success
 

@@ -1,7 +1,7 @@
 """Class for plugins in HACS."""
 import json
-from .repository import HacsRepository, register_repository_class
 from aiogithubapi import AIOGitHubException
+from .repository import HacsRepository, register_repository_class
 
 
 @register_repository_class
@@ -40,7 +40,7 @@ class HacsPlugin(HacsRepository):
         # Handle potential errors
         if self.validate.errors:
             for error in self.validate.errors:
-                if not self.common.status.startup:
+                if not self.system.status.startup:
                     self.logger.error(error)
         return self.validate.success
 
@@ -123,5 +123,5 @@ class HacsPlugin(HacsRepository):
 
             if package:
                 self.information.authors = package["author"]
-        except Exception:
+        except Exception:  # pylint: disable=broad-except
             pass

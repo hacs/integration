@@ -31,8 +31,8 @@ from .api import HacsAPI, HacsRunningTask
 from .http import HacsWebResponse, HacsPluginView, HacsPlugin
 from .hacsbase import const as hacsconst, Hacs
 from .hacsbase.data import HacsData
-from .hacsbase.migration import HacsMigration
 from .hacsbase.configuration import Configuration
+from .hacsbase.migration import ValidateData
 
 CONFIG_SCHEMA = vol.Schema(
     {
@@ -98,7 +98,6 @@ async def hacs_startup(hacs):
     hacs.github = AIOGitHub(
         hacs.configuration.token, async_create_clientsession(hacs.hass)
     )
-    hacs.migration = HacsMigration()
     hacs.data = HacsData()
 
     # Check minimum version
@@ -123,7 +122,7 @@ async def hacs_startup(hacs):
     hacs.common.categories = sorted(const.ELEMENT_TYPES)
 
     # TODO: Migration HERE!
-
+    # validate = ValidateData()
     # Restore from storefiles
     await hacs.data.restore()
 

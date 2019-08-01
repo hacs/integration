@@ -38,10 +38,10 @@ class HACSSensor(Entity):
             if repository.status.pending.upgrade:
                 if repository.information.uid not in prev_has_update:
                     await repository.update_repository()
-                if repository.status.pending.upgrade:
-                    hacs.logger.debug(repository.information.full_name)
-                    updates += 1
-                    has_update.append(repository.information.uid)
+                    if repository.status.pending.upgrade:
+                        hacs.logger.debug(repository.information.full_name)
+                        updates += 1
+                        has_update.append(repository.information.uid)
 
         self._state = updates
         self.has_update = has_update

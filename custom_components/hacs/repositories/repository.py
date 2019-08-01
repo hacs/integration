@@ -100,7 +100,7 @@ class HacsRepository(Hacs):
         self.repository_object = None
         self.status = RepositoryStatus()
         self.status.pending = PendingActions()
-        self.validate = None
+        self.validate = Validate()
         self.releases = RepositoryReleases()
         self.versions = RepositoryVersions()
         self.logger = None
@@ -254,7 +254,6 @@ class HacsRepository(Hacs):
     async def common_validate(self):
         """Common validation steps of the repository."""
         # Attach helpers
-        self.validate = Validate()
         self.validate.errors = []
         self.logger = Logger(
             f"hacs.repository.{self.information.category}.{self.information.full_name}"
@@ -267,7 +266,7 @@ class HacsRepository(Hacs):
                 self.information.full_name
             )
         except Exception as exception:  # Gotta Catch 'Em All
-            if not self.common.status.startup:
+            if not self.system.status.startup:
                 self.logger.error(exception)
             self.validate.errors.append("Repository does not exist.")
             return
@@ -334,6 +333,7 @@ class HacsRepository(Hacs):
         self.information.default_branch = self.repository_object.default_branch
 
         # Update last available commit
+        await self.repository_object.set_last_commit()
         self.versions.available_commit = self.repository_object.last_commit
 
         # Update topics
@@ -360,7 +360,7 @@ class HacsRepository(Hacs):
 
     async def install(self):
         """Common installation steps of the repository."""
-        validate = Validate()
+        self.validate.errors = []
 
         await self.update_repository()
 

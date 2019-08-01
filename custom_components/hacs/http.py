@@ -8,7 +8,7 @@ from aiohttp import web
 from integrationhelper import Logger
 
 from .hacsbase import Hacs
-from .repositories.repositoryinformationview import RepositoryInformationView
+
 
 WEBRESPONSE = {}
 
@@ -45,7 +45,8 @@ class HacsWebResponse(HomeAssistantView, Hacs):
         self.request = request
         self.requested_file = path.replace(self.endpoint + "/", "")
         self.repository_id = path.replace(self.endpoint + "/", "")
-        self.logger.debug(f"Endpoint ({self.endpoint}) called")
+        if self.endpoint != "static":
+            self.logger.debug(f"Endpoint ({self.endpoint}) called")
         if self.configuration.dev:
             self.logger.debug(f"Raw headers ({self.raw_headers})")
             self.logger.debug(f"Postdata ({self.postdata})")

@@ -5,7 +5,6 @@ from shutil import copy2
 
 from integrationhelper import Logger, Validate
 
-from . import HacsBase
 from . import Hacs
 from .const import STORAGE_VERSION, STORENAME
 
@@ -47,13 +46,6 @@ class ValidateData(Hacs):
             for error in validate.errors:
                 self.logger.critical(error)
         return validate.success
-
-
-class HacsMigration(HacsBase):
-    """HACS data migration handler."""
-
-    async def validate(self):
-        return
 
 
 class Migration(Hacs):

@@ -33,7 +33,7 @@ class HacsData(Hacs):
 
     def write(self):
         """Write content to the store files."""
-        if self.common.status.background_task:
+        if self.system.status.background_task:
             return
 
         self.logger.debug("Saving data")

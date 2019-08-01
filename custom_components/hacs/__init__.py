@@ -133,6 +133,13 @@ async def hacs_startup(hacs):
     if not await load_hacs_repository(hacs):
         return False
 
+    # TODO: Migration HERE!
+    # validate = ValidateData()
+
+    # Restore from storefiles
+    if not await hacs.data.restore():
+        return False
+
     # Add aditional categories
     if hacs.configuration.appdaemon:
         const.ELEMENT_TYPES.append("appdaemon")
@@ -141,11 +148,6 @@ async def hacs_startup(hacs):
     if hacs.configuration.theme:
         const.ELEMENT_TYPES.append("theme")
     hacs.common.categories = sorted(const.ELEMENT_TYPES)
-
-    # TODO: Migration HERE!
-    # validate = ValidateData()
-    # Restore from storefiles
-    await hacs.data.restore()
 
     # Setup startup tasks
     if hacs.configuration.config_type == "yaml":

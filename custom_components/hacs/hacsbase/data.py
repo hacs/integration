@@ -73,23 +73,21 @@ class HacsData(Hacs):
 
     async def restore(self):
         """Restore saved data."""
-        self.logger.info("Restore started")
+        try:
+            self.logger.info("Restore started")
 
-        # Hacs
-        content = self.read("hacs")
-        if content is not None:
+            # Hacs
+            content = self.read("hacs")
             content = content["data"]
             self.configuration.frontend_mode = content["view"]
 
-        # Installed
-        content = self.read("installed")
-        if content is not None:
+            # Installed
+            content = self.read("installed")
             content = content["data"]
             self.common.installed = content
 
-        # Repositories
-        content = self.read("repositories")
-        if content is not None:
+            # Repositories
+            content = self.read("repositories")
             content = content["data"]
             for entry in content:
                 repo = content[entry]
@@ -151,7 +149,11 @@ class HacsData(Hacs):
                     if repo.get("installed_commit") is not None:
                         repository.versions.installed_commit = repo["installed_commit"]
 
-        self.logger.info("Restore done")
+            self.logger.info("Restore done")
+        except Exception as exception:
+            self.logger.critical(f"[{exception}] Restore Failed!")
+            return False
+        return True
 
 
 def save(path, content):

@@ -17,7 +17,7 @@ from .const import ELEMENT_TYPES
 class HacsStatus:
     """HacsStatus."""
 
-    startup = True
+    startup = False
     background_task = False
 
 
@@ -28,6 +28,7 @@ class HacsCommon:
     blacklist = []
     default = []
     installed = []
+    skip = []
 
 
 class System:
@@ -116,6 +117,10 @@ class Hacs:
         """Register a repository."""
         from ..repositories.repository import RERPOSITORY_CLASSES
 
+        if full_name in self.common.skip:
+            self.logger.debug(f"Skipping {full_name}")
+            return
+
         if category not in RERPOSITORY_CLASSES:
             self.logger.error(f"{category} is not a valid repository category.")
             return False
@@ -125,37 +130,52 @@ class Hacs:
             try:
                 await repository.registration()
                 if repository.validate.errors:
+                    self.common.skip.append(repository.information.full_name)
                     if not self.system.status.startup:
                         self.logger.error(f"Validation for {full_name} failed.")
                     return repository.validate.errors
                 repository.logger.info("Registration complete")
-            except AIOGitHubException:
-                self.logger.error(f"Validation for {full_name} failed.")
+            except AIOGitHubException as exception:
+                self.logger.debug(self.github.ratelimits.remaining)
+                self.logger.debug(self.github.ratelimits.reset_utc)
+                self.common.skip.append(repository.information.full_name)
+                if not self.system.status.startup:
+                    self.logger.error(
+                        f"Validation for {full_name} failed with {exception}."
+                    )
                 return
         self.repositories.append(repository)
 
     async def startup_tasks(self):
         """Tasks tha are started after startup."""
+        self.system.status.background_task = True
+        self.logger.debug(self.github.ratelimits.remaining)
+        self.logger.debug(self.github.ratelimits.reset_utc)
         await self.load_known_repositories()
         self.clear_out_blacklisted_repositories()
         self.tasks.append(
             async_track_time_interval(
-                self.hass, self.recuring_tasks_installed, timedelta(minutes=1)
+                self.hass, self.recuring_tasks_installed, timedelta(minutes=30)
             )
         )
         self.tasks.append(
             async_track_time_interval(
-                self.hass, self.recuring_tasks_all, timedelta(minutes=5)
+                self.hass, self.recuring_tasks_all, timedelta(minutes=800)
             )
         )
 
-        self.data.write()
         self.system.status.startup = False
+        self.system.status.background_task = False
+        self.data.write()
 
     async def recuring_tasks_installed(self, notarealarg):
         """Recuring tasks for installed repositories."""
-        self.logger.info("Starting recuring background task for installed repositories")
+        self.logger.debug(
+            "Starting recuring background task for installed repositories"
+        )
         self.system.status.background_task = True
+        self.logger.debug(self.github.ratelimits.remaining)
+        self.logger.debug(self.github.ratelimits.reset_utc)
         for repository in self.repositories:
             if repository.status.installed:
                 try:
@@ -164,18 +184,20 @@ class Hacs:
                 except AIOGitHubException:
                     self.system.status.background_task = False
                     self.data.write()
-                    self.logger.info(
+                    self.logger.debug(
                         "Recuring background task for installed repositories done"
                     )
                     return
         self.system.status.background_task = False
         self.data.write()
-        self.logger.info("Recuring background task for installed repositories done")
+        self.logger.debug("Recuring background task for installed repositories done")
 
     async def recuring_tasks_all(self, notarealarg):
         """Recuring tasks for all repositories."""
-        self.logger.info("Starting recuring background task for all repositories")
+        self.logger.debug("Starting recuring background task for all repositories")
         self.system.status.background_task = True
+        self.logger.debug(self.github.ratelimits.remaining)
+        self.logger.debug(self.github.ratelimits.reset_utc)
         for repository in self.repositories:
             try:
                 await repository.update_repository()
@@ -183,13 +205,13 @@ class Hacs:
             except AIOGitHubException:
                 self.system.status.background_task = False
                 self.data.write()
-                self.logger.info("Recuring background task for all repositories done")
+                self.logger.debug("Recuring background task for all repositories done")
                 return
         await self.load_known_repositories()
         self.clear_out_blacklisted_repositories()
         self.system.status.background_task = False
         self.data.write()
-        self.logger.info("Recuring background task for all repositories done")
+        self.logger.debug("Recuring background task for all repositories done")
 
     def clear_out_blacklisted_repositories(self):
         """Clear out blaclisted repositories."""
@@ -247,7 +269,6 @@ class Hacs:
 
         for category in repositories:
             for repo in repositories[category]:
-                self.common.default.append(repo)
                 if repo in self.common.blacklist:
                     continue
                 if repo in self.common.default:
@@ -256,5 +277,6 @@ class Hacs:
                     continue
                 try:
                     await self.register_repository(repo, category)
+                    self.common.default.append(repo)
                 except Exception:
                     pass

@@ -106,6 +106,8 @@ async def startup_wrapper_for_yaml(hacs):
 
 async def hacs_startup(hacs):
     """HACS startup tasks."""
+    hacs.logger.debug(f"Config type: {hacs.configuration.config_type}")
+    hacs.logger.debug(f"GitHub token: {hacs.configuration.token}")
     hacs.version = const.VERSION
     hacs.logger.info(const.STARTUP)
     hacs.system.config_path = hacs.hass.config.path()

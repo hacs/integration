@@ -18,7 +18,7 @@
 </i>
 
 {% elif repository.information.category == "plugin" %}
-{% set name =  repository.information.full_name.replace("lovelace-", "") %}
+{% set name =  repository.information.full_name.split("/")[-1].replace("lovelace-", "") %}
 
 <i>
   When installed, this will be located in '{{repository.content.path.local }}',
@@ -29,13 +29,12 @@
   When you add this to your configuration use this:
 </i></br>
 <pre id="LovelaceExample" class="yaml">
-- url: /community_plugin/{{repository.information.full_name}}/{{name}}.js
-  {%- if repository.js_type == "appdaemon" -%}
-  type: {{repository.js_type}}
-  {% else %}
-  type: Could not determine the type of this plugin, check the repository.
+  - url: /community_plugin/{{name}}/{{repository.information.file_name}}
+  {%- if repository.information.javascript_type %}
+    type: {{repository.information.javascript_type}}
+  {%- else %}
+    type: Could not determine the type of this plugin, check the repository.
   {%- endif -%}
-
     </pre>
 <a title="Copy content to clipboard" id="lovelacecopy" onclick="CopyToLovelaceExampleToClipboard()">
   <i class="fa fa-copy"></i>

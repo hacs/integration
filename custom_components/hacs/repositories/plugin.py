@@ -15,6 +15,8 @@ class HacsPlugin(HacsRepository):
         super().__init__()
         self.information.full_name = full_name
         self.information.category = self.category
+        self.information.file_name = None
+        self.information.javascript_type = None
         self.content.path.local = (
             f"{self.system.config_path}/www/community/{full_name.split('/')[-1]}"
         )
@@ -60,6 +62,9 @@ class HacsPlugin(HacsRepository):
         # Get plugin objects.
         await self.get_plugin_location()
 
+        # Get JS type
+        await self.parse_readme_for_jstype()
+
         if self.content.path.remote is None:
             self.validate.errors.append("Repostitory structure not compliant")
 
@@ -103,11 +108,13 @@ class HacsPlugin(HacsRepository):
                 valid_filenames = [
                     f"{self.information.name.replace('lovelace-', '')}.js",
                     f"{self.information.name}.js",
+                    f"{self.information.name}.umd.js",
                     f"{self.information.name}-bundle.js",
                 ]
                 for name in valid_filenames:
                     if name in files:
                         # YES! We got it!
+                        self.information.file_name = name
                         self.content.path.remote = location
                         self.content.objects = objects
                         self.content.files = files
@@ -126,3 +133,25 @@ class HacsPlugin(HacsRepository):
                 self.information.authors = package["author"]
         except Exception:  # pylint: disable=broad-except
             pass
+
+    async def parse_readme_for_jstype(self):
+        """Parse the readme looking for js type."""
+        readme = None
+        readme_files = ["readme", "readme.md"]
+        root = await self.repository_object.get_contents("")
+        for file in root:
+            if file.name.lower() in readme_files:
+                readme = await self.repository_object.get_contents(file.name)
+                break
+
+        if readme is None:
+            return
+
+        readme = readme.content
+        for line in readme.splitlines():
+            if "type: module" in line:
+                self.information.javascript_type = "module"
+                break
+            elif "type: js" in line:
+                self.information.javascript_type = "js"
+                break

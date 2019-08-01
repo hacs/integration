@@ -195,14 +195,29 @@ class HacsRepository(Hacs):
         """Return display_authors"""
         if self.repository.authors:
             if self.repository.information.category == "integration":
-                authors = "<p>Author(s): "
+                authors = """
+                <tr class="hacs-table-row repository">
+                    <td class="repository">
+                        <b>Author(s):</b>
+                    </td>
+                    <td class="repository">
+                """
                 for author in self.information.authors:
                     if "@" in author:
                         author = author.split("@")[-1]
                     authors += f"<a rel='noreferrer' href='https://github.com/{author}' target='_blank' style='color: var(--primary-color) !important; margin: 2'> @{author}</a>"
-                authors += "</p>"
+                authors += "</td></tr>"
             else:
-                authors = f"<p>Author: {self.information.authors}</p>"
+                authors = f"""
+                <tr class="hacs-table-row repository">
+                    <td class="repository">
+                        <b>Author:</b>
+                    </td>
+                    <td class="repository">
+                        {self.information.authors}
+                    </td>
+                </tr>
+                """
         else:
             authors = ""
         return authors
@@ -468,6 +483,7 @@ class HacsRepository(Hacs):
         """Get the content of info.md"""
         from ..handler.template import render_template
 
+        info = None
         info_files = ["info", "info.md"]
         try:
             root = await self.repository_object.get_contents("", self.ref)
@@ -481,6 +497,7 @@ class HacsRepository(Hacs):
                 self.information.additional_info = ""
             else:
                 info = await self.github.render_markdown(info.content)
+                info = info.replace("&lt;", "<")
                 info = info.replace("<h3>", "<h6>").replace("</h3>", "</h6>")
                 info = info.replace("<h2>", "<h5>").replace("</h2>", "</h5>")
                 info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
@@ -494,7 +511,7 @@ class HacsRepository(Hacs):
                 self.information.additional_info = render_template(info, self)
 
         except Exception:  # Gotta Catch 'Em All
-            return
+            self.information.additional_info = ""
 
     async def get_releases(self):
         """Get repository releases."""

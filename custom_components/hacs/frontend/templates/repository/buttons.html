@@ -30,8 +30,8 @@
   </a>
 
   {% if repository.status.installed and repository.information.category == "plugin" %}
-  {% set name = repository.information.full_name.split("lovelace-")[-1] %}
-  <a class="actionlink" href='/community_plugin/{{repository.information.full_name}}/{{name}}.js' target='_blank'>
+  {% set name =  repository.information.full_name.split("/")[-1].replace("lovelace-", "") %}
+  <a class="actionlink" href='/community_plugin/{{name}}/{{repository.information.file_name}}' target='_blank'>
     OPEN PLUGIN
   </a>
   {% endif %}

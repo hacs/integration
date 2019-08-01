@@ -61,7 +61,7 @@ class HacsData(Hacs):
                 "installed_commit": repository.versions.installed_commit,
                 "installed": repository.status.installed,
                 "last_commit": repository.versions.available_commit,
-                "last_release_tag": repository.releases.last_release,
+                "last_release_tag": repository.versions.available,
                 "name": repository.information.name,
                 "new": repository.status.new,
                 "selected_tag": repository.status.selected_tag,
@@ -112,9 +112,6 @@ class HacsData(Hacs):
                 if repo.get("name") is not None:
                     repository.information.name = repo["name"]
 
-                if repo.get("last_release_tag") is not None:
-                    repository.releases.last_release = repo["last_release_tag"]
-
                 if repo.get("hide") is not None:
                     repository.status.hide = repo["hide"]
 
@@ -139,11 +136,15 @@ class HacsData(Hacs):
                 else:
                     repository.information.uid = entry
 
+                    if repo.get("last_release_tag") is not None:
+                        repository.releases.last_release = repo["last_release_tag"]
+                        repository.versions.available = repo["last_release_tag"]
+
                     if repo.get("new") is not None:
                         repository.status.new = repo["new"]
 
-                    if repo.get("installed") is not None:
-                        repository.versions.installed = repo["installed"]
+                    if repo.get("version_installed") is not None:
+                        repository.versions.installed = repo["version_installed"]
 
                     if repo.get("installed_commit") is not None:
                         repository.versions.installed_commit = repo["installed_commit"]

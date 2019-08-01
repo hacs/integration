@@ -242,19 +242,25 @@ class Hacs:
                     "python_script": ["ludeeus/ps-hacs"],
                     "theme": ["ludeeus/theme-hacs"],
                 }
-                return repositories
+        else:
+            for category in self.common.categories:
+                remote = await self.repo.get_contents(
+                    f"repositories/{category}", "data"
+                )
+                repositories[category] = json.loads(remote.content)
+                if category == "plugin":
+                    org = await self.github.get_org_repos("custom-cards")
+                    for repo in org:
+                        repositories[category].append(repo.full_name)
+                if category == "integration":
+                    org = await self.github.get_org_repos("custom-components")
+                    for repo in org:
+                        repositories[category].append(repo.full_name)
 
-        for category in self.common.categories:
-            remote = await self.repo.get_contents(f"repositories/{category}", "data")
-            repositories[category] = json.loads(remote.content)
-            if category == "plugin":
-                org = await self.github.get_org_repos("custom-cards")
-                for repo in org:
-                    repositories[category].append(repo.full_name)
-            if category == "integration":
-                org = await self.github.get_org_repos("custom-components")
-                for repo in org:
-                    repositories[category].append(repo.full_name)
+        for category in repositories:
+            for repo in repositories[category]:
+                if repo not in self.common.default:
+                    self.common.default.append(repo)
         return repositories
 
     async def load_known_repositories(self):
@@ -271,12 +277,9 @@ class Hacs:
             for repo in repositories[category]:
                 if repo in self.common.blacklist:
                     continue
-                if repo in self.common.default:
-                    continue
                 if self.is_known(repo):
                     continue
                 try:
                     await self.register_repository(repo, category)
-                    self.common.default.append(repo)
                 except Exception:
                     pass

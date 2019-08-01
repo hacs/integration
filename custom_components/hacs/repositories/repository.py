@@ -551,7 +551,7 @@ class HacsRepository(Hacs):
         if self.information.uid in self.common.installed:
             self.common.installed.remove(self.information.uid)
         for repository in self.repositories:
-            if repository.information.uid == self.repository_id:
+            if repository.information.uid == self.information.uid:
                 self.repositories.remove(repository)
 
     async def uninstall(self):

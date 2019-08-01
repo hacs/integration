@@ -98,9 +98,6 @@ class HacsData(Hacs):
                         repo["full_name"], repo["category"], False
                     )
                 repository = self.get_by_name(repo["full_name"])
-                self.logger.info(
-                    f"Restored {repository.information.full_name} from saved data with {repo}"
-                )
                 if repository is None:
                     self.logger.error(f"Did not find {repo['full_name']}")
                     continue

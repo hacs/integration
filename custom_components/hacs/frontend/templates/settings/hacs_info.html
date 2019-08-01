@@ -7,18 +7,32 @@
 <div class='hacs-overview-container'>
   <div class="hacs-card-standalone">
     <h5>HACS (Home Assistant Community Store)</h5>
-    <b>Version:</b> {{hacs.version}}{{pending_restart}}
-    </br>
-    <b>Display:</b>
-    <form action="/hacsapi/{{ hacs.token }}/frontend_mode" name="overview_display" method="post" accept-charset="utf-8"
-      enctype="application/x-www-form-urlencoded" class="hacs-form">
-      <select name="view_type" class="hacs-select"
-        onchange="toggleLoading();document.getElementsByName('overview_display')[0].submit()">
-        {% for displayoption in ["Grid", "Table"] %}
-        <option {{"selected" if hacs.configuration.frontend_mode == displayoption else ""}} class="hacscolor"
-          value="{{displayoption}}">{{displayoption}}</option>
-        {% endfor %}
-      </select>
-    </form>
+    <table class="hacs-table">
+      <tr class="hacs-table-row repository">
+        <td class="repository">
+          <b>Version:</b>
+        </td>
+        <td class="repository text">
+          {{hacs.version}}{{pending_restart}}
+        </td>
+      </tr>
+      <tr class="hacs-table-row repository">
+        <td class="repository">
+          <b>Display:</b>
+        </td>
+        <td class="repository">
+          <form action="/hacsapi/{{ hacs.token }}/frontend_mode" name="overview_display" method="post"
+            accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+            <select name="view_type" class="hacs-select repository"
+              onchange="toggleLoading();document.getElementsByName('overview_display')[0].submit()">
+              {% for displayoption in ["Grid", "Table"] %}
+              <option {{"selected" if hacs.configuration.frontend_mode == displayoption else ""}} class="hacscolor"
+                value="{{displayoption}}">{{displayoption}}</option>
+              {% endfor %}
+            </select>
+          </form>
+        </td>
+      </tr>
+    </table>
   </div>
 </div>

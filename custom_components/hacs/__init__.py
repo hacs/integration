@@ -5,6 +5,7 @@ For more details about this integration, please refer to the documentation at
 https://custom-components.github.io/hacs/
 """
 # pylint: disable=bad-continuation
+from asyncio import sleep
 import os.path
 import json
 from distutils.version import LooseVersion
@@ -13,6 +14,7 @@ import aiohttp
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
+from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers import discovery, device_registry as dr
@@ -60,15 +62,14 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
     Hacs.hass = hass
     Hacs.configuration = Configuration(config[const.DOMAIN])
     Hacs.configuration.config_type = "yaml"
-    startup_result = await hacs_startup(Hacs)
-    hass.data[const.DOMAIN] = config
-    if startup_result:
-        hass.async_create_task(
-            hass.config_entries.flow.async_init(
-                const.DOMAIN, context={"source": config_entries.SOURCE_IMPORT}, data={}
-            )
+    await startup_wrapper_for_yaml(Hacs)
+    hass.async_create_task(
+        hass.config_entries.flow.async_init(
+            const.DOMAIN, context={"source": config_entries.SOURCE_IMPORT}, data={}
         )
-    return startup_result
+    )
+
+    return True
 
 
 async def async_setup_entry(hass, config_entry):
@@ -85,7 +86,22 @@ async def async_setup_entry(hass, config_entry):
     Hacs.configuration.config_type = "flow"
     Hacs.configuration.config_entry = config_entry
     startup_result = await hacs_startup(Hacs)
+    if not startup_result:
+        raise ConfigEntryNotReady
     return startup_result
+
+
+async def startup_wrapper_for_yaml(hacs):
+    """Startup wrapper for yaml config."""
+    startup_result = await hacs_startup(hacs)
+    if not startup_result:
+        hacs.hass.components.frontend.async_remove_panel(
+            hacs.configuration.sidepanel_title.lower()
+            .replace(" ", "_")
+            .replace("-", "_")
+        )
+        hacs.logger.info("Could not setup HACS, trying again in 15 min")
+        async_call_later(hacs.hass, 900, startup_wrapper_for_yaml(hacs))
 
 
 async def hacs_startup(hacs):
@@ -104,12 +120,15 @@ async def hacs_startup(hacs):
     if not check_version(hacs):
         return False
 
-    # Load HACS
-    if not await load_hacs_repository(hacs):
-        return False
-
     # Check custom_updater
     if not check_custom_updater(hacs):
+        return False
+
+    # Set up frontend
+    await setup_frontend(hacs)
+
+    # Load HACS
+    if not await load_hacs_repository(hacs):
         return False
 
     # Add aditional categories
@@ -146,9 +165,6 @@ async def hacs_startup(hacs):
     # Add sensor
     add_sensor(hacs)
 
-    # Set up frontend
-    await setup_frontend(hacs)
-
     # Set up services
     await add_services(hacs)
 
@@ -177,6 +193,8 @@ async def load_hacs_repository(hacs):
     try:
         await hacs().register_repository("custom-components/hacs", "integration")
         repository = hacs().get_by_name("custom-components/hacs")
+        if repository is None:
+            raise AIOGitHubException("Unknown error")
         repository.status.installed = True
         hacs.repo = repository.repository_object
     except (

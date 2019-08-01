@@ -57,6 +57,7 @@ class RepositoryInformation:
     description = ""
     full_name = None
     homeassistant_version = None
+    last_updated = None
     uid = None
     info = None
     name = None
@@ -330,11 +331,17 @@ class HacsRepository(Hacs):
             self.information.description = self.repository_object.description
 
         # Update default branch
-        self.information.default_branch = self.repository_object.default_branch
+        if self.information.full_name != "custom-components/hacs":
+            self.information.default_branch = self.repository_object.default_branch
+        else:
+            self.information.default_branch = "next"
 
         # Update last available commit
         await self.repository_object.set_last_commit()
         self.versions.available_commit = self.repository_object.last_commit
+
+        # Update last updaeted
+        self.information.last_updated = self.repository_object.pushed_at
 
         # Update topics
         self.information.topics = self.repository_object.topics
@@ -369,7 +376,7 @@ class HacsRepository(Hacs):
             backup.create()
 
         validate = await self.download_content(
-            validate, self.content.path.remote, self.content.path.local, self.ref
+            self.validate, self.content.path.remote, self.content.path.local, self.ref
         )
 
         if validate.errors:
@@ -517,6 +524,11 @@ class HacsRepository(Hacs):
 
     def remove(self):
         """Run remove tasks."""
+        # Attach logger
+        if self.logger is None:
+            self.logger = Logger(
+                f"hacs.repository.{self.information.category}.{self.information.full_name}"
+            )
         self.logger.info("Starting removal")
 
         if self.information.uid in self.common.installed:
@@ -527,6 +539,11 @@ class HacsRepository(Hacs):
 
     async def uninstall(self):
         """Run uninstall tasks."""
+        # Attach logger
+        if self.logger is None:
+            self.logger = Logger(
+                f"hacs.repository.{self.information.category}.{self.information.full_name}"
+            )
         self.logger.info("Uninstalling")
         await self.remove_local_directory()
         self.status.installed = False

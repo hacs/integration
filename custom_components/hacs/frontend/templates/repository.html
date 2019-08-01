@@ -34,6 +34,9 @@
           {% else %}
           <p><b>Available {{repository.display_version_or_commit}}:</b> {{repository.display_available_version}}</p>
           {% endif %}
+          {% if repository.status.selected_tag == repository.information.default_branch %}
+          <p><b>Last updated:</b> {{repository.information.last_updated}}</p>
+          {% endif %}
           </br>
           {{repository.display_authors}}
         </div>

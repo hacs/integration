@@ -80,6 +80,7 @@ class HacsPlugin(HacsRepository):
             if self.content.path.remote is not None:
                 continue
             try:
+                objects = []
                 files = []
                 if location != "release":
                     try:

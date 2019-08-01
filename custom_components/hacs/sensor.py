@@ -2,6 +2,7 @@
 # pylint: disable=unused-argument
 from integrationhelper import Logger
 from homeassistant.helpers.entity import Entity
+from aiogithubapi import AIOGitHubException
 from .hacsbase import Hacs as hacs
 from .const import DOMAIN, VERSION, NAME_LONG
 
@@ -37,11 +38,14 @@ class HACSSensor(Entity):
         for repository in hacs.repositories:
             if repository.status.pending.upgrade:
                 if repository.information.uid not in prev_has_update:
-                    await repository.update_repository()
-                    if repository.status.pending.upgrade:
-                        hacs.logger.debug(repository.information.full_name)
-                        updates += 1
-                        has_update.append(repository.information.uid)
+                    try:
+                        await repository.update_repository()
+                        if repository.status.pending.upgrade:
+                            hacs.logger.debug(repository.information.full_name)
+                            updates += 1
+                            has_update.append(repository.information.uid)
+                    except AIOGitHubException:
+                        pass
 
         self._state = updates
         self.has_update = has_update

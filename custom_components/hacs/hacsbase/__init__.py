@@ -129,14 +129,15 @@ class Hacs:
                         self.logger.error(f"Validation for {full_name} failed.")
                     return repository.validate.errors
                 repository.logger.info("Registration complete")
-            # except AIOGitHubException:
-            except SystemError:
-                pass
+            except AIOGitHubException:
+                self.logger.error(f"Validation for {full_name} failed.")
+                return
         self.repositories.append(repository)
 
     async def startup_tasks(self):
         """Tasks tha are started after startup."""
         await self.load_known_repositories()
+        self.clear_out_blacklisted_repositories()
         self.tasks.append(
             async_track_time_interval(
                 self.hass, self.recuring_tasks_installed, timedelta(minutes=1)
@@ -157,8 +158,16 @@ class Hacs:
         self.system.status.background_task = True
         for repository in self.repositories:
             if repository.status.installed:
-                repository.logger.debug("Updating repository information")
-                await repository.update_repository()
+                try:
+                    await repository.update_repository()
+                    repository.logger.debug("Information update done.")
+                except AIOGitHubException:
+                    self.system.status.background_task = False
+                    self.data.write()
+                    self.logger.info(
+                        "Recuring background task for installed repositories done"
+                    )
+                    return
         self.system.status.background_task = False
         self.data.write()
         self.logger.info("Recuring background task for installed repositories done")
@@ -168,13 +177,36 @@ class Hacs:
         self.logger.info("Starting recuring background task for all repositories")
         self.system.status.background_task = True
         for repository in self.repositories:
-            repository.logger.debug("Updating repository information")
-            await repository.update_repository()
-
+            try:
+                await repository.update_repository()
+                repository.logger.debug("Information update done.")
+            except AIOGitHubException:
+                self.system.status.background_task = False
+                self.data.write()
+                self.logger.info("Recuring background task for all repositories done")
+                return
         await self.load_known_repositories()
+        self.clear_out_blacklisted_repositories()
         self.system.status.background_task = False
         self.data.write()
         self.logger.info("Recuring background task for all repositories done")
+
+    def clear_out_blacklisted_repositories(self):
+        """Clear out blaclisted repositories."""
+        need_to_save = False
+        for repository in self.common.blacklist:
+            if self.is_known(repository):
+                repository = self.get_by_name(repository)
+                if repository.status.installed:
+                    self.logger.error(
+                        f"You have {repository.information.full_name} installed with HACS, this repositroy have not been blacklisted, please consider removing it."
+                    )
+                else:
+                    need_to_save = True
+                    repository.remove()
+
+        if need_to_save:
+            self.data.write()
 
     async def get_repositories(self):
         """Return a list of repositories."""

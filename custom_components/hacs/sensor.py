@@ -80,11 +80,6 @@ class HACSSensor(Entity):
         return "pending update(s)"
 
     @property
-    def state_attributes(self):
-        """Return the attributes."""
-        return {"Pending updates": ", ".join(self.has_update)}
-
-    @property
     def device_info(self):
         return {
             "identifiers": {(DOMAIN, self.unique_id)},

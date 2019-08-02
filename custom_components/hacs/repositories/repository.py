@@ -372,11 +372,11 @@ class HacsRepository(Hacs):
             else:
                 self.versions.installed = self.versions.available
 
-            if (
-                self.information.category == "integration"
-                and self.information.full_name != "custom-components/hacs"
-            ):
-                if self.config_flow:
+            if self.information.category == "integration":
+                if (
+                    self.config_flow
+                    and self.information.full_name != "custom-components/hacs"
+                ):
                     await self.reload_custom_components()
                 else:
                     self.pending_restart = True

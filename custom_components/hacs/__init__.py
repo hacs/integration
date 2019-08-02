@@ -106,8 +106,7 @@ async def startup_wrapper_for_yaml(hacs):
 
 async def hacs_startup(hacs):
     """HACS startup tasks."""
-    hacs.logger.debug(f"Config type: {hacs.configuration.config_type}")
-    hacs.logger.debug(f"GitHub token: {hacs.configuration.token}")
+    hacs.logger.debug(f"Configuration type: {hacs.configuration.config_type}")
     hacs.version = const.VERSION
     hacs.logger.info(const.STARTUP)
     hacs.system.config_path = hacs.hass.config.path()
@@ -310,6 +309,19 @@ async def test_repositories(hacs):
 
 async def async_remove_entry(hass, config_entry):
     """Handle removal of an entry."""
+    if Hacs.configuration.config_type == "yaml":
+        Hacs().logger.warning(
+            """
+        You can not remove HACS from the UI when you have configured it with YAML.
+        To start using UI configuration you need to remove it from YAML, then restart HA.
+        Before adding it under configuration -> integrations."""
+        )
+        hass.async_create_task(
+            hass.config_entries.flow.async_init(
+                const.DOMAIN, context={"source": config_entries.SOURCE_IMPORT}, data={}
+            )
+        )
+        return
     Hacs().logger.info("Disabling HACS")
     Hacs().logger.info("Removing recuring tasks")
     for task in Hacs().tasks:

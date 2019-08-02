@@ -32,8 +32,8 @@ class HACSSensor(Entity):
             return
 
         updates = 0
-        has_update = []
         prev_has_update = self.has_update
+        has_update = []
 
         for repository in hacs.repositories:
             if repository.pending_upgrade:
@@ -41,11 +41,18 @@ class HACSSensor(Entity):
                     try:
                         await repository.update_repository()
                         if repository.pending_upgrade:
-                            hacs.logger.debug(repository.information.full_name)
+                            self.logger.info(
+                                f"Pending upgrade for {repository.information.full_name}"
+                            )
                             updates += 1
                             has_update.append(repository.information.uid)
                     except AIOGitHubException:
                         pass
+                else:
+                    has_update.append(repository.information.uid)
+            else:
+                if repository.information.uid in has_update:
+                    has_update.remove(repository.information.uid)
 
         self._state = updates
         self.has_update = has_update

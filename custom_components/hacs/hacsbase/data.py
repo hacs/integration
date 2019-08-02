@@ -40,13 +40,13 @@ class HacsData(Hacs):
 
         # Hacs
         path = f"{self.system.config_path}/.storage/{STORES['hacs']}"
-        content = {"view": self.configuration.frontend_mode}
-        save(path, content)
+        hacs = {"view": self.configuration.frontend_mode}
+        save(path, hacs)
 
         # Installed
         path = f"{self.system.config_path}/.storage/{STORES['installed']}"
-        content = self.common.installed
-        save(path, content)
+        installed = self.common.installed
+        save(path, installed)
 
         # Repositories
         path = f"{self.system.config_path}/.storage/{STORES['repositories']}"
@@ -68,6 +68,20 @@ class HacsData(Hacs):
                 "show_beta": repository.status.show_beta,
                 "version_installed": repository.versions.installed,
             }
+
+        # Validate installed repositories
+        count_installed = len(installed) + 1  # For HACS it self
+        count_installed_restore = 0
+        for repository in self.repositories:
+            if repository.status.installed:
+                count_installed_restore += 1
+
+        if count_installed != count_installed_restore:
+            self.logger.debug("Save failed!")
+            self.logger.debug(
+                f"Number of installed repositories does not match the number of stored repositories [{count_installed} vs {count_installed_restore}]"
+            )
+            return
         save(path, content)
 
     async def restore(self):

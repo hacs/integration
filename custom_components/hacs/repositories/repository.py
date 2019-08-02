@@ -362,7 +362,8 @@ class HacsRepository(Hacs):
 
         if validate.success:
             if self.information.full_name not in self.common.installed:
-                self.common.installed.append(self.information.full_name)
+                if self.information.full_name != "custom-components/hacs":
+                    self.common.installed.append(self.information.full_name)
             self.status.installed = True
             self.versions.installed_commit = self.versions.available_commit
 
@@ -371,7 +372,10 @@ class HacsRepository(Hacs):
             else:
                 self.versions.installed = self.versions.available
 
-            if self.information.category == "integration":
+            if (
+                self.information.category == "integration"
+                and self.information.full_name != "custom-components/hacs"
+            ):
                 if self.config_flow:
                     await self.reload_custom_components()
                 else:

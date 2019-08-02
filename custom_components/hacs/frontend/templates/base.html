@@ -37,8 +37,13 @@
     {% if message %}
     {% include 'message.html' with context %}
     {% endif %}
+    {% set hacs_repo = hacs.get_by_name("custom-components/hacs") %}
+    {% if hacs_repo.pending_restart %}
+    The frontend of HACS have been disabled untill you restart Home Assistant
+    {% else %}
     {% block content %}
     {% endblock %}
+    {% endif %}
   </div>
 </body>
 

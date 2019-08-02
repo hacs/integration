@@ -1,20 +1,12 @@
 <div id="modal_upgrade_all" class="modal hacscolor">
     <div class="modal-content">
         <h5>Pending Upgrades</h5>
-        {% for repository in hacs.repositories_list_repo %}
-        {% if repository.pending_update %}
-        <p>- {{repository.name}} (
-            {% if repository.version_installed %}
-            {{repository.version_installed}}
-            {% else %}
-            {{repository.installed_commit}}
-            {% endif %}
+        {% for repository in hacs.repositories %}
+        {% if repository.pending_upgrade %}
+        <p>- {{repository.information.name}} (
+            {{repository.display_installed_version}}
             ->
-            {% if repository.last_release_tag %}
-            {{repository.last_release_tag}}
-            {% else %}
-            {{repository.last_commit}}
-            {% endif %}
+            {{repository.display_available_version}}
             )</p>
         {% endif %}
         {% endfor %}

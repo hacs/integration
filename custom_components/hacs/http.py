@@ -51,11 +51,17 @@ class HacsWebResponse(HomeAssistantView, Hacs):
             self.logger.debug(f"Raw headers ({self.raw_headers})")
             self.logger.debug(f"Postdata ({self.postdata})")
         if self.endpoint in WEBRESPONSE:
-            response = WEBRESPONSE[self.endpoint]
-            response = await response.response(self)
+            try:
+                response = WEBRESPONSE[self.endpoint]
+                response = await response.response(self)
+            except Exception as exception:
+                render = self.render(f"error", message=exception)
+                return web.Response(
+                    body=render, content_type="text/html", charset="utf-8"
+                )
         else:
             # Return default response.
-            response = await WEBRESPONSE["error"].response(self)
+            response = await WEBRESPONSE["generic"].response(self)
 
         # set headers
         response.headers["Cache-Control"] = "no-cache, must-revalidate, s-max_age=0"

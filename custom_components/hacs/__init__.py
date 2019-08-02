@@ -137,6 +137,8 @@ async def hacs_startup(hacs):
 
     # Restore from storefiles
     if not await hacs.data.restore():
+        hacs_repo = hacs().get_by_name("custom-components/hacs")
+        hacs_repo.pending_restart = True
         return False
 
     # Add aditional categories

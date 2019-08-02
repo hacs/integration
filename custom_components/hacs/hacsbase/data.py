@@ -4,6 +4,7 @@ import json
 from integrationhelper import Logger
 from . import Hacs
 from .const import STORAGE_VERSION
+from ..const import VERSION
 
 
 STORES = {
@@ -19,6 +20,16 @@ class HacsData(Hacs):
     def __init__(self):
         """Initialize."""
         self.logger = Logger("hacs.data")
+
+    def check_corrupted_files(self):
+        """Return True if one (or more) of the files are corrupted."""
+        for store in STORES:
+            path = f"{self.system.config_path}/.storage/{STORES[store]}"
+            if os.path.exists(path):
+                if os.stat(path).st_size == 0:
+                    # File is empty (corrupted)
+                    return True
+        return False
 
     def read(self, store):
         """Return data from a store."""
@@ -96,6 +107,10 @@ class HacsData(Hacs):
             hacs = self.read("hacs")
             installed = self.read("installed")
             repositrories = self.read("repositories")
+            if self.check_corrupted_files():
+                # Coruptted installation
+                self.logger.critical("Restore failed one or more files are corrupted!")
+                return False
             if hacs is None and installed is None and repositrories is None:
                 # Assume new install
                 return True
@@ -115,11 +130,10 @@ class HacsData(Hacs):
             repositrories = repositrories["data"]
             for entry in repositrories:
                 repo = repositrories[entry]
-                if repo["full_name"] == "custom-components/hacs":
-                    continue
-                await self.register_repository(
-                    repo["full_name"], repo["category"], False
-                )
+                if not self.is_known(repo["full_name"]):
+                    await self.register_repository(
+                        repo["full_name"], repo["category"], False
+                    )
                 repository = self.get_by_name(repo["full_name"])
                 if repository is None:
                     self.logger.error(f"Did not find {repo['full_name']}")
@@ -163,6 +177,8 @@ class HacsData(Hacs):
 
                 if repo.get("version_installed") is not None:
                     repository.versions.installed = repo["version_installed"]
+                elif repo["full_name"] == "custom-components/hacs":
+                    repository.versions.installed = VERSION
 
                 if repo.get("installed_commit") is not None:
                     repository.versions.installed_commit = repo["installed_commit"]

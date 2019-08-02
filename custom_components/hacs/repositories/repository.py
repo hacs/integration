@@ -102,8 +102,9 @@ class HacsRepository(Hacs):
     @property
     def pending_upgrade(self):
         """Return pending upgrade."""
-        if self.display_installed_version != self.display_available_version:
-            return True
+        if self.status.installed:
+            if self.display_installed_version != self.display_available_version:
+                return True
 
         return False
 
@@ -335,19 +336,6 @@ class HacsRepository(Hacs):
 
         # Update releases
         await self.get_releases()
-
-        # Set pending upgrade
-        if self.status.installed:
-            if self.versions.installed:
-                self.pending_upgrade = bool(
-                    self.versions.available != self.versions.installed
-                )
-            else:
-                self.pending_upgrade = bool(
-                    self.versions.available_commit != self.versions.installed_commit
-                )
-        else:
-            self.pending_upgrade = False
 
     async def install(self):
         """Common installation steps of the repository."""

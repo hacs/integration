@@ -4,7 +4,6 @@ import json
 from integrationhelper import Logger
 from . import Hacs
 from .const import STORAGE_VERSION
-from ..const import VERSION
 
 
 STORES = {

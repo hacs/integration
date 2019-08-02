@@ -26,7 +26,7 @@ class HacsData(Hacs):
         path = f"{self.system.config_path}/.storage/{STORES[store]}"
         content = None
         if os.path.exists(path):
-            with open(path, "r", encoding="utf-8", errors="ignore") as storefile:
+            with open(path, "r", encoding="utf-8") as storefile:
                 content = storefile.read()
                 content = json.loads(content)
         return content
@@ -152,6 +152,20 @@ class HacsData(Hacs):
                     repository.versions.installed_commit = repo["installed_commit"]
                     repository.versions.installed = repo["version_installed"]
 
+            # Check the restore.
+            count_installed = len(installed) + 1  # For HACS it self
+            count_installed_restore = 0
+            for repository in self.repositories:
+                if repository.status.installed:
+                    count_installed_restore += 1
+
+            if count_installed != count_installed_restore:
+                self.logger.critical("Restore failed!")
+                self.logger.critical(
+                    f"Number of installed repositories does not match the number of restored repositories [{count_installed} vs {count_installed_restore}]"
+                )
+                return False
+
             self.logger.info("Restore done")
         except Exception as exception:
             self.logger.critical(f"[{exception}] Restore Failed!")
@@ -162,5 +176,5 @@ class HacsData(Hacs):
 def save(path, content):
     """Save file."""
     content = {"data": content, "schema": STORAGE_VERSION}
-    with open(path, "w", encoding="utf-8", errors="ignore") as storefile:
+    with open(path, "w", encoding="utf-8") as storefile:
         json.dump(content, storefile, indent=4)

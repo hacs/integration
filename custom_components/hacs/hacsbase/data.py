@@ -109,7 +109,8 @@ class HacsData(Hacs):
 
             # Installed
             installed = installed["data"]
-            self.common.installed = installed
+            for repository in installed:
+                self.common.installed.append(repository)
 
             # Repositories
             repositrories = repositrories["data"]
@@ -176,14 +177,14 @@ class HacsData(Hacs):
                             "version_installed"
                         ]
                         repository.versions.available_commit = frominstalled[
-                            "available_version"
+                            "version_available"
                         ]
                     else:
                         repository.versions.installed = frominstalled[
                             "version_installed"
                         ]
                         repository.versions.available = frominstalled[
-                            "available_version"
+                            "version_available"
                         ]
 
             # Check the restore.

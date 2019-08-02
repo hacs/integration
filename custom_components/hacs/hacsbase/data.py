@@ -65,7 +65,6 @@ class HacsData(Hacs):
                 "name": repository.information.name,
                 "new": repository.status.new,
                 "selected_tag": repository.status.selected_tag,
-                "pending_upgrade": repository.status.pending.upgrade,
                 "show_beta": repository.status.show_beta,
                 "version_installed": repository.versions.installed,
             }
@@ -74,27 +73,32 @@ class HacsData(Hacs):
     async def restore(self):
         """Restore saved data."""
         try:
+            hacs = self.read("hacs")
+            installed = self.read("installed")
+            repositrories = self.read("repositories")
+            if hacs is None and installed is None and repositrories is None:
+                # Assume new install
+                return True
+
             self.logger.info("Restore started")
 
             # Hacs
-            content = self.read("hacs")
-            content = content["data"]
-            self.configuration.frontend_mode = content["view"]
+            hacs = hacs["data"]
+            self.configuration.frontend_mode = hacs["view"]
 
             # Installed
-            content = self.read("installed")
-            content = content["data"]
-            self.common.installed = content
+            installed = installed["data"]
+            self.common.installed = installed
 
             # Repositories
-            content = self.read("repositories")
-            content = content["data"]
-            for entry in content:
-                repo = content[entry]
-                if repo["full_name"] != "custom-components/hacs":
-                    await self.register_repository(
-                        repo["full_name"], repo["category"], False
-                    )
+            repositrories = repositrories["data"]
+            for entry in repositrories:
+                repo = repositrories[entry]
+                if repo["full_name"] == "custom-components/hacs":
+                    continue
+                await self.register_repository(
+                    repo["full_name"], repo["category"], False
+                )
                 repository = self.get_by_name(repo["full_name"])
                 if repository is None:
                     self.logger.error(f"Did not find {repo['full_name']}")
@@ -124,30 +128,29 @@ class HacsData(Hacs):
                 if repo.get("show_beta") is not None:
                     repository.status.show_beta = repo["show_beta"]
 
-                if repo.get("pending_upgrade") is not None:
-                    repository.status.pending.upgrade = repo["pending_upgrade"]
-
                 if repo.get("last_commit") is not None:
                     repository.versions.available_commit = repo["last_commit"]
 
-                if repo["full_name"] == "custom-components/hacs":
-                    repository.versions.installed = VERSION
+                repository.information.uid = entry
+
+                if repo.get("last_release_tag") is not None:
+                    repository.releases.last_release = repo["last_release_tag"]
+                    repository.versions.available = repo["last_release_tag"]
+
+                if repo.get("new") is not None:
+                    repository.status.new = repo["new"]
+
+                if repo.get("version_installed") is not None:
+                    repository.versions.installed = repo["version_installed"]
+
+                if repo.get("installed_commit") is not None:
+                    repository.versions.installed_commit = repo["installed_commit"]
+
+                if repo["full_name"] in self.common.installed:
+                    repository.status.installed = True
                     repository.status.new = False
-                else:
-                    repository.information.uid = entry
-
-                    if repo.get("last_release_tag") is not None:
-                        repository.releases.last_release = repo["last_release_tag"]
-                        repository.versions.available = repo["last_release_tag"]
-
-                    if repo.get("new") is not None:
-                        repository.status.new = repo["new"]
-
-                    if repo.get("version_installed") is not None:
-                        repository.versions.installed = repo["version_installed"]
-
-                    if repo.get("installed_commit") is not None:
-                        repository.versions.installed_commit = repo["installed_commit"]
+                    repository.versions.installed_commit = repo["installed_commit"]
+                    repository.versions.installed = repo["version_installed"]
 
             self.logger.info("Restore done")
         except Exception as exception:

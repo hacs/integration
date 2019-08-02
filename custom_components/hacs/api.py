@@ -299,7 +299,7 @@ class RepositoriesUpgradeAll(HacsAPI):
     async def response(self):
         """Response."""
         for repository in self.repositories:
-            if repository.status.pending.upgrade:
+            if repository.pending_upgrade:
                 await repository.install()
         return web.HTTPFound(f"/hacsweb/{self.token}/settings?timestamp={time()}")
 

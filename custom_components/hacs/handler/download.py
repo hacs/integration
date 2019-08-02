@@ -47,11 +47,6 @@ async def async_download_file(hass, url):
 async def async_save_file(location, content):
     """Save files."""
     logger = Logger("hacs.download.save")
-    if "lovelace-" in location.split("/")[-1]:
-        search = location.split("/")[-1]
-        replace = search.replace("lovelace-", "")
-        location = location.replace(search, replace)
-
     logger.debug(f"Saving {location}")
     mode = "w"
     encoding = "utf-8"

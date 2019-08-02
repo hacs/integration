@@ -26,17 +26,9 @@ class RepositoryVersions:
     installed_commit = None
 
 
-class PendingActions:
-    """Pending actions."""
-
-    restart = False
-    upgrade = False
-
-
 class RepositoryStatus:
     """Repository status."""
 
-    pending = None
     hide = False
     installed = False
     last_updated = None
@@ -101,11 +93,19 @@ class HacsRepository(Hacs):
         self.information = RepositoryInformation()
         self.repository_object = None
         self.status = RepositoryStatus()
-        self.status.pending = PendingActions()
         self.validate = Validate()
         self.releases = RepositoryReleases()
         self.versions = RepositoryVersions()
+        self.pending_restart = False
         self.logger = None
+
+    @property
+    def pending_upgrade(self):
+        """Return pending upgrade."""
+        if self.display_installed_version != self.display_available_version:
+            return True
+
+        return False
 
     @property
     def ref(self):
@@ -169,9 +169,9 @@ class HacsRepository(Hacs):
         """Return display_status."""
         if self.status.new:
             status = "new"
-        elif self.status.pending.restart:
+        elif self.pending_restart:
             status = "pending-restart"
-        elif self.status.pending.upgrade:
+        elif self.pending_upgrade:
             status = "pending-upgrade"
         elif self.status.installed:
             status = "installed"
@@ -190,38 +190,6 @@ class HacsRepository(Hacs):
             "new": "This is a newly added repository.",
         }
         return description[self.display_status]
-
-    @property
-    def display_authors(self):
-        """Return display_authors"""
-        if self.repository.authors:
-            if self.repository.information.category == "integration":
-                authors = """
-                <tr class="hacs-table-row repository">
-                    <td class="repository">
-                        <b>Author(s):</b>
-                    </td>
-                    <td class="repository">
-                """
-                for author in self.information.authors:
-                    if "@" in author:
-                        author = author.split("@")[-1]
-                    authors += f"<a rel='noreferrer' href='https://github.com/{author}' target='_blank' style='color: var(--primary-color) !important; margin: 2'> @{author}</a>"
-                authors += "</td></tr>"
-            else:
-                authors = f"""
-                <tr class="hacs-table-row repository">
-                    <td class="repository">
-                        <b>Author:</b>
-                    </td>
-                    <td class="repository">
-                        {self.information.authors}
-                    </td>
-                </tr>
-                """
-        else:
-            authors = ""
-        return authors
 
     @property
     def display_installed_version(self):
@@ -371,15 +339,15 @@ class HacsRepository(Hacs):
         # Set pending upgrade
         if self.status.installed:
             if self.versions.installed:
-                self.status.pending.upgrade = bool(
+                self.pending_upgrade = bool(
                     self.versions.available != self.versions.installed
                 )
             else:
-                self.status.pending.upgrade = bool(
+                self.pending_upgrade = bool(
                     self.versions.available_commit != self.versions.installed_commit
                 )
         else:
-            self.status.pending.upgrade = False
+            self.pending_upgrade = False
 
     async def install(self):
         """Common installation steps of the repository."""
@@ -419,7 +387,7 @@ class HacsRepository(Hacs):
                 if self.config_flow:
                     await self.reload_custom_components()
                 else:
-                    self.status.pending.restart = True
+                    self.pending_restart = True
 
     async def download_content(self, validate, directory_path, local_directory, ref):
         """Download the content of a directory."""
@@ -568,7 +536,7 @@ class HacsRepository(Hacs):
             if self.config_flow:
                 await self.reload_custom_components()
             else:
-                self.status.pending.restart = True
+                self.pending_restart = True
         self.versions.installed = None
         self.versions.installed_commit = None
 

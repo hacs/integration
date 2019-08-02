@@ -16,7 +16,7 @@ def render_template(content, context):
         render = Template(content)
         render = render.render(
             installed=context.status.installed,
-            pending_update=context.status.pending.upgrade,
+            pending_update=context.pending_upgrade,
             prerelease=prerelease,
             selected_tag=context.status.selected_tag,
             version_available=context.releases.last_release,

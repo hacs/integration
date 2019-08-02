@@ -200,6 +200,8 @@ async def load_hacs_repository(hacs):
         if repository is None:
             raise AIOGitHubException("Unknown error")
         repository.status.installed = True
+        repository.versions.installed = const.VERSION
+        repository.status.new = False
         hacs.repo = repository.repository_object
     except (
         AIOGitHubException,

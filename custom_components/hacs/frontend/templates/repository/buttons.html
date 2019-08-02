@@ -17,7 +17,7 @@
   </a>
   {% endif %}
 
-  {% if repository.status.pending.upgrade and repository.display_version_or_commit == "version" %}
+  {% if repository.pending_upgrade and repository.display_version_or_commit == "version" %}
   <a class="actionlink" rel='noreferrer'
     href='https://github.com/{{repository.information.full_name}}/releases/{{repository.available_version}}'
     target='_blank'>
@@ -30,7 +30,7 @@
   </a>
 
   {% if repository.status.installed and repository.information.category == "plugin" %}
-  {% set name =  repository.information.full_name.split("/")[-1].replace("lovelace-", "") %}
+  {% set name =  repository.information.full_name.split("/")[-1] %}
   <a class="actionlink" href='/community_plugin/{{name}}/{{repository.information.file_name}}' target='_blank'>
     OPEN PLUGIN
   </a>

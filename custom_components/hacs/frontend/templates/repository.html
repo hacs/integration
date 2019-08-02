@@ -2,7 +2,7 @@
 {% block content %}
 
 
-{% if repository.status.pending.restart %}
+{% if repository.pending_restart %}
 {% set message = "You need to restart (and potentially reconfigure) Home Assistant, for your last operation to be loaded." %}
 {% endif %}
 
@@ -69,7 +69,7 @@
               </td>
             </tr>
             {% endif %}
-            {{repository.display_authors}}
+            {% include 'repository/authors.html' with context %}
           </table>
         </div>
         {% include 'repository/buttons.html' with context %}

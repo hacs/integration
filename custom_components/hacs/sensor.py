@@ -4,7 +4,7 @@ from integrationhelper import Logger
 from homeassistant.helpers.entity import Entity
 from aiogithubapi import AIOGitHubException
 from .hacsbase import Hacs as hacs
-from .const import DOMAIN, VERSION, NAME_LONG
+from .const import DOMAIN, VERSION, NAME_LONG, PROJECT_URL
 
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
@@ -31,31 +31,26 @@ class HACSSensor(Entity):
         if hacs.system.status.background_task:
             return
 
-        updates = 0
-        prev_has_update = self.has_update
-        has_update = []
-
         for repository in hacs.repositories:
             if repository.pending_upgrade:
-                if repository.information.uid not in prev_has_update:
+                if repository.information.full_name not in self.has_update:
                     try:
                         await repository.update_repository()
                         if repository.pending_upgrade:
                             self.logger.info(
                                 f"Pending upgrade for {repository.information.full_name}"
                             )
-                            updates += 1
-                            has_update.append(repository.information.uid)
+                            self.has_update.append(repository.information.full_name)
                     except AIOGitHubException:
                         pass
                 else:
-                    has_update.append(repository.information.uid)
+                    if repository.information.full_name not in self.has_update:
+                        self.has_update.append(repository.information.full_name)
             else:
-                if repository.information.uid in has_update:
-                    has_update.remove(repository.information.uid)
+                if repository.information.full_name in self.has_update:
+                    self.has_update.remove(repository.information.full_name)
 
-        self._state = updates
-        self.has_update = has_update
+        self._state = len(self.has_update)
 
     @property
     def unique_id(self):
@@ -85,9 +80,15 @@ class HACSSensor(Entity):
         return "pending update(s)"
 
     @property
+    def state_attributes(self):
+        """Return the attributes."""
+        return {"Pending updates": ", ".join(self.has_update)}
+
+    @property
     def device_info(self):
         return {
             "identifiers": {(DOMAIN, self.unique_id)},
             "name": NAME_LONG,
             "sw_version": VERSION,
+            "manufacturer": PROJECT_URL,
         }

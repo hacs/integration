@@ -175,6 +175,14 @@ class HacsData(Hacs):
 
 def save(path, content):
     """Save file."""
-    content = {"data": content, "schema": STORAGE_VERSION}
-    with open(path, "w", encoding="utf-8") as storefile:
-        json.dump(content, storefile, indent=4)
+    from .backup import Backup
+
+    backup = Backup(path)
+    backup.create()
+    try:
+        content = {"data": content, "schema": STORAGE_VERSION}
+        with open(path, "w", encoding="utf-8") as storefile:
+            json.dump(content, storefile, indent=4)
+    except Exception:  # pylint: disable=broad-except
+        backup.restore()
+    backup.cleanup()

@@ -33,7 +33,7 @@ class Backup:
                 rmtree(self.local_path)
                 while os.path.exists(self.local_path):
                     sleep(0.1)
-            self.logger.info(
+            self.logger.debug(
                 f"Backup for {self.local_path}, created in {self.backup_path}"
             )
         except Exception:  # pylint: disable=broad-except
@@ -48,11 +48,11 @@ class Backup:
             while os.path.exists(self.local_path):
                 sleep(0.1)
         copy2(self.backup_path, self.local_path)
-        self.logger.info(f"Restored {self.local_path}, from backup {self.backup_path}")
+        self.logger.debug(f"Restored {self.local_path}, from backup {self.backup_path}")
 
     def cleanup(self):
         """Cleanup backup files."""
         rmtree(self.backup_path)
         while os.path.exists(self.backup_path):
             sleep(0.1)
-        self.logger.info(f"Backup dir {self.backup_path} cleared")
+        self.logger.debug(f"Backup dir {self.backup_path} cleared")

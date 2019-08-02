@@ -45,7 +45,14 @@ class HacsData(Hacs):
 
         # Installed
         path = f"{self.system.config_path}/.storage/{STORES['installed']}"
-        installed = self.common.installed
+        installed = {}
+        for repository in self.common.installed:
+            repository = self.get_by_name(repository)
+            installed[repository.information.full_name] = {
+                "version_type": repository.display_version_or_commit,
+                "version_installed": repository.display_installed_version,
+                "version_available": repository.display_available_version,
+            }
         save(path, installed)
 
         # Repositories
@@ -163,8 +170,21 @@ class HacsData(Hacs):
                 if repo["full_name"] in self.common.installed:
                     repository.status.installed = True
                     repository.status.new = False
-                    repository.versions.installed_commit = repo["installed_commit"]
-                    repository.versions.installed = repo["version_installed"]
+                    frominstalled = installed[repo["full_name"]]
+                    if frominstalled["version_type"] == "commit":
+                        repository.versions.installed_commit = frominstalled[
+                            "version_installed"
+                        ]
+                        repository.versions.available_commit = frominstalled[
+                            "available_version"
+                        ]
+                    else:
+                        repository.versions.installed = frominstalled[
+                            "version_installed"
+                        ]
+                        repository.versions.available = frominstalled[
+                            "available_version"
+                        ]
 
             # Check the restore.
             count_installed = len(installed) + 1  # For HACS it self

@@ -8,6 +8,7 @@ from ..const import VERSION
 
 
 STORES = {
+    "old": "hacs",
     "hacs": "hacs.hacs",
     "installed": "hacs.installed",
     "repositories": "hacs.repositories",

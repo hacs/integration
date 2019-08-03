@@ -132,8 +132,11 @@ async def hacs_startup(hacs):
     if not await load_hacs_repository(hacs):
         return False
 
-    # TODO: Migration HERE!
-    # validate = ValidateData()
+    val = ValidateData()
+    if not val.validate_local_data_file():
+        return False
+    else:
+        os.remove(f"{hacs.system.config_path}/.storage/hacs")
 
     # Restore from storefiles
     if not await hacs.data.restore():

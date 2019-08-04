@@ -136,7 +136,8 @@ async def hacs_startup(hacs):
     if not val.validate_local_data_file():
         return False
     else:
-        os.remove(f"{hacs.system.config_path}/.storage/hacs")
+        if os.path.exists(f"{hacs.system.config_path}/.storage/hacs"):
+            os.remove(f"{hacs.system.config_path}/.storage/hacs")
 
     # Restore from storefiles
     if not await hacs.data.restore():

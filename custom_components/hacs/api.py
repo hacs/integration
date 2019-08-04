@@ -286,7 +286,7 @@ class RepositoriesReload(HacsAPI):
 
     async def response(self):
         """Response."""
-        self.hass.async_create_task(self.load_known_repositories())
+        self.hass.async_create_task(self.recuring_tasks_all())
         return web.HTTPFound(f"/hacsweb/{self.token}/settings?timestamp={time()}")
 
 
@@ -301,6 +301,7 @@ class RepositoriesUpgradeAll(HacsAPI):
         for repository in self.repositories:
             if repository.pending_upgrade:
                 await repository.install()
+        self.data.write()
         return web.HTTPFound(f"/hacsweb/{self.token}/settings?timestamp={time()}")
 
 

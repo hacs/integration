@@ -168,7 +168,7 @@ class Hacs:
         self.system.status.background_task = False
         self.data.write()
 
-    async def recuring_tasks_installed(self, notarealarg):
+    async def recuring_tasks_installed(self, notarealarg=None):
         """Recuring tasks for installed repositories."""
         self.logger.debug(
             "Starting recuring background task for installed repositories"
@@ -192,7 +192,7 @@ class Hacs:
         self.data.write()
         self.logger.debug("Recuring background task for installed repositories done")
 
-    async def recuring_tasks_all(self, notarealarg):
+    async def recuring_tasks_all(self, notarealarg=None):
         """Recuring tasks for all repositories."""
         self.logger.debug("Starting recuring background task for all repositories")
         self.system.status.background_task = True

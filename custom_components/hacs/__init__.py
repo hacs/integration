@@ -190,7 +190,7 @@ def check_version(hacs):
 
     # Check if HA is the required version.
     if LooseVersion(hacs.system.ha_version) < LooseVersion(manifest["homeassistant"]):
-        hacs.logegr.critical(
+        hacs.logger.critical(
             f"You need HA version {manifest['homeassistant']} or newer to use this integration."
         )
         return False

@@ -11,7 +11,7 @@
   </form>
 
   {% if repository.display_version_or_commit == "version" %}
-  {% set hide_show = "hide" if repository.show_beta else "show" %}
+  {% set hide_show = "hide" if repository.status.show_beta else "show" %}
   <form action="/hacsapi/{{ hacs.token }}/repository_beta_{{hide_show}}" name="beta" method="post"
     accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
     <input type="hidden" name="repository_id" value="{{repository.information.uid}}">

@@ -253,7 +253,7 @@ class RepositoryBetaHide(HacsAPI):
     async def response(self):
         """Response."""
         repository = self.get_by_id(self.postdata["repository_id"])
-        repository.show_beta = False
+        repository.status.show_beta = False
         await repository.update_repository()
         self.data.write()
         return web.HTTPFound(
@@ -270,7 +270,7 @@ class RepositoryBetaShow(HacsAPI):
     async def response(self):
         """Response."""
         repository = self.get_by_id(self.postdata["repository_id"])
-        repository.show_beta = True
+        repository.status.show_beta = True
         await repository.update_repository()
         self.data.write()
         return web.HTTPFound(

@@ -119,10 +119,16 @@ async def hacs_startup(hacs):
 
     # Check minimum version
     if not check_version(hacs):
+        if hacs.configuration.config_type == "flow":
+            if hacs.configuration.config_entry is not None:
+                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
         return False
 
     # Check custom_updater
     if not check_custom_updater(hacs):
+        if hacs.configuration.config_type == "flow":
+            if hacs.configuration.config_entry is not None:
+                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
         return False
 
     # Set up frontend
@@ -130,10 +136,16 @@ async def hacs_startup(hacs):
 
     # Load HACS
     if not await load_hacs_repository(hacs):
+        if hacs.configuration.config_type == "flow":
+            if hacs.configuration.config_entry is not None:
+                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
         return False
 
     val = ValidateData()
     if not val.validate_local_data_file():
+        if hacs.configuration.config_type == "flow":
+            if hacs.configuration.config_entry is not None:
+                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
         return False
     else:
         if os.path.exists(f"{hacs.system.config_path}/.storage/hacs"):
@@ -143,6 +155,9 @@ async def hacs_startup(hacs):
     if not await hacs.data.restore():
         hacs_repo = hacs().get_by_name("custom-components/hacs")
         hacs_repo.pending_restart = True
+        if hacs.configuration.config_type == "flow":
+            if hacs.configuration.config_entry is not None:
+                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
         return False
 
     # Add aditional categories

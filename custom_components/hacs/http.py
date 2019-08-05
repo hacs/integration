@@ -214,7 +214,7 @@ class Repository(HacsWebResponse):
             repository.status.new = False
             self.data.write()
 
-        render = self.render("repository", "repository", repository=repository, message=message)
+        render = self.render("repository", repository=repository, message=message)
         return web.Response(body=render, content_type="text/html", charset="utf-8")
 
 

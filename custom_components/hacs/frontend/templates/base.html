@@ -1,7 +1,4 @@
 {% set progressbar = 'block' if hacs.system.status.background_task else 'none' %}
-{% set overviewActive = 'active' if location == 'overview' else '' %}
-{% set storeActive = 'active' if location == 'store' or location == 'repository' else '' %}
-{% set settingsActive = 'active' if location == 'settings' else '' %}
 <!doctype html>
 <html>
 
@@ -18,9 +15,9 @@
     <nav class="nav-extended hacs-nav">
       <div class="nav-content">
         <ul class="right tabs tabs-transparent">
-          <li class="tab {{ overviewActive }}"><a href="/hacsweb/{{ hacs.token }}/overview?timestamp={{ timestamp }}">Overview</a></li>
-          <li class="tab {{ storeActive }}"><a href="/hacsweb/{{ hacs.token }}/store?timestamp={{ timestamp }}">Store</a></li>
-          <li class="tab right {{ settingActive }}"><a href="/hacsweb/{{ hacs.token }}/settings?timestamp={{ timestamp }}">Settings</a></li>
+          <li class="tab {{ 'active' if location == 'overview' }}"><a href="/hacsweb/{{ hacs.token }}/overview?timestamp={{ timestamp }}">Overview</a></li>
+          <li class="tab {{ 'active' if location == 'store' }}"><a href="/hacsweb/{{ hacs.token }}/store?timestamp={{ timestamp }}">Store</a></li>
+          <li class="tab right {{ 'active' if location == 'settings' }}"><a href="/hacsweb/{{ hacs.token }}/settings?timestamp={{ timestamp }}">Settings</a></li>
         </ul>
       </div>
     </nav>

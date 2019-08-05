@@ -176,10 +176,10 @@ class HacsData(Hacs):
                 if repo.get("new") is not None:
                     repository.status.new = repo["new"]
 
-                if repo.get("version_installed") is not None:
-                    repository.versions.installed = repo["version_installed"]
-                elif repo["full_name"] == "custom-components/hacs":
+                if repo["full_name"] == "custom-components/hacs":
                     repository.versions.installed = VERSION
+                elif repo.get("version_installed") is not None:
+                    repository.versions.installed = repo["version_installed"]
 
                 if repo.get("installed_commit") is not None:
                     repository.versions.installed_commit = repo["installed_commit"]

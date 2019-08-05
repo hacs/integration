@@ -178,6 +178,8 @@ class HacsData(Hacs):
 
                 if repo["full_name"] == "custom-components/hacs":
                     repository.versions.installed = VERSION
+                    if "b" in VERSION:
+                        repository.status.show_beta = True
                 elif repo.get("version_installed") is not None:
                     repository.versions.installed = repo["version_installed"]
 

@@ -281,5 +281,5 @@ class Hacs:
                     continue
                 try:
                     await self.register_repository(repo, category)
-                except (Exception, AIOGitHubRatelimit):
+                except (AIOGitHubException, AIOGitHubRatelimit):
                     pass

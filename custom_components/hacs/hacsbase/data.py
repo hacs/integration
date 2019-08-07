@@ -94,7 +94,7 @@ class HacsData(Hacs):
             if repository.status.installed:
                 count_installed_restore += 1
 
-        if count_installed != count_installed_restore:
+        if count_installed < count_installed_restore:
             self.logger.debug("Save failed!")
             self.logger.debug(
                 f"Number of installed repositories does not match the number of stored repositories [{count_installed} vs {count_installed_restore}]"
@@ -208,11 +208,21 @@ class HacsData(Hacs):
             # Check the restore.
             count_installed = len(installed) + 1  # For HACS it self
             count_installed_restore = 0
+            installed_restore = []
             for repository in self.repositories:
                 if repository.status.installed:
+                    installed_restore.append(repository.information.full_name)
+                    if repository.information.full_name not in self.common.installed:
+                        self.logger.warning(
+                            f"{repository.information.full_name} is not in common.installed"
+                        )
                     count_installed_restore += 1
 
-            if count_installed != count_installed_restore:
+            if count_installed < count_installed_restore:
+                for repo in installed:
+                    installed_restore.remove(repo)
+                self.logger.warning(f"Check {repo}")
+
                 self.logger.critical("Restore failed!")
                 self.logger.critical(
                     f"Number of installed repositories does not match the number of restored repositories [{count_installed} vs {count_installed_restore}]"

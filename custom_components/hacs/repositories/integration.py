@@ -57,6 +57,9 @@ class HacsIntegration(HacsRepository):
         for filename in self.content.objects:
             self.content.files.append(filename.name)
 
+        if not await self.get_manifest():
+            self.validate.errors.append("Missing manifest file.")
+
         # Handle potential errors
         if self.validate.errors:
             for error in self.validate.errors:
@@ -110,7 +113,7 @@ class HacsIntegration(HacsRepository):
         manifest = None
 
         if "manifest.json" not in self.content.files:
-            return
+            return False
 
         manifest = await self.repository_object.get_contents(manifest_path, self.ref)
         manifest = json.loads(manifest.content)
@@ -121,4 +124,6 @@ class HacsIntegration(HacsRepository):
             self.domain = manifest["domain"]
             self.information.name = manifest["name"]
             self.information.homeassistant_version = manifest.get("homeassistant")
-            return
+            return True
+        else:
+            return False

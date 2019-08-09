@@ -23,5 +23,5 @@ def render_template(content, context):
             version_installed=context.display_installed_version,
         )
         return render
-    except SystemError:
+    except Exception:
         return content

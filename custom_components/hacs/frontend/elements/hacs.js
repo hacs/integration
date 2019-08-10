@@ -47,7 +47,7 @@ function Search() {
 // Dropdown
 document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.dropdown-trigger');
-    var instances = M.Dropdown.init(elems, { hover: true, constrainWidth: false });
+    var instances = M.Dropdown.init(elems, { hover: false, constrainWidth: false });
 });
 
 // Modal

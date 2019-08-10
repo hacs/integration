@@ -529,6 +529,8 @@ class HacsRepository(Hacs):
                 await self.reload_custom_components()
             else:
                 self.pending_restart = True
+        if self.information.full_name in self.common.installed:
+            self.common.installed.remove(self.information.full_name)
         self.versions.installed = None
         self.versions.installed_commit = None
 

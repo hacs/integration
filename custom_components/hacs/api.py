@@ -199,7 +199,7 @@ class RepositoryUninstall(HacsAPI):
         repository = self.get_by_id(self.postdata["repository_id"])
         await repository.uninstall()
         self.data.write()
-        return web.HTTPFound(f"/hacsweb/{self.token}/store?timestamp={time()}")
+        return web.HTTPFound(f"/hacsweb/{self.token}/overview?timestamp={time()}")
 
 
 @apiresponse

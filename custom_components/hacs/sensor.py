@@ -73,8 +73,8 @@ class HACSSensor(Entity):
             data.append(
                 {
                     "name": repository.information.full_name,
-                    "installed version": repository.versions.installed,
-                    "available version": repository.versions.available,
+                    "installed version": repository.display_installed_version,
+                    "available version": repository.display_available_version,
                 }
             )
         return {"repositories": data}

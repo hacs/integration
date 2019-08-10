@@ -212,7 +212,10 @@ class HacsData(Hacs):
             for repository in self.repositories:
                 if repository.status.installed:
                     installed_restore.append(repository.information.full_name)
-                    if repository.information.full_name not in self.common.installed:
+                    if (
+                        repository.information.full_name not in self.common.installed
+                        and repository.information.full_name != "custom-components/hacs"
+                    ):
                         self.logger.warning(
                             f"{repository.information.full_name} is not in common.installed"
                         )

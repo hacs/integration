@@ -2,7 +2,6 @@
 # pylint: disable=unused-argument
 from integrationhelper import Logger
 from homeassistant.helpers.entity import Entity
-from aiogithubapi import AIOGitHubException
 from .hacsbase import Hacs as hacs
 from .const import DOMAIN, VERSION, NAME_LONG, PROJECT_URL
 
@@ -25,32 +24,19 @@ class HACSSensor(Entity):
         self._state = None
         self.logger = Logger("hacs.sensor")
         self.has_update = []
+        self.repositories = []
 
     async def async_update(self):
         """Update the sensor."""
         if hacs.system.status.background_task:
             return
 
+        self.repositories = []
+
         for repository in hacs.repositories:
             if repository.pending_upgrade:
-                if repository.information.full_name not in self.has_update:
-                    try:
-                        await repository.update_repository()
-                        if repository.pending_upgrade:
-                            self.logger.info(
-                                f"Pending upgrade for {repository.information.full_name}"
-                            )
-                            self.has_update.append(repository.information.full_name)
-                    except AIOGitHubException:
-                        pass
-                else:
-                    if repository.information.full_name not in self.has_update:
-                        self.has_update.append(repository.information.full_name)
-            else:
-                if repository.information.full_name in self.has_update:
-                    self.has_update.remove(repository.information.full_name)
-
-        self._state = len(self.has_update)
+                self.repositories.append(repository)
+        self._state = len(self.repositories)
 
     @property
     def unique_id(self):
@@ -78,6 +64,20 @@ class HACSSensor(Entity):
     def unit_of_measurement(self):
         """Return the unit of measurement."""
         return "pending update(s)"
+
+    @property
+    def device_state_attributes(self):
+        """Return attributes for the sensor."""
+        data = []
+        for repository in self.repositories:
+            data.append(
+                {
+                    "name": repository.information.full_name,
+                    "installed version": repository.versions.installed,
+                    "available version": repository.versions.available,
+                }
+            )
+        return {"repositories": data}
 
     @property
     def device_info(self):

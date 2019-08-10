@@ -74,7 +74,7 @@ For this to work you need to include the themes directory like this:
 
 ```yaml
 frontend:
-  themes: !include_dir_named themes
+  themes: !include_dir_merge_named themes
 ```
 
 ***

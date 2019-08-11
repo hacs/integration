@@ -1,8 +1,8 @@
 {% set repositories = namespace(hidden=False) %}
 {% for repository in hacs.repositories_list_repo %}
-  {% if repository.hide %}
-    {% set repositories.hidden = True %}
-  {% endif %}
+{% if repository.hide %}
+{% set repositories.hidden = True %}
+{% endif %}
 {% endfor %}
 
 {% if repositories.hidden %}
@@ -12,27 +12,29 @@
       <li class="collection-header hacscolor hacslist">
         <h5>HIDDEN REPOSITORIES</h5>
       </li>
-      {% if hacs.store.task_running %}
-        <li class="collection-item hacscolor hacslist">
+      {% if hacs.system.status.background_task %}
+      <li class="collection-item hacscolor hacslist">
         Loading hidden repositories...
-        </li>
+      </li>
       {% else %}
-        {% for repository in hacs.repositories_list_repo %}
-          {% if repository.hide %}
-            <li class="collection-item hacscolor hacslist">
-              <div>
-                <form action="/hacsapi/{{ hacs.token }}/repository_unhide" name="remove" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
-                  <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
-                    <a href="#" onclick="toggleLoading();document.getElementsByName('remove')[0].submit()"style=" color: var(--primary-color)">
-                        <i title="Unhide" class="fas fa-plus-circle" style="padding-right: 8px"></i>
-                    </a>
-                    {{repository.repository_name}}
-                    <span class="hacs-badge">{{repository.repository_type}}</span>
-                </form>
-              </div>
-            </li>
-          {% endif %}
-        {% endfor %}
+      {% for repository in hacs.repositories_list_repo %}
+      {% if repository.hide %}
+      <li class="collection-item hacscolor hacslist">
+        <div>
+          <form action="/hacsapi/{{ hacs.token }}/repository_unhide" name="remove" method="post" accept-charset="utf-8"
+            enctype="application/x-www-form-urlencoded" class="hacs-form">
+            <input type="hidden" name="repository_id" value="{{repository.information.uid}}">
+            <a href="#" onclick="toggleLoading();document.getElementsByName('remove')[0].submit()"
+              style=" color: var(--primary-color)">
+              <i title="Unhide" class="fas fa-plus-circle" style="padding-right: 8px"></i>
+            </a>
+            {{repository.repository_name}}
+            <span class="hacs-badge">{{repository.repository_type}}</span>
+          </form>
+        </div>
+      </li>
+      {% endif %}
+      {% endfor %}
       {% endif %}
     </ul>
   </div>

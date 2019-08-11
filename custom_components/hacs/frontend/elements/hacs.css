@@ -23,6 +23,7 @@
   width: 95%;
   margin-left: 2.5%;
   margin-right: 2.5%;
+  margin-bottom: 10px;
   display: inline-block;
 }
 
@@ -50,10 +51,17 @@
   height: 100%;
   background-color: var(--paper-card-background-color) !important;
   padding: 3px;
+  line-height: 1;
 }
 
 .overview {
   height: 100%;
+}
+
+.progressbar {
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  margin-bottom: 20px;
 }
 
 .hacs-card-title {
@@ -61,6 +69,22 @@
   color: var(--primary-text-color);
 }
 
+tr.hacs-table-row.repository {
+  border-bottom: 0px;
+  display: table-row-group;
+}
+
+td.repository {
+  width: 50%;
+  padding: 0px;
+}
+td.repository.text {
+  padding-left: 12px;
+}
+
+select.hacs-select.repository {
+  width: 100%;
+}
 .hacs-card-content {
   color: var(--secondary-text-color);
   font-style: italic;
@@ -79,14 +103,14 @@
 }
 
 .installed {
-  color: var(--hacs-status-isntalled);
+  color: var(--hacs-status-installed);
 }
 
 .pending-restart {
   color: var(--hacs-status-pending-restart);
 }
 
-.pending-update {
+.pending-upgrade {
   color: var(--hacs-status-pending-update);
 }
 
@@ -102,10 +126,6 @@
 
 a {
   color: var(--primary-color);
-}
-
-html {
-  line-height: 1;
 }
 
 .disabledaction {
@@ -224,7 +244,7 @@ tr.hacs-table-row:hover {
 
 /* color vars*/
 :root {
-  --hacs-status-isntalled: #126e15;
+  --hacs-status-installed: #126e15;
   --hacs-status-pending-restart: #a70000;
   --hacs-status-pending-update: #ffab40;
   --hacs-status-default: var(--primary-text-color);

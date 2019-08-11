@@ -1,18 +1,34 @@
-{% set tags = repository.published_tags | sort(True) %}
-{% set tags = tags + [repository.default_branch] %}
-
-{% if repository.selected_tag %}
-  {% set selected_tag = repository.selected_tag %}
+{% set tags = repository.releases.published_tags | sort(True) %}
+{% if repository.information.uid == "172733314" %}
+{% set tags = namespace(tags=[]) %}
+{% for tag in repository.releases.published_tags | sort(True) %}
+{% if (tag.split(".")[1] | int) == (repository.versions.installed.split(".")[1] | int) %}
+{% set tags.tags = tags.tags + [tag] %}
+{% endif %}
+{% endfor %}
+{% set tags = tags.tags + ["next"] %}
 {% else %}
-  {% set selected_tag = repository.available_version %}
+{% set tags = tags + [repository.information.default_branch] %}
 {% endif %}
 
-<b>Available versions:</b>
-<form action="/hacsapi/{{ hacs.token }}/repository_select_tag" name="selected_tag" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
-  <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
-  <select name="selected_tag" class="hacs-select" onchange="toggleLoading();document.getElementsByName('selected_tag')[0].submit()">
-  {% for tag in tags %}
-    <option {{'selected' if selected_tag == tag else ''}} class='hacscolor' value='{{tag}}'>{{tag}}</option>
-  {% endfor %}
-  </select>
-</form>
+
+{% if repository.status.selected_tag %}
+{% set selected_tag = repository.status.selected_tag %}
+{% else %}
+{% set selected_tag = repository.versions.available %}
+{% endif %}
+<td class="repository">
+  <b>Available versions:</b>
+</td>
+<td class="repository">
+  <form action="/hacsapi/{{ hacs.token }}/repository_select_tag" name="selected_tag" method="post"
+    accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+    <input type="hidden" name="repository_id" value="{{repository.information.uid}}">
+    <select name="selected_tag" class="hacs-select repository"
+      onchange="toggleLoading();document.getElementsByName('selected_tag')[0].submit()">
+      {% for tag in tags %}
+      <option {{'selected' if selected_tag == tag else ''}} class='hacscolor' value='{{tag}}'>{{tag}}</option>
+      {% endfor %}
+    </select>
+  </form>
+</td>

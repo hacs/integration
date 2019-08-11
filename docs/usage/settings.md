@@ -37,9 +37,9 @@ But you can add any other repository that meets the requirements, to do so go to
 
 ![custom_repositories](../images/custom_repositorylist.PNG)
 
-Add the url to the repository under "CUSTOM REPOSITORIES" and select a `type` before clicking the "save icon".
+Add the url to the repository under "CUSTOM REPOSITORIES" and select a `Category` before clicking the "save icon".
 
-Type | Description
+Category | Description
 -- | --
 `Appdaemon` | Apps for AppDaemon
 `Integration` | Integrations for Home Assistant (custom_components)
@@ -55,7 +55,7 @@ _If you have added a repository manually and that repository is subsequently add
 
 ## Hidden repositories
 
-This is a list of all your hidden repositories.  
+This is a list of all your hidden repositories.
 Click the "+" icon to the left to unhide them.
 
 ![unhide](../images/unhide.png)

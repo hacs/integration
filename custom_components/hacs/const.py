@@ -1,7 +1,7 @@
 """Constants for HACS"""
-VERSION = "0.12.1"
 NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
+VERSION = "0.13.0"
 DOMAIN = "hacs"
 PROJECT_URL = "https://github.com/custom-components/hacs/"
 CUSTOM_UPDATER_LOCATIONS = [
@@ -9,8 +9,8 @@ CUSTOM_UPDATER_LOCATIONS = [
     "{}/custom_components/custom_updater/__init__.py",
 ]
 
-ISSUE_URL = "{}issues".format(PROJECT_URL)
-DOMAIN_DATA = "{}_data".format(NAME_SHORT.lower())
+ISSUE_URL = f"{PROJECT_URL}issues"
+DOMAIN_DATA = f"{NAME_SHORT.lower()}_data"
 
 ELEMENT_TYPES = ["integration", "plugin"]
 
@@ -31,14 +31,13 @@ To use this you need to remove custom_updater form {}
 
 DEV_MODE = "You have 'dev' enabled for HACS, this is not intended for regular use, no support will be given if you break something."
 
-STARTUP = """
+STARTUP = f"""
 -------------------------------------------------------------------
-{}
-Version: {}
+HACS (Home Assistant Community Store)
+
+Version: {VERSION}
 This is a custom integration
 If you have any issues with this you need to open an issue here:
-{}
+https://github.com/custom-components/hacs/issues
 -------------------------------------------------------------------
-""".format(
-    NAME_LONG, VERSION, ISSUE_URL
-)
+"""

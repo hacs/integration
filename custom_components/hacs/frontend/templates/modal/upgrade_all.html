@@ -1,38 +1,33 @@
 <div id="modal_upgrade_all" class="modal hacscolor">
     <div class="modal-content">
-    <h5>Pending Upgrades</h5>
-    {% for repository in hacs.repositories_list_repo %}
-        {% if repository.pending_update %}
-            <p>- {{repository.name}} (
-                {% if repository.version_installed %}
-                    {{repository.version_installed}}
-                {% else %}
-                    {{repository.installed_commit}}
-                {% endif %}
-                ->
-                {% if repository.last_release_tag %}
-                    {{repository.last_release_tag}}
-                {% else %}
-                    {{repository.last_commit}}
-                {% endif %}
-                )</p>
+        <h5>Pending Upgrades</h5>
+        {% for repository in hacs.repositories %}
+        {% if repository.pending_upgrade %}
+        <p>- {{repository.information.name}} (
+            {{repository.display_installed_version}}
+            ->
+            {{repository.display_available_version}}
+            )</p>
         {% endif %}
-    {% endfor %}
-    </br>
-    <p>
-        Be carefull using this feature, elements may contain breaking changes,
-        make sure you read the release notes for all the elements in the list above.
-    </p>
+        {% endfor %}
+        </br>
+        <p>
+            Be carefull using this feature, elements may contain breaking changes,
+            make sure you read the release notes for all the elements in the list above.
+        </p>
     </div>
     <div class="modal-footer hacscolor">
-        {% if hacs.store.task_running %}
-            <p>Background task is running, batch upgrade is disabled.</p>
+        {% if hacs.system.status.background_task %}
+        <p>Background task is running, batch upgrade is disabled.</p>
         {% else %}
-            <form action="/hacsapi/{{ hacs.token }}/repositories_upgrade_all" name="upgrade_all" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
-              <a href="#" onclick="toggleLoading();document.getElementsByName('upgrade_all')[0].submit()" class='waves-effect waves-light btn hacsbutton' style="background-color: var(--google-red-500) !important; font-weight: bold;">
+        <form action="/hacsapi/{{ hacs.token }}/repositories_upgrade_all" name="upgrade_all" method="post"
+            accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
+            <a href="#" onclick="toggleLoading();document.getElementsByName('upgrade_all')[0].submit()"
+                class='waves-effect waves-light btn hacsbutton'
+                style="background-color: var(--google-red-500) !important; font-weight: bold;">
                 UPGRADE ALL
-              </a>
-          </form>
+            </a>
+        </form>
         {% endif %}
     </div>
 </div>

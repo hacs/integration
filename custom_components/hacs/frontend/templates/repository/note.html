@@ -1,41 +1,42 @@
 {% if repository.additional_info %}
-</br><hr></br>
+</br>
+<hr></br>
 {% endif %}
 
-{% if repository.repository_type == "appdaemon" %}
+{% if repository.information.category == "appdaemon" %}
 
-  <i>
-    When installed, this will be located in '{{repository.local_path}}',
-    you still need to add it to your 'apps.yaml' file.
-  </i>
+<i>
+  When installed, this will be located in '{{repository.content.path.local}}',
+  you still need to add it to your 'apps.yaml' file.
+</i>
 
-{% elif repository.repository_type == "integration" %}
+{% elif repository.information.category == "integration" %}
 
-  <i>
-    When installed, this will be located in '{{repository.local_path}}',
-    you still need to add it to your 'configuration.yaml' file.
-  </i>
+<i>
+  When installed, this will be located in '{{repository.content.path.local}}',
+  you still need to add it to your 'configuration.yaml' file.
+</i>
 
-{% elif repository.repository_type == "plugin" %}
-  {% set name =  repository.full_name.replace("lovelace-", "") %}
+{% elif repository.information.category == "plugin" %}
+{% set name =  repository.information.full_name.split("/")[-1] %}
 
-  <i>
-    When installed, this will be located in '{{repository.local_path}}',
-    you still need to add it to your lovelace configuration ('ui-lovelace.yaml' or the raw UI config editor).
-  </i>
-  </br></br>
-  <i>
-    When you add this to your configuration use this:
-  </i></br>
-    <pre id="LovelaceExample" class="yaml">
-- url: /community_plugin/{{repository.full_name}}/{{name}}.js
-  {% if repository.repository.javascript_type -%}
-  type: {{repository.repository.javascript_type}}
-  {%- else -%}
-  type: Could not determine the type of this plugin, check the repository.
+<i>
+  When installed, this will be located in '{{repository.content.path.local }}',
+  you still need to add it to your lovelace configuration ('ui-lovelace.yaml' or the raw UI config editor).
+</i>
+</br></br>
+<i>
+  When you add this to your configuration use this:
+</i></br>
+<pre id="LovelaceExample" class="yaml">
+  - url: /community_plugin/{{name}}/{{repository.information.file_name}}
+  {%- if repository.information.javascript_type %}
+    type: {{repository.information.javascript_type}}
+  {%- else %}
+    type: Could not determine the type of this plugin, check the repository.
   {%- endif -%}
-</pre>
-    <a title="Copy content to clipboard" id ="lovelacecopy" onclick="CopyToLovelaceExampleToClipboard()">
-      <i class="fa fa-copy"></i>
-    </a>
+    </pre>
+<a title="Copy content to clipboard" id="lovelacecopy" onclick="CopyToLovelaceExampleToClipboard()">
+  <i class="fa fa-copy"></i>
+</a>
 {% endif %}

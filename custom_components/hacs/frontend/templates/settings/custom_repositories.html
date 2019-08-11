@@ -4,52 +4,59 @@
       <li class="collection-header hacscolor hacslist">
         <h5>CUSTOM REPOSITORIES</h5>
       </li>
-      {% if hacs.store.task_running %}
-        <li class="collection-item hacscolor hacslist">
-            Loading custom repositories...
-        </li>
+      {% if hacs.system.status.background_task %}
+      <li class="collection-item hacscolor hacslist">
+        Loading custom repositories...
+      </li>
       {% else %}
-        {% for repository in hacs.repositories_list_repo %}
-          {% if repository.custom %}
-            <li class="collection-item hacscolor hacslist">
-              <div>
-                <a href="/hacsweb/{{ hacs.token }}/repository/{{repository.repository_id}}">
-                  <span class="hacs-badge">
-                    {{repository.repository_type | upper}}
-                  </span>
-                  {{repository.repository_name}}
-                </a>
-                {% if repository.installed %}
-                  <i title="Remove is not possible when installed." class="secondary-content fas fa-trash-alt disabledaction"></i>
-                {% else %}
-                  <form action="/hacsapi/{{ hacs.token }}/repository_remove" name="remove" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" class="hacs-form">
-                    <input type="hidden" name="repository_id" value="{{repository.repository_id}}">
-                      <a class="secondary-content" href="#" onclick="toggleLoading();document.getElementsByName('remove')[0].submit()"style=" color: var(--primary-color)">
-                        <i title="Remove." class="fas fa-trash-alt"></i>
-                      </a>
-                  </form>
-                {% endif %}
-              </div>
-            </li>
+      {% for repository in hacs.sorted_by_repository_name %}
+      {% if repository.custom %}
+      <li class="collection-item hacscolor hacslist">
+        <div>
+          <a href="/hacsweb/{{ hacs.token }}/repository/{{repository.information.uid}}">
+            <span class="hacs-badge">
+              {{repository.information.category | upper}}
+            </span>
+            {{repository.information.full_name }}
+          </a>
+          {% if repository.status.installed %}
+          <i title="Remove is not possible when installed."
+            class="secondary-content fas fa-trash-alt disabledaction"></i>
+          {% else %}
+          <form action="/hacsapi/{{ hacs.token }}/repository_remove" name="remove" method="post" accept-charset="utf-8"
+            enctype="application/x-www-form-urlencoded" class="hacs-form">
+            <input type="hidden" name="repository_id" value="{{repository.information.uid}}">
+            <a class="secondary-content" href="#"
+              onclick="toggleLoading();document.getElementsByName('remove')[0].submit()"
+              style=" color: var(--primary-color)">
+              <i title="Remove." class="fas fa-trash-alt"></i>
+            </a>
+          </form>
           {% endif %}
-        {% endfor %}
+        </div>
+      </li>
+      {% endif %}
+      {% endfor %}
       {% endif %}
     </ul>
 
-    {% if not hacs.store.task_running %}
-      <form class="minigrid" action="/hacsapi/{{ hacs.token }}/repository_register" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
-        <input id="custom_url" type="text" name="custom_url" placeholder="  ADD CUSTOM REPOSITORY" style="width: 70%; color: var(--primary-text-color)">
-        <select name="repository_type" class="hacs-select">
-          <option disabled selected value>type</option>
-          {% for element_type in hacs.const.ELEMENT_TYPES | sort %}
-            <option class='hacscolor' value='{{element_type}}'>{{element_type | title}}</option>
-          {% endfor %}
-        </select>
+    {% if not hacs.system.status.background_task %}
+    <form class="minigrid" action="/hacsapi/{{ hacs.token }}/repository_register" method="post" accept-charset="utf-8"
+      enctype="application/x-www-form-urlencoded">
+      <input id="custom_url" type="text" name="custom_url" placeholder="  ADD CUSTOM REPOSITORY"
+        style="width: 70%; color: var(--primary-text-color)">
+      <select name="repository_type" class="hacs-select">
+        <option disabled selected value>Category</option>
+        {% for element_type in hacs.common.categories | sort %}
+        <option class='hacscolor' value='{{element_type}}'>{{element_type | title}}</option>
+        {% endfor %}
+      </select>
 
-        <button class="btn waves-effect waves-light right" type="submit" name="add" onclick="toggleLoading()" style="background-color: var(--primary-color); height: 44px;">
-          <i class="fas fa-save"></i>
-        </button>
-      </form>
+      <button class="btn waves-effect waves-light right" type="submit" name="add" onclick="toggleLoading()"
+        style="background-color: var(--primary-color); height: 44px;">
+        <i class="fas fa-save"></i>
+      </button>
+    </form>
     {% endif %}
   </div>
 </div>

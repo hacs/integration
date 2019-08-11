@@ -1,48 +1,54 @@
 <!-- Used for both overview and store-->
 {% extends "base.html" %}
 {% block content %}
-  {% if location == 'store' %}
-    <div class='hacs-overview-container'>
-        <input type="text" id="Search" onkeyup="Search()" placeholder="Please enter a search term.." title="Type in a name" autofocus style="color: var(--primary-text-color)">
-    </div>
-  {% endif %}
+{% if location == 'store' %}
+<div class='hacs-overview-container'>
+  <input type="text" id="Search" onkeyup="Search()" placeholder="Please enter a search term.." title="Type in a name"
+    autofocus style="color: var(--primary-text-color)">
+</div>
+{% if hacs.configuration.frontend_mode == "Grid" %}
+{% include 'grid_new.html' with context %}
+{% else %}
+{% include 'table_new.html' with context %}
+{% endif %}
+{% endif %}
 
-  {% for type in hacs.element_types %}
+{% for type in hacs.common.categories %}
 
-    {% if type == 'appdaemon' %}
-      {% set displaytype = 'APPDAEMON APPS' %}
-    {% elif type == 'python_script' %}
-      {% set displaytype = 'PYTHON SCRIPTS' %}
-    {% else %}
-      {% set displaytype = (type + 's') | upper  %}
-    {% endif %}
+{% if type == 'appdaemon' %}
+{% set displaytype = 'APPDAEMON APPS' %}
+{% elif type == 'python_script' %}
+{% set displaytype = 'PYTHON SCRIPTS' %}
+{% else %}
+{% set displaytype = (type + 's') | upper  %}
+{% endif %}
 
-    {% set repositories = namespace(repositories=[]) %}
+{% set repositories = namespace(repositories=[]) %}
 
-    {% for repository in hacs.store.frontend|sort(attribute='name') %}
-      {% if not repository.hide or repository.track %}
-        {% if repository.repository_type == type %}
-          {% if location == 'overview' %}
-            {% if repository.installed %}
-              {% set repositories.repositories = repositories.repositories+[repository] %}
-            {% endif %}
-          {% else %}
-            {% if repository.repository_id != "172733314" %}
-              {% set repositories.repositories = repositories.repositories+[repository] %}
-            {% endif %}
-          {% endif %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
+{% for repository in hacs.sorted_by_name %}
+{% if not repository.status.hide %}
+{% if repository.information.category == type %}
+{% if location == 'overview' %}
+{% if repository.status.installed %}
+{% set repositories.repositories = repositories.repositories+[repository] %}
+{% endif %}
+{% else %}
+{% if repository.information.uid != "172733314" %}
+{% set repositories.repositories = repositories.repositories+[repository] %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}
 
-    {% if repositories.repositories %}
-      {% if hacs.store.frontend_mode == "Grid" %}
-        {% include 'grid.html' with context %}
-      {% else %}
-        {% include 'table.html' with context %}
-      {% endif %}
-    {% endif %}
+{% if repositories.repositories %}
+{% if hacs.configuration.frontend_mode == "Grid" %}
+{% include 'grid.html' with context %}
+{% else %}
+{% include 'table.html' with context %}
+{% endif %}
+{% endif %}
 
-  {% endfor %}
+{% endfor %}
 
 {% endblock %}

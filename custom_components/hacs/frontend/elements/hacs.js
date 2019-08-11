@@ -3,7 +3,7 @@ document.getElementsByTagName("html").item(0).setAttribute("style", parent.docum
 
 // Copy yhe content of the Lovelace example to the clipboard.
 function CopyToLovelaceExampleToClipboard() {
-    window.getSelection().selectAllChildren( document.getElementById("LovelaceExample"));
+    window.getSelection().selectAllChildren(document.getElementById("LovelaceExample"));
     document.execCommand("copy");
     document.getSelection().empty()
     document.getElementById('lovelacecopy').style.color = 'forestgreen';
@@ -14,6 +14,11 @@ function ShowProgressBar() {
     document.getElementById('progressbar').style.display = 'block';
 }
 
+// Hard reloading
+function HardReload() {
+    parent.location.reload(true)
+}
+
 // Searchbar
 function Search() {
     var input = document.getElementById("Search");
@@ -22,17 +27,17 @@ function Search() {
         var nodes = document.getElementsByClassName('hacs-card');
         for (i = 0; i < nodes.length; i++) {
             if (nodes[i].innerHTML.toLowerCase().includes(filter)) {
-            nodes[i].style.display = "block";
+                nodes[i].style.display = "block";
             } else {
-            nodes[i].style.display = "none";
+                nodes[i].style.display = "none";
             }
         }
         var nodes = document.getElementsByClassName('hacs-table-row');
         for (i = 0; i < nodes.length; i++) {
             if (nodes[i].innerHTML.toLowerCase().includes(filter)) {
-            nodes[i].style.display = "table-row";
+                nodes[i].style.display = "table-row";
             } else {
-            nodes[i].style.display = "none";
+                nodes[i].style.display = "none";
             }
         }
     }
@@ -40,20 +45,20 @@ function Search() {
 
 
 // Dropdown
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.dropdown-trigger');
-    var instances = M.Dropdown.init(elems, {hover: true, constrainWidth: false});
-  });
+    var instances = M.Dropdown.init(elems, { hover: false, constrainWidth: false });
+});
 
 // Modal
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems, {});
-  });
+});
 
 
 // Loader
-function toggleLoading(){
+function toggleLoading() {
     var loadingOverlay = document.querySelector('.loading');
     loadingOverlay.classList.remove('hidden')
     document.activeElement.blur();
@@ -61,14 +66,14 @@ function toggleLoading(){
 
 
 // Check if we can reload
-function sleep (time) {
+function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
-  }
+}
 function CheckIfWeCanReload() {
     var data = true;
     const hacsrequest = new XMLHttpRequest()
     hacsrequest.open('GET', '/hacs_task', true)
-    hacsrequest.onload = function() {
+    hacsrequest.onload = function () {
         data = JSON.parse(this.response)
         data = data["task"]
         if (!data) {
@@ -95,12 +100,12 @@ function IsTaskRunning() {
     return retval
 }
 
-window.setInterval(function(){
+window.setInterval(function () {
     var running = false;
     running = IsTaskRunning();
     if (running) {
         CheckIfWeCanReload();
     }
-  }, 10000);
+}, 10000);
 
 

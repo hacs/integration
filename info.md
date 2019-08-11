@@ -1,3 +1,8 @@
+{% if selected_tag == "next" %}
+## **NB!** This is a development version!
+{% elif 'b' in selected_tag %}
+## **NB!** This is a beta version!
+{% endif %}
 ![gif](https://custom-components.github.io/hacs/images/hacsdemo.gif)
 
 ## Highlights of what HACS can do

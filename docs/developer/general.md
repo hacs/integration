@@ -39,7 +39,9 @@ selected_tag | The selected version.
 version_available | The latest available version.
 version_installed | The installed version
 
-**Examlpe:**
+#### Examples
+
+##### Prerelease
 
 ```yaml
 {% if prerelease %}
@@ -49,13 +51,44 @@ version_installed | The installed version
 
 ![beta](../images/beta.png)
 
+##### [Here Travel Time](https://github.com/eifinger/here_travel_time/blob/master/info.md)
+
+```yaml
+{% if installed %}
+# Changes as compared to your installed version:
+
+## Breaking Changes
+
+## Changes
+
+## Features
+
+{% if version_installed.replace("v", "").replace(".","") | int < 141  %}
+- Added `mode: bicycle`
+- Added `mode: publicTransportTimeTable` - Please look [here](https://developer.here.com/documentation/routing/topics/public-transport-routing.html) for differences between the two public modes.
+{% endif %}
+{% if version_installed.replace("v", "").replace(".","") | int < 142  %}
+- Release notes are shown in HACS depending on your installed version
+{% endif %}
+
+## Bugfixes
+
+{% if version_installed.replace("v", "").replace(".","") | int < 143  %}
+- Fix for `mode: publicTransportTimeTable` returning `No timetable route found`
+{% endif %}
+---
+{% endif %}
+```
+
+![here](../images/info_jinja_here.png)
+
 ### Some examples of `info.md` files
 
 #### [Compact Custom Header](https://github.com/maykar/compact-custom-header/blob/1.0.4b9/info.md)
 
   ![cch](../images/info_cch.PNG)
 
-####[Lovelace Swipe Navigation](https://github.com/maykar/lovelace-swipe-navigation/blob/1.2.0/info.md)
+#### [Lovelace Swipe Navigation](https://github.com/maykar/lovelace-swipe-navigation/blob/1.2.0/info.md)
 
 ![swipe](../images/info_swipe.PNG)
 

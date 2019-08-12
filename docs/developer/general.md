@@ -39,7 +39,7 @@ selected_tag | The selected version.
 version_available | The latest available version.
 version_installed | The installed version
 
-**Examlpe:**
+**Example:**
 
 ```yaml
 {% if prerelease %}

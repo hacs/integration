@@ -343,7 +343,7 @@ class HacsRepository(Hacs):
 
         await self.update_repository()
 
-        if self.status.installed:
+        if self.status.installed and not self.content.single:
             backup = Backup(self.content.path.local)
             backup.create()
 
@@ -354,10 +354,10 @@ class HacsRepository(Hacs):
         if validate.errors:
             for error in validate.errors:
                 self.logger.error(error)
-            if self.status.installed:
+            if self.status.installed and not self.content.single:
                 backup.restore()
 
-        if self.status.installed:
+        if self.status.installed and not self.content.single:
             backup.cleanup()
 
         if validate.success:

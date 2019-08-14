@@ -60,7 +60,7 @@ class HacsData(Hacs):
         for repository_name in self.common.installed:
             repository = self.get_by_name(repository_name)
             if repository is None:
-                self.logger.errror(f"Did not save information about {repository_name}")
+                self.logger.error(f"Did not save information about {repository_name}")
                 continue
             installed[repository.information.full_name] = {
                 "version_type": repository.display_version_or_commit,

@@ -57,8 +57,11 @@ class HacsData(Hacs):
         # Installed
         path = f"{self.system.config_path}/.storage/{STORES['installed']}"
         installed = {}
-        for repository in self.common.installed:
-            repository = self.get_by_name(repository)
+        for repository_name in self.common.installed:
+            repository = self.get_by_name(repository_name)
+            if repository is None:
+                self.logger.errror(f"Did not save information about {repository_name}")
+                continue
             installed[repository.information.full_name] = {
                 "version_type": repository.display_version_or_commit,
                 "version_installed": repository.display_installed_version,

@@ -43,9 +43,9 @@
     {% if not hacs.system.status.background_task %}
     <form class="minigrid" action="/hacsapi/{{ hacs.token }}/repository_register" method="post" accept-charset="utf-8"
       enctype="application/x-www-form-urlencoded">
-      <input id="custom_url" type="text" name="custom_url" placeholder="  ADD CUSTOM REPOSITORY"
-        style="width: 70%; color: var(--primary-text-color)">
-      <select name="repository_type" class="hacs-select">
+      <input class="custom_repository" id="custom_url" type="text" name="custom_url"
+        placeholder="  ADD CUSTOM REPOSITORY" style="width: 70%; color: var(--primary-text-color)">
+      <select name="repository_type" class="hacs-select custom_repository">
         <option disabled selected value>Category</option>
         {% for element_type in hacs.common.categories | sort %}
         <option class='hacscolor' value='{{element_type}}'>{{element_type | title}}</option>

@@ -1,6 +1,7 @@
 """Custom template support."""
 # pylint: disable=broad-except
 from jinja2 import Template
+from integrationhelper import Logger
 
 
 def render_template(content, context):
@@ -23,5 +24,6 @@ def render_template(content, context):
             version_installed=context.display_installed_version,
         )
         return render
-    except Exception:
+    except Exception as exception:
+        Logger("hacs.template").debug(exception)
         return content

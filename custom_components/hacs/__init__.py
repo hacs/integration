@@ -2,7 +2,7 @@
 Custom element manager for community created elements.
 
 For more details about this integration, please refer to the documentation at
-https://custom-components.github.io/hacs/
+https://hacs.netlify.com/
 """
 # pylint: disable=bad-continuation
 from asyncio import sleep

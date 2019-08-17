@@ -100,10 +100,6 @@ If the repository uses GitHub releases, the tagname from the latest release is u
 
 If the repository does not use those, the 7 first characters of the last commit will be used.
 
-## Enhance the experience
-
-If you want to add a richer experience for your users you can add an `info.md` file to the root of your repository (this is optional), this file will be rendered under the repository description, it does not support the full styling options as Github so use with care.
-
 ### Templates
 
 You can use Jijna2 templates to control what and how the info is displayed.

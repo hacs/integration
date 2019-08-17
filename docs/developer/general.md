@@ -28,7 +28,7 @@ This is not used in HACS, but without this it's hard for the user to get started
 
 ### [info.md](#info.md)
 
-If you want to add a richer experience for your users you can add an `info.md` file to the root of your repository (this is optional, if you do not have this you need to set [`render_readme`](#hacs.json) in the `hacs.json` file), this file will be rendered under the repository description, it does not support the full styling options as Github so use with care.
+If you want to add a richer experience for your users you can add an `info.md` file to the root of your repository (this is optional, if you do not have this you need to set [`render_readme`](#hacsjson) in the `hacs.json` file), this file will be rendered under the repository description, it does not support the full styling options as Github so use with care.
 
 [See the Templates section on how you can make this awesome](#templates)
 

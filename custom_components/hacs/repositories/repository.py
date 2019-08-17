@@ -3,6 +3,8 @@
 import pathlib
 from distutils.version import LooseVersion
 from integrationhelper import Validate, Logger
+from aiogithubapi import AIOGitHubException
+from .manifest import HacsManifest
 from ..hacsbase import Hacs
 from ..hacsbase.backup import Backup
 from ..handler.download import async_download_file, async_save_file
@@ -93,6 +95,7 @@ class HacsRepository(Hacs):
         self.information = RepositoryInformation()
         self.repository_object = None
         self.status = RepositoryStatus()
+        self.repository_manifest = None
         self.validate = Validate()
         self.releases = RepositoryReleases()
         self.versions = RepositoryVersions()
@@ -331,6 +334,9 @@ class HacsRepository(Hacs):
         # Update topics
         self.information.topics = self.repository_object.topics
 
+        # Get the content of hacs.json
+        await self.get_repository_manifest_content()
+
         # Update "info.md"
         await self.get_info_md_content()
 
@@ -439,12 +445,24 @@ class HacsRepository(Hacs):
             pass
         return validate
 
+    async def get_repository_manifest_content(self):
+        """Get the content of the hacs.json file."""
+        try:
+            manifest = await self.repository_object.get_contents("hacs.json", self.ref)
+            self.repository_manifest = HacsManifest(manifest)
+        except AIOGitHubException:  # Gotta Catch 'Em All
+            pass
+
     async def get_info_md_content(self):
         """Get the content of info.md"""
         from ..handler.template import render_template
 
         info = None
         info_files = ["info", "info.md"]
+
+        if self.repository_manifest is not None:
+            if self.repository_manifest.render_readme:
+                info_files = ["readme", "readme.md"]
         try:
             root = await self.repository_object.get_contents("", self.ref)
             for file in root:

@@ -140,11 +140,15 @@ class HacsRepository(Hacs):
     @property
     def can_install(self):
         """Return bool if repository can be installed."""
+        target = None
         if self.information.homeassistant_version is not None:
+            target = self.information.homeassistant_version
+        if self.repository_manifest.homeassistant is not None:
+            target = self.repository_manifest.homeassistant
+
+        if target is not None:
             if self.releases.releases:
-                if LooseVersion(self.system.ha_version) < LooseVersion(
-                    self.information.homeassistant_version
-                ):
+                if LooseVersion(self.system.ha_version) < LooseVersion(target):
                     return False
         return True
 
@@ -152,6 +156,9 @@ class HacsRepository(Hacs):
     def display_name(self):
         """Return display name."""
         name = None
+        if self.repository_manifest is not None:
+            return self.repository_manifest["name"]
+
         if self.information.category == "integration":
             if self.manifest is not None:
                 name = self.manifest["name"]

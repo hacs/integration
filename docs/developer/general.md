@@ -2,33 +2,108 @@
 
 For your repository to be added there are a few criteria that need to be met.
 
-- See [Integration developer](../integration) for integrations.
-- See [Plugin developer](../plugin) for plugins.
+- [General requirements](#general-requirements)
+- [Integration requirements](../integration) for integrations.
+- [Plugin requirements](../plugin) for plugins.
+- [AppDaemon requirements](../plugin) for AppDaemon apps.
+- [Python_scripts requirements](../plugin) for python scripts.
+- [Theme requirements](../plugin) for themes.
 
-## Repository information
+## General requirements
 
 ### Description
 
-The description of the repository is also the same description that is shown in HACS.
+Your repository on GitHub needs to have a description that in short tell what the content in the repository do.
+
+This description is also used in HACS.
 
 ### Topics
 
-Repository topics are not displayed in HACS, but they can be used for searchablility in the HACS store.
+Your repository on GitHub needs to have topics, topics are not displayed in HACS, but they can be used for searchability in the HACS store.
+
+### README
+
+Your repository needs to have a readme with information about how to use it.
+This is not used in HACS, but without this it's hard for the user to get started.
+
+### [info.md](#info.md)
+
+If you want to add a richer experience for your users you can add an `info.md` file to the root of your repository (this is optional, if you do not have this you need to set [`render_readme`](#hacsjson) in the `hacs.json` file), this file will be rendered under the repository description, it does not support the full styling options as Github so use with care.
+
+[See the Templates section on how you can make this awesome](#templates)
+
+
+### hacs.json
+
+This is a special manifest file that both give information to HACS that are used in the UI, and tell it what to use and where it is, this file needs to be located in the root of your repository.
+
+The following keys are supported:
+
+Key | Required | Description.
+-- | -- | --
+name | True| The display name that will be used in the HACS UI
+content_in_root | False | Boolean to indicate that the content is in the root of the repository.
+filename | False | Name of the file HACS should look for, only applies to single item categories (plugin, theme, python_scripts)
+render_readme | False | Tells HACS to render the README.md file instead of info.md
+domains | False | A list of domains, `["sensor", "switch"]`
+country | False | A2(ISO) variant of the country name <https://www.worldatlas.com/aatlas/ctycodes.htm>
+homeassistant | False | The minimum required Home Assistant version
+persistent_directory | False | This will only apply to integrations, a relative path (under the integration dir) that will be kept safe during upgrades.
+iot_class | For integrations | The type of communication with the service/device
+
+**examples:**
+
+```json
+{
+  "name": "My awesome thing",
+  "content_in_root": true,
+  "filename": "my_super_awesome_thing.js",
+  "country": ["NO", "SE", "DK"]
+}
+```
+
+```json
+{
+  "name": "My awesome thing",
+  "country": "NO",
+  "domains": ["media_player", "sensor"],
+  "homeassistant": "0.99.9",
+  "persistent_directory": "userfiles"
+}
+```
+
+#### key option `country`
+
+Even though `EU` is not supported in that list, you can add that as a valid value to indicate that your repository can be used in Europe.
+
+This key can be a single value, or a list.
+
+```
+"country": ["NO", "SE", "DK"]
+```
+
+```
+"country": "NO",
+```
+
+
+#### key option `iot_class`
+
+This is only for integrations.
+
+[Here you can use the same as Home Assistant uses](https://www.home-assistant.io/blog/2016/02/12/classifying-the-internet-of-things)
+
 
 ## Versions
 
-If the repository uses GitHub releases, the tagname from the latest release is used to set the remote version.
+If the repository uses GitHub releases, the tagname from the latest release is used to set the remote version. (**NB: just publishing tags is not enough, you need to publish releases)
 
-If the repository does not use those, the 7 first charachters of the last commit will be used.
-
-## Enhance the experience
-
-If you want to add a richer experience for your users you can add an `info.md` file to the root of your repository (this is optional), this file will be rendered under the repository description, it does not support the full styling options as Github so use with care.
+If the repository does not use those, the 7 first characters of the last commit will be used.
 
 ### Templates
 
-You can use Jijna2 templates to controll what and how the info is displayed.
-In addition to the defaut templates of Jijna these are added:
+You can use Jijna2 templates to control what and how the info is displayed.
+In addition to the default templates of Jijna these are added:
 
 Template value | Description
 -- | --

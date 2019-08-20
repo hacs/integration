@@ -9,8 +9,8 @@ on:
       - master
 
 jobs:
-  test_python:
-
+  test:
+    name: Testing with (Python, HA)
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 6
@@ -31,18 +31,24 @@ jobs:
 
         for file in $(find custom_components/ -name "manifest.json"); do
           cat "$file" | for req in $(jq .requirements[]);
-            do python3 -m pip install $(echo "$req" | jq -r .);
+            do pip install $(echo "$req" | jq -r .);
             done; 
           done
 
         pip install homeassistant
 
-    - name: Load HACS (in pyhton)
-      run: python -c 'from custom_components import hacs'
-
-    - name: 'Inject Home Assistant configuration'
+    - name: Install Home Assistant ${{ matrix.ha-version }}
       run: |
-        echo "default_config:" | tee configuration.yaml
+        if [[ $matrix.ha-version == "dev" ]]; then
+          pip install git+git://github.com/home-assistant/home-assistant.git@dev
+        elif [[ $matrix.ha-version == "beta" ]]; then
+          pip install --pre homeassistant
+        else
+           pip install homeassistant
+
+    - name: 'Inject HACS into Home Assistant configuration'
+      run: |
+        echo "default_config:" | tee -a configuration.yaml
         echo "hacs:" | tee -a configuration.yaml
         echo "  token:  xxx" | tee -a configuration.yaml
 

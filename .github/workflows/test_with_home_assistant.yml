@@ -1,0 +1,55 @@
+name: Test with Home Assistant
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    name: Testing with (Python, HA)
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 6
+      matrix:
+        python-version: [3.6, 3.7]
+        ha-version: ["stable", "beta", "dev"]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip setuptools wheel
+
+        for file in $(find custom_components/ -name "manifest.json"); do
+          cat "$file" | for req in $(jq .requirements[]);
+            do pip install $(echo "$req" | jq -r .);
+            done; 
+          done
+
+    - name: Install Home Assistant ${{ matrix.ha-version }}
+      run: |
+        if [ ${{ matrix.ha-version }} == "dev" ]; then
+          pip install git+git://github.com/home-assistant/home-assistant.git@dev
+        elif [ ${{ matrix.ha-version }} == "beta" ]; then
+          pip install --pre homeassistant
+        else
+           pip install homeassistant
+        fi
+
+    - name: 'Inject HACS into Home Assistant configuration'
+      run: |
+        echo "default_config:" | tee -a configuration.yaml
+        echo "hacs:" | tee -a configuration.yaml
+        echo "  token:  xxx" | tee -a configuration.yaml
+
+    - name: Home Assistant configuration check
+      run: hass --script check_config --config .

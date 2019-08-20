@@ -34,7 +34,7 @@ jobs:
       run: python -c 'from custom_components import hacs'
 
     - name: 'Inject Home Assistant configuration'
-    - run: |
+      run: |
         echo "default_config:" | tee configuration.yaml
         echo "hacs:" | tee -a configuration.yaml
         echo "  token:  xxx" | tee -a configuration.yaml

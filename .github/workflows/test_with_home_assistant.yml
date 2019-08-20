@@ -1,4 +1,4 @@
-name: Load
+name: Test with Home Assistant
 
 on:
   pull_request:
@@ -13,9 +13,10 @@ jobs:
 
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 2
+      max-parallel: 6
       matrix:
         python-version: [3.6, 3.7]
+        ha-version: ["stable", "beta", "dev"]
 
     steps:
     - uses: actions/checkout@v1
@@ -27,8 +28,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel
+
+        for file in $(find custom_components/ -name "manifest.json"); do
+          cat "$file" | for req in $(jq .requirements[]);
+            do python3 -m pip install $(echo "$req" | jq -r .);
+            done; 
+          done
+
         pip install homeassistant
-        pip install -r requirements.txt
 
     - name: Load HACS (in pyhton)
       run: python -c 'from custom_components import hacs'

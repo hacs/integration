@@ -37,12 +37,13 @@ jobs:
 
     - name: Install Home Assistant ${{ matrix.ha-version }}
       run: |
-        if [[ ${{ matrix.ha-version }} == "dev" ]]; then
+        if [ ${{ matrix.ha-version }} == "dev" ]; then
           pip install git+git://github.com/home-assistant/home-assistant.git@dev
-        elif [[ ${{ matrix.ha-version }} == "beta" ]]; then
+        elif [ ${{ matrix.ha-version }} == "beta" ]; then
           pip install --pre homeassistant
         else
            pip install homeassistant
+        fi
 
     - name: 'Inject HACS into Home Assistant configuration'
       run: |

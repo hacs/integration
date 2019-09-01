@@ -1,4 +1,4 @@
-![gif](https://hacs.netlify.com/images/hacsdemo.gif)
+![gif](https://github.com/custom-components/hacs/raw/master/docs/images/hacsdemo.gif)
 
 ## Highlights of what HACS can do
 

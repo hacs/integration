@@ -74,8 +74,6 @@ iot_class | For integrations | The type of communication with the service/device
 
 #### key option `country`
 
-Even though `EU` is not supported in that list, you can add that as a valid value to indicate that your repository can be used in Europe.
-
 This key can be a single value, or a list.
 
 ```

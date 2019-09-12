@@ -36,6 +36,12 @@ from .hacsbase.data import HacsData
 from .hacsbase.configuration import Configuration
 from .hacsbase.migration import ValidateData
 
+
+OPTIONS_SCHEMA = vol.Schema(
+    {vol.Optional("locale"): vol.All(cv.string, vol.In(const.LOCALE))}
+)
+
+
 CONFIG_SCHEMA = vol.Schema(
     {
         const.DOMAIN: vol.Schema(
@@ -47,6 +53,7 @@ CONFIG_SCHEMA = vol.Schema(
                 vol.Optional("appdaemon", default=False): cv.boolean,
                 vol.Optional("python_script", default=False): cv.boolean,
                 vol.Optional("theme", default=False): cv.boolean,
+                vol.Optional("options"): OPTIONS_SCHEMA,
             }
         )
     },
@@ -60,7 +67,9 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
         return True
     hass.data[const.DOMAIN] = config
     Hacs.hass = hass
-    Hacs.configuration = Configuration(config[const.DOMAIN])
+    Hacs.configuration = Configuration(
+        config[const.DOMAIN], config[const.DOMAIN].get("options")
+    )
     Hacs.configuration.config_type = "yaml"
     await startup_wrapper_for_yaml(Hacs)
     hass.async_create_task(
@@ -82,9 +91,10 @@ async def async_setup_entry(hass, config_entry):
             )
         return False
     Hacs.hass = hass
-    Hacs.configuration = Configuration(config_entry.data)
+    Hacs.configuration = Configuration(config_entry.data, config_entry.options)
     Hacs.configuration.config_type = "flow"
     Hacs.configuration.config_entry = config_entry
+    config_entry.add_update_listener(reload_hacs)
     startup_result = await hacs_startup(Hacs)
     if not startup_result:
         raise ConfigEntryNotReady
@@ -358,3 +368,9 @@ async def async_remove_entry(hass, config_entry):
     )
     Hacs().system.disabled = True
     Hacs().logger.info("HACS is now disabled")
+
+
+async def reload_hacs(hass, config_entry):
+    """Reload HACS."""
+    await async_remove_entry(hass, config_entry)
+    await async_setup_entry(hass, config_entry)

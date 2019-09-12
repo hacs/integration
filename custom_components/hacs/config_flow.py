@@ -5,16 +5,16 @@ from collections import OrderedDict
 import voluptuous as vol
 from aiogithubapi import AIOGitHub, AIOGitHubException, AIOGitHubAuthentication
 from homeassistant import config_entries
+from homeassistant.core import callback
 from homeassistant.helpers import aiohttp_client
 
-from .const import DOMAIN
+from .const import DOMAIN, LOCALE
 
 
 _LOGGER = logging.getLogger(__name__)
 
 
-@config_entries.HANDLERS.register(DOMAIN)
-class HacsFlowHandler(config_entries.ConfigFlow):
+class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for HACS."""
 
     VERSION = 1
@@ -79,6 +79,11 @@ class HacsFlowHandler(config_entries.ConfigFlow):
             step_id="user", data_schema=vol.Schema(data_schema), errors=self._errors
         )
 
+    @staticmethod
+    @callback
+    def async_get_options_flow(config_entry):
+        return HacsOptionsFlowHandler(config_entry)
+
     async def async_step_import(self, user_input):
         """Import a config entry.
         Special type of import, we're not actually going to store any data.
@@ -99,3 +104,27 @@ class HacsFlowHandler(config_entries.ConfigFlow):
         except (AIOGitHubException, AIOGitHubAuthentication):
             pass
         return False
+
+
+class HacsOptionsFlowHandler(config_entries.OptionsFlow):
+    def __init__(self, config_entry):
+        """Initialize HACS options flow."""
+        self.config_entry = config_entry
+
+    async def async_step_init(self, user_input=None):
+        """Manage the options."""
+        return await self.async_step_user()
+
+    async def async_step_user(self, user_input=None):
+        """Handle a flow initialized by the user."""
+        if user_input is not None:
+            return self.async_create_entry(title="", data=user_input)
+
+        data_schema = OrderedDict()
+        data_schema[
+            vol.Required(
+                "locale", default=self.config_entry.options.get("locale", "ALL")
+            )
+        ] = vol.In(LOCALE)
+
+        return self.async_show_form(step_id="user", data_schema=vol.Schema(data_schema))

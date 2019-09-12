@@ -55,7 +55,7 @@ class HacsWebResponse(HomeAssistantView, Hacs):
                 response = WEBRESPONSE[self.endpoint]
                 response = await response.response(self)
             except Exception as exception:
-                render = self.render(f"error", message=exception)
+                render = self.render("error", message=exception)
                 return web.Response(
                     body=render, content_type="text/html", charset="utf-8"
                 )

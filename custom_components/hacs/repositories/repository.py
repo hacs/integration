@@ -143,8 +143,9 @@ class HacsRepository(Hacs):
         target = None
         if self.information.homeassistant_version is not None:
             target = self.information.homeassistant_version
-        if self.repository_manifest.homeassistant is not None:
-            target = self.repository_manifest.homeassistant
+        if self.repository_manifest is not None:
+            if self.repository_manifest.homeassistant is not None:
+                target = self.repository_manifest.homeassistant
 
         if target is not None:
             if self.releases.releases:
@@ -156,12 +157,12 @@ class HacsRepository(Hacs):
     def display_name(self):
         """Return display name."""
         name = None
-        if self.repository_manifest is not None:
-            return self.repository_manifest["name"]
-
         if self.information.category == "integration":
             if self.manifest is not None:
                 name = self.manifest["name"]
+
+        if self.repository_manifest is not None:
+            name = self.repository_manifest.name
 
         if name is not None:
             return name

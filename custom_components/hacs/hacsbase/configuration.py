@@ -4,9 +4,10 @@
 class Configuration:
     """Configuration class."""
 
-    def __init__(self, config):
+    def __init__(self, config, options):
         """Initialize."""
         self.config = config
+        self.options = options
         self.frontend_mode = "Grid"
         self.config_type = None
         self.config_entry = None
@@ -87,3 +88,11 @@ class Configuration:
         if self.config.get("theme_path") is not None:
             return self.config["theme_path"]
         return "themes/"
+
+    @property
+    def option_locale(self):
+        """Return the locale filter (or None if blank)"""
+        locale = self.options.get("locale")
+        if locale == "ALL" or locale is None:
+            return None
+        return locale

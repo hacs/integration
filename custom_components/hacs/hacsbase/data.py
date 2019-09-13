@@ -52,7 +52,7 @@ class HacsData(Hacs):
         # Hacs
         path = f"{self.system.config_path}/.storage/{STORES['hacs']}"
         hacs = {"view": self.configuration.frontend_mode}
-        save(path, hacs)
+        save(self.logger, path, hacs)
 
         # Installed
         path = f"{self.system.config_path}/.storage/{STORES['installed']}"
@@ -67,7 +67,7 @@ class HacsData(Hacs):
                 "version_installed": repository.display_installed_version,
                 "version_available": repository.display_available_version,
             }
-        save(path, installed)
+        save(self.logger, path, installed)
 
         # Repositories
         path = f"{self.system.config_path}/.storage/{STORES['repositories']}"
@@ -103,7 +103,7 @@ class HacsData(Hacs):
                 f"Number of installed repositories does not match the number of stored repositories [{count_installed} vs {count_installed_restore}]"
             )
             return
-        save(path, content)
+        save(self.logger, path, content)
 
     async def restore(self):
         """Restore saved data."""
@@ -242,7 +242,7 @@ class HacsData(Hacs):
         return True
 
 
-def save(path, content):
+def save(logger, path, content):
     """Save file."""
     from .backup import Backup
 
@@ -252,6 +252,7 @@ def save(path, content):
         content = {"data": content, "schema": STORAGE_VERSION}
         with open(path, "w", encoding="utf-8") as storefile:
             json.dump(content, storefile, indent=4)
-    except Exception:  # pylint: disable=broad-except
+    except Exception as exception:  # pylint: disable=broad-except
+        logger.warning(f"Saving {path} failed - {exception}")
         backup.restore()
     backup.cleanup()

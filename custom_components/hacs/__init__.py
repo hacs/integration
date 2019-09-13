@@ -189,7 +189,7 @@ async def hacs_startup(hacs):
 
     # Print DEV warning
     if hacs.configuration.dev:
-        hacs.logger.error(const.DEV_MODE)
+        hacs.logger.warning(const.DEV_MODE)
         hacs.hass.components.persistent_notification.create(
             title="HACS DEV MODE",
             message=const.DEV_MODE,

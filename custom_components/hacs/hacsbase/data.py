@@ -252,8 +252,7 @@ def save(logger, path, content):
         content = {"data": content, "schema": STORAGE_VERSION}
         with open(path, "w", encoding="utf-8") as storefile:
             json.dump(content, storefile, indent=4)
-        content["sssss"]
     except Exception as exception:  # pylint: disable=broad-except
-        logger.error(exception)
+        logger.warning(f"Saving {path} failed - {exception}")
         backup.restore()
     backup.cleanup()

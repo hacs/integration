@@ -90,9 +90,9 @@ class Configuration:
         return "themes/"
 
     @property
-    def option_locale(self):
-        """Return the locale filter (or None if blank)"""
-        locale = self.options.get("locale")
-        if locale == "ALL" or locale is None:
+    def option_country(self):
+        """Return the country filter (or None if blank)"""
+        country = self.options.get("country")
+        if country == "ALL" or country is None:
             return None
-        return locale
+        return country

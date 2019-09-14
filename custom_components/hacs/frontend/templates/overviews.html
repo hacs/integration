@@ -26,18 +26,38 @@
 {% set repositories = namespace(repositories=[]) %}
 
 {% for repository in hacs.sorted_by_name %}
-{% if not repository.status.hide %}
-{% if repository.information.category == type %}
+{% set repo = namespace(include=True) %}
+
+{% if repository.status.hide and repo.include %}
+{% set repo.include = False %}
+{% endif %}
+
+{% if repository.information.category != type and repo.include %}
+{% set repo.include = False %}
+{% endif %}
+
+
 {% if location == 'overview' %}
-{% if repository.status.installed %}
-{% set repositories.repositories = repositories.repositories+[repository] %}
+{% if not repository.status.installed and repo.include %}
+{% set repo.include = False %}
 {% endif %}
 {% else %}
-{% if repository.information.uid != "172733314" %}
+{% if repository.information.uid == "172733314" %}
+{% set repo.include = False %}
+{% endif %}
+{% if hacs.configuration.option_country and repo.include %}
+{% if repository.repository_manifest %}
+{% if repository.repository_manifest.country %}
+{% if hacs.configuration.option_country not in repository.repository_manifest.country %}
+{% set repo.include = False %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+
+{% if repo.include %}
 {% set repositories.repositories = repositories.repositories+[repository] %}
-{% endif %}
-{% endif %}
-{% endif %}
 {% endif %}
 {% endfor %}
 

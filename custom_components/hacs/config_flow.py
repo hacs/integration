@@ -123,7 +123,7 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
         data_schema = OrderedDict()
         data_schema[
             vol.Required(
-                "locale", default=self.config_entry.options.get("locale", "ALL")
+                "country", default=self.config_entry.options.get("country", "ALL")
             )
         ] = vol.In(LOCALE)
 

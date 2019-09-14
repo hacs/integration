@@ -17,6 +17,7 @@ class HacsIntegration(HacsRepository):
         self.information.category = self.category
         self.manifest = None
         self.domain = None
+        self.content.path.remote = "custom_components"
         self.content.path.local = self.localpath
 
     @property
@@ -44,11 +45,18 @@ class HacsIntegration(HacsRepository):
             )
 
         # Custom step 1: Validate content.
-        ccdir = await self.repository_object.get_contents("custom_components", self.ref)
-        if not isinstance(ccdir, list):
-            self.validate.errors.append("Repostitory structure not compliant")
+        if self.repository_manifest:
+            if self.repository_manifest.content_in_root:
+                self.content.path.remote = ""
+        else:
 
-        self.content.path.remote = ccdir[0].path
+            ccdir = await self.repository_object.get_contents(
+                "custom_components", self.ref
+            )
+            if not isinstance(ccdir, list):
+                self.validate.errors.append("Repostitory structure not compliant")
+
+            self.content.path.remote = ccdir[0].path
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )
@@ -86,8 +94,6 @@ class HacsIntegration(HacsRepository):
         await self.common_update()
 
         # Get integration objects.
-        ccdir = await self.repository_object.get_contents("custom_components", self.ref)
-        self.content.path.remote = ccdir[0].path
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )

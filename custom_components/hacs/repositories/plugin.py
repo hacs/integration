@@ -81,6 +81,11 @@ class HacsPlugin(HacsRepository):
             return
 
         possible_locations = ["dist", "release", ""]
+
+        if self.repository_manifest:
+            if self.repository_manifest.content_in_root:
+                possible_locations = [""]
+
         for location in possible_locations:
             if self.content.path.remote is not None:
                 continue
@@ -111,6 +116,11 @@ class HacsPlugin(HacsRepository):
                     f"{self.information.name}.umd.js",
                     f"{self.information.name}-bundle.js",
                 ]
+                self.logger.info(self.repository_manifest)
+                if self.repository_manifest:
+                    if self.repository_manifest.filename:
+                        valid_filenames.append(self.repository_manifest.filename)
+
                 for name in valid_filenames:
                     if name in files:
                         # YES! We got it!

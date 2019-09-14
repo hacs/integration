@@ -285,6 +285,9 @@ class HacsRepository(Hacs):
         # Step 5: Get releases.
         await self.get_releases()
 
+        # Step 6: Get the content of hacs.json
+        await self.get_repository_manifest_content()
+
         # Set repository name
         self.information.name = self.information.full_name.split("/")[1]
 

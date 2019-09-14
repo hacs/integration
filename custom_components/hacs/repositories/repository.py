@@ -476,15 +476,16 @@ class HacsRepository(Hacs):
             root = await self.repository_object.get_contents("", self.ref)
             for file in root:
                 if file.name.lower() in info_files:
-                    info = await self.repository_object.get_contents(
+
+                    info = await self.repository_object.get_rendered_contents(
                         file.name, self.ref
                     )
                     break
             if info is None:
                 self.information.additional_info = ""
             else:
-                info = await self.github.render_markdown(info.content)
                 info = info.replace("&lt;", "<")
+                info = info.replace("<svg", "<disabled").replace("</svg", "</disabled")
                 info = info.replace("<h3>", "<h6>").replace("</h3>", "</h6>")
                 info = info.replace("<h2>", "<h5>").replace("</h2>", "</h5>")
                 info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
@@ -492,12 +493,18 @@ class HacsRepository(Hacs):
                 info = info.replace(
                     '<a href="http', '<a rel="noreferrer" target="_blank" href="http'
                 )
-                info = info.replace("<ul>", "")
-                info = info.replace("</ul>", "")
+                info = info.replace("<li>", "<li style='list-style-type: initial;'>")
+
+
+                # Special changes that needs to be done:
+                info = info.replace("<your", "<&#8205;your")  # for thomasloven/hass-favicon
+
+
                 info += "</br>"
+
                 self.information.additional_info = render_template(info, self)
 
-        except Exception:  # Gotta Catch 'Em All
+        except SystemError:  # Gotta Catch 'Em All
             self.information.additional_info = ""
 
     async def get_releases(self):

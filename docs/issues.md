@@ -132,3 +132,5 @@ _Good issues have to much text to extract it (some also have screenshots) but he
 # Last words
 
 The more time/words/examples you put in your issue, the faster someone can see/understand what you mean.
+
+[**ALL** issues with HACS should be reported here.](https://github.com/custom-components/hacs/issues)

@@ -73,6 +73,7 @@ class HACSSensor(Entity):
             data.append(
                 {
                     "name": repository.information.full_name,
+                    "display_name": repository.display_name,
                     "installed version": repository.display_installed_version,
                     "available version": repository.display_available_version,
                 }

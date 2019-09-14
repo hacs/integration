@@ -11,7 +11,7 @@ class HacsManifest:
     @property
     def name(self):
         """Return the name."""
-        return self.manifest["name"]
+        return self.manifest.get("name")
 
     @property
     def content_in_root(self):

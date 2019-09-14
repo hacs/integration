@@ -38,7 +38,7 @@ from .hacsbase.migration import ValidateData
 
 
 OPTIONS_SCHEMA = vol.Schema(
-    {vol.Optional("locale"): vol.All(cv.string, vol.In(const.LOCALE))}
+    {vol.Optional("country"): vol.All(cv.string, vol.In(const.LOCALE))}
 )
 
 
@@ -340,22 +340,6 @@ async def test_repositories(hacs):
 
 async def async_remove_entry(hass, config_entry):
     """Handle removal of an entry."""
-    if Hacs.configuration is not None:
-        if Hacs.configuration.config_type == "yaml":
-            Hacs().logger.warning(
-                """
-            You can not remove HACS from the UI when you have configured it with YAML.
-            To start using UI configuration you need to remove it from YAML, then restart HA.
-            Before adding it under configuration -> integrations."""
-            )
-            hass.async_create_task(
-                hass.config_entries.flow.async_init(
-                    const.DOMAIN,
-                    context={"source": config_entries.SOURCE_IMPORT},
-                    data={},
-                )
-            )
-            return
     Hacs().logger.info("Disabling HACS")
     Hacs().logger.info("Removing recuring tasks")
     for task in Hacs().tasks:
@@ -363,9 +347,12 @@ async def async_remove_entry(hass, config_entry):
     Hacs().logger.info("Removing sensor")
     await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")
     Hacs().logger.info("Removing sidepanel")
-    hass.components.frontend.async_remove_panel(
-        Hacs.configuration.sidepanel_title.lower().replace(" ", "_").replace("-", "_")
-    )
+    try:
+        hass.components.frontend.async_remove_panel(
+            Hacs.configuration.sidepanel_title.lower().replace(" ", "_").replace("-", "_")
+        )
+    except AttributeError:
+        pass
     Hacs().system.disabled = True
     Hacs().logger.info("HACS is now disabled")
 

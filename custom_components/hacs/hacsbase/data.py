@@ -5,6 +5,7 @@ from integrationhelper import Logger
 from . import Hacs
 from .const import STORAGE_VERSION
 from ..const import VERSION
+from ..repositories.manifest import HacsManifest
 
 
 STORES = {
@@ -73,6 +74,10 @@ class HacsData(Hacs):
         path = f"{self.system.config_path}/.storage/{STORES['repositories']}"
         content = {}
         for repository in self.repositories:
+            if repository.repository_manifest is not None:
+                repository_manifest = repository.repository_manifest.manifest
+            else:
+                repository_manifest = None
             content[repository.information.uid] = {
                 "authors": repository.information.authors,
                 "category": repository.information.category,
@@ -83,6 +88,7 @@ class HacsData(Hacs):
                 "installed": repository.status.installed,
                 "last_commit": repository.versions.available_commit,
                 "last_release_tag": repository.versions.available,
+                "repository_manifest": repository_manifest,
                 "name": repository.information.name,
                 "new": repository.status.new,
                 "selected_tag": repository.status.selected_tag,
@@ -163,6 +169,9 @@ class HacsData(Hacs):
 
                 if repo.get("selected_tag") is not None:
                     repository.status.selected_tag = repo["selected_tag"]
+
+                if repo.get("repository_manifest") is not None:
+                    repository.repository_manifest = HacsManifest(repo["repository_manifest"])
 
                 if repo.get("show_beta") is not None:
                     repository.status.show_beta = repo["show_beta"]

@@ -22,6 +22,13 @@ key | optional | default | description
 `appdaemon` | True | `False` | Enable tracking of AppDaemon apps.
 `python_script` | True | `False` | Enable tracking of python scripts.
 `theme` | True | `False` | Enable tracking of themes.
+`options` | True | `False` | A map of options.
+
+### Options
+
+option | description
+-- | -- | -- | --
+`country` | Set a filer based on your [A2(ISO) country code](https://www.worldatlas.com/aatlas/ctycodes.htm).
 
 ***
 

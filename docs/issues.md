@@ -78,6 +78,21 @@ Require a minimum amount of info (good description, info.md) before inclusion in
 Examples of tags would be: Denkovi (manufacturer), Ethernet relay (product type), ...
 ```
 
+***
+
+```text
+# Describe the solution you'd like
+One benefit of AppDaemon that I think is underutilized is how reusable and shareable apps are. I think a lot of Home Assistant users are put off by the learning curve of learning Python to use AppDaemon. However, it's very possible for people to create apps that anyone can use without modifying the underlying Python code, that just take some YAML configuration to set up. It would be great to be able to have a section in HACS, in addition to custom components and Lovelace plugins, for custom AppDaemon apps that could auto update.
+
+# Describe alternatives you've considered
+If this isn't something you're interested in implementing with HACS, I've looked at some other options for having apps auto update, but I think this would be the cleanest route and would put everything custom in one interface.
+
+# Additional context
+Apps would land in the appdaemon/apps/<app_name> folder. And I think it would be possible to pull the suggested YAML configuration out and include it in HACS like Lovelace plugins do.
+
+Also, I would be happy to take this on myself and put in a PR. But I wanted to run the idea by you before I start any work on it to see if it's something you'd be willing to merge or implement.
+```
+
 ## Examples of bad issues
 
 ```text

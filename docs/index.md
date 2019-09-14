@@ -56,7 +56,7 @@ To enable `debug` logging, add this to your `configuration.yaml`:
 logger:
   default: info
   logs:
-    custom_components.hacs: debug
+    hacs: debug
 ```
 
 ## Startup
@@ -75,17 +75,6 @@ This will not scan you local file system for existing elements.
 Why?
 
 Trust. If this did not download it, there'd be no way to know which version you have, so for elements you already have you will still need to click the "INSTALL" button for that element.
-
-## Debug logging
-
-Add this to your `configuration.yaml` to enable debug logging for HACS.
-
-```yaml
-logger:
-  default: info
-  logs:
-    hacs: debug
-```
 
 ## Local data storage
 

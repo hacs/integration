@@ -40,6 +40,9 @@
 {% if location == 'overview' %}
 {% if not repository.status.installed and repo.include %}
 {% set repo.include = False %}
+{% if repository.information.uid == "172733314" %}
+{% set repo.include = True %}
+{% endif %}
 {% endif %}
 {% else %}
 {% if repository.information.uid == "172733314" %}

@@ -80,6 +80,7 @@ class HacsData(Hacs):
                 repository_manifest = None
             content[repository.information.uid] = {
                 "authors": repository.information.authors,
+                "topics": repository.information.topics,
                 "category": repository.information.category,
                 "description": repository.information.description,
                 "full_name": repository.information.full_name,
@@ -153,6 +154,9 @@ class HacsData(Hacs):
                 if repo.get("authors") is not None:
                     repository.information.authors = repo["authors"]
 
+                if repo.get("topics", []):
+                    repository.information.topics = repo["topics"]
+
                 if repo.get("description") is not None:
                     repository.information.description = repo["description"]
 
@@ -190,6 +194,7 @@ class HacsData(Hacs):
 
                 if repo["full_name"] == "custom-components/hacs":
                     repository.versions.installed = VERSION
+                    repository.status.installed = True
                     if "b" in VERSION:
                         repository.status.show_beta = True
                 elif repo.get("version_installed") is not None:

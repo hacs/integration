@@ -17,6 +17,8 @@
         {% for repository in repositories.repositories %}
         <tr class="hacs-table-row"
           onclick="toggleLoading();window.location='/hacsweb/{{ hacs.token }}/repository/{{ repository.information.uid }}?timestamp={{ timestamp }}';">
+          <input type="hidden" name="author" value="{{repository.information.authors}}">
+          <input type="hidden" name="topics" value="{{repository.information.topics}}">
           <td title="{{ repository.display_status_description }}">
             {% if location == 'store' and repository.status.new %}
             <span style='margin-left: 25%' class='repository-list-badge hacs-badge'>NEW</span>

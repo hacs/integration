@@ -328,10 +328,7 @@ class HacsRepository(Hacs):
             self.information.description = self.repository_object.description
 
         # Update default branch
-        if self.information.full_name != "custom-components/hacs":
-            self.information.default_branch = self.repository_object.default_branch
-        else:
-            self.information.default_branch = "next"
+        self.information.default_branch = self.repository_object.default_branch
 
         # Update last available commit
         await self.repository_object.set_last_commit()
@@ -495,16 +492,16 @@ class HacsRepository(Hacs):
                 )
                 info = info.replace("<li>", "<li style='list-style-type: initial;'>")
 
-
                 # Special changes that needs to be done:
-                info = info.replace("<your", "<&#8205;your")  # for thomasloven/hass-favicon
-
+                info = info.replace(
+                    "<your", "<&#8205;your"
+                )  # for thomasloven/hass-favicon
 
                 info += "</br>"
 
                 self.information.additional_info = render_template(info, self)
 
-        except SystemError:  # Gotta Catch 'Em All
+        except (AIOGitHubException, Exception):
             self.information.additional_info = ""
 
     async def get_releases(self):

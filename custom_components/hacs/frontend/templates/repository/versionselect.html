@@ -1,15 +1,5 @@
 {% set tags = repository.releases.published_tags | sort(True) %}
-{% if repository.information.uid == "172733314" %}
-{% set tags = namespace(tags=[]) %}
-{% for tag in repository.releases.published_tags | sort(True) %}
-{% if (tag.split(".")[1] | int) == (repository.versions.installed.split(".")[1] | int) %}
-{% set tags.tags = tags.tags + [tag] %}
-{% endif %}
-{% endfor %}
-{% set tags = tags.tags + [repository.information.default_branch] %}
-{% else %}
 {% set tags = tags + [repository.information.default_branch] %}
-{% endif %}
 
 
 {% if repository.status.selected_tag %}

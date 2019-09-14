@@ -76,9 +76,20 @@ Why?
 
 Trust. If this did not download it, there'd be no way to know which version you have, so for elements you already have you will still need to click the "INSTALL" button for that element.
 
+## Debug logging
+
+Add this to your `configuration.yaml` to enable debug logging for HACS.
+
+```yaml
+logger:
+  default: info
+  logs:
+    hacs: debug
+```
+
 ## Local data storage
 
-All data it handles are saved to the `hacs` file that is located under `.storage`
+All data it handles are saved to `hacs.*` files that is located under `.storage`
 
 ## HACS Sensor
 

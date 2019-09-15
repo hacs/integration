@@ -40,7 +40,17 @@ You use this when you have issues with HACS.
 
 Logs are **more** then _just_ errors, with debug logging it gives the person investigating the issue a full picture of what happened.
 
+**A issue should contain at least:**
+
+- The version of HACS you are using.
+- A GOOD description of the issue.
+- Debug logs.
+- Steps to reproduce the issue.
+- If the issue is in the UI, add screenshots.
+
 You can see examples of good/bad issues further down on this page.
+
+_Issues that are missing required information can (will) be closed._
 
 oh... and almost forgot... `latest` is **NOT** a version.
 

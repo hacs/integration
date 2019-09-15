@@ -360,15 +360,16 @@ class HacsRepository(Hacs):
 
         await self.update_repository()
 
-        if self.repository_manifest.persistent_directory:
-            if os.path.exists(
-                f"{self.content.path.local}/{self.repository_manifest.persistent_directory}"
-            ):
-                persistent_directory = Backup(
-                    f"{self.content.path.local}/{self.repository_manifest.persistent_directory}",
-                    "/tmp/hacs_persistent_directory/",
-                )
-                persistent_directory.create()
+        if self.repository_manifest:
+            if self.repository_manifest.persistent_directory:
+                if os.path.exists(
+                    f"{self.content.path.local}/{self.repository_manifest.persistent_directory}"
+                ):
+                    persistent_directory = Backup(
+                        f"{self.content.path.local}/{self.repository_manifest.persistent_directory}",
+                        "/tmp/hacs_persistent_directory/",
+                    )
+                    persistent_directory.create()
 
         if self.status.installed and not self.content.single:
             backup = Backup(self.content.path.local)

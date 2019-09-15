@@ -57,6 +57,9 @@ class HacsTheme(HacsRepository):
         await self.common_update()
 
         # Get theme objects.
+        if self.repository_manifest:
+            if self.repository_manifest.content_in_root:
+                self.content.path.remote = ""
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )

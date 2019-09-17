@@ -2,6 +2,7 @@
 # pylint: disable=broad-except, bad-continuation, no-member
 import pathlib
 import json
+from json.decoder import JSONDecodeError
 from distutils.version import LooseVersion
 from integrationhelper import Validate, Logger
 from aiogithubapi import AIOGitHubException
@@ -459,7 +460,7 @@ class HacsRepository(Hacs):
         try:
             manifest = await self.repository_object.get_contents("hacs.json", self.ref)
             self.repository_manifest = HacsManifest(json.loads(manifest.content))
-        except AIOGitHubException:  # Gotta Catch 'Em All
+        except (AIOGitHubException, JSONDecodeError):  # Gotta Catch 'Em All
             pass
 
     async def get_info_md_content(self):

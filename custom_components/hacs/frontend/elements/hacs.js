@@ -25,7 +25,7 @@ function Search() {
     if (input) {
         var filter = input.value.toLowerCase();
         var nodes = document.getElementsByClassName('hacs-card');
-        for (i = 0; i < nodes.length; i++) {
+        for (var i = 0; i < nodes.length; i++) {
             if (nodes[i].innerHTML.toLowerCase().includes(filter)) {
                 nodes[i].style.display = "block";
             } else {
@@ -47,13 +47,13 @@ function Search() {
 // Dropdown
 document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.dropdown-trigger');
-    var instances = M.Dropdown.init(elems, { hover: false, constrainWidth: false });
+    M.Dropdown.init(elems, { hover: false, constrainWidth: false });
 });
 
 // Modal
 document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems, {});
+    M.Modal.init(elems, {});
 });
 
 

@@ -51,7 +51,7 @@ class HacsPythonScript(HacsRepository):
         # Set name
         self.information.name = self.content.objects[0].name.replace(".py", "")
 
-    async def update_repository(self):
+    async def update_repository(self):  # lgtm[py/similar-function]
         """Update."""
         # Run common update steps.
         await self.common_update()

@@ -1,6 +1,5 @@
 """HACS Migration logic."""
 # pylint: disable=broad-except,no-member
-import json
 from shutil import copy2
 
 from integrationhelper import Logger, Validate
@@ -109,11 +108,11 @@ class FromVersion4(Migration):
                     }
 
         path = f"{self.system.config_path}/.storage/{STORES['hacs']}"
-        save(path, hacs)
+        save(self.logger, path, hacs)
 
         path = f"{self.system.config_path}/.storage/{STORES['repositories']}"
-        save(path, repositories)
+        save(self.logger, path, repositories)
 
         path = f"{self.system.config_path}/.storage/{STORES['installed']}"
-        save(path, installed)
+        save(self.logger, path, installed)
         self.logger.info("Migration done")

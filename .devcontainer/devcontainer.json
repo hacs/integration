@@ -1,12 +1,15 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
 {
-	"name": "HACS dev",
+	"name": "HACS Dev",
+	"image": "ludeeus/devcontainer:0.1.0",
 	"context": "..",
-	"dockerFile": "Dockerfile",
-	"appPort": "8124:8123",
+	"appPort": [
+		"9123:8123"
+	],
+	"postCreateCommand": "dc install",
 	"runArgs": [
-		"-e",
-		"GIT_EDTIOR='code --wait'"
+		"-v",
+		"${env:HOME}${env:USERPROFILE}/.ssh:/tmp/.ssh" // This is added so you can push from inside the container
 	],
 	"extensions": [
 		"ms-python.python",
@@ -16,7 +19,8 @@
 	"settings": {
 		"files.eol": "\n",
 		"editor.tabSize": 4,
-		"python.pythonPath": "/usr/local/bin/python",
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"python.pythonPath": "/usr/bin/python3",
 		"python.linting.pylintEnabled": true,
 		"python.linting.enabled": true,
 		"python.formatting.provider": "black",

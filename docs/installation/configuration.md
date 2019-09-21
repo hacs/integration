@@ -29,7 +29,7 @@ key | optional | default | description
 option | description
 -- | --
 `country` | Set a filer based on your [A2(ISO) country code](https://www.worldatlas.com/aatlas/ctycodes.htm).
-`release_limit` | Number of releases to show in the version selector.
+`release_limit` | Number of releases to show in the version selector. (Defaults to 5)
 
 ***
 

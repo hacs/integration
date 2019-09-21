@@ -50,4 +50,4 @@ HACS is not a full replacement for `custom_updater` and even though their "missi
 
 ~~If~~ When you experience issues/bugs with this the best way to report them is to open an issue in **this** repo.
 
-[Issue link](https://github.com/custom-components/hacs/issues)
+[Issue link](https://hacs.netlify.com/issues/)

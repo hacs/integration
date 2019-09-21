@@ -56,14 +56,17 @@ class HacsIntegration(HacsRepository):
             if not isinstance(ccdir, list):
                 self.validate.errors.append("Repostitory structure not compliant")
 
-            self.content.path.remote = ccdir[0].path
+            for item in ccdir or []:
+                if item.type == "dir":
+                    self.content.path.remote = item.path
+                    break
 
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )
 
         self.content.files = []
-        for filename in self.content.objects:
+        for filename in self.content.objects or []:
             self.content.files.append(filename.name)
 
         if not await self.get_manifest():

@@ -2,73 +2,27 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Start Home Assistant on port 8124",
+            "label": "Run Home Assistant on port 9123",
             "type": "shell",
-            "command": "source .devcontainer/custom_component_helper && StartHomeAssistant",
-            "group": {
-                "kind": "test",
-                "isDefault": true,
-            },
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            },
+            "command": "dc start",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Home Assistant configuration against /config",
+            "type": "shell",
+            "command": "dc check",
             "problemMatcher": []
         },
         {
             "label": "Upgrade Home Assistant to latest dev",
             "type": "shell",
-            "command": "source .devcontainer/custom_component_helper && UpdgradeHomeAssistantDev",
-            "group": {
-                "kind": "test",
-                "isDefault": true,
-            },
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            },
+            "command": "dc start",
             "problemMatcher": []
         },
         {
-            "label": "Set Home Assistant Version",
+            "label": "Install a spesific version of Home Assistant",
             "type": "shell",
-            "command": "source .devcontainer/custom_component_helper && SetHomeAssistantVersion",
-            "group": {
-                "kind": "test",
-                "isDefault": true,
-            },
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Home Assistant Config Check",
-            "type": "shell",
-            "command": "source .devcontainer/custom_component_helper && HomeAssistantConfigCheck",
-            "group": {
-                "kind": "test",
-                "isDefault": true,
-            },
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Install TabNine Cloud AutoCompleter",
-            "type": "shell",
-            "command": "source .devcontainer/custom_component_helper && InstallTabNine",
-            "group": {
-                "kind": "test",
-                "isDefault": true,
-            },
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            },
+            "command": "dc set-version",
             "problemMatcher": []
         }
     ]

@@ -2,6 +2,7 @@
 # pylint: disable=broad-except, bad-continuation, no-member
 import pathlib
 import json
+import os
 from distutils.version import LooseVersion
 from integrationhelper import Validate, Logger
 from aiogithubapi import AIOGitHubException
@@ -355,8 +356,20 @@ class HacsRepository(Hacs):
     async def install(self):
         """Common installation steps of the repository."""
         self.validate.errors = []
+        persistent_directory = None
 
         await self.update_repository()
+
+        if self.repository_manifest:
+            if self.repository_manifest.persistent_directory:
+                if os.path.exists(
+                    f"{self.content.path.local}/{self.repository_manifest.persistent_directory}"
+                ):
+                    persistent_directory = Backup(
+                        f"{self.content.path.local}/{self.repository_manifest.persistent_directory}",
+                        "/tmp/hacs_persistent_directory/",
+                    )
+                    persistent_directory.create()
 
         if self.status.installed and not self.content.single:
             backup = Backup(self.content.path.local)
@@ -374,6 +387,10 @@ class HacsRepository(Hacs):
 
         if self.status.installed and not self.content.single:
             backup.cleanup()
+
+        if persistent_directory is not None:
+            persistent_directory.restore()
+            persistent_directory.cleanup()
 
         if validate.success:
             if self.information.full_name not in self.common.installed:
@@ -459,7 +476,7 @@ class HacsRepository(Hacs):
         try:
             manifest = await self.repository_object.get_contents("hacs.json", self.ref)
             self.repository_manifest = HacsManifest(json.loads(manifest.content))
-        except AIOGitHubException:  # Gotta Catch 'Em All
+        except (AIOGitHubException, Exception):  # Gotta Catch 'Em All
             pass
 
     async def get_info_md_content(self):
@@ -510,9 +527,13 @@ class HacsRepository(Hacs):
     async def get_releases(self):
         """Get repository releases."""
         if self.status.show_beta:
-            temp = await self.repository_object.get_releases(prerelease=True)
+            temp = await self.repository_object.get_releases(
+                prerelease=True, returnlimit=self.configuration.release_limit
+            )
         else:
-            temp = await self.repository_object.get_releases(prerelease=False)
+            temp = await self.repository_object.get_releases(
+                prerelease=False, returnlimit=self.configuration.release_limit
+            )
 
         if not temp:
             return
@@ -570,7 +591,6 @@ class HacsRepository(Hacs):
 
     async def remove_local_directory(self):
         """Check the local directory."""
-        import os
         import shutil
         from asyncio import sleep
 

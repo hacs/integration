@@ -3,7 +3,6 @@
 from integrationhelper import Logger
 from homeassistant.helpers.entity import Entity
 from .hacsbase import Hacs as hacs
-from .const import DOMAIN, VERSION, NAME_LONG, PROJECT_URL
 
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
@@ -79,12 +78,3 @@ class HACSSensor(Entity):
                 }
             )
         return {"repositories": data}
-
-    @property
-    def device_info(self):
-        return {
-            "identifiers": {(DOMAIN, self.unique_id)},
-            "name": NAME_LONG,
-            "sw_version": VERSION,
-            "manufacturer": PROJECT_URL,
-        }

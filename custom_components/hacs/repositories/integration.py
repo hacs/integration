@@ -48,15 +48,16 @@ class HacsIntegration(HacsRepository):
         if self.repository_manifest:
             if self.repository_manifest.content_in_root:
                 self.content.path.remote = ""
-        else:
 
+        if self.content.path.remote == "custom_components":
             ccdir = await self.repository_object.get_contents(
-                "custom_components", self.ref
+                self.content.path.remote, self.ref
             )
             if not isinstance(ccdir, list):
                 self.validate.errors.append("Repostitory structure not compliant")
 
             self.content.path.remote = ccdir[0].path
+
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )
@@ -94,6 +95,20 @@ class HacsIntegration(HacsRepository):
         await self.common_update()
 
         # Get integration objects.
+
+        if self.repository_manifest:
+            if self.repository_manifest.content_in_root:
+                self.content.path.remote = ""
+
+        if self.content.path.remote == "custom_components":
+            ccdir = await self.repository_object.get_contents(
+                self.content.path.remote, self.ref
+            )
+            if not isinstance(ccdir, list):
+                self.validate.errors.append("Repostitory structure not compliant")
+
+            self.content.path.remote = ccdir[0].path
+
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )
@@ -130,6 +145,8 @@ class HacsIntegration(HacsRepository):
             self.domain = manifest["domain"]
             self.information.name = manifest["name"]
             self.information.homeassistant_version = manifest.get("homeassistant")
+
+            # Set local path
+            self.content.path.local = self.localpath
             return True
-        else:
-            return False
+        return False

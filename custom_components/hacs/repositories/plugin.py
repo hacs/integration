@@ -116,7 +116,7 @@ class HacsPlugin(HacsRepository):
                     f"{self.information.name}.umd.js",
                     f"{self.information.name}-bundle.js",
                 ]
-                self.logger.info(self.repository_manifest)
+
                 if self.repository_manifest:
                     if self.repository_manifest.filename:
                         valid_filenames.append(self.repository_manifest.filename)

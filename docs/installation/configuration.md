@@ -4,8 +4,8 @@
 
 ***
 
-HACS uses the GitHub API to gather information.  
-Without a valid token, HACS will **not** start.  
+HACS uses the GitHub API to gather information.
+Without a valid token, HACS will **not** start.
 
 ## Example configuration
 
@@ -27,8 +27,9 @@ key | optional | default | description
 ### Options
 
 option | description
--- | -- | -- | --
+-- | --
 `country` | Set a filer based on your [A2(ISO) country code](https://www.worldatlas.com/aatlas/ctycodes.htm).
+`release_limit` | Number of releases to show in the version selector. (Defaults to 5)
 
 ***
 

@@ -38,7 +38,10 @@ from .hacsbase.migration import ValidateData
 
 
 OPTIONS_SCHEMA = vol.Schema(
-    {vol.Optional("country"): vol.All(cv.string, vol.In(const.LOCALE))}
+    {
+        vol.Optional("country"): vol.All(cv.string, vol.In(const.LOCALE)),
+        vol.Optional("release_limit"): cv.positive_int,
+    }
 )
 
 
@@ -225,8 +228,10 @@ def check_version(hacs):
 async def load_hacs_repository(hacs):
     """Load HACS repositroy."""
     try:
-        await hacs().register_repository("custom-components/hacs", "integration")
         repository = hacs().get_by_name("custom-components/hacs")
+        if repository is None:
+            await hacs().register_repository("custom-components/hacs", "integration")
+            repository = hacs().get_by_name("custom-components/hacs")
         if repository is None:
             raise AIOGitHubException("Unknown error")
         repository.status.installed = True
@@ -349,7 +354,9 @@ async def async_remove_entry(hass, config_entry):
     Hacs().logger.info("Removing sidepanel")
     try:
         hass.components.frontend.async_remove_panel(
-            Hacs.configuration.sidepanel_title.lower().replace(" ", "_").replace("-", "_")
+            Hacs.configuration.sidepanel_title.lower()
+            .replace(" ", "_")
+            .replace("-", "_")
         )
     except AttributeError:
         pass

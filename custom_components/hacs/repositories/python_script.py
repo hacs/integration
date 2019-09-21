@@ -51,12 +51,16 @@ class HacsPythonScript(HacsRepository):
         # Set name
         self.information.name = self.content.objects[0].name.replace(".py", "")
 
-    async def update_repository(self):
+    async def update_repository(self):  # lgtm[py/similar-function]
         """Update."""
         # Run common update steps.
         await self.common_update()
 
         # Get python_script objects.
+        if self.repository_manifest:
+            if self.repository_manifest.content_in_root:
+                self.content.path.remote = ""
+
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )

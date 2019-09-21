@@ -228,8 +228,10 @@ def check_version(hacs):
 async def load_hacs_repository(hacs):
     """Load HACS repositroy."""
     try:
-        await hacs().register_repository("custom-components/hacs", "integration")
         repository = hacs().get_by_name("custom-components/hacs")
+        if repository is None:
+            await hacs().register_repository("custom-components/hacs", "integration")
+            repository = hacs().get_by_name("custom-components/hacs")
         if repository is None:
             raise AIOGitHubException("Unknown error")
         repository.status.installed = True

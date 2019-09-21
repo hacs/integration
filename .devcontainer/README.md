@@ -40,11 +40,11 @@ _Start "tasks" by opening the the command pallet (ctrl+shift+p) and select `Task
 
 Running tasks like `Start Home Assistant on port 8124` can be restarted by opening the the command pallet (ctrl+shift+p) and select `Tasks: Restart Running Task`, then select the task you want to restart.
 
-### Start Home Assistant on port 8124
+### Start Home Assistant on port 9123
 
 This will copy the configuration and the integration files to the expected location in the container.
 
-And start up Home Assistant on [port 8124.](http://localhost:8124)
+And start up Home Assistant on [port 9123.](http://localhost:8124)
 
 ### Upgrade Home Assistant to latest dev
 

@@ -96,3 +96,8 @@ class Configuration:
         if country == "ALL" or country is None:
             return None
         return country
+
+    @property
+    def release_limit(self):
+        """Return release limit"""
+        return self.options.get("release_limit", 5)

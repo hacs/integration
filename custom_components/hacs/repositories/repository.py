@@ -527,9 +527,13 @@ class HacsRepository(Hacs):
     async def get_releases(self):
         """Get repository releases."""
         if self.status.show_beta:
-            temp = await self.repository_object.get_releases(prerelease=True)
+            temp = await self.repository_object.get_releases(
+                prerelease=True, returnlimit=self.configuration.release_limit
+            )
         else:
-            temp = await self.repository_object.get_releases(prerelease=False)
+            temp = await self.repository_object.get_releases(
+                prerelease=False, returnlimit=self.configuration.release_limit
+            )
 
         if not temp:
             return

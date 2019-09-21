@@ -38,7 +38,10 @@ from .hacsbase.migration import ValidateData
 
 
 OPTIONS_SCHEMA = vol.Schema(
-    {vol.Optional("country"): vol.All(cv.string, vol.In(const.LOCALE))}
+    {
+        vol.Optional("country"): vol.All(cv.string, vol.In(const.LOCALE)),
+        vol.Optional("release_limit"): cv.positive_int,
+    }
 )
 
 
@@ -349,7 +352,9 @@ async def async_remove_entry(hass, config_entry):
     Hacs().logger.info("Removing sidepanel")
     try:
         hass.components.frontend.async_remove_panel(
-            Hacs.configuration.sidepanel_title.lower().replace(" ", "_").replace("-", "_")
+            Hacs.configuration.sidepanel_title.lower()
+            .replace(" ", "_")
+            .replace("-", "_")
         )
     except AttributeError:
         pass

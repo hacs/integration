@@ -10,9 +10,6 @@ import {
 } from "lit-element";
 
 import {
-  HomeAssistant,
-  handleClick,
-  longPress,
   hasConfigOrEntityChanged
 } from "custom-card-helpers";
 
@@ -20,13 +17,9 @@ import "./HacsCard"
 //import "./HacsHeader"
 import { HomeAssistantObject } from './HomeAssistantObject'
 
-class WsHacsConfigResponse {
-  public content = null;
-}
-
 @customElement("hacs-frontend")
 class HacsFrontendBase extends LitElement {
-  @property() public wsResponse?: WsHacsConfigResponse;
+  public wsResponse = null;
   public hass = (parent.document.querySelector('home-assistant') as HomeAssistantObject).hass;
 
   protected shouldUpdate(changedProps: PropertyValues): boolean {
@@ -39,9 +32,7 @@ class HacsFrontendBase extends LitElement {
       type: 'hacs/config'
     }).then(
       (resp) => {
-        console.log('Message success!', resp);
-        this.wsResponse = resp.content;
-        this.render()
+        this.wsResponse = resp;
       },
       (err) => {
         console.error('Message failed!', err);
@@ -49,8 +40,13 @@ class HacsFrontendBase extends LitElement {
     );
   }
 
+  updated() {
+    this.render();
+    console.log('updated');
+  }
+
   protected render(): TemplateResult | void {
-    if (this.wsResponse !== undefined) this.getHacsConfig(this.hass);
+    this.getHacsConfig(this.hass);
     return html`
     <html>
     <head>

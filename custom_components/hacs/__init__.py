@@ -30,7 +30,7 @@ from integrationhelper import Logger, Version
 
 from . import const
 from .api import HacsAPI, HacsRunningTask
-from .http import HacsWebResponse, HacsPluginView, HacsPlugin
+from .http import HacsWebResponse, HacsPluginView, HacsPlugin, HacsExperimental
 from .hacsbase import const as hacsconst, Hacs
 from .hacsbase.data import HacsData
 from .hacsbase.configuration import Configuration
@@ -284,6 +284,7 @@ async def setup_frontend(hacs):
     hacs.hass.http.register_view(HacsPluginView())
     hacs.hass.http.register_view(HacsRunningTask())
     hacs.hass.http.register_view(HacsWebResponse())
+    hacs.hass.http.register_view(HacsExperimental())
 
     # Add to sidepanel
     hacs.hass.components.frontend.async_register_built_in_panel(
@@ -292,6 +293,16 @@ async def setup_frontend(hacs):
         hacs.configuration.sidepanel_icon,
         hacs.configuration.sidepanel_title.lower().replace(" ", "_").replace("-", "_"),
         {"url": hacs.hacsweb + "/overview"},
+        require_admin=True,
+    )
+
+    # Experimental
+    hacs.hass.components.frontend.async_register_built_in_panel(
+        "iframe",
+        "HACS (Experimental)",
+        "mdi:alert-circle",
+        "hacs_experimental",
+        {"url": "/hacs_experimental/index.html"},
         require_admin=True,
     )
 

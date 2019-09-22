@@ -296,16 +296,6 @@ async def setup_frontend(hacs):
         require_admin=True,
     )
 
-    # Experimental
-    hacs.hass.components.frontend.async_register_built_in_panel(
-        "iframe",
-        "HACS (Experimental)",
-        "mdi:alert-circle",
-        "hacs_experimental",
-        {"url": "/hacs_experimental/index.html"},
-        require_admin=True,
-    )
-
 
 async def add_services(hacs):
     """Add services."""

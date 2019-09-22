@@ -8,7 +8,8 @@ import {
 } from "lit-element";
 
 import { HacsCard } from "./HacsCard"
-import { HomeAssistantObject } from "./HomeAssistantObject"
+import "./Header"
+import { HomeAssistantObject } from './HomeAssistantObject'
 
 
 customElements.define('hacs-overview-card', HacsCard);
@@ -21,9 +22,16 @@ class BoilerplateCard extends LitElement {
 
     // TODO Check for stateObj or other necessary things and render a warning if missing
     return html`
+    <script>document.getElementsByTagName("html").item(0).setAttribute("style", parent.document.getElementsByTagName("html").item(0).style.cssText)</script>
+    <hacs-header></hacs-header>
+    <div content>
           <hacs-overview-card
           header="${this.hass.localize("component.hacs.config.title")}"
           >content</hacs-overview-card>
+          <ha-card>
+          <div class="warning">Show Warning</div>
+        </ha-card>
+        </div>
         `;
   }
 

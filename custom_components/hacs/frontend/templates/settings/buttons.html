@@ -1,26 +1,40 @@
-<div class='hacs-overview-container minigrid'>
+<script>
+  class HacsSettingsHacsButtons extends HTMLElement {
+    render() {
+      this.innerHTML = `
+        <div class='hacs-overview-container minigrid'>
 
-  <form action="/hacsapi/{{ hacs.token }}/repositories_reload" name="reload" method="post" accept-charset="utf-8"
-    enctype="application/x-www-form-urlencoded" class="hacs-form">
-    <a class="waves-effect waves-light btn modal-trigger hacsbutton" href="#"
-      onclick="toggleLoading();document.getElementsByName('reload')[0].submit()">
-      RELOAD DATA
-    </a>
-  </form>
+          <form action="/hacsapi/{{ hacs.token }}/repositories_reload" name="reload" method="post" accept-charset="utf-8"
+            enctype="application/x-www-form-urlencoded" class="hacs-form">
+            <a class="waves-effect waves-light btn modal-trigger hacsbutton" href="#"
+              onclick="toggleLoading();document.getElementsByName('reload')[0].submit()">
+              ${hass.localize("component.hacs.settings.reload_data")}
+            </a>
+          </form>
 
-  <a href="#modal_upgrade_all" class="waves-effect waves-light btn modal-trigger hacsbutton"
-    style="background-color: var(--google-red-500) !important; font-weight: bold;">
-    UPGRADE ALL
-  </a>
+          <a href="#modal_upgrade_all" class="waves-effect waves-light btn modal-trigger hacsbutton"
+            style="background-color: var(--google-red-500) !important; font-weight: bold;">
+            ${hass.localize("component.hacs.settings.upgrade_all")}
+          </a>
 
-  <a href='https://github.com/custom-components/hacs' rel='noreferrer' class='waves-effect waves-light btn hacsbutton'
-    target="_blank">
-    HACS REPO
-  </a>
+          <a href='https://github.com/custom-components/hacs' rel='noreferrer' class='waves-effect waves-light btn hacsbutton'
+            target="_blank">
+            ${hass.localize("component.hacs.settings.hacs_repo")}
+          </a>
 
-  <a href='https://github.com/custom-components/hacs/issues' rel='noreferrer'
-    class='waves-effect waves-light btn hacsbutton' target="_blank">
-    OPEN ISSUE
-  </a>
+          <a href='https://github.com/custom-components/hacs/issues' rel='noreferrer'
+            class='waves-effect waves-light btn hacsbutton' target="_blank">
+            ${hass.localize("component.hacs.common.open_issue")}
+          </a>
 
-</div>
+        </div>`;
+    }
+
+    connectedCallback() {
+      this.render();
+    }
+  }
+
+  customElements.define('hacs-settings-hacs-buttons', HacsSettingsHacsButtons);
+</script>
+<hacs-settings-hacs-buttons></hacs-settings-hacs-buttons>

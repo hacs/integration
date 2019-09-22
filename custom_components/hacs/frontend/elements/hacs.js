@@ -1,3 +1,6 @@
+// Sett hass
+var hass = parent.document.querySelector('home-assistant').hass
+
 // Copy active HA theme
 document.getElementsByTagName("html").item(0).setAttribute("style", parent.document.getElementsByTagName("html").item(0).style.cssText)
 
@@ -18,31 +21,6 @@ function ShowProgressBar() {
 function HardReload() {
     parent.location.reload(true)
 }
-
-// Searchbar
-function Search() {
-    var input = document.getElementById("Search");
-    if (input) {
-        var filter = input.value.toLowerCase();
-        var nodes = document.getElementsByClassName('hacs-card');
-        for (var i = 0; i < nodes.length; i++) {
-            if (nodes[i].innerHTML.toLowerCase().includes(filter)) {
-                nodes[i].style.display = "block";
-            } else {
-                nodes[i].style.display = "none";
-            }
-        }
-        var nodes = document.getElementsByClassName('hacs-table-row');
-        for (i = 0; i < nodes.length; i++) {
-            if (nodes[i].innerHTML.toLowerCase().includes(filter)) {
-                nodes[i].style.display = "table-row";
-            } else {
-                nodes[i].style.display = "none";
-            }
-        }
-    }
-}
-
 
 // Dropdown
 document.addEventListener('DOMContentLoaded', function () {

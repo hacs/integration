@@ -12,7 +12,9 @@ from distutils.version import LooseVersion
 import aiohttp
 
 import voluptuous as vol
+from homeassistant.components import websocket_api
 from homeassistant import config_entries
+from homeassistant.core import callback
 from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
@@ -294,6 +296,32 @@ async def setup_frontend(hacs):
         hacs.configuration.sidepanel_title.lower().replace(" ", "_").replace("-", "_"),
         {"url": hacs.hacsweb + "/overview"},
         require_admin=True,
+    )
+
+    await setup_ws_api(hacs)
+
+
+async def setup_ws_api(hacs):
+    """Add API endpoints."""
+    WS_TYPE_HACS_CONFIG = "hacs/config"
+    SCHEMA_WS_HACS_CONFIG = websocket_api.BASE_COMMAND_MESSAGE_SCHEMA.extend(
+        {"type": WS_TYPE_HACS_CONFIG}
+    )
+
+    hacs.hass.components.websocket_api.async_register_command(
+        WS_TYPE_HACS_CONFIG, websocket_handle_hacs_config, SCHEMA_WS_HACS_CONFIG
+    )
+
+    hacs.logger.info(f"Added WS endpoint '{WS_TYPE_HACS_CONFIG}'")
+
+
+@callback
+def websocket_handle_hacs_config(hass, connection, msg):
+    """Handle get media player cover command."""
+    config = Hacs().configuration
+
+    connection.send_message(
+        websocket_api.result_message(msg["id"], {"content": config.frontend_mode})
     )
 
 

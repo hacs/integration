@@ -314,6 +314,19 @@ async def setup_ws_api(hacs):
 
     hacs.logger.info(f"Added WS endpoint '{WS_TYPE_HACS_CONFIG}'")
 
+    WS_TYPE_HACS_REPOSITORIES = "hacs/repositories"
+    SCHEMA_WS_HACS_REPOSITORIES = websocket_api.BASE_COMMAND_MESSAGE_SCHEMA.extend(
+        {"type": WS_TYPE_HACS_REPOSITORIES}
+    )
+
+    hacs.hass.components.websocket_api.async_register_command(
+        WS_TYPE_HACS_REPOSITORIES,
+        websocket_handle_hacs_repositories,
+        SCHEMA_WS_HACS_REPOSITORIES,
+    )
+
+    hacs.logger.info(f"Added WS endpoint '{WS_TYPE_HACS_REPOSITORIES}'")
+
 
 @callback
 def websocket_handle_hacs_config(hass, connection, msg):
@@ -322,6 +335,21 @@ def websocket_handle_hacs_config(hass, connection, msg):
 
     connection.send_message(
         websocket_api.result_message(msg["id"], {"content": config.frontend_mode})
+    )
+
+
+@callback
+def websocket_handle_hacs_repositories(hass, connection, msg):
+    """Handle get media player cover command."""
+    repositories = Hacs().repositories
+    content = []
+    for repo in repositories:
+        content.append(
+            {"name": repo.display_name, "description": repo.information.description}
+        )
+
+    connection.send_message(
+        websocket_api.result_message(msg["id"], {"content": content})
     )
 
 

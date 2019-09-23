@@ -16,43 +16,37 @@ import "@granite-elements/granite-spinner";
 
 import { load_lovelace } from "./FromCardTools"
 
-
-interface WebSocketResponse {
-  content?: string;
-}
-
 @customElement("hacs-frontend")
 class HacsFrontendBase extends LitElement {
   @property()
   public hass!: HomeAssistant;
 
   @property()
-  public narrow!: boolean;
+  public repositories;
 
   @property()
-  public wsResponse?: WebSocketResponse;
+  public narrow!: boolean;
 
   firstUpdated() {
     console.log("loaded");
     this.requestUpdate()
     this.hass.connection.sendMessagePromise({
-      type: "hacs/config"
+      type: "hacs/repositories"
     }).then(
       (resp) => {
-        this.wsResponse = resp as WebSocketResponse;
-        console.log(load_lovelace())
+        this.repositories = resp;
         console.log('Message OK!', resp);
       },
       (err) => {
         console.error('Message failed!', err);
       }
     );
+
+    // "steal" LL elements
+    load_lovelace()
   }
 
-  unReachable() {
-    //let pm = Pacman;
-  }
-
+  public spinner = html`<granite-spinner color="var(--primary-color)" active hover size=400 containerHeight=100%></granite-spinner>`;
 
   updated(changedProperties: any) {
     console.log('updated');
@@ -62,7 +56,7 @@ class HacsFrontendBase extends LitElement {
   }
 
   protected render(): TemplateResult | void {
-    if (this.wsResponse === undefined) return html`<granite-spinner active hover size=400 containerHeight=100%></granite-spinner>`
+    if (this.repositories === undefined) return this.spinner;
     return html`
 
     <app-header-layout has-scrolling-region>
@@ -76,13 +70,18 @@ class HacsFrontendBase extends LitElement {
 
 
 
-
       <div class="hacs-content">
-          <ha-card header="(This is a ha-card element)${this.hass.localize("component.hacs.config.title")}">
+
+
+        ${this.repositories.content.map(repo =>
+      html`<ha-card header="${repo.name}">
           <div class="card-content">
-          ${this.wsResponse.content} Lorem ipsum dolor sit amet, consectetur adipiscing elit.Sed posuere tincidunt libero, quis imperdiet ex tincidunt eget.Phasellus auctor sit amet ligula ut malesuada.
+            <i>${repo.description}<i>
           </div>
           </ha-card>
+          `)}
+
+
       </div>
 
 
@@ -98,6 +97,9 @@ class HacsFrontendBase extends LitElement {
       color: var(--text-primary-color);
       background-color: var(--primary-color);
       font-weight: 400;
+    }
+    ha-card {
+      margin: 8px;
     }
     `;
   }

@@ -5,34 +5,43 @@ import {
   TemplateResult,
   html,
   css,
-  property,
-  PropertyValues
+  property
 } from "lit-element";
 
 import {
-  hasConfigOrEntityChanged
+  HomeAssistant
 } from "custom-card-helpers";
 
-import "./HacsCard"
-//import "./HacsHeader"
-import { HomeAssistantObject } from './HomeAssistantObject'
+import "@granite-elements/granite-spinner";
+
+import { load_lovelace } from "./FromCardTools"
+
+
+interface WebSocketResponse {
+  content?: string;
+}
 
 @customElement("hacs-frontend")
 class HacsFrontendBase extends LitElement {
-  public wsResponse = null;
-  public hass = (parent.document.querySelector('home-assistant') as HomeAssistantObject).hass;
+  @property()
+  public hass!: HomeAssistant;
 
-  protected shouldUpdate(changedProps: PropertyValues): boolean {
-    this.render()
-    return hasConfigOrEntityChanged(this, changedProps, true);
-  }
+  @property()
+  public narrow!: boolean;
 
-  protected getHacsConfig(hass) {
-    hass.connection.sendMessagePromise({
-      type: 'hacs/config'
+  @property()
+  public wsResponse?: WebSocketResponse;
+
+  firstUpdated() {
+    console.log("loaded");
+    this.requestUpdate()
+    this.hass.connection.sendMessagePromise({
+      type: "hacs/config"
     }).then(
       (resp) => {
-        this.wsResponse = resp;
+        this.wsResponse = resp as WebSocketResponse;
+        console.log(load_lovelace())
+        console.log('Message OK!', resp);
       },
       (err) => {
         console.error('Message failed!', err);
@@ -40,61 +49,56 @@ class HacsFrontendBase extends LitElement {
     );
   }
 
-  updated() {
-    this.render();
+  unReachable() {
+    //let pm = Pacman;
+  }
+
+
+  updated(changedProperties: any) {
     console.log('updated');
+    changedProperties.forEach((oldValue: any, propName: any, newValue: any) => {
+      console.log(`${propName} changed. oldValue: ${oldValue}, newValue: ${newValue}`);
+    });
   }
 
   protected render(): TemplateResult | void {
-    this.getHacsConfig(this.hass);
+    if (this.wsResponse === undefined) return html`<granite-spinner active hover size=400 containerHeight=100%></granite-spinner>`
     return html`
-    <html>
-    <head>
-      <script src="/hacs_experimental/hacs.js"></script>
-      <script src="/hacs_experimental/hacs.css"></script>
-      <link rel="stylesheet" href="/hacs_experimental/materialize.min.css.gz">
-      <script src="/hacs_experimental/materialize.min.js.gz"></script>
 
-      <script>
-        document.getElementsByTagName("html").item(0).setAttribute("style", parent.document.getElementsByTagName("html").item(0).style.cssText)
-      </script>
-    </head>
-    <body>
-    <div class="navbar-fixed" >
-    <nav class="nav-extended hacs-nav" >
-      <div class="nav-content" >
-        <ul class="right tabs tabs-transparent" >
-          <li class="tab {{ 'active' if location == 'overview' }}" > <a
-          href="/hacsweb/{{ hacs.token }}/overview?timestamp={{ timestamp }}" >
-      ${ this.hass.localize("component.hacs.common.overview")} </a></li >
-        <li class="tab {{ 'active' if location == 'store' }}" > <a
-                href="/hacsweb/{{ hacs.token }}/store?timestamp={{ timestamp }}" >
-      ${ this.hass.localize("component.hacs.common.store")} </a></li >
-        <li class="tab right {{ 'active' if location == 'settings' }}" > <a
-                href="/hacsweb/{{ hacs.token }}/settings?timestamp={{ timestamp }}" >
-      ${ this.hass.localize("component.hacs.common.settings")} </a></li >
-        </ul>
-        </div>
-        </nav>
-        </div>
+    <app-header-layout has-scrolling-region>
+    <app-header slot="header" fixed>
+      <app-toolbar>
+        <ha-menu-button .hass="${this.hass}" .narrow="${this.narrow}"></ha-menu-button>
+        <div main-title>${this.hass.localize("component.hacs.config.title")}</div>
+      </app-toolbar>
+    </app-header>
+
+
+
+
+
       <div class="hacs-content">
-          <hacs-overview-card
-          header="${this.hass.localize("component.hacs.config.title")}"
-          content="${this.wsResponse} Lorem ipsum dolor sit amet, consectetur adipiscing elit.Sed posuere tincidunt libero, quis imperdiet ex tincidunt eget.Phasellus auctor sit amet ligula ut malesuada.">
-    </hacs-overview-card>
+          <ha-card header="(This is a ha-card element)${this.hass.localize("component.hacs.config.title")}">
+          <div class="card-content">
+          ${this.wsResponse.content} Lorem ipsum dolor sit amet, consectetur adipiscing elit.Sed posuere tincidunt libero, quis imperdiet ex tincidunt eget.Phasellus auctor sit amet ligula ut malesuada.
+          </div>
+          </ha-card>
       </div>
-      </body>
-      </html>
+
+
+
+
+  </app-header-layout>
         `;
   }
 
   static get styles(): CSSResult {
     return css`
-        .warning {
-          display: block;
-          color: black;
-          background - color: #fce588;
-          padding: 8px;
-        }`;
+    app-header {
+      color: var(--text-primary-color);
+      background-color: var(--primary-color);
+      font-weight: 400;
+    }
+    `;
   }
 }

@@ -75,12 +75,28 @@ class HacsFrontendBase extends LitElement {
     .selected="${this.page}"
     @iron-activate=${true}>
 
-    <paper-tab page-name="overview">
-    ${this.hass.localize("component.hacs.common.overview").toUpperCase()}
+    <paper-tab page-name="installed">
+    INSTALLED
     </paper-tab>
 
-    <paper-tab page-name="store">
-    ${this.hass.localize("component.hacs.common.store").toUpperCase()}
+    <paper-tab page-name="integrations">
+    INTEGRATIONS
+    </paper-tab>
+
+    <paper-tab page-name="plugins">
+    PLUGINS
+    </paper-tab>
+
+    <paper-tab page-name="appdaemon_apps">
+    APPDAEMON APPS
+    </paper-tab>
+
+    <paper-tab page-name="python_scripts">
+    PYTHON SCRIPTS
+    </paper-tab>
+
+    <paper-tab page-name="themes">
+    THEMES
     </paper-tab>
 
     <paper-tab class="right" page-name="settings">

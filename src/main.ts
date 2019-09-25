@@ -27,6 +27,9 @@ class HacsFrontendBase extends LitElement {
   @property()
   public narrow!: boolean;
 
+  @property()
+  public page: string = "overview";
+
   firstUpdated() {
     console.log("loaded");
     this.requestUpdate()
@@ -66,7 +69,25 @@ class HacsFrontendBase extends LitElement {
         <div main-title>${this.hass.localize("component.hacs.config.title")}</div>
       </app-toolbar>
     </app-header>
+    <paper-tabs
+    scrollable
+    attr-for-selected="page-name"
+    .selected="${this.page}"
+    @iron-activate=${true}>
 
+    <paper-tab page-name="overview">
+    ${this.hass.localize("component.hacs.common.overview").toUpperCase()}
+    </paper-tab>
+
+    <paper-tab page-name="store">
+    ${this.hass.localize("component.hacs.common.store").toUpperCase()}
+    </paper-tab>
+
+    <paper-tab class="right" page-name="settings">
+    ${this.hass.localize("component.hacs.common.settings").toUpperCase()}
+    </paper-tab>
+
+    </paper-tabs>
 
 
 
@@ -93,10 +114,21 @@ class HacsFrontendBase extends LitElement {
 
   static get styles(): CSSResult {
     return css`
+    :host {
+      color: var(--primary-text-color);
+      --paper-card-header-color: var(--primary-text-color);
+    }
     app-header {
       color: var(--text-primary-color);
       background-color: var(--primary-color);
       font-weight: 400;
+    }
+    paper-tabs {
+      color: var(--text-primary-color);
+      background-color: var(--primary-color);
+      font-weight: 400;
+      --paper-tabs-selection-bar-color: #fff;
+      text-transform: uppercase;
     }
     ha-card {
       margin: 8px;

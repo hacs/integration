@@ -345,7 +345,12 @@ def websocket_handle_hacs_repositories(hass, connection, msg):
     content = []
     for repo in repositories:
         content.append(
-            {"name": repo.display_name, "description": repo.information.description}
+            {
+                "name": repo.display_name,
+                "description": repo.information.description,
+                "category": repo.information.category,
+                "installed": repo.status.installed
+            }
         )
 
     connection.send_message(

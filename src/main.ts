@@ -12,9 +12,16 @@ import {
   HomeAssistant
 } from "custom-card-helpers";
 
-import "@granite-elements/granite-spinner";
 
 import { load_lovelace } from "./FromCardTools"
+import "./HacsSpinner"
+import "./HacsPanel"
+
+
+interface Route {
+  prefix: string;
+  path: string;
+}
 
 @customElement("hacs-frontend")
 class HacsFrontendBase extends LitElement {
@@ -25,14 +32,17 @@ class HacsFrontendBase extends LitElement {
   public repositories;
 
   @property()
+  public route!: Route;
+
+  @property()
   public narrow!: boolean;
 
   @property()
-  public page: string = "overview";
+  public panel!: String;
 
-  firstUpdated() {
-    console.log("loaded");
-    this.requestUpdate()
+  private getRepositories(): void {
+    this.repositories = undefined;
+    this.requestUpdate();
     this.hass.connection.sendMessagePromise({
       type: "hacs/repositories"
     }).then(
@@ -43,23 +53,28 @@ class HacsFrontendBase extends LitElement {
       (err) => {
         console.error('Message failed!', err);
       }
-    );
+    )
+  };
+
+  firstUpdated() {
+    this.getRepositories()
 
     // "steal" LL elements
     load_lovelace()
   }
 
-  public spinner = html`<granite-spinner color="var(--primary-color)" active hover size=400 containerHeight=100%></granite-spinner>`;
-
-  updated(changedProperties: any) {
-    console.log('updated');
-    changedProperties.forEach((oldValue: any, propName: any, newValue: any) => {
-      console.log(`${propName} changed. oldValue: ${oldValue}, newValue: ${newValue}`);
-    });
-  }
-
   protected render(): TemplateResult | void {
-    if (this.repositories === undefined) return this.spinner;
+    var page = this._page
+    if (this.repositories === undefined) return html`<hacs-spinner></hacs-spinner>`;
+    var _repositories = this.repositories.content;
+
+    if (page !== null) {
+      var filter = this._page;
+      _repositories = this.repositories.content.filter(function (repo) {
+        return repo.category == filter;
+      });
+    }
+
     return html`
 
     <app-header-layout has-scrolling-region>
@@ -72,30 +87,30 @@ class HacsFrontendBase extends LitElement {
     <paper-tabs
     scrollable
     attr-for-selected="page-name"
-    .selected="${this.page}"
-    @iron-activate=${true}>
+    .selected="${page}"
+    @iron-activate=${this.handlePageSelected}>
 
     <paper-tab page-name="installed">
     INSTALLED
     </paper-tab>
 
-    <paper-tab page-name="integrations">
+    <paper-tab page-name="integration">
     INTEGRATIONS
     </paper-tab>
 
-    <paper-tab page-name="plugins">
+    <paper-tab page-name="plugin">
     PLUGINS
     </paper-tab>
 
-    <paper-tab page-name="appdaemon_apps">
+    <paper-tab page-name="appdaemon">
     APPDAEMON APPS
     </paper-tab>
 
-    <paper-tab page-name="python_scripts">
+    <paper-tab page-name="python_script">
     PYTHON SCRIPTS
     </paper-tab>
 
-    <paper-tab page-name="themes">
+    <paper-tab page-name="theme">
     THEMES
     </paper-tab>
 
@@ -105,27 +120,23 @@ class HacsFrontendBase extends LitElement {
 
     </paper-tabs>
 
+    <hacs-panel .repositories=${JSON.stringify(this.repositories.content)} .panel="${this._page}"></hacs-panel>
 
-
-      <div class="hacs-content">
-
-
-        ${this.repositories.content.map(repo =>
-      html`<ha-card header="${repo.name}">
-          <div class="card-content">
-            <i>${repo.description}<i>
-          </div>
-          </ha-card>
-          `)}
-
-
-      </div>
-
-
-
-
-  </app-header-layout>
+    </app-header-layout>
         `;
+  }
+
+  handlePageSelected(ev) {
+    this.requestUpdate();
+    const newPage = ev.detail.item.getAttribute("page-name");
+    this.panel = newPage;
+    console.log("nav")
+    navigate(this, `/hacs/${newPage}`);
+  }
+
+  private get _page() {
+    if (this.route.path.substr(1) === null) return "installed";
+    return this.route.path.substr(1);
   }
 
   static get styles(): CSSResult {
@@ -149,6 +160,23 @@ class HacsFrontendBase extends LitElement {
     ha-card {
       margin: 8px;
     }
+    .hacs-repositories {
+      display: grid;
+
+      grid-template-columns: repeat(3, 1fr);
+    }
     `;
   }
 }
+
+const navigate = (
+  _node: any,
+  path: string,
+  replace: boolean = true
+) => {
+  if (replace) {
+    history.replaceState(null, "", path);
+  } else {
+    history.pushState(null, "", path);
+  }
+};

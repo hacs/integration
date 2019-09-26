@@ -333,8 +333,16 @@ def websocket_handle_hacs_config(hass, connection, msg):
     """Handle get media player cover command."""
     config = Hacs().configuration
 
+    content = {}
+    content["frontend_mode "] = config.frontend_mode
+    content["dev "] = config.dev
+    content["appdaemon "] = config.appdaemon
+    content["python_script "] = config.python_script
+    content["theme "] = config.theme
+    content["option_country "] = config.option_country
+
     connection.send_message(
-        websocket_api.result_message(msg["id"], {"content": config.frontend_mode})
+        websocket_api.result_message(msg["id"], {"content": content})
     )
 
 
@@ -349,7 +357,7 @@ def websocket_handle_hacs_repositories(hass, connection, msg):
                 "name": repo.display_name,
                 "description": repo.information.description,
                 "category": repo.information.category,
-                "installed": repo.status.installed
+                "installed": repo.status.installed,
             }
         )
 

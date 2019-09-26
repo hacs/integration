@@ -43,15 +43,26 @@ class HacsFrontendBase extends LitElement {
   @property()
   public panel!: String;
 
+  public configuration
+
   private getRepositories(): void {
     this.repositories = undefined;
     this.requestUpdate();
+    this.hass.connection.sendMessagePromise({
+      type: "hacs/config"
+    }).then(
+      (resp) => {
+        this.configuration = resp;
+      },
+      (err) => {
+        console.error('Message failed!', err);
+      }
+    )
     this.hass.connection.sendMessagePromise({
       type: "hacs/repositories"
     }).then(
       (resp) => {
         this.repositories = resp;
-        console.log('Message OK!', resp);
       },
       (err) => {
         console.error('Message failed!', err);
@@ -98,17 +109,20 @@ class HacsFrontendBase extends LitElement {
     PLUGINS
     </paper-tab>
 
-    <paper-tab page-name="appdaemon">
+    ${(this.configuration.appdaemon ?
+        html`<paper-tab page-name="appdaemon">
     APPDAEMON APPS
-    </paper-tab>
+    </paper-tab>`: "")}
 
-    <paper-tab page-name="python_script">
+    ${(this.configuration.python_script ?
+        html`<paper-tab page-name="python_script">
     PYTHON SCRIPTS
-    </paper-tab>
+    </paper-tab>`: "")}
 
-    <paper-tab page-name="theme">
+    ${(this.configuration.theme ?
+        html`<paper-tab page-name="theme">
     THEMES
-    </paper-tab>
+    </paper-tab>`: "")}
 
     <paper-tab class="right" page-name="settings">
     ${this.hass.localize("component.hacs.common.settings").toUpperCase()}

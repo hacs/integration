@@ -21,6 +21,7 @@ import "./panels/plugins";
 import "./panels/appdaemon_apps";
 import "./panels/python_scripts";
 import "./panels/themes";
+import "./panels/store";
 import "./panels/settings";
 
 
@@ -125,36 +126,12 @@ class HacsFrontendBase extends LitElement {
         .repositories=${this.repositories}>
         </hacs-panel-installed>` : "")}
 
-    ${(this.panel === "integration" ? html`
-    <hacs-panel-integrations
+    ${(this.panel === "integration" || "plugin" || "appdaemon" || "python_script" || "theme" ? html`
+    <hacs-panel-store
       .hass=${this.hass}
-      .repositories=${this.repositories}>
-      </hacs-panel-integrations>` : "")}
-
-    ${(this.panel === "plugin" ? html`
-    <hacs-panel-plugins
-      .hass=${this.hass}
-      .repositories=${this.repositories}>
-      </hacs-panel-plugins>` : "")}
-
-    ${(this.panel === "appdaemon" ? html`
-    <hacs-panel-appdaemon_apps
-      .hass=${this.hass}
-      .repositories=${this.repositories}>
-      </hacs-panel-appdaemon_apps>` : "")}
-
-    ${(this.panel === "python_script" ? html`
-    <hacs-panel-python_scripts
-      .hass=${this.hass}
-      .repositories=${this.repositories}>
-      </hacs-panel-python_scripts>` : "")}
-
-    ${(this.panel === "theme" ? html`
-    <hacs-panel-themes
-      .hass=${this.hass}
-      .repositories=${this.repositories}>
-      </hacs-panel-themes>` : "")}
-
+      .repositories=${this.repositories}
+      .panel=${this.panel}>
+      </hacs-panel-store>` : "")}
 
     ${(this.panel === "settings" ? html`
       <hacs-panel-settings

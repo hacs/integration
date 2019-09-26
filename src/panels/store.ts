@@ -12,8 +12,8 @@ import {
   HomeAssistant
 } from "custom-card-helpers";
 
-@customElement("hacs-panel-python_scripts")
-export class HacsPanelPythonScripts extends LitElement {
+@customElement("hacs-panel-store")
+export class HacsPanelStore extends LitElement {
 
   @property()
   public hass!: HomeAssistant;
@@ -21,10 +21,14 @@ export class HacsPanelPythonScripts extends LitElement {
   @property()
   public repositories;
 
+  @property()
+  public panel;
+
   protected render(): TemplateResult | void {
+    const category = this.panel;
     var _repositories = this.repositories.content || [];
     _repositories = this.repositories.content.filter(function (repo) {
-      return repo.category === "python_script";
+      return repo.category === category;
     });
 
     return html`

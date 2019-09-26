@@ -15,12 +15,8 @@ import {
 import { load_lovelace } from "./FromCardTools"
 
 import "./HacsSpinner"
+
 import "./panels/installed";
-import "./panels/integrations";
-import "./panels/plugins";
-import "./panels/appdaemon_apps";
-import "./panels/python_scripts";
-import "./panels/themes";
 import "./panels/store";
 import "./panels/settings";
 

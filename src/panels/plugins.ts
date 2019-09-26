@@ -12,8 +12,8 @@ import {
   HomeAssistant
 } from "custom-card-helpers";
 
-@customElement("hacs-panel-integrations")
-export class HacsPanelIntegrations extends LitElement {
+@customElement("hacs-panel-plugins")
+export class HacsPanelPlugins extends LitElement {
 
   @property()
   public hass!: HomeAssistant;
@@ -24,7 +24,7 @@ export class HacsPanelIntegrations extends LitElement {
   protected render(): TemplateResult | void {
     var _repositories = this.repositories.content || [];
     _repositories = this.repositories.content.filter(function (repo) {
-      return repo.category === "integration";
+      return repo.category === "plugin";
     });
 
     return html`

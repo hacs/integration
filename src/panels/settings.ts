@@ -15,22 +15,19 @@ import {
 
 @customElement("hacs-panel-settings")
 export class HacsPanelSettings extends LitElement {
-
   @property()
   public hass!: HomeAssistant;
 
   @property()
   public repositories;
 
-  @property()
-  public panel!: string;
-
-  protected render(): TemplateResult | void {
+  render(): TemplateResult | void {
+    console.log('hass: ', this.hass)
     return html`
 
-    <p>${this.hass}</p></br>
-    <p>${this.repositories}</p></br>
-    <p>${this.panel}</p></br>
+    <ha-card header="${this.hass.localize("component.hacs.config.title")}">
+
+    </ha-card>
           `;
   }
 

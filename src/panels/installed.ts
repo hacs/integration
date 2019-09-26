@@ -22,15 +22,22 @@ export class HacsPanelInstalled extends LitElement {
   @property()
   public repositories;
 
-  @property()
-  public panel!: string;
-
   protected render(): TemplateResult | void {
-    return html`
+    var _repositories = this.repositories.content || [];
+    _repositories = this.repositories.content.filter(function (repo) {
+      return repo.installed;
+    });
 
-    <p>${this.hass}</p></br>
-    <p>${this.repositories}</p></br>
-    <p>${this.panel}</p></br>
+    return html`
+    <div class="hacs-repositories">
+    ${_repositories.map(repo =>
+      html`<ha-card header="${repo.name}">
+      <div class="card-content">
+        <i>${repo.description}<i>
+      </div>
+      </ha-card>
+      `)}
+    </div>
           `;
   }
 

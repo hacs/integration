@@ -12,10 +12,16 @@ import {
   HomeAssistant
 } from "custom-card-helpers";
 
-
 import { load_lovelace } from "./FromCardTools"
+
 import "./HacsSpinner"
-import "./HacsPanel"
+import "./panels/installed";
+import "./panels/integrations";
+import "./panels/plugins";
+import "./panels/appdaemon_apps";
+import "./panels/python_scripts";
+import "./panels/themes";
+import "./panels/settings";
 
 
 interface Route {
@@ -57,6 +63,7 @@ class HacsFrontendBase extends LitElement {
   };
 
   firstUpdated() {
+    this.panel = this._page;
     this.getRepositories()
 
     // "steal" LL elements
@@ -66,14 +73,6 @@ class HacsFrontendBase extends LitElement {
   protected render(): TemplateResult | void {
     var page = this._page
     if (this.repositories === undefined) return html`<hacs-spinner></hacs-spinner>`;
-    var _repositories = this.repositories.content;
-
-    if (page !== null) {
-      var filter = this._page;
-      _repositories = this.repositories.content.filter(function (repo) {
-        return repo.category == filter;
-      });
-    }
 
     return html`
 
@@ -120,10 +119,50 @@ class HacsFrontendBase extends LitElement {
 
     </paper-tabs>
 
-    <hacs-panel .repositories=${JSON.stringify(this.repositories.content)} .panel="${this._page}"></hacs-panel>
+    ${(this.panel === "installed" ? html`
+      <hacs-panel-installed
+        .hass=${this.hass}
+        .repositories=${this.repositories}>
+        </hacs-panel-installed>` : "")}
 
-    </app-header-layout>
-        `;
+    ${(this.panel === "integration" ? html`
+    <hacs-panel-integrations
+      .hass=${this.hass}
+      .repositories=${this.repositories}>
+      </hacs-panel-integrations>` : "")}
+
+    ${(this.panel === "plugin" ? html`
+    <hacs-panel-plugins
+      .hass=${this.hass}
+      .repositories=${this.repositories}>
+      </hacs-panel-plugins>` : "")}
+
+    ${(this.panel === "appdaemon" ? html`
+    <hacs-panel-appdaemon_apps
+      .hass=${this.hass}
+      .repositories=${this.repositories}>
+      </hacs-panel-appdaemon_apps>` : "")}
+
+    ${(this.panel === "python_script" ? html`
+    <hacs-panel-python_scripts
+      .hass=${this.hass}
+      .repositories=${this.repositories}>
+      </hacs-panel-python_scripts>` : "")}
+
+    ${(this.panel === "theme" ? html`
+    <hacs-panel-themes
+      .hass=${this.hass}
+      .repositories=${this.repositories}>
+      </hacs-panel-themes>` : "")}
+
+
+    ${(this.panel === "settings" ? html`
+      <hacs-panel-settings
+        .hass=${this.hass}
+        .repositories=${this.repositories}>
+        </hacs-panel-settings>` : "")}
+
+    </app-header-layout>`
   }
 
   handlePageSelected(ev) {

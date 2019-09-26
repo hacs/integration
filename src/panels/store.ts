@@ -28,6 +28,7 @@ export class HacsPanelStore extends LitElement {
     const category = this.panel;
     var _repositories = this.repositories.content || [];
     _repositories = this.repositories.content.filter(function (repo) {
+      // TODO: Add hide/HACS checks.
       return repo.category === category;
     });
 

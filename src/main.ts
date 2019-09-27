@@ -20,11 +20,7 @@ import "./panels/installed";
 import "./panels/store";
 import "./panels/settings";
 
-
-interface Route {
-  prefix: string;
-  path: string;
-}
+import { Configuration, Repositories, Route } from "./types"
 
 @customElement("hacs-frontend")
 class HacsFrontendBase extends LitElement {
@@ -32,7 +28,10 @@ class HacsFrontendBase extends LitElement {
   public hass!: HomeAssistant;
 
   @property()
-  public repositories;
+  public repositories!: Repositories
+
+  @property()
+  public configuration!: Configuration
 
   @property()
   public route!: Route;
@@ -43,10 +42,7 @@ class HacsFrontendBase extends LitElement {
   @property()
   public panel!: String;
 
-  public configuration
-
   private getRepositories(): void {
-    this.repositories = undefined;
     this.requestUpdate();
     this.hass.connection.sendMessagePromise({
       type: "hacs/config"
@@ -80,10 +76,16 @@ class HacsFrontendBase extends LitElement {
 
   protected render(): TemplateResult | void {
     var page = this._page
+
+    // Handle access to root
+    if (this.panel === "") {
+      navigate(this, "/hacs/installed");
+      this.panel = "installed";
+    }
+
     if (this.repositories === undefined) return html`<hacs-spinner></hacs-spinner>`;
 
     return html`
-
     <app-header-layout has-scrolling-region>
     <app-header slot="header" fixed>
       <app-toolbar>
@@ -133,12 +135,14 @@ class HacsFrontendBase extends LitElement {
     ${(this.panel === "installed" ? html`
       <hacs-panel-installed
         .hass=${this.hass}
+        .configuration=${this.configuration}
         .repositories=${this.repositories}>
         </hacs-panel-installed>` : "")}
 
     ${(this.panel === "integration" || "plugin" || "appdaemon" || "python_script" || "theme" ? html`
     <hacs-panel-store
       .hass=${this.hass}
+      .configuration=${this.configuration}
       .repositories=${this.repositories}
       .panel=${this.panel}>
       </hacs-panel-store>` : "")}
@@ -146,6 +150,7 @@ class HacsFrontendBase extends LitElement {
     ${(this.panel === "settings" ? html`
       <hacs-panel-settings
         .hass=${this.hass}
+        .configuration=${this.configuration}
         .repositories=${this.repositories}>
         </hacs-panel-settings>` : "")}
 
@@ -156,7 +161,6 @@ class HacsFrontendBase extends LitElement {
     this.requestUpdate();
     const newPage = ev.detail.item.getAttribute("page-name");
     this.panel = newPage;
-    console.log("nav")
     navigate(this, `/hacs/${newPage}`);
   }
 

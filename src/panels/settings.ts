@@ -12,6 +12,7 @@ import {
   HomeAssistant
 } from "custom-card-helpers";
 
+import { Configuration, Repositories } from "../types"
 
 @customElement("hacs-panel-settings")
 export class HacsPanelSettings extends LitElement {
@@ -19,10 +20,14 @@ export class HacsPanelSettings extends LitElement {
   public hass!: HomeAssistant;
 
   @property()
-  public repositories;
+  public repositories!: Repositories
+
+  @property()
+  public configuration!: Configuration
 
   render(): TemplateResult | void {
     console.log('hass: ', this.hass)
+    console.log('configuration: ', this.configuration)
     return html`
 
     <ha-card header="${this.hass.localize("component.hacs.config.title")}">

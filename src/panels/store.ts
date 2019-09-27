@@ -64,7 +64,9 @@ export class HacsPanelStore extends LitElement {
     return html`
     <div class="card-group">
     ${_repositories.sort((a, b) => (a.name > b.name) ? 1 : -1).map(repo =>
-      html`<paper-card @click="${this.getQuote}" .RepoID="${repo.id}">
+      html`
+
+      <paper-card @click="${this.getQuote}" RepoID="${repo.id}">
       <div class="card-content">
         <div>
           <ha-icon icon="mdi:cube" class="repo-state-${repo.installed}" title="Add-on is running"></ha-icon>
@@ -75,6 +77,7 @@ export class HacsPanelStore extends LitElement {
         </div>
       </div>
       </paper-card>
+
       `)}
     </div>
           `;
@@ -87,6 +90,7 @@ export class HacsPanelStore extends LitElement {
         this.repository_view = true;
         navigate(this, `/hacs/repository/${item.RepoID}`);
         this.requestUpdate();
+        window.location.reload();
       }
     })
   }

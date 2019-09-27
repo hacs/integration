@@ -16,7 +16,6 @@ import { load_lovelace } from "./FromCardTools"
 import { navigate } from "./navigate"
 
 import "./HacsSpinner"
-import "./router";
 
 import "./panels/installed";
 import "./panels/store";

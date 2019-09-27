@@ -98,7 +98,9 @@ function t(t,e,i,r){var s,o=arguments.length,n=o<3?e:null===r?r=Object.getOwnPro
       }
       `}};t([nt()],Ct.prototype,"hass",void 0),t([nt()],Ct.prototype,"repositories",void 0),t([nt()],Ct.prototype,"configuration",void 0),Ct=t([rt("hacs-panel-installed")],Ct);let Nt=class extends dt{constructor(){super(...arguments),this.repository_view=!1}render(){const t=this.panel,e=this.configuration;var i=this.repositories.content||[];return i=this.repositories.content.filter(function(i){if("installed"!==t){if("172733314"===i.id)return!1;if(i.hide)return!1;if(null!==e.country&&e.country!==i.country)return!1}return i.category===t}),V`
     <div class="card-group">
-    ${i.sort((t,e)=>t.name>e.name?1:-1).map(t=>V`<paper-card @click="${this.getQuote}" .RepoID="${t.id}">
+    ${i.sort((t,e)=>t.name>e.name?1:-1).map(t=>V`
+
+      <paper-card @click="${this.getQuote}" RepoID="${t.id}">
       <div class="card-content">
         <div>
           <ha-icon icon="mdi:cube" class="repo-state-${t.installed}" title="Add-on is running"></ha-icon>
@@ -109,9 +111,10 @@ function t(t,e,i,r){var s,o=arguments.length,n=o<3?e:null===r?r=Object.getOwnPro
         </div>
       </div>
       </paper-card>
+
       `)}
     </div>
-          `}getQuote(t){t.path.forEach(t=>{void 0!==t.RepoID&&(this.panel=`repository/${t.RepoID}`,this.repository_view=!0,ut(0,`/hacs/repository/${t.RepoID}`),this.requestUpdate())})}static get styles(){return ct`
+          `}getQuote(t){t.path.forEach(t=>{void 0!==t.RepoID&&(this.panel=`repository/${t.RepoID}`,this.repository_view=!0,ut(0,`/hacs/repository/${t.RepoID}`),this.requestUpdate(),window.location.reload())})}static get styles(){return ct`
     :host {
       font-family: var(--paper-font-body1_-_font-family); -webkit-font-smoothing: var(--paper-font-body1_-_-webkit-font-smoothing); font-size: var(--paper-font-body1_-_font-size); font-weight: var(--paper-font-body1_-_font-weight); line-height: var(--paper-font-body1_-_line-height);
     }

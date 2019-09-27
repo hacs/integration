@@ -110,7 +110,6 @@ class HacsFrontendBase extends LitElement {
         <ha-menu-button .hass="${this.hass}" .narrow="${this.narrow}"></ha-menu-button>
         <div main-title>${this.hass.localize(`component.hacs.config.title`)}</div>
       </app-toolbar>
-    </app-header>
     <paper-tabs
     scrollable
     attr-for-selected="page-name"
@@ -147,8 +146,8 @@ class HacsFrontendBase extends LitElement {
     <paper-tab class="right" page-name="settings">
     ${this.hass.localize("component.hacs.common.settings")}
     </paper-tab>
-
     </paper-tabs>
+    </app-header>
 
     ${(this.repository_view ? html`
     <hacs-panel-repository

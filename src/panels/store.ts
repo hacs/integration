@@ -37,7 +37,7 @@ export class HacsPanelStore extends LitElement {
 
       if (category === "store") {
         // Hide HACS from the store
-        if (repo.id === "09302930") return false;
+        if (repo.id === "172733314") return false;
 
         // Hide hidden repos from the store
         if (repo.hide) return false;

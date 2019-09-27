@@ -14,27 +14,31 @@ import {
 
 import { Configuration, Repositories } from "../types"
 
-@customElement("hacs-panel-settings")
-export class HacsPanelSettings extends LitElement {
+@customElement("hacs-panel-repository")
+export class HacsPanelRepository extends LitElement {
   @property()
   public hass!: HomeAssistant;
 
   @property()
-  public repositories!: Repositories
+  public repositories!: Repositories;
 
   @property()
-  public configuration!: Configuration
+  public configuration!: Configuration;
+
+  @property()
+  public repository!: string;
 
   render(): TemplateResult | void {
-    console.log('hass: ', this.hass)
-    console.log('configuration: ', this.configuration)
+    var _repository = this.repository;
+    var _repositories = this.repositories.content || [];
+    _repositories = this.repositories.content.filter(function (repo) {
+      return repo.id === _repository
+    });
+    var repo = _repositories[0]
     return html`
 
-    <ha-card header="${this.hass.localize("component.hacs.config.title")}">
+    <ha-card header="${repo.name}">
       <div class="card content">
-
-
-
       </div>
     </ha-card>
           `;

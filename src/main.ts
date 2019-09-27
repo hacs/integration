@@ -19,6 +19,7 @@ import "./HacsSpinner"
 import "./panels/installed";
 import "./panels/store";
 import "./panels/settings";
+import "./panels/repository";
 
 import { Configuration, Repositories, Route } from "./types"
 
@@ -40,10 +41,11 @@ class HacsFrontendBase extends LitElement {
   public narrow!: boolean;
 
   @property()
-  public panel!: String;
+  public panel!: string;
+
+  public repository_view = false;
 
   private getRepositories(): void {
-    this.requestUpdate();
     this.hass.connection.sendMessagePromise({
       type: "hacs/config"
     }).then(
@@ -64,6 +66,7 @@ class HacsFrontendBase extends LitElement {
         console.error('Message failed!', err);
       }
     )
+    this.requestUpdate();
   };
 
   firstUpdated() {
@@ -75,55 +78,63 @@ class HacsFrontendBase extends LitElement {
   }
 
   protected render(): TemplateResult | void {
-    var page = this._page
-
     // Handle access to root
     if (this.panel === "") {
       navigate(this, "/hacs/installed");
       this.panel = "installed";
     }
 
+    console.log(this.panel)
     if (this.repositories === undefined) return html`<hacs-spinner></hacs-spinner>`;
+
+    if (/repository\//i.test(this.panel)) {
+      // How fun, this is a repository!
+      this.repository_view = true
+      var repository = this.panel.split("/")[1]
+    }
+
+
+
 
     return html`
     <app-header-layout has-scrolling-region>
     <app-header slot="header" fixed>
       <app-toolbar>
         <ha-menu-button .hass="${this.hass}" .narrow="${this.narrow}"></ha-menu-button>
-        <div main-title>${this.hass.localize("component.hacs.config.title")}</div>
+        <div main-title>${this.hass.localize(`component.hacs.config.title`)}</div>
       </app-toolbar>
     </app-header>
     <paper-tabs
     scrollable
     attr-for-selected="page-name"
-    .selected="${page}"
+    .selected="${this.panel}"
     @iron-activate=${this.handlePageSelected}>
 
     <paper-tab page-name="installed">
-    INSTALLED
+    ${this.hass.localize(`component.hacs.common.installed`)}
     </paper-tab>
 
     <paper-tab page-name="integration">
-    INTEGRATIONS
+    ${this.hass.localize(`component.hacs.common.integrations`)}
     </paper-tab>
 
     <paper-tab page-name="plugin">
-    PLUGINS
+    ${this.hass.localize(`component.hacs.common.plugins`)}
     </paper-tab>
 
     ${(this.configuration.appdaemon ?
         html`<paper-tab page-name="appdaemon">
-    APPDAEMON APPS
+        ${this.hass.localize(`component.hacs.common.appdaemon_apps`)}
     </paper-tab>`: "")}
 
     ${(this.configuration.python_script ?
         html`<paper-tab page-name="python_script">
-    PYTHON SCRIPTS
+        ${this.hass.localize(`component.hacs.common.python_scripts`)}
     </paper-tab>`: "")}
 
     ${(this.configuration.theme ?
         html`<paper-tab page-name="theme">
-    THEMES
+        ${this.hass.localize(`component.hacs.common.themes`)}
     </paper-tab>`: "")}
 
     <paper-tab class="right" page-name="settings">
@@ -131,6 +142,14 @@ class HacsFrontendBase extends LitElement {
     </paper-tab>
 
     </paper-tabs>
+
+    ${(this.repository_view ? html`
+    <hacs-panel-repository
+    .hass=${this.hass}
+    .configuration=${this.configuration}
+    .repositories=${this.repositories}
+    .repository=${repository}>
+    </hacs-panel-repository>` : "")}
 
     ${(this.panel === "installed" ? html`
       <hacs-panel-installed
@@ -179,6 +198,7 @@ class HacsFrontendBase extends LitElement {
       color: var(--text-primary-color);
       background-color: var(--primary-color);
       font-weight: 400;
+      text-transform: uppercase;
     }
     paper-tabs {
       color: var(--text-primary-color);

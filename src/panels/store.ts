@@ -31,6 +31,9 @@ export class HacsPanelStore extends LitElement {
   @property()
   public panel;
 
+  @property()
+  public repository_view = false;
+
   protected render(): TemplateResult | void {
     const category = this.panel;
     const config = this.configuration
@@ -80,9 +83,10 @@ export class HacsPanelStore extends LitElement {
   getQuote(ev) {
     ev.path.forEach((item) => {
       if (item.RepoID !== undefined) {
-        navigate(this, `/hacs/repository/${item.RepoID}`);
         this.panel = `repository/${item.RepoID}`;
-
+        this.repository_view = true;
+        navigate(this, `/hacs/repository/${item.RepoID}`);
+        this.requestUpdate();
       }
     })
   }

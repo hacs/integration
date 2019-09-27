@@ -16,6 +16,7 @@ import { load_lovelace } from "./FromCardTools"
 import { navigate } from "./navigate"
 
 import "./HacsSpinner"
+import "./router";
 
 import "./panels/installed";
 import "./panels/store";
@@ -44,6 +45,7 @@ class HacsFrontendBase extends LitElement {
   @property()
   public panel!: string;
 
+  @property()
   public repository_view = false;
 
   private getRepositories(): void {
@@ -73,6 +75,11 @@ class HacsFrontendBase extends LitElement {
   firstUpdated() {
     this.panel = this._page;
     this.getRepositories()
+
+    this.addEventListener("location-changed", async (e) => {
+      console.log(e);
+      console.log(await this.requestUpdate());
+    });
 
     // "steal" LL elements
     load_lovelace()
@@ -164,7 +171,8 @@ class HacsFrontendBase extends LitElement {
       .hass=${this.hass}
       .configuration=${this.configuration}
       .repositories=${this.repositories}
-      .panel=${this.panel}>
+      .panel=${this.panel}
+      .repository_view=${this.repository_view}>
       </hacs-panel-store>` : "")}
 
     ${(this.panel === "settings" ? html`
@@ -178,11 +186,11 @@ class HacsFrontendBase extends LitElement {
   }
 
   handlePageSelected(ev) {
-    this.requestUpdate();
     this.repository_view = false;
     const newPage = ev.detail.item.getAttribute("page-name");
     this.panel = newPage;
     navigate(this, `/hacs/${newPage}`);
+    this.requestUpdate();
   }
 
   private get _page() {
@@ -240,7 +248,7 @@ class HacsFrontendBase extends LitElement {
 
     .card-group .title {
       color: var(--primary-text-color);
-        font-size: 2em;
+        font-size: 1.5em;
         padding-left: 8px;
         margin-bottom: 8px;
     }
@@ -258,6 +266,7 @@ class HacsFrontendBase extends LitElement {
         );
         margin: 4px;
         vertical-align: top;
+        height: 144px;
     }
 
     @media screen and (max-width: 1200px) and (min-width: 901px) {
@@ -298,6 +307,42 @@ class HacsFrontendBase extends LitElement {
 
     paper-card {
       cursor: pointer;
+    }
+    ha-icon {
+      margin-right: 16px;
+      float: left;
+      color: var(--primary-text-color);
+    }
+    ha-icon.update {
+      color: var(--paper-orange-400);
+    }
+    ha-icon.running,
+    ha-icon.installed {
+      color: var(--paper-green-400);
+    }
+    ha-icon.hassupdate,
+    ha-icon.snapshot {
+      color: var(--paper-item-icon-color);
+    }
+    ha-icon.not_available {
+      color: var(--google-red-500);
+    }
+    .title {
+      margin-bottom: 16px;
+      padding-top: 4px;
+      color: var(--primary-text-color);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .addition {
+      color: var(--secondary-text-color);
+      position: relative;
+      height: 2.4em;
+      line-height: 1.2em;
+    }
+    ha-relative-time {
+      display: block;
     }
     `;
   }

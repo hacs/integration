@@ -12,7 +12,7 @@ import { HomeAssistant } from "custom-card-helpers";
 import { HacsStyle } from "../style/hacs-style"
 
 import { Configuration, Repositories, Repository } from "../types"
-import { navigate } from "../components/navigate"
+import { navigate } from "../misc/navigate"
 import "./corePanel"
 
 @customElement("hacs-panel-repository")

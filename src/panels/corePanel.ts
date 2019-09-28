@@ -12,7 +12,7 @@ import { HomeAssistant } from "custom-card-helpers";
 
 import { HacsStyle } from "../style/hacs-style"
 import { Configuration, Repositories } from "../types"
-import { navigate } from "../components/navigate"
+import { navigate } from "../misc/navigate"
 
 @customElement("hacs-panel")
 export class HacsPanelStore extends LitElement {

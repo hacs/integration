@@ -9,13 +9,13 @@ import {
 
 import { HomeAssistant } from "custom-card-helpers";
 
-import { load_lovelace } from "./components/LoadLovelace"
-import { navigate } from "./components/navigate"
+import { load_lovelace } from "./misc/LoadLovelace"
+import { navigate } from "./misc/navigate"
 
 import { HacsStyle } from "./style/hacs-style"
 
-import "./components/HacsSpinner"
-import scrollToTarget from "./components/ScrollToTarget"
+import "./misc/HacsSpinner"
+import scrollToTarget from "./misc/ScrollToTarget"
 import "./panels/corePanel";
 import "./panels/settings";
 import "./panels/repository";

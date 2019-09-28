@@ -7,7 +7,7 @@ import {
   css,
   property
 } from "lit-element";
-
+import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import { HomeAssistant } from "custom-card-helpers";
 import { HacsStyle } from "../style/hacs-style"
 
@@ -72,6 +72,8 @@ export class HacsPanelRepository extends LitElement {
         `;
     }
 
+    console.log(html`${this.repo.additional_info}`)
+
     return html`
 
     <div class="getBack">
@@ -94,7 +96,7 @@ export class HacsPanelRepository extends LitElement {
     <ha-card>
       <div class="card-content addition">
         <div class="more_info">
-          ${this.repo.additional_info}
+          ${unsafeHTML(this.repo.additional_info)}
         </div>
       </div>
     </ha-card>

@@ -222,7 +222,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
     }
 
     .card-group paper-card {
-      --card-group-columns: 4;
+      --card-group-columns: 3;
         width: calc(
           (100% - 12px * var(--card-group-columns)) / var(--card-group-columns)
         );
@@ -231,14 +231,14 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
         height: 144px;
     }
 
-    @media screen and (max-width: 1200px) and (min-width: 901px) {
-    .card-group paper-card {
-      --card-group-columns: 3;
-    }
+    @media screen and (max-width: 1800px) and (min-width: 1201px) {
+      .card-group paper-card {
+        --card-group-columns: 2;
+      }
 
-    }
+      }
 
-    @media screen and (max-width: 900px) and (min-width: 601px) {
+    @media screen and (max-width: 1200px) and (min-width: 601px) {
     .card-group paper-card {
       --card-group-columns: 2;
     }
@@ -352,7 +352,8 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
     </ha-card>
           `}GoBackToStore(){this.repository=void 0,this.repo.installed?this.panel="installed":this.panel=this.repo.category,ut(0,`/hacs/${this.repo.category}`),this.requestUpdate()}static get styles(){return ct`
       .getBack {
-        margin: 8px;
+        margin-top: 4px;
+        margin-bottom: 4px;
         margin-left: 5%;
       }
       :host {

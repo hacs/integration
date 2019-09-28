@@ -350,7 +350,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
       <div class="card content">
       </div>
     </ha-card>
-          `}GoBackToStore(){this.repository=void 0,this.panel="integration",ut(0,"/hacs/integration"),this.requestUpdate()}static get styles(){return ct`
+          `}GoBackToStore(){this.repository=void 0,this.repo.installed?this.panel="installed":this.panel=this.repo.category,ut(0,`/hacs/${this.repo.category}`),this.requestUpdate()}static get styles(){return ct`
       getBack {
         margin: 8px;
       }

@@ -96,8 +96,12 @@ export class HacsPanelRepository extends LitElement {
   GoBackToStore() {
 
     this.repository = undefined;
-    this.panel = "integration"
-    navigate(this, "/hacs/integration")
+    if (this.repo.installed) {
+      this.panel = "installed"
+    } else {
+      this.panel = this.repo.category
+    }
+    navigate(this, `/hacs/${this.repo.category}`)
     this.requestUpdate();
   }
 

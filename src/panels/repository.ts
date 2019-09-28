@@ -92,7 +92,7 @@ export class HacsPanelRepository extends LitElement {
     </ha-card>
 
     <ha-card>
-      <div class="card-content">
+      <div class="card-content addition">
         <div class="more_info">
           ${this.repo.additional_info}
         </div>

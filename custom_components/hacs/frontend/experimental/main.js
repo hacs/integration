@@ -328,7 +328,7 @@ function t(t,e,s,i){var r,o=arguments.length,n=o<3?e:null===i?i=Object.getOwnPro
     </ha-card>
 
     <ha-card>
-      <div class="card-content">
+      <div class="card-content addition">
         <div class="more_info">
           ${this.repo.additional_info}
         </div>

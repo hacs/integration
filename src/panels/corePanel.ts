@@ -11,7 +11,7 @@ import {
 import { HomeAssistant } from "custom-card-helpers";
 
 import { HacsStyle } from "../style/hacs-style"
-import { Configuration, Repositories } from "../types"
+import { Configuration, Repository } from "../types"
 import { navigate } from "../misc/navigate"
 
 @customElement("hacs-panel")
@@ -21,7 +21,7 @@ export class HacsPanelStore extends LitElement {
   public hass!: HomeAssistant;
 
   @property()
-  public repositories!: Repositories
+  public repositories!: Repository[]
 
   @property()
   public configuration!: Configuration
@@ -50,8 +50,8 @@ export class HacsPanelStore extends LitElement {
 
       const category = this.panel;
       const config = this.configuration
-      var _repositories = this.repositories.content || [];
-      _repositories = this.repositories.content.filter(function (repo) {
+      var _repositories = this.repositories || [];
+      _repositories = this.repositories.filter(function (repo) {
 
         if (category !== "installed") {
           // Hide HACS from the store

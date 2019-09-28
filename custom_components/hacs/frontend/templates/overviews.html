@@ -1,10 +1,11 @@
 <!-- Used for both overview and store-->
 {% extends "base.html" %}
 {% block content %}
-<script src="/hacsweb/{{ hacs.token }}/static/CustomElements/HacsOverviewCard.js"></script>
 {% if location == 'store' %}
-<script src="/hacsweb/{{ hacs.token }}/static/CustomElements/StoreSearch.js"></script>
-<hacs-store-search></hacs-store-search>
+<div class='hacs-overview-container'>
+  <input type="text" id="Search" onkeyup="Search()" placeholder="Please enter a search term.." title="Type in a name"
+    autofocus style="color: var(--primary-text-color)">
+</div>
 {% if hacs.configuration.frontend_mode == "Grid" %}
 {% include 'grid_new.html' with context %}
 {% else %}

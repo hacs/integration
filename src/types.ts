@@ -4,13 +4,13 @@ export interface Route {
 }
 
 export interface Configuration {
-    appdaemon?: boolean;
-    country?: string;
-    dev?: string;
-    frontend_mode?: string;
-    option_country?: string;
-    python_script?: boolean;
-    theme?: boolean;
+    appdaemon: boolean;
+    country: string;
+    dev: string;
+    frontend_mode: string;
+    option_country: string;
+    python_script: boolean;
+    theme: boolean;
 }
 
 export interface Repository {
@@ -27,8 +27,4 @@ export interface Repository {
     info: string;
     updated_info: boolean;
 
-}
-
-export interface Repositories {
-    content?: Repository[]
 }

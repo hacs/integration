@@ -20,7 +20,7 @@ import "./panels/corePanel";
 import "./panels/settings";
 import "./panels/repository";
 
-import { Configuration, Repositories, Route } from "./types"
+import { Configuration, Repository, Route } from "./types"
 
 @customElement("hacs-frontend")
 class HacsFrontendBase extends LitElement {
@@ -28,7 +28,7 @@ class HacsFrontendBase extends LitElement {
   public hass!: HomeAssistant;
 
   @property()
-  public repositories!: Repositories
+  public repositories!: Repository[]
 
   @property()
   public configuration!: Configuration
@@ -53,7 +53,7 @@ class HacsFrontendBase extends LitElement {
       type: "hacs/config"
     }).then(
       (resp) => {
-        this.configuration = resp;
+        this.configuration = (resp as Configuration);
       },
       (err) => {
         console.error('Message failed!', err);
@@ -63,7 +63,7 @@ class HacsFrontendBase extends LitElement {
       type: "hacs/repositories"
     }).then(
       (resp) => {
-        this.repositories = resp;
+        this.repositories = (resp as Repository[]);
       },
       (err) => {
         console.error('Message failed!', err);

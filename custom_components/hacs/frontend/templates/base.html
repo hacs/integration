@@ -11,9 +11,24 @@
 </head>
 
 <body>
-  <hacs-navigation></hacs-navigation>
+  <div class="navbar-fixed">
+    <nav class="nav-extended hacs-nav">
+      <div class="nav-content">
+        <ul class="right tabs tabs-transparent">
+          <li class="tab {{ 'active' if location == 'overview' }}"><a href="/hacsweb/{{ hacs.token }}/overview?timestamp={{ timestamp }}">Overview</a></li>
+          <li class="tab {{ 'active' if location == 'store' }}"><a href="/hacsweb/{{ hacs.token }}/store?timestamp={{ timestamp }}">Store</a></li>
+          <li class="tab right {{ 'active' if location == 'settings' }}"><a href="/hacsweb/{{ hacs.token }}/settings?timestamp={{ timestamp }}">Settings</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
   <div id="main" class="hacs-content">
-    <hacs-progress-bar></hacs-progress-bar>
+    <div class="progressbar" style="display: {{ progressbar }}">
+      <p>Background task running, this page will reload when it's done.</p>
+      <div class="progress hacs-bar-background" id="progressbar">
+        <div class="indeterminate hacs-bar"></div>
+      </div>
+    </div>
     <div class="loading hidden">
       <div class='uil-ring-css' style='transform:scale(0.79);'>
         <div></div>
@@ -31,54 +46,6 @@
     {% endblock %}
     {% endif %}
   </div>
-  <script>
-    class HacsProgressBar extends HTMLElement {
-      render() {
-        this.innerHTML = `
-        <div class="progressbar" style="display: {{ progressbar }}">
-          <p>${hass.localize("component.hacs.common.background_task")}</p>
-          <div class="progress hacs-bar-background" id="progressbar">
-            <div class="indeterminate hacs-bar"></div>
-          </div>
-        </div>`;
-      }
-
-      connectedCallback() {
-        this.render();
-      }
-    }
-
-    class HacsNavigation extends HTMLElement {
-      render() {
-        this.innerHTML = `
-        <div class="navbar-fixed">
-          <nav class="nav-extended hacs-nav">
-            <div class="nav-content">
-              <ul class="right tabs tabs-transparent">
-                <li class="tab {{ 'active' if location == 'overview' }}"><a
-                    href="/hacsweb/{{ hacs.token }}/overview?timestamp={{ timestamp }}">
-                    ${hass.localize("component.hacs.common.overview")}</a></li>
-                <li class="tab {{ 'active' if location == 'store' }}"><a
-                    href="/hacsweb/{{ hacs.token }}/store?timestamp={{ timestamp }}">
-                    ${hass.localize("component.hacs.common.store")}</a></li>
-                <li class="tab right {{ 'active' if location == 'settings' }}"><a
-                    href="/hacsweb/{{ hacs.token }}/settings?timestamp={{ timestamp }}">
-                    ${hass.localize("component.hacs.common.settings")}</a></li>
-              </ul>
-            </div>
-          </nav>
-        </div>`;
-      }
-
-      connectedCallback() {
-        this.render();
-      }
-    }
-
-
-    customElements.define('hacs-navigation', HacsNavigation);
-    customElements.define('hacs-progress-bar', HacsProgressBar);
-  </script>
 </body>
 
 </html>

@@ -10,16 +10,14 @@ def hacs_config(hass, connection, msg):
     config = Hacs().configuration
 
     content = {}
-    content["frontend_mode "] = config.frontend_mode
-    content["dev "] = config.dev
-    content["appdaemon "] = config.appdaemon
-    content["python_script "] = config.python_script
-    content["theme "] = config.theme
-    content["option_country "] = config.option_country
+    content["frontend_mode"] = config.frontend_mode
+    content["dev"] = config.dev
+    content["appdaemon"] = config.appdaemon
+    content["python_script"] = config.python_script
+    content["theme"] = config.theme
+    content["option_country"] = config.option_country
 
-    connection.send_message(
-        websocket_api.result_message(msg["id"], {"content": content})
-    )
+    connection.send_message(websocket_api.result_message(msg["id"], content))
 
 
 @callback
@@ -43,9 +41,7 @@ def hacs_repositories(hass, connection, msg):
             }
         )
 
-    connection.send_message(
-        websocket_api.result_message(msg["id"], {"content": content})
-    )
+    connection.send_message(websocket_api.result_message(msg["id"], content))
 
 
 @websocket_api.async_response
@@ -57,9 +53,8 @@ async def hacs_repository(hass, connection, msg):
     repository = Hacs().get_by_id(repo_id)
 
     if action == "update":
-        Hacs().logger.info("starting UPDATE!")
+        Hacs().logger.info(f"Running update for {repository.information.full_name}")
         await repository.update_repository()
         repository.status.updated_info = True
-        Hacs().logger.info("update DONE!")
 
     hacs_repositories(hass, connection, msg)

@@ -11,7 +11,7 @@ import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import { HomeAssistant } from "custom-card-helpers";
 import { HacsStyle } from "../style/hacs-style"
 
-import { Configuration, Repositories, Repository } from "../types"
+import { Configuration, Repository } from "../types"
 import { navigate } from "../misc/navigate"
 import "../misc/HacsSpinner"
 import "./corePanel"
@@ -22,7 +22,7 @@ export class HacsPanelRepository extends LitElement {
   public hass!: HomeAssistant;
 
   @property()
-  public repositories!: Repositories;
+  public repositories!: Repository[];
 
   @property()
   public configuration!: Configuration;
@@ -45,7 +45,7 @@ export class HacsPanelRepository extends LitElement {
       repository: this.repository
     }).then(
       (resp) => {
-        this.repositories = resp;
+        this.repositories = (resp as Repository[]);
       },
       (err) => {
         console.error('Message failed!', err);
@@ -75,8 +75,8 @@ export class HacsPanelRepository extends LitElement {
       `
     }
     var _repository = this.repository;
-    var _repositories = this.repositories.content || [];
-    _repositories = this.repositories.content.filter(function (repo) {
+    var _repositories = this.repositories || [];
+    _repositories = this.repositories.filter(function (repo) {
       return repo.id === _repository
     });
     this.repo = _repositories[0]
@@ -145,7 +145,7 @@ export class HacsPanelRepository extends LitElement {
         font-style: italic;
       }
       .getBack {
-        margin-top: 4px;
+        margin-top: 8px;
         margin-bottom: 4px;
         margin-left: 5%;
       }

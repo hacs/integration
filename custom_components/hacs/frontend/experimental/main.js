@@ -225,7 +225,7 @@ function t(t,e,s,i){var r,o=arguments.length,n=o<3?e:null===i?i=Object.getOwnPro
       .repositories=${this.repositories}
       .repository=${this.repository}
       >
-      </hacs-panel-repository>`;{const e=this.panel,s=this.configuration;var t=this.repositories.content||[];return t=this.repositories.content.filter(function(t){if("installed"!==e){if("172733314"===t.id)return!1;if(t.hide)return!1;if(null!==s.country&&s.country!==t.country)return!1}else if(t.installed)return!0;return t.category===e}),M`
+      </hacs-panel-repository>`;{const e=this.panel,s=this.configuration;var t=this.repositories||[];return t=this.repositories.filter(function(t){if("installed"!==e){if("172733314"===t.id)return!1;if(t.hide)return!1;if(null!==s.country&&s.country!==t.country)return!1}else if(t.installed)return!0;return t.category===e}),M`
     <div class="card-group">
     ${t.sort((t,e)=>t.name>e.name?1:-1).map(t=>M`
 
@@ -313,7 +313,7 @@ function t(t,e,s,i){var r,o=arguments.length,n=o<3?e:null===i?i=Object.getOwnPro
       .repository=${this.repository}
       >
       </hacs-panel>
-      `;var t=this.repository,e=this.repositories.content;if(e=this.repositories.content.filter(function(e){return e.id===t}),this.repo=e[0],!this.repo.updated_info)return M`<hacs-spinner></hacs-spinner>`;if(this.repo.installed)var s=`\n        ${this.hass.localize("component.hacs.repository.back_to")} ${this.hass.localize("component.hacs.repository.installed")}\n        `;else{if("appdaemon"===this.repo.category)var i="appdaemon_apps";else i=`${this.repo.category}s`;s=`\n        ${this.hass.localize("component.hacs.repository.back_to")} ${this.hass.localize(`component.hacs.common.${i}`)}\n        `}return M`
+      `;var t=this.repository,e=this.repositories;if(e=this.repositories.filter(function(e){return e.id===t}),this.repo=e[0],!this.repo.updated_info)return M`<hacs-spinner></hacs-spinner>`;if(this.repo.installed)var s=`\n        ${this.hass.localize("component.hacs.repository.back_to")} ${this.hass.localize("component.hacs.repository.installed")}\n        `;else{if("appdaemon"===this.repo.category)var i="appdaemon_apps";else i=`${this.repo.category}s`;s=`\n        ${this.hass.localize("component.hacs.repository.back_to")} ${this.hass.localize(`component.hacs.common.${i}`)}\n        `}return M`
 
     <div class="getBack">
       <mwc-button @click=${this.GoBackToStore} title="${s}">
@@ -344,7 +344,7 @@ function t(t,e,s,i){var r,o=arguments.length,n=o<3?e:null===i?i=Object.getOwnPro
         font-style: italic;
       }
       .getBack {
-        margin-top: 4px;
+        margin-top: 8px;
         margin-bottom: 4px;
         margin-left: 5%;
       }

@@ -10,7 +10,7 @@ import {
 import { HomeAssistant } from "custom-card-helpers";
 import { HacsStyle } from "../style/hacs-style"
 
-import { Configuration, Repositories } from "../types"
+import { Configuration, Repository } from "../types"
 
 @customElement("hacs-panel-settings")
 export class HacsPanelSettings extends LitElement {
@@ -18,7 +18,7 @@ export class HacsPanelSettings extends LitElement {
   public hass!: HomeAssistant;
 
   @property()
-  public repositories!: Repositories
+  public repositories!: Repository[]
 
   @property()
   public configuration!: Configuration

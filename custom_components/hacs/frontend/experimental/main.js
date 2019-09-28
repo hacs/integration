@@ -334,16 +334,21 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
       </hacs-panel-store>
       `;var t=this.repository,e=(this.repositories.content,this.repositories.content.filter(function(e){return e.id===t})[0]);return U`
 
-    <mwc-button @click=${this.GoBackToStore} title="Back to Integrations store">
-    <ha-icon  icon="mdi:arrow-left"></ha-icon>
-      Back to Integrations store
-    </mwc-button>
+    <div class="getBack">
+      <mwc-button @click=${this.GoBackToStore} title="Back to Integrations store">
+      <ha-icon  icon="mdi:arrow-left"></ha-icon>
+        Back to Integrations store
+      </mwc-button>
+    </div>
 
     <ha-card header="${e.name}">
       <div class="card content">
       </div>
     </ha-card>
           `}GoBackToStore(){this.repository=void 0,this.panel="integration",ut(0,"/hacs/integration"),this.requestUpdate()}static get styles(){return ct`
+      getBack {
+        margin: 8px;
+      }
       :host {
         color: var(--primary-text-color);
       }

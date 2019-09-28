@@ -58,10 +58,12 @@ export class HacsPanelRepository extends LitElement {
     var repo = _repositories[0]
     return html`
 
-    <mwc-button @click=${this.GoBackToStore} title="Back to Integrations store">
-    <ha-icon  icon="mdi:arrow-left"></ha-icon>
-      Back to Integrations store
-    </mwc-button>
+    <div class="getBack">
+      <mwc-button @click=${this.GoBackToStore} title="Back to Integrations store">
+      <ha-icon  icon="mdi:arrow-left"></ha-icon>
+        Back to Integrations store
+      </mwc-button>
+    </div>
 
     <ha-card header="${repo.name}">
       <div class="card content">
@@ -79,6 +81,9 @@ export class HacsPanelRepository extends LitElement {
 
   static get styles(): CSSResult {
     return css`
+      getBack {
+        margin: 8px;
+      }
       :host {
         color: var(--primary-text-color);
       }

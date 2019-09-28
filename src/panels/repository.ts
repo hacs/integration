@@ -56,7 +56,7 @@ export class HacsPanelRepository extends LitElement {
   };
 
   protected firstUpdated() {
-    this.UpdateRepositoryData()
+    if (!this.repo.updated_info) this.UpdateRepositoryData();
   }
 
 

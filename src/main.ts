@@ -102,6 +102,8 @@ class HacsFrontendBase extends LitElement {
       this.panel = this.panel.split("/")[0]
     } else this.repository_view = false;
 
+    const page = this.panel;
+
     return html`
     <app-header-layout has-scrolling-region>
     <app-header slot="header" fixed>
@@ -112,7 +114,7 @@ class HacsFrontendBase extends LitElement {
     <paper-tabs
     scrollable
     attr-for-selected="page-name"
-
+    .selected=${page}
     @iron-activate=${this.handlePageSelected}>
 
     <paper-tab page-name="installed">
@@ -142,7 +144,7 @@ class HacsFrontendBase extends LitElement {
         ${this.hass.localize(`component.hacs.common.themes`)}
     </paper-tab>`: "")}
 
-    <paper-tab class="right" page-name="settings">
+    <paper-tab page-name="settings">
     ${this.hass.localize("component.hacs.common.settings")}
     </paper-tab>
     </paper-tabs>
@@ -205,6 +207,11 @@ class HacsFrontendBase extends LitElement {
         font-weight: 400;
         text-transform: uppercase;
         color: var(--text-primary-color, white);
+    }
+
+    paper-tabs {
+      --paper-tabs-selection-bar-color: #fff;
+      margin-left: 12px;
     }
 
     app-toolbar ha-menu-button + [main-title], app-toolbar ha-paper-icon-button-arrow-prev + [main-title], app-toolbar paper-icon-button + [main-title] {

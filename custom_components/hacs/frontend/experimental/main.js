@@ -351,8 +351,9 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
       </div>
     </ha-card>
           `}GoBackToStore(){this.repository=void 0,this.repo.installed?this.panel="installed":this.panel=this.repo.category,ut(0,`/hacs/${this.repo.category}`),this.requestUpdate()}static get styles(){return ct`
-      getBack {
+      .getBack {
         margin: 8px;
+        margin-left: 5%;
       }
       :host {
         color: var(--primary-text-color);
@@ -362,7 +363,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
         width: 90%;
         margin-left: 5%;
       }
-      `}};t([nt()],zt.prototype,"hass",void 0),t([nt()],zt.prototype,"repositories",void 0),t([nt()],zt.prototype,"configuration",void 0),t([nt()],zt.prototype,"repository",void 0),t([nt()],zt.prototype,"panel",void 0),t([nt()],zt.prototype,"repository_view",void 0),zt=t([ot("hacs-panel-repository")],zt);let Vt=class extends dt{constructor(){super(...arguments),this.repository_view=!1}getRepositories(){this.hass.connection.sendMessagePromise({type:"hacs/config"}).then(t=>{this.configuration=t},t=>{console.error("Message failed!",t)}),this.hass.connection.sendMessagePromise({type:"hacs/repositories"}).then(t=>{this.repositories=t},t=>{console.error("Message failed!",t)}),this.requestUpdate()}firstUpdated(){this.panel=this._page,this.getRepositories(),/repository\//i.test(this.panel)?(this.repository_view=!0,this.repository=this.panel.split("/")[1]):this.repository_view=!1,function(){if(customElements.get("hui-view"))return!0;const t=document.createElement("partial-panel-resolver");t.hass=document.querySelector("home-assistant").hass,t.route={path:"/lovelace/"};try{document.querySelector("home-assistant").appendChild(t).catch(t=>{})}catch(e){document.querySelector("home-assistant").removeChild(t)}customElements.get("hui-view")}()}render(){return""===this.panel&&(ut(0,"/hacs/installed"),this.panel="installed"),void 0===this.repositories?U`<hacs-spinner></hacs-spinner>`:(/repository\//i.test(this.panel)?(this.repository_view=!0,this.repository=this.panel.split("/")[1],this.panel=this.panel.split("/")[0]):this.repository_view=!1,U`
+      `}};t([nt()],zt.prototype,"hass",void 0),t([nt()],zt.prototype,"repositories",void 0),t([nt()],zt.prototype,"configuration",void 0),t([nt()],zt.prototype,"repository",void 0),t([nt()],zt.prototype,"panel",void 0),t([nt()],zt.prototype,"repository_view",void 0),zt=t([ot("hacs-panel-repository")],zt);let Vt=class extends dt{constructor(){super(...arguments),this.repository_view=!1}getRepositories(){this.hass.connection.sendMessagePromise({type:"hacs/config"}).then(t=>{this.configuration=t},t=>{console.error("Message failed!",t)}),this.hass.connection.sendMessagePromise({type:"hacs/repositories"}).then(t=>{this.repositories=t},t=>{console.error("Message failed!",t)}),this.requestUpdate()}firstUpdated(){this.panel=this._page,this.getRepositories(),/repository\//i.test(this.panel)?(this.repository_view=!0,this.repository=this.panel.split("/")[1]):this.repository_view=!1,function(){if(customElements.get("hui-view"))return!0;const t=document.createElement("partial-panel-resolver");t.hass=document.querySelector("home-assistant").hass,t.route={path:"/lovelace/"};try{document.querySelector("home-assistant").appendChild(t).catch(t=>{})}catch(e){document.querySelector("home-assistant").removeChild(t)}customElements.get("hui-view")}()}render(){if(""===this.panel&&(ut(0,"/hacs/installed"),this.panel="installed"),void 0===this.repositories)return U`<hacs-spinner></hacs-spinner>`;/repository\//i.test(this.panel)?(this.repository_view=!0,this.repository=this.panel.split("/")[1],this.panel=this.panel.split("/")[0]):this.repository_view=!1;const t=this.panel;return U`
     <app-header-layout has-scrolling-region>
     <app-header slot="header" fixed>
         <app-toolbar>
@@ -372,7 +373,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
     <paper-tabs
     scrollable
     attr-for-selected="page-name"
-
+    .selected=${t}
     @iron-activate=${this.handlePageSelected}>
 
     <paper-tab page-name="installed">
@@ -399,7 +400,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
         ${this.hass.localize("component.hacs.common.themes")}
     </paper-tab>`:""}
 
-    <paper-tab class="right" page-name="settings">
+    <paper-tab page-name="settings">
     ${this.hass.localize("component.hacs.common.settings")}
     </paper-tab>
     </paper-tabs>
@@ -423,7 +424,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
         .repositories=${this.repositories}>
         </hacs-panel-settings>`:""}
 
-    </app-header-layout>`)}handlePageSelected(t){this.repository_view=!1;const e=t.detail.item.getAttribute("page-name");this.panel=e,this.requestUpdate(),e!==this._page&&ut(0,`/hacs/${e}`),function(t,e){const i=e,o=Math.random(),s=Date.now(),r=i.scrollTop,n=0-r;t._currentAnimationId=o,function e(){const a=Date.now()-s;var p;a>200?i.scrollTop=0:t._currentAnimationId===o&&(i.scrollTop=(p=a,-n*(p/=200)*(p-2)+r),requestAnimationFrame(e.bind(t)))}.call(t)}(this,this.shadowRoot.querySelector("app-header-layout").header.scrollTarget)}get _page(){return null===this.route.path.substr(1)?"installed":this.route.path.substr(1)}static get styles(){return ct`
+    </app-header-layout>`}handlePageSelected(t){this.repository_view=!1;const e=t.detail.item.getAttribute("page-name");this.panel=e,this.requestUpdate(),e!==this._page&&ut(0,`/hacs/${e}`),function(t,e){const i=e,o=Math.random(),s=Date.now(),r=i.scrollTop,n=0-r;t._currentAnimationId=o,function e(){const a=Date.now()-s;var p;a>200?i.scrollTop=0:t._currentAnimationId===o&&(i.scrollTop=(p=a,-n*(p/=200)*(p-2)+r),requestAnimationFrame(e.bind(t)))}.call(t)}(this,this.shadowRoot.querySelector("app-header-layout").header.scrollTarget)}get _page(){return null===this.route.path.substr(1)?"installed":this.route.path.substr(1)}static get styles(){return ct`
     :host {
       font-family: var(--paper-font-body1_-_font-family); -webkit-font-smoothing: var(--paper-font-body1_-_-webkit-font-smoothing); font-size: var(--paper-font-body1_-_font-size); font-weight: var(--paper-font-body1_-_font-weight); line-height: var(--paper-font-body1_-_line-height);
     }
@@ -437,6 +438,11 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
         font-weight: 400;
         text-transform: uppercase;
         color: var(--text-primary-color, white);
+    }
+
+    paper-tabs {
+      --paper-tabs-selection-bar-color: #fff;
+      margin-left: 12px;
     }
 
     app-toolbar ha-menu-button + [main-title], app-toolbar ha-paper-icon-button-arrow-prev + [main-title], app-toolbar paper-icon-button + [main-title] {

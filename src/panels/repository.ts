@@ -107,8 +107,10 @@ export class HacsPanelRepository extends LitElement {
 
   static get styles(): CSSResult {
     return css`
-      getBack {
-        margin: 8px;
+      .getBack {
+        margin-top: 4px;
+        margin-bottom: 4px;
+        margin-left: 5%;
       }
       :host {
         color: var(--primary-text-color);

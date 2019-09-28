@@ -8,19 +8,13 @@ import {
   property
 } from "lit-element";
 
-import {
-  HomeAssistant
-} from "custom-card-helpers";
+import { HomeAssistant } from "custom-card-helpers";
 
 import { load_lovelace } from "./FromCardTools"
 import { navigate } from "./navigate"
 
 import "./HacsSpinner"
-
-import "./panels/installed";
-import "./panels/store";
-import "./panels/settings";
-import "./panels/repository";
+import "./router"
 
 import { Configuration, Repositories, Route } from "./types"
 
@@ -43,6 +37,9 @@ class HacsFrontendBase extends LitElement {
 
   @property()
   public panel!: string;
+
+  @property()
+  public repository: string;
 
   @property()
   public repository_view = false;
@@ -71,13 +68,28 @@ class HacsFrontendBase extends LitElement {
     this.requestUpdate();
   };
 
+  connectedCallback() {
+    console.log('lit-parent setting up Registration Shop')
+    this.addEventListener('hacs-update', ev => {
+      console.log(ev)
+      this.requestUpdate();
+    });
+    super.connectedCallback();
+  }
+
   firstUpdated() {
     this.panel = this._page;
     this.getRepositories()
 
-    this.addEventListener("location-changed", async (e) => {
+    if (/repository\//i.test(this.panel)) {
+      // How fun, this is a repository!
+      this.repository_view = true
+      this.repository = this.panel.split("/")[1]
+    } else this.repository_view = false;
+
+    this.addEventListener("hacs-update", async (e) => {
       console.log(e);
-      console.log(await this.requestUpdate());
+      this.requestUpdate();
     });
 
     // "steal" LL elements
@@ -97,10 +109,8 @@ class HacsFrontendBase extends LitElement {
     if (/repository\//i.test(this.panel)) {
       // How fun, this is a repository!
       this.repository_view = true
-      var repository = this.panel.split("/")[1]
-    }
-
-
+      this.repository = this.panel.split("/")[1]
+    } else this.repository_view = false;
 
 
     return html`
@@ -149,36 +159,14 @@ class HacsFrontendBase extends LitElement {
     </paper-tabs>
     </app-header>
 
-    ${(this.repository_view ? html`
-    <hacs-panel-repository
+    <hacs-router
     .hass=${this.hass}
     .configuration=${this.configuration}
     .repositories=${this.repositories}
-    .repository=${repository}>
-    </hacs-panel-repository>` : "")}
-
-    ${(this.panel === "installed" ? html`
-      <hacs-panel-installed
-        .hass=${this.hass}
-        .configuration=${this.configuration}
-        .repositories=${this.repositories}>
-        </hacs-panel-installed>` : "")}
-
-    ${(this.panel === "integration" || "plugin" || "appdaemon" || "python_script" || "theme" ? html`
-    <hacs-panel-store
-      .hass=${this.hass}
-      .configuration=${this.configuration}
-      .repositories=${this.repositories}
-      .panel=${this.panel}
-      .repository_view=${this.repository_view}>
-      </hacs-panel-store>` : "")}
-
-    ${(this.panel === "settings" ? html`
-      <hacs-panel-settings
-        .hass=${this.hass}
-        .configuration=${this.configuration}
-        .repositories=${this.repositories}>
-        </hacs-panel-settings>` : "")}
+    .repository=${this.repository}
+    .panel=${this.panel}
+    >
+    </hacs-router>
 
     </app-header-layout>`
   }

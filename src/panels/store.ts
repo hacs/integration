@@ -34,39 +34,57 @@ export class HacsPanelStore extends LitElement {
   @property()
   public repository_view = false;
 
+  @property()
+  public repository: string;
+
   protected render(): TemplateResult | void {
-    const category = this.panel;
-    const config = this.configuration
-    var _repositories = this.repositories.content || [];
-    _repositories = this.repositories.content.filter(function (repo) {
 
-      if (category !== "installed") {
-        // Hide HACS from the store
-        if (repo.id === "172733314") return false;
+    if (/repository\//i.test(this.panel)) {
+      // How fun, this is a repository!
+      this.repository_view = true
+      this.repository = this.panel.split("/")[1]
 
-        // Hide hidden repos from the store
-        if (repo.hide) return false;
+      return html`
+      <hacs-panel-repository
+      .hass=${this.hass}
+      .configuration=${this.configuration}
+      .repositories=${this.repositories}
+      .repository=${this.repository}>
+      </hacs-panel-repository>`
+    } else {
 
-        // Check contry restrictions
-        if (config.country !== null) {
-          if (config.country !== repo.country) return false;
+      const category = this.panel;
+      const config = this.configuration
+      var _repositories = this.repositories.content || [];
+      _repositories = this.repositories.content.filter(function (repo) {
+
+        if (category !== "installed") {
+          // Hide HACS from the store
+          if (repo.id === "172733314") return false;
+
+          // Hide hidden repos from the store
+          if (repo.hide) return false;
+
+          // Check contry restrictions
+          if (config.country !== null) {
+            if (config.country !== repo.country) return false;
+          }
+
         }
 
-      }
+        // Object looks OK, let's show it
+        if (repo.category === category) return true;
 
-      // Object looks OK, let's show it
-      if (repo.category === category) return true;
+        // Fallback to not showing it.
+        return false
+      });
 
-      // Fallback to not showing it.
-      return false
-    });
-
-    return html`
+      return html`
     <div class="card-group">
     ${_repositories.sort((a, b) => (a.name > b.name) ? 1 : -1).map(repo =>
-      html`
+        html`
 
-      <paper-card @click="${this.getQuote}" RepoID="${repo.id}">
+      <paper-card @click="${this.getQuote}" .RepoID="${repo.id}">
       <div class="card-content">
         <div>
           <ha-icon icon="mdi:cube" class="repo-state-${repo.installed}" title="Add-on is running"></ha-icon>
@@ -81,16 +99,21 @@ export class HacsPanelStore extends LitElement {
       `)}
     </div>
           `;
+    }
   }
 
+
   getQuote(ev) {
+    var event = new CustomEvent('hacs-update', { detail: { stuff: 'stuff' } });
+    this.dispatchEvent(event);
+    console.log(event)
     ev.path.forEach((item) => {
       if (item.RepoID !== undefined) {
         this.panel = `repository/${item.RepoID}`;
+        this.repository = item.RepoID;
         this.repository_view = true;
         navigate(this, `/hacs/repository/${item.RepoID}`);
         this.requestUpdate();
-        window.location.reload();
       }
     })
   }

@@ -1,16 +1,14 @@
 import {
   LitElement,
   customElement,
-  CSSResult,
+  CSSResultArray,
   TemplateResult,
   html,
-  css,
   property
 } from "lit-element";
 
-import {
-  HomeAssistant
-} from "custom-card-helpers";
+import { HomeAssistant } from "custom-card-helpers";
+import { HacsStyle } from "../style/hacs-style"
 
 import { Configuration, Repositories } from "../types"
 
@@ -40,14 +38,7 @@ export class HacsPanelSettings extends LitElement {
           `;
   }
 
-  static get styles(): CSSResult {
-    return css`
-      :host {
-        color: var(--primary-text-color);
-      }
-      ha-card {
-        margin: 8px;
-      }
-      `;
+  static get styles(): CSSResultArray {
+    return [HacsStyle]
   }
 }

@@ -1,19 +1,18 @@
 import {
   LitElement,
   customElement,
-  CSSResult,
+  CSSResultArray,
   TemplateResult,
   html,
   css,
   property
 } from "lit-element";
 
-import {
-  HomeAssistant
-} from "custom-card-helpers";
+import { HomeAssistant } from "custom-card-helpers";
+import { HacsStyle } from "../style/hacs-style"
 
 import { Configuration, Repositories, Repository } from "../types"
-import { navigate } from "../navigate"
+import { navigate } from "../components/navigate"
 import "./corePanel"
 
 @customElement("hacs-panel-repository")
@@ -105,21 +104,17 @@ export class HacsPanelRepository extends LitElement {
     this.requestUpdate();
   }
 
-  static get styles(): CSSResult {
-    return css`
+  static get styles(): CSSResultArray {
+    return [HacsStyle, css`
       .getBack {
         margin-top: 4px;
         margin-bottom: 4px;
         margin-left: 5%;
       }
-      :host {
-        color: var(--primary-text-color);
-      }
       ha-card {
-        margin: 8px;
         width: 90%;
         margin-left: 5%;
       }
-      `;
+    `]
   }
 }

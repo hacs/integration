@@ -21,6 +21,8 @@ export interface Repository {
     id: string;
     installed: boolean;
     name: string;
+    status_description: string;
+    status: string;
 
 }
 

@@ -23,6 +23,8 @@ export interface Repository {
     name: string;
     status_description: string;
     status: string;
+    additional_info: string;
+    info: string;
 
 }
 

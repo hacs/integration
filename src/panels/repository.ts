@@ -71,6 +71,7 @@ export class HacsPanelRepository extends LitElement {
         ${this.hass.localize(`component.hacs.repository.back_to`)} ${this.hass.localize(`component.hacs.common.${FE_cat}`)}
         `;
     }
+
     return html`
 
     <div class="getBack">
@@ -81,12 +82,20 @@ export class HacsPanelRepository extends LitElement {
     </div>
 
     <ha-card header="${this.repo.name}">
-      <div class="card content">
+      <div class="card-content addition">
+        <div class="description">
+          ${this.repo.description}
+        </div>
+      </div>
+      <div class="card-actions">
       </div>
     </ha-card>
 
-    <ha-card">
-      <div class="card content">
+    <ha-card>
+      <div class="card-content">
+        <div class="more_info">
+          ${this.repo.additional_info}
+        </div>
       </div>
     </ha-card>
           `;
@@ -106,6 +115,9 @@ export class HacsPanelRepository extends LitElement {
 
   static get styles(): CSSResultArray {
     return [HacsStyle, css`
+      .description {
+        font-style: italic;
+      }
       .getBack {
         margin-top: 4px;
         margin-bottom: 4px;

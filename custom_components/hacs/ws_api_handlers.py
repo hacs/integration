@@ -37,6 +37,8 @@ def hacs_repositories(hass, connection, msg):
                 "id": repo.information.uid,
                 "status": repo.display_status,
                 "status_description": repo.display_status_description,
+                "additional_info": repo.information.additional_info,
+                "info": repo.information.info,
             }
         )
 

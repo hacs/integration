@@ -1,11 +1,6 @@
 export const navigate = (
     _node: any,
-    path: string,
-    replace: boolean = true
+    path: string
 ) => {
-    if (replace) {
-        history.replaceState(null, "", path);
-    } else {
-        history.pushState(null, "", path);
-    }
+    history.replaceState(null, "", path);
 };

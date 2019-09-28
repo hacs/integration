@@ -13,7 +13,7 @@ import {
 } from "custom-card-helpers";
 
 import { Configuration, Repositories } from "../types"
-
+import "../repositoryView"
 import { navigate } from "../navigate"
 
 @customElement("hacs-panel-store")
@@ -37,19 +37,46 @@ export class HacsPanelStore extends LitElement {
   @property()
   public repository: string;
 
+  private getRepositories(): void {
+    this.hass.connection.sendMessagePromise({
+      type: "hacs/config"
+    }).then(
+      (resp) => {
+        this.configuration = resp;
+      },
+      (err) => {
+        console.error('Message failed!', err);
+      }
+    )
+    this.hass.connection.sendMessagePromise({
+      type: "hacs/repositories"
+    }).then(
+      (resp) => {
+        this.repositories = resp;
+      },
+      (err) => {
+        console.error('Message failed!', err);
+      }
+    )
+    this.requestUpdate();
+  };
+
   protected render(): TemplateResult | void {
 
-    if (/repository\//i.test(this.panel)) {
-      // How fun, this is a repository!
-      this.repository_view = true
-      this.repository = this.panel.split("/")[1]
+    console.log(this.panel)
+    console.log(this.repository)
 
+    if (this.panel === "repository") {
+      // How fun, this is a repository!
+      console.log("REPO", this.repository)
       return html`
       <hacs-panel-repository
       .hass=${this.hass}
       .configuration=${this.configuration}
       .repositories=${this.repositories}
-      .repository=${this.repository}>
+      .repository=${this.repository}
+      on-change
+      >
       </hacs-panel-repository>`
     } else {
 
@@ -84,7 +111,7 @@ export class HacsPanelStore extends LitElement {
     ${_repositories.sort((a, b) => (a.name > b.name) ? 1 : -1).map(repo =>
         html`
 
-      <paper-card @click="${this.getQuote}" .RepoID="${repo.id}">
+      <paper-card @click="${this.ShowRepository}" .RepoID="${repo.id}">
       <div class="card-content">
         <div>
           <ha-icon icon="mdi:cube" class="repo-state-${repo.installed}" title="Add-on is running"></ha-icon>
@@ -95,7 +122,6 @@ export class HacsPanelStore extends LitElement {
         </div>
       </div>
       </paper-card>
-
       `)}
     </div>
           `;
@@ -103,17 +129,14 @@ export class HacsPanelStore extends LitElement {
   }
 
 
-  getQuote(ev) {
-    var event = new CustomEvent('hacs-update', { detail: { stuff: 'stuff' } });
-    this.dispatchEvent(event);
-    console.log(event)
+  ShowRepository(ev) {
     ev.path.forEach((item) => {
       if (item.RepoID !== undefined) {
-        this.panel = `repository/${item.RepoID}`;
+        this.panel = `repository`;
         this.repository = item.RepoID;
         this.repository_view = true;
         navigate(this, `/hacs/repository/${item.RepoID}`);
-        this.requestUpdate();
+
       }
     })
   }

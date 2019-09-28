@@ -14,7 +14,11 @@ import { load_lovelace } from "./FromCardTools"
 import { navigate } from "./navigate"
 
 import "./HacsSpinner"
-import "./router"
+import scrollToTarget from "./ScrollToTarget"
+import "./panels/installed";
+import "./panels/store";
+import "./panels/settings";
+import "./panels/repository";
 
 import { Configuration, Repositories, Route } from "./types"
 
@@ -68,16 +72,8 @@ class HacsFrontendBase extends LitElement {
     this.requestUpdate();
   };
 
-  connectedCallback() {
-    console.log('lit-parent setting up Registration Shop')
-    this.addEventListener('hacs-update', ev => {
-      console.log(ev)
-      this.requestUpdate();
-    });
-    super.connectedCallback();
-  }
+  protected firstUpdated() {
 
-  firstUpdated() {
     this.panel = this._page;
     this.getRepositories()
 
@@ -86,11 +82,6 @@ class HacsFrontendBase extends LitElement {
       this.repository_view = true
       this.repository = this.panel.split("/")[1]
     } else this.repository_view = false;
-
-    this.addEventListener("hacs-update", async (e) => {
-      console.log(e);
-      this.requestUpdate();
-    });
 
     // "steal" LL elements
     load_lovelace()
@@ -103,27 +94,25 @@ class HacsFrontendBase extends LitElement {
       this.panel = "installed";
     }
 
-    console.log(this.panel)
     if (this.repositories === undefined) return html`<hacs-spinner></hacs-spinner>`;
 
     if (/repository\//i.test(this.panel)) {
-      // How fun, this is a repository!
       this.repository_view = true
       this.repository = this.panel.split("/")[1]
+      this.panel = this.panel.split("/")[0]
     } else this.repository_view = false;
-
 
     return html`
     <app-header-layout has-scrolling-region>
     <app-header slot="header" fixed>
-      <app-toolbar>
+        <app-toolbar>
         <ha-menu-button .hass="${this.hass}" .narrow="${this.narrow}"></ha-menu-button>
         <div main-title>${this.hass.localize(`component.hacs.config.title`)}</div>
-      </app-toolbar>
+        </app-toolbar>
     <paper-tabs
     scrollable
     attr-for-selected="page-name"
-    .selected="${this.panel}"
+
     @iron-activate=${this.handlePageSelected}>
 
     <paper-tab page-name="installed">
@@ -159,14 +148,30 @@ class HacsFrontendBase extends LitElement {
     </paper-tabs>
     </app-header>
 
-    <hacs-router
+    ${(this.panel === "installed" ? html`
+    <hacs-panel-installed
+        .hass=${this.hass}
+        .configuration=${this.configuration}
+        .repositories=${this.repositories}>
+        </hacs-panel-installed>` : "")}
+
+    ${(this.panel === "repository" || "integration" || "plugin" || "appdaemon" || "python_script" || "theme" ? html`
+    <hacs-panel-store
     .hass=${this.hass}
     .configuration=${this.configuration}
     .repositories=${this.repositories}
-    .repository=${this.repository}
     .panel=${this.panel}
+    .repository_view=${this.repository_view}
+    .repository=${this.repository}
     >
-    </hacs-router>
+    </hacs-panel-store>` : "")}
+
+    ${(this.panel === "settings" ? html`
+    <hacs-panel-settings
+        .hass=${this.hass}
+        .configuration=${this.configuration}
+        .repositories=${this.repositories}>
+        </hacs-panel-settings>` : "")}
 
     </app-header-layout>`
   }
@@ -175,8 +180,16 @@ class HacsFrontendBase extends LitElement {
     this.repository_view = false;
     const newPage = ev.detail.item.getAttribute("page-name");
     this.panel = newPage;
-    navigate(this, `/hacs/${newPage}`);
     this.requestUpdate();
+    if (newPage !== this._page) {
+      navigate(this, `/hacs/${newPage}`);
+    }
+
+    scrollToTarget(
+      this,
+      // @ts-ignore
+      this.shadowRoot!.querySelector("app-header-layout").header.scrollTarget
+    );
   }
 
   private get _page() {

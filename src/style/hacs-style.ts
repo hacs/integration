@@ -22,6 +22,10 @@ const baseHacsStyles = css`
         font-weight: var(--paper-font-body1_-_font-weight);
         line-height: var(--paper-font-body1_-_line-height);
     }
+    a {
+        text-decoration: none;
+        color: var(--dark-primary-color);
+    }
     h1 {
         font-family: var(--paper-font-title_-_font-family);
         -webkit-font-smoothing: var(--paper-font-title_-_-webkit-font-smoothing);

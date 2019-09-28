@@ -35,42 +35,15 @@ export class HacsPanelStore extends LitElement {
   @property()
   public repository: string;
 
-  private getRepositories(): void {
-    this.hass.connection.sendMessagePromise({
-      type: "hacs/config"
-    }).then(
-      (resp) => {
-        this.configuration = resp;
-      },
-      (err) => {
-        console.error('Message failed!', err);
-      }
-    )
-    this.hass.connection.sendMessagePromise({
-      type: "hacs/repositories"
-    }).then(
-      (resp) => {
-        this.repositories = resp;
-      },
-      (err) => {
-        console.error('Message failed!', err);
-      }
-    )
-    this.requestUpdate();
-  };
-
-
   protected render(): TemplateResult | void {
     if (this.panel === "repository") {
       // How fun, this is a repository!
-      console.log("REPO", this.repository)
       return html`
       <hacs-panel-repository
       .hass=${this.hass}
       .configuration=${this.configuration}
       .repositories=${this.repositories}
       .repository=${this.repository}
-      on-change
       >
       </hacs-panel-repository>`
     } else {
@@ -149,6 +122,8 @@ export class HacsPanelStore extends LitElement {
       css`
         .card-group {
           margin-top: 24px;
+          width: 95%;
+          margin-left: 2.5%;
         }
 
         .card-group .title {
@@ -167,7 +142,7 @@ export class HacsPanelStore extends LitElement {
           width: calc((100% - 12px * var(--card-group-columns)) / var(--card-group-columns));
           margin: 4px;
           vertical-align: top;
-          height: 128px;
+          height: 136px;
         }
 
         @media screen and (max-width: 1200px) and (min-width: 901px) {

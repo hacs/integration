@@ -39,9 +39,27 @@ def hacs_repositories(hass, connection, msg):
                 "status_description": repo.display_status_description,
                 "additional_info": repo.information.additional_info,
                 "info": repo.information.info,
+                "updated_info": repo.status.updated_info,
             }
         )
 
     connection.send_message(
         websocket_api.result_message(msg["id"], {"content": content})
     )
+
+
+@websocket_api.async_response
+async def hacs_repository(hass, connection, msg):
+    """Handle get media player cover command."""
+    repo_id = msg["repository"]
+    action = msg["action"]
+
+    repository = Hacs().get_by_id(repo_id)
+
+    if action == "update":
+        Hacs().logger.info("starting UPDATE!")
+        await repository.update_repository()
+        repository.status.updated_info = True
+        Hacs().logger.info("update DONE!")
+
+    hacs_repositories(hass, connection, msg)

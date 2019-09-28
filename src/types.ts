@@ -25,6 +25,7 @@ export interface Repository {
     status: string;
     additional_info: string;
     info: string;
+    updated_info: boolean;
 
 }
 

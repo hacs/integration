@@ -13,6 +13,7 @@ import { HacsStyle } from "../style/hacs-style"
 
 import { Configuration, Repositories, Repository } from "../types"
 import { navigate } from "../misc/navigate"
+import "../misc/HacsSpinner"
 import "./corePanel"
 
 @customElement("hacs-panel-repository")
@@ -37,6 +38,28 @@ export class HacsPanelRepository extends LitElement {
 
   repo: Repository;
 
+  private UpdateRepositoryData(): void {
+    this.hass.connection.sendMessagePromise({
+      type: "hacs/repository",
+      action: "update",
+      repository: this.repository
+    }).then(
+      (resp) => {
+        this.repositories = resp;
+      },
+      (err) => {
+        console.error('Message failed!', err);
+      }
+    )
+    this.requestUpdate();
+
+  };
+
+  protected firstUpdated() {
+    this.UpdateRepositoryData()
+  }
+
+
   render(): TemplateResult | void {
     if (this.repository === undefined) {
       return html`
@@ -57,6 +80,9 @@ export class HacsPanelRepository extends LitElement {
       return repo.id === _repository
     });
     this.repo = _repositories[0]
+
+    if (!this.repo.updated_info) return html`<hacs-spinner></hacs-spinner>`;
+
     if (this.repo.installed) {
       var back = `
         ${this.hass.localize(`component.hacs.repository.back_to`)} ${this.hass.localize(`component.hacs.repository.installed`)}
@@ -71,8 +97,6 @@ export class HacsPanelRepository extends LitElement {
         ${this.hass.localize(`component.hacs.repository.back_to`)} ${this.hass.localize(`component.hacs.common.${FE_cat}`)}
         `;
     }
-
-    console.log(html`${this.repo.additional_info}`)
 
     return html`
 
@@ -94,7 +118,7 @@ export class HacsPanelRepository extends LitElement {
     </ha-card>
 
     <ha-card>
-      <div class="card-content addition">
+      <div class="card-content">
         <div class="more_info">
           ${unsafeHTML(this.repo.additional_info)}
         </div>

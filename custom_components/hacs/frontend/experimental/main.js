@@ -222,7 +222,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
     }
 
     .card-group paper-card {
-      --card-group-columns: 3;
+      --card-group-columns: 4;
         width: calc(
           (100% - 12px * var(--card-group-columns)) / var(--card-group-columns)
         );
@@ -233,7 +233,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
 
     @media screen and (max-width: 1800px) and (min-width: 1201px) {
       .card-group paper-card {
-        --card-group-columns: 2;
+        --card-group-columns: 3;
       }
 
       }

@@ -202,7 +202,7 @@ export class HacsPanelStore extends LitElement {
     }
 
     .card-group paper-card {
-      --card-group-columns: 3;
+      --card-group-columns: 4;
         width: calc(
           (100% - 12px * var(--card-group-columns)) / var(--card-group-columns)
         );
@@ -213,7 +213,7 @@ export class HacsPanelStore extends LitElement {
 
     @media screen and (max-width: 1800px) and (min-width: 1201px) {
       .card-group paper-card {
-        --card-group-columns: 2;
+        --card-group-columns: 3;
       }
 
       }

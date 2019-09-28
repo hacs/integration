@@ -61,11 +61,8 @@ export class HacsPanelStore extends LitElement {
     this.requestUpdate();
   };
 
+
   protected render(): TemplateResult | void {
-
-    console.log(this.panel)
-    console.log(this.repository)
-
     if (this.panel === "repository") {
       // How fun, this is a repository!
       console.log("REPO", this.repository)
@@ -111,7 +108,7 @@ export class HacsPanelStore extends LitElement {
     ${_repositories.sort((a, b) => (a.name > b.name) ? 1 : -1).map(repo =>
         html`
 
-      <paper-card @click="${this.ShowRepository}" .RepoID="${repo.id}">
+      <paper-card id="${repo.id}" @click="${this.ShowRepository}" .RepoID="${repo.id}">
       <div class="card-content">
         <div>
           <ha-icon icon="mdi:cube" class="repo-state-${repo.installed}" title="Add-on is running"></ha-icon>
@@ -128,13 +125,13 @@ export class HacsPanelStore extends LitElement {
     }
   }
 
-
   ShowRepository(ev) {
     ev.path.forEach((item) => {
       if (item.RepoID !== undefined) {
         this.panel = `repository`;
         this.repository = item.RepoID;
         this.repository_view = true;
+        this.requestUpdate();
         navigate(this, `/hacs/repository/${item.RepoID}`);
 
       }

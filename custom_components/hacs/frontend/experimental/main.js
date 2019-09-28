@@ -136,7 +136,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
           <my-dialog ?opened="${this.dialogVisible}"
                     @dialog.accept="${this.closeDialog.bind(this)}"
                     @dialog.cancel="${this.closeDialog.bind(this)}"></my-dialog>
-      </div>`}toggleDialog(t){console.log(t),this.dialogVisible=!this.dialogVisible,console.log(this.dialogVisible)}closeDialog(t){console.log(t),this.dialogVisible=!1}}t([nt()],Tt.prototype,"dialogVisible",void 0),customElements.define("my-app",Tt);let At=class extends dt{constructor(){super(...arguments),this.repository_view=!1}getRepositories(){this.hass.connection.sendMessagePromise({type:"hacs/config"}).then(t=>{this.configuration=t},t=>{console.error("Message failed!",t)}),this.hass.connection.sendMessagePromise({type:"hacs/repositories"}).then(t=>{this.repositories=t},t=>{console.error("Message failed!",t)}),this.requestUpdate()}render(){if(console.log(this.panel),console.log(this.repository),"repository"===this.panel)return console.log("REPO",this.repository),U`
+      </div>`}toggleDialog(t){console.log(t),this.dialogVisible=!this.dialogVisible,console.log(this.dialogVisible)}closeDialog(t){console.log(t),this.dialogVisible=!1}}t([nt()],Tt.prototype,"dialogVisible",void 0),customElements.define("my-app",Tt);let At=class extends dt{constructor(){super(...arguments),this.repository_view=!1}getRepositories(){this.hass.connection.sendMessagePromise({type:"hacs/config"}).then(t=>{this.configuration=t},t=>{console.error("Message failed!",t)}),this.hass.connection.sendMessagePromise({type:"hacs/repositories"}).then(t=>{this.repositories=t},t=>{console.error("Message failed!",t)}),this.requestUpdate()}render(){if("repository"===this.panel)return console.log("REPO",this.repository),U`
       <hacs-panel-repository
       .hass=${this.hass}
       .configuration=${this.configuration}
@@ -148,7 +148,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
     <div class="card-group">
     ${t.sort((t,e)=>t.name>e.name?1:-1).map(t=>U`
 
-      <paper-card @click="${this.ShowRepository}" .RepoID="${t.id}">
+      <paper-card id="${t.id}" @click="${this.ShowRepository}" .RepoID="${t.id}">
       <div class="card-content">
         <div>
           <ha-icon icon="mdi:cube" class="repo-state-${t.installed}" title="Add-on is running"></ha-icon>
@@ -161,7 +161,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
       </paper-card>
       `)}
     </div>
-          `}}ShowRepository(t){t.path.forEach(t=>{void 0!==t.RepoID&&(this.panel="repository",this.repository=t.RepoID,this.repository_view=!0,ut(0,`/hacs/repository/${t.RepoID}`))})}static get styles(){return ct`
+          `}}ShowRepository(t){t.path.forEach(t=>{void 0!==t.RepoID&&(this.panel="repository",this.repository=t.RepoID,localStorage.setItem("scrollPosition",t.RepoID),this.repository_view=!0,this.requestUpdate(),ut(0,`/hacs/repository/${t.RepoID}`))})}static get styles(){return ct`
     :host {
       font-family: var(--paper-font-body1_-_font-family); -webkit-font-smoothing: var(--paper-font-body1_-_-webkit-font-smoothing); font-size: var(--paper-font-body1_-_font-size); font-weight: var(--paper-font-body1_-_font-weight); line-height: var(--paper-font-body1_-_line-height);
     }

@@ -13,7 +13,7 @@ export interface Configuration {
     theme?: boolean;
 }
 
-interface Repository {
+export interface Repository {
     category: string;
     country: string;
     description: string

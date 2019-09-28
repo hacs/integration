@@ -144,7 +144,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
       .repository=${this.repository}
       on-change
       >
-      </hacs-panel-repository>`;{const e=this.panel,i=this.configuration;var t=this.repositories.content||[];return t=this.repositories.content.filter(function(t){if("installed"!==e){if("172733314"===t.id)return!1;if(t.hide)return!1;if(null!==i.country&&i.country!==t.country)return!1}return t.category===e}),U`
+      </hacs-panel-repository>`;{const e=this.panel,i=this.configuration;var t=this.repositories.content||[];return t=this.repositories.content.filter(function(t){if("installed"!==e){if("172733314"===t.id)return!1;if(t.hide)return!1;if(null!==i.country&&i.country!==t.country)return!1}else if(t.installed)return!0;return t.category===e}),U`
     <div class="card-group">
     ${t.sort((t,e)=>t.name>e.name?1:-1).map(t=>U`
 
@@ -161,7 +161,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
       </paper-card>
       `)}
     </div>
-          `}}ShowRepository(t){t.path.forEach(t=>{void 0!==t.RepoID&&(this.panel="repository",this.repository=t.RepoID,localStorage.setItem("scrollPosition",t.RepoID),this.repository_view=!0,this.requestUpdate(),ut(0,`/hacs/repository/${t.RepoID}`))})}static get styles(){return ct`
+          `}}ShowRepository(t){t.path.forEach(t=>{void 0!==t.RepoID&&(this.panel="repository",this.repository=t.RepoID,this.repository_view=!0,this.requestUpdate(),ut(0,`/hacs/repository/${t.RepoID}`))})}static get styles(){return ct`
     :host {
       font-family: var(--paper-font-body1_-_font-family); -webkit-font-smoothing: var(--paper-font-body1_-_-webkit-font-smoothing); font-size: var(--paper-font-body1_-_font-size); font-weight: var(--paper-font-body1_-_font-weight); line-height: var(--paper-font-body1_-_line-height);
     }
@@ -306,7 +306,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
     ha-relative-time {
       display: block;
     }
-    `}};t([nt()],At.prototype,"hass",void 0),t([nt()],At.prototype,"repositories",void 0),t([nt()],At.prototype,"configuration",void 0),t([nt()],At.prototype,"panel",void 0),t([nt()],At.prototype,"repository_view",void 0),t([nt()],At.prototype,"repository",void 0),At=t([ot("hacs-panel-store")],At);let Et=class extends dt{render(){return console.log("hass: ",this.hass),console.log("configuration: ",this.configuration),U`
+    `}};t([nt()],At.prototype,"hass",void 0),t([nt()],At.prototype,"repositories",void 0),t([nt()],At.prototype,"configuration",void 0),t([nt()],At.prototype,"panel",void 0),t([nt()],At.prototype,"repository_view",void 0),t([nt()],At.prototype,"repository",void 0),At=t([ot("hacs-panel")],At);let Et=class extends dt{render(){return console.log("hass: ",this.hass),console.log("configuration: ",this.configuration),U`
 
     <ha-card header="${this.hass.localize("component.hacs.config.title")}">
       <div class="card content">
@@ -323,7 +323,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
         margin: 8px;
       }
       `}};t([nt()],Et.prototype,"hass",void 0),t([nt()],Et.prototype,"repositories",void 0),t([nt()],Et.prototype,"configuration",void 0),Et=t([ot("hacs-panel-settings")],Et);let zt=class extends dt{constructor(){super(...arguments),this.repository_view=!1}render(){if(void 0===this.repository)return U`
-      <hacs-panel-store
+      <hacs-panel
       .hass=${this.hass}
       .configuration=${this.configuration}
       .repositories=${this.repositories}
@@ -331,17 +331,22 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
       .repository_view=${this.repository_view}
       .repository=${this.repository}
       >
-      </hacs-panel-store>
-      `;var t=this.repository,e=(this.repositories.content,this.repositories.content.filter(function(e){return e.id===t})[0]);return U`
+      </hacs-panel>
+      `;var t=this.repository,e=this.repositories.content;if(e=this.repositories.content.filter(function(e){return e.id===t}),this.repo=e[0],this.repo.installed)var i=`\n        ${this.hass.localize("component.hacs.repository.back_to")} ${this.hass.localize("component.hacs.repository.installed")}\n        `;else{if("appdaemon"===this.repo.category)var o="appdaemon_apps";else o=`${this.repo.category}s`;i=`\n        ${this.hass.localize("component.hacs.repository.back_to")} ${this.hass.localize(`component.hacs.common.${o}`)}\n        `}return U`
 
     <div class="getBack">
-      <mwc-button @click=${this.GoBackToStore} title="Back to Integrations store">
+      <mwc-button @click=${this.GoBackToStore} title="${i}">
       <ha-icon  icon="mdi:arrow-left"></ha-icon>
-        Back to Integrations store
+        ${i}
       </mwc-button>
     </div>
 
-    <ha-card header="${e.name}">
+    <ha-card header="${this.repo.name}">
+      <div class="card content">
+      </div>
+    </ha-card>
+
+    <ha-card">
       <div class="card content">
       </div>
     </ha-card>
@@ -400,15 +405,8 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
     </paper-tabs>
     </app-header>
 
-    ${"installed"===this.panel?U`
-    <hacs-panel-installed
-        .hass=${this.hass}
-        .configuration=${this.configuration}
-        .repositories=${this.repositories}>
-        </hacs-panel-installed>`:""}
-
     ${this.panel,U`
-    <hacs-panel-store
+    <hacs-panel
     .hass=${this.hass}
     .configuration=${this.configuration}
     .repositories=${this.repositories}
@@ -416,7 +414,7 @@ function t(t,e,i,o){var s,r=arguments.length,n=r<3?e:null===o?o=Object.getOwnPro
     .repository_view=${this.repository_view}
     .repository=${this.repository}
     >
-    </hacs-panel-store>`}
+    </hacs-panel>`}
 
     ${"settings"===this.panel?U`
     <hacs-panel-settings

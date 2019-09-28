@@ -12,9 +12,9 @@ import {
   HomeAssistant
 } from "custom-card-helpers";
 
-import { Configuration, Repositories } from "../types"
+import { Configuration, Repositories, Repository } from "../types"
 import { navigate } from "../navigate"
-import "./store"
+import "./corePanel"
 
 @customElement("hacs-panel-repository")
 export class HacsPanelRepository extends LitElement {
@@ -36,10 +36,12 @@ export class HacsPanelRepository extends LitElement {
   @property()
   public repository_view = false;
 
+  repo: Repository;
+
   render(): TemplateResult | void {
     if (this.repository === undefined) {
       return html`
-      <hacs-panel-store
+      <hacs-panel
       .hass=${this.hass}
       .configuration=${this.configuration}
       .repositories=${this.repositories}
@@ -47,7 +49,7 @@ export class HacsPanelRepository extends LitElement {
       .repository_view=${this.repository_view}
       .repository=${this.repository}
       >
-      </hacs-panel-store>
+      </hacs-panel>
       `
     }
     var _repository = this.repository;
@@ -55,17 +57,36 @@ export class HacsPanelRepository extends LitElement {
     _repositories = this.repositories.content.filter(function (repo) {
       return repo.id === _repository
     });
-    var repo = _repositories[0]
+    this.repo = _repositories[0]
+    if (this.repo.installed) {
+      var back = `
+        ${this.hass.localize(`component.hacs.repository.back_to`)} ${this.hass.localize(`component.hacs.repository.installed`)}
+        `;
+    } else {
+      if (this.repo.category === "appdaemon") {
+        var FE_cat = "appdaemon_apps";
+      } else {
+        FE_cat = `${this.repo.category}s`
+      }
+      var back = `
+        ${this.hass.localize(`component.hacs.repository.back_to`)} ${this.hass.localize(`component.hacs.common.${FE_cat}`)}
+        `;
+    }
     return html`
 
     <div class="getBack">
-      <mwc-button @click=${this.GoBackToStore} title="Back to Integrations store">
+      <mwc-button @click=${this.GoBackToStore} title="${back}">
       <ha-icon  icon="mdi:arrow-left"></ha-icon>
-        Back to Integrations store
+        ${back}
       </mwc-button>
     </div>
 
-    <ha-card header="${repo.name}">
+    <ha-card header="${this.repo.name}">
+      <div class="card content">
+      </div>
+    </ha-card>
+
+    <ha-card">
       <div class="card content">
       </div>
     </ha-card>
@@ -73,6 +94,7 @@ export class HacsPanelRepository extends LitElement {
   }
 
   GoBackToStore() {
+
     this.repository = undefined;
     this.panel = "integration"
     navigate(this, "/hacs/integration")

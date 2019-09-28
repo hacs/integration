@@ -16,7 +16,7 @@ import { Configuration, Repositories } from "../types"
 import "../repositoryView"
 import { navigate } from "../navigate"
 
-@customElement("hacs-panel-store")
+@customElement("hacs-panel")
 export class HacsPanelStore extends LitElement {
 
   @property()
@@ -94,6 +94,8 @@ export class HacsPanelStore extends LitElement {
             if (config.country !== repo.country) return false;
           }
 
+        } else {
+          if (repo.installed) return true;
         }
 
         // Object looks OK, let's show it

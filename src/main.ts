@@ -16,7 +16,7 @@ import { navigate } from "./navigate"
 import "./HacsSpinner"
 import scrollToTarget from "./ScrollToTarget"
 import "./panels/installed";
-import "./panels/store";
+import "./panels/corePanel";
 import "./panels/settings";
 import "./panels/repository";
 
@@ -148,15 +148,8 @@ class HacsFrontendBase extends LitElement {
     </paper-tabs>
     </app-header>
 
-    ${(this.panel === "installed" ? html`
-    <hacs-panel-installed
-        .hass=${this.hass}
-        .configuration=${this.configuration}
-        .repositories=${this.repositories}>
-        </hacs-panel-installed>` : "")}
-
-    ${(this.panel === "repository" || "integration" || "plugin" || "appdaemon" || "python_script" || "theme" ? html`
-    <hacs-panel-store
+    ${(this.panel === "installed" || "repository" || "integration" || "plugin" || "appdaemon" || "python_script" || "theme" ? html`
+    <hacs-panel
     .hass=${this.hass}
     .configuration=${this.configuration}
     .repositories=${this.repositories}
@@ -164,7 +157,7 @@ class HacsFrontendBase extends LitElement {
     .repository_view=${this.repository_view}
     .repository=${this.repository}
     >
-    </hacs-panel-store>` : "")}
+    </hacs-panel>` : "")}
 
     ${(this.panel === "settings" ? html`
     <hacs-panel-settings

@@ -144,6 +144,7 @@ class Hacs:
                         f"Validation for {full_name} failed with {exception}."
                     )
                 return
+        self.hass.bus.fire("hacs/repository", {"action": "registration", "repository": repository.information.full_name})
         self.repositories.append(repository)
 
     async def startup_tasks(self):
@@ -211,6 +212,7 @@ class Hacs:
         self.clear_out_blacklisted_repositories()
         self.system.status.background_task = False
         self.data.write()
+        self.hass.bus.fire("hacs/repository", {"action": "reload"})
         self.logger.debug("Recuring background task for all repositories done")
 
     def clear_out_blacklisted_repositories(self):

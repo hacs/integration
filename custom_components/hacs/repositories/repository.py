@@ -412,6 +412,7 @@ class HacsRepository(Hacs):
                     await self.reload_custom_components()
                 else:
                     self.pending_restart = True
+            self.hass.bus.fire("hacs/repository", {"action": "install", "repository": self.information.full_name})
 
     async def download_content(self, validate, directory_path, local_directory, ref):
         """Download the content of a directory."""
@@ -588,6 +589,7 @@ class HacsRepository(Hacs):
             self.common.installed.remove(self.information.full_name)
         self.versions.installed = None
         self.versions.installed_commit = None
+        self.hass.bus.fire("hacs/repository", {"action": "uninstall", "repository": self.information.full_name})
 
     async def remove_local_directory(self):
         """Check the local directory."""

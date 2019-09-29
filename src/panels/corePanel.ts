@@ -14,6 +14,7 @@ import { HacsStyle } from "../style/hacs-style"
 import { Configuration, Repository } from "../types"
 import { navigate } from "../misc/navigate"
 
+
 @customElement("hacs-panel")
 export class HacsPanelStore extends LitElement {
 
@@ -77,6 +78,17 @@ export class HacsPanelStore extends LitElement {
       });
 
       return html`
+      <div>
+        <input
+            class="search-bar"
+            type="text"
+            id="Search"
+            on-keyup=${this.DoSearch}
+            placeholder="  Please enter a search term.."
+            title="Search for stuff!"
+            autofocus
+        >
+      </div>
     <div class="card-group">
     ${_repositories.sort((a, b) => (a.name > b.name) ? 1 : -1).map(repo =>
         html`
@@ -103,6 +115,10 @@ export class HacsPanelStore extends LitElement {
     }
   }
 
+  DoSearch(ev) {
+    console.log(String(ev));
+  };
+
   ShowRepository(ev) {
     ev.path.forEach((item) => {
       if (item.RepoID !== undefined) {
@@ -120,6 +136,17 @@ export class HacsPanelStore extends LitElement {
     return [
       HacsStyle,
       css`
+        .search-bar {
+          width: 92%;
+          margin-left: 3.4%;
+          margin-top: 2%;
+          background-color: var(--primary-background-color);
+          color: var(--primary-text-color);
+          line-height: 32px;
+          border-color: var(--dark-primary-color);
+          border-width: inherit;
+          border-bottom-width: thin;
+      }
         .card-group {
           margin-top: 24px;
           width: 95%;

@@ -81,7 +81,12 @@ export class HacsPanelRepository extends LitElement {
     });
     this.repo = _repositories[0]
 
-    if (!this.repo.updated_info) return html`<hacs-spinner></hacs-spinner>`;
+    if (!this.repo.updated_info) return html`
+    <hacs-spinner></hacs-spinner>
+    <div class="loading">
+      ${this.hass.localize(`component.hacs.repository.loading`)}
+    </div>
+    `;
 
     if (this.repo.installed) {
       var back = `
@@ -127,10 +132,10 @@ export class HacsPanelRepository extends LitElement {
         </div>
         <div class="information">
           <div class="version installed">
-            <b>Installed: </b> X.X.X
+            <b>${this.hass.localize(`component.hacs.repository.installed`)}: </b> X.X.X
           </div>
           <div class="version available">
-            <paper-dropdown-menu label="Available">
+            <paper-dropdown-menu label="${this.hass.localize(`component.hacs.repository.available`)}">
               <paper-listbox slot="dropdown-content" selected="0">
                 <paper-item>0.1.0</paper-item>
                 <paper-item>0.2.0</paper-item>
@@ -241,6 +246,10 @@ export class HacsPanelRepository extends LitElement {
       }
       .right {
         float: right;
+      }
+      .loading {
+        text-align: center;
+        width: 100%;
       }
       ha-card {
         width: 90%;

@@ -14,7 +14,6 @@ import { HacsStyle } from "../style/hacs-style"
 import { Configuration, Repository } from "../types"
 import { navigate } from "../misc/navigate"
 
-
 @customElement("hacs-panel")
 export class HacsPanelStore extends LitElement {
 
@@ -36,6 +35,9 @@ export class HacsPanelStore extends LitElement {
   @property()
   public repository: string;
 
+  @property()
+  public SearchTerm: string = "";
+
   protected render(): TemplateResult | void {
     if (this.panel === "repository") {
       // How fun, this is a repository!
@@ -50,7 +52,9 @@ export class HacsPanelStore extends LitElement {
     } else {
 
       const category = this.panel;
-      const config = this.configuration
+      const config = this.configuration;
+      this.SearchTerm = localStorage.getItem("hacs-search");
+      var SearchTerm = this.SearchTerm;
       var _repositories = this.repositories || [];
       _repositories = this.repositories.filter(function (repo) {
 
@@ -71,23 +75,30 @@ export class HacsPanelStore extends LitElement {
         }
 
         // Object looks OK, let's show it
-        if (repo.category === category) return true;
-
+        if (repo.category === category) {
+          if (SearchTerm !== "" || undefined || null) {
+            if (repo.name.toLowerCase().includes(SearchTerm)) return true;
+            if (repo.description.toLowerCase().includes(SearchTerm)) return true;
+            return false;
+          }
+          return true;
+        }
         // Fallback to not showing it.
         return false
       });
 
       return html`
-      <div>
+      ${(this.panel === "integration" || "plugin" || "appdaemon" || "python_script" || "theme" ? html`
         <paper-input
-            class="search-bar"
+            class="search-bar search-bar-${this.panel}"
             type="text"
             id="Search"
             @input=${this.DoSearch}
             placeholder="  Please enter a search term.."
             autofocus
-        ></paper-input>
-      </div>
+            .value=${this.SearchTerm}
+        ></paper-input>` : "")}
+
     <div class="card-group">
     ${_repositories.sort((a, b) => (a.name > b.name) ? 1 : -1).map(repo =>
         html`
@@ -110,14 +121,18 @@ export class HacsPanelStore extends LitElement {
       </paper-card>
       `)}
     </div>
+    <script>
+    var objDiv = document.getElementById("191563578");
+    objDiv.scrollTop = objDiv.scrollHeight;
+    console.log("done")
+    </script>
           `;
     }
   }
 
   DoSearch(ev) {
-    var SearchTerm = ev.path[0].value.ToLowerCase();
-    var _repos = []
-    console.log("Search is currently not working, you wanted:", SearchTerm);
+    this.SearchTerm = ev.path[0].value.toLowerCase();
+    localStorage.setItem("hacs-search", this.SearchTerm);
   };
 
   ShowRepository(ev) {
@@ -138,6 +153,7 @@ export class HacsPanelStore extends LitElement {
       HacsStyle,
       css`
         .search-bar {
+          display: block;
           width: 92%;
           margin-left: 3.4%;
           margin-top: 2%;
@@ -148,7 +164,12 @@ export class HacsPanelStore extends LitElement {
           border-width: inherit;
           border-bottom-width: thin;
       }
-        .card-group {
+
+      .search-bar-installed, .search-bar-settings {
+        display: none;
+      }
+
+      .card-group {
           margin-top: 24px;
           width: 95%;
           margin-left: 2.5%;

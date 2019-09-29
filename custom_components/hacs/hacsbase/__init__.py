@@ -144,7 +144,14 @@ class Hacs:
                         f"Validation for {full_name} failed with {exception}."
                     )
                 return
-        self.hass.bus.fire("hacs/repository", {"action": "registration", "repository": repository.information.full_name})
+        self.hass.bus.fire(
+            "hacs/repository",
+            {
+                "id": 1337,
+                "action": "registration",
+                "repository": repository.information.full_name,
+            },
+        )
         self.repositories.append(repository)
 
     async def startup_tasks(self):

@@ -8,6 +8,7 @@ import {
 } from "lit-element";
 
 import { HomeAssistant } from "custom-card-helpers";
+import { HassEvent } from "home-assistant-js-websocket";
 
 import { load_lovelace } from "./misc/LoadLovelace"
 import { navigate } from "./misc/navigate"
@@ -47,6 +48,8 @@ class HacsFrontendBase extends LitElement {
 
   @property()
   public repository_view = false;
+
+  @property() private _events: Array<{ id: number; event: HassEvent }> = [];
 
   private getRepositories(): void {
     this.hass.connection.sendMessagePromise({

@@ -79,15 +79,14 @@ export class HacsPanelStore extends LitElement {
 
       return html`
       <div>
-        <input
+        <paper-input
             class="search-bar"
             type="text"
             id="Search"
-            on-keyup=${this.DoSearch}
+            @input=${this.DoSearch}
             placeholder="  Please enter a search term.."
-            title="Search for stuff!"
             autofocus
-        >
+        ></paper-input>
       </div>
     <div class="card-group">
     ${_repositories.sort((a, b) => (a.name > b.name) ? 1 : -1).map(repo =>
@@ -116,7 +115,9 @@ export class HacsPanelStore extends LitElement {
   }
 
   DoSearch(ev) {
-    console.log(String(ev));
+    var SearchTerm = ev.path[0].value.ToLowerCase();
+    var _repos = []
+    console.log("Search is currently not working, you wanted:", SearchTerm);
   };
 
   ShowRepository(ev) {

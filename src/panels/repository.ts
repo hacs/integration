@@ -107,13 +107,64 @@ export class HacsPanelRepository extends LitElement {
       </mwc-button>
     </div>
 
+
     <ha-card header="${this.repo.name}">
-      <div class="card-content addition">
-        <div class="description">
+      <paper-menu-button no-animations horizontal-align="right" role="group" aria-haspopup="true" vertical-align="top" aria-disabled="false">
+        <paper-icon-button icon="hass:dots-vertical" slot="dropdown-trigger" role="button"></paper-icon-button>
+        <paper-listbox slot="dropdown-content" role="listbox" tabindex="0">
+
+        <paper-item @click=${this.Reload}>Reload</paper-item>
+        <paper-item @click=${this.Reload}>Beta</paper-item>
+        <paper-item @click=${this.Reload}>Hide</paper-item>
+        <paper-item @click=${this.Reload}>Open issue</paper-item>
+        <paper-item @click=${this.Reload}>Flag this</paper-item>
+
+        </paper-listbox>
+      </paper-menu-button>
+      <div class="card-content">
+        <div class="description addition">
           ${this.repo.description}
         </div>
+        <div class="information">
+          <div class="version installed">
+            <b>Installed: </b> X.X.X
+          </div>
+          <div class="version available">
+            <paper-dropdown-menu label="Available">
+              <paper-listbox slot="dropdown-content" selected="0">
+                <paper-item>0.1.0</paper-item>
+                <paper-item>0.2.0</paper-item>
+                <paper-item>0.3.0</paper-item>
+                <paper-item>master</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+          </div>
+        </div>
       </div>
+
+
       <div class="card-actions">
+
+      <mwc-button @click=${this.MainAction}>
+        Main action
+      </mwc-button>
+
+      <a href="https://google.com" rel='noreferrer' target="_blank">
+        <mwc-button>
+          Changelog
+        </mwc-button>
+      </a>
+
+        <a href="https://google.com" rel='noreferrer' target="_blank">
+          <mwc-button>
+            Repository
+          </mwc-button>
+        </a>
+
+        <mwc-button class="right" @click=${this.Reload}>
+          Uninstall
+        </mwc-button>
+
       </div>
     </ha-card>
 
@@ -139,19 +190,65 @@ export class HacsPanelRepository extends LitElement {
     this.requestUpdate();
   }
 
+  Reload() {
+    this.UpdateRepositoryData();
+  }
+
+  MainAction() {
+    this.UpdateRepositoryData();
+  }
+
+  Uninstall() {
+    this.UpdateRepositoryData();
+  }
+
+  Hide() {
+    this.UpdateRepositoryData();
+  }
+
+  UnHide() {
+    this.UpdateRepositoryData();
+  }
+
+  ShowBeta() {
+    this.UpdateRepositoryData();
+  }
+
+  HideBeta() {
+    this.UpdateRepositoryData();
+  }
+
   static get styles(): CSSResultArray {
     return [HacsStyle, css`
       .description {
         font-style: italic;
+        padding-bottom: 16px;
+      }
+      .version {
+        padding-bottom: 8px;
+      }
+      .options {
+        float: right;
+        width: 40%;
+      }
+      .information {
+        width: 60%;
       }
       .getBack {
         margin-top: 8px;
         margin-bottom: 4px;
         margin-left: 5%;
       }
+      .right {
+        float: right;
+      }
       ha-card {
         width: 90%;
         margin-left: 5%;
+      }
+      paper-menu-button {
+        float: right;
+        top: -65px;
       }
     `]
   }

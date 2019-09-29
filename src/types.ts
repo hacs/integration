@@ -26,5 +26,12 @@ export interface Repository {
     additional_info: string;
     info: string;
     updated_info: boolean;
+    beta: boolean;
+    version_or_commit: string;
+    custom: boolean;
+    installed_version: string;
+    available_version: string;
+    main_action: string;
+    pending_upgrade: boolean;
 
 }

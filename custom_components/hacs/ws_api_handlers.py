@@ -33,11 +33,19 @@ def hacs_repositories(hass, connection, msg):
                 "category": repo.information.category,
                 "installed": repo.status.installed,
                 "id": repo.information.uid,
+                "hide": repo.status.hide,
+                "beta": repo.status.show_beta,
                 "status": repo.display_status,
                 "status_description": repo.display_status_description,
                 "additional_info": repo.information.additional_info,
                 "info": repo.information.info,
                 "updated_info": repo.status.updated_info,
+                "version_or_commit": repo.display_version_or_commit,
+                "custom": repo.custom,
+                "installed_version": repo.display_installed_version,
+                "available_version": repo.display_available_version,
+                "main_action": repo.main_action,
+                "pending_upgrade": repo.pending_upgrade,
             }
         )
 
@@ -51,13 +59,36 @@ async def hacs_repository(hass, connection, msg):
     action = msg["action"]
 
     repository = Hacs().get_by_id(repo_id)
+    Hacs().logger.info(f"Running {action} for {repository.information.full_name}")
 
     if action == "update":
-        Hacs().logger.info(f"Running {action} for {repository.information.full_name}")
         await repository.update_repository()
         repository.status.updated_info = True
+        repository.status.new = False
+
+    elif action == "install":
+        await repository.install()
+
+    elif action == "uninstall":
+        await repository.uninstall()
+
+    elif action == "hide":
+        repository.status.hide = True
+
+    elif action == "unhide":
+        repository.status.hide = False
+
+    elif action == "show_beta":
+        repository.status.show_beta = True
+        await repository.update_repository()
+
+    elif action == "hide_beta":
+        repository.status.show_beta = False
+        await repository.update_repository()
 
     else:
         Hacs().logger.error(f"WS action '{action}' is not valid")
+
+    Hacs().data.write()
 
     hacs_repositories(hass, connection, msg)

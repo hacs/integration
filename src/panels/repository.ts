@@ -120,21 +120,34 @@ export class HacsPanelRepository extends LitElement {
         <paper-icon-button icon="hass:dots-vertical" slot="dropdown-trigger" role="button"></paper-icon-button>
         <paper-listbox slot="dropdown-content" role="listbox" tabindex="0">
 
-        <paper-item @click=${this.RepositoryReload}>Reload</paper-item>
-        <paper-item @click=${this.RepositoryBeta}>Beta</paper-item>
-        <paper-item @click=${this.RepositoryHide}>Hide</paper-item>
+        <paper-item @click=${this.RepositoryReload}>
+        ${this.hass.localize(`component.hacs.repository.update_information`)}
+        </paper-item>
+
+      ${(this.repo.version_or_commit === "version" ? html`
+      <paper-item @click=${this.RepositoryBeta}>
+      ${(this.repo.beta ?
+          this.hass.localize(`component.hacs.repository.hide_beta`) :
+          this.hass.localize(`component.hacs.repository.show_beta`)
+        )}
+        </paper-item>`: "")}
+
+        ${(!this.repo.custom ? html`
+        <paper-item @click=${this.RepositoryHide}>
+          ${this.hass.localize(`component.hacs.repository.hide`)}
+        </paper-item>`: "")}
 
         <a href="https://google.com" rel='noreferrer' target="_blank">
           <paper-item>
             <ha-icon class="link-icon" icon="mdi:open-in-new"></ha-icon>
-            Open issue
+            ${this.hass.localize(`component.hacs.repository.open_issue`)}
           </paper-item>
         </a>
 
         <a href="https://google.com" rel='noreferrer' target="_blank">
           <paper-item>
             <ha-icon class="link-icon" icon="mdi:open-in-new"></ha-icon>
-            Flag this
+            ${this.hass.localize(`component.hacs.repository.flag_this`)}
           </paper-item>
         </a>
 
@@ -146,14 +159,12 @@ export class HacsPanelRepository extends LitElement {
         </div>
         <div class="information">
           <div class="version installed">
-            <b>${this.hass.localize(`component.hacs.repository.installed`)}: </b> X.X.X
+            <b>${this.hass.localize(`component.hacs.repository.installed`)}: </b> ${this.repo.installed_version}
           </div>
           <div class="version available">
             <paper-dropdown-menu label="${this.hass.localize(`component.hacs.repository.available`)}">
               <paper-listbox slot="dropdown-content" selected="0">
-                <paper-item>0.1.0</paper-item>
-                <paper-item>0.2.0</paper-item>
-                <paper-item>0.3.0</paper-item>
+                <paper-item>${this.repo.available_version}</paper-item>
                 <paper-item>master</paper-item>
               </paper-listbox>
             </paper-dropdown-menu>
@@ -165,24 +176,27 @@ export class HacsPanelRepository extends LitElement {
       <div class="card-actions">
 
       <mwc-button @click=${this.RepositoryInstall}>
-        Main action
+        ${this.hass.localize(`component.hacs.repository.${this.repo.main_action.toLowerCase()}`)}
       </mwc-button>
 
+      ${(this.repo.pending_upgrade ? html`
       <a href="https://google.com" rel='noreferrer' target="_blank">
         <mwc-button>
-          Changelog
+        ${this.hass.localize(`component.hacs.repository.changelog`)}
         </mwc-button>
-      </a>
+      </a>`: "")}
 
         <a href="https://google.com" rel='noreferrer' target="_blank">
           <mwc-button>
-            Repository
+          ${this.hass.localize(`component.hacs.repository.repository`)}
           </mwc-button>
         </a>
 
+      ${(this.repo.installed ? html`
         <mwc-button class="right" @click=${this.RepositoryUnInstall}>
-          Uninstall
-        </mwc-button>
+          ${this.hass.localize(`component.hacs.repository.uninstall`)}
+        </mwc-button>`: "")}
+
 
       </div>
     </ha-card>
@@ -210,11 +224,19 @@ export class HacsPanelRepository extends LitElement {
   }
 
   RepositoryBeta() {
-    this.RepositoryWebSocketAction("beta");
+    if (this.repo.beta) {
+      this.RepositoryWebSocketAction("hide_beta");
+    } else {
+      this.RepositoryWebSocketAction("show_beta");
+    }
   }
 
   RepositoryHide() {
-    this.RepositoryWebSocketAction("hide");
+    if (this.repo.hide) {
+      this.RepositoryWebSocketAction("unhide");
+    } else {
+      this.RepositoryWebSocketAction("hide");
+    }
   }
 
   GoBackToStore() {

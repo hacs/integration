@@ -105,3 +105,10 @@ class Configuration:
         if self.options is None:
             return 5
         return self.options.get("release_limit", 5)
+
+    @property
+    def experimental(self):
+        """Return experimental"""
+        if self.options is None:
+            return False
+        return self.options.get("experimental", False)

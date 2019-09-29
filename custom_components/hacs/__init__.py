@@ -299,7 +299,27 @@ async def setup_frontend(hacs):
         require_admin=True,
     )
 
-    await setup_ws_api(hacs)
+    if hacs.configuration.experimental:
+        custom_panel_config = {
+            "name": "hacs-frontend",
+            "embed_iframe": False,
+            "trust_external": False,
+            "js_url": "/hacs_experimental/main.js",
+        }
+
+        config = {}
+        config["_panel_custom"] = custom_panel_config
+
+        hacs.hass.components.frontend.async_register_built_in_panel(
+            component_name="custom",
+            sidebar_title=hacs.configuration.sidepanel_title + " (Experimental)",
+            sidebar_icon=hacs.configuration.sidepanel_icon,
+            frontend_url_path="hacs_experimental",
+            config=config,
+            require_admin=True,
+        )
+
+        await setup_ws_api(hacs)
 
 
 async def add_services(hacs):
@@ -364,6 +384,7 @@ async def async_remove_entry(hass, config_entry):
             .replace(" ", "_")
             .replace("-", "_")
         )
+        hass.components.frontend.async_remove_panel("hacs")
     except AttributeError:
         pass
     Hacs().system.disabled = True

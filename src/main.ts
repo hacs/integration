@@ -73,15 +73,7 @@ class HacsFrontendBase extends LitElement {
   };
 
   protected firstUpdated() {
-    this.hass.connection.socket.onmessage = function (msg) {
-      console.log(JSON.parse(msg.data));
-      var data = JSON.parse(msg.data);
-      if (data.event) {
-        if (data.event.event_type === 'hacs/repository') {
-          console.log(JSON.parse(msg.data));
-        }
-      }
-    }
+    localStorage.setItem("hacs-search", "");
     this.panel = this._page;
     this.getRepositories()
 

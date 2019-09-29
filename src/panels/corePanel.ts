@@ -187,20 +187,14 @@ export class HacsPanelStore extends LitElement {
         }
 
         .card-group paper-card {
-          --card-group-columns: 4;
+          --card-group-columns: 3;
           width: calc((100% - 12px * var(--card-group-columns)) / var(--card-group-columns));
           margin: 4px;
           vertical-align: top;
           height: 136px;
         }
 
-        @media screen and (max-width: 1200px) and (min-width: 901px) {
-          .card-group paper-card {
-            --card-group-columns: 3;
-          }
-        }
-
-        @media screen and (max-width: 900px) and (min-width: 601px) {
+        @media screen and (max-width: 1200px) and (min-width: 601px) {
           .card-group paper-card {
             --card-group-columns: 2;
           }

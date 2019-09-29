@@ -38,10 +38,12 @@ export class HacsPanelRepository extends LitElement {
 
   repo: Repository;
 
-  private UpdateRepositoryData(): void {
+
+
+  private RepositoryWebSocketAction(Action: string): void {
     this.hass.connection.sendMessagePromise({
       type: "hacs/repository",
-      action: "update",
+      action: Action,
       repository: this.repository
     }).then(
       (resp) => {
@@ -52,11 +54,11 @@ export class HacsPanelRepository extends LitElement {
       }
     )
     this.requestUpdate();
-
   };
 
+
   protected firstUpdated() {
-    if (!this.repo.updated_info) this.UpdateRepositoryData();
+    if (!this.repo.updated_info) this.RepositoryAction("update");
   }
 
 
@@ -118,11 +120,11 @@ export class HacsPanelRepository extends LitElement {
         <paper-icon-button icon="hass:dots-vertical" slot="dropdown-trigger" role="button"></paper-icon-button>
         <paper-listbox slot="dropdown-content" role="listbox" tabindex="0">
 
-        <paper-item @click=${this.Reload}>Reload</paper-item>
-        <paper-item @click=${this.Reload}>Beta</paper-item>
-        <paper-item @click=${this.Reload}>Hide</paper-item>
-        <paper-item @click=${this.Reload}>Open issue</paper-item>
-        <paper-item @click=${this.Reload}>Flag this</paper-item>
+        <paper-item @click=${this.RepositoryAction("update")}>Reload</paper-item>
+        <paper-item @click=${this.RepositoryAction("update")}>Beta</paper-item>
+        <paper-item @click=${this.RepositoryAction("update")}>Hide</paper-item>
+        <paper-item @click=${this.RepositoryAction("update")}>Open issue</paper-item>
+        <paper-item @click=${this.RepositoryAction("update")}>Flag this</paper-item>
 
         </paper-listbox>
       </paper-menu-button>
@@ -150,7 +152,7 @@ export class HacsPanelRepository extends LitElement {
 
       <div class="card-actions">
 
-      <mwc-button @click=${this.MainAction}>
+      <mwc-button @click=${this.RepositoryAction("install")}>
         Main action
       </mwc-button>
 
@@ -166,7 +168,7 @@ export class HacsPanelRepository extends LitElement {
           </mwc-button>
         </a>
 
-        <mwc-button class="right" @click=${this.Reload}>
+        <mwc-button class="right" @click=${this.RepositoryAction("uninstall")}>
           Uninstall
         </mwc-button>
 
@@ -183,6 +185,10 @@ export class HacsPanelRepository extends LitElement {
           `;
   }
 
+  RepositoryAction(Action: string) {
+    this.RepositoryWebSocketAction(Action);
+  }
+
   GoBackToStore() {
 
     this.repository = undefined;
@@ -193,34 +199,6 @@ export class HacsPanelRepository extends LitElement {
     }
     navigate(this, `/hacs/${this.repo.category}`)
     this.requestUpdate();
-  }
-
-  Reload() {
-    this.UpdateRepositoryData();
-  }
-
-  MainAction() {
-    this.UpdateRepositoryData();
-  }
-
-  Uninstall() {
-    this.UpdateRepositoryData();
-  }
-
-  Hide() {
-    this.UpdateRepositoryData();
-  }
-
-  UnHide() {
-    this.UpdateRepositoryData();
-  }
-
-  ShowBeta() {
-    this.UpdateRepositoryData();
-  }
-
-  HideBeta() {
-    this.UpdateRepositoryData();
   }
 
   static get styles(): CSSResultArray {

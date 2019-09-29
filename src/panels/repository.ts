@@ -58,7 +58,7 @@ export class HacsPanelRepository extends LitElement {
 
 
   protected firstUpdated() {
-    if (!this.repo.updated_info) this.RepositoryAction("update");
+    if (!this.repo.updated_info) this.RepositoryWebSocketAction("update");
   }
 
 
@@ -120,11 +120,23 @@ export class HacsPanelRepository extends LitElement {
         <paper-icon-button icon="hass:dots-vertical" slot="dropdown-trigger" role="button"></paper-icon-button>
         <paper-listbox slot="dropdown-content" role="listbox" tabindex="0">
 
-        <paper-item @click=${this.RepositoryAction("update")}>Reload</paper-item>
-        <paper-item @click=${this.RepositoryAction("update")}>Beta</paper-item>
-        <paper-item @click=${this.RepositoryAction("update")}>Hide</paper-item>
-        <paper-item @click=${this.RepositoryAction("update")}>Open issue</paper-item>
-        <paper-item @click=${this.RepositoryAction("update")}>Flag this</paper-item>
+        <paper-item @click=${this.RepositoryReload}>Reload</paper-item>
+        <paper-item @click=${this.RepositoryBeta}>Beta</paper-item>
+        <paper-item @click=${this.RepositoryHide}>Hide</paper-item>
+
+        <a href="https://google.com" rel='noreferrer' target="_blank">
+          <paper-item>
+            <ha-icon class="link-icon" icon="mdi:open-in-new"></ha-icon>
+            Open issue
+          </paper-item>
+        </a>
+
+        <a href="https://google.com" rel='noreferrer' target="_blank">
+          <paper-item>
+            <ha-icon class="link-icon" icon="mdi:open-in-new"></ha-icon>
+            Flag this
+          </paper-item>
+        </a>
 
         </paper-listbox>
       </paper-menu-button>
@@ -152,7 +164,7 @@ export class HacsPanelRepository extends LitElement {
 
       <div class="card-actions">
 
-      <mwc-button @click=${this.RepositoryAction("install")}>
+      <mwc-button @click=${this.RepositoryInstall}>
         Main action
       </mwc-button>
 
@@ -168,7 +180,7 @@ export class HacsPanelRepository extends LitElement {
           </mwc-button>
         </a>
 
-        <mwc-button class="right" @click=${this.RepositoryAction("uninstall")}>
+        <mwc-button class="right" @click=${this.RepositoryUnInstall}>
           Uninstall
         </mwc-button>
 
@@ -185,8 +197,24 @@ export class HacsPanelRepository extends LitElement {
           `;
   }
 
-  RepositoryAction(Action: string) {
-    this.RepositoryWebSocketAction(Action);
+  RepositoryReload() {
+    this.RepositoryWebSocketAction("update");
+  }
+
+  RepositoryInstall() {
+    this.RepositoryWebSocketAction("install");
+  }
+
+  RepositoryUnInstall() {
+    this.RepositoryWebSocketAction("uninstall");
+  }
+
+  RepositoryBeta() {
+    this.RepositoryWebSocketAction("beta");
+  }
+
+  RepositoryHide() {
+    this.RepositoryWebSocketAction("hide");
   }
 
   GoBackToStore() {
@@ -232,6 +260,10 @@ export class HacsPanelRepository extends LitElement {
       ha-card {
         width: 90%;
         margin-left: 5%;
+      }
+      .link-icon {
+        color: var(--dark-primary-color);
+        margin-right: 8px;
       }
       paper-menu-button {
         float: right;

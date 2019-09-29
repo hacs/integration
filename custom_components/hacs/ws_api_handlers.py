@@ -53,8 +53,11 @@ async def hacs_repository(hass, connection, msg):
     repository = Hacs().get_by_id(repo_id)
 
     if action == "update":
-        Hacs().logger.info(f"Running update for {repository.information.full_name}")
+        Hacs().logger.info(f"Running {action} for {repository.information.full_name}")
         await repository.update_repository()
         repository.status.updated_info = True
+
+    else:
+        Hacs().logger.error(f"WS action '{action}' is not valid")
 
     hacs_repositories(hass, connection, msg)

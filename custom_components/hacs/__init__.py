@@ -44,6 +44,7 @@ OPTIONS_SCHEMA = vol.Schema(
     {
         vol.Optional("country"): vol.All(cv.string, vol.In(const.LOCALE)),
         vol.Optional("release_limit"): cv.positive_int,
+        vol.Optional("experimental"): cv.string,
     }
 )
 
@@ -265,18 +266,21 @@ def check_custom_updater(hacs):
 
 def add_sensor(hacs):
     """Add sensor."""
-    if hacs.configuration.config_type == "yaml":
-        hacs.hass.async_create_task(
-            discovery.async_load_platform(
-                hacs.hass, "sensor", const.DOMAIN, {}, hacs.configuration.config
+    try:
+        if hacs.configuration.config_type == "yaml":
+            hacs.hass.async_create_task(
+                discovery.async_load_platform(
+                    hacs.hass, "sensor", const.DOMAIN, {}, hacs.configuration.config
+                )
             )
-        )
-    else:
-        hacs.hass.async_add_job(
-            hacs.hass.config_entries.async_forward_entry_setup(
-                hacs.configuration.config_entry, "sensor"
+        else:
+            hacs.hass.async_add_job(
+                hacs.hass.config_entries.async_forward_entry_setup(
+                    hacs.configuration.config_entry, "sensor"
+                )
             )
-        )
+    except ValueError:
+        pass
 
 
 async def setup_frontend(hacs):
@@ -294,7 +298,7 @@ async def setup_frontend(hacs):
         "iframe",
         hacs.configuration.sidepanel_title,
         hacs.configuration.sidepanel_icon,
-        hacs.configuration.sidepanel_title.lower().replace(" ", "_").replace("-", "_"),
+        "hacs_web",
         {"url": hacs.hacsweb + "/overview"},
         require_admin=True,
     )
@@ -376,17 +380,20 @@ async def async_remove_entry(hass, config_entry):
     for task in Hacs().tasks:
         task()
     Hacs().logger.info("Removing sensor")
-    await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")
+    try:
+        await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")
+    except ValueError:
+        pass
     Hacs().logger.info("Removing sidepanel")
     try:
-        hass.components.frontend.async_remove_panel(
-            Hacs.configuration.sidepanel_title.lower()
-            .replace(" ", "_")
-            .replace("-", "_")
-        )
-        hass.components.frontend.async_remove_panel("hacs")
+        hass.components.frontend.async_remove_panel("hacs_web")
     except AttributeError:
         pass
+    if Hacs().configuration.experimental:
+        try:
+            hass.components.frontend.async_remove_panel("hacs_experimental")
+        except AttributeError:
+            pass
     Hacs().system.disabled = True
     Hacs().logger.info("HACS is now disabled")
 

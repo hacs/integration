@@ -16,6 +16,14 @@ WS_WITH_CONFIG = [
     }
 ]
 
+WS_WITH_DATA = [
+    {
+        "type": "hacs/repository/data",
+        "handler": handler.hacs_repository_data,
+        "schema": {"action": cv.string, "repository": cv.string, "data": cv.string},
+    }
+]
+
 
 async def setup_ws_api(hacs):
     """Add API endpoints."""
@@ -28,6 +36,17 @@ async def setup_ws_api(hacs):
         hacs.logger.info(f"Added WS endpoint {api['type']}")
 
     for api in WS_WITH_CONFIG:
+        schemadata = api["schema"]
+        schemadata["type"] = api["type"]
+
+        schema = websocket_api.BASE_COMMAND_MESSAGE_SCHEMA.extend(schemadata)
+        hacs.hass.components.websocket_api.async_register_command(
+            api["type"], api["handler"], schema
+        )
+
+        hacs.logger.info(f"Added WS endpoint {api['type']}")
+
+    for api in WS_WITH_DATA:
         schemadata = api["schema"]
         schemadata["type"] = api["type"]
 

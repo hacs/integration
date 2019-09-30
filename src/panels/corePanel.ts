@@ -43,10 +43,10 @@ export class HacsPanelStore extends LitElement {
       // How fun, this is a repository!
       return html`
       <hacs-panel-repository
-      .hass=${this.hass}
-      .configuration=${this.configuration}
-      .repositories=${this.repositories}
-      .repository=${this.repository}
+        .hass=${this.hass}
+        .configuration=${this.configuration}
+        .repositories=${this.repositories}
+        .repository=${this.repository}
       >
       </hacs-panel-repository>`
     } else {

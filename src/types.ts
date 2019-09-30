@@ -39,5 +39,8 @@ export interface Repository {
     local_path: string;
     authors: [string];
     topics: [string];
+    releases: [string];
+    selected_tag: string;
+    default_branch: string;
 
 }

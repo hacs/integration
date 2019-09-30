@@ -52,6 +52,9 @@ def hacs_repositories(hass, connection, msg):
                 "authors": repo.information.authors,
                 "local_path": repo.content.path.local,
                 "topics": repo.information.topics,
+                "releases": repo.releases.published_tags,
+                "selected_tag": repo.status.selected_tag,
+                "default_branch": repo.information.default_branch,
             }
         )
 
@@ -90,6 +93,38 @@ async def hacs_repository(hass, connection, msg):
 
     elif action == "hide_beta":
         repository.status.show_beta = False
+        await repository.update_repository()
+
+    elif action == "set_version":
+        if msg["version"] == repository.information.default_branch:
+            repository.status.selected_tag = None
+        else:
+            repository.status.selected_tag = msg["version"]
+        await repository.update_repository()
+
+    else:
+        Hacs().logger.error(f"WS action '{action}' is not valid")
+
+    Hacs().data.write()
+
+    hacs_repositories(hass, connection, msg)
+
+
+@websocket_api.async_response
+async def hacs_repository_data(hass, connection, msg):
+    """Handle get media player cover command."""
+    repo_id = msg["repository"]
+    action = msg["action"]
+    data = msg["data"]
+
+    repository = Hacs().get_by_id(repo_id)
+    Hacs().logger.info(f"Running {action} for {repository.information.full_name}")
+
+    if action == "set_version":
+        if data == repository.information.default_branch:
+            repository.status.selected_tag = None
+        else:
+            repository.status.selected_tag = data
         await repository.update_repository()
 
     else:

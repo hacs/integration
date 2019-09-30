@@ -49,7 +49,9 @@ def hacs_repositories(hass, connection, msg):
                 "full_name": repo.information.full_name,
                 "file_name": repo.information.file_name,
                 "javascript_type": repo.information.javascript_type,
+                "authors": repo.information.authors,
                 "local_path": repo.content.path.local,
+                "topics": repo.information.topics,
             }
         )
 

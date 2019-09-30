@@ -37,5 +37,7 @@ export interface Repository {
     full_name: string;
     file_name: string;
     local_path: string;
+    authors: [string];
+    topics: [string];
 
 }

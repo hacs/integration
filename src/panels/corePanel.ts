@@ -73,13 +73,17 @@ export class HacsPanelStore extends LitElement {
           if (repo.installed) return true;
         }
 
-        // Object looks OK, let's show it
         if (repo.category === category) {
           if (SearchTerm !== "" || null) {
             if (repo.name.toLowerCase().includes(SearchTerm)) return true;
             if (repo.description.toLowerCase().includes(SearchTerm)) return true;
+            if (repo.full_name.toLowerCase().includes(SearchTerm)) return true;
+            if (String(repo.authors).toLowerCase().includes(SearchTerm)) return true;
+            if (String(repo.topics).toLowerCase().includes(SearchTerm)) return true;
             return false;
           }
+
+          // Fallback to not showing it if no search.
           return true;
         }
         // Fallback to not showing it.
@@ -87,16 +91,15 @@ export class HacsPanelStore extends LitElement {
       });
 
       return html`
-      ${(this.panel === "integration" || "plugin" || "appdaemon" || "python_script" || "theme" ? html`
-        <paper-input
-            class="search-bar search-bar-${this.panel}"
-            type="text"
-            id="Search"
-            @input=${this.DoSearch}
-            placeholder="  Please enter a search term.."
-            autofocus
-            .value=${this.SearchTerm}
-        ></paper-input>` : "")}
+      <paper-input
+        class="search-bar search-bar-${this.panel}"
+        type="text"
+        id="Search"
+        @input=${this.DoSearch}
+        placeholder="  Please enter a search term.."
+        autofocus
+        .value=${this.SearchTerm}
+      ></paper-input>
 
     <div class="card-group">
     ${_repositories.sort((a, b) => (a.name > b.name) ? 1 : -1).map(repo =>

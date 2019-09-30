@@ -1,4 +1,4 @@
-import { LitElement, customElement, CSSResult, css, TemplateResult, html } from "lit-element";
+import { LitElement, customElement, TemplateResult, html } from "lit-element";
 
 import "@granite-elements/granite-spinner";
 

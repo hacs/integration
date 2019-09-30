@@ -55,8 +55,7 @@ export class HacsPanelStore extends LitElement {
       const config = this.configuration;
       this.SearchTerm = localStorage.getItem("hacs-search");
       var SearchTerm = this.SearchTerm;
-      var _repositories = this.repositories || [];
-      _repositories = this.repositories.filter(function (repo) {
+      var _repositories = this.repositories.filter(function (repo) {
 
         if (category !== "installed") {
           // Hide HACS from the store
@@ -76,7 +75,7 @@ export class HacsPanelStore extends LitElement {
 
         // Object looks OK, let's show it
         if (repo.category === category) {
-          if (SearchTerm !== "" || undefined || null) {
+          if (SearchTerm !== "" || null) {
             if (repo.name.toLowerCase().includes(SearchTerm)) return true;
             if (repo.description.toLowerCase().includes(SearchTerm)) return true;
             return false;

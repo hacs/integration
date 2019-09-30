@@ -77,8 +77,7 @@ export class HacsPanelRepository extends LitElement {
       `
     }
     var _repository = this.repository;
-    var _repositories = this.repositories || [];
-    _repositories = this.repositories.filter(function (repo) {
+    var _repositories = this.repositories.filter(function (repo) {
       return repo.id === _repository
     });
     this.repo = _repositories[0]

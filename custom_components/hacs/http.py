@@ -34,6 +34,10 @@ class HacsExperimental(HomeAssistantView, Hacs):
         """Handle HACS Experimental Web requests."""
         servefile = f"{self.system.config_path}/custom_components/hacs/frontend/experimental/{requested_file}"
 
+        # Serve .gz file if it exist
+        if os.path.exists(f"{servefile}.gz"):
+            servefile += ".gz"
+
         if os.path.exists(servefile):
             return web.FileResponse(servefile)
         else:

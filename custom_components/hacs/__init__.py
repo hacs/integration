@@ -318,7 +318,7 @@ async def setup_frontend(hacs):
             component_name="custom",
             sidebar_title=hacs.configuration.sidepanel_title + " (Experimental)",
             sidebar_icon=hacs.configuration.sidepanel_icon,
-            frontend_url_path="hacs_experimental",
+            frontend_url_path="hacs",
             config=config,
             require_admin=True,
         )
@@ -391,7 +391,7 @@ async def async_remove_entry(hass, config_entry):
         pass
     if Hacs().configuration.experimental:
         try:
-            hass.components.frontend.async_remove_panel("hacs_experimental")
+            hass.components.frontend.async_remove_panel("hacs")
         except AttributeError:
             pass
     Hacs().system.disabled = True

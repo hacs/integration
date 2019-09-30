@@ -1,3 +1,4 @@
+/* eslint-disable no-console, no-undef, prefer-destructuring, prefer-destructuring, no-constant-condition, max-len */
 import {
   LitElement,
   customElement,
@@ -10,18 +11,18 @@ import {
 import { HomeAssistant } from "custom-card-helpers";
 import { HassEvent } from "home-assistant-js-websocket";
 
-import { load_lovelace } from "./misc/LoadLovelace"
-import { navigate } from "./misc/navigate"
+import { load_lovelace } from "./misc/LoadLovelace";
+import { navigate } from "./misc/navigate";
 
-import { HacsStyle } from "./style/hacs-style"
+import { HacsStyle } from "./style/hacs-style";
 
-import "./misc/HacsSpinner"
-import scrollToTarget from "./misc/ScrollToTarget"
+import "./misc/HacsSpinner";
+import scrollToTarget from "./misc/ScrollToTarget";
 import "./panels/corePanel";
 import "./panels/settings";
 import "./panels/repository";
 
-import { Configuration, Repository, Route } from "./types"
+import { Configuration, Repository, Route } from "./types";
 
 @customElement("hacs-frontend")
 class HacsFrontendBase extends LitElement {
@@ -61,7 +62,7 @@ class HacsFrontendBase extends LitElement {
       (err) => {
         console.error('Message failed!', err);
       }
-    )
+    );
     this.hass.connection.sendMessagePromise({
       type: "hacs/repositories"
     }).then(
@@ -71,23 +72,23 @@ class HacsFrontendBase extends LitElement {
       (err) => {
         console.error('Message failed!', err);
       }
-    )
+    );
     this.requestUpdate();
-  };
+  }
 
   protected firstUpdated() {
     localStorage.setItem("hacs-search", "");
     this.panel = this._page;
-    this.getRepositories()
+    this.getRepositories();
 
     if (/repository\//i.test(this.panel)) {
       // How fun, this is a repository!
-      this.repository_view = true
-      this.repository = this.panel.split("/")[1]
+      this.repository_view = true;
+      this.repository = this.panel.split("/")[1];
     } else this.repository_view = false;
 
     // "steal" LL elements
-    load_lovelace()
+    load_lovelace();
   }
 
   protected render(): TemplateResult | void {
@@ -100,9 +101,9 @@ class HacsFrontendBase extends LitElement {
     if (this.repositories === undefined) return html`<hacs-spinner></hacs-spinner>`;
 
     if (/repository\//i.test(this.panel)) {
-      this.repository_view = true
-      this.repository = this.panel.split("/")[1]
-      this.panel = this.panel.split("/")[0]
+      this.repository_view = true;
+      this.repository = this.panel.split("/")[1];
+      this.panel = this.panel.split("/")[0];
     } else this.repository_view = false;
 
     const page = this.panel;
@@ -132,20 +133,20 @@ class HacsFrontendBase extends LitElement {
     ${this.hass.localize(`component.hacs.common.plugins`)}
     </paper-tab>
 
-    ${(this.configuration.appdaemon ?
-        html`<paper-tab page-name="appdaemon">
+    ${(this.configuration.appdaemon
+    ? html`<paper-tab page-name="appdaemon">
         ${this.hass.localize(`component.hacs.common.appdaemon_apps`)}
-    </paper-tab>`: "")}
+    </paper-tab>` : "")}
 
-    ${(this.configuration.python_script ?
-        html`<paper-tab page-name="python_script">
+    ${(this.configuration.python_script
+    ? html`<paper-tab page-name="python_script">
         ${this.hass.localize(`component.hacs.common.python_scripts`)}
-    </paper-tab>`: "")}
+    </paper-tab>` : "")}
 
-    ${(this.configuration.theme ?
-        html`<paper-tab page-name="theme">
+    ${(this.configuration.theme
+    ? html`<paper-tab page-name="theme">
         ${this.hass.localize(`component.hacs.common.themes`)}
-    </paper-tab>`: "")}
+    </paper-tab>` : "")}
 
     <paper-tab page-name="settings">
     ${this.hass.localize("component.hacs.common.settings")}
@@ -171,7 +172,7 @@ class HacsFrontendBase extends LitElement {
         .repositories=${this.repositories}>
         </hacs-panel-settings>` : "")}
 
-    </app-header-layout>`
+    </app-header-layout>`;
   }
 
   handlePageSelected(ev) {

@@ -121,10 +121,7 @@ async def hacs_repository_data(hass, connection, msg):
     Hacs().logger.info(f"Running {action} for {repository.information.full_name}")
 
     if action == "set_version":
-        if data == repository.information.default_branch:
-            repository.status.selected_tag = None
-        else:
-            repository.status.selected_tag = data
+        repository.status.selected_tag = data
         await repository.update_repository()
 
     else:

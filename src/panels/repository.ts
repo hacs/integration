@@ -38,12 +38,24 @@ export class HacsPanelRepository extends LitElement {
   public repository_view = false;
 
   @property()
-  public ActiveTask!: boolean;
+  public ActiveSpinnerMainAction: boolean;
+
+  @property()
+  public ActiveSpinnerUninstall: boolean;
 
   repo: Repository;
 
+  ResetSpinner() {
+    this.ActiveSpinnerMainAction = false;
+    this.ActiveSpinnerUninstall = false;
+  }
+
   private RepositoryWebSocketActionData(Action: string, Data: string): void {
-    this.ActiveTask = true;
+    if (Action === "uninstall") {
+      this.ActiveSpinnerUninstall = true;
+    } else {
+      this.ActiveSpinnerMainAction = true;
+    }
     this.hass.connection.sendMessagePromise({
       type: "hacs/repository/data",
       action: Action,
@@ -52,20 +64,23 @@ export class HacsPanelRepository extends LitElement {
     }).then(
       (resp) => {
         this.repositories = (resp as Repository[]);
-        this.ActiveTask = false;
+        this.ResetSpinner();
         this.requestUpdate();
       },
       (err) => {
         console.error('Message failed!', err);
-        this.ActiveTask = false;
+        this.ResetSpinner();
         this.requestUpdate();
       }
     )
   };
 
-
   private RepositoryWebSocketAction(Action: string): void {
-    this.ActiveTask = true;
+    if (Action === "uninstall") {
+      this.ActiveSpinnerUninstall = true;
+    } else {
+      this.ActiveSpinnerMainAction = true;
+    }
     this.hass.connection.sendMessagePromise({
       type: "hacs/repository",
       action: Action,
@@ -73,12 +88,12 @@ export class HacsPanelRepository extends LitElement {
     }).then(
       (resp) => {
         this.repositories = (resp as Repository[]);
-        this.ActiveTask = false;
+        this.ResetSpinner();
         this.requestUpdate();
       },
       (err) => {
         console.error('Message failed!', err);
-        this.ActiveTask = false;
+        this.ResetSpinner();
         this.requestUpdate();
       }
     )
@@ -87,7 +102,7 @@ export class HacsPanelRepository extends LitElement {
 
   protected firstUpdated() {
     if (!this.repo.updated_info) this.RepositoryWebSocketAction("update");
-    this.ActiveTask = false;
+    this.ResetSpinner();
   }
 
 
@@ -141,12 +156,10 @@ export class HacsPanelRepository extends LitElement {
       `
     } else {
 
-      var selected = 0;
-
       var availableVersion = html`
           <div class="version-available">
               <paper-dropdown-menu label="${this.hass.localize(`component.hacs.repository.available`)}">
-                  <paper-listbox slot="dropdown-content" selected="${selected}">
+                  <paper-listbox slot="dropdown-content" selected="0">
                   ${(
           this.repo.selected_tag ?
             html`<paper-item @click="${this.SetVersion}">${this.repo.selected_tag}</paper-item>` : ""
@@ -228,7 +241,7 @@ export class HacsPanelRepository extends LitElement {
       <div class="card-actions">
 
       <mwc-button @click=${this.RepositoryInstall}>
-        ${(this.ActiveTask ? html`<paper-spinner active></paper-spinner>` : html`
+        ${(this.ActiveSpinnerMainAction ? html`<paper-spinner active></paper-spinner>` : html`
         ${this.hass.localize(`component.hacs.repository.${this.repo.main_action.toLowerCase()}`)}
         `)}
       </mwc-button>
@@ -248,7 +261,9 @@ export class HacsPanelRepository extends LitElement {
 
       ${(this.repo.installed ? html`
         <mwc-button class="right" @click=${this.RepositoryUnInstall}>
-          ${this.hass.localize(`component.hacs.repository.uninstall`)}
+        ${(this.ActiveSpinnerUninstall ? html`<paper-spinner active></paper-spinner>` : html`
+        ${this.hass.localize(`component.hacs.repository.uninstall`)}
+        `)}
         </mwc-button>`: "")}
 
 
@@ -299,7 +314,6 @@ export class HacsPanelRepository extends LitElement {
   }
 
   SetVersion(ev: any) {
-    this.ActiveTask = true;
     var Version = ev.path[2].outerText;
     if (Version) this.RepositoryWebSocketActionData("set_version", Version);
   }

@@ -53,6 +53,8 @@ class RepositoryInformation:
     default_branch = None
     description = ""
     full_name = None
+    file_name = None
+    javascript_type = None
     homeassistant_version = None
     last_updated = None
     uid = None

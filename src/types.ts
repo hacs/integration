@@ -33,5 +33,9 @@ export interface Repository {
     available_version: string;
     main_action: string;
     pending_upgrade: boolean;
+    javascript_type: string;
+    full_name: string;
+    file_name: string;
+    local_path: string;
 
 }

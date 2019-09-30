@@ -14,6 +14,7 @@ import { HacsStyle } from "../style/hacs-style"
 import { Configuration, Repository } from "../types"
 import { navigate } from "../misc/navigate"
 import "../misc/HacsSpinner"
+import "../misc/RepositoryNote"
 import "./corePanel"
 
 @customElement("hacs-panel-repository")
@@ -205,6 +206,11 @@ export class HacsPanelRepository extends LitElement {
         <div class="more_info">
           ${unsafeHTML(this.repo.additional_info)}
         </div>
+      <hacs-repository-note
+        .hass=${this.hass}
+        .configuration=${this.configuration}
+        .repository=${this.repo}
+      ></hacs-repository-note>
       </div>
     </ha-card>
           `;

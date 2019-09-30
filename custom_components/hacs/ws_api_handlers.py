@@ -46,6 +46,10 @@ def hacs_repositories(hass, connection, msg):
                 "available_version": repo.display_available_version,
                 "main_action": repo.main_action,
                 "pending_upgrade": repo.pending_upgrade,
+                "full_name": repo.information.full_name,
+                "file_name": repo.information.file_name,
+                "javascript_type": repo.information.javascript_type,
+                "local_path": repo.content.path.local,
             }
         )
 

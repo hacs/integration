@@ -4,7 +4,7 @@
 class HacsManifest:
     """HacsManifest class."""
 
-    def __init__(self, manifest):
+    def __init__(self, manifest: dict):
         """Initialize."""
         self.manifest = manifest
 
@@ -16,7 +16,7 @@ class HacsManifest:
     @property
     def content_in_root(self):
         """Return a bool to indicate that the content is in the roop of the repository."""
-        return self.manifest.get("content_in_root")
+        return self.manifest.get("content_in_root", False)
 
     @property
     def filename(self):
@@ -55,4 +55,4 @@ class HacsManifest:
     @property
     def render_readme(self):
         """Return a bool to indicate that the readme file should be rendered."""
-        return self.manifest.get("render_readme")
+        return self.manifest.get("render_readme", False)

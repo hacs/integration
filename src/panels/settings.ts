@@ -54,17 +54,17 @@ export class HacsPanelSettings extends LitElement {
         `)}
       </mwc-button>
 
-      <mwc-button raised @click=${this.ReloadData}>
-        ${(this.ActiveSpinnerReload ? html`<paper-spinner active></paper-spinner>` : html`
-        ${this.hass.localize(`component.hacs.settings.hacs_repo`)}
-        `)}
-      </mwc-button>
+      <a href="https://github.com/custom-components/hacs" target="_blank" rel="noreferrer">
+        <mwc-button raised>
+          ${this.hass.localize(`component.hacs.settings.hacs_repo`)}
+        </mwc-button>
+      </a>
 
-      <mwc-button raised @click=${this.ReloadData}>
-        ${(this.ActiveSpinnerReload ? html`<paper-spinner active></paper-spinner>` : html`
-        ${this.hass.localize(`component.hacs.repository.open_issue`)}
-        `)}
-      </mwc-button>
+      <a href="https://github.com/custom-components/hacs/issues" target="_blank" rel="noreferrer">
+        <mwc-button raised>
+          ${this.hass.localize(`component.hacs.repository.open_issue`)}
+        </mwc-button>
+      </a>
       </div>
     </ha-card>
           `;

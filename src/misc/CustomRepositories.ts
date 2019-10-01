@@ -82,7 +82,7 @@ export class CustomRepositories extends LitElement {
             </div>
 
             <div class="card-actions">
-                <paper-input class="inputfield" type="text">Hello</paper-input>
+                <paper-input class="inputfield" placeholder=${(this.hass.localize("component.hacs.settings.add_custom_repository"))} type="text"></paper-input>
 
 
                 <paper-dropdown-menu class="category"

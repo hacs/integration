@@ -5,6 +5,7 @@ import {
   CSSResultArray,
   TemplateResult,
   html,
+  css,
   property
 } from "lit-element";
 
@@ -98,7 +99,7 @@ class HacsFrontendBase extends LitElement {
       this.panel = "installed";
     }
 
-    if (this.repositories === undefined) return html`<hacs-spinner></hacs-spinner>`;
+    if (this.repositories === undefined) return html`<paper-spinner active class="loader"></paper-spinner>`;
 
     if (/repository\//i.test(this.panel)) {
       this.repository_view = true;
@@ -134,17 +135,17 @@ class HacsFrontendBase extends LitElement {
     </paper-tab>
 
     ${(this.configuration.appdaemon
-    ? html`<paper-tab page-name="appdaemon">
+        ? html`<paper-tab page-name="appdaemon">
         ${this.hass.localize(`component.hacs.common.appdaemon_apps`)}
     </paper-tab>` : "")}
 
     ${(this.configuration.python_script
-    ? html`<paper-tab page-name="python_script">
+        ? html`<paper-tab page-name="python_script">
         ${this.hass.localize(`component.hacs.common.python_scripts`)}
     </paper-tab>` : "")}
 
     ${(this.configuration.theme
-    ? html`<paper-tab page-name="theme">
+        ? html`<paper-tab page-name="theme">
         ${this.hass.localize(`component.hacs.common.themes`)}
     </paper-tab>` : "")}
 
@@ -197,6 +198,16 @@ class HacsFrontendBase extends LitElement {
   }
 
   static get styles(): CSSResultArray {
-    return [HacsStyle];
+    return [HacsStyle, css`
+    paper-spinner.loader {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 99;
+      width: 300px;
+      height: 300px;
+   }
+    `];
   }
 }

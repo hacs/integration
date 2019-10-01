@@ -38,20 +38,28 @@ export class HacsPanelRepository extends LitElement {
   @property()
   public repository_view = false;
 
+  @property()
   private ActiveSpinnerMainAction: boolean;
+
+  @property()
   private ActiveSpinnerUninstall: boolean;
+
+  @property()
+  private ActiveSpinnerLoader: boolean;
+
   private repo: Repository;
 
   ResetSpinner() {
     this.ActiveSpinnerMainAction = false;
     this.ActiveSpinnerUninstall = false;
+    this.ActiveSpinnerLoader = false;
   }
 
   private RepositoryWebSocketAction(Action: string, Data: any = undefined): void {
     if (Action === "uninstall") {
       this.ActiveSpinnerUninstall = true;
     } else {
-      this.ActiveSpinnerMainAction = true;
+      this.ActiveSpinnerLoader = true;
     }
     let message: { [x: string]: any; type: string; action?: string; repository?: string; data?: any; id?: number; }
     if (Data) {
@@ -84,8 +92,11 @@ export class HacsPanelRepository extends LitElement {
 
 
   protected firstUpdated() {
-    if (!this.repo.updated_info) this.RepositoryWebSocketAction("update");
-    this.ResetSpinner();
+    if (!this.repo.updated_info) {
+      this.RepositoryWebSocketAction("update");
+    }
+    this.ActiveSpinnerMainAction = false;
+    this.ActiveSpinnerUninstall = false;
   }
 
 
@@ -109,13 +120,6 @@ export class HacsPanelRepository extends LitElement {
     });
     this.repo = _repositories[0]
 
-    if (!this.repo.updated_info) return html`
-    <hacs-spinner></hacs-spinner>
-    <div class="loading">
-      ${this.hass.localize(`component.hacs.repository.loading`)}
-    </div>
-    `;
-
     if (this.repo.installed) {
       var back = `
         ${this.hass.localize(`component.hacs.repository.back_to`)} ${this.hass.localize(`component.hacs.repository.installed`)}
@@ -138,6 +142,7 @@ export class HacsPanelRepository extends LitElement {
       <ha-icon  icon="mdi:arrow-left"></ha-icon>
         ${back}
       </mwc-button>
+      ${(this.ActiveSpinnerLoader ? html`<paper-spinner active class="loader"></paper-spinner>` : "")}
     </div>
 
 
@@ -163,14 +168,14 @@ export class HacsPanelRepository extends LitElement {
           ${this.hass.localize(`component.hacs.repository.hide`)}
         </paper-item>`: "")}
 
-        <a href="https://google.com" rel='noreferrer' target="_blank">
+        <a href="https://github.com/${this.repo.full_name}" rel='noreferrer' target="_blank">
           <paper-item>
             <ha-icon class="link-icon" icon="mdi:open-in-new"></ha-icon>
             ${this.hass.localize(`component.hacs.repository.open_issue`)}
           </paper-item>
         </a>
 
-        <a href="https://google.com" rel='noreferrer' target="_blank">
+        <a href="https://github.com" rel='noreferrer' target="_blank">
           <paper-item>
             <ha-icon class="link-icon" icon="mdi:open-in-new"></ha-icon>
             ${this.hass.localize(`component.hacs.repository.flag_this`)}
@@ -225,13 +230,13 @@ export class HacsPanelRepository extends LitElement {
       </mwc-button>
 
       ${(this.repo.pending_upgrade ? html`
-      <a href="https://google.com" rel='noreferrer' target="_blank">
+      <a href="https://github.com/${this.repo.full_name}/releases" rel='noreferrer' target="_blank">
         <mwc-button>
         ${this.hass.localize(`component.hacs.repository.changelog`)}
         </mwc-button>
       </a>`: "")}
 
-        <a href="https://google.com" rel='noreferrer' target="_blank">
+        <a href="https://github.com/${this.repo.full_name}" rel='noreferrer' target="_blank">
           <mwc-button>
           ${this.hass.localize(`component.hacs.repository.repository`)}
           </mwc-button>
@@ -315,6 +320,15 @@ export class HacsPanelRepository extends LitElement {
         margin-top: -24px;
 
       }
+      paper-spinner.loader {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99;
+        width: 300px;
+        height: 300px;
+     }
       .description {
         font-style: italic;
         padding-bottom: 16px;

@@ -24,7 +24,10 @@ export class HacsPanelSettings extends LitElement {
   @property()
   public configuration!: Configuration
 
+  @property()
   private ActiveSpinnerReload: boolean
+
+  @property()
   private ActiveSpinnerUpgradeAll: boolean
 
   ResetSpinner() {

@@ -11,6 +11,7 @@ def hacs_config(hass, connection, msg):
 
     content = {}
     content["frontend_mode"] = config.frontend_mode
+    content["version"] = Hacs().version
     content["dev"] = config.dev
     content["appdaemon"] = config.appdaemon
     content["python_script"] = config.python_script

@@ -96,7 +96,7 @@ export class HacsPanelStore extends LitElement {
         type="text"
         id="Search"
         @input=${this.DoSearch}
-        placeholder="  Please enter a search term.."
+        placeholder="  ${this.hass.localize("component.hacs.store.placeholder_search")}."
         autofocus
         .value=${this.SearchTerm}
       ></paper-input>

@@ -11,6 +11,7 @@ export interface Configuration {
     option_country: string;
     python_script: boolean;
     theme: boolean;
+    version: string;
 }
 
 export interface Repository {

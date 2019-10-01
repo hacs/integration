@@ -14,6 +14,7 @@ import { HacsStyle } from "../style/hacs-style"
 import { Configuration, Repository } from "../types"
 import { navigate } from "../misc/navigate"
 import "../misc/HacsSpinner"
+import "../misc/Authors"
 import "../misc/RepositoryNote"
 import "./corePanel"
 
@@ -37,55 +38,37 @@ export class HacsPanelRepository extends LitElement {
   @property()
   public repository_view = false;
 
-  @property()
-  public ActiveSpinnerMainAction: boolean;
-
-  @property()
-  public ActiveSpinnerUninstall: boolean;
-
-  repo: Repository;
+  private ActiveSpinnerMainAction: boolean;
+  private ActiveSpinnerUninstall: boolean;
+  private repo: Repository;
 
   ResetSpinner() {
     this.ActiveSpinnerMainAction = false;
     this.ActiveSpinnerUninstall = false;
   }
 
-  private RepositoryWebSocketActionData(Action: string, Data: string): void {
+  private RepositoryWebSocketAction(Action: string, Data: any = undefined): void {
     if (Action === "uninstall") {
       this.ActiveSpinnerUninstall = true;
     } else {
       this.ActiveSpinnerMainAction = true;
     }
-    this.hass.connection.sendMessagePromise({
-      type: "hacs/repository/data",
-      action: Action,
-      repository: this.repository,
-      data: Data
-    }).then(
-      (resp) => {
-        this.repositories = (resp as Repository[]);
-        this.ResetSpinner();
-        this.requestUpdate();
-      },
-      (err) => {
-        console.error('Message failed!', err);
-        this.ResetSpinner();
-        this.requestUpdate();
+    let message: { [x: string]: any; type: string; action?: string; repository?: string; data?: any; id?: number; }
+    if (Data) {
+      message = {
+        type: "hacs/repository/data",
+        action: (Action as string),
+        repository: this.repository,
+        data: Data
       }
-    )
-  };
-
-  private RepositoryWebSocketAction(Action: string): void {
-    if (Action === "uninstall") {
-      this.ActiveSpinnerUninstall = true;
     } else {
-      this.ActiveSpinnerMainAction = true;
+      message = {
+        type: "hacs/repository",
+        action: Action,
+        repository: this.repository
+      }
     }
-    this.hass.connection.sendMessagePromise({
-      type: "hacs/repository",
-      action: Action,
-      repository: this.repository
-    }).then(
+    this.hass.connection.sendMessagePromise(message).then(
       (resp) => {
         this.repositories = (resp as Repository[]);
         this.ResetSpinner();
@@ -148,31 +131,6 @@ export class HacsPanelRepository extends LitElement {
         `;
     }
 
-    if (String(this.repo.releases.length) === "0") {
-      var availableVersion = html`
-          <div class="version-available">
-              <b>${this.hass.localize(`component.hacs.repository.available`)}: </b> ${this.repo.available_version}
-          </div>
-      `
-    } else {
-
-      var availableVersion = html`
-          <div class="version-available">
-              <paper-dropdown-menu label="${this.hass.localize(`component.hacs.repository.available`)}">
-                  <paper-listbox slot="dropdown-content" selected="0">
-                  ${(
-          this.repo.selected_tag ?
-            html`<paper-item @click="${this.SetVersion}">${this.repo.selected_tag}</paper-item>` : ""
-        )}
-                      ${this.repo.releases.map(release =>
-          html`<paper-item @click="${this.SetVersion}">${release}</paper-item>`
-        )}
-                      <paper-item @click="${this.SetVersion}">${this.repo.default_branch}</paper-item>
-                  </paper-listbox>
-              </paper-dropdown-menu>
-          </div>`
-    }
-
     return html`
 
     <div class="getBack">
@@ -233,8 +191,28 @@ export class HacsPanelRepository extends LitElement {
           </div>
           ` :
         "")}
-          ${availableVersion}
+
+        ${(String(this.repo.releases.length) === "0" ? html`
+              <div class="version-available">
+                  <b>${this.hass.localize(`component.hacs.repository.available`)}: </b> ${this.repo.available_version}
+              </div>
+          ` : html`
+              <div class="version-available">
+                  <paper-dropdown-menu
+                    label="${this.hass.localize(`component.hacs.repository.available`)}:
+                     (${this.hass.localize(`component.hacs.repository.newest`)}: ${this.repo.releases[0]})">
+                      <paper-listbox slot="dropdown-content" selected="-1">
+                          ${this.repo.releases.map(release =>
+          html`<paper-item @click="${this.SetVersion}">${release}</paper-item>`
+        )}
+                          <paper-item @click="${this.SetVersion}">${this.repo.default_branch}</paper-item>
+                      </paper-listbox>
+                  </paper-dropdown-menu>
+              </div>`
+      )}
+
         </div>
+        <hacs-authors .authors=${this.repo.authors}></hacs-authors>
       </div>
 
 
@@ -315,7 +293,7 @@ export class HacsPanelRepository extends LitElement {
 
   SetVersion(ev: any) {
     var Version = ev.path[2].outerText;
-    if (Version) this.RepositoryWebSocketActionData("set_version", Version);
+    if (Version) this.RepositoryWebSocketAction("set_version", Version);
   }
 
   GoBackToStore() {
@@ -332,6 +310,11 @@ export class HacsPanelRepository extends LitElement {
 
   static get styles(): CSSResultArray {
     return [HacsStyle, css`
+      paper-dropdown-menu {
+        width: 250px;
+        margin-top: -24px;
+
+      }
       .description {
         font-style: italic;
         padding-bottom: 16px;

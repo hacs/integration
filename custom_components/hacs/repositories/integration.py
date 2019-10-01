@@ -1,5 +1,6 @@
 """Class for integrations in HACS."""
 import json
+from aiogithubapi import AIOGitHubException
 from homeassistant.loader import async_get_custom_components
 from .repository import HacsRepository, register_repository_class
 
@@ -112,12 +113,15 @@ class HacsIntegration(HacsRepository):
 
             self.content.path.remote = ccdir[0].path
 
-        self.content.objects = await self.repository_object.get_contents(
-            self.content.path.remote, self.ref
-        )
+        try:
+            self.content.objects = await self.repository_object.get_contents(
+                self.content.path.remote, self.ref
+            )
+        except AIOGitHubException:
+            return
 
         self.content.files = []
-        for filename in self.content.objects:
+        for filename in self.content.objects or []:
             self.content.files.append(filename.name)
 
         await self.get_manifest()

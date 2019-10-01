@@ -17,6 +17,7 @@ def hacs_config(hass, connection, msg):
     content["python_script"] = config.python_script
     content["theme"] = config.theme
     content["option_country"] = config.option_country
+    content["categories"] = Hacs().common.categories
 
     connection.send_message(websocket_api.result_message(msg["id"], content))
 
@@ -96,6 +97,10 @@ async def hacs_repository(hass, connection, msg):
         repository.status.show_beta = False
         await repository.update_repository()
 
+    elif action == "delete":
+        repository.status.show_beta = False
+        repository.remove()
+
     elif action == "set_version":
         if msg["version"] == repository.information.default_branch:
             repository.status.selected_tag = None
@@ -118,12 +123,21 @@ async def hacs_repository_data(hass, connection, msg):
     action = msg["action"]
     data = msg["data"]
 
-    repository = Hacs().get_by_id(repo_id)
+    if action == "add":
+        if "github.com/" in repo_id:
+            repo_id = repo_id.split("github.com/")[1]
+        await Hacs().register_repository(repo_id, data.lower())
+        repository = Hacs().get_by_name(repo_id)
+    else:
+        repository = Hacs().get_by_id(repo_id)
     Hacs().logger.info(f"Running {action} for {repository.information.full_name}")
 
     if action == "set_version":
         repository.status.selected_tag = data
         await repository.update_repository()
+
+    elif action == "add":
+        pass
 
     else:
         Hacs().logger.error(f"WS action '{action}' is not valid")

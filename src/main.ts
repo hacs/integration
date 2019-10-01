@@ -17,7 +17,6 @@ import { navigate } from "./misc/navigate";
 
 import { HacsStyle } from "./style/hacs-style";
 
-import "./misc/HacsSpinner";
 import scrollToTarget from "./misc/ScrollToTarget";
 import "./panels/corePanel";
 import "./panels/settings";

@@ -13,7 +13,7 @@ import { HacsStyle } from "../style/hacs-style"
 
 import { Configuration, Repository } from "../types"
 import { navigate } from "../misc/navigate"
-import "../misc/HacsSpinner"
+
 import "../misc/Authors"
 import "../misc/RepositoryNote"
 import "./corePanel"

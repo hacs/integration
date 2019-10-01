@@ -12,6 +12,7 @@ export interface Configuration {
     python_script: boolean;
     theme: boolean;
     version: string;
+    categories: [string]
 }
 
 export interface Repository {

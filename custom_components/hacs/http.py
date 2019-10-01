@@ -19,6 +19,31 @@ def webresponse(classname):
     return classname
 
 
+class HacsExperimental(HomeAssistantView, Hacs):
+    """Base View Class for HACS."""
+
+    requires_auth = False
+    name = "hacs"
+    url = r"/hacs_experimental/{requested_file:.+}"
+
+    def __init__(self):
+        """Initialize."""
+        self.logger = Logger("hacs.http")
+
+    async def get(self, request, requested_file):  # pylint: disable=unused-argument
+        """Handle HACS Experimental Web requests."""
+        servefile = f"{self.system.config_path}/custom_components/hacs/frontend/experimental/{requested_file}"
+
+        # Serve .gz file if it exist
+        if os.path.exists(f"{servefile}.gz"):
+            servefile += ".gz"
+
+        if os.path.exists(servefile):
+            return web.FileResponse(servefile)
+        else:
+            return web.Response(status=404)
+
+
 class HacsWebResponse(HomeAssistantView, Hacs):
     """Base View Class for HACS."""
 

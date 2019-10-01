@@ -4,9 +4,10 @@
 	"image": "ludeeus/devcontainer:integration",
 	"context": "..",
 	"appPort": [
-		"9123:8123"
+		"9123:8123",
+		"3000:3000"
 	],
-	"postCreateCommand": "dc install",
+	"postCreateCommand": "apk add nodejs npm && dc install",
 	"runArgs": [
 		"-v",
 		"${env:HOME}${env:USERPROFILE}/.ssh:/tmp/.ssh" // This is added so you can push from inside the container

@@ -53,6 +53,8 @@ class RepositoryInformation:
     default_branch = None
     description = ""
     full_name = None
+    file_name = None
+    javascript_type = None
     homeassistant_version = None
     last_updated = None
     uid = None
@@ -412,6 +414,14 @@ class HacsRepository(Hacs):
                     await self.reload_custom_components()
                 else:
                     self.pending_restart = True
+            self.hass.bus.fire(
+                "hacs/repository",
+                {
+                    "id": 1337,
+                    "action": "install",
+                    "repository": self.information.full_name,
+                },
+            )
 
     async def download_content(self, validate, directory_path, local_directory, ref):
         """Download the content of a directory."""
@@ -588,6 +598,14 @@ class HacsRepository(Hacs):
             self.common.installed.remove(self.information.full_name)
         self.versions.installed = None
         self.versions.installed_commit = None
+        self.hass.bus.fire(
+            "hacs/repository",
+            {
+                "id": 1337,
+                "action": "uninstall",
+                "repository": self.information.full_name,
+            },
+        )
 
     async def remove_local_directory(self):
         """Check the local directory."""

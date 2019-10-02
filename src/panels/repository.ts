@@ -56,7 +56,9 @@ export class HacsPanelRepository extends LitElement {
   }
 
   private RepositoryWebSocketAction(Action: string, Data: any = undefined): void {
-    if (Action === "uninstall") {
+    if (Action === "install") {
+      this.ActiveSpinnerMainAction = true;
+    } else if (Action === "uninstall") {
       this.ActiveSpinnerUninstall = true;
     } else {
       this.ActiveSpinnerLoader = true;

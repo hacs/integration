@@ -48,13 +48,13 @@ export class HacsPanelSettings extends LitElement {
       <div class="card-actions">
 
       <mwc-button raised @click=${this.ReloadData}>
-        ${(this.ActiveSpinnerUpgradeAll ? html`<paper-spinner active></paper-spinner>` : html`
+        ${(this.ActiveSpinnerReload ? html`<paper-spinner active></paper-spinner>` : html`
         ${this.hass.localize(`component.hacs.settings.reload_data`)}
         `)}
       </mwc-button>
 
       <mwc-button raised @click=${this.UpgradeAll}>
-        ${(this.ActiveSpinnerReload ? html`<paper-spinner active></paper-spinner>` : html`
+        ${(this.ActiveSpinnerUpgradeAll ? html`<paper-spinner active></paper-spinner>` : html`
         ${this.hass.localize(`component.hacs.settings.upgrade_all`)}
         `)}
       </mwc-button>

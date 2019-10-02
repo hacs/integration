@@ -79,7 +79,7 @@ Restart Home Assistant once before moving on to step 8.
 
 ### Step 8 - ✏️
 
-[You should now be done, next part will be to add it to your configuration.](./configuration)
+[You should now be done, next part will be to add it to your configuration.](../configuration/)
 
 
 ## Moving from [`custom_updater`](https://github.com/custom-components/custom_updater)

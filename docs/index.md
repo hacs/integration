@@ -105,6 +105,26 @@ If the contribution is minor, make the change and open a PR (Pull Request).
 
 For new features, changes to existing features, or other big changes, please open an RFC (Request for comment) issue before you start the work.
 
+### Translations
+
+Starting with version 0.15.0 there is now a new experimental UI for HACS, this have support for translations 🎉
+
+To handle submissions of translated strings we are using [Lokalise](https://lokalise.com) they provide us with an amazing platform that is easy to use and maintain.
+
+![Lokalise](images/lokalise.png)
+
+To help out with the translation of HACS you need an account on Lokalise, the easiest way to get one is to [click here](https://lokalise.com/login/) then select "Log in with GitHub".
+
+When you have created your account [click here to join the HACS project on Lokalise.](https://lokalise.co/signup/190570815d9461966ae081.06523141/all/)
+
+If you are unsure on how to proceed their documentation is really good, and you can [find that here.](https://docs.lokalise.com/en/) or send me a message @ discord (username: `ludeeus#4212`)
+
+If you want to add translations for a language that is not listed please [open a FR here](https://github.com/custom-components/hacs/issues/new?template=feature_request.md)
+
+Before each release new translations are pulled from Lokalise, so if you have added something look for it in the next version of HACS.
+
+If you add elements to the UI of HACS that needs translations, update the [`strings.json`](https://github.com/custom-components/hacs/blob/master/custom_components/hacs/strings.json) file, when your PR are merged those new keys will be added to Lokalise ready to be translated.
+
 ### Devcontainer
 
 [The easiest way to contribute is to spin up a devcontainer.](https://code.visualstudio.com/docs/remote/containers) with VSCode, it has all the tools you need included, and it does not interfare with your system.
@@ -113,20 +133,6 @@ For new features, changes to existing features, or other big changes, please ope
 
 - Docker
 - VS Code
-- Remote - Containers (VS Code extention)
+- Remote - Containers (VS Code extension)
 
 Make your changes, then run the task "Start Home Assistant" to test them, HA will run on port 8124.
-
-***
-
-## Last notes from the initial developer
-
-First startup after installation will take some time, but it's worth it.
-
-This was developed under the influence of 🍺, a lot of 🍺, [if you want to support my work feel free to buy me a ☕️ (most likely 🍺)](https://buymeacoffee.com/ludeeus)
-
-How it works and what it does are added based on a single persons mindset, you may not agree with what I have done, if you have a suggestion please open an [RFC](https://github.com/custom-components/hacs/issues).
-
-## Bugs / issues / suggestions
-
-If you find bugs/issues or have any suggestions please open an issue in the [HACS Repository](https://github.com/custom-components/hacs/issues)

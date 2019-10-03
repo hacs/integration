@@ -11,7 +11,7 @@ The easiest way to make sure that you have them all is to download the `.zip` fi
 
 ## Installation steps
 
-If you want to download using a terminal (and git) [look here](../terminal)
+If you want to download using a terminal (and git) [look here](../terminal/)
 
 ### Step 1 - Open browser
 

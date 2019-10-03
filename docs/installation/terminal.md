@@ -19,7 +19,7 @@ rm -R hacs_temp
 
 Restart Home Assistant once before moving on to the configuration.
 
-[You should now be done, next part will be to add it to your configuration.](../configuration)
+[You should now be done, next part will be to add it to your configuration.](../configuration/)
 
 <!-- Disable sidebar -->
 <script>

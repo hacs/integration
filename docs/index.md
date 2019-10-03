@@ -115,7 +115,7 @@ To handle submissions of translated strings we are using [Lokalise](https://loka
 
 To help out with the translation of HACS you need an account on Lokalise, the easiest way to get one is to [click here](https://lokalise.com/login/) then select "Log in with GitHub".
 
-When you have created your account [click here to join the HACS project on Lokalise.](https://lokalise.co/signup/190570815d9461966ae081.06523141/all/)
+When you have created your account [click here to join the HACS project on Lokalise.](https://lokalise.com/public/190570815d9461966ae081.06523141/)
 
 If you are unsure on how to proceed their documentation is really good, and you can [find that here.](https://docs.lokalise.com/en/) or send me a message @ discord (username: `ludeeus#4212`)
 

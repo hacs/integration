@@ -59,6 +59,9 @@ jobs:
         echo "    country:  'NO'" | tee -a configuration.yaml
         echo "    release_limit:  5" | tee -a configuration.yaml
         echo "    experimental:  true" | tee -a configuration.yaml
+        echo ""
+        echo "Testing with this configuration:"
+        cat configuration.yaml
 
     - name: Home Assistant configuration check
       run: hass --script check_config --config .

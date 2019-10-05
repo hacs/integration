@@ -27,7 +27,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip setuptools wheel
+        python -m pip install --upgrade pip setuptools wheel colorlog==4.0.2
 
         for file in $(find custom_components/ -name "manifest.json"); do
           cat "$file" | for req in $(jq .requirements[]);
@@ -59,9 +59,10 @@ jobs:
         echo "    country:  'NO'" | tee -a configuration.yaml
         echo "    release_limit:  5" | tee -a configuration.yaml
         echo "    experimental:  true" | tee -a configuration.yaml
-        echo ""
-        echo "Testing with this configuration:"
-        cat configuration.yaml
 
     - name: Home Assistant configuration check
-      run: hass --script check_config --config .
+      run: |
+        echo "Testing with this configuration:"
+        cat configuration.yaml
+        echo ""
+        hass --script check_config --config .

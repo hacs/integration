@@ -219,7 +219,7 @@ export class HacsPanelRepository extends LitElement {
       )}
 
         </div>
-        <hacs-authors .authors=${this.repo.authors}></hacs-authors>
+        <hacs-authors .hass=${this.hass} .authors=${this.repo.authors}></hacs-authors>
       </div>
 
 

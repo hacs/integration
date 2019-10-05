@@ -13,7 +13,12 @@ WS_WITH_CONFIG = [
         "type": "hacs/repository",
         "handler": handler.hacs_repository,
         "schema": {"action": cv.string, "repository": cv.string},
-    }
+    },
+    {
+        "type": "hacs/settings",
+        "handler": handler.hacs_settings,
+        "schema": {"action": cv.string},
+    },
 ]
 
 WS_WITH_DATA = [

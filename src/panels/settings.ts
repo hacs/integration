@@ -44,6 +44,18 @@ export class HacsPanelSettings extends LitElement {
       <div class="card-content">
         <p><b>${this.hass.localize("component.hacs.common.version")}:</b> ${this.configuration.version}</p>
         <p><b>${this.hass.localize("component.hacs.common.repositories")}:</b> ${this.repositories.length}</p>
+        <div class="version-available">
+        <paper-dropdown-menu label="${this.hass.localize(`component.hacs.settings.display`)}">
+            <paper-listbox slot="dropdown-content" selected="-1">
+              <paper-item .display="grid" @click="${this.SetFeStyleGrid}">
+                ${this.hass.localize(`component.hacs.settings.grid`)}
+              </paper-item>
+              <paper-item .display="table" @click="${this.SetFeStyleTable}">
+                ${this.hass.localize(`component.hacs.settings.table`)}
+              </paper-item>
+            </paper-listbox>
+        </paper-dropdown-menu>
+    </div>
       </div>
       <div class="card-actions">
 
@@ -79,6 +91,37 @@ export class HacsPanelSettings extends LitElement {
     >
     </hacs-custom-repositories>
           `;
+  }
+
+  SetFeStyleGrid() {
+    this.hass.connection.sendMessagePromise({
+      type: "hacs/settings",
+      action: "set_fe_grid"
+    }).then(
+      (resp) => {
+        this.configuration = resp as Configuration;
+        console.log(this.configuration)
+        window.location.reload()
+      },
+      (err) => {
+        console.error('Message failed!', err);
+      }
+    )
+  }
+
+  SetFeStyleTable() {
+    this.hass.connection.sendMessagePromise({
+      type: "hacs/settings",
+      action: "set_fe_table"
+    }).then(
+      (resp) => {
+        this.configuration = resp as Configuration;
+        window.location.reload()
+      },
+      (err) => {
+        console.error('Message failed!', err);
+      }
+    )
   }
 
   ReloadData() {

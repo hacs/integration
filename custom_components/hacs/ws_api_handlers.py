@@ -5,6 +5,24 @@ from .hacsbase import Hacs
 
 
 @callback
+def hacs_settings(hass, connection, msg):
+    """Handle get media player cover command."""
+    action = msg["action"]
+    Hacs().logger.debug(f"WS action '{action}'")
+
+    if action == "set_fe_grid":
+        Hacs().configuration.frontend_mode = "Grid"
+
+    elif action == "set_fe_table":
+        Hacs().configuration.frontend_mode = "Table"
+
+    else:
+        Hacs().logger.error(f"WS action '{action}' is not valid")
+
+    hacs_config(hass, connection, msg)
+
+
+@callback
 def hacs_config(hass, connection, msg):
     """Handle get media player cover command."""
     config = Hacs().configuration

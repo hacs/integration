@@ -105,22 +105,40 @@ export class HacsPanelStore extends LitElement {
     ${_repositories.sort((a, b) => (a.name > b.name) ? 1 : -1).map(repo =>
         html`
 
-      <paper-card id="${repo.id}" @click="${this.ShowRepository}" .RepoID="${repo.id}">
-      <div class="card-content">
-        <div>
-          <ha-icon
-            icon="mdi:cube"
-            class="${repo.status}"
-            title="${repo.status_description}"
-            >
-          </ha-icon>
+      ${(this.configuration.frontend_mode !== "Table" ? html`
+        <paper-card @click="${this.ShowRepository}" .RepoID="${repo.id}">
+        <div class="card-content">
           <div>
-            <div class="title">${repo.name}</div>
-            <div class="addition">${repo.description}</div>
+            <ha-icon
+              icon="mdi:cube"
+              class="${repo.status}"
+              title="${repo.status_description}"
+              >
+            </ha-icon>
+            <div>
+              <div class="title">${repo.name}</div>
+              <div class="addition">${repo.description}</div>
+            </div>
           </div>
         </div>
-      </div>
-      </paper-card>
+        </paper-card>
+
+      ` : html`
+
+      <paper-item .RepoID=${repo.id} @click="${this.ShowRepository}">
+        <ha-icon
+          icon="mdi:cube"
+          class="${repo.status}"
+          title="${repo.status_description}">
+        </ha-icon>
+        <paper-item-body two-line>
+          <div>${repo.name}</div>
+          <div class="addition">${repo.description}</div>
+        </paper-item-body>
+      </paper-item>
+      `)}
+
+
       `)}
     </div>
     <script>
@@ -142,7 +160,7 @@ export class HacsPanelStore extends LitElement {
     var RepoID: string
 
     ev.composedPath().forEach((item: any) => {
-      if (item.RepoID !== undefined) {
+      if (item.RepoID) {
         RepoID = item.RepoID;
       }
     })
@@ -158,17 +176,24 @@ export class HacsPanelStore extends LitElement {
     return [
       HacsStyle,
       css`
-        .search-bar {
-          display: block;
-          width: 92%;
-          margin-left: 3.4%;
-          margin-top: 2%;
-          background-color: var(--primary-background-color);
-          color: var(--primary-text-color);
-          line-height: 32px;
-          border-color: var(--dark-primary-color);
-          border-width: inherit;
-          border-bottom-width: thin;
+      paper-item {
+        margin-bottom: 24px;
+      }
+      paper-item:hover {
+        outline: 0;
+        background: var(--table-row-alternative-background-color);
+    }
+      .search-bar {
+        display: block;
+        width: 92%;
+        margin-left: 3.4%;
+        margin-top: 2%;
+        background-color: var(--primary-background-color);
+        color: var(--primary-text-color);
+        line-height: 32px;
+        border-color: var(--dark-primary-color);
+        border-width: inherit;
+        border-bottom-width: thin;
       }
 
       .search-bar-installed, .search-bar-settings {

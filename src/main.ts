@@ -131,17 +131,17 @@ class HacsFrontendBase extends LitElement {
     </paper-tab>
 
     ${(this.configuration.appdaemon
-        ? html`<paper-tab page-name="appdaemon">
+    ? html`<paper-tab page-name="appdaemon">
         ${this.hass.localize(`component.hacs.common.appdaemon_apps`)}
     </paper-tab>` : "")}
 
     ${(this.configuration.python_script
-        ? html`<paper-tab page-name="python_script">
+    ? html`<paper-tab page-name="python_script">
         ${this.hass.localize(`component.hacs.common.python_scripts`)}
     </paper-tab>` : "")}
 
     ${(this.configuration.theme
-        ? html`<paper-tab page-name="theme">
+    ? html`<paper-tab page-name="theme">
         ${this.hass.localize(`component.hacs.common.themes`)}
     </paper-tab>` : "")}
 

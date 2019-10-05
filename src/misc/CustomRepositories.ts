@@ -37,12 +37,12 @@ export class CustomRepositories extends LitElement {
 
     Save(ev) {
         console.log(ev.composedPath()[1].children[0].value)
-        console.log(ev.composedPath()[1].children[1].value)
+        console.log(ev.composedPath()[1].children[1].selectedItem.category)
         this.hass.connection.sendMessagePromise({
             type: "hacs/repository/data",
             action: "add",
             repository: ev.composedPath()[1].children[0].value,
-            data: ev.composedPath()[1].children[1].value
+            data: ev.composedPath()[1].children[1].selectedItem.category
         }).then(
             (resp) => {
                 this.repositories = (resp as Repository[]);
@@ -89,7 +89,7 @@ export class CustomRepositories extends LitElement {
                 label="${this.hass.localize(`component.hacs.settings.category`)}">
                   <paper-listbox slot="dropdown-content" selected="-1">
                       ${this.configuration.categories.map(category => html`
-                      <paper-item>
+                      <paper-item .category=${category}>
                         ${this.hass.localize(`component.hacs.common.${category}`)}
                       </paper-item>`)}
                   </paper-listbox>

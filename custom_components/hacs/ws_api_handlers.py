@@ -84,8 +84,12 @@ def hacs_repositories(hass, connection, msg):
 @websocket_api.async_response
 async def hacs_repository(hass, connection, msg):
     """Handle get media player cover command."""
-    repo_id = msg["repository"]
-    action = msg["action"]
+    repo_id = msg.get("repository")
+    action = msg.get("action")
+
+    if repo_id is None or action is None:
+        hacs_repositories(hass, connection, msg)
+        return
 
     repository = Hacs().get_by_id(repo_id)
     Hacs().logger.info(f"Running {action} for {repository.information.full_name}")

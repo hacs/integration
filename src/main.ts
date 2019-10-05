@@ -1,27 +1,15 @@
 /* eslint-disable no-console, no-undef, prefer-destructuring, prefer-destructuring, no-constant-condition, max-len */
-import {
-  LitElement,
-  customElement,
-  CSSResultArray,
-  TemplateResult,
-  html,
-  css,
-  property
-} from "lit-element";
-
 import { HomeAssistant } from "custom-card-helpers";
-
+import { css, CSSResultArray, customElement, html, LitElement, property, TemplateResult } from "lit-element";
 import { load_lovelace } from "./misc/LoadLovelace";
 import { navigate } from "./misc/navigate";
-
-import { HacsStyle } from "./style/hacs-style";
-
 import scrollToTarget from "./misc/ScrollToTarget";
 import "./panels/corePanel";
-import "./panels/settings";
 import "./panels/repository";
-
+import "./panels/settings";
+import { HacsStyle } from "./style/hacs-style";
 import { Configuration, Repository, Route } from "./types";
+
 
 @customElement("hacs-frontend")
 class HacsFrontendBase extends LitElement {
@@ -49,15 +37,16 @@ class HacsFrontendBase extends LitElement {
   @property()
   public repository_view = false;
 
-  private getRepositories(): void {
+  public getRepositories(): void {
     this.hass.connection.sendMessagePromise({
       type: "hacs/config"
     }).then(
       (resp) => {
         this.configuration = (resp as Configuration);
+        this.requestUpdate();
       },
       (err) => {
-        console.error('Message failed!', err);
+        console.error('[hacs/config] Message failed!', err);
       }
     );
     this.hass.connection.sendMessagePromise({
@@ -65,12 +54,12 @@ class HacsFrontendBase extends LitElement {
     }).then(
       (resp) => {
         this.repositories = (resp as Repository[]);
+        this.requestUpdate();
       },
       (err) => {
-        console.error('Message failed!', err);
+        console.error('[hacs/repositories] Message failed!', err);
       }
     );
-    this.requestUpdate();
   }
 
   protected firstUpdated() {
@@ -86,7 +75,17 @@ class HacsFrontendBase extends LitElement {
 
     // "steal" LL elements
     load_lovelace();
+
+
+    // Event subscription
+    this.hass.connection.sendMessagePromise(
+      { type: "hacs/repository" });
+
+    this.hass.connection.subscribeEvents(
+      () => this.getRepositories(), "hacs/repository")
+
   }
+
 
   protected render(): TemplateResult | void {
     // Handle access to root
@@ -131,17 +130,17 @@ class HacsFrontendBase extends LitElement {
     </paper-tab>
 
     ${(this.configuration.appdaemon
-    ? html`<paper-tab page-name="appdaemon">
+        ? html`<paper-tab page-name="appdaemon">
         ${this.hass.localize(`component.hacs.common.appdaemon_apps`)}
     </paper-tab>` : "")}
 
     ${(this.configuration.python_script
-    ? html`<paper-tab page-name="python_script">
+        ? html`<paper-tab page-name="python_script">
         ${this.hass.localize(`component.hacs.common.python_scripts`)}
     </paper-tab>` : "")}
 
     ${(this.configuration.theme
-    ? html`<paper-tab page-name="theme">
+        ? html`<paper-tab page-name="theme">
         ${this.hass.localize(`component.hacs.common.themes`)}
     </paper-tab>` : "")}
 

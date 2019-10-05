@@ -23,7 +23,7 @@ export class CustomRepositories extends LitElement {
         this.hass.connection.sendMessagePromise({
             type: "hacs/repository",
             action: "delete",
-            repository: ev.path[4].repoID
+            repository: ev.composedPath()[4].repoID
         }).then(
             (resp) => {
                 this.repositories = (resp as Repository[]);
@@ -36,13 +36,13 @@ export class CustomRepositories extends LitElement {
     }
 
     Save(ev) {
-        console.log(ev.path[1].children[0].value)
-        console.log(ev.path[1].children[1].value)
+        console.log(ev.composedPath()[1].children[0].value)
+        console.log(ev.composedPath()[1].children[1].value)
         this.hass.connection.sendMessagePromise({
             type: "hacs/repository/data",
             action: "add",
-            repository: ev.path[1].children[0].value,
-            data: ev.path[1].children[1].value
+            repository: ev.composedPath()[1].children[0].value,
+            data: ev.composedPath()[1].children[1].value
         }).then(
             (resp) => {
                 this.repositories = (resp as Repository[]);

@@ -35,7 +35,7 @@ export class LoveLaceHint extends LitElement {
     }
 
     CopyToLovelaceExampleToClipboard(ev: any) {
-        var LLConfig = ev.path[3].children[0].innerText;
+        var LLConfig = ev.composedPath()[4].children[0].children[1].innerText;
 
         document.addEventListener('copy', (e: ClipboardEvent) => {
             e.clipboardData.setData('text/plain', (LLConfig));

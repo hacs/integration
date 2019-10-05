@@ -299,7 +299,7 @@ export class HacsPanelRepository extends LitElement {
   }
 
   SetVersion(ev: any) {
-    var Version = ev.path[2].outerText;
+    var Version = ev.composedPath()[2].outerText;
     if (Version) this.RepositoryWebSocketAction("set_version", Version);
   }
 

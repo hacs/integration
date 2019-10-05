@@ -133,21 +133,25 @@ export class HacsPanelStore extends LitElement {
   }
 
   DoSearch(ev) {
-    this.SearchTerm = ev.path[0].value.toLowerCase();
+    this.SearchTerm = ev.composedPath()[0].value.toLowerCase();
+
     localStorage.setItem("hacs-search", this.SearchTerm);
   };
 
   ShowRepository(ev) {
-    ev.path.forEach((item) => {
-      if (item.RepoID !== undefined) {
-        this.panel = `repository`;
-        this.repository = item.RepoID;
-        this.repository_view = true;
-        this.requestUpdate();
-        navigate(this, `/hacs/repository/${item.RepoID}`);
+    var RepoID: string
 
+    ev.composedPath().forEach((item: any) => {
+      if (item.RepoID !== undefined) {
+        RepoID = item.RepoID;
       }
     })
+
+    this.panel = `repository`;
+    this.repository = RepoID;
+    this.repository_view = true;
+    this.requestUpdate();
+    navigate(this, `/hacs/repository/${RepoID}`);
   }
 
   static get styles(): CSSResultArray {

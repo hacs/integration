@@ -1,0 +1,56 @@
+ #!/bin/bash
+
+LOKALISE_VERSION="0.721"
+SECRETS="/workspaces/hacs/manage/secrets.json"
+
+function hacs-download-translations {
+    ## check secrets file
+    if [[ ! -f "$SECRETS" ]]; then
+        echo "Secret file not found"
+        return 1
+    fi
+
+    ## Install lokalise CLI if missing
+    if [[ -z $(which lokalise) ]]; then
+        echo "Installing curl"
+        apk add curl
+
+        echo "Installing lokalise CLI"
+        curl -sSL "https://s3-eu-west-1.amazonaws.com/lokalise-assets/cli/lokalise-${LOKALISE_VERSION}-linux-amd64.tgz" -o /tmp/lokalise.tgz
+        tar -xvzf /tmp/lokalise.tgz -C /usr/bin
+    fi
+
+    token=$(jq .lokalise_token "$SECRETS" -r)
+    project=$(jq .lokalise_project "$SECRETS" -r)
+
+    echo "Downloading translations"
+    lokalise \
+        --token "$token" \
+        export "$project" \
+        --type json \
+        --unzip_to  /tmp/lokalise \
+        --filter reviewed \
+        --export_empty skip \
+        --export_sort a_z
+
+    cp /tmp/lokalise/locale/* /workspaces/hacs/custom_components/hacs/.translations/
+
+}
+
+
+
+
+## Install JQ if missing
+if [[ -z $(which jq) ]]; then
+    echo "Installing JQ"
+    apk add jq
+fi
+
+## Install HA
+dc install
+
+## Install nodejs if missing
+if [[ -z $(which nodejs) ]]; then
+    echo "Installing nodejs"
+    apk add nodejs
+fi

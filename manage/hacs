@@ -24,6 +24,7 @@ function hacs-download-translations {
     project=$(jq .lokalise_project "$SECRETS" -r)
 
     echo "Downloading translations"
+    rm -R /tmp/lokalise || echo ""
     lokalise \
         --token "$token" \
         export "$project" \
@@ -44,13 +45,4 @@ function hacs-download-translations {
 if [[ -z $(which jq) ]]; then
     echo "Installing JQ"
     apk add jq
-fi
-
-## Install HA
-dc install
-
-## Install nodejs if missing
-if [[ -z $(which nodejs) ]]; then
-    echo "Installing nodejs"
-    apk add nodejs
 fi

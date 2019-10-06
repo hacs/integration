@@ -127,7 +127,8 @@ async def hacs_startup(hacs):
     hacs.version = const.VERSION
     hacs.logger.info(const.STARTUP)
     hacs.system.config_path = hacs.hass.config.path()
-    hacs.system.ha_version = HAVERSION
+    # hacs.system.ha_version = HAVERSION
+    hacs.system.ha_version = "0.98.0"
     hacs.system.disabled = False
     hacs.github = AIOGitHub(
         hacs.configuration.token, async_create_clientsession(hacs.hass)

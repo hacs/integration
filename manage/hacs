@@ -34,7 +34,24 @@ function hacs-download-translations {
         --export_empty skip \
         --export_sort a_z
 
+    rm -R /workspaces/hacs/custom_components/hacs/.translations || echo ""
+    mkdir /workspaces/hacs/custom_components/hacs/.translations
+
     cp /tmp/lokalise/locale/* /workspaces/hacs/custom_components/hacs/.translations/
+}
+
+function hacs-prepare-release {
+    echo "Downloading releases"
+    hacs-download-translations
+
+    echo "Controlling the version number"
+    local=$(cat custom_components/hacs/const.py | grep "VERSION = " |  tr -d '[:space:]' | tr -d "VERSION=")
+    remote=$(curl -sSL https://api.github.com/repos/custom-components/hacs/releases/latest | jq .tag_name)
+
+    if [ "$remote" == "$local" ]; then
+        echo "Versions match! You forgot to bump it!"
+        return 1
+    fi
 
 }
 

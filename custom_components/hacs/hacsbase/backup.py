@@ -1,11 +1,12 @@
 """Backup."""
 import os
 import shutil
+import tempfile
 from time import sleep
 
 from integrationhelper import Logger
 
-BACKUP_PATH = "/tmp/hacs_backup/"
+BACKUP_PATH = tempfile.gettempdir() + "/hacs_backup/"
 
 
 class Backup:

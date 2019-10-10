@@ -87,7 +87,7 @@ export class HacsPanelStore extends LitElement {
           return true;
         }
         // Fallback to not showing it.
-        return false
+        return false;
       });
 
       return html`

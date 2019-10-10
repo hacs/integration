@@ -3,6 +3,7 @@
 import pathlib
 import json
 import os
+import tempfile
 from distutils.version import LooseVersion
 from integrationhelper import Validate, Logger
 from aiogithubapi import AIOGitHubException
@@ -369,7 +370,7 @@ class HacsRepository(Hacs):
                 ):
                     persistent_directory = Backup(
                         f"{self.content.path.local}/{self.repository_manifest.persistent_directory}",
-                        "/tmp/hacs_persistent_directory/",
+                        tempfile.TemporaryFile() + "/hacs_persistent_directory/",
                     )
                     persistent_directory.create()
 

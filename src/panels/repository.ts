@@ -311,7 +311,7 @@ export class HacsPanelRepository extends LitElement {
     } else {
       this.panel = this.repo.category
     }
-    navigate(this, `/hacs/${this.repo.category}`)
+    navigate(this, `/hacs/${this.panel}`)
     this.requestUpdate();
   }
 

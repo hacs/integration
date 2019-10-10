@@ -19,6 +19,11 @@ class HacsManifest:
         return self.manifest.get("content_in_root", False)
 
     @property
+    def zip_release(self):
+        """Return a bool to indicate that the content is in a zipped archive on the release."""
+        return self.manifest.get("zip_release", False)
+
+    @property
     def filename(self):
         """Return the filename."""
         return self.manifest.get("filename")

@@ -43,7 +43,8 @@ Key | Required | Description.
 -- | -- | --
 name | True| The display name that will be used in the HACS UI
 content_in_root | False | Boolean to indicate that the content is in the root of the repository.
-filename | False | Name of the file HACS should look for, only applies to single item categories (plugin, theme, python_scripts)
+zip_release | False | Boolean to indicate that the content is in a zipped archive on the release, if you use this you also need to add `filename`
+filename | False | Name of the file HACS should look for, only applies to single item categories (plugin, theme, python_scripts, zip_release)
 render_readme | False | Tells HACS to render the README.md file instead of info.md
 domains | False | A list of domains, `["sensor", "switch"]`
 country | False | A2(ISO) variant of the country name <https://www.worldatlas.com/aatlas/ctycodes.htm>
@@ -165,7 +166,7 @@ version_installed | The installed version
 
 ![swipe](../images/info_swipe.PNG)
 
-#### [HomeAssistant-Atrea](https://github.com/JurajNyiri/HomeAssistant-Atrea/blob/2.1/info.md)  
+#### [HomeAssistant-Atrea](https://github.com/JurajNyiri/HomeAssistant-Atrea/blob/2.1/info.md)
 
 ![Atrea](../images/info_atrea.PNG)
 

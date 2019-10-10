@@ -4,6 +4,7 @@ import pathlib
 import json
 import os
 import tempfile
+import zipfile
 from distutils.version import LooseVersion
 from integrationhelper import Validate, Logger
 from aiogithubapi import AIOGitHubException
@@ -378,9 +379,15 @@ class HacsRepository(Hacs):
             backup = Backup(self.content.path.local)
             backup.create()
 
-        validate = await self.download_content(
-            self.validate, self.content.path.remote, self.content.path.local, self.ref
-        )
+        if self.repository_manifest.zip_release:
+            validate = await self.download_zip(self.validate)
+        else:
+            validate = await self.download_content(
+                self.validate,
+                self.content.path.remote,
+                self.content.path.local,
+                self.ref,
+            )
 
         if validate.errors:
             for error in validate.errors:
@@ -424,6 +431,36 @@ class HacsRepository(Hacs):
                 },
             )
 
+    async def download_zip(self, validate):
+        """Download ZIP archive from repository release."""
+        try:
+            contents = self.content.objects
+            for content in contents:
+                filecontent = await async_download_file(self.hass, content.download_url)
+
+                if filecontent is None:
+                    validate.errors.append(f"[{content.name}] was not downloaded.")
+                    continue
+
+                result = await async_save_file(
+                    f"{tempfile.TemporaryFile()}/{self.repository_manifest.file_name}",
+                    filecontent,
+                )
+                with zipfile.ZipFile(
+                    f"{tempfile.TemporaryFile()}/{self.repository_manifest.file_name}",
+                    "r",
+                ) as zip_file:
+                    zip_file.extractall(self.content.path.local)
+
+                if result:
+                    self.logger.info(f"download of {content.name} complete")
+                    continue
+                validate.errors.append(f"[{content.name}] was not downloaded.")
+        except SystemError:
+            pass
+
+        return validate
+
     async def download_content(self, validate, directory_path, local_directory, ref):
         """Download the content of a directory."""
         try:
@@ -436,7 +473,10 @@ class HacsRepository(Hacs):
                 )
 
             for content in contents:
-                if content.type == "dir" and (self.repository_manifest.content_in_root or self.content.path.remote != ""):
+                if content.type == "dir" and (
+                    self.repository_manifest.content_in_root
+                    or self.content.path.remote != ""
+                ):
                     await self.download_content(
                         validate, content.path, local_directory, ref
                     )
@@ -469,7 +509,6 @@ class HacsRepository(Hacs):
                     local_directory = local_directory.split("/")
                     del local_directory[-1]
                     local_directory = "/".join(local_directory)
-
 
                 # Check local directory
                 pathlib.Path(local_directory).mkdir(parents=True, exist_ok=True)

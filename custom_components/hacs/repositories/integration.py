@@ -62,9 +62,13 @@ class HacsIntegration(HacsRepository):
                     self.content.path.remote = item.path
                     break
 
-        self.content.objects = await self.repository_object.get_contents(
-            self.content.path.remote, self.ref
-        )
+        if self.repository_manifest.zip_release:
+            self.content.objects = self.releases.last_release_object.assets
+
+        else:
+            self.content.objects = await self.repository_object.get_contents(
+                self.content.path.remote, self.ref
+            )
 
         self.content.files = []
         for filename in self.content.objects or []:

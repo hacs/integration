@@ -71,6 +71,7 @@ jobs:
     name: Set version numbmer
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
       - run: |
           sed -i '/VERSION = /c\VERSION = "${{ github.ref }}"' custom_components/hacs/const.py
       - run: |

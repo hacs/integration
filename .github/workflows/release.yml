@@ -46,8 +46,10 @@ jobs:
         run: |
           cd custom_components/hacs
           zip hacs.zip -r ./*
+          mv hacs.zip ../../hacs.zip
       - name: Upload zip to release
         uses: svenstaro/upload-release-action@v1-release
+
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: hacs.zip

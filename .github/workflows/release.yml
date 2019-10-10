@@ -36,6 +36,11 @@ jobs:
           cp /tmp/lokalise/locale/* custom_components/hacs/.translations/
 
 
+      # Build Frontend
+      - name: Build the HACS frontend
+        run: npm run build
+
+
       # Pack the HACS dir as a zip and upload to the release
       - name: ZIP HACS Dir
         run: "zip hacs.zip -r custom_components/hacs"

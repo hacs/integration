@@ -1,4 +1,4 @@
-name: Test with Home Assistant
+name: Test
 
 on:
   pull_request:
@@ -9,8 +9,8 @@ on:
       - master
 
 jobs:
-  test:
-    name: Testing with (Python, HA)
+  test_with_home_assistant:
+    name: Test with Home Assistant (Python, HA)
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 6
@@ -66,3 +66,12 @@ jobs:
         cat configuration.yaml
         echo ""
         hass --script check_config --config .
+
+
+  test_frontend_build:
+    name: Test frontend build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build the HACS frontend
+        run: npm run build

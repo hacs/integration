@@ -1,6 +1,8 @@
 /* eslint-disable no-console, no-undef, prefer-destructuring, prefer-destructuring, no-constant-condition, max-len */
 import { HomeAssistant } from "custom-card-helpers";
-import { css, CSSResultArray, customElement, html, LitElement, property, TemplateResult } from "lit-element";
+import {
+  css, CSSResultArray, customElement, html, LitElement, property, TemplateResult
+} from "lit-element";
 import { load_lovelace } from "./misc/LoadLovelace";
 import { navigate } from "./misc/navigate";
 import scrollToTarget from "./misc/ScrollToTarget";
@@ -79,11 +81,12 @@ class HacsFrontendBase extends LitElement {
 
     // Event subscription
     this.hass.connection.sendMessagePromise(
-      { type: "hacs/repository" });
+      { type: "hacs/repository" }
+    );
 
     this.hass.connection.subscribeEvents(
-      () => this.getRepositories(), "hacs/repository")
-
+      () => this.getRepositories(), "hacs/repository"
+    );
   }
 
 
@@ -130,17 +133,17 @@ class HacsFrontendBase extends LitElement {
     </paper-tab>
 
     ${(this.configuration.appdaemon
-        ? html`<paper-tab page-name="appdaemon">
+    ? html`<paper-tab page-name="appdaemon">
         ${this.hass.localize(`component.hacs.common.appdaemon_apps`)}
     </paper-tab>` : "")}
 
     ${(this.configuration.python_script
-        ? html`<paper-tab page-name="python_script">
+    ? html`<paper-tab page-name="python_script">
         ${this.hass.localize(`component.hacs.common.python_scripts`)}
     </paper-tab>` : "")}
 
     ${(this.configuration.theme
-        ? html`<paper-tab page-name="theme">
+    ? html`<paper-tab page-name="theme">
         ${this.hass.localize(`component.hacs.common.themes`)}
     </paper-tab>` : "")}
 

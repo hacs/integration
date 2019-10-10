@@ -71,6 +71,7 @@ class RepositoryReleases:
     last_release = None
     last_release_object = None
     published_tags = []
+    objects = []
     releases = False
 
 
@@ -434,8 +435,17 @@ class HacsRepository(Hacs):
     async def download_zip(self, validate):
         """Download ZIP archive from repository release."""
         try:
-            contents = self.content.objects
-            for content in contents:
+            contents = False
+
+            for release in self.releases.objects:
+                self.logger.info(f"ref: {self.ref}  ---  tag: {release.tag_name}")
+                if release.tag_name == self.ref.split("/")[1]:
+                    contents = release.assets
+
+            if not contents:
+                return validate
+
+            for content in contents or []:
                 filecontent = await async_download_file(self.hass, content.download_url)
 
                 if filecontent is None:
@@ -443,12 +453,11 @@ class HacsRepository(Hacs):
                     continue
 
                 result = await async_save_file(
-                    f"{tempfile.TemporaryFile()}/{self.repository_manifest.filename}",
+                    f"{tempfile.gettempdir()}/{self.repository_manifest.filename}",
                     filecontent,
                 )
                 with zipfile.ZipFile(
-                    f"{tempfile.TemporaryFile()}/{self.repository_manifest.filename}",
-                    "r",
+                    f"{tempfile.gettempdir()}/{self.repository_manifest.filename}", "r"
                 ) as zip_file:
                     zip_file.extractall(self.content.path.local)
 
@@ -580,32 +589,32 @@ class HacsRepository(Hacs):
     async def get_releases(self):
         """Get repository releases."""
         if self.status.show_beta:
-            temp = await self.repository_object.get_releases(
+            self.releases.objects = await self.repository_object.get_releases(
                 prerelease=True, returnlimit=self.configuration.release_limit
             )
         else:
-            temp = await self.repository_object.get_releases(
+            self.releases.objects = await self.repository_object.get_releases(
                 prerelease=False, returnlimit=self.configuration.release_limit
             )
 
-        if not temp:
+        if not self.releases.objects:
             return
 
         self.releases.releases = True
 
         self.releases.published_tags = []
 
-        for release in temp:
+        for release in self.releases.objects:
             self.releases.published_tags.append(release.tag_name)
 
-        self.releases.last_release_object = temp[0]
+        self.releases.last_release_object = self.releases.objects[0]
         if self.status.selected_tag is not None:
             if self.status.selected_tag != self.information.default_branch:
-                for release in temp:
+                for release in self.releases.objects:
                     if release.tag_name == self.status.selected_tag:
                         self.releases.last_release_object = release
                         break
-        self.versions.available = temp[0].tag_name
+        self.versions.available = self.releases.objects[0].tag_name
 
     def remove(self):
         """Run remove tasks."""

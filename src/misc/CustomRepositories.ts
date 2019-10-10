@@ -19,6 +19,9 @@ export class CustomRepositories extends LitElement {
     @property()
     public configuration!: Configuration;
 
+    @property()
+    public SaveSpinner?: boolean;
+
     Delete(ev) {
         this.hass.connection.sendMessagePromise({
             type: "hacs/repository",
@@ -36,6 +39,7 @@ export class CustomRepositories extends LitElement {
     }
 
     Save(ev) {
+        this.SaveSpinner = true;
         console.log(ev.composedPath()[1].children[0].value)
         console.log(ev.composedPath()[1].children[1].selectedItem.category)
         this.hass.connection.sendMessagePromise({
@@ -46,6 +50,7 @@ export class CustomRepositories extends LitElement {
         }).then(
             (resp) => {
                 this.repositories = (resp as Repository[]);
+                this.SaveSpinner = false;
                 this.requestUpdate();
             },
             (err) => {
@@ -95,11 +100,12 @@ export class CustomRepositories extends LitElement {
                   </paper-listbox>
               </paper-dropdown-menu>
 
-
+                ${(this.SaveSpinner ? html`<paper-spinner active class="loading"></paper-spinner>` : html`
                 <ha-icon title="${(this.hass.localize("component.hacs.settings.save"))}"
                     icon="mdi:content-save" class="saveicon"
                     @click=${this.Save}>
                 </ha-icon>
+                `)}
             </div>
 
         </ha-card>
@@ -138,6 +144,12 @@ export class CustomRepositories extends LitElement {
                 color: var(--primary-color);
                 right: 0px;
                 position: absolute;
+            }
+            .loading {
+                position: absolute;
+                right: 10px;
+                bottom: 22px;
+            }
         `]
     }
 }

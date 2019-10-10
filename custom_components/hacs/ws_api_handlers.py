@@ -148,7 +148,8 @@ async def hacs_repository_data(hass, connection, msg):
     if action == "add":
         if "github." in repo_id:
             repo_id = repo_id.split("github.com/")[1]
-        await Hacs().register_repository(repo_id, data.lower())
+        if not Hacs().get_by_name(repo_id):
+            await Hacs().register_repository(repo_id, data.lower())
         repository = Hacs().get_by_name(repo_id)
     else:
         repository = Hacs().get_by_id(repo_id)

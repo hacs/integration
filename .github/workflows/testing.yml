@@ -73,7 +73,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: |
-          sed -i '/VERSION = /c\VERSION = "${{ github.ref }}"' custom_components/hacs/const.py
+          ref=${{ github.ref }}
+          sed -i '/VERSION = /c\VERSION = "${{ github.ref | cut -d "/" -f 3 }}"' custom_components/hacs/const.py
       - run: |
           cat custom_components/hacs/const.py
 

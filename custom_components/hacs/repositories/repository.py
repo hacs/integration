@@ -443,11 +443,11 @@ class HacsRepository(Hacs):
                     continue
 
                 result = await async_save_file(
-                    f"{tempfile.TemporaryFile()}/{self.repository_manifest.file_name}",
+                    f"{tempfile.TemporaryFile()}/{self.repository_manifest.filename}",
                     filecontent,
                 )
                 with zipfile.ZipFile(
-                    f"{tempfile.TemporaryFile()}/{self.repository_manifest.file_name}",
+                    f"{tempfile.TemporaryFile()}/{self.repository_manifest.filename}",
                     "r",
                 ) as zip_file:
                     zip_file.extractall(self.content.path.local)

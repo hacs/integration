@@ -23,6 +23,8 @@ export class CustomRepositories extends LitElement {
     public SaveSpinner?: boolean;
 
     Delete(ev) {
+        console.log(ev.composedPath()[3].innerText)
+        if (!window.confirm(this.hass.localize("component.hacs.confirm.delete", "item", ev.composedPath()[3].innerText))) return;
         this.hass.connection.sendMessagePromise({
             type: "hacs/repository",
             action: "delete",

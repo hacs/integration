@@ -40,6 +40,11 @@ jobs:
       - name: Build the HACS frontend
         run: npm install && npm run build
 
+      - name: "Set version numbmer"
+        run: |
+          sed -i '/VERSION = /c\VERSION = "${{ github.ref }}"' custom_components/hacs/const.py
+          sed -i 's|refs/heads/||' custom_components/hacs/const.py
+          sed -i 's|refs/tags/||' custom_components/hacs/const.py
 
       # Pack the HACS dir as a zip and upload to the release
       - name: ZIP HACS Dir

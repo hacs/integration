@@ -72,8 +72,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: |
-          sed -i '/VERSION = /c\VERSION = "$( echo ${{ github.ref }} | cut -d "/" -f 3)"' custom_components/hacs/const.py
+      - name: "Set version numbmer"
+        run: |
+          sed -i '/VERSION = /c\VERSION = "${{ github.ref }}"' custom_components/hacs/const.py
+          sed -i 's|refs/heads/||' custom_components/hacs/const.py
+          sed -i 's|refs/tags/||' custom_components/hacs/const.py
       - run: |
           cat custom_components/hacs/const.py
 

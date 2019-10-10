@@ -43,7 +43,9 @@ jobs:
 
       # Pack the HACS dir as a zip and upload to the release
       - name: ZIP HACS Dir
-        run: "zip hacs.zip -r custom_components/hacs"
+        run: |
+          cd custom_components/hacs
+          zip hacs.zip -r ./*
       - name: Upload zip to release
         uses: svenstaro/upload-release-action@v1-release
         with:

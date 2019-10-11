@@ -21,18 +21,24 @@ function Help(props) {
 
   const supportLinks = [
     {
-      content: `Learn more using the [documentation on this site.](${docUrl(
-        'doc1.html',
-      )})`,
+      content: `Learn more using the [documentation on this site.](${baseUrl})`,
       title: 'Browse Docs',
     },
     {
-      content: 'Ask questions about the documentation and project',
+      content: '[Ask questions about the documentation and project.](https://community.home-assistant.io/t/custom-component-hacs/121727)',
       title: 'Join the community',
     },
     {
-      content: "Find out what's new with this project",
+      content: "Find out what's new with this project over at [GitHub.](https://github.com/custom-components/hacs)",
       title: 'Stay up to date',
+    },
+    {
+      content: `Need to submitt a bug? [Before you do make sure you first have a look here.](${docUrl('issues.html')})`,
+      title: 'Submitt issues',
+    },
+    {
+      content: `Want to submit a Feature request? [Before you do make sure you first have a look here.](${docUrl('issues.html')})`,
+      title: 'Add feature requests'
     },
   ];
 
@@ -43,7 +49,6 @@ function Help(props) {
           <header className="postHeader">
             <h1>Need help?</h1>
           </header>
-          <p>This project is maintained by a dedicated group of people.</p>
           <GridBlock contents={supportLinks} layout="threeColumn" />
         </div>
       </Container>

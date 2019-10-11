@@ -16,7 +16,7 @@ HACS will check for updates to installed elements:
 HACS will check for updates to every element:
 
 - At startup
-- Every 500 minutes after HA startup.
+- Every 800 minutes after HA startup.
 
 ## Manually trigger updates
 

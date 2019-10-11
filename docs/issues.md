@@ -1,4 +1,7 @@
-# Issues
+---
+id: issues
+title: Issues
+---
 
 [First lets start out by stating that **ALL** issues should be reported here.](https://github.com/custom-components/hacs/issues)
 
@@ -10,7 +13,7 @@ All templates have a defined structure and it is **expected** that you folow it.
 
 _Issues that are missing required information can (will) be closed._
 
-![template](images/select_issue_template.png)
+![template](assets/select_issue_template.png)
 
 ## Feature request
 

@@ -1,0 +1,14 @@
+image:
+  file: .devcontainer/DockerFile
+
+tasks:
+  - init: npm install
+
+  - init: cd website
+    command: npm install
+
+ports:
+  - port: 8124
+    onOpen: open-preview
+  - port: 3000
+    onOpen: open-preview

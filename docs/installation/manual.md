@@ -1,17 +1,16 @@
-# Installation
+---
+id: manual
+title: Manual Installation
+sidebar_label: Manual Installation
+---
 
 This integration requires **a lot** of files.
 
 The easiest way to make sure that you have them all is to download the `.zip` file from the repository.
 
-## Prerequisittes
-
-- **You need to use Home Assistant version 0.98.0 or newer for the latest version of HACS to work. Check the release notes before you download as this page may be slightly out of date.**
-- **If you move from [`custom_updater`](https://github.com/custom-components/custom_updater) to this see the special note at the bottom here.**
-
 ## Installation steps
 
-If you want to download using a terminal (and git) [look here](../terminal/)
+If you want to download using a terminal (and git) [look here](installation/cli.md)
 
 ### Step 1 - Open browser
 
@@ -27,11 +26,11 @@ Shortcut: [https://github.com/custom-components/hacs/releases/latest](https://gi
 
 Initialize the download by clicking on the "**Source code** (zip)" link at the bottom of the page.
 
-![install2](../images/install2.png)
+![install2](assets/install2.png)
 
 ### Step 4 - Extract the content
 
-There should now be a `hacs-VERSION_NUMBER.zip` (like `hacs-0.9.0.zip`) file in your Download folder.
+There should now be a `hacs-VERSION_NUMBER.zip` (like `hacs-0.14.0.zip`) file in your Download folder.
 
 You need to unzip this, before proceeding.
 
@@ -39,7 +38,7 @@ You need to unzip this, before proceeding.
 
 Now that you have extracted all the files you will see something like this:
 
-![install3](../images/install3.png)
+![install3](assets/install3.png)
 
 In the `custom_components` named, there is a folder named `hacs`.
 
@@ -56,7 +55,7 @@ Anyway the `hacs` folder needs to be placed under `<config_dir>/custom_component
 
 On Hassio the final location will be `/config/custom_components/hacs`
 
-On Hassbian the final location will be `/home/homeassistant/.homeassistant/custom_components/hacs`
+On Hassbian(venv) the final location will be `/home/homeassistant/.homeassistant/custom_components/hacs`
 
 ### Step 6 - (Bonus)
 
@@ -79,15 +78,4 @@ Restart Home Assistant once before moving on to step 8.
 
 ### Step 8 - ✏️
 
-[You should now be done, next part will be to add it to your configuration.](../configuration/)
-
-
-## Moving from [`custom_updater`](https://github.com/custom-components/custom_updater)
-
-If you have [`custom_updater`](https://github.com/custom-components/custom_updater) installed you need to remove that (rename the directory or delete it completely). You will also need to remove the custom_updater entry from your configuration.yaml file.
-
-HACS and [`custom_updater`](https://github.com/custom-components/custom_updater) can not operate on the same installation.
-
-If you used the special endpoint `/customcards/` endpoint for your Lovelace cards, you now need to reinstall that plugin using HACS and use the url provided in the page for that plugin in the HACS UI, if the plugin is not there you need to use `/local/` instead.
-
-As noted under ['Existing elements'](../../#existing-elements) You need to click the "INSTALL" button for each element you previously have installed.
+You should now be done, next part will be to add it to your configuration ([UI](configuration/ui.md) / [YAML](configuration/yaml.md)).

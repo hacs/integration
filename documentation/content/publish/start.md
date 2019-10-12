@@ -1,7 +1,6 @@
 ---
 id: start
 title: General
-sidebar_label: General
 ---
 
 For your repository to be added there are a few criteria that need to be met.

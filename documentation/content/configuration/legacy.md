@@ -21,7 +21,7 @@ key | optional | default | description
 `appdaemon` | True | `False` | Enable tracking of AppDaemon apps.
 `python_script` | True | `False` | Enable tracking of python scripts.
 `theme` | True | `False` | Enable tracking of themes.
-`options` | True | `False` | A map of options.
+`options` | True |  | A map of options.
 
 ### Options (map)
 

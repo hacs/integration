@@ -35,8 +35,8 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          editUrl: 'https://github.com/custom-components/hacs/edit/master/documentation/docs/',
-          path: './docs',
+          editUrl: 'https://github.com/custom-components/hacs/edit/master/documentation/content/',
+          path: './content',
           sidebarPath: require.resolve('./sidebars.js'),
           showLastUpdateTime: true,
         },

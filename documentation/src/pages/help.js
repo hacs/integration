@@ -8,42 +8,8 @@
 import React from 'react';
 import classnames from 'classnames';
 import Layout from '@theme/Layout';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import withBaseUrl from '@docusaurus/withBaseUrl';
 import styles from './styles.module.css';
 
-function Helps(props) {
-  const { config: siteConfig, language = '' } = props;
-  const { baseUrl, docsUrl } = siteConfig;
-  const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
-  const langPart = `${language ? `${language}/` : ''}`;
-  const docUrl = doc => `${baseUrl}${docsPart}${langPart}${doc}`;
-
-  const supportLinks = [
-    {
-      content: `Need to submitt a bug? [Before you do make sure you first have a look here.](${docUrl('issues.html')})`,
-      title: 'Submitt issues',
-    },
-    {
-      content: `Want to submit a Feature request? [Before you do make sure you first have a look here.](${docUrl('issues.html')})`,
-      title: 'Add feature requests'
-    },
-  ];
-
-  return (
-    <div className="docMainWrapper wrapper">
-      <Container className="mainContainer documentContainer postContainer">
-        <div className="post">
-          <header className="postHeader">
-            <h1>Need help?</h1>
-          </header>
-          <GridBlock contents={supportLinks} layout="threeColumn" />
-        </div>
-      </Container>
-    </div>
-  );
-}
 const blocks = [
   {
     title: <>Browse Docs</>,
@@ -96,26 +62,23 @@ const blocks = [
 ];
 
 function Help() {
-  const context = useDocusaurusContext();
   return (
     <Layout title={`HACS: Help`}>
       <main>
-        {blocks && blocks.length && (
-          <section className={styles.blocks}>
-            <div className="container">
-              <div className="row">
-                {blocks.map(({ title, description }, idx) => (
-                  <div
-                    key={idx}
-                    className={classnames('col col--4', styles.feature)}>
-                    <h3>{title}</h3>
-                    <p>{description}</p>
-                  </div>
-                ))}
-              </div>
+        <section className={styles.blocks}>
+          <div className="container">
+            <div className="row">
+              {blocks.map(({ title, description }, idx) => (
+                <div
+                  key={idx}
+                  className={classnames('col col--4', styles.feature)}>
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                </div>
+              ))}
             </div>
-          </section>
-        )}
+          </div>
+        </section>
       </main>
     </Layout>
   );

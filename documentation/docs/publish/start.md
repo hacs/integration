@@ -1,6 +1,6 @@
 ---
 id: start
-title: Getting started
+title: General
 sidebar_label: General
 ---
 

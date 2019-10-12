@@ -3,7 +3,7 @@ id: theme
 title: Themes
 ---
 
-A template to use as a reference is [theme-hacs](https://github.com/ludeeus/theme-hacs)
+A template to use as a reference is [home-assistant-community-themes/template](https://github.com/home-assistant-community-themes/template)
 
 This is for the [`frontend` integration in Home Assistant](https://www.home-assistant.io/components/frontend/)
 

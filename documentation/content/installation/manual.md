@@ -3,7 +3,7 @@ id: manual
 title: Installation
 ---
 
-This guide will take you though all the steps you need to insall HACS.
+This guide will take you though all the steps you need to install HACS.
 
 ### Step 1 - Open browser
 

@@ -17,7 +17,7 @@ module.exports = {
     navbar: {
       title: 'HACS',
       links: [
-        { to: 'docs/installation/prerequisittes', label: 'Installation', position: 'left' },
+        { to: 'docs/installation/prerequisites', label: 'Installation', position: 'left' },
         { to: 'docs/configuration/start', label: 'Configuration', position: 'left' },
         { to: 'docs/basic/getting_started', label: 'Usage', position: 'left' },
         { to: 'docs/developer/start', label: 'Developer docs', position: 'right' },

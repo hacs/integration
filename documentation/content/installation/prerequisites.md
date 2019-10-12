@@ -1,5 +1,5 @@
 ---
-id: prerequisittes
+id: prerequisites
 title: Prerequisites
 ---
 

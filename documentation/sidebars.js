@@ -27,7 +27,7 @@ module.exports = {
   },
   "installation": {
     "Installation": [
-      "installation/prerequisittes",
+      "installation/prerequisites",
       "installation/manual",
       "installation/remove"
     ]

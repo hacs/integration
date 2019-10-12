@@ -28,7 +28,8 @@ module.exports = {
   "installation": {
     "Installation": [
       "installation/prerequisittes",
-      "installation/manual"
+      "installation/manual",
+      "installation/remove"
     ]
   },
   "configuration": {

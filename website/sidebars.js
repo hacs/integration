@@ -45,7 +45,10 @@ module.exports = {
     "HACS Development": [
       "developer/start",
       "developer/devcontainer",
-      "developer/translation"
+      "developer/translation",
+      "developer/documentation",
+      "developer/backend",
+      "developer/frontend",
     ],
     "Publish to HACS": [
       "publish/start",

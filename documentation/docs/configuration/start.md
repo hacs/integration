@@ -1,7 +1,7 @@
 ---
 id: start
 title: Configuration
-sidebar_label: Start
+sidebar_label: Configuration
 ---
 
 _This page assume that you have allready finished the [installation](/docs/installation/prerequisittes)_

@@ -9,6 +9,7 @@ module.exports = {
   "usage": {
     "Basic": [
       "basic/getting_started",
+      "basic/navigation",
       "basic/updates",
       "basic/existing_elements",
       "basic/startup",

@@ -1,6 +1,6 @@
 ---
 id: prerequisittes
-title: Prerequisittes
+title: Prerequisites
 ---
 
 *If you move from [`custom_updater`](https://github.com/custom-components/custom_updater) to this see the special note at the bottom here.*
@@ -13,7 +13,7 @@ _If you do not have or know **all** of the following, don't try to install/use H
 - A GitHub Account.
 - Access to the Home Assistant filesystem.
 - **How to access the Home Assistant log file.**
-- **A stable interett conection that is not on a cap (i.e mobile routers.)**
+- **A stable internet conection that is not on a cap (i.e mobile routers.)**
 
 
 ## Moving from custom_updater

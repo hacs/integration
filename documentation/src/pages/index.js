@@ -54,7 +54,7 @@ function Home() {
           <div className={styles.buttons}>
             <Link
               className={classnames(
-                'button button--outline button--secondary button--lg',
+                'button button--outline button--secondary button--lg btt',
                 styles.getStarted,
               )}
               to={withBaseUrl('docs/installation/prerequisittes')}>
@@ -62,7 +62,7 @@ function Home() {
             </Link>
             <Link
               className={classnames(
-                'button button--outline button--secondary button--lg',
+                'button button--outline button--secondary button--lg btt',
                 styles.getStarted,
               )}
               to={withBaseUrl('docs/configuration/start')}>
@@ -70,7 +70,7 @@ function Home() {
             </Link>
             <Link
               className={classnames(
-                'button button--outline button--secondary button--lg',
+                'button button--outline button--secondary button--lg btt',
                 styles.getStarted,
               )}
               to={withBaseUrl('docs/basic/getting_started')}>

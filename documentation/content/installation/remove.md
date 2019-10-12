@@ -3,7 +3,7 @@ id: remove
 title: Remove
 ---
 
-If you want to remove HACS you need to to do that using the folowing steps.
+If you want to remove HACS you need to do that using the folowing steps.
 
 
 1. Remove the configuration from `configuration.yaml`(if configured with legacy(YAMl)) or remove it using the trashbin icon on the integration page.

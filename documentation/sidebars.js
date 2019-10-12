@@ -13,7 +13,7 @@ module.exports = {
       "basic/existing_elements",
       "basic/startup",
       "basic/sensor",
-      "basic/updates",
+      "basic/theming",
       "basic/logs"
     ],
     "Categories": [

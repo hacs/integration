@@ -4,13 +4,7 @@ title: Manual Installation
 sidebar_label: Manual Installation
 ---
 
-This integration requires **a lot** of files.
-
-The easiest way to make sure that you have them all is to download the `.zip` file from the repository.
-
-## Installation steps
-
-If you want to download using a terminal (and git) [look here](installation/cli.md)
+This guide will take you though all the steps you need to insall HACS.
 
 ### Step 1 - Open browser
 
@@ -78,4 +72,4 @@ Restart Home Assistant once before moving on to step 8.
 
 ### Step 8 - ✏️
 
-You should now be done, next part will be to add it to your configuration ([UI](configuration/ui.md) / [YAML](configuration/yaml.md)).
+You should now be done, next part will be to add it to your [configuration](configuration/ui.md).

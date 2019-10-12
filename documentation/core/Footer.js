@@ -39,6 +39,7 @@ class Footer extends React.Component {
             <h5>Getting started</h5>
             <a href="/docs/installation/prerequisittes.html">Installation</a>
             <a href="/docs/configuration/ui.html">Configuration</a>
+            <a href="/docs/basic/getting_started.html">Usage</a>
           </div>
           <div>
             <h5>More Links</h5>

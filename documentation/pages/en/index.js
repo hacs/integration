@@ -88,7 +88,7 @@ class Index extends React.Component {
       <div
         className="productShowcaseSection"
         style={{ textAlign: 'center' }}>
-        <MarkdownBlock>HACS gives the user a powerful UI to handle downloads of custom needs.</MarkdownBlock>
+        <MarkdownBlock>HACS gives you a powerful UI to handle downloads of custom needs.</MarkdownBlock>
       </div>
     );
 

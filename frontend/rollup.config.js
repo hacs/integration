@@ -7,7 +7,7 @@ import gzipPlugin from 'rollup-plugin-gzip'
 export default {
     input: ['src/main.ts'],
     output: {
-        dir: './custom_components/hacs/frontend/experimental',
+        dir: '../custom_components/hacs/frontend/experimental',
         format: 'es',
     },
     plugins: [

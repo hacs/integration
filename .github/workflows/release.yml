@@ -38,7 +38,10 @@ jobs:
 
       # Build Frontend
       - name: Build the HACS frontend
-        run: npm install && npm run build
+        run: |
+          cd frontend
+          npm install
+          npm run build
 
       - name: "Set version numbmer"
         run: |

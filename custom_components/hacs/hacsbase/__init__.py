@@ -265,6 +265,10 @@ class Hacs:
                     org = await self.github.get_org_repos("custom-components")
                     for repo in org:
                         repositories[category].append(repo.full_name)
+                if category == "theme":
+                    org = await self.github.get_org_repos("home-assistant-community-themes")
+                    for repo in org:
+                        repositories[category].append(repo.full_name)
 
         for category in repositories:
             for repo in repositories[category]:

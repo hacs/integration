@@ -126,11 +126,13 @@ export class HacsPanelStore extends LitElement {
       ` : html`
 
       <paper-item .RepoID=${repo.id} @click="${this.ShowRepository}">
-        <ha-icon
-          icon="mdi:cube"
-          class="${repo.status}"
-          title="${repo.status_description}">
+        <div class="icon">
+          <ha-icon
+            icon="mdi:cube"
+            class="${repo.status}"
+            title="${repo.status_description}">
         </ha-icon>
+        </div>
         <paper-item-body two-line>
           <div>${repo.name}</div>
           <div class="addition">${repo.description}</div>

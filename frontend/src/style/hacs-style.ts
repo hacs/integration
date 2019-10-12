@@ -60,17 +60,19 @@ const baseHacsStyles = css`
       margin: 8px;
     }
     ha-icon {
+        height: 24px;
+        width: 24px;
         margin-right: 16px;
         float: left;
         color: var(--primary-text-color);
     }
-      ha-icon.installed {
+    ha-icon.installed {
         color: var(--hacs-status-installed);
     }
-      ha-icon.pending-upgrade {
+    ha-icon.pending-upgrade {
         color: var(--hacs-status-pending-update);
     }
-      ha-icon.pending-restart {
+    ha-icon.pending-restart {
         color: var(--hacs-status-pending-restart);
     }
 `

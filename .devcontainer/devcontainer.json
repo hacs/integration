@@ -1,13 +1,14 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
 {
 	"name": "HACS Dev",
-	"image": "ludeeus/devcontainer:integration",
+	"dockerFile": "DockerFile",
+	"postCreateCommand": "dc install",
 	"context": "..",
 	"appPort": [
 		"9123:8123",
-		"3000:3000"
+		"3000:3000",
+		"35729:35729"
 	],
-	"postCreateCommand": "apk add nodejs npm && dc install",
 	"runArgs": [
 		"-v",
 		"${env:HOME}${env:USERPROFILE}/.ssh:/tmp/.ssh" // This is added so you can push from inside the container

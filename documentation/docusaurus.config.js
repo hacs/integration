@@ -11,8 +11,8 @@ module.exports = {
   url: 'https://hacs.netlify.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
-  organizationName: 'custom-components', // Usually your GitHub org/user name.
-  projectName: 'hacs', // Usually your repo name.
+  organizationName: 'custom-components',
+  projectName: 'hacs',
   themeConfig: {
     navbar: {
       title: 'HACS',
@@ -38,6 +38,7 @@ module.exports = {
           editUrl: 'https://github.com/custom-components/hacs/edit/master/documentation/docs/',
           path: './docs',
           sidebarPath: require.resolve('./sidebars.js'),
+          showLastUpdateTime: true,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

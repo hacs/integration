@@ -253,7 +253,9 @@ class HacsData(Hacs):
 
             self.logger.info("Restore done")
         except Exception as exception:
-            self.logger.critical(f"[{exception}] Restore Failed!")
+            self.logger.critical(
+                f"[{exception}] Restore Failed! see https://github.com/custom-components/hacs/issues/639 for more details."
+            )
             return False
         return True
 

@@ -8,7 +8,7 @@ Starting with version 0.15.0 there is now a new experimental UI for HACS, this h
 
 To handle submissions of translated strings we are using [Lokalise](https://lokalise.com) they provide us with an amazing platform that is easy to use and maintain.
 
-![Lokalise](/docs/assets/lokalise.png)
+![Lokalise](/img/lokalise.png)
 
 To help out with the translation of HACS you need an account on Lokalise, the easiest way to get one is to [click here](https://lokalise.com/login/) then select "Log in with GitHub".
 

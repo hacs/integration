@@ -13,7 +13,7 @@ All templates have a defined structure and it is **expected** that you folow it.
 
 _Issues that are missing required information can (will) be closed._
 
-![template](/docs/assets/select_issue_template.png)
+![template](/img/select_issue_template.png)
 
 ## Feature request
 

@@ -127,7 +127,7 @@ version_installed | The installed version
 {% endif %}
 ```
 
-![beta](/docs/assets/beta.png)
+![beta](/img/beta.png)
 
 ### [Here Travel Time](https://github.com/eifinger/here_travel_time/blob/master/info.md)
 
@@ -158,21 +158,21 @@ version_installed | The installed version
 {% endif %}
 ```
 
-![here](/docs/assets/info_jinja_here.png)
+![here](/img/info_jinja_here.png)
 
 ## Some examples of `info.md` files
 
 ### [Compact Custom Header](https://github.com/maykar/compact-custom-header/blob/1.0.4b9/info.md)
 
-  ![cch](/docs/assets/info_cch.PNG)
+  ![cch](/img/info_cch.PNG)
 
 ### [Lovelace Swipe Navigation](https://github.com/maykar/lovelace-swipe-navigation/blob/1.2.0/info.md)
 
-![swipe](/docs/assets/info_swipe.PNG)
+![swipe](/img/info_swipe.PNG)
 
 ### [HomeAssistant-Atrea](https://github.com/JurajNyiri/HomeAssistant-Atrea/blob/2.1/info.md)
 
-![Atrea](/docs/assets/info_atrea.PNG)
+![Atrea](/img/info_atrea.PNG)
 
 
 ## Want to add your repository to the store as a default?

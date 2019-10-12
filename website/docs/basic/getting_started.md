@@ -4,7 +4,7 @@ title: Getting started
 sidebar_label: Getting started
 ---
 
-![hacsdemo](/docs/assets/hacsdemo.gif)
+![hacsdemo](/img/hacsdemo.gif)
 
 ***
 

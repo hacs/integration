@@ -1,7 +1,7 @@
 ---
 id: basic
-title: Basic Configuration
-sidebar_label: Basic
+title: Initial Configuration
+sidebar_label: Initial Configuration
 ---
 
 _This page assume that you have allready finished the [installation](/docs/installation/prerequisittes)_

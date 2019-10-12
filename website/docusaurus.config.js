@@ -34,7 +34,7 @@ module.exports = {
           items: [
             {
               label: 'Installation',
-              to: 'docs/installation/manual',
+              to: 'docs/installation/prerequisittes',
             },
             {
               label: 'Configuration',

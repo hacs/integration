@@ -58,7 +58,7 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={withBaseUrl('docs/installation/manual')}>
+              to={withBaseUrl('docs/installation/prerequisittes')}>
               Installation
             </Link>
             <Link

@@ -1,6 +1,6 @@
 ---
 id: start
-title: Configure HACS
+title: Configuration
 sidebar_label: Start
 ---
 

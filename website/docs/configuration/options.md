@@ -1,7 +1,7 @@
 ---
 id: options
-title: Options
-sidebar_label: Options
+title: Configuration options
+sidebar_label: Configuration options
 ---
 
 _This page assume that you have allready finished the [installation](/docs/installation/prerequisittes)_

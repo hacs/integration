@@ -70,7 +70,7 @@ https://github.com/ludeeus/integration-hacs/blob/0.2.0/custom_components/integra
 
 If the user try to install this and the minimum HA requirement is not met, the user will receive a warning and it will block install/upgrade until HA is upgraded.
 
-![min_version](/docs/assets/min_version_warning.png)
+![min_version](/img/min_version_warning.png)
 
 #### If there are no releases
 

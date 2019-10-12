@@ -20,11 +20,11 @@ or click here: [https://github.com/settings/tokens](https://github.com/settings/
 
 Click the "Generate new token" button.
 
-![token1](/docs/assets/token1.png)
+![token1](/img/token1.png)
 
 _If you are asked to login, do so._
 
-![token2](/docs/assets/token2.png)
+![token2](/img/token2.png)
 
 ## Step 4 - Choices
 
@@ -34,10 +34,10 @@ Then click the "Generate token" button at the bottom.
 
 You **do not** need to check _any_ of the boxes.
 
-![token3](/docs/assets/token3.png)
+![token3](/img/token3.png)
 
 ## Step 5 - Copy
 
 Now you see the generated token, this will be the **only** time you see it, make sure that you copy it manually or by clicking the clipboard icon.
 
-![token4](/docs/assets/token4.png)
+![token4](/img/token4.png)

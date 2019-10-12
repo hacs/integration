@@ -20,7 +20,7 @@ Shortcut: [https://github.com/custom-components/hacs/releases/latest](https://gi
 
 Initialize the download by clicking on the "hacs.zip" link at the bottom of the page.
 
-![install2](/docs/assets/install2.png)
+![install2](/img/install2.png)
 
 ### Step 4 - Extract the content
 
@@ -32,7 +32,7 @@ You need to unzip this, before proceeding.
 
 Now that you have extracted that file you will see something like this:
 
-![install3](/docs/assets/install3.png)
+![install3](/img/install3.png)
 
 
 The folder named `hacs` would need to be copied to your Home Assistant installation.

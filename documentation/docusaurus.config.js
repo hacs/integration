@@ -1,62 +1,48 @@
-const siteConfig = {
-
-  tagline: 'Home Assistant Community Store',
-  url: 'https://hacs.netlify.com', // Your website URL
-  baseUrl: '/', // Base URL for your project */
-  projectName: 'hacs',
-  organizationName: 'custom-components',
-  editUrl: 'https://github.com/custom-components/hacs/edit/master/docs/',
-  headerLinks: [
-    { to: 'developer/start', label: 'Developer docs', position: 'left' },
-    { to: 'help', label: 'Help', position: 'left' },
-    { href: 'https://github.com/custom-components/hacs', label: 'GitHub', position: 'left' },
-  ],
-  colors: {
-    primaryColor: '#03a9f4',
-    secondaryColor: '#424141',
-  },
-  highlight: {
-    theme: 'default',
-  },
-  scripts: ['https://buttons.github.io/buttons.js'],
-
-  onPageNav: 'separate',
-  cleanUrl: true,
-  repoUrl: 'https://github.com/custom-components/hacs',
-};
-
-//module.exports = siteConfig;
+/**
+ * Copyright (c) 2017-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 
 module.exports = {
-  title: 'HACS (Home Assistant Community Store)', // Title for your website.
-  baseUrl: '/', // Base URL for your project */
-  url: 'https://hacs.netlify.com', // Your website URL
+  title: 'HACS',
   tagline: 'Home Assistant Community Store',
-  favicon: "",
-  githubHost: 'github.com',
-  organizationName: 'custom-components',
+  url: 'https://hacs.netlify.com',
+  baseUrl: '/',
+  favicon: 'img/favicon.ico',
+  organizationName: 'custom-components', // Usually your GitHub org/user name.
+  projectName: 'hacs', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'HACS (Home Assistant Community Store)', // Title for your website.
+      title: 'HACS (Home Assistant Community Store)',
       links: [
-        { to: 'developer/start', label: 'Developer docs', position: 'left' },
-        { to: 'help', label: 'Help', position: 'left' },
-        { href: 'https://github.com/custom-components/hacs', label: 'GitHub', position: 'left' },
-      ],
-    },
-    scripts: ['https://buttons.github.io/buttons.js'],
-    presets: [
-      [
-        '@docusaurus/preset-classic',
+        { to: 'docs/installation/prerequisittes', label: 'Installation', position: 'left' },
+        { to: 'docs/configuration/start', label: 'Configuration', position: 'left' },
+        { to: 'docs/basic/getting_started', label: 'Usage', position: 'left' },
+        { to: 'docs/developer/start', label: 'Developer docs', position: 'right' },
+        { to: 'help', label: 'Help', position: 'right' },
         {
-          docs: {
-            editUrl: 'https://github.com/custom-components/hacs/edit/master/documentation/docs/',
-            path: './docs',
-            sidebarPath: require.resolve('./sidebars.json'),
-          },
-
+          href: 'https://github.com/custom-components/hacs',
+          label: 'GitHub',
+          position: 'right',
         },
       ],
+    },
+  },
+  presets: [
+    [
+      '@docusaurus/preset-classic',
+      {
+        docs: {
+          editUrl: 'https://github.com/custom-components/hacs/edit/master/documentation/docs/',
+          path: './docs',
+          sidebarPath: require.resolve('./sidebars.js'),
+        },
+        theme: {
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+      },
     ],
-  }
-}
+  ],
+};

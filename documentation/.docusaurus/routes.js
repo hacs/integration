@@ -17,60 +17,6 @@ export default [
   
 },
 {
-  path: '/blog/welcome',
-  component: ComponentCreator('/blog/welcome'),
-  exact: true,
-  
-},
-{
-  path: '/blog/hello-world',
-  component: ComponentCreator('/blog/hello-world'),
-  exact: true,
-  
-},
-{
-  path: '/blog/hola',
-  component: ComponentCreator('/blog/hola'),
-  exact: true,
-  
-},
-{
-  path: '/blog',
-  component: ComponentCreator('/blog'),
-  exact: true,
-  
-},
-{
-  path: '/blog/tags/facebook',
-  component: ComponentCreator('/blog/tags/facebook'),
-  exact: true,
-  
-},
-{
-  path: '/blog/tags/hello',
-  component: ComponentCreator('/blog/tags/hello'),
-  exact: true,
-  
-},
-{
-  path: '/blog/tags/docusaurus',
-  component: ComponentCreator('/blog/tags/docusaurus'),
-  exact: true,
-  
-},
-{
-  path: '/blog/tags/hola',
-  component: ComponentCreator('/blog/tags/hola'),
-  exact: true,
-  
-},
-{
-  path: '/blog/tags',
-  component: ComponentCreator('/blog/tags'),
-  exact: true,
-  
-},
-{
   path: '/docs',
   component: ComponentCreator('/docs'),
   
@@ -82,26 +28,8 @@ export default [
   
 },
 {
-  path: '/docs/issues',
-  component: ComponentCreator('/docs/issues'),
-  exact: true,
-  
-},
-{
   path: '/docs/basic/existing_elements',
   component: ComponentCreator('/docs/basic/existing_elements'),
-  exact: true,
-  
-},
-{
-  path: '/docs/basic/startup',
-  component: ComponentCreator('/docs/basic/startup'),
-  exact: true,
-  
-},
-{
-  path: '/docs/basic/getting_started',
-  component: ComponentCreator('/docs/basic/getting_started'),
   exact: true,
   
 },
@@ -112,20 +40,20 @@ export default [
   
 },
 {
+  path: '/docs/issues',
+  component: ComponentCreator('/docs/issues'),
+  exact: true,
+  
+},
+{
+  path: '/docs/basic/getting_started',
+  component: ComponentCreator('/docs/basic/getting_started'),
+  exact: true,
+  
+},
+{
   path: '/docs/basic/logs',
   component: ComponentCreator('/docs/basic/logs'),
-  exact: true,
-  
-},
-{
-  path: '/docs/configuration/ui',
-  component: ComponentCreator('/docs/configuration/ui'),
-  exact: true,
-  
-},
-{
-  path: '/docs/basic/updates',
-  component: ComponentCreator('/docs/basic/updates'),
   exact: true,
   
 },
@@ -136,8 +64,20 @@ export default [
   
 },
 {
-  path: '/docs/configuration/yaml',
-  component: ComponentCreator('/docs/configuration/yaml'),
+  path: '/docs/basic/startup',
+  component: ComponentCreator('/docs/basic/startup'),
+  exact: true,
+  
+},
+{
+  path: '/docs/basic/updates',
+  component: ComponentCreator('/docs/basic/updates'),
+  exact: true,
+  
+},
+{
+  path: '/docs/categories/plugins',
+  component: ComponentCreator('/docs/categories/plugins'),
   exact: true,
   
 },
@@ -154,20 +94,14 @@ export default [
   
 },
 {
-  path: '/docs/developer/devcontainer',
-  component: ComponentCreator('/docs/developer/devcontainer'),
+  path: '/docs/configuration/basic',
+  component: ComponentCreator('/docs/configuration/basic'),
   exact: true,
   
 },
 {
-  path: '/docs/categories/plugins',
-  component: ComponentCreator('/docs/categories/plugins'),
-  exact: true,
-  
-},
-{
-  path: '/docs/categories/themes',
-  component: ComponentCreator('/docs/categories/themes'),
+  path: '/docs/configuration/legacy',
+  component: ComponentCreator('/docs/configuration/legacy'),
   exact: true,
   
 },
@@ -178,8 +112,50 @@ export default [
   
 },
 {
-  path: '/docs/developer/start',
-  component: ComponentCreator('/docs/developer/start'),
+  path: '/docs/categories/themes',
+  component: ComponentCreator('/docs/categories/themes'),
+  exact: true,
+  
+},
+{
+  path: '/docs/configuration/options',
+  component: ComponentCreator('/docs/configuration/options'),
+  exact: true,
+  
+},
+{
+  path: '/docs/developer/backend',
+  component: ComponentCreator('/docs/developer/backend'),
+  exact: true,
+  
+},
+{
+  path: '/docs/configuration/pat',
+  component: ComponentCreator('/docs/configuration/pat'),
+  exact: true,
+  
+},
+{
+  path: '/docs/configuration/start',
+  component: ComponentCreator('/docs/configuration/start'),
+  exact: true,
+  
+},
+{
+  path: '/docs/developer/devcontainer',
+  component: ComponentCreator('/docs/developer/devcontainer'),
+  exact: true,
+  
+},
+{
+  path: '/docs/developer/frontend',
+  component: ComponentCreator('/docs/developer/frontend'),
+  exact: true,
+  
+},
+{
+  path: '/docs/developer/documentation',
+  component: ComponentCreator('/docs/developer/documentation'),
   exact: true,
   
 },
@@ -190,8 +166,14 @@ export default [
   
 },
 {
-  path: '/docs/installation/manual',
-  component: ComponentCreator('/docs/installation/manual'),
+  path: '/docs/developer/start',
+  component: ComponentCreator('/docs/developer/start'),
+  exact: true,
+  
+},
+{
+  path: '/docs/installation/prerequisittes',
+  component: ComponentCreator('/docs/installation/prerequisittes'),
   exact: true,
   
 },
@@ -202,8 +184,8 @@ export default [
   
 },
 {
-  path: '/docs/installation/prerequisittes',
-  component: ComponentCreator('/docs/installation/prerequisittes'),
+  path: '/docs/installation/manual',
+  component: ComponentCreator('/docs/installation/manual'),
   exact: true,
   
 },
@@ -220,14 +202,14 @@ export default [
   
 },
 {
-  path: '/docs/publish/include',
-  component: ComponentCreator('/docs/publish/include'),
+  path: '/docs/publish/plugin',
+  component: ComponentCreator('/docs/publish/plugin'),
   exact: true,
   
 },
 {
-  path: '/docs/publish/plugin',
-  component: ComponentCreator('/docs/publish/plugin'),
+  path: '/docs/publish/include',
+  component: ComponentCreator('/docs/publish/include'),
   exact: true,
   
 },
@@ -238,14 +220,14 @@ export default [
   
 },
 {
-  path: '/docs/publish/start',
-  component: ComponentCreator('/docs/publish/start'),
+  path: '/docs/publish/theme',
+  component: ComponentCreator('/docs/publish/theme'),
   exact: true,
   
 },
 {
-  path: '/docs/publish/theme',
-  component: ComponentCreator('/docs/publish/theme'),
+  path: '/docs/publish/start',
+  component: ComponentCreator('/docs/publish/start'),
   exact: true,
   
 }],

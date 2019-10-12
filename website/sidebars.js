@@ -6,8 +6,56 @@
  */
 
 module.exports = {
-  docs: {
-    Docusaurus: ['doc1', 'doc2', 'doc3'],
-    Features: ['mdx'],
+  "usage": {
+    "Basic": [
+      "basic/getting_started",
+      "basic/updates",
+      "basic/existing_elements",
+      "basic/startup",
+      "basic/sensor",
+      "basic/updates",
+      "basic/logs"
+    ],
+    "Categories": [
+      "categories/integrations",
+      "categories/plugins",
+      "categories/appdaemon_apps",
+      "categories/python_scripts",
+      "categories/themes"
+    ]
   },
+  "installation": {
+    "Installation": [
+      "installation/prerequisittes",
+      "installation/manual"
+    ]
+  },
+  "configuration": {
+    "Configuration": [
+      "configuration/start",
+      "configuration/pat",
+      "configuration/basic",
+      "configuration/options",
+    ],
+    "Legacy Configuration (YAML)": [
+      "configuration/legacy"
+    ]
+  },
+  "developer documentation": {
+    "HACS Development": [
+      "developer/start",
+      "developer/devcontainer",
+      "developer/translation"
+    ],
+    "Publish to HACS": [
+      "publish/start",
+      "publish/appdaemon",
+      "publish/integration",
+      "publish/plugin",
+      "publish/python_script",
+      "publish/theme",
+      "publish/include",
+      "publish/blacklist"
+    ]
+  }
 };

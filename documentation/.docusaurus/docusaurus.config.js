@@ -4,46 +4,81 @@ export default {
   "customFields": {},
   "themeConfig": {
     "navbar": {
-      "title": "HACS (Home Assistant Community Store)",
+      "title": "My Site",
+      "logo": {
+        "alt": "My Site Logo",
+        "src": "img/logo.svg"
+      },
       "links": [
         {
-          "to": "developer/start",
+          "to": "docs/developer/start",
           "label": "Developer docs",
-          "position": "left"
+          "position": "right"
         },
         {
           "to": "help",
           "label": "Help",
-          "position": "left"
+          "position": "right"
         },
         {
           "href": "https://github.com/custom-components/hacs",
           "label": "GitHub",
-          "position": "left"
+          "position": "right"
         }
       ]
     },
-    "scripts": [
-      "https://buttons.github.io/buttons.js"
-    ],
-    "presets": [
-      [
-        "@docusaurus/preset-classic",
+    "footer": {
+      "style": "dark",
+      "links": [
         {
-          "docs": {
-            "editUrl": "https://github.com/custom-components/hacs/edit/master/documentation/docs/",
-            "path": "./docs",
-            "sidebarPath": "/workspaces/hacs/documentation/sidebars.json"
-          }
+          "title": "Getting started",
+          "items": [
+            {
+              "label": "Installation",
+              "to": "docs/installation/manual"
+            },
+            {
+              "label": "Configuration",
+              "to": "docs/configuration/ui"
+            },
+            {
+              "label": "Usage",
+              "to": "docs/basic/getting_started"
+            }
+          ]
+        },
+        {
+          "title": "More Links",
+          "items": [
+            {
+              "label": "Community Forum",
+              "href": "https://community.home-assistant.io/t/custom-component-hacs/121727"
+            }
+          ]
         }
       ]
-    ]
+    }
   },
-  "title": "HACS (Home Assistant Community Store)",
-  "baseUrl": "/",
-  "url": "https://hacs.netlify.com",
+  "title": "My Site",
   "tagline": "Home Assistant Community Store",
+  "url": "https://your-docusaurus-test-site.com",
+  "baseUrl": "/",
   "favicon": "",
-  "githubHost": "github.com",
-  "organizationName": "custom-components"
+  "organizationName": "custom-components",
+  "projectName": "hacs",
+  "presets": [
+    [
+      "@docusaurus/preset-classic",
+      {
+        "docs": {
+          "editUrl": "https://github.com/custom-components/hacs/edit/master/documentation/docs/",
+          "path": "./docs",
+          "sidebarPath": "/workspaces/hacs/website/sidebars.js"
+        },
+        "theme": {
+          "customCss": "/workspaces/hacs/website/src/css/custom.css"
+        }
+      }
+    ]
+  ]
 };

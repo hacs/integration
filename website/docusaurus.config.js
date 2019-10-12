@@ -6,25 +6,21 @@
  */
 
 module.exports = {
-  title: 'My Site',
-  tagline: 'The tagline of my site',
+  title: 'HACS',
+  tagline: 'Home Assistant Community Store',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'custom-components', // Usually your GitHub org/user name.
+  projectName: 'hacs', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'My Site',
-      logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
-      },
+      title: 'HACS (Home Assistant Community Store)',
       links: [
-        {to: 'docs/doc1', label: 'Docs', position: 'left'},
-        {to: 'blog', label: 'Blog', position: 'left'},
+        { to: 'docs/developer/start', label: 'Developer docs', position: 'right' },
+        { to: 'help', label: 'Help', position: 'right' },
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/custom-components/hacs',
           label: 'GitHub',
           position: 'right',
         },
@@ -34,38 +30,32 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Getting started',
           items: [
             {
-              label: 'Docs',
-              to: 'docs/doc1',
+              label: 'Installation',
+              to: 'docs/installation/manual',
+            },
+            {
+              label: 'Configuration',
+              to: 'docs/configuration/start',
+            },
+            {
+              label: 'Usage',
+              to: 'docs/basic/getting_started',
             },
           ],
         },
         {
-          title: 'Community',
+          title: 'More Links',
           items: [
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'Social',
-          items: [
-            {
-              label: 'Blog',
-              to: 'blog',
+              label: 'Community Forum',
+              href: 'https://community.home-assistant.io/t/custom-component-hacs/121727',
             },
           ],
         },
       ],
-      logo: {
-        alt: 'Facebook Open Source Logo',
-        src: 'https://docusaurus.io/img/oss_logo.png',
-      },
-      copyright: `Copyright © ${new Date().getFullYear()} Facebook, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -73,6 +63,8 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          editUrl: 'https://github.com/custom-components/hacs/edit/master/documentation/docs/',
+          path: './docs',
           sidebarPath: require.resolve('./sidebars.js'),
         },
         theme: {

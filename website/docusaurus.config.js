@@ -8,7 +8,7 @@
 module.exports = {
   title: 'HACS',
   tagline: 'Home Assistant Community Store',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://hacs.netlify.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'custom-components', // Usually your GitHub org/user name.
@@ -17,43 +17,15 @@ module.exports = {
     navbar: {
       title: 'HACS (Home Assistant Community Store)',
       links: [
+        { to: 'docs/installation/prerequisittes', label: 'Installation', position: 'left' },
+        { to: 'docs/configuration/start', label: 'Configuration', position: 'left' },
+        { to: 'docs/basic/getting_started', label: 'Usage', position: 'left' },
         { to: 'docs/developer/start', label: 'Developer docs', position: 'right' },
         { to: 'help', label: 'Help', position: 'right' },
         {
           href: 'https://github.com/custom-components/hacs',
           label: 'GitHub',
           position: 'right',
-        },
-      ],
-    },
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Getting started',
-          items: [
-            {
-              label: 'Installation',
-              to: 'docs/installation/prerequisittes',
-            },
-            {
-              label: 'Configuration',
-              to: 'docs/configuration/start',
-            },
-            {
-              label: 'Usage',
-              to: 'docs/basic/getting_started',
-            },
-          ],
-        },
-        {
-          title: 'More Links',
-          items: [
-            {
-              label: 'Community Forum',
-              href: 'https://community.home-assistant.io/t/custom-component-hacs/121727',
-            },
-          ],
         },
       ],
     },

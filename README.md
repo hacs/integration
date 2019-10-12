@@ -6,7 +6,7 @@
 
 _Manage (Install, track, upgrade) and discover custom elements for Home Assistant directly from the UI._
 
-![gif](https://hacs.netlify.com/images/hacsdemo.gif)
+![gif](https://hacs.netlify.com/img/hacsdemo.gif)
 
 ## What?
 
@@ -31,9 +31,9 @@ HACS is not a full replacement for `custom_updater` and even though their "missi
 ## Useful links
 
 - [General documentation](https://hacs.netlify.com/)
-- [Installation](https://hacs.netlify.com/installation/manual/)
-- [Configuration](https://hacs.netlify.com/installation/configuration/)
-- [FAQ](https://hacs.netlify.com/faq)
+- [Installation](https://hacs.netlify.com/installation/docs/installation/manual/)
+- [Configuration](https://hacs.netlify.com/installation/docs/configuration/start)
+- [FAQ](https://hacs.netlify.com/docs/faq)
 - [Repository](https://github.com/custom-components/hacs)
 - [Forum post](https://community.home-assistant.io/t/custom-component-hacs/121727)
 - [BuyMeCoffee? :see_no_evil:](https://buymeacoffee.com/ludeeus)

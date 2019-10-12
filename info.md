@@ -1,4 +1,4 @@
-![gif](https://github.com/custom-components/hacs/raw/master/docs/images/hacsdemo.gif)
+![gif](https://hacs.netlify.com/img/hacsdemo.gif)
 
 ## Highlights of what HACS can do
 
@@ -11,9 +11,9 @@
 ## Useful links
 
 - [General documentation](https://hacs.netlify.com/)
-- [Installation](https://hacs.netlify.com/installation/manual/)
-- [Configuration](https://hacs.netlify.com/installation/configuration/)
-- [FAQ](https://hacs.netlify.com/faq)
+- [Installation](https://hacs.netlify.com/docs/installation/manual)
+- [Configuration](https://hacs.netlify.com/docs/configuration/start)
+- [FAQ](https://hacs.netlify.com/docs/faq)
 - [Repository](https://github.com/custom-components/hacs)
 - [Forum post](https://community.home-assistant.io/t/custom-component-hacs/121727)
 - [BuyMeCoffee? :see_no_evil:](https://buymeacoffee.com/ludeeus)

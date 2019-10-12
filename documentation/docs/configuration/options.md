@@ -28,7 +28,7 @@ _This page assume that you have allready finished the [initial configuration](/d
 - `Number of releases to show`: Number of release to show in the dropdown.
 - `Enable experimental features`: This enables experimental features in HACS.
 
-## When you are click submit and wait for confirmation.
+## Click submit and wait for confirmation.
 
 _This will reload HACS and your changes will be reflected when you see the confirmation._
 

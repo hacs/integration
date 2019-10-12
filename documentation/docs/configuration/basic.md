@@ -29,7 +29,7 @@ _This page assume that you have allready finished the [installation](/docs/insta
 - `Enable python_scripts discovery & tracking`: Enables [Python Scripts](/docs/categories/python_scripts)
 - `Enable Themes discovery & tracking`: Enables [Themes](/docs/categories/themes)
 
-## When you are click submit and wait for confirmation.
+## Click submit and wait for confirmation.
 
 ![image](/img/conf5.png)
 

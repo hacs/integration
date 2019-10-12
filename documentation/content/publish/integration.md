@@ -1,7 +1,6 @@
 ---
 id: integration
 title: Integrations
-sidebar_label: Integrations
 ---
 
 A good template to use as a reference is [blueprint](https://github.com/custom-components/blueprint)

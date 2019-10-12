@@ -1,7 +1,6 @@
 ---
 id: logs
 title: Logs
-sidebar_label: Logs
 ---
 
 Like any other integration this logs to the `home-assistant.log` file.

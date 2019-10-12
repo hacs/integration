@@ -1,7 +1,6 @@
 ---
 id: sensor
 title: Sensor
-sidebar_label: Sensor
 ---
 
 During the setup HACS will add a new sensor to your installation (`sensor.hacs`).

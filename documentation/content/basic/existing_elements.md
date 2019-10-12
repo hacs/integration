@@ -1,7 +1,6 @@
 ---
 id: existing_elements
 title: Existing elements
-sidebar_label: Existing elements
 ---
 
 This will not scan you local file system for existing elements.

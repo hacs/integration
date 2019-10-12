@@ -1,7 +1,6 @@
 ---
 id: manual
 title: Installation
-sidebar_label: Installation
 ---
 
 This guide will take you though all the steps you need to insall HACS.

@@ -1,7 +1,6 @@
 ---
 id: theming
 title: Theming
-sidebar_label: Theming
 ---
 
 HACS will try to match your Home Assistant theme as much as possible. There are also several variables you can use in your `themes.yaml` file to theme HACS further:

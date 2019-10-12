@@ -1,7 +1,6 @@
 ---
 id: options
 title: Configuration options
-sidebar_label: Configuration options
 ---
 
 _This page assume that you have allready finished the [initial configuration](/docs/configuration/basic)_

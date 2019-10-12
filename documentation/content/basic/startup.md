@@ -1,7 +1,6 @@
 ---
 id: startup
 title: Startup
-sidebar_label: Startup
 ---
 
 During the startup it will scan for know repositories, and there will be a progressbar indicating that it's working.

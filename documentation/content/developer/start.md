@@ -1,7 +1,6 @@
 ---
 id: start
 title: Getting started
-sidebar_label: Getting started
 ---
 
 This integration is **massive** and there are a lot of areas to contribute to.

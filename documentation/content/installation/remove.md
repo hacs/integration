@@ -1,7 +1,6 @@
 ---
 id: remove
 title: Remove
-
 ---
 
 If you want to remove HACS you need to to do that using the folowing steps.

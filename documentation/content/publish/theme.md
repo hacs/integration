@@ -1,7 +1,6 @@
 ---
 id: theme
 title: Themes
-sidebar_label: Themes
 ---
 
 A template to use as a reference is [theme-hacs](https://github.com/ludeeus/theme-hacs)

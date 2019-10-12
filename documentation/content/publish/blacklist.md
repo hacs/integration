@@ -1,7 +1,6 @@
 ---
 id: blacklist
 title: Blacklist
-sidebar_label: Blacklist
 ---
 
 As a developer you can blacklist your repositories.

@@ -1,7 +1,6 @@
 ---
 id: pat
 title: Github Personal Access Token
-sidebar_label: Github Personal Access Token
 ---
 
 The token generated below will only have read-only access to public information.

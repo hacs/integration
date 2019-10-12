@@ -1,7 +1,6 @@
 ---
 id: python_script
 title: Python Scripts
-sidebar_label: Python Scripts
 ---
 
 A template to use as a reference is [ps-hacs](https://github.com/ludeeus/ps-hacs)

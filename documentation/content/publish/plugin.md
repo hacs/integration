@@ -1,7 +1,6 @@
 ---
 id: plugin
 title: Plugins
-sidebar_label: Plugins
 ---
 
 A good template to use as a reference is [boilerplate-card](https://github.com/custom-cards/boilerplate-card)

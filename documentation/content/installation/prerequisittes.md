@@ -1,7 +1,6 @@
 ---
 id: prerequisittes
 title: Prerequisittes
-sidebar_label: Prerequisittes
 ---
 
 *If you move from [`custom_updater`](https://github.com/custom-components/custom_updater) to this see the special note at the bottom here.*

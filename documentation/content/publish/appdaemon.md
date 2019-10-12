@@ -1,7 +1,6 @@
 ---
 id: appdaemon
 title: AppDaemon Apps
-sidebar_label: AppDaemon Apps
 ---
 
 A template to use as a reference is [ad-hacs](https://github.com/ludeeus/ad-hacs)

@@ -1,7 +1,6 @@
 ---
 id: include
 title: Include default repositories
-sidebar_label: Include default repositories
 ---
 
 As a developer you can now add your repository to be included in as a default repository in the store.

@@ -1,7 +1,6 @@
 ---
 id: updates
 title: Updates
-sidebar_label: Updates
 ---
 
 ## Installed elements

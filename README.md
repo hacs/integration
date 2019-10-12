@@ -32,7 +32,7 @@ HACS is not a full replacement for `custom_updater` and even though their "missi
 
 - [General documentation](https://hacs.netlify.com/)
 - [Installation](https://hacs.netlify.com/installation/docs/installation/manual/)
-- [Configuration](https://hacs.netlify.com/installation/docs/configuration/start)
+- [Configuration](https://hacs.netlify.com/docs/configuration/start)
 - [FAQ](https://hacs.netlify.com/docs/faq)
 - [Repository](https://github.com/custom-components/hacs)
 - [Forum post](https://community.home-assistant.io/t/custom-component-hacs/121727)

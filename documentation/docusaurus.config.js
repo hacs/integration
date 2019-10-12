@@ -15,7 +15,7 @@ module.exports = {
   projectName: 'hacs', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'HACS (Home Assistant Community Store)',
+      title: 'HACS',
       links: [
         { to: 'docs/installation/prerequisittes', label: 'Installation', position: 'left' },
         { to: 'docs/configuration/start', label: 'Configuration', position: 'left' },

@@ -90,7 +90,7 @@ const blocks = [
 function Help() {
   const context = useDocusaurusContext();
   return (
-    <Layout title='HACS: Help'>
+    <Layout title={`${siteConfig.title}: Help`}>
       <main>
         {blocks && blocks.length && (
           <section className={styles.blocks}>

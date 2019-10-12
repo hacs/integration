@@ -85,12 +85,20 @@ const blocks = [
       </>
     ),
   },
+  {
+    title: <>FAQ</>,
+    description: (
+      <>
+        <a href="/docs/faq">Frequently asked questions</a>
+      </>
+    ),
+  },
 ];
 
 function Help() {
   const context = useDocusaurusContext();
   return (
-    <Layout title={`${siteConfig.title}: Help`}>
+    <Layout title={`HACS: Help`}>
       <main>
         {blocks && blocks.length && (
           <section className={styles.blocks}>

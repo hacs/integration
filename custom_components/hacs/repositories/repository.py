@@ -423,6 +423,12 @@ class HacsRepository(Hacs):
                     await self.reload_custom_components()
                 else:
                     self.pending_restart = True
+
+            elif self.information.category == "theme":
+                try:
+                    await self.hass.services.async_call("frontend", "reload_themes", {})
+                except Exception:  # pylint: disable=broad-except
+                    pass
             self.hass.bus.async_fire(
                 "hacs/repository",
                 {
@@ -646,6 +652,11 @@ class HacsRepository(Hacs):
                 await self.reload_custom_components()
             else:
                 self.pending_restart = True
+        elif self.information.category == "theme":
+            try:
+                await self.hass.services.async_call("frontend", "reload_themes", {})
+            except Exception:  # pylint: disable=broad-except
+                pass
         if self.information.full_name in self.common.installed:
             self.common.installed.remove(self.information.full_name)
         self.versions.installed = None

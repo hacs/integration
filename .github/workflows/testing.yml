@@ -27,7 +27,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip setuptools wheel colorlog==4.0.2
+        python -m pip install --upgrade pip setuptools aiohttp_cors wheel colorlog==4.0.2
 
         for file in $(find custom_components/ -name "manifest.json"); do
           cat "$file" | for req in $(jq .requirements[]);

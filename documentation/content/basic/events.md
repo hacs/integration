@@ -7,7 +7,7 @@ When HACS operate it will fire some events that the frontend listens to.
 
 These events can also be used in automations.
 
-### Events:
+### Events
 
 - `hacs/update`
 - `hacs/repository`

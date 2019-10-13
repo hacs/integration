@@ -26,7 +26,7 @@ This will take you to the GitHub page for it so you can cahnge the content.
 
 ### Locally changing (devcontainer)
 
-First spinn up the [devcontainer](/docs/developer/devcontainer)
+First spin up the [devcontainer](/docs/developer/devcontainer)
 
 When you have that running issue the following comands:
 
@@ -48,6 +48,41 @@ All pages for the HACS documentation is located under:
 
 ```text
 documentation/content/
+```
+
+All images for the HACS documentation is located under:
+
+```text
+documentation/static/img/
+```
+
+
+## Contents linking
+
+### Referense another page
+
+Lets say you need to reference another page that is located under:
+
+```text
+documentation/content/developer/features.md
+```
+Then you need to use:
+
+```md
+[Features](/docs/developer/features)
+```
+
+### Referense images
+
+Lets say you need to reference a image that is located under:
+
+```text
+documentation/static/img/features.png
+```
+Then you need to use:
+
+```md
+![image](/img/features.png)
 ```
 
 ## New pages

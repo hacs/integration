@@ -144,7 +144,7 @@ class Hacs:
                         f"Validation for {full_name} failed with {exception}."
                     )
                 return
-        self.hass.bus.fire(
+        self.hass.bus.async_fire(
             "hacs/repository",
             {
                 "id": 1337,
@@ -219,7 +219,7 @@ class Hacs:
         self.clear_out_blacklisted_repositories()
         self.system.status.background_task = False
         self.data.write()
-        self.hass.bus.fire("hacs/repository", {"action": "reload"})
+        self.hass.bus.async_fire("hacs/repository", {"action": "reload"})
         self.logger.debug("Recuring background task for all repositories done")
 
     def clear_out_blacklisted_repositories(self):
@@ -266,7 +266,9 @@ class Hacs:
                     for repo in org:
                         repositories[category].append(repo.full_name)
                 if category == "theme":
-                    org = await self.github.get_org_repos("home-assistant-community-themes")
+                    org = await self.github.get_org_repos(
+                        "home-assistant-community-themes"
+                    )
                     for repo in org:
                         repositories[category].append(repo.full_name)
 

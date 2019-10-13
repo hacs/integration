@@ -19,7 +19,7 @@ def hacs_settings(hass, connection, msg):
     else:
         Hacs().logger.error(f"WS action '{action}' is not valid")
 
-    hacs_config(hass, connection, msg)
+    hass.bus.fire("hacs/config", {})
 
 
 @callback

@@ -101,7 +101,6 @@ export class HacsPanelRepository extends LitElement {
     this.ActiveSpinnerUninstall = false;
   }
 
-
   render(): TemplateResult | void {
     if (this.repository === undefined) {
       return html`

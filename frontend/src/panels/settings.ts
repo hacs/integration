@@ -94,34 +94,17 @@ export class HacsPanelSettings extends LitElement {
   }
 
   SetFeStyleGrid() {
-    this.hass.connection.sendMessagePromise({
+    this.hass.connection.sendMessage({
       type: "hacs/settings",
       action: "set_fe_grid"
-    }).then(
-      (resp) => {
-        this.configuration = resp as Configuration;
-        console.log(this.configuration)
-        window.location.reload()
-      },
-      (err) => {
-        console.error('Message failed!', err);
-      }
-    )
+    });
   }
 
   SetFeStyleTable() {
-    this.hass.connection.sendMessagePromise({
+    this.hass.connection.sendMessage({
       type: "hacs/settings",
       action: "set_fe_table"
-    }).then(
-      (resp) => {
-        this.configuration = resp as Configuration;
-        window.location.reload()
-      },
-      (err) => {
-        console.error('Message failed!', err);
-      }
-    )
+    });
   }
 
   ReloadData() {

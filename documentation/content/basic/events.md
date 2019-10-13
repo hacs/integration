@@ -15,6 +15,8 @@ These events can also be used in automations.
 
 ### Automation example
 
+This will create a new `persistent_notification` every time a new repository is added to HACS.
+
 ```yaml
 automation:
   trigger:

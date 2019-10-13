@@ -14,7 +14,7 @@ There are two ways of contributing to the documentation:
 - Using the "Edit this page" link at the bottom of every page.
 - Locally changing (devcontainer)
 
-All changes to the documentation should go against the `master` branch.
+_All changes to the documentation should go against the `master` branch._
 
 ### Edit this page
 

@@ -23,8 +23,8 @@ _This page assume that you have allready finished the [initial configuration](/d
 
 ![image](/img/option3.png)
 
-- `Filter with country code`: Only show repositories for your contry (If the repository have information about that)
-- `Number of releases to show`: Number of release to show in the dropdown.
+- `Filter with country code`: Only show repositories for your country (if the repository has information about that)
+- `Number of releases to show`: Number of releases to show in the dropdown.
 - `Enable experimental features`: This enables experimental features in HACS.
 
 ## Click submit and wait for confirmation.

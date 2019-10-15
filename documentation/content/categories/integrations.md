@@ -3,7 +3,4 @@ id: integrations
 title: Integrations
 ---
 
-This page should contain:
-
-- What Integrations are.
-- Where downloaded files are stored.
+After installing a custom integration via HACS it is stored in your `config/custom_components` directory, each integration in a seperate directory.

@@ -14,6 +14,10 @@ module.exports = {
   organizationName: 'custom-components',
   projectName: 'hacs',
   themeConfig: {
+    algolia: {
+      apiKey: 'ae98e104dc1572a7e897b97951c756a5',
+      indexName: 'hacs',
+    },
     navbar: {
       title: 'HACS',
       links: [

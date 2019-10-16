@@ -3,7 +3,7 @@ id: options
 title: Configuration options
 ---
 
-_This page assume that you have allready finished the [initial configuration](/docs/configuration/basic)_
+_This page assumes that you have already finished the [initial configuration](/docs/configuration/basic)_
 
 **This does _not_ apply if you configured HACS with YAML(legacy)**
 

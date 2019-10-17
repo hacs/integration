@@ -2,19 +2,22 @@ name: "Backend"
 
 on:
   push:
-    branches: master 
+    branches: 
+      - master 
   pull_request:
-    labeles: backend
-    branches: master
+    labeles: 
+      - backend
+    branches: 
+      - master
 
 jobs:
   ha_test:
-    name: Test with Home Assistant (Python, HA)
+    name: Test with Home Assistant
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 6
+      max-parallel: 9
       matrix:
-        python-version: [3.6, 3.7]
+        python-version: [3.6, 3.7, 3.8]
         ha-version: ["stable", "beta", "dev"]
 
     steps:

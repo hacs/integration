@@ -1,28 +1,25 @@
 name: "Backend"
 
 on:
-  push:
-    branches: 
-      - master 
   pull_request:
-    labeles: 
-      - backend
     branches: 
       - master
+    types:
+      - labeled
 
 jobs:
   ha_test:
     name: Test with Home Assistant
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 9
+      max-parallel: 6
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.6, 3.7]
         ha-version: ["stable", "beta", "dev"]
-
+    if: ${{ github.event.pull_request.labels == ["Backend"] }}
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python version ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}

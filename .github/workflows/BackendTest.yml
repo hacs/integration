@@ -19,6 +19,7 @@ jobs:
     #if: github.event.labels == '*Backend*'
     steps:
     - run: echo ${{ github.event.pull_request.labels }}
+    - run: echo ${{ github.event.pull_request.labels.includes('Backend') }}
 #    - uses: actions/checkout@v1
 #    - name: Enable Python version ${{ matrix.python-version }}
 #      uses: actions/setup-python@v1

@@ -16,7 +16,9 @@ jobs:
       matrix:
         python-version: [3.6, 3.7]
         ha-version: ["stable", "beta", "dev"]
-    if: github.event.label.name == 'Backend'
+
+    # Only run when the "Backend" label is added.
+    if: github.event.label.name == 'Backend' 
     steps:
     - run: echo ${{ github.event.label.name }}
     - uses: actions/checkout@v1

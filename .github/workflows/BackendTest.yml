@@ -4,8 +4,8 @@ on:
   pull_request:
     branches: 
       - master
-    #types:
-    #  - labeled
+    types:
+      - labeled
 
 jobs:
   ha_test:
@@ -16,7 +16,7 @@ jobs:
 #      matrix:
 #        python-version: [3.6, 3.7]
 #        ha-version: ["stable", "beta", "dev"]
-    #if: github.event.labels == '*Backend*'
+    #if: github.event.label.name == 'Backend'
     steps:
     - run: echo ${{ github.event.label.name }}
 #    - uses: actions/checkout@v1

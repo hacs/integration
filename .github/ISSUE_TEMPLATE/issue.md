@@ -3,7 +3,7 @@ name: Issue
 about: Create a new issue
 
 ---
-
+<!-- Learn how to submit an issue here https://hacs.xyz/docs/issues -->
 <!-- Before you open a new issue, search through the existing issues to see if others have had the same problem.
 
 Issues not containing the minimum requirements will be closed:

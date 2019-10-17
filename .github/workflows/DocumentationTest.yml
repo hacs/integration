@@ -1,0 +1,23 @@
+name: "Documentation"
+
+on:
+  pull_request:
+    branches: 
+      - master
+    types:
+      - labeled
+
+jobs:
+  build_frontend:
+    name: Test build
+    runs-on: ubuntu-latest
+
+    # Only run when the "Backend" label is added.
+    if: github.event.label.name == 'Documentation' 
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build
+        run: |
+          cd documentation
+          npm install
+          npm run build

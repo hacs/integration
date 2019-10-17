@@ -1,13 +1,13 @@
-name: "HACS: Pull request action"
-on:
-  pull_request:
-    types: [labeled, opened, synchronize, reopened, closed]
+name: "Automation"
+
+on: issues
 
 jobs:
   test:
+    name: Issue greeter
     runs-on: ubuntu-latest
     steps:
       - uses: ludeeus/hacs-actions@master
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
-          action: "PullLabler"
+          action: "IssueGreeter"

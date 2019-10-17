@@ -1,5 +1,22 @@
 [build]
   base = ""
-  publish = "documentation/build/"
+  publish = "build/"
   command = "cd documentation; npm install; npm run-script build"
   ignore = "git diff --quiet HEAD^ HEAD documentation/"
+
+[build.processing]
+  skip_processing = false
+[build.processing.css]
+  bundle = true
+  minify = true
+[build.processing.js]
+  bundle = true
+  minify = true
+[build.processing.images]
+  compress = true
+
+[[redirects]]
+  from = "https://hacs.netlify.com"
+  to = "https://hacs.xyz"
+  status = 301
+  force = true

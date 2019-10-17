@@ -5,8 +5,7 @@ on:
     branches: 
       - master
     types:
-      labeled:
-        - Backend
+      - labeled
 
 jobs:
   ha_test:
@@ -17,10 +16,9 @@ jobs:
       matrix:
         python-version: [3.6, 3.7]
         ha-version: ["stable", "beta", "dev"]
-    
+    if: github.event.labels == ["Backend"]
     steps:
     - uses: actions/checkout@v1
-      if: ${{ github.event.labels == ["Backend"] }}
     - name: Set up Python version ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:

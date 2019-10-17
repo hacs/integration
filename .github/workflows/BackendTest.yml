@@ -9,7 +9,7 @@ on:
 
 jobs:
   ha_test:
-    name: Test with Home Assistant
+    name: Home Assistant Check
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 6
@@ -20,7 +20,6 @@ jobs:
     # Only run when the "Backend" label is added.
     if: github.event.label.name == 'Backend' 
     steps:
-    - run: echo ${{ github.event.label.name }}
     - uses: actions/checkout@v1
     - name: Enable Python version ${{ matrix.python-version }}
       uses: actions/setup-python@v1

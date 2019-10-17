@@ -9,14 +9,14 @@ on:
 
 jobs:
   build_frontend:
-    name: Test build HACS frontend
+    name: Test build
     runs-on: ubuntu-latest
 
     # Only run when the "Backend" label is added.
     if: github.event.label.name == 'Frontend' 
     steps:
       - uses: actions/checkout@v1
-      - name: Test build
+      - name: Build
         run: |
           cd frontend
           npm install

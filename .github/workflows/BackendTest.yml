@@ -11,15 +11,14 @@ jobs:
   ha_test:
     name: Test with Home Assistant
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 6
-      matrix:
-        python-version: [3.6, 3.7]
-        ha-version: ["stable", "beta", "dev"]
+#    strategy:
+#      max-parallel: 6
+#      matrix:
+#        python-version: [3.6, 3.7]
+#        ha-version: ["stable", "beta", "dev"]
     #if: github.event.labels == '*Backend*'
     steps:
-    - run: echo ${{ github.event.pull_request.labels }}
-    - run: echo ${{ github.event.pull_request.labels.includes('Backend') }}
+    - run: echo ${{ github.event.label.name }}
 #    - uses: actions/checkout@v1
 #    - name: Enable Python version ${{ matrix.python-version }}
 #      uses: actions/setup-python@v1

@@ -12,7 +12,7 @@ module.exports = {
       "basic/navigation",
       "basic/updates",
       "basic/existing_elements",
-      "basic/startup",
+      "basic/startup",asd
       "basic/sensor",
       "basic/events",
       "basic/theming",

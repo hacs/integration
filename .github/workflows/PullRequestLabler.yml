@@ -1,10 +1,12 @@
-name: "HACS: Pull request action"
+name: "Automation"
+
 on:
   pull_request:
     types: [labeled, opened, synchronize, reopened, closed]
 
 jobs:
   test:
+    name: Pull request labler
     runs-on: ubuntu-latest
     steps:
       - uses: ludeeus/hacs-actions@master

@@ -1,0 +1,21 @@
+name: Linting
+
+on:
+  pull_request:
+    branches:
+      - data
+  push:
+    branches:
+      - data
+
+jobs:
+  jq:
+    name: Lint JSON with JQ
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Lint datafiles
+      run: |
+        for datafile in repositories/*; do
+          jq --raw-output "." "${datafile}"
+        done

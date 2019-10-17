@@ -16,7 +16,7 @@ jobs:
       matrix:
         python-version: [3.6, 3.7]
         ha-version: ["stable", "beta", "dev"]
-    if: github.event.labels == "Backend"
+    if: (github.event.labels == "Backend")
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python version ${{ matrix.python-version }}

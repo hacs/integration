@@ -3,7 +3,11 @@ id: pat
 title: Github Personal Access Token
 ---
 
-The token generated below will only have read-only access to public information.
+In order to work properly, HACS needs to retrieve lots information about custom elements using Github's API.
+
+Because of the [limits fixed by Github](https://developer.github.com/v3/#rate-limiting), HACS needs to be authenticated by a Personal Access Token, that you can generate using the following steps.
+
+This token will have read-only access to public information, and will only be used by HACS to call Github's API.
 
 ## Step 1 - Open browser
 

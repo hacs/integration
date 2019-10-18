@@ -5,6 +5,8 @@ title: Github Personal Access Token
 
 The token generated below will only have read-only access to public information.
 
+Why does HACS need this? The GitHub API lets HACS do 60 calls an hour without an access token, with a token HACS gets 5000 calls an hour.
+
 ## Step 1 - Open browser
 
 _You are probably looking at this in a browser, so we can probably check this off._

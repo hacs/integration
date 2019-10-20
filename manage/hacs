@@ -40,18 +40,31 @@ function hacs-download-translations {
     cp /tmp/lokalise/locale/* /workspaces/hacs/custom_components/hacs/.translations/
 }
 
+function hacs-download-frontend {
+    git clone https://github.com/hacs/frontend.git /tmp/frontend
+    cd /tmp/frontend
+    npm install
+    npm run build
+    cp -f /tmp/frontend/build/main.js.gz /workspaces/hacs/custom_components/hacs/frontend/experimental/main.js.gz
+}
+
 function hacs-prepare-release {
     echo "Downloading releases"
     hacs-download-translations
 
+    echo "Downloading frontend"
+    hacs-download-frontend
+
     echo "Controlling the version number"
-    local=$(cat custom_components/hacs/const.py | grep "VERSION = " |  tr -d '[:space:]' | tr -d "VERSION=")
+    local=$(cat /workspaces/hacs/custom_components/hacs/const.py | grep "VERSION = " |  tr -d '[:space:]' | tr -d "VERSION=")
     remote=$(curl -sSL https://api.github.com/repos/custom-components/hacs/releases/latest | jq .tag_name)
 
     if [ "$remote" == "$local" ]; then
         echo "Versions match! You forgot to bump it!"
         return 1
     fi
+
+    cd /workspaces/hacs
 
 }
 

@@ -3,6 +3,7 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/custom-components/hacs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/custom-components/hacs/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/custom-components/hacs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/custom-components/hacs/context:python)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/custom-components/hacs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/custom-components/hacs/context:javascript)
+[![Downloads for latest release](https://img.shields.io/github/downloads/custom-components/hacs/latest/total.svg)](https://github.com/custom-components/hacs/releases/latest)
 
 _Manage (Install, track, upgrade) and discover custom elements for Home Assistant directly from the UI._
 

@@ -30,18 +30,29 @@ jobs:
               --export_sort a_z
       - name: Clear current translations
         run: |
-          rm custom_components/hacs/.translations/*
+          rm /home/runner/work/hacs/hacs/custom_components/hacs/.translations/*
       - name: Move new  translations
         run: |
-          cp /tmp/lokalise/locale/* custom_components/hacs/.translations/
+          cp /tmp/lokalise/locale/* /home/runner/work/hacs/hacs/custom_components/hacs/.translations/
 
+      # Download frontend
+      - name: Clone frontend
+        run: |
+          git clone https://github.com/hacs/frontend.git
 
       # Build Frontend
       - name: Build the HACS frontend
         run: |
-          cd frontend
+          cd /home/runner/work/hacs/hacs/frontend
           npm install
           npm run build
+
+      # Build Frontend
+      - name: Move the HACS frontend file
+        run: |
+          cd /home/runner/work/hacs/hacs
+          ls /home/runner/work/hacs/hacs/frontend/build
+          cp -f /home/runner/work/hacs/hacs/frontend/build/main.js.gz /home/runner/work/hacs/hacs/custom_components/hacs/frontend/experimental/main.js.gz
 
       - name: "Set version numbmer"
         run: |
@@ -52,15 +63,14 @@ jobs:
       # Pack the HACS dir as a zip and upload to the release
       - name: ZIP HACS Dir
         run: |
-          cd custom_components/hacs
+          cd /home/runner/work/hacs/hacs/custom_components/hacs
           zip hacs.zip -r ./
-          mv hacs.zip ../../hacs.zip
       - name: Upload zip to release
         uses: svenstaro/upload-release-action@v1-release
 
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: hacs.zip
+          file: /home/runner/work/hacs/hacs/hacs.zip
           asset_name: hacs.zip
           tag: ${{ github.ref }}
           overwrite: true

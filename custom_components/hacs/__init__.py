@@ -242,6 +242,7 @@ async def load_hacs_repository(hacs):
         repository.versions.installed = const.VERSION
         repository.status.new = False
         hacs.repo = repository.repository_object
+        hacs.data_repo = await hacs().github.get_repo("hacs/default")
     except (
         AIOGitHubException,
         AIOGitHubRatelimit,

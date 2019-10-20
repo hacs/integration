@@ -65,6 +65,7 @@ class Hacs:
     hacsapi = f"/hacsapi/{token}"
     repositories = []
     repo = None
+    data_repo = None
     developer = Developer()
     data = None
     configuration = None
@@ -253,9 +254,7 @@ class Hacs:
                 }
         else:
             for category in self.common.categories:
-                remote = await self.repo.get_contents(
-                    f"repositories/{category}", "data"
-                )
+                remote = await self.data_repo.get_contents(category)
                 repositories[category] = json.loads(remote.content)
                 if category == "plugin":
                     org = await self.github.get_org_repos("custom-cards")
@@ -281,7 +280,7 @@ class Hacs:
     async def load_known_repositories(self):
         """Load known repositories."""
         self.logger.info("Loading known repositories")
-        blacklist = await self.repo.get_contents("repositories/blacklist", "data")
+        blacklist = await self.data_repo.get_contents("blacklist")
         repositories = await self.get_repositories()
 
         for item in json.loads(blacklist.content):

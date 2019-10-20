@@ -1,0 +1,17 @@
+name: "HACS Actions"
+
+on:
+  issues:
+  issue_comment:
+  pull_request:
+    types: [labeled, opened, synchronize, reopened, closed]
+
+jobs:
+  test:
+    name: Automation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hacs/actions@master
+        name: HACS Actions
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"

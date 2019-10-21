@@ -1,8 +1,13 @@
-name: "HACS Pull Actions"
+name: "HACS Actions"
 
 on:
+  issues:
+    types: [labeled, opened, edited, milestoned]
+  issue_comment:
+    types: [created]
   pull_request:
     types: [labeled, opened, synchronize, reopened, closed]
+
 
 jobs:
   test:

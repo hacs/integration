@@ -152,7 +152,13 @@ async def hacs_startup(hacs):
     await setup_frontend(hacs)
 
     # Load HACS
-    if not await load_hacs_repository(hacs):
+    hacs_loaded = False
+    if await load_new_hacs_repository(hacs):
+        hacs_loaded = True
+    if not hacs_loaded:
+        if await load_hacs_repository(hacs):
+            hacs_loaded = True
+    if not hacs_loaded:
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
@@ -248,7 +254,35 @@ async def load_hacs_repository(hacs):
         AIOGitHubRatelimit,
         AIOGitHubAuthentication,
     ) as exception:
-        hacs.logger.critical(f"[{exception}] - Could not load HACS!")
+        hacs.logger.debug(f"[{exception}] - Could not load HACS!")
+        # TODO: After move, enable critical
+        # hacs.logger.critical(f"[{exception}] - Could not load HACS!")
+        return False
+    return True
+
+
+async def load_new_hacs_repository(hacs):
+    """Load HACS repositroy."""
+    try:
+        repository = hacs().get_by_name("hacs/integration")
+        if repository is None:
+            await hacs().register_repository("hacs/integration", "integration")
+            repository = hacs().get_by_name("hacs/integration")
+        if repository is None:
+            raise AIOGitHubException("Unknown error")
+        repository.status.installed = True
+        repository.versions.installed = const.VERSION
+        repository.status.new = False
+        hacs.repo = repository.repository_object
+        hacs.data_repo = await hacs().github.get_repo("hacs/default")
+    except (
+        AIOGitHubException,
+        AIOGitHubRatelimit,
+        AIOGitHubAuthentication,
+    ) as exception:
+        hacs.logger.debug(f"[{exception}] - Could not load HACS!")
+        # TODO: After move, enable critical
+        # hacs.logger.critical(f"[{exception}] - Could not load HACS!")
         return False
     return True
 

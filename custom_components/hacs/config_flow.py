@@ -99,7 +99,7 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         try:
             session = aiohttp_client.async_get_clientsession(self.hass)
             client = AIOGitHub(token, session)
-            await client.get_repo("custom-components/hacs")
+            await client.get_repo("hacs/org")
             return True
         except (AIOGitHubException, AIOGitHubAuthentication):
             pass

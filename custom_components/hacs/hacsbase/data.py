@@ -194,7 +194,7 @@ class HacsData(Hacs):
                 if repo.get("new") is not None:
                     repository.status.new = repo["new"]
 
-                if repo["full_name"] == "custom-components/hacs":
+                if repo["full_name"] == "custom-components/hacs" or repo["full_name"] == "hacs/integration":
                     repository.versions.installed = VERSION
                     repository.status.installed = True
                     if "b" in VERSION:
@@ -233,7 +233,8 @@ class HacsData(Hacs):
                     installed_restore.append(repository.information.full_name)
                     if (
                         repository.information.full_name not in self.common.installed
-                        and repository.information.full_name != "custom-components/hacs"
+                        and (repository.information.full_name != "custom-components/hacs" 
+                        or repository.information.full_name != "hacs/integration")
                     ):
                         self.logger.warning(
                             f"{repository.information.full_name} is not in common.installed"

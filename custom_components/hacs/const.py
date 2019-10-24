@@ -3,7 +3,7 @@ NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
 VERSION = "0.15.11"
 DOMAIN = "hacs"
-PROJECT_URL = "https://github.com/custom-components/hacs/"
+PROJECT_URL = "https://github.com/hacs/integration/"
 CUSTOM_UPDATER_LOCATIONS = [
     "{}/custom_components/custom_updater.py",
     "{}/custom_components/custom_updater/__init__.py",
@@ -38,7 +38,7 @@ HACS (Home Assistant Community Store)
 Version: {VERSION}
 This is a custom integration
 If you have any issues with this you need to open an issue here:
-https://github.com/custom-components/hacs/issues
+https://github.com/hacs/integration/issues
 -------------------------------------------------------------------
 """
 

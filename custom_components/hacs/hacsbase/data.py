@@ -98,18 +98,18 @@ class HacsData(Hacs):
             }
 
         # Validate installed repositories
-#        count_installed = len(installed) + 2  # For HACS it self
-#        count_installed_restore = 0
-#        for repository in self.repositories:
-#            if repository.status.installed:
-#                count_installed_restore += 1
-#
-#        if count_installed < count_installed_restore:
-#            self.logger.debug("Save failed!")
-#            self.logger.debug(
-#                f"Number of installed repositories does not match the number of stored repositories [{count_installed} vs {count_installed_restore}]"
-#            )
-#             return
+        #        count_installed = len(installed) + 2  # For HACS it self
+        #        count_installed_restore = 0
+        #        for repository in self.repositories:
+        #            if repository.status.installed:
+        #                count_installed_restore += 1
+        #
+        #        if count_installed < count_installed_restore:
+        #            self.logger.debug("Save failed!")
+        #            self.logger.debug(
+        #                f"Number of installed repositories does not match the number of stored repositories [{count_installed} vs {count_installed_restore}]"
+        #            )
+        #             return
         save(self.logger, path, content)
 
     async def restore(self):
@@ -141,6 +141,9 @@ class HacsData(Hacs):
             repositrories = repositrories["data"]
             for entry in repositrories:
                 repo = repositrories[entry]
+                if repo["full_name"] == "custom-components/hacs":
+                    # Skip the old repo location
+                    continue
                 if not self.is_known(repo["full_name"]):
                     await self.register_repository(
                         repo["full_name"], repo["category"], False
@@ -194,10 +197,7 @@ class HacsData(Hacs):
                 if repo.get("new") is not None:
                     repository.status.new = repo["new"]
 
-                if (
-                    repo["full_name"] == "custom-components/hacs"
-                    or repo["full_name"] == "hacs/integration"
-                ):
+                if repo["full_name"] == "hacs/integration":
                     repository.versions.installed = VERSION
                     repository.status.installed = True
                     if "b" in VERSION:
@@ -227,39 +227,10 @@ class HacsData(Hacs):
                             "version_available"
                         ]
 
-            # Check the restore.
-#            count_installed = len(installed) + 1  # For HACS it self
-#            count_installed_restore = 0
-#            installed_restore = []
-#            for repository in self.repositories:
-#                if repository.status.installed:
-#                    installed_restore.append(repository.information.full_name)
-#                    if repository.information.full_name not in self.common.installed:
-#                        if repository.information.full_name == "custom-components/hacs":
-#                            pass
-#                        elif repository.information.full_name == "hacs/integration":
-#                            pass
-#                        else:
-#                            self.logger.warning(
-#                                f"{repository.information.full_name} is not in common.installed"
-#                            )
-#                    count_installed_restore += 1
-#
-#            if count_installed < count_installed_restore:
-#                for repo in installed:
-#                    installed_restore.remove(repo)
-#                self.logger.warning(f"Check {repo}")
-#
-#                self.logger.critical("Restore failed!")
-#                self.logger.critical(
-#                    f"Number of installed repositories does not match the number of restored repositories [{count_installed} vs {count_installed_restore}]"
-#                )
-#                return False
-
             self.logger.info("Restore done")
         except Exception as exception:
             self.logger.critical(
-                f"[{exception}] Restore Failed! see https://github.com/custom-components/hacs/issues/639 for more details."
+                f"[{exception}] Restore Failed! see https://github.com/hacs/integration/issues/639 for more details."
             )
             return False
         return True

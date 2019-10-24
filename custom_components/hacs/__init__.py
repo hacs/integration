@@ -2,7 +2,7 @@
 Custom element manager for community created elements.
 
 For more details about this integration, please refer to the documentation at
-https://hacs.netlify.com/
+https://hacs.xyz/
 """
 # pylint: disable=bad-continuation
 from asyncio import sleep
@@ -152,13 +152,7 @@ async def hacs_startup(hacs):
     await setup_frontend(hacs)
 
     # Load HACS
-    hacs_loaded = False
-    if await load_new_hacs_repository(hacs):
-        hacs_loaded = True
-    if not hacs_loaded:
-        if await load_hacs_repository(hacs):
-            hacs_loaded = True
-    if not hacs_loaded:
+    if not await load_hacs_repository(hacs):
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
@@ -176,7 +170,7 @@ async def hacs_startup(hacs):
 
     # Restore from storefiles
     if not await hacs.data.restore():
-        hacs_repo = hacs().get_by_name("custom-components/hacs")
+        hacs_repo = hacs().get_by_name("hacs/integration")
         hacs_repo.pending_restart = True
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
@@ -238,32 +232,6 @@ def check_version(hacs):
 async def load_hacs_repository(hacs):
     """Load HACS repositroy."""
     try:
-        repository = hacs().get_by_name("custom-components/hacs")
-        if repository is None:
-            await hacs().register_repository("custom-components/hacs", "integration")
-            repository = hacs().get_by_name("custom-components/hacs")
-        if repository is None:
-            raise AIOGitHubException("Unknown error")
-        repository.status.installed = True
-        repository.versions.installed = const.VERSION
-        repository.status.new = False
-        hacs.repo = repository.repository_object
-        hacs.data_repo = await hacs().github.get_repo("hacs/default")
-    except (
-        AIOGitHubException,
-        AIOGitHubRatelimit,
-        AIOGitHubAuthentication,
-    ) as exception:
-        hacs.logger.debug(f"[{exception}] - Could not load HACS!")
-        # TODO: After move, enable critical
-        # hacs.logger.critical(f"[{exception}] - Could not load HACS!")
-        return False
-    return True
-
-
-async def load_new_hacs_repository(hacs):
-    """Load HACS repositroy."""
-    try:
         repository = hacs().get_by_name("hacs/integration")
         if repository is None:
             await hacs().register_repository("hacs/integration", "integration")
@@ -280,9 +248,7 @@ async def load_new_hacs_repository(hacs):
         AIOGitHubRatelimit,
         AIOGitHubAuthentication,
     ) as exception:
-        hacs.logger.debug(f"[{exception}] - Could not load HACS!")
-        # TODO: After move, enable critical
-        # hacs.logger.critical(f"[{exception}] - Could not load HACS!")
+        hacs.logger.critical(f"[{exception}] - Could not load HACS!")
         return False
     return True
 

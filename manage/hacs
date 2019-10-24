@@ -57,7 +57,7 @@ function hacs-prepare-release {
 
     echo "Controlling the version number"
     local=$(cat /workspaces/hacs/custom_components/hacs/const.py | grep "VERSION = " |  tr -d '[:space:]' | tr -d "VERSION=")
-    remote=$(curl -sSL https://api.github.com/repos/custom-components/hacs/releases/latest | jq .tag_name)
+    remote=$(curl -sSL https://api.github.com/repos/hacs/integration/releases/latest | jq .tag_name)
 
     if [ "$remote" == "$local" ]; then
         echo "Versions match! You forgot to bump it!"

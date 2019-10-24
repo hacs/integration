@@ -1,13 +1,13 @@
 # HACS (Home Assistant Community Store)
 
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/custom-components/hacs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/custom-components/hacs/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/custom-components/hacs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/custom-components/hacs/context:python)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/custom-components/hacs.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/custom-components/hacs/context:javascript)
-[![Downloads for latest release](https://img.shields.io/github/downloads/custom-components/hacs/latest/total.svg)](https://github.com/custom-components/hacs/releases/latest)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/hacs/integration.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hacs/integration/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/hacs/integration.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hacs/integration/context:python)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/hacs/integration.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hacs/integration/context:javascript)
+[![Downloads for latest release](https://img.shields.io/github/downloads/hacs/integration/latest/total.svg)](https://github.com/hacs/integration/releases/latest)
 
 _Manage (Install, track, upgrade) and discover custom elements for Home Assistant directly from the UI._
 
-![gif](https://hacs.netlify.com/img/hacsdemo.gif)
+![gif](https://hacs.xyz/img/hacsdemo.gif)
 
 ## What?
 
@@ -31,11 +31,11 @@ HACS is not a full replacement for `custom_updater` and even though their "missi
 
 ## Useful links
 
-- [General documentation](https://hacs.netlify.com/)
-- [Installation](https://hacs.netlify.com/docs/installation/manual)
-- [Configuration](https://hacs.netlify.com/docs/configuration/start)
-- [FAQ](https://hacs.netlify.com/docs/faq)
-- [Repository](https://github.com/custom-components/hacs)
+- [General documentation](https://hacs.xyz/)
+- [Installation](https://hacs.xyz/docs/installation/manual)
+- [Configuration](https://hacs.xyz/docs/configuration/start)
+- [FAQ](https://hacs.xyz/docs/faq)
+- [Repository](https://github.com/hacs/integration)
 - [Forum post](https://community.home-assistant.io/t/custom-component-hacs/121727)
 - [BuyMeCoffee? :see_no_evil:](https://buymeacoffee.com/ludeeus)
 
@@ -51,4 +51,4 @@ HACS is not a full replacement for `custom_updater` and even though their "missi
 
 ~~If~~ When you experience issues/bugs with this the best way to report them is to open an issue in **this** repo.
 
-[Issue link](https://hacs.netlify.com/issues/)
+[Issue link](https://hacs.xyz/issues/)

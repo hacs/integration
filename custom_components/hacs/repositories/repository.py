@@ -54,6 +54,7 @@ class RepositoryInformation:
     category = None
     default_branch = None
     description = ""
+    state = None
     full_name = None
     file_name = None
     javascript_type = None
@@ -102,6 +103,7 @@ class HacsRepository(Hacs):
         self.information = RepositoryInformation()
         self.repository_object = None
         self.status = RepositoryStatus()
+        self.state = None
         self.repository_manifest = HacsManifest({})
         self.validate = Validate()
         self.releases = RepositoryReleases()

@@ -62,6 +62,7 @@ def hacs_repositories(hass, connection, msg):
                 "updated_info": repo.status.updated_info,
                 "version_or_commit": repo.display_version_or_commit,
                 "custom": repo.custom,
+                "state": repo.state,
                 "installed_version": repo.display_installed_version,
                 "available_version": repo.display_available_version,
                 "main_action": repo.main_action,
@@ -88,7 +89,6 @@ async def hacs_repository(hass, connection, msg):
     action = msg.get("action")
 
     if repo_id is None or action is None:
-        hacs_repositories(hass, connection, msg)
         return
 
     repository = Hacs().get_by_id(repo_id)
@@ -133,9 +133,9 @@ async def hacs_repository(hass, connection, msg):
     else:
         Hacs().logger.error(f"WS action '{action}' is not valid")
 
+    repository.state = None
     Hacs().data.write()
-
-    hacs_repositories(hass, connection, msg)
+    hass.bus.async_fire("hacs/repository", {})
 
 
 @websocket_api.async_response
@@ -155,16 +155,21 @@ async def hacs_repository_data(hass, connection, msg):
         repository = Hacs().get_by_id(repo_id)
     Hacs().logger.info(f"Running {action} for {repository.information.full_name}")
 
-    if action == "set_version":
+    if action == "set_state":
+        repository.state = data
+
+    elif action == "set_version":
+        repository.state = None
         repository.status.selected_tag = data
         await repository.update_repository()
 
     elif action == "add":
+        repository.state = None
         pass
 
     else:
+        repository.state = None
         Hacs().logger.error(f"WS action '{action}' is not valid")
 
     Hacs().data.write()
-
-    hacs_repositories(hass, connection, msg)
+    hass.bus.async_fire("hacs/repository", {})

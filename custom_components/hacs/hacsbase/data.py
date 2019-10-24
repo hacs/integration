@@ -59,6 +59,10 @@ class HacsData(Hacs):
         path = f"{self.system.config_path}/.storage/{STORES['installed']}"
         installed = {}
         for repository_name in self.common.installed:
+            if repository_name == "custom-components/hacs":
+                # Skip the old repo location
+                self.common.installed.remove(repository_name)
+                continue
             repository = self.get_by_name(repository_name)
             if repository is None:
                 self.logger.warning(f"Did not save information about {repository_name}")
@@ -97,19 +101,6 @@ class HacsData(Hacs):
                 "version_installed": repository.versions.installed,
             }
 
-        # Validate installed repositories
-        #        count_installed = len(installed) + 2  # For HACS it self
-        #        count_installed_restore = 0
-        #        for repository in self.repositories:
-        #            if repository.status.installed:
-        #                count_installed_restore += 1
-        #
-        #        if count_installed < count_installed_restore:
-        #            self.logger.debug("Save failed!")
-        #            self.logger.debug(
-        #                f"Number of installed repositories does not match the number of stored repositories [{count_installed} vs {count_installed_restore}]"
-        #            )
-        #             return
         save(self.logger, path, content)
 
     async def restore(self):

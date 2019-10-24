@@ -28,7 +28,7 @@ async def async_download_file(hass, url):
 
     result = None
 
-    with async_timeout.timeout(5, loop=hass.loop):
+    with async_timeout.timeout(60, loop=hass.loop):
         request = await async_get_clientsession(hass).get(url)
 
         # Make sure that we got a valid result

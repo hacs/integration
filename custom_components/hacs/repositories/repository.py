@@ -475,7 +475,7 @@ class HacsRepository(Hacs):
                     self.logger.info(f"download of {content.name} complete")
                     continue
                 validate.errors.append(f"[{content.name}] was not downloaded.")
-        except SystemError:
+        except Exception:
             pass
 
         return validate
@@ -539,7 +539,7 @@ class HacsRepository(Hacs):
                     continue
                 validate.errors.append(f"[{content.name}] was not downloaded.")
 
-        except SystemError:
+        except Exception:
             pass
         return validate
 

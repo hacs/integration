@@ -476,7 +476,7 @@ class HacsRepository(Hacs):
                     continue
                 validate.errors.append(f"[{content.name}] was not downloaded.")
         except Exception:
-            pass
+            validate.errors.append(f"Download was not complete.")
 
         return validate
 
@@ -540,7 +540,7 @@ class HacsRepository(Hacs):
                 validate.errors.append(f"[{content.name}] was not downloaded.")
 
         except Exception:
-            pass
+            validate.errors.append(f"Download was not complete.")
         return validate
 
     async def get_repository_manifest_content(self):

@@ -151,6 +151,7 @@ class Hacs:
                 "id": 1337,
                 "action": "registration",
                 "repository": repository.information.full_name,
+                "repository_id": repository.information.uid,
             },
         )
         self.repositories.append(repository)

@@ -53,6 +53,8 @@ class HacsTheme(HacsRepository):
 
     async def update_repository(self):  # lgtm[py/similar-function]
         """Update."""
+        if self.github.ratelimits.remaining == 0:
+            return
         # Run common update steps.
         await self.common_update()
 

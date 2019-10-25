@@ -100,6 +100,8 @@ class HacsIntegration(HacsRepository):
 
     async def update_repository(self):
         """Update."""
+        if self.github.ratelimits.remaining == 0:
+            return
         await self.common_update()
 
         # Get integration objects.

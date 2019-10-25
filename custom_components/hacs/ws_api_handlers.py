@@ -62,6 +62,7 @@ def hacs_repositories(hass, connection, msg):
                 "updated_info": repo.status.updated_info,
                 "version_or_commit": repo.display_version_or_commit,
                 "custom": repo.custom,
+                "domain": repo.manifest.get("domain"),
                 "state": repo.state,
                 "installed_version": repo.display_installed_version,
                 "available_version": repo.display_available_version,

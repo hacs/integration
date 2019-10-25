@@ -104,6 +104,7 @@ class HacsRepository(Hacs):
         self.repository_object = None
         self.status = RepositoryStatus()
         self.state = None
+        self.manifest = {}
         self.repository_manifest = HacsManifest({})
         self.validate = Validate()
         self.releases = RepositoryReleases()
@@ -168,7 +169,7 @@ class HacsRepository(Hacs):
         """Return display name."""
         name = None
         if self.information.category == "integration":
-            if self.manifest is not None:
+            if self.manifest:
                 name = self.manifest["name"]
 
         if self.repository_manifest is not None:

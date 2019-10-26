@@ -2,10 +2,8 @@ name: Backend
 
 on:
   pull_request:
-    branches: 
+    branches:
       - master
-    types:
-      - labeled
 
 jobs:
   ha_test:
@@ -16,9 +14,6 @@ jobs:
       matrix:
         python-version: [3.6, 3.7]
         ha-version: ["stable", "beta", "dev"]
-
-    # Only run when the "Backend" label is added.
-    if: github.event.label.name == 'Backend' 
     steps:
     - uses: actions/checkout@v1
     - name: Enable Python version ${{ matrix.python-version }}

@@ -4,8 +4,6 @@ Custom element manager for community created elements.
 For more details about this integration, please refer to the documentation at
 https://hacs.xyz/
 """
-
-
 import voluptuous as vol
 from aiogithubapi import AIOGitHub
 from homeassistant import config_entries
@@ -17,7 +15,7 @@ from homeassistant.helpers.event import async_call_later
 
 from .configuration_schema import hacs_base_config_schema, hacs_config_option_schema
 from .const import DEV_MODE, DOMAIN, ELEMENT_TYPES, STARTUP, VERSION
-from .constrains import constrain_custom_updater, constrain_version
+from .constrains import check_constans
 from .hacsbase import Hacs
 from .hacsbase.configuration import Configuration
 from .hacsbase.data import HacsData
@@ -35,7 +33,8 @@ async def async_setup(hass, config):
         return True
     hass.data[DOMAIN] = config
     Hacs.hass = hass
-    Hacs.configuration = Configuration(config[DOMAIN], config[DOMAIN].get("options"))
+    Hacs.configuration = Configuration()
+    Hacs.configuration.from_dict(config[DOMAIN], config[DOMAIN].get("options"))
     Hacs.configuration.config_type = "yaml"
     await startup_wrapper_for_yaml(Hacs)
     hass.async_create_task(
@@ -56,7 +55,8 @@ async def async_setup_entry(hass, config_entry):
             )
         return False
     Hacs.hass = hass
-    Hacs.configuration = Configuration(config_entry.data, config_entry.options)
+    Hacs.configuration = Configuration()
+    Hacs.configuration.from_dict(config_entry.data, config_entry.options)
     Hacs.configuration.config_type = "flow"
     Hacs.configuration.config_entry = config_entry
     config_entry.add_update_listener(reload_hacs)
@@ -92,15 +92,8 @@ async def hacs_startup(hacs):
     )
     hacs.data = HacsData()
 
-    # Check minimum version
-    if not constrain_version(hacs):
-        if hacs.configuration.config_type == "flow":
-            if hacs.configuration.config_entry is not None:
-                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
-        return False
-
-    # Check custom_updater
-    if not constrain_custom_updater(hacs):
+    # Check HACS Constrains
+    if not check_constans(hacs):
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)

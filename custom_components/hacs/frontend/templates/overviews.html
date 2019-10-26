@@ -48,10 +48,10 @@
 {% if repository.information.uid == "172733314" %}
 {% set repo.include = False %}
 {% endif %}
-{% if hacs.configuration.option_country and repo.include %}
+{% if hacs.configuration.country and repo.include %}
 {% if repository.repository_manifest %}
 {% if repository.repository_manifest.country %}
-{% if hacs.configuration.option_country not in repository.repository_manifest.country %}
+{% if hacs.configuration.country not in repository.repository_manifest.country %}
 {% set repo.include = False %}
 {% endif %}
 {% endif %}

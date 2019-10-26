@@ -7,6 +7,15 @@ from distutils.version import LooseVersion
 from .const import CUSTOM_UPDATER_LOCATIONS, CUSTOM_UPDATER_WARNING
 
 
+def check_constans(hacs):
+    """Check HACS constrains."""
+    if not constrain_custom_updater(hacs):
+        return False
+    if not constrain_version(hacs):
+        return False
+    return True
+
+
 def constrain_custom_updater(hacs):
     """Check if custom_updater exist."""
     for location in CUSTOM_UPDATER_LOCATIONS:

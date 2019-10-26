@@ -4,62 +4,43 @@ Custom element manager for community created elements.
 For more details about this integration, please refer to the documentation at
 https://hacs.xyz/
 """
-# pylint: disable=bad-continuation
-from asyncio import sleep
-import os.path
-import json
-from distutils.version import LooseVersion
-import aiohttp
+
 
 import voluptuous as vol
-from homeassistant.components import websocket_api
+from aiogithubapi import AIOGitHub
 from homeassistant import config_entries
-from homeassistant.core import callback
-from homeassistant.const import EVENT_HOMEASSISTANT_START, __version__ as HAVERSION
+from homeassistant.const import EVENT_HOMEASSISTANT_START
+from homeassistant.const import __version__ as HAVERSION
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
-import homeassistant.helpers.config_validation as cv
-from homeassistant.helpers import discovery, device_registry as dr
 from homeassistant.helpers.event import async_call_later
 
-from aiogithubapi import (
-    AIOGitHub,
-    AIOGitHubAuthentication,
-    AIOGitHubException,
-    AIOGitHubRatelimit,
-)
-from integrationhelper import Logger, Version
-
-from . import const
-from .api import HacsAPI, HacsRunningTask
-from .http import HacsWebResponse, HacsPluginView, HacsPlugin, HacsExperimental
-from .hacsbase import const as hacsconst, Hacs
-from .hacsbase.data import HacsData
-from .hacsbase.configuration import Configuration
-from .hacsbase.migration import ValidateData
-from .ws_api_handlers import setup_ws_api
 from .configuration_schema import hacs_base_config_schema, hacs_config_option_schema
-
+from .const import DEV_MODE, DOMAIN, ELEMENT_TYPES, STARTUP, VERSION
+from .constrains import constrain_custom_updater, constrain_version
+from .hacsbase import Hacs
+from .hacsbase.configuration import Configuration
+from .hacsbase.data import HacsData
+from .hacsbase.migration import ValidateData
+from .setup import add_sensor, load_hacs_repository, setup_frontend
 
 SCHEMA = hacs_base_config_schema()
 SCHEMA[vol.Optional("options")] = hacs_config_option_schema()
-CONFIG_SCHEMA = vol.Schema({const.DOMAIN: SCHEMA}, extra=vol.ALLOW_EXTRA)
+CONFIG_SCHEMA = vol.Schema({DOMAIN: SCHEMA}, extra=vol.ALLOW_EXTRA)
 
 
 async def async_setup(hass, config):
     """Set up this integration using yaml."""
-    if const.DOMAIN not in config:
+    if DOMAIN not in config:
         return True
-    hass.data[const.DOMAIN] = config
+    hass.data[DOMAIN] = config
     Hacs.hass = hass
-    Hacs.configuration = Configuration(
-        config[const.DOMAIN], config[const.DOMAIN].get("options")
-    )
+    Hacs.configuration = Configuration(config[DOMAIN], config[DOMAIN].get("options"))
     Hacs.configuration.config_type = "yaml"
     await startup_wrapper_for_yaml(Hacs)
     hass.async_create_task(
         hass.config_entries.flow.async_init(
-            const.DOMAIN, context={"source": config_entries.SOURCE_IMPORT}, data={}
+            DOMAIN, context={"source": config_entries.SOURCE_IMPORT}, data={}
         )
     )
     return True
@@ -67,7 +48,7 @@ async def async_setup(hass, config):
 
 async def async_setup_entry(hass, config_entry):
     """Set up this integration using UI."""
-    conf = hass.data.get(const.DOMAIN)
+    conf = hass.data.get(DOMAIN)
     if config_entry.source == config_entries.SOURCE_IMPORT:
         if conf is None:
             hass.async_create_task(
@@ -101,8 +82,8 @@ async def startup_wrapper_for_yaml(hacs):
 async def hacs_startup(hacs):
     """HACS startup tasks."""
     hacs.logger.debug(f"Configuration type: {hacs.configuration.config_type}")
-    hacs.version = const.VERSION
-    hacs.logger.info(const.STARTUP)
+    hacs.version = VERSION
+    hacs.logger.info(STARTUP)
     hacs.system.config_path = hacs.hass.config.path()
     hacs.system.ha_version = HAVERSION
     hacs.system.disabled = False
@@ -112,14 +93,14 @@ async def hacs_startup(hacs):
     hacs.data = HacsData()
 
     # Check minimum version
-    if not check_version(hacs):
+    if not constrain_version(hacs):
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
         return False
 
     # Check custom_updater
-    if not check_custom_updater(hacs):
+    if not constrain_custom_updater(hacs):
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
@@ -141,9 +122,6 @@ async def hacs_startup(hacs):
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
         return False
-    else:
-        if os.path.exists(f"{hacs.system.config_path}/.storage/hacs"):
-            os.remove(f"{hacs.system.config_path}/.storage/hacs")
 
     # Restore from storefiles
     if not await hacs.data.restore():
@@ -156,12 +134,12 @@ async def hacs_startup(hacs):
 
     # Add aditional categories
     if hacs.configuration.appdaemon:
-        const.ELEMENT_TYPES.append("appdaemon")
+        ELEMENT_TYPES.append("appdaemon")
     if hacs.configuration.python_script:
-        const.ELEMENT_TYPES.append("python_script")
+        ELEMENT_TYPES.append("python_script")
     if hacs.configuration.theme:
-        const.ELEMENT_TYPES.append("theme")
-    hacs.common.categories = sorted(const.ELEMENT_TYPES)
+        ELEMENT_TYPES.append("theme")
+    hacs.common.categories = sorted(ELEMENT_TYPES)
 
     # Setup startup tasks
     if hacs.configuration.config_type == "yaml":
@@ -173,182 +151,19 @@ async def hacs_startup(hacs):
 
     # Print DEV warning
     if hacs.configuration.dev:
-        hacs.logger.warning(const.DEV_MODE)
+        hacs.logger.warning(DEV_MODE)
         hacs.hass.components.persistent_notification.create(
-            title="HACS DEV MODE",
-            message=const.DEV_MODE,
-            notification_id="hacs_dev_mode",
+            title="HACS DEV MODE", message=DEV_MODE, notification_id="hacs_dev_mode"
         )
 
     # Add sensor
     add_sensor(hacs)
 
     # Set up services
-    await add_services(hacs)
+    # await add_services(hacs)
 
     # Mischief managed!
     return True
-
-
-def check_version(hacs):
-    """Check if the version is valid."""
-    with open(
-        f"{hacs.system.config_path}/custom_components/hacs/manifest.json", "r"
-    ) as read:
-        manifest = json.loads(read.read())
-
-    # Check if HA is the required version.
-    if LooseVersion(hacs.system.ha_version) < LooseVersion(manifest["homeassistant"]):
-        hacs.logger.critical(
-            f"You need HA version {manifest['homeassistant']} or newer to use this integration."
-        )
-        return False
-    return True
-
-
-async def load_hacs_repository(hacs):
-    """Load HACS repositroy."""
-    try:
-        repository = hacs().get_by_name("hacs/integration")
-        if repository is None:
-            await hacs().register_repository("hacs/integration", "integration")
-            repository = hacs().get_by_name("hacs/integration")
-        if repository is None:
-            raise AIOGitHubException("Unknown error")
-        repository.status.installed = True
-        repository.versions.installed = const.VERSION
-        repository.status.new = False
-        hacs.repo = repository.repository_object
-        hacs.data_repo = await hacs().github.get_repo("hacs/default")
-    except (
-        AIOGitHubException,
-        AIOGitHubRatelimit,
-        AIOGitHubAuthentication,
-    ) as exception:
-        hacs.logger.critical(f"[{exception}] - Could not load HACS!")
-        return False
-    return True
-
-
-def check_custom_updater(hacs):
-    """Check if custom_updater exist."""
-    for location in const.CUSTOM_UPDATER_LOCATIONS:
-        if os.path.exists(location.format(hacs.system.config_path)):
-            msg = const.CUSTOM_UPDATER_WARNING.format(
-                location.format(hacs.system.config_path)
-            )
-            hacs.logger.critical(msg)
-            return False
-    return True
-
-
-def add_sensor(hacs):
-    """Add sensor."""
-    try:
-        if hacs.configuration.config_type == "yaml":
-            hacs.hass.async_create_task(
-                discovery.async_load_platform(
-                    hacs.hass, "sensor", const.DOMAIN, {}, hacs.configuration.config
-                )
-            )
-        else:
-            hacs.hass.async_add_job(
-                hacs.hass.config_entries.async_forward_entry_setup(
-                    hacs.configuration.config_entry, "sensor"
-                )
-            )
-    except ValueError:
-        pass
-
-
-async def setup_frontend(hacs):
-    """Configure the HACS frontend elements."""
-    # Define views
-    hacs.hass.http.register_view(HacsAPI())
-    hacs.hass.http.register_view(HacsPlugin())
-    hacs.hass.http.register_view(HacsPluginView())
-    hacs.hass.http.register_view(HacsRunningTask())
-    hacs.hass.http.register_view(HacsWebResponse())
-    hacs.hass.http.register_view(HacsExperimental())
-
-    # Add to sidepanel
-    hacs.hass.components.frontend.async_register_built_in_panel(
-        "iframe",
-        hacs.configuration.sidepanel_title,
-        hacs.configuration.sidepanel_icon,
-        "hacs_web",
-        {"url": hacs.hacsweb + "/overview"},
-        require_admin=True,
-    )
-
-    if hacs.configuration.experimental:
-        custom_panel_config = {
-            "name": "hacs-frontend",
-            "embed_iframe": False,
-            "trust_external": False,
-            "js_url": f"/hacs_experimental/main.js?v={hacs.version}",
-        }
-
-        config = {}
-        config["_panel_custom"] = custom_panel_config
-
-        hacs.hass.components.frontend.async_register_built_in_panel(
-            component_name="custom",
-            sidebar_title=hacs.configuration.sidepanel_title + " (Experimental)",
-            sidebar_icon=hacs.configuration.sidepanel_icon,
-            frontend_url_path="hacs",
-            config=config,
-            require_admin=True,
-        )
-
-        await setup_ws_api(hacs.hass)
-
-
-async def add_services(hacs):
-    """Add services."""
-    # Service registration
-    async def service_hacs_install(call):
-        """Install a repository."""
-        repository = str(call.data["repository"])
-        if repository not in hacs().store.repositories:
-            hacs.logger.error("%s is not a konwn repository!", repository)
-            return
-        repository = hacs().store.repositories[repository]
-        await repository.install()
-
-    async def service_hacs_register(call):
-        """register a repository."""
-        repository = call.data["repository"]
-        repository_type = call.data["repository_type"]
-        if await hacs().is_known_repository(repository):
-            hacs.logger.error("%s is already a konwn repository!", repository)
-            return
-        await hacs().register_new_repository(repository_type, repository)
-
-    async def service_hacs_load(call):
-        """register a repository."""
-        from homeassistant.loader import async_get_custom_components
-
-        del hacs.hass.data["custom_components"]
-        await async_get_custom_components(hacs.hass)
-
-    hacs.hass.services.async_register("hacs", "install", service_hacs_install)
-    hacs.hass.services.async_register("hacs", "register", service_hacs_register)
-    hacs.hass.services.async_register("hacs", "load", service_hacs_load)
-
-
-async def test_repositories(hacs):
-    """Test repositories."""
-    await hacs().register_repository("ludeeus/theme-hacs", "theme")
-    await hacs().register_repository("ludeeus/ps-hacs", "python_script")
-    await hacs().register_repository("ludeeus/integration-hacs", "integration")
-    await hacs().register_repository(
-        "rgruebel/ha_zigbee2mqtt_networkmap", "integration"
-    )
-    await hacs().register_repository("ludeeus/ad-hacs", "appdaemon")
-    await hacs().register_repository("jonkristian/entur-card", "plugin")  # Dist
-    await hacs().register_repository("kalkih/mini-media-player", "plugin")  # Release
-    await hacs().register_repository("custom-cards/monster-card", "plugin")  # root
 
 
 async def async_remove_entry(hass, config_entry):

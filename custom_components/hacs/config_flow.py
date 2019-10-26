@@ -94,5 +94,7 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
 
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema(hacs_config_option_schema(user_input)),
+            data_schema=vol.Schema(
+                hacs_config_option_schema(self.config_entry.options)
+            ),
         )

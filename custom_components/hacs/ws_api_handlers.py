@@ -19,7 +19,11 @@ async def setup_ws_api(hass):
 
 @websocket_api.async_response
 @websocket_api.websocket_command(
-    {vol.Required("type"): "hacs/settings", vol.Optional("action"): cv.string}
+    {
+        vol.Required("type"): "hacs/settings",
+        vol.Optional("action"): cv.string,
+        vol.Optional("category"): cv.string,
+    }
 )
 async def hacs_settings(hass, connection, msg):
     """Handle get media player cover command."""
@@ -32,9 +36,18 @@ async def hacs_settings(hass, connection, msg):
     elif action == "set_fe_table":
         Hacs().configuration.frontend_mode = "Table"
 
+    elif action == "clear_new":
+        for repo in Hacs().repositories:
+            if msg.get("category") == repo.information.category:
+                if repo.information.new:
+                    Hacs().logger.debug(
+                        f"Clearing new flag from '{repo.information.full_name}'"
+                    )
+                    repo.status.new = False
+
     else:
         Hacs().logger.error(f"WS action '{action}' is not valid")
-
+    Hacs().data.write()
     hass.bus.fire("hacs/config", {})
 
 
@@ -72,6 +85,7 @@ async def hacs_repositories(hass, connection, msg):
                 "installed": repo.status.installed,
                 "id": repo.information.uid,
                 "hide": repo.status.hide,
+                "new": repo.status.new,
                 "beta": repo.status.show_beta,
                 "status": repo.display_status,
                 "status_description": repo.display_status_description,

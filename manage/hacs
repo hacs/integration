@@ -1,7 +1,7 @@
  #!/bin/bash
 
 LOKALISE_VERSION="0.721"
-SECRETS="/workspaces/hacs/manage/secrets.json"
+SECRETS="/workspaces/integration/manage/secrets.json"
 
 function hacs-download-translations {
     ## check secrets file
@@ -34,10 +34,10 @@ function hacs-download-translations {
         --export_empty skip \
         --export_sort a_z
 
-    rm -R /workspaces/hacs/custom_components/hacs/.translations || echo ""
-    mkdir /workspaces/hacs/custom_components/hacs/.translations
+    rm -R /workspaces/integration/custom_components/hacs/.translations || echo ""
+    mkdir /workspaces/integration/custom_components/hacs/.translations
 
-    cp /tmp/lokalise/locale/* /workspaces/hacs/custom_components/hacs/.translations/
+    cp /tmp/lokalise/locale/* /workspaces/integration/custom_components/hacs/.translations/
 }
 
 function hacs-download-frontend {
@@ -45,7 +45,7 @@ function hacs-download-frontend {
     cd /tmp/frontend
     npm install
     npm run build
-    cp -f /tmp/frontend/build/main.js.gz /workspaces/hacs/custom_components/hacs/frontend/experimental/main.js.gz
+    cp -f /tmp/frontend/build/main.js.gz /workspaces/integration/custom_components/hacs/frontend/experimental/main.js.gz
 }
 
 function hacs-prepare-release {
@@ -56,7 +56,7 @@ function hacs-prepare-release {
     hacs-download-frontend
 
     echo "Controlling the version number"
-    local=$(cat /workspaces/hacs/custom_components/hacs/const.py | grep "VERSION = " |  tr -d '[:space:]' | tr -d "VERSION=")
+    local=$(cat /workspaces/integration/custom_components/hacs/const.py | grep "VERSION = " |  tr -d '[:space:]' | tr -d "VERSION=")
     remote=$(curl -sSL https://api.github.com/repos/hacs/integration/releases/latest | jq .tag_name)
 
     if [ "$remote" == "$local" ]; then
@@ -64,7 +64,7 @@ function hacs-prepare-release {
         return 1
     fi
 
-    cd /workspaces/hacs
+    cd /workspaces/integration
 
 }
 

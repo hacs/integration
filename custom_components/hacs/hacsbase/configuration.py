@@ -30,7 +30,7 @@ class Configuration:
     release_limit: int = 5
 
     @staticmethod
-    def from_dict(configuration: dict, options: dict) -> None:
+    def from_dict(configuration: dict, options: dict):
         """Set attributes from dicts."""
         return Configuration(
             config=configuration,

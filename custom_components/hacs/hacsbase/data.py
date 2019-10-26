@@ -169,7 +169,7 @@ class HacsData(Hacs):
                     repository.status.selected_tag = repo["selected_tag"]
 
                 if repo.get("repository_manifest") is not None:
-                    repository.repository_manifest = HacsManifest(
+                    repository.repository_manifest = HacsManifest.from_dict(
                         repo["repository_manifest"]
                     )
 

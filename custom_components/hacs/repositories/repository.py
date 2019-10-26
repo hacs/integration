@@ -105,7 +105,7 @@ class HacsRepository(Hacs):
         self.status = RepositoryStatus()
         self.state = None
         self.manifest = {}
-        self.repository_manifest = HacsManifest({})
+        self.repository_manifest = HacsManifest.from_dict({})
         self.validate = Validate()
         self.releases = RepositoryReleases()
         self.versions = RepositoryVersions()
@@ -548,7 +548,7 @@ class HacsRepository(Hacs):
         """Get the content of the hacs.json file."""
         try:
             manifest = await self.repository_object.get_contents("hacs.json", self.ref)
-            self.repository_manifest = HacsManifest(json.loads(manifest.content))
+            self.repository_manifest = HacsManifest.from_dict(json.loads(manifest.content))
         except (AIOGitHubException, Exception):  # Gotta Catch 'Em All
             pass
 

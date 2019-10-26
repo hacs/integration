@@ -52,6 +52,9 @@ def add_sensor(hacs):
     except ValueError:
         pass
 
+def ensure_logger(hass):
+    """Ensure that the logger is active for HACS."""
+    hass.config["logger"]
 
 async def setup_frontend(hacs):
     """Configure the HACS frontend elements."""

@@ -1,63 +1,40 @@
-"""Manifest handling of a repository."""
+"""
+Manifest handling of a repository.
+
+https://hacs.xyz/docs/publish/start#hacsjson
+"""
+from typing import List
+import attr
 
 
+@attr.s(auto_attribs=True)
 class HacsManifest:
     """HacsManifest class."""
 
-    def __init__(self, manifest: dict):
-        """Initialize."""
-        self.manifest = manifest
+    name: str = ""
+    content_in_root: bool = False
+    zip_release: bool = False
+    filename: str = None
+    manifest: dict = {}
+    domains: List[str] = []
+    country: List[str] = []
+    homeassistant: str = None
+    persistent_directory: str = None
+    iot_class: str = None
+    render_readme: bool = False
 
-    @property
-    def name(self):
-        """Return the name."""
-        return self.manifest.get("name")
-
-    @property
-    def content_in_root(self):
-        """Return a bool to indicate that the content is in the roop of the repository."""
-        return self.manifest.get("content_in_root", False)
-
-    @property
-    def zip_release(self):
-        """Return a bool to indicate that the content is in a zipped archive on the release."""
-        return self.manifest.get("zip_release", False)
-
-    @property
-    def filename(self):
-        """Return the filename."""
-        return self.manifest.get("filename")
-
-    @property
-    def domains(self):
-        """Return the domains."""
-        if isinstance(self.manifest.get("domains", []), str):
-            return [self.manifest.get("domains", [])]
-        return self.manifest.get("domains", [])
-
-    @property
-    def country(self):
-        """Return the country."""
-        if isinstance(self.manifest.get("country", []), str):
-            return [self.manifest.get("country", [])]
-        return self.manifest.get("country", [])
-
-    @property
-    def homeassistant(self):
-        """Return the minimum homeassistant version."""
-        return self.manifest.get("homeassistant")
-
-    @property
-    def persistent_directory(self):
-        """Return the persistent_directory."""
-        return self.manifest.get("persistent_directory")
-
-    @property
-    def iot_class(self):
-        """Return the iot_class."""
-        return self.manifest.get("iot_class")
-
-    @property
-    def render_readme(self):
-        """Return a bool to indicate that the readme file should be rendered."""
-        return self.manifest.get("render_readme", False)
+    @staticmethod
+    def from_dict(manifest: dict):
+        """Set attributes from dicts."""
+        return HacsManifest(
+            manifest=manifest,
+            name=manifest.get("name"),
+            content_in_root=manifest.get("content_in_root"),
+            filename=manifest.get("filename"),
+            domains=manifest.get("domains"),
+            country=manifest.get("country"),
+            homeassistant=manifest.get("homeassistant"),
+            persistent_directory=manifest.get("persistent_directory"),
+            iot_class=manifest.get("iot_class"),
+            render_readme=manifest.get("render_readme"),
+        )

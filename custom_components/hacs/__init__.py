@@ -37,7 +37,6 @@ async def async_setup(hass, config):
         config[DOMAIN], config[DOMAIN].get("options")
     )
     Hacs.configuration.config_type = "yaml"
-    Hacs.logger.info(Hacs.configuration)
     await startup_wrapper_for_yaml(Hacs)
     hass.async_create_task(
         hass.config_entries.flow.async_init(

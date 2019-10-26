@@ -38,37 +38,15 @@ from .hacsbase.data import HacsData
 from .hacsbase.configuration import Configuration
 from .hacsbase.migration import ValidateData
 from .ws_api_handlers import setup_ws_api
+from .configuration_schema import hacs_base_config_schema, hacs_config_option_schema
 
 
-OPTIONS_SCHEMA = vol.Schema(
-    {
-        vol.Optional("country"): vol.All(cv.string, vol.In(const.LOCALE)),
-        vol.Optional("release_limit"): cv.positive_int,
-        vol.Optional("experimental"): cv.string,
-    }
-)
+SCHEMA = hacs_base_config_schema()
+SCHEMA[vol.Optional("options")] = hacs_config_option_schema()
+CONFIG_SCHEMA = vol.Schema({const.DOMAIN: SCHEMA}, extra=vol.ALLOW_EXTRA)
 
 
-CONFIG_SCHEMA = vol.Schema(
-    {
-        const.DOMAIN: vol.Schema(
-            {
-                vol.Required("token"): cv.string,
-                vol.Optional("sidepanel_title"): cv.string,
-                vol.Optional("sidepanel_icon"): cv.string,
-                vol.Optional("dev", default=False): cv.boolean,
-                vol.Optional("appdaemon", default=False): cv.boolean,
-                vol.Optional("python_script", default=False): cv.boolean,
-                vol.Optional("theme", default=False): cv.boolean,
-                vol.Optional("options"): OPTIONS_SCHEMA,
-            }
-        )
-    },
-    extra=vol.ALLOW_EXTRA,
-)
-
-
-async def async_setup(hass, config):  # pylint: disable=unused-argument
+async def async_setup(hass, config):
     """Set up this integration using yaml."""
     if const.DOMAIN not in config:
         return True
@@ -84,7 +62,6 @@ async def async_setup(hass, config):  # pylint: disable=unused-argument
             const.DOMAIN, context={"source": config_entries.SOURCE_IMPORT}, data={}
         )
     )
-
     return True
 
 

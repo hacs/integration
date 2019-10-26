@@ -15,6 +15,7 @@ async def setup_ws_api(hass):
     websocket_api.async_register_command(hass, hacs_repository)
     websocket_api.async_register_command(hass, hacs_repository_data)
     websocket_api.async_register_command(hass, check_local_path)
+    websocket_api.async_register_command(hass, hacs_status)
 
 
 @websocket_api.async_response
@@ -69,6 +70,19 @@ async def hacs_config(hass, connection, msg):
     content["categories"] = Hacs().common.categories
 
     connection.send_message(websocket_api.result_message(msg["id"], content))
+
+
+@websocket_api.async_response
+@websocket_api.websocket_command({vol.Required("type"): "hacs/status"})
+async def hacs_status(hass, connection, msg):
+    """Handle get media player cover command."""
+    content = {
+        "startup": Hacs().system.status.startup,
+        "background_task": Hacs().system.status.background_task
+    }
+    connection.send_message(
+        websocket_api.result_message(msg["id"], content)
+    )
 
 
 @websocket_api.async_response
@@ -205,6 +219,11 @@ async def hacs_repository_data(hass, connection, msg):
         repository = Hacs().get_by_name(repo_id)
     else:
         repository = Hacs().get_by_id(repo_id)
+
+    if repository is None:
+        hass.bus.async_fire("hacs/repository", {})
+        return
+
     Hacs().logger.info(f"Running {action} for {repository.information.full_name}")
 
     if action == "set_state":

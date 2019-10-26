@@ -159,6 +159,7 @@ class Hacs:
     async def startup_tasks(self):
         """Tasks tha are started after startup."""
         self.system.status.background_task = True
+        self.hass.bus.async_fire("hacs/status", {})
         self.logger.debug(self.github.ratelimits.remaining)
         self.logger.debug(self.github.ratelimits.reset_utc)
         await self.load_known_repositories()
@@ -176,6 +177,7 @@ class Hacs:
 
         self.system.status.startup = False
         self.system.status.background_task = False
+        self.hass.bus.async_fire("hacs/status", {})
         self.data.write()
 
     async def recuring_tasks_installed(self, notarealarg=None):
@@ -184,6 +186,7 @@ class Hacs:
             "Starting recuring background task for installed repositories"
         )
         self.system.status.background_task = True
+        self.hass.bus.async_fire("hacs/status", {})
         self.logger.debug(self.github.ratelimits.remaining)
         self.logger.debug(self.github.ratelimits.reset_utc)
         for repository in self.repositories:
@@ -193,12 +196,14 @@ class Hacs:
                     repository.logger.debug("Information update done.")
                 except AIOGitHubException:
                     self.system.status.background_task = False
+                    self.hass.bus.async_fire("hacs/status", {})
                     self.data.write()
                     self.logger.debug(
                         "Recuring background task for installed repositories done"
                     )
                     return
         self.system.status.background_task = False
+        self.hass.bus.async_fire("hacs/status", {})
         self.data.write()
         self.logger.debug("Recuring background task for installed repositories done")
 
@@ -206,6 +211,7 @@ class Hacs:
         """Recuring tasks for all repositories."""
         self.logger.debug("Starting recuring background task for all repositories")
         self.system.status.background_task = True
+        self.hass.bus.async_fire("hacs/status", {})
         self.logger.debug(self.github.ratelimits.remaining)
         self.logger.debug(self.github.ratelimits.reset_utc)
         for repository in self.repositories:
@@ -214,6 +220,7 @@ class Hacs:
                 repository.logger.debug("Information update done.")
             except AIOGitHubException:
                 self.system.status.background_task = False
+                self.hass.bus.async_fire("hacs/status", {})
                 self.data.write()
                 self.logger.debug("Recuring background task for all repositories done")
                 return
@@ -221,6 +228,7 @@ class Hacs:
         self.clear_out_blacklisted_repositories()
         self.system.status.background_task = False
         self.data.write()
+        self.hass.bus.async_fire("hacs/status", {})
         self.hass.bus.async_fire("hacs/repository", {"action": "reload"})
         self.logger.debug("Recuring background task for all repositories done")
 

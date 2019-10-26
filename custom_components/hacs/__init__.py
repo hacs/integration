@@ -33,9 +33,11 @@ async def async_setup(hass, config):
         return True
     hass.data[DOMAIN] = config
     Hacs.hass = hass
-    Hacs.configuration = Configuration()
-    Hacs.configuration.from_dict(config[DOMAIN], config[DOMAIN].get("options"))
+    Hacs.configuration = Configuration.from_dict(
+        config[DOMAIN], config[DOMAIN].get("options")
+    )
     Hacs.configuration.config_type = "yaml"
+    Hacs.logger.info(Hacs.configuration)
     await startup_wrapper_for_yaml(Hacs)
     hass.async_create_task(
         hass.config_entries.flow.async_init(
@@ -55,8 +57,9 @@ async def async_setup_entry(hass, config_entry):
             )
         return False
     Hacs.hass = hass
-    Hacs.configuration = Configuration()
-    Hacs.configuration.from_dict(config_entry.data, config_entry.options)
+    Hacs.configuration = Configuration.from_dict(
+        config_entry.data, config_entry.options
+    )
     Hacs.configuration.config_type = "flow"
     Hacs.configuration.config_entry = config_entry
     config_entry.add_update_listener(reload_hacs)

@@ -1,10 +1,26 @@
 """WebSocket API for HACS."""
+# pylint: disable=unused-argument
+import os
+import voluptuous as vol
 from homeassistant.components import websocket_api
-from homeassistant.core import callback
+import homeassistant.helpers.config_validation as cv
 from .hacsbase import Hacs
 
 
+async def setup_ws_api(hass):
+    """Set up WS API handlers."""
+    websocket_api.async_register_command(hass, hacs_settings)
+    websocket_api.async_register_command(hass, hacs_config)
+    websocket_api.async_register_command(hass, hacs_repositories)
+    websocket_api.async_register_command(hass, hacs_repository)
+    websocket_api.async_register_command(hass, hacs_repository_data)
+    websocket_api.async_register_command(hass, check_local_path)
+
+
 @websocket_api.async_response
+@websocket_api.websocket_command(
+    {vol.Required("type"): "hacs/settings", vol.Optional("action"): cv.string}
+)
 async def hacs_settings(hass, connection, msg):
     """Handle get media player cover command."""
     action = msg["action"]
@@ -23,6 +39,7 @@ async def hacs_settings(hass, connection, msg):
 
 
 @websocket_api.async_response
+@websocket_api.websocket_command({vol.Required("type"): "hacs/config"})
 async def hacs_config(hass, connection, msg):
     """Handle get media player cover command."""
     config = Hacs().configuration
@@ -40,8 +57,9 @@ async def hacs_config(hass, connection, msg):
     connection.send_message(websocket_api.result_message(msg["id"], content))
 
 
-@callback
-def hacs_repositories(hass, connection, msg):
+@websocket_api.async_response
+@websocket_api.websocket_command({vol.Required("type"): "hacs/repositories"})
+async def hacs_repositories(hass, connection, msg):
     """Handle get media player cover command."""
     repositories = Hacs().repositories
     content = []
@@ -84,6 +102,13 @@ def hacs_repositories(hass, connection, msg):
 
 
 @websocket_api.async_response
+@websocket_api.websocket_command(
+    {
+        vol.Required("type"): "hacs/repository",
+        vol.Optional("action"): cv.string,
+        vol.Optional("repository"): cv.string,
+    }
+)
 async def hacs_repository(hass, connection, msg):
     """Handle get media player cover command."""
     repo_id = msg.get("repository")
@@ -140,11 +165,22 @@ async def hacs_repository(hass, connection, msg):
 
 
 @websocket_api.async_response
+@websocket_api.websocket_command(
+    {
+        vol.Required("type"): "hacs/repository/data",
+        vol.Optional("action"): cv.string,
+        vol.Optional("repository"): cv.string,
+        vol.Optional("data"): cv.string,
+    }
+)
 async def hacs_repository_data(hass, connection, msg):
     """Handle get media player cover command."""
-    repo_id = msg["repository"]
-    action = msg["action"]
-    data = msg["data"]
+    repo_id = msg.get("repository")
+    action = msg.get("action")
+    data = msg.get("data")
+
+    if repo_id is None:
+        return
 
     if action == "add":
         if "github." in repo_id:
@@ -166,7 +202,6 @@ async def hacs_repository_data(hass, connection, msg):
 
     elif action == "add":
         repository.state = None
-        pass
 
     else:
         repository.state = None
@@ -174,3 +209,21 @@ async def hacs_repository_data(hass, connection, msg):
 
     Hacs().data.write()
     hass.bus.async_fire("hacs/repository", {})
+
+
+@websocket_api.async_response
+@websocket_api.websocket_command(
+    {vol.Required("type"): "hacs/check_path", vol.Optional("path"): cv.string}
+)
+async def check_local_path(hass, connection, msg):
+    """Handle get media player cover command."""
+    path = msg.get("path")
+    exist = {"exist": False}
+
+    if path is None:
+        return
+
+    if os.path.exists(path):
+        exist["exist"] = True
+
+    connection.send_message(websocket_api.result_message(msg["id"], exist))

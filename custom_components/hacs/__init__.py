@@ -37,7 +37,7 @@ from .hacsbase import const as hacsconst, Hacs
 from .hacsbase.data import HacsData
 from .hacsbase.configuration import Configuration
 from .hacsbase.migration import ValidateData
-from .ws_api import setup_ws_api
+from .ws_api_handlers import setup_ws_api
 
 
 OPTIONS_SCHEMA = vol.Schema(
@@ -324,7 +324,7 @@ async def setup_frontend(hacs):
             require_admin=True,
         )
 
-        await setup_ws_api(hacs)
+        await setup_ws_api(hacs.hass)
 
 
 async def add_services(hacs):

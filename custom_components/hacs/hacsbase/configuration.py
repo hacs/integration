@@ -32,16 +32,18 @@ class Configuration:
     @staticmethod
     def from_dict(configuration: dict, options: dict):
         """Set attributes from dicts."""
+        if options is None:
+            options = {}
         return Configuration(
             config=configuration,
             options=options,
-            appdaemon=configuration.get("appdaemon"),
-            python_script=configuration.get("python_script"),
-            sidepanel_icon=configuration.get("sidepanel_icon"),
-            sidepanel_title=configuration.get("sidepanel_title"),
-            theme=configuration.get("theme"),
+            appdaemon=configuration.get("appdaemon", False),
+            python_script=configuration.get("python_script", False),
+            sidepanel_icon=configuration.get("sidepanel_icon", "mdi:alpha-c-box"),
+            sidepanel_title=configuration.get("sidepanel_title", "community"),
+            theme=configuration.get("theme", False),
             token=configuration.get("token"),
-            country=options.get("country"),
-            experimental=options.get("experimental"),
-            release_limit=options.get("release_limit"),
+            country=options.get("country", "ALL"),
+            experimental=options.get("experimental", False),
+            release_limit=options.get("release_limit", 5),
         )

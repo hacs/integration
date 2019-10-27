@@ -102,6 +102,8 @@ class HacsData(Hacs):
             }
 
         save(self.logger, path, content)
+        self.hass.bus.async_fire("hacs/repository", {})
+        self.hass.bus.fire("hacs/config", {})
 
     async def restore(self):
         """Restore saved data."""

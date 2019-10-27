@@ -50,7 +50,6 @@ async def hacs_settings(hass, connection, msg):
     else:
         Hacs().logger.error(f"WS action '{action}' is not valid")
     Hacs().data.write()
-    hass.bus.fire("hacs/config", {})
 
 
 @websocket_api.async_response
@@ -78,11 +77,9 @@ async def hacs_status(hass, connection, msg):
     """Handle get media player cover command."""
     content = {
         "startup": Hacs().system.status.startup,
-        "background_task": Hacs().system.status.background_task
+        "background_task": Hacs().system.status.background_task,
     }
-    connection.send_message(
-        websocket_api.result_message(msg["id"], content)
-    )
+    connection.send_message(websocket_api.result_message(msg["id"], content))
 
 
 @websocket_api.async_response
@@ -190,7 +187,6 @@ async def hacs_repository(hass, connection, msg):
 
     repository.state = None
     Hacs().data.write()
-    hass.bus.async_fire("hacs/repository", {})
 
 
 @websocket_api.async_response
@@ -214,8 +210,16 @@ async def hacs_repository_data(hass, connection, msg):
     if action == "add":
         if "github." in repo_id:
             repo_id = repo_id.split("github.com/")[1]
+
+        if repo_id in Hacs().common.skip:
+            Hacs().common.skip.remove(repo_id)
+
         if not Hacs().get_by_name(repo_id):
-            await Hacs().register_repository(repo_id, data.lower())
+            result = await Hacs().register_repository(repo_id, data.lower())
+            if result is not None:
+                result = {"message": str(result), "action": "add_repository"}
+                hass.bus.async_fire("hacs/error", result)
+
         repository = Hacs().get_by_name(repo_id)
     else:
         repository = Hacs().get_by_id(repo_id)
@@ -242,7 +246,6 @@ async def hacs_repository_data(hass, connection, msg):
         Hacs().logger.error(f"WS action '{action}' is not valid")
 
     Hacs().data.write()
-    hass.bus.async_fire("hacs/repository", {})
 
 
 @websocket_api.async_response

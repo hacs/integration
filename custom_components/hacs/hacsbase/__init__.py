@@ -144,7 +144,7 @@ class Hacs:
                     self.logger.error(
                         f"Validation for {full_name} failed with {exception}."
                     )
-                return
+                return exception
         self.hass.bus.async_fire(
             "hacs/repository",
             {

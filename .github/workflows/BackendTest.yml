@@ -8,12 +8,13 @@ on:
 jobs:
   ha_test:
     name: Home Assistant Check
-    runs-on: ubuntu-latest
     strategy:
       max-parallel: 6
       matrix:
-        python-version: [3.6, 3.7]
+        python-version: [3.6, 3.7, 3.8]
+        os: [ubuntu, macOS, windows]
         ha-version: ["stable", "beta", "dev"]
+    runs-on: ${{ matrix.os }}-latest
     steps:
     - uses: actions/checkout@v1
     - name: Enable Python version ${{ matrix.python-version }}

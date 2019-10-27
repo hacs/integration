@@ -177,11 +177,6 @@ async def async_remove_entry(hass, config_entry):
         hass.components.frontend.async_remove_panel("hacs_web")
     except AttributeError:
         pass
-    if Hacs().configuration.experimental:
-        try:
-            hass.components.frontend.async_remove_panel("hacs")
-        except AttributeError:
-            pass
     Hacs().system.disabled = True
     Hacs().logger.info("HACS is now disabled")
 

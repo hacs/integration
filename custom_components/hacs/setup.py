@@ -52,31 +52,14 @@ def add_sensor(hacs):
     except ValueError:
         pass
 
-def ensure_logger(hass):
-    """Ensure that the logger is active for HACS."""
-    hass.config["logger"]
 
 async def setup_frontend(hacs):
     """Configure the HACS frontend elements."""
-    # Define views
-    hacs.hass.http.register_view(HacsAPI())
-    hacs.hass.http.register_view(HacsPlugin())
     hacs.hass.http.register_view(HacsPluginView())
-    hacs.hass.http.register_view(HacsRunningTask())
-    hacs.hass.http.register_view(HacsWebResponse())
-    hacs.hass.http.register_view(HacsExperimental())
 
     # Add to sidepanel
-    hacs.hass.components.frontend.async_register_built_in_panel(
-        "iframe",
-        hacs.configuration.sidepanel_title,
-        hacs.configuration.sidepanel_icon,
-        "hacs_web",
-        {"url": hacs.hacsweb + "/overview"},
-        require_admin=True,
-    )
-
     if hacs.configuration.experimental:
+        hacs.hass.http.register_view(HacsExperimental())
         custom_panel_config = {
             "name": "hacs-frontend",
             "embed_iframe": False,
@@ -89,11 +72,24 @@ async def setup_frontend(hacs):
 
         hacs.hass.components.frontend.async_register_built_in_panel(
             component_name="custom",
-            sidebar_title=hacs.configuration.sidepanel_title + " (Experimental)",
+            sidebar_title=hacs.configuration.sidepanel_title,
             sidebar_icon=hacs.configuration.sidepanel_icon,
             frontend_url_path="hacs",
             config=config,
             require_admin=True,
         )
-
         await setup_ws_api(hacs.hass)
+    else:
+        # Define views
+        hacs.hass.http.register_view(HacsAPI())
+        # hacs.hass.http.register_view(HacsPlugin())
+        hacs.hass.http.register_view(HacsRunningTask())
+        hacs.hass.http.register_view(HacsWebResponse())
+        hacs.hass.components.frontend.async_register_built_in_panel(
+            "iframe",
+            hacs.configuration.sidepanel_title,
+            hacs.configuration.sidepanel_icon,
+            "hacs",
+            {"url": hacs.hacsweb + "/overview"},
+            require_admin=True,
+        )

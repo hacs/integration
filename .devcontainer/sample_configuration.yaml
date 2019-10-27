@@ -1,17 +1,19 @@
+---
 default_config:
 logger:
   default: error
   logs:
-    custom_components.hacs: debug
     hacs: debug
-
 frontend:
   themes: !include_dir_merge_named themes
-
-
 hacs:
   token: CHANGE_ME
+  sidepanel_title: HACS
+  sidepanel_icon: mdi:store
   appdaemon: true
   python_script: true
   theme: true
-  dev: true
+  options:
+    experimental: true
+    country: "NO"
+    release_limit: 10

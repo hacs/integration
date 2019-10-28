@@ -29,12 +29,13 @@ class HacsManifest:
         return HacsManifest(
             manifest=manifest,
             name=manifest.get("name"),
-            content_in_root=manifest.get("content_in_root"),
+            content_in_root=manifest.get("content_in_root", False),
             filename=manifest.get("filename"),
             domains=manifest.get("domains"),
             country=manifest.get("country"),
             homeassistant=manifest.get("homeassistant"),
             persistent_directory=manifest.get("persistent_directory"),
             iot_class=manifest.get("iot_class"),
-            render_readme=manifest.get("render_readme"),
+            zip_release=manifest.get("zip_release", False),
+            render_readme=manifest.get("render_readme", False),
         )

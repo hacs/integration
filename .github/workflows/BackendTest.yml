@@ -28,9 +28,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip setuptools wheel colorlog==4.0.2
-        python -m pip install -r requirements.txt
+      run: python -m pip install --upgrade pip setuptools wheel colorlog==4.0.2
 
     - name: Install dependencies for custom_components
       run: |
@@ -39,9 +37,6 @@ jobs:
             do pip install $(echo "$req" | jq -r .);
             done;
           done
-
-    - name: Run pytest
-      run: python -m pytest
 
     - name: Install Home Assistant ${{ matrix.ha-version }}
       run: |
@@ -62,3 +57,9 @@ jobs:
         cat configuration.yaml
         echo ""
         hass --script check_config --config .
+
+    - name: Install test dependencies
+      run: python -m pip install -r requirements.txt
+
+    - name: Run pytest
+      run: python -m pytest

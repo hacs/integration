@@ -43,16 +43,10 @@ class Configuration:
         if not configuration:
             raise HacsUserScrewupException("Configuration is not valid.")
 
-        return Configuration(
-            config=configuration,
-            options=options,
-            appdaemon=configuration.get("appdaemon", False),
-            python_script=configuration.get("python_script", False),
-            sidepanel_icon=configuration.get("sidepanel_icon", "mdi:alpha-c-box"),
-            sidepanel_title=configuration.get("sidepanel_title", "Community"),
-            theme=configuration.get("theme", False),
-            token=configuration.get("token"),
-            country=options.get("country", "ALL"),
-            experimental=options.get("experimental", False),
-            release_limit=options.get("release_limit", 5),
-        )
+        config = Configuration()
+
+        for conf_type in [configuration, options]:
+            for key in conf_type:
+                setattr(config, key, conf_type[key])
+
+        return config

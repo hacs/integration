@@ -35,10 +35,13 @@ class Configuration:
     def from_dict(configuration: dict, options: dict):
         """Set attributes from dicts."""
         if isinstance(options, bool) or isinstance(configuration.get("options"), bool):
-            raise HacsUserScrewupException("That is not valid.")
+            raise HacsUserScrewupException("Configuration is not valid.")
 
         if options is None:
             options = {}
+
+        if not configuration:
+            raise HacsUserScrewupException("Configuration is not valid.")
 
         return Configuration(
             config=configuration,

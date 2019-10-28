@@ -45,6 +45,9 @@ class Configuration:
 
         config = Configuration()
 
+        config.config = configuration
+        config.options = options
+
         for conf_type in [configuration, options]:
             for key in conf_type:
                 setattr(config, key, conf_type[key])

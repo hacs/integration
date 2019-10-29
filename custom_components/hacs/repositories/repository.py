@@ -173,7 +173,8 @@ class HacsRepository(Hacs):
                 name = self.manifest["name"]
 
         if self.repository_manifest is not None:
-            name = self.repository_manifest.name
+            if self.repository_manifest.name != "":
+                name = self.repository_manifest.name
 
         if name is not None:
             return name

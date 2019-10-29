@@ -32,9 +32,6 @@ class HacsManifest:
         if manifest is None:
             raise HacsRepositoryInfo("Missing manifest data")
 
-        if "name" not in manifest:
-            raise HacsRepositoryInfo("Missing required key 'name' in manifest data")
-
         manifest_data = HacsManifest()
 
         manifest_data.manifest = manifest

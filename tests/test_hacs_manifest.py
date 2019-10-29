@@ -44,11 +44,6 @@ def test_manifest_structure():
     assert not manifest.hacs
 
 
-def test_edge_pass_empty_dict():
-    with pytest.raises(HacsRepositoryInfo):
-        assert HacsManifest.from_dict({})
-
-
 def test_edge_pass_none():
     with pytest.raises(HacsRepositoryInfo):
         assert HacsManifest.from_dict(None)

@@ -77,6 +77,11 @@ class Hacs:
     tasks = []
     common = HacsCommon()
 
+    @staticmethod
+    def init(hass, github_token):
+        """Return a initialized HACS object."""
+        return Hacs()
+
     def get_by_id(self, repository_id):
         """Get repository by ID."""
         try:

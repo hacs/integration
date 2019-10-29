@@ -6,6 +6,8 @@ https://hacs.xyz/docs/publish/start#hacsjson
 from typing import List
 import attr
 
+from custom_components.hacs.hacsbase.exceptions import HacsRepositoryInfo
+
 
 @attr.s(auto_attribs=True)
 class HacsManifest:
@@ -16,6 +18,7 @@ class HacsManifest:
     zip_release: bool = False
     filename: str = None
     manifest: dict = {}
+    hacs: str = ""
     domains: List[str] = []
     country: List[str] = []
     homeassistant: str = None
@@ -26,15 +29,13 @@ class HacsManifest:
     @staticmethod
     def from_dict(manifest: dict):
         """Set attributes from dicts."""
-        return HacsManifest(
-            manifest=manifest,
-            name=manifest.get("name"),
-            content_in_root=manifest.get("content_in_root"),
-            filename=manifest.get("filename"),
-            domains=manifest.get("domains"),
-            country=manifest.get("country"),
-            homeassistant=manifest.get("homeassistant"),
-            persistent_directory=manifest.get("persistent_directory"),
-            iot_class=manifest.get("iot_class"),
-            render_readme=manifest.get("render_readme"),
-        )
+        if manifest is None:
+            raise HacsRepositoryInfo("Missing manifest data")
+
+        manifest_data = HacsManifest()
+
+        manifest_data.manifest = manifest
+
+        for key in manifest:
+            setattr(manifest_data, key, manifest[key])
+        return manifest_data

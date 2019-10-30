@@ -2,9 +2,9 @@
 # pylint: disable=bad-continuation
 import os
 import json
-from distutils.version import LooseVersion
 
 from .const import CUSTOM_UPDATER_LOCATIONS, CUSTOM_UPDATER_WARNING
+from .helpers.misc import version_is_newer_than_version
 
 
 def check_constans(hacs):
@@ -36,7 +36,7 @@ def constrain_version(hacs):
         manifest = json.loads(read.read())
 
     # Check if HA is the required version.
-    if LooseVersion(hacs.system.ha_version) < LooseVersion(manifest["homeassistant"]):
+    if version_is_newer_than_version(manifest["homeassistant"], hacs.system.ha_version):
         hacs.logger.critical(
             f"You need HA version {manifest['homeassistant']} or newer to use this integration."
         )

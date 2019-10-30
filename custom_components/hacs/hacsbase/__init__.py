@@ -10,7 +10,6 @@ from aiogithubapi import AIOGitHubException, AIOGitHubRatelimit
 from integrationhelper import Logger
 
 
-from ..handler.logger import HacsLogger
 from ..const import ELEMENT_TYPES
 
 

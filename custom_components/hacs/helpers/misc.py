@@ -5,7 +5,7 @@ from custom_components.hacs.repositories.manifest import HacsManifest
 def get_repository_name(
     hacs_manifest: type(HacsManifest),
     repository_name: str,
-    category: str,
+    category: str = None,
     manifest: dict = None,
 ) -> str:
     """Return the name of the repository for use in the frontend."""

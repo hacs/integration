@@ -30,5 +30,5 @@ def test_repository_name():
     hacs_manifest = HacsManifest.from_dict({})
     repository_name = "TEST-REPOSITORY-NAME"
 
-    name = get_repository_name(hacs_manifest, repository_name, "plugin")
+    name = get_repository_name(hacs_manifest, repository_name)
     assert name == "Test Repository Name"

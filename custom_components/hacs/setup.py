@@ -6,7 +6,7 @@ from homeassistant.helpers import discovery
 
 from .api import HacsAPI, HacsRunningTask
 from .const import VERSION, DOMAIN
-from .http import HacsWebResponse, HacsPluginView, HacsPlugin, HacsExperimental
+from .http import HacsWebResponse, HacsPluginView, HacsExperimental
 from .ws_api_handlers import setup_ws_api
 
 

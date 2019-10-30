@@ -1,24 +1,15 @@
 """Configuration Test Suite: Core repository."""
 # pylint: disable=missing-docstring
-import pytest
 from custom_components.hacs.repositories.repository import HacsRepository
-from custom_components.hacs.hacsbase.exceptions import HacsUserScrewupException
-
-REPO = {
-    "archived": False,
-    "full_name": "developer/repository",
-    "default_branch": "master",
-    "description": "Awesome GitHub repository",
-}
 
 
 def test_hacs_repository_core_mostly_defaults():
     repository = HacsRepository()
 
-    repository.information.full_name = REPO["full_name"]
-    repository.information.default_branch = REPO["default_branch"]
+    repository.information.full_name = "developer/repository"
+    repository.information.default_branch = "master"
     repository.information.name = repository.information.full_name.split("/")[1]
-    repository.information.description = REPO["description"]
+    repository.information.description = "Awesome GitHub repository"
 
     assert repository.display_name == "Repository"
     assert repository.custom

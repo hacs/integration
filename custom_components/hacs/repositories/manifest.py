@@ -13,12 +13,12 @@ from custom_components.hacs.hacsbase.exceptions import HacsRepositoryInfo
 class HacsManifest:
     """HacsManifest class."""
 
-    name: str = ""
+    name: str = None
     content_in_root: bool = False
     zip_release: bool = False
     filename: str = None
     manifest: dict = {}
-    hacs: str = ""
+    hacs: str = None
     domains: List[str] = []
     country: List[str] = []
     homeassistant: str = None

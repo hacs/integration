@@ -10,7 +10,7 @@ def get_repository_name(
 ) -> str:
     """Return the name of the repository for use in the frontend."""
 
-    if hacs_manifest.name != "":
+    if hacs_manifest.name is not None:
         return hacs_manifest.name
 
     if category == "integration":

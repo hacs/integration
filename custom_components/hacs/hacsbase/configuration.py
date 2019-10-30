@@ -13,7 +13,7 @@ class Configuration:
     appdaemon: bool = False
     config: dict = {}
     config_entry: dict = {}
-    config_type: str = ""
+    config_type: str = None
     dev: bool = False
     frontend_mode: str = "Grid"
     options: dict = {}
@@ -24,7 +24,7 @@ class Configuration:
     sidepanel_title: str = "Community"
     theme_path: str = "themes/"
     theme: bool = False
-    token: str = ""
+    token: str = None
 
     # Config options:
     country: str = "ALL"

@@ -5,7 +5,6 @@ import json
 import os
 import tempfile
 import zipfile
-from distutils.version import LooseVersion
 from integrationhelper import Validate, Logger
 from aiogithubapi import AIOGitHubException
 from .manifest import HacsManifest

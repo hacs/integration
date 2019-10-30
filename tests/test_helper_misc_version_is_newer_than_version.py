@@ -25,3 +25,6 @@ def test_wierd_stuff():
     assert version_is_newer_than_version("1.0.0", "1.0.0a0")
     assert version_is_newer_than_version("1.0.0", "1.0.0b0")
     assert version_is_newer_than_version("1.0.0", "1.0.0rc0")
+    assert not version_is_newer_than_version(None, "1.0.0rc0")
+    assert not version_is_newer_than_version(1.0, "1.0.0rc0")
+    assert not version_is_newer_than_version({}, "1.0.0rc0")

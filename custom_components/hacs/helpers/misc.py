@@ -25,6 +25,8 @@ def get_repository_name(
 
 def version_is_newer_than_version(new: str, old: str) -> bool:
     """Return a bool if source is newer than target, will also be true if identical."""
+    if not isinstance(new, str) or not isinstance(old, str):
+        return False
     if new == old:
         return True
     return semantic_version.Version.coerce(new) > semantic_version.Version.coerce(old)

@@ -169,6 +169,7 @@ class Hacs:
         self.logger.debug(self.github.ratelimits.reset_utc)
         await self.load_known_repositories()
         await self.clear_out_blacklisted_repositories()
+        await self.handle_critical_repositories_startup()
         await self.handle_critical_repositories()
         self.tasks.append(
             async_track_time_interval(
@@ -185,6 +186,21 @@ class Hacs:
         self.system.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
         await self.data.async_write()
+
+    async def handle_critical_repositories_startup(self):
+        """Handled critical repositories during startup."""
+        alert = False
+        critical = await async_load_from_store(self.hass, "critical")
+        if not critical:
+            return
+        for repo in critical:
+            if not repo["acknowledged"]:
+                alert = True
+        if alert:
+            self.logger.critical("URGENT!: Check the HACS panel!")
+            self.hass.components.persistent_notification.create(
+                title="URGENT!", message="**Check the HACS panel!**"
+            )
 
     async def handle_critical_repositories(self):
         """Handled critical repositories during runtime."""

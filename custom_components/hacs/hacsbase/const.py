@@ -1,6 +1,6 @@
 """Constants for HACS"""
 # pylint: disable=unused-import
-STORAGE_VERSION = "5"
+STORAGE_VERSION = "6"
 STORENAME = "hacs"
 
 # Messages

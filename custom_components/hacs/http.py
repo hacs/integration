@@ -230,11 +230,11 @@ class Repository(HacsWebResponse):
             await repository.update_repository()
             repository.status.updated_info = True
 
-            self.data.write()
+            await self.data.async_write()
 
         if repository.status.new:
             repository.status.new = False
-            self.data.write()
+            await self.data.async_write()
 
         render = self.render("repository", repository=repository, message=message)
         return web.Response(body=render, content_type="text/html", charset="utf-8")

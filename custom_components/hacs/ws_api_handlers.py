@@ -5,6 +5,7 @@ import voluptuous as vol
 from homeassistant.components import websocket_api
 import homeassistant.helpers.config_validation as cv
 from .hacsbase import Hacs
+from .store import async_load_from_store, async_save_to_store
 
 
 async def setup_ws_api(hass):
@@ -49,7 +50,7 @@ async def hacs_settings(hass, connection, msg):
 
     else:
         Hacs().logger.error(f"WS action '{action}' is not valid")
-    Hacs().data.write()
+    await Hacs().data.async_write()
 
 
 @websocket_api.async_response
@@ -186,7 +187,7 @@ async def hacs_repository(hass, connection, msg):
         Hacs().logger.error(f"WS action '{action}' is not valid")
 
     repository.state = None
-    Hacs().data.write()
+    await Hacs().data.async_write()
 
 
 @websocket_api.async_response
@@ -245,7 +246,7 @@ async def hacs_repository_data(hass, connection, msg):
         repository.state = None
         Hacs().logger.error(f"WS action '{action}' is not valid")
 
-    Hacs().data.write()
+    await Hacs().data.async_write()
 
 
 @websocket_api.async_response
@@ -264,3 +265,29 @@ async def check_local_path(hass, connection, msg):
         exist["exist"] = True
 
     connection.send_message(websocket_api.result_message(msg["id"], exist))
+
+
+@websocket_api.async_response
+@websocket_api.websocket_command({vol.Required("type"): "hacs/critical"})
+async def get_critical_repositories(hass, connection, msg):
+    """Handle get media player cover command."""
+    critical = await async_load_from_store(hass, "critical")
+    if not critical:
+        critical = {}
+    connection.send_message(websocket_api.result_message(msg["id"], critical))
+
+
+@websocket_api.async_response
+@websocket_api.websocket_command(
+    {vol.Required("type"): "hacs/critical", vol.Optional("repository"): cv.string}
+)
+async def acknowledge_critical_repository(hass, connection, msg):
+    """Handle get media player cover command."""
+    repository = msg["repository"]
+
+    critical = await async_load_from_store(hass, "critical")
+    for repo in critical:
+        if repository == repo["repository"]:
+            repo["acknowledged"] = True
+    await async_save_to_store(hass, "critical", critical)
+    connection.send_message(websocket_api.result_message(msg["id"], critical))

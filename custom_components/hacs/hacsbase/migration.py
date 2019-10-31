@@ -116,3 +116,14 @@ class FromVersion4(Migration):
         path = f"{self.system.config_path}/.storage/{STORES['installed']}"
         save(self.logger, path, installed)
         self.logger.info("Migration done")
+
+
+@register
+class FromVersion5(Migration):
+    """Migrate from version 5"""
+
+    from_version = "5"
+
+    def migrate(self):
+        """Start migration."""
+        self.logger.info("Migration done")

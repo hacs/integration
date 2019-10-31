@@ -169,7 +169,7 @@ class Hacs:
         self.logger.debug(self.github.ratelimits.reset_utc)
         await self.load_known_repositories()
         await self.clear_out_blacklisted_repositories()
-        await self.handle_critical_repositories_runtime()
+        await self.handle_critical_repositories()
         self.tasks.append(
             async_track_time_interval(
                 self.hass, self.recuring_tasks_installed, timedelta(minutes=30)
@@ -186,7 +186,7 @@ class Hacs:
         self.hass.bus.async_fire("hacs/status", {})
         await self.data.async_write()
 
-    async def handle_critical_repositories_runtime(self):
+    async def handle_critical_repositories(self):
         """Handled critical repositories during runtime."""
         # Get critical repositories
         instored = []
@@ -199,7 +199,7 @@ class Hacs:
             pass
 
         if not critical:
-            self.logger.critical("No critical repositories")
+            self.logger.debug("No critical repositories")
             return
 
         stored_critical = await async_load_from_store(self.hass, "critical")
@@ -258,7 +258,7 @@ class Hacs:
                         "Recuring background task for installed repositories done"
                     )
                     return
-        await self.handle_critical_repositories_runtime()
+        await self.handle_critical_repositories()
         self.system.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
         await self.data.async_write()

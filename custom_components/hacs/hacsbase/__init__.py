@@ -229,9 +229,6 @@ class Hacs:
         stored_critical = []
 
         for repository in critical:
-            self.logger.critical(
-                f"Removing repository {repository['repository']}, it is marked as critical"
-            )
             self.common.blacklist.append(repository["repository"])
             repo = self.get_by_name(repository["repository"])
 
@@ -244,6 +241,9 @@ class Hacs:
 
             if repository["repository"] not in instored:
                 if repo is not None and repo.installed:
+                    self.logger.critical(
+                        f"Removing repository {repository['repository']}, it is marked as critical"
+                    )
                     was_installed = True
                     stored["acknowledged"] = False
                     # Uninstall from HACS

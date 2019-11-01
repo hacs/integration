@@ -17,6 +17,8 @@ async def setup_ws_api(hass):
     websocket_api.async_register_command(hass, hacs_repository_data)
     websocket_api.async_register_command(hass, check_local_path)
     websocket_api.async_register_command(hass, hacs_status)
+    websocket_api.async_register_command(hass, acknowledge_critical_repository)
+    websocket_api.async_register_command(hass, get_critical_repositories)
 
 
 @websocket_api.async_response
@@ -268,12 +270,12 @@ async def check_local_path(hass, connection, msg):
 
 
 @websocket_api.async_response
-@websocket_api.websocket_command({vol.Required("type"): "hacs/critical"})
+@websocket_api.websocket_command({vol.Required("type"): "hacs/get_critical"})
 async def get_critical_repositories(hass, connection, msg):
     """Handle get media player cover command."""
     critical = await async_load_from_store(hass, "critical")
     if not critical:
-        critical = {}
+        critical = []
     connection.send_message(websocket_api.result_message(msg["id"], critical))
 
 

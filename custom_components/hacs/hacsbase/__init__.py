@@ -167,10 +167,12 @@ class Hacs:
         self.hass.bus.async_fire("hacs/status", {})
         self.logger.debug(self.github.ratelimits.remaining)
         self.logger.debug(self.github.ratelimits.reset_utc)
-        await self.load_known_repositories()
-        await self.clear_out_blacklisted_repositories()
+
         await self.handle_critical_repositories_startup()
         await self.handle_critical_repositories()
+        await self.load_known_repositories()
+        await self.clear_out_blacklisted_repositories()
+
         self.tasks.append(
             async_track_time_interval(
                 self.hass, self.recuring_tasks_installed, timedelta(minutes=30)
@@ -211,6 +213,7 @@ class Hacs:
 
         try:
             critical = await self.data_repo.get_contents("critical")
+            critical = json.loads(critical.content)
         except AIOGitHubException:
             pass
 
@@ -220,29 +223,33 @@ class Hacs:
 
         stored_critical = await async_load_from_store(self.hass, "critical")
 
-        if not stored_critical:
-            stored_critical = {}
-
-        for stored in stored_critical:
+        for stored in stored_critical or []:
             instored.append(stored["repository"])
+
+        stored_critical = []
 
         for repository in critical:
             self.logger.critical(
                 f"Removing repository {repository['repository']}, it is marked as critical"
             )
-            stored_critical["repository"] = repository["repository"]
-            stored_critical["reason"] = repository["reason"]
+            self.common.blacklist.append(repository["repository"])
             repo = self.get_by_name(repository["repository"])
 
+            stored = {
+                "repository": repository["repository"],
+                "reason": repository["reason"],
+                "link": repository["link"],
+                "acknowledged": True,
+            }
+
             if repository["repository"] not in instored:
-                if repo.installed:
+                if repo is not None and repo.installed:
                     was_installed = True
-                    stored_critical["acknowledged"] = False
+                    stored["acknowledged"] = False
                     # Uninstall from HACS
                     repo.remove()
                     await repo.uninstall()
-                else:
-                    stored_critical["acknowledged"] = True
+            stored_critical.append(stored)
 
         # Save to FS
         await async_save_to_store(self.hass, "critical", stored_critical)

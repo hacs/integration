@@ -20,7 +20,7 @@ class HacsFrontend(HomeAssistantView, Hacs):
         self.logger = Logger("hacs.http")
 
     async def get(self, request, requested_file):  # pylint: disable=unused-argument
-        """Handle HACS Experimental Web requests."""
+        """Handle HACS Web requests."""
         servefile = f"{self.system.config_path}/custom_components/hacs/frontend/{requested_file}"
 
         # Serve .gz file if it exist

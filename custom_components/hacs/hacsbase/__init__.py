@@ -19,6 +19,8 @@ class HacsStatus:
 
     startup = False
     background_task = False
+    reloading_data = False
+    upgrading_all = False
 
 
 class HacsCommon:
@@ -124,8 +126,9 @@ class Hacs:
         from ..repositories.repository import RERPOSITORY_CLASSES
 
         if full_name in self.common.skip:
-            self.logger.debug(f"Skipping {full_name}")
-            return
+            if full_name != "hacs/integration":
+                self.logger.debug(f"Skipping {full_name}")
+                return
 
         if category not in RERPOSITORY_CLASSES:
             self.logger.error(f"{category} is not a valid repository category.")

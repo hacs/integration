@@ -41,12 +41,20 @@ async def hacs_settings(hass, connection, msg):
         Hacs().configuration.frontend_mode = "Table"
 
     elif action == "reload_data":
+        Hacs().system.status.reloading_data = True
+        hass.bus.async_fire("hacs/status", {})
         await Hacs().recuring_tasks_all()
+        Hacs().system.status.reloading_data = False
+        hass.bus.async_fire("hacs/status", {})
 
     elif action == "upgrade_all":
+        Hacs().system.status.upgrading_all = True
+        hass.bus.async_fire("hacs/status", {})
         for repository in Hacs().repositories:
             if repository.pending_upgrade:
                 await repository.install()
+        Hacs().system.status.upgrading_all = False
+        hass.bus.async_fire("hacs/status", {})
 
     elif action == "clear_new":
         for repo in Hacs().repositories:
@@ -87,6 +95,9 @@ async def hacs_status(hass, connection, msg):
     content = {
         "startup": Hacs().system.status.startup,
         "background_task": Hacs().system.status.background_task,
+        "reloading_data": Hacs().system.status.reloading_data,
+        "upgrading_all": Hacs().system.status.upgrading_all,
+        "disabled": Hacs().system.disabled,
     }
     connection.send_message(websocket_api.result_message(msg["id"], content))
 

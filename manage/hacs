@@ -45,7 +45,9 @@ function hacs-download-frontend {
     cd /tmp/frontend
     npm install
     npm run build
-    cp -f /tmp/frontend/build/main.js.gz /workspaces/integration/custom_components/hacs/frontend/experimental/main.js.gz
+    rm -R /workspaces/integration/custom_components/hacs/frontend
+    mkdir /workspaces/integration/custom_components/hacs/frontend
+    cp -f /tmp/frontend/build/main.js.gz /workspaces/integration/custom_components/hacs/frontend/main.js.gz
     rm -R /tmp/frontend
 }
 

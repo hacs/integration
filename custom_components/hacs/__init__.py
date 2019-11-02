@@ -174,7 +174,7 @@ async def async_remove_entry(hass, config_entry):
         pass
     Hacs().logger.info("Removing sidepanel")
     try:
-        hass.components.frontend.async_remove_panel("hacs_web")
+        hass.components.frontend.async_remove_panel("hacs")
     except AttributeError:
         pass
     Hacs().system.disabled = True

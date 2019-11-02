@@ -4,9 +4,8 @@ from aiogithubapi import AIOGitHubAuthentication, AIOGitHubException, AIOGitHubR
 
 from homeassistant.helpers import discovery
 
-from .api import HacsAPI, HacsRunningTask
 from .const import VERSION, DOMAIN
-from .http import HacsWebResponse, HacsPluginView, HacsExperimental
+from .http import HacsPluginView, HacsFrontend
 from .ws_api_handlers import setup_ws_api
 
 
@@ -58,38 +57,23 @@ async def setup_frontend(hacs):
     hacs.hass.http.register_view(HacsPluginView())
 
     # Add to sidepanel
-    if hacs.configuration.experimental:
-        hacs.hass.http.register_view(HacsExperimental())
-        custom_panel_config = {
-            "name": "hacs-frontend",
-            "embed_iframe": False,
-            "trust_external": False,
-            "js_url": f"/hacs_experimental/main.js?v={hacs.version}",
-        }
+    hacs.hass.http.register_view(HacsFrontend())
+    custom_panel_config = {
+        "name": "hacs-frontend",
+        "embed_iframe": False,
+        "trust_external": False,
+        "js_url": f"/hacs_frontend/main.js?v={hacs.version}",
+    }
 
-        config = {}
-        config["_panel_custom"] = custom_panel_config
+    config = {}
+    config["_panel_custom"] = custom_panel_config
 
-        hacs.hass.components.frontend.async_register_built_in_panel(
-            component_name="custom",
-            sidebar_title=hacs.configuration.sidepanel_title,
-            sidebar_icon=hacs.configuration.sidepanel_icon,
-            frontend_url_path="hacs",
-            config=config,
-            require_admin=True,
-        )
-        await setup_ws_api(hacs.hass)
-    else:
-        # Define views
-        hacs.hass.http.register_view(HacsAPI())
-        # hacs.hass.http.register_view(HacsPlugin())
-        hacs.hass.http.register_view(HacsRunningTask())
-        hacs.hass.http.register_view(HacsWebResponse())
-        hacs.hass.components.frontend.async_register_built_in_panel(
-            "iframe",
-            hacs.configuration.sidepanel_title,
-            hacs.configuration.sidepanel_icon,
-            "hacs",
-            {"url": hacs.hacsweb + "/overview"},
-            require_admin=True,
-        )
+    hacs.hass.components.frontend.async_register_built_in_panel(
+        component_name="custom",
+        sidebar_title=hacs.configuration.sidepanel_title,
+        sidebar_icon=hacs.configuration.sidepanel_icon,
+        frontend_url_path="hacs",
+        config=config,
+        require_admin=True,
+    )
+    await setup_ws_api(hacs.hass)

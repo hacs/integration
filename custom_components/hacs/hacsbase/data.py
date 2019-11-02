@@ -117,7 +117,7 @@ class HacsData(Hacs):
             self.logger.info("Restore started")
 
             # Hacs
-            self.configuration.frontend_mode = hacs["view"]
+            self.configuration.frontend_mode = hacs.get("view", "Grid")
 
             # Repositories
             repositories = repositories

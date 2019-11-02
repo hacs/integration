@@ -11,7 +11,6 @@ jobs:
     strategy:
       matrix:
         python-version: [3.6, 3.7, 3.8]
-        ha-version: ["stable", "beta", "dev"]
     runs-on: ubuntu-latest
     steps:
     - name: "Get the repository content"
@@ -33,15 +32,8 @@ jobs:
             done;
           done
 
-    - name: Install Home Assistant ${{ matrix.ha-version }}
-      run: |
-        if [ ${{ matrix.ha-version }} == "dev" ]; then
-          pip install git+git://github.com/home-assistant/home-assistant.git@dev
-        elif [ ${{ matrix.ha-version }} == "beta" ]; then
-          pip install --pre homeassistant
-        else
-           pip install homeassistant
-        fi
+    - name: Install Home Assistant
+      run: pip install git+git://github.com/home-assistant/home-assistant.git@dev
 
     - name: 'Copy sample configuration for Home Assistant'
       run: cp -f .devcontainer/sample_configuration.yaml ./configuration.yaml

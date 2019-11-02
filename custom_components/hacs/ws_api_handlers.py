@@ -40,6 +40,14 @@ async def hacs_settings(hass, connection, msg):
     elif action == "set_fe_table":
         Hacs().configuration.frontend_mode = "Table"
 
+    elif action == "reload_data":
+        await Hacs().recuring_tasks_all()
+
+    elif action == "upgrade_all":
+        for repository in Hacs().repositories:
+            if repository.pending_upgrade:
+                await repository.install()
+
     elif action == "clear_new":
         for repo in Hacs().repositories:
             if msg.get("category") == repo.information.category:
@@ -48,8 +56,6 @@ async def hacs_settings(hass, connection, msg):
                         f"Clearing new flag from '{repo.information.full_name}'"
                     )
                     repo.status.new = False
-        hass.bus.async_fire("hacs/repository", {})
-
     else:
         Hacs().logger.error(f"WS action '{action}' is not valid")
     await Hacs().data.async_write()

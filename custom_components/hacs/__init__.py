@@ -19,7 +19,6 @@ from .constrains import check_constans
 from .hacsbase import Hacs
 from .hacsbase.configuration import Configuration
 from .hacsbase.data import HacsData
-from .hacsbase.migration import ValidateData
 from .setup import add_sensor, load_hacs_repository, setup_frontend
 
 SCHEMA = hacs_base_config_schema()
@@ -111,13 +110,6 @@ async def hacs_startup(hacs):
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
         return False
 
-    val = ValidateData()
-    if not val.validate_local_data_file():
-        if hacs.configuration.config_type == "flow":
-            if hacs.configuration.config_entry is not None:
-                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
-        return False
-
     # Restore from storefiles
     if not await hacs.data.restore():
         hacs_repo = hacs().get_by_name("hacs/integration")
@@ -143,19 +135,6 @@ async def hacs_startup(hacs):
         )
     else:
         async_call_later(hacs.hass, 5, hacs().startup_tasks())
-
-    # Print DEV warning
-    if hacs.configuration.dev:
-        hacs.logger.warning(DEV_MODE)
-        hacs.hass.components.persistent_notification.create(
-            title="HACS DEV MODE", message=DEV_MODE, notification_id="hacs_dev_mode"
-        )
-
-    # Add sensor
-    add_sensor(hacs)
-
-    # Set up services
-    # await add_services(hacs)
 
     # Mischief managed!
     return True

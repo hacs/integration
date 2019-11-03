@@ -3,7 +3,6 @@ import os
 import json
 from integrationhelper import Logger
 from . import Hacs
-from .const import STORAGE_VERSION
 from ..const import VERSION
 from ..repositories.manifest import HacsManifest
 from ..store import async_save_to_store, async_load_from_store
@@ -197,19 +196,3 @@ class HacsData(Hacs):
             )
             return False
         return True
-
-
-def save(logger, path, content):
-    """Save file."""
-    from .backup import Backup
-
-    backup = Backup(path)
-    backup.create()
-    try:
-        content = {"data": content, "schema": STORAGE_VERSION}
-        with open(path, "w", encoding="utf-8") as storefile:
-            json.dump(content, storefile, indent=4)
-    except Exception as exception:  # pylint: disable=broad-except
-        logger.warning(f"Saving {path} failed - {exception}")
-        backup.restore()
-    backup.cleanup()

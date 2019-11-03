@@ -229,7 +229,7 @@ class HacsRepository(Hacs):
     @property
     def display_version_or_commit(self):
         """Does the repositoriy use releases or commits?"""
-        if self.versions.installed is not None:
+        if self.releases.releases:
             version_or_commit = "version"
         else:
             version_or_commit = "commit"

@@ -1,7 +1,7 @@
 """Constants for HACS"""
 NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
-VERSION = "0.16.3"
+VERSION = "master"
 DOMAIN = "hacs"
 PROJECT_URL = "https://github.com/hacs/integration/"
 CUSTOM_UPDATER_LOCATIONS = [

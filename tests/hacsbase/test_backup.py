@@ -35,3 +35,9 @@ def test_directory(tmpdir):
 
     backup.cleanup()
     assert not os.path.exists(backup.backup_path_full)
+
+
+def test_muilti(tmpdir):
+    backup = Backup(f"{tmpdir.dirname}/dummy_directory")
+    backup.create()
+    backup.create()

@@ -188,6 +188,8 @@ class Hacs:
             )
         )
 
+        await self.recuring_tasks_installed()
+
         self.system.status.startup = False
         self.system.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})

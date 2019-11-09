@@ -85,6 +85,7 @@ async def hacs_config(hass, connection, msg):
     content["python_script"] = config.python_script
     content["theme"] = config.theme
     content["country"] = config.country
+    content["experimental"] = config.experimental
     content["categories"] = Hacs().common.categories
 
     connection.send_message(websocket_api.result_message(msg["id"], content))

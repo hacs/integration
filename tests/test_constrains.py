@@ -1,4 +1,4 @@
-"""HACS Manifest Test Suite."""
+"""HACS Constrains Test Suite."""
 # pylint: disable=missing-docstring,invalid-name
 import json
 import os

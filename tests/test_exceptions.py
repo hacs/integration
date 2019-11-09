@@ -1,4 +1,4 @@
-"""HACS Manifest Test Suite."""
+"""HACS Exception Test Suite."""
 # pylint: disable=missing-docstring,invalid-name
 from custom_components.hacs.hacsbase.exceptions import (
     HacsMissingManifest,

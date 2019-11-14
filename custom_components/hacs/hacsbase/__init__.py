@@ -326,7 +326,7 @@ class Hacs:
                 repository = self.get_by_name(repository)
                 if repository.status.installed:
                     self.logger.error(
-                        f"You have {repository.information.full_name} installed with HACS, this repositroy has been blacklisted, please consider removing it."
+                        f"You have {repository.information.full_name} installed with HACS, this repository has been blacklisted, please consider removing it."
                     )
                 else:
                     need_to_save = True

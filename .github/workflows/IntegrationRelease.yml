@@ -37,25 +37,6 @@ jobs:
         run: |
           cp /tmp/lokalise/locale/* /home/runner/work/integration/integration/custom_components/hacs/.translations/
 
-      # Download frontend
-      - name: Clone frontend
-        run: |
-          git clone https://github.com/hacs/frontend.git
-
-      # Build Frontend
-      - name: Build the HACS frontend
-        run: |
-          cd /home/runner/work/integration/integration/frontend
-          npm install
-          npm run build
-
-      # Build Frontend
-      - name: Move the HACS frontend file
-        run: |
-          cd /home/runner/work/integration/integration
-          mkdir /home/runner/work/integration/integration/custom_components/hacs/frontend
-          cp -f /home/runner/work/integration/integration/frontend/build/main.js.gz /home/runner/work/integration/integration/custom_components/hacs/frontend/main.js.gz
-
       - name: "Set version numbmer"
         run: |
           sed -i '/VERSION = /c\VERSION = "${{ github.ref }}"' /home/runner/work/integration/integration/custom_components/hacs/const.py

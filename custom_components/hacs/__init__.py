@@ -103,6 +103,9 @@ async def hacs_startup(hacs):
     # Set up frontend
     await setup_frontend(hacs)
 
+    # Set up sensor
+    add_sensor(hacs)
+
     # Load HACS
     if not await load_hacs_repository(hacs):
         if hacs.configuration.config_type == "flow":

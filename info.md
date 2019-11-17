@@ -1,13 +1,5 @@
 ![gif](https://hacs.xyz/img/hacsdemo.gif)
 
-## Highlights of what HACS can do
-
-- Help you discover new custom elements.
-- Help you install (download) new custom elements.
-- Help you keep track of your custom elements.
-  - Manage(Install/Upgrade/Remove)
-  - Shortcuts to repositories/issue tracker
-
 ## Useful links
 
 - [General documentation](https://hacs.xyz/)

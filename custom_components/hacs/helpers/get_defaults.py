@@ -14,8 +14,7 @@ async def get_default_repos_orgs(github: type(AIOGitHub), category: str) -> dict
         "theme": "home-assistant-community-themes",
     }
     if category not in orgs:
-        logger.error(f"{category} is not in {str(orgs.keys())}")
-        return
+        return repositories
 
     try:
         repos = await github.get_org_repos(orgs[category])

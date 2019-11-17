@@ -14,7 +14,7 @@ from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 
 from .configuration_schema import hacs_base_config_schema, hacs_config_option_schema
-from .const import DEV_MODE, DOMAIN, ELEMENT_TYPES, STARTUP, VERSION
+from .const import DOMAIN, ELEMENT_TYPES, STARTUP, VERSION
 from .constrains import check_constans
 from .hacsbase import Hacs
 from .hacsbase.configuration import Configuration

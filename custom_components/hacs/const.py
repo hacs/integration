@@ -29,8 +29,6 @@ This cannot be used with custom_updater.
 To use this you need to remove custom_updater form {}
 """
 
-DEV_MODE = "You have 'dev' enabled for HACS, this is not intended for regular use, no support will be given if you break something."
-
 STARTUP = f"""
 -------------------------------------------------------------------
 HACS (Home Assistant Community Store)

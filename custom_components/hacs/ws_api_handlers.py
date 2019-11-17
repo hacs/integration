@@ -49,12 +49,14 @@ async def hacs_settings(hass, connection, msg):
 
     elif action == "upgrade_all":
         Hacs().system.status.upgrading_all = True
+        Hacs().system.status.background_task = True
         hass.bus.async_fire("hacs/status", {})
         for repository in Hacs().repositories:
             if repository.pending_upgrade:
                 repository.status.selected_tag = None
                 await repository.install()
         Hacs().system.status.upgrading_all = False
+        Hacs().system.status.background_task = False
         hass.bus.async_fire("hacs/status", {})
         hass.bus.async_fire("hacs/repository", {})
 
@@ -177,12 +179,9 @@ async def hacs_repository(hass, connection, msg):
         repository.status.new = False
 
     elif action == "install":
-        was_install = repository.status.installed
+        was_installed = repository.status.installed
         await repository.install()
-        if not was_install and repository.information.category in [
-            "integration",
-            "plugin",
-        ]:
+        if not was_installed:
             hass.bus.async_fire("hacs/reload", {})
 
     elif action == "uninstall":

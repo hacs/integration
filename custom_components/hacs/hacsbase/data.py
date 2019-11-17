@@ -70,7 +70,6 @@ class HacsData(Hacs):
             self.configuration.frontend_mode = hacs.get("view", "Grid")
 
             # Repositories
-            repositories = repositories
             for entry in repositories:
                 repo = repositories[entry]
                 if repo["full_name"] == "custom-components/hacs":

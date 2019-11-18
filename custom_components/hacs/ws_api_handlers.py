@@ -100,6 +100,7 @@ async def hacs_status(hass, connection, msg):
     content = {
         "startup": Hacs().system.status.startup,
         "background_task": Hacs().system.status.background_task,
+        "lovelace_mode": Hacs().system.lovelace_mode,
         "reloading_data": Hacs().system.status.reloading_data,
         "upgrading_all": Hacs().system.status.upgrading_all,
         "disabled": Hacs().system.disabled,

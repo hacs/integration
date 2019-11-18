@@ -41,6 +41,7 @@ class System:
     config_path = None
     ha_version = None
     disabled = False
+    lovelace_mode = "storage"
 
 
 class Developer:

@@ -87,6 +87,9 @@ async def hacs_startup(hacs):
     hacs.logger.info(STARTUP)
     hacs.system.config_path = hacs.hass.config.path()
     hacs.system.ha_version = HAVERSION
+    hacs.system.lovelace_mode = (
+        hacs.hass.data[DOMAIN].get("lovelace", {}).get("mode", "storage")
+    )
     hacs.system.disabled = False
     hacs.github = AIOGitHub(
         hacs.configuration.token, async_create_clientsession(hacs.hass)

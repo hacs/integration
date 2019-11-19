@@ -16,6 +16,7 @@ class Configuration:
     config_type: str = None
     dev: bool = False
     frontend_mode: str = "Grid"
+    frontend_compact: bool = False
     options: dict = {}
     plugin_path: str = "www/community/"
     python_script_path: str = "python_scripts/"

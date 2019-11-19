@@ -64,7 +64,9 @@ async def async_setup_entry(hass, config_entry):
     config_entry.add_update_listener(reload_hacs)
     startup_result = await hacs_startup(Hacs)
     if not startup_result:
+        Hacs.system.disabled = True
         raise ConfigEntryNotReady
+    Hacs.system.disabled = False
     return startup_result
 
 
@@ -72,6 +74,7 @@ async def startup_wrapper_for_yaml(hacs):
     """Startup wrapper for yaml config."""
     startup_result = await hacs_startup(hacs)
     if not startup_result:
+        hacs.system.disabled = True
         hacs.hass.components.frontend.async_remove_panel(
             hacs.configuration.sidepanel_title.lower()
             .replace(" ", "_")
@@ -79,6 +82,8 @@ async def startup_wrapper_for_yaml(hacs):
         )
         hacs.logger.info("Could not setup HACS, trying again in 15 min")
         async_call_later(hacs.hass, 900, startup_wrapper_for_yaml(hacs))
+        return
+    hacs.system.disabled = False
 
 
 async def hacs_startup(hacs):

@@ -40,6 +40,12 @@ async def hacs_settings(hass, connection, msg):
     elif action == "set_fe_table":
         Hacs().configuration.frontend_mode = "Table"
 
+    elif action == "set_fe_compact_true":
+        Hacs().configuration.frontend_compact = False
+
+    elif action == "set_fe_compact_false":
+        Hacs().configuration.frontend_compact = True
+
     elif action == "reload_data":
         Hacs().system.status.reloading_data = True
         hass.bus.async_fire("hacs/status", {})
@@ -70,6 +76,7 @@ async def hacs_settings(hass, connection, msg):
                     repo.status.new = False
     else:
         Hacs().logger.error(f"WS action '{action}' is not valid")
+    hass.bus.async_fire("hacs/config", {})
     await Hacs().data.async_write()
 
 
@@ -81,6 +88,7 @@ async def hacs_config(hass, connection, msg):
 
     content = {}
     content["frontend_mode"] = config.frontend_mode
+    content["frontend_compact"] = config.frontend_compact
     content["version"] = Hacs().version
     content["dev"] = config.dev
     content["appdaemon"] = config.appdaemon

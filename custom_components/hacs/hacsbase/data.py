@@ -16,14 +16,19 @@ class HacsData(Hacs):
 
     async def async_write(self):
         """Write content to the store files."""
-        if self.system.status.background_task:
+        if self.system.status.background_task or self.system.disabled:
             return
 
         self.logger.debug("Saving data")
 
         # Hacs
         await async_save_to_store(
-            self.hass, "hacs", {"view": self.configuration.frontend_mode}
+            self.hass,
+            "hacs",
+            {
+                "view": self.configuration.frontend_mode,
+                "compact": self.configuration.frontend_compact,
+            },
         )
 
         # Repositories
@@ -68,6 +73,7 @@ class HacsData(Hacs):
 
             # Hacs
             self.configuration.frontend_mode = hacs.get("view", "Grid")
+            self.configuration.frontend_compact = hacs.get("compact", False)
 
             # Repositories
             for entry in repositories:

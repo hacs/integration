@@ -274,9 +274,9 @@ async def hacs_repository_data(hass, connection, msg):
         repository.state = data
 
     elif action == "set_version":
-        repository.state = None
         repository.status.selected_tag = data
         await repository.update_repository()
+        repository.state = None
 
     elif action == "add":
         repository.state = None

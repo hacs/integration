@@ -472,7 +472,11 @@ class HacsRepository(Hacs):
         """Download the content of a directory."""
         try:
             # Get content
-            if self.content.single:
+            if self.releases.releases:
+                for release in self.releases.objects:
+                    if self.status.selected_tag == release.tag_name:
+                        contents = release.assets
+            elif self.content.single:
                 contents = self.content.objects
             else:
                 contents = await self.repository_object.get_contents(

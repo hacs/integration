@@ -413,8 +413,7 @@ class HacsRepository(Hacs):
                     and self.information.full_name != "hacs/integration"
                 ):
                     await self.reload_custom_components()
-                else:
-                    self.pending_restart = True
+                self.pending_restart = True
 
             elif self.information.category == "theme":
                 try:
@@ -483,7 +482,7 @@ class HacsRepository(Hacs):
                 else:
                     contents = await self.repository_object.get_contents(
                         directory_path, self.ref
-                )
+                    )
 
             for content in contents:
                 if content.type == "dir" and (

@@ -189,6 +189,7 @@ class Hacs:
             )
         )
 
+        self.hass.bus.async_fire("hacs/reload", {"force": True})
         await self.recuring_tasks_installed()
 
         self.system.status.startup = False

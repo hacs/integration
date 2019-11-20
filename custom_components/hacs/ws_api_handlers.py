@@ -191,11 +191,11 @@ async def hacs_repository(hass, connection, msg):
         was_installed = repository.status.installed
         await repository.install()
         if not was_installed:
-            hass.bus.async_fire("hacs/reload", {})
+            hass.bus.async_fire("hacs/reload", {"force": False})
 
     elif action == "uninstall":
         await repository.uninstall()
-        hass.bus.async_fire("hacs/reload", {})
+        hass.bus.async_fire("hacs/reload", {"force": False})
 
     elif action == "hide":
         repository.status.hide = True

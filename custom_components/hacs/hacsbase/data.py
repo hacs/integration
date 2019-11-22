@@ -47,6 +47,7 @@ class HacsData(Hacs):
                 "hide": repository.status.hide,
                 "installed_commit": repository.versions.installed_commit,
                 "installed": repository.status.installed,
+                "stars": repository.information.stars,
                 "last_commit": repository.versions.available_commit,
                 "last_release_tag": repository.versions.available,
                 "repository_manifest": repository_manifest,
@@ -78,7 +79,7 @@ class HacsData(Hacs):
             # Repositories
             for entry in repositories:
                 repo = repositories[entry]
-                if repo["full_name"] == "custom-components/hacs":
+                if repo["full_name"] == "hacs/integration":
                     # Skip the old repo location
                     continue
                 if not self.is_known(repo["full_name"]):
@@ -111,6 +112,7 @@ def restore_repository_data(
     repository.information.description = repository_data.get("description")
     repository.information.name = repository_data.get("name")
     repository.information.topics = repository_data.get("topics", [])
+    repository.information.stars = repository_data.get("stars", 0)
     repository.releases.last_release = repository_data.get("last_release_tag")
     repository.status.hide = repository_data.get("hide", False)
     repository.status.installed = repository_data.get("installed", False)

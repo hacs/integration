@@ -62,6 +62,7 @@ class RepositoryInformation:
     homeassistant_version = None
     last_updated = None
     uid = None
+    stars = 0
     info = None
     name = None
     topics = []
@@ -288,6 +289,11 @@ class HacsRepository(Hacs):
 
         # Set repository name
         self.information.name = self.information.full_name.split("/")[1]
+
+        # Set stargazers_count
+        self.information.stars = self.repository_object.attributes.get(
+            "stargazers_count", 0
+        )
 
     async def common_registration(self):
         """Common registration steps of the repository."""

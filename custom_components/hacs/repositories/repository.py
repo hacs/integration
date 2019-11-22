@@ -290,10 +290,6 @@ class HacsRepository(Hacs):
         # Set repository name
         self.information.name = self.information.full_name.split("/")[1]
 
-        # Set stargazers_count
-        self.information.stars = self.repository_object.attributes.get(
-            "stargazers_count", 0
-        )
 
     async def common_registration(self):
         """Common registration steps of the repository."""
@@ -315,6 +311,11 @@ class HacsRepository(Hacs):
         # Set topics
         self.information.topics = self.repository_object.topics
 
+        # Set stargazers_count
+        self.information.stars = self.repository_object.attributes.get(
+            "stargazers_count", 0
+        )
+
         # Set description
         if self.repository_object.description:
             self.information.description = self.repository_object.description
@@ -333,6 +334,11 @@ class HacsRepository(Hacs):
         # Update description
         if self.repository_object.description:
             self.information.description = self.repository_object.description
+
+        # Set stargazers_count
+        self.information.stars = self.repository_object.attributes.get(
+            "stargazers_count", 0
+        )
 
         # Update default branch
         self.information.default_branch = self.repository_object.default_branch

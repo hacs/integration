@@ -24,7 +24,7 @@ async def async_download_file(hass, url):
     if "tags/" in url:
         url = url.replace("tags/", "")
 
-    logger.debug(f"Donwloading {url}")
+    logger.debug(f"Downloading {url}")
 
     result = None
 

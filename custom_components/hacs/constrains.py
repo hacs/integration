@@ -9,6 +9,8 @@ from .helpers.misc import version_is_newer_than_version
 
 def check_constans(hacs):
     """Check HACS constrains."""
+    if not constrain_translations(hacs):
+        return False
     if not constrain_custom_updater(hacs):
         return False
     if not constrain_version(hacs):
@@ -44,3 +46,15 @@ def constrain_version(hacs):
         )
         return False
     return True
+
+
+def constrain_translations(hacs):
+    """Check if traslations exist."""
+    if not os.path.exists(
+        f"{hacs.system.config_path}/custom_components/hacs/.translations"
+    ):
+        hacs.logger.critical("You are missing the translations directory.")
+        return False
+
+    return True
+

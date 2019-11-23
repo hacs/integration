@@ -103,7 +103,7 @@ async def hacs_startup(hacs):
     hacs.data = HacsData()
 
     # Check HACS Constrains
-    if not check_constans(hacs):
+    if not await hacs.hass.async_add_executor_job(check_constans, hacs):
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)

@@ -14,6 +14,7 @@ class Configuration:
     config: dict = {}
     config_entry: dict = {}
     config_type: str = None
+    debug: bool = False
     dev: bool = False
     frontend_mode: str = "Grid"
     frontend_compact: bool = False

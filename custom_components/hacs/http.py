@@ -2,7 +2,7 @@
 import os
 from homeassistant.components.http import HomeAssistantView
 from aiohttp import web
-from hacs_frontend import locate_gz
+from hacs_frontend import locate_gz, locate_debug_gz
 
 from .hacsbase import Hacs
 
@@ -16,7 +16,11 @@ class HacsFrontend(HomeAssistantView, Hacs):
 
     async def get(self, request, requested_file):  # pylint: disable=unused-argument
         """Handle HACS Web requests."""
-        servefile = await self.hass.async_add_executor_job(locate_gz)
+        if self.configuration.debug:
+            servefile = await self.hass.async_add_executor_job(locate_debug_gz)
+            self.logger.debug("Serving DEBUG frontend")
+        else:
+            servefile = await self.hass.async_add_executor_job(locate_gz)
 
         if os.path.exists(servefile):
             return web.FileResponse(servefile)

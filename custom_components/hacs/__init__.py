@@ -10,7 +10,7 @@ from homeassistant import config_entries
 from homeassistant.const import EVENT_HOMEASSISTANT_START
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.components.lovelace import system_health_info
-from homeassistant.exceptions import ConfigEntryNotReady
+from homeassistant.exceptions import ConfigEntryNotReady, ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 
@@ -88,6 +88,16 @@ async def startup_wrapper_for_yaml(hacs):
 
 async def hacs_startup(hacs):
     """HACS startup tasks."""
+    if hacs.configuration.debug:
+        try:
+            await hacs.hass.services.async_call(
+                "logger", "set_level", {"hacs": "debug"}
+            )
+        except ServiceNotFound:
+            hacs.logger.error(
+                "Could not set logging level to debug, logger is not enabled"
+            )
+
     lovelace_info = await system_health_info(hacs.hass)
     hacs.logger.debug(f"Configuration type: {hacs.configuration.config_type}")
     hacs.version = VERSION

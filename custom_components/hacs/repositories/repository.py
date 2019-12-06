@@ -290,7 +290,6 @@ class HacsRepository(Hacs):
         # Set repository name
         self.information.name = self.information.full_name.split("/")[1]
 
-
     async def common_registration(self):
         """Common registration steps of the repository."""
         # Attach logger
@@ -573,30 +572,19 @@ class HacsRepository(Hacs):
             for file in root:
                 if file.name.lower() in info_files:
 
-                    info = await self.repository_object.get_rendered_contents(
+                    info = await self.repository_object.get_contents(
                         file.name, self.ref
                     )
                     break
             if info is None:
                 self.information.additional_info = ""
             else:
-                info = info.replace("&lt;", "<")
-                info = info.replace("<svg", "<disabled").replace("</svg", "</disabled")
-                info = info.replace("<h3>", "<h6>").replace("</h3>", "</h6>")
-                info = info.replace("<h2>", "<h5>").replace("</h2>", "</h5>")
-                info = info.replace("<h1>", "<h4>").replace("</h1>", "</h4>")
-                info = info.replace("<code>", "<code class='codeinfo'>")
+                info = info.content.replace("<svg", "<disabled").replace(
+                    "</svg", "</disabled"
+                )
                 info = info.replace(
                     '<a href="http', '<a rel="noreferrer" target="_blank" href="http'
                 )
-                info = info.replace("<li>", "<li style='list-style-type: initial;'>")
-
-                # Special changes that needs to be done:
-                info = info.replace(
-                    "<your", "<&#8205;your"
-                )  # for thomasloven/hass-favicon
-
-                info += "</br>"
 
                 self.information.additional_info = render_template(info, self)
 

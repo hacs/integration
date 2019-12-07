@@ -269,7 +269,7 @@ async def hacs_repository_data(hass, connection, msg):
         hass.bus.async_fire("hacs/repository", {})
         return
 
-    Hacs().logger.info(f"Running {action} for {repository.information.full_name}")
+    Hacs().logger.debug(f"Running {action} for {repository.information.full_name}")
 
     if action == "set_state":
         repository.state = data

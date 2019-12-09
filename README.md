@@ -7,7 +7,7 @@
 
 _Manage (Install, track, upgrade) and discover custom elements for Home Assistant directly from the UI._
 
-![gif](https://hacs.xyz/img/hacsdemo.gif)
+![gif](https://raw.githubusercontent.com/hacs/documentation/master/static/img/demo.gif)
 
 ## What?
 

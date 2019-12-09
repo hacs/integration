@@ -1,4 +1,4 @@
-![gif](https://hacs.xyz/img/hacsdemo.gif)
+![gif](https://raw.githubusercontent.com/hacs/documentation/master/static/img/demo.gif)
 
 ## Useful links
 

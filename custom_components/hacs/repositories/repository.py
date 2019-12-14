@@ -162,7 +162,7 @@ class HacsRepository(Hacs):
 
         if target is not None:
             if self.releases.releases:
-                if version_is_newer_than_version(target, self.system.ha_version):
+                if not version_is_newer_than_version(target, self.system.ha_version):
                     return False
         return True
 

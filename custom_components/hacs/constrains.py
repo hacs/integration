@@ -40,7 +40,7 @@ def constrain_version(hacs):
     # Check if HA is the required version.
     installed = hacs.system.ha_version
     minimum = manifest["homeassistant"]
-    if not version_is_newer_than_version(installed, minimum):
+    if not version_is_newer_than_version(minimum, installed):
         hacs.logger.critical(
             f"You need HA version {manifest['homeassistant']} or newer to use this integration."
         )

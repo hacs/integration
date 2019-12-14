@@ -24,4 +24,4 @@ def version_is_newer_than_version(new: str, old: str) -> bool:
         return False
     if new == old:
         return True
-    return semantic_version.Version.coerce(new) > semantic_version.Version.coerce(old)
+    return semantic_version.Version.coerce(new) < semantic_version.Version.coerce(old)

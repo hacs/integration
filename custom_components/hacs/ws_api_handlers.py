@@ -260,6 +260,11 @@ async def hacs_repository_data(hass, connection, msg):
             if result is not None:
                 result = {"message": str(result), "action": "add_repository"}
                 hass.bus.async_fire("hacs/error", result)
+        else:
+            hass.bus.async_fire(
+                "hacs/error",
+                {"message": f"Repository '{repo_id}' exsist in the store."},
+            )
 
         repository = Hacs().get_by_name(repo_id)
     else:

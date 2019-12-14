@@ -4,7 +4,7 @@ import os
 import json
 
 from .const import CUSTOM_UPDATER_LOCATIONS, CUSTOM_UPDATER_WARNING
-from .helpers.misc import version_is_newer_than_version
+from .helpers.misc import version_left_higher_then_right
 
 
 def check_constans(hacs):
@@ -40,7 +40,7 @@ def constrain_version(hacs):
     # Check if HA is the required version.
     installed = hacs.system.ha_version
     minimum = manifest["homeassistant"]
-    if not version_is_newer_than_version(minimum, installed):
+    if not version_left_higher_then_right(installed, minimum):
         hacs.logger.critical(
             f"You need HA version {manifest['homeassistant']} or newer to use this integration."
         )

@@ -31,6 +31,9 @@ def test_hacs_repository_core_can_install_legacy():
     repository.information.homeassistant_version = "1.1.0"
     assert not repository.can_install
 
+    repository.information.homeassistant_version = "1.0.0"
+    assert repository.can_install
+
     repository.information.homeassistant_version = "0.1.0"
     assert repository.can_install
 
@@ -42,6 +45,9 @@ def test_hacs_repository_core_can_install_manifest():
 
     repository.repository_manifest.homeassistant = "1.1.0"
     assert not repository.can_install
+
+    repository.repository_manifest.homeassistant = "1.0.0"
+    assert repository.can_install
 
     repository.repository_manifest.homeassistant = "0.1.0"
     assert repository.can_install

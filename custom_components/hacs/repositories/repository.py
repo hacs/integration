@@ -12,7 +12,7 @@ from ..helpers.misc import get_repository_name
 from ..hacsbase import Hacs
 from ..hacsbase.backup import Backup
 from ..handler.download import async_download_file, async_save_file
-from ..helpers.misc import version_is_newer_than_version
+from ..helpers.misc import version_left_higher_then_right
 
 
 RERPOSITORY_CLASSES = {}
@@ -162,7 +162,7 @@ class HacsRepository(Hacs):
 
         if target is not None:
             if self.releases.releases:
-                if not version_is_newer_than_version(target, self.system.ha_version):
+                if not version_left_higher_then_right(self.system.ha_version, target):
                     return False
         return True
 

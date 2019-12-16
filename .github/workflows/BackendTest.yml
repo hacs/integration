@@ -26,7 +26,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        apt-get install -y python-dev pkg-config libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libswscale-dev libavresample-dev libavfilter-dev
+        sudo apt update
+        sudo apt install -y python-dev pkg-config libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libswscale-dev libavresample-dev libavfilter-dev
         python -m pip install --upgrade pip setuptools wheel colorlog==4.0.2
 
     - name: Install dependencies for custom_components

@@ -71,6 +71,7 @@ class HacsTheme(HacsRepository):
             self.content.files.append(filename.name)
 
         # Update name
+        self.information.file_name = self.content.objects[0].name
         self.information.name = self.content.objects[0].name.replace(".yaml", "")
 
         self.content.files = []

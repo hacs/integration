@@ -3,6 +3,7 @@
 from aiogithubapi import AIOGitHubAuthentication, AIOGitHubException, AIOGitHubRatelimit
 
 from homeassistant.helpers import discovery
+from hacs_frontend.version import VERSION as FE_VERSION
 
 from .const import VERSION, DOMAIN
 from .http import HacsPluginView, HacsFrontend
@@ -62,7 +63,7 @@ async def setup_frontend(hacs):
         "name": "hacs-frontend",
         "embed_iframe": False,
         "trust_external": False,
-        "js_url": f"/hacs_frontend/main.js?v={hacs.version}",
+        "js_url": f"/hacs_frontend/main_{FE_VERSION}.js",
     }
 
     config = {}

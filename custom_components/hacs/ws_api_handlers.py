@@ -2,6 +2,7 @@
 # pylint: disable=unused-argument
 import os
 import voluptuous as vol
+from aiogithubapi import AIOGitHubException
 from homeassistant.components import websocket_api
 import homeassistant.helpers.config_validation as cv
 from .hacsbase import Hacs
@@ -174,60 +175,69 @@ async def hacs_repositories(hass, connection, msg):
 )
 async def hacs_repository(hass, connection, msg):
     """Handle get media player cover command."""
-    repo_id = msg.get("repository")
-    action = msg.get("action")
+    try:
+        repo_id = msg.get("repository")
+        action = msg.get("action")
 
-    if repo_id is None or action is None:
-        return
+        if repo_id is None or action is None:
+            return
 
-    repository = Hacs().get_by_id(repo_id)
-    Hacs().logger.info(f"Running {action} for {repository.information.full_name}")
+        repository = Hacs().get_by_id(repo_id)
+        Hacs().logger.info(f"Running {action} for {repository.information.full_name}")
 
-    if action == "update":
-        await repository.update_repository()
-        repository.status.updated_info = True
-        repository.status.new = False
+        if action == "update":
+            await repository.update_repository()
+            repository.status.updated_info = True
+            repository.status.new = False
 
-    elif action == "install":
-        was_installed = repository.status.installed
-        await repository.install()
-        if not was_installed:
+        elif action == "install":
+            was_installed = repository.status.installed
+            await repository.install()
+            if not was_installed:
+                hass.bus.async_fire("hacs/reload", {"force": False})
+
+        elif action == "uninstall":
+            await repository.uninstall()
             hass.bus.async_fire("hacs/reload", {"force": False})
 
-    elif action == "uninstall":
-        await repository.uninstall()
-        hass.bus.async_fire("hacs/reload", {"force": False})
+        elif action == "hide":
+            repository.status.hide = True
 
-    elif action == "hide":
-        repository.status.hide = True
+        elif action == "unhide":
+            repository.status.hide = False
 
-    elif action == "unhide":
-        repository.status.hide = False
+        elif action == "show_beta":
+            repository.status.show_beta = True
+            await repository.update_repository()
 
-    elif action == "show_beta":
-        repository.status.show_beta = True
-        await repository.update_repository()
+        elif action == "hide_beta":
+            repository.status.show_beta = False
+            await repository.update_repository()
 
-    elif action == "hide_beta":
-        repository.status.show_beta = False
-        await repository.update_repository()
+        elif action == "delete":
+            repository.status.show_beta = False
+            repository.remove()
 
-    elif action == "delete":
-        repository.status.show_beta = False
-        repository.remove()
+        elif action == "set_version":
+            if msg["version"] == repository.information.default_branch:
+                repository.status.selected_tag = None
+            else:
+                repository.status.selected_tag = msg["version"]
+            await repository.update_repository()
 
-    elif action == "set_version":
-        if msg["version"] == repository.information.default_branch:
-            repository.status.selected_tag = None
         else:
-            repository.status.selected_tag = msg["version"]
-        await repository.update_repository()
+            Hacs().logger.error(f"WS action '{action}' is not valid")
 
-    else:
-        Hacs().logger.error(f"WS action '{action}' is not valid")
-
-    repository.state = None
-    await Hacs().data.async_write()
+        repository.state = None
+        await Hacs().data.async_write()
+    except AIOGitHubException as exception:
+        hass.bus.async_fire("hacs/error", {"message": exception})
+    except AttributeError as exception:
+        hass.bus.async_fire(
+            "hacs/error", {"message": f"Could not use repository with ID {repo_id}"}
+        )
+    except Exception as exception:  # pylint: disable=broad-except
+        hass.bus.async_fire("hacs/error", {"message": exception})
 
 
 @websocket_api.async_response

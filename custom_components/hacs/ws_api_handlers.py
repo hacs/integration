@@ -38,6 +38,9 @@ async def hacs_settings(hass, connection, msg):
     if action == "set_fe_grid":
         Hacs().configuration.frontend_mode = "Grid"
 
+    elif action == "onboarding_done":
+        Hacs().configuration.onboarding_done = True
+
     elif action == "set_fe_table":
         Hacs().configuration.frontend_mode = "Table"
 

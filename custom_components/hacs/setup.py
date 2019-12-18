@@ -34,6 +34,15 @@ async def load_hacs_repository(hacs):
     return True
 
 
+def setup_extra_stores(hacs):
+    """Set up extra stores in HACS if enabled in Home Assistant."""
+    if "python_script" in hacs.hass.config.components:
+        hacs.common.categories.append("python_script")
+
+    if hacs.hass.services.services.get("frontend", {}).get("reload_themes") is not None:
+        hacs.common.categories.append("theme")
+
+
 def add_sensor(hacs):
     """Add sensor."""
     try:

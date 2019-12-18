@@ -280,7 +280,10 @@ class Hacs:
         self.logger.debug(self.github.ratelimits.remaining)
         self.logger.debug(self.github.ratelimits.reset_utc)
         for repository in self.repositories:
-            if repository.status.installed:
+            if (
+                repository.status.installed
+                and repository.category in self.common.categories
+            ):
                 try:
                     await repository.update_repository()
                     repository.logger.debug("Information update done.")
@@ -306,15 +309,18 @@ class Hacs:
         self.logger.debug(self.github.ratelimits.remaining)
         self.logger.debug(self.github.ratelimits.reset_utc)
         for repository in self.repositories:
-            try:
-                await repository.update_repository()
-                repository.logger.debug("Information update done.")
-            except AIOGitHubException:
-                self.system.status.background_task = False
-                self.hass.bus.async_fire("hacs/status", {})
-                await self.data.async_write()
-                self.logger.debug("Recuring background task for all repositories done")
-                return
+            if repository.category in self.common.categories:
+                try:
+                    await repository.update_repository()
+                    repository.logger.debug("Information update done.")
+                except AIOGitHubException:
+                    self.system.status.background_task = False
+                    self.hass.bus.async_fire("hacs/status", {})
+                    await self.data.async_write()
+                    self.logger.debug(
+                        "Recuring background task for all repositories done"
+                    )
+                    return
         await self.load_known_repositories()
         await self.clear_out_blacklisted_repositories()
         self.system.status.background_task = False

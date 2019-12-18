@@ -51,9 +51,12 @@ async def hacs_settings(hass, connection, msg):
         Hacs().configuration.frontend_compact = True
 
     elif action == "reload_data":
+        Hacs().system.status.background_task = True
         Hacs().system.status.reloading_data = True
         hass.bus.async_fire("hacs/status", {})
-        await Hacs().recuring_tasks_all()
+        await Hacs().load_known_repositories()
+        await Hacs().clear_out_blacklisted_repositories()
+        Hacs().system.status.background_task = False
         Hacs().system.status.reloading_data = False
         hass.bus.async_fire("hacs/status", {})
 

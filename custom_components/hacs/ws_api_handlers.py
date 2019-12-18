@@ -90,6 +90,7 @@ async def hacs_config(hass, connection, msg):
     content = {}
     content["frontend_mode"] = config.frontend_mode
     content["frontend_compact"] = config.frontend_compact
+    content["onboarding_done"] = config.onboarding_done
     content["version"] = Hacs().version
     content["dev"] = config.dev
     content["country"] = config.country

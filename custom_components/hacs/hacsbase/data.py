@@ -28,6 +28,7 @@ class HacsData(Hacs):
             {
                 "view": self.configuration.frontend_mode,
                 "compact": self.configuration.frontend_compact,
+                "onboarding_done": self.configuration.onboarding_done,
             },
         )
 
@@ -76,6 +77,7 @@ class HacsData(Hacs):
             # Hacs
             self.configuration.frontend_mode = hacs.get("view", "Grid")
             self.configuration.frontend_compact = hacs.get("compact", False)
+            self.configuration.onboarding_done = hacs.get("onboarding_done", False)
 
             # Repositories
             for entry in repositories:

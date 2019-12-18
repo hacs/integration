@@ -375,7 +375,7 @@ class HacsRepository(Hacs):
                 ):
                     persistent_directory = Backup(
                         f"{self.content.path.local}/{self.repository_manifest.persistent_directory}",
-                        tempfile.TemporaryFile() + "/hacs_persistent_directory/",
+                        tempfile.gettempdir() + "/hacs_persistent_directory/",
                     )
                     persistent_directory.create()
 

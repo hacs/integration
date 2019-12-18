@@ -18,7 +18,7 @@ from ..helpers.get_defaults import get_default_repos_lists, get_default_repos_or
 class HacsStatus:
     """HacsStatus."""
 
-    startup = False
+    startup = True
     new = False
     background_task = False
     reloading_data = False

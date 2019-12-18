@@ -330,7 +330,7 @@ class Hacs:
             if self.is_known(repository):
                 repository = self.get_by_name(repository)
                 if repository.status.installed:
-                    self.logger.error(
+                    self.logger.warning(
                         f"You have {repository.information.full_name} installed with HACS "
                         + "this repository has been blacklisted, please consider removing it."
                     )

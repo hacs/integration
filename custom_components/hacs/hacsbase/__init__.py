@@ -19,6 +19,7 @@ class HacsStatus:
     """HacsStatus."""
 
     startup = False
+    new = False
     background_task = False
     reloading_data = False
     upgrading_all = False
@@ -39,7 +40,6 @@ class System:
 
     status = HacsStatus()
     config_path = None
-    new = False
     ha_version = None
     disabled = False
     lovelace_mode = "storage"
@@ -141,7 +141,7 @@ class Hacs:
         if check:
             try:
                 await repository.registration()
-                if self.system.new:
+                if self.system.status.new:
                     repository.status.new = False
                 if repository.validate.errors:
                     self.common.skip.append(repository.information.full_name)
@@ -196,6 +196,7 @@ class Hacs:
         await self.recuring_tasks_installed()
 
         self.system.status.startup = False
+        self.system.status.new = False
         self.system.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
         await self.data.async_write()

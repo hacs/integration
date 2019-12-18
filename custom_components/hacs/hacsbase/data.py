@@ -69,7 +69,7 @@ class HacsData(Hacs):
         try:
             if not hacs and not repositories:
                 # Assume new install
-                self.system.new = True
+                self.system.status.new = True
                 return True
             self.logger.info("Restore started")
 

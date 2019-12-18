@@ -121,7 +121,7 @@ async def hacs_repositories(hass, connection, msg):
     repositories = Hacs().repositories
     content = []
     for repo in repositories:
-        if repo.category in Hacs().common.categories:
+        if repo.information.category in Hacs().common.categories:
             data = {
                 "additional_info": repo.information.additional_info,
                 "authors": repo.information.authors,
@@ -158,7 +158,7 @@ async def hacs_repositories(hass, connection, msg):
                 "version_or_commit": repo.display_version_or_commit,
             }
 
-        content.append(data)
+            content.append(data)
 
     connection.send_message(websocket_api.result_message(msg["id"], content))
 

@@ -92,9 +92,6 @@ async def hacs_config(hass, connection, msg):
     content["frontend_compact"] = config.frontend_compact
     content["version"] = Hacs().version
     content["dev"] = config.dev
-    content["appdaemon"] = config.appdaemon
-    content["python_script"] = config.python_script
-    content["theme"] = config.theme
     content["country"] = config.country
     content["experimental"] = config.experimental
     content["categories"] = Hacs().common.categories
@@ -124,43 +121,44 @@ async def hacs_repositories(hass, connection, msg):
     repositories = Hacs().repositories
     content = []
     for repo in repositories:
-        data = {
-            "additional_info": repo.information.additional_info,
-            "authors": repo.information.authors,
-            "available_version": repo.display_available_version,
-            "beta": repo.status.show_beta,
-            "can_install": repo.can_install,
-            "category": repo.information.category,
-            "custom": repo.custom,
-            "default_branch": repo.information.default_branch,
-            "description": repo.information.description,
-            "domain": repo.manifest.get("domain"),
-            "file_name": repo.information.file_name,
-            "full_name": repo.information.full_name,
-            "hide": repo.status.hide,
-            "homeassistant": repo.repository_manifest.homeassistant,
-            "id": repo.information.uid,
-            "info": repo.information.info,
-            "installed_version": repo.display_installed_version,
-            "installed": repo.status.installed,
-            "javascript_type": repo.information.javascript_type,
-            "local_path": repo.content.path.local,
-            "main_action": repo.main_action,
-            "name": repo.display_name,
-            "new": repo.status.new,
-            "pending_upgrade": repo.pending_upgrade,
-            "releases": repo.releases.published_tags,
-            "selected_tag": repo.status.selected_tag,
-            "stars": repo.information.stars,
-            "state": repo.state,
-            "status_description": repo.display_status_description,
-            "status": repo.display_status,
-            "topics": repo.information.topics,
-            "updated_info": repo.status.updated_info,
-            "version_or_commit": repo.display_version_or_commit,
-        }
+        if repo.information.category in Hacs().common.categories:
+            data = {
+                "additional_info": repo.information.additional_info,
+                "authors": repo.information.authors,
+                "available_version": repo.display_available_version,
+                "beta": repo.status.show_beta,
+                "can_install": repo.can_install,
+                "category": repo.information.category,
+                "custom": repo.custom,
+                "default_branch": repo.information.default_branch,
+                "description": repo.information.description,
+                "domain": repo.manifest.get("domain"),
+                "file_name": repo.information.file_name,
+                "full_name": repo.information.full_name,
+                "hide": repo.status.hide,
+                "homeassistant": repo.repository_manifest.homeassistant,
+                "id": repo.information.uid,
+                "info": repo.information.info,
+                "installed_version": repo.display_installed_version,
+                "installed": repo.status.installed,
+                "javascript_type": repo.information.javascript_type,
+                "local_path": repo.content.path.local,
+                "main_action": repo.main_action,
+                "name": repo.display_name,
+                "new": repo.status.new,
+                "pending_upgrade": repo.pending_upgrade,
+                "releases": repo.releases.published_tags,
+                "selected_tag": repo.status.selected_tag,
+                "stars": repo.information.stars,
+                "state": repo.state,
+                "status_description": repo.display_status_description,
+                "status": repo.display_status,
+                "topics": repo.information.topics,
+                "updated_info": repo.status.updated_info,
+                "version_or_commit": repo.display_version_or_commit,
+            }
 
-        content.append(data)
+            content.append(data)
 
     connection.send_message(websocket_api.result_message(msg["id"], content))
 

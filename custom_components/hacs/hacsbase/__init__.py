@@ -312,7 +312,7 @@ class Hacs:
         for repository in self.repositories:
             if repository.category in self.common.categories:
                 try:
-                    await repository.update_repository()
+                    await repository.common_update()
                     repository.logger.debug("Information update done.")
                 except AIOGitHubException:
                     self.system.status.background_task = False

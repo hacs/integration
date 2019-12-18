@@ -346,15 +346,18 @@ class HacsRepository(Hacs):
         # Update default branch
         self.information.default_branch = self.repository_object.default_branch
 
-        # Update last available commit
-        await self.repository_object.set_last_commit()
-        self.versions.available_commit = self.repository_object.last_commit
-
         # Update last updaeted
         self.information.last_updated = self.repository_object.pushed_at
 
         # Update topics
         self.information.topics = self.repository_object.topics
+
+        # Update last available commit
+        await self.repository_object.set_last_commit()
+        if self.versions.available_commit == self.repository_object.last_commit:
+            return
+
+        self.versions.available_commit = self.repository_object.last_commit
 
         # Get the content of hacs.json
         await self.get_repository_manifest_content()

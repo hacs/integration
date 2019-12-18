@@ -118,9 +118,13 @@ class HacsRepository(Hacs):
     def pending_upgrade(self):
         """Return pending upgrade."""
         if self.status.installed:
+            if self.status.selected_tag is not None:
+                if self.status.selected_tag == self.information.default_branch:
+                    if self.versions.installed_commit != self.versions.available_commit:
+                        return True
+                    return False
             if self.display_installed_version != self.display_available_version:
                 return True
-
         return False
 
     @property

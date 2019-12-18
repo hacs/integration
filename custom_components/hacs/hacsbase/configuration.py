@@ -19,6 +19,7 @@ class Configuration:
     frontend_mode: str = "Grid"
     frontend_compact: bool = False
     options: dict = {}
+    onboarding_done: bool = False
     plugin_path: str = "www/community/"
     python_script_path: str = "python_scripts/"
     python_script: bool = False

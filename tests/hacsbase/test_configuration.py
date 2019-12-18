@@ -26,6 +26,9 @@ def test_configuration_and_option():
     assert isinstance(config.python_script, bool)
     assert not config.python_script
 
+    assert isinstance(config.onboarding_done, bool)
+    assert not config.onboarding_done
+
     assert isinstance(config.theme, bool)
     assert not config.theme
 

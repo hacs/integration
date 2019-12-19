@@ -331,6 +331,8 @@ class HacsRepository(Hacs):
                 f"hacs.repository.{self.information.category}.{self.information.full_name}"
             )
 
+        self.logger.debug("Getting repository information")
+
         # Attach repository
         self.repository_object = await self.github.get_repo(self.information.full_name)
 

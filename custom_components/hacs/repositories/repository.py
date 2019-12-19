@@ -356,9 +356,6 @@ class HacsRepository(Hacs):
 
         # Update last available commit
         await self.repository_object.set_last_commit()
-        if self.versions.available_commit == self.repository_object.last_commit:
-            return
-
         self.versions.available_commit = self.repository_object.last_commit
 
         # Get the content of hacs.json

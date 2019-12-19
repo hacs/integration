@@ -50,6 +50,7 @@ class HacsData(Hacs):
                 "installed": repository.status.installed,
                 "stars": repository.information.stars,
                 "last_commit": repository.versions.available_commit,
+                "last_updated": repository.information.last_updated,
                 "last_release_tag": repository.versions.available,
                 "repository_manifest": repository_manifest,
                 "name": repository.information.name,
@@ -114,6 +115,7 @@ def restore_repository_data(
     repository.information.authors = repository_data.get("authors", [])
     repository.information.description = repository_data.get("description")
     repository.information.name = repository_data.get("name")
+    repository.information.last_updated = repository_data.get("last_updated")
     repository.information.topics = repository_data.get("topics", [])
     repository.information.stars = repository_data.get("stars", 0)
     repository.releases.last_release = repository_data.get("last_release_tag")

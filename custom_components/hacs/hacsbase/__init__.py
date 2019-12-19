@@ -4,14 +4,12 @@ import json
 import uuid
 from datetime import timedelta
 
-import asyncio
-
 from homeassistant.helpers.event import async_call_later, async_track_time_interval
 
 from aiogithubapi import AIOGitHubException, AIOGitHubRatelimit
 from integrationhelper import Logger
 
-from .safe import safe_common_update, safe_register, safe_update
+from .task_factory import HacsTaskFactory
 
 from ..const import ELEMENT_TYPES
 from ..store import async_load_from_store, async_save_to_store
@@ -81,6 +79,7 @@ class Hacs:
     github = None
     hass = None
     version = None
+    factory = HacsTaskFactory()
     system = System()
     recuring_tasks = []
     common = HacsCommon()
@@ -284,15 +283,14 @@ class Hacs:
         self.hass.bus.async_fire("hacs/status", {})
         self.logger.debug(self.github.ratelimits.remaining)
         self.logger.debug(self.github.ratelimits.reset_utc)
-        tasks = []
         for repository in self.repositories:
             if (
                 repository.status.installed
                 and repository.category in self.common.categories
             ):
-                tasks.append(safe_update(repository))
+                self.factory.tasks.append(self.factory.safe_update(repository))
 
-        await asyncio.gather(*tasks)
+        await self.factory.execute()
         await self.handle_critical_repositories()
         self.system.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
@@ -306,12 +304,11 @@ class Hacs:
         self.hass.bus.async_fire("hacs/status", {})
         self.logger.debug(self.github.ratelimits.remaining)
         self.logger.debug(self.github.ratelimits.reset_utc)
-        tasks = []
         for repository in self.repositories:
             if repository.category in self.common.categories:
-                tasks.append(safe_common_update(repository))
+                self.factory.tasks.append(self.factory.safe_common_update(repository))
 
-        await asyncio.gather(*tasks)
+        await self.factory.execute()
         await self.load_known_repositories()
         await self.clear_out_blacklisted_repositories()
         self.system.status.background_task = False
@@ -358,7 +355,6 @@ class Hacs:
     async def load_known_repositories(self):
         """Load known repositories."""
         self.logger.info("Loading known repositories")
-        tasks = []
         repositories = await self.get_repositories()
 
         for item in await get_default_repos_lists(self.github, "blacklist"):
@@ -371,7 +367,7 @@ class Hacs:
                     continue
                 if self.is_known(repo):
                     continue
-                tasks.append(
-                        safe_register(self, repo, category)
-                    )
-        await asyncio.gather(*tasks)
+                self.factory.tasks.append(
+                    self.factory.safe_register(self, repo, category)
+                )
+        await self.factory.execute()

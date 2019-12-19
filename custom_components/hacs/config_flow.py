@@ -71,8 +71,8 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             client = AIOGitHub(token, session)
             await client.get_repo("hacs/org")
             return True
-        except (AIOGitHubException, AIOGitHubAuthentication):
-            pass
+        except (AIOGitHubException, AIOGitHubAuthentication) as exception:
+            _LOGGER.error(exception)
         return False
 
 

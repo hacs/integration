@@ -44,6 +44,7 @@ class HacsData(Hacs):
                 "topics": repository.information.topics,
                 "category": repository.information.category,
                 "description": repository.information.description,
+                "downloads": repository.releases.last_release_object_downloads,
                 "full_name": repository.information.full_name,
                 "hide": repository.status.hide,
                 "installed_commit": repository.versions.installed_commit,
@@ -115,6 +116,7 @@ def restore_repository_data(
     repository.information.authors = repository_data.get("authors", [])
     repository.information.description = repository_data.get("description")
     repository.information.name = repository_data.get("name")
+    repository.releases.last_release_object_downloads = repository_data.get("downloads")
     repository.information.last_updated = repository_data.get("last_updated")
     repository.information.topics = repository_data.get("topics", [])
     repository.information.stars = repository_data.get("stars", 0)

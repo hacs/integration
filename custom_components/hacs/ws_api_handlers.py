@@ -137,6 +137,7 @@ async def hacs_repositories(hass, connection, msg):
                 "default_branch": repo.information.default_branch,
                 "description": repo.information.description,
                 "domain": repo.manifest.get("domain"),
+                "downloads": repo.releases.last_release_object_downloads,
                 "file_name": repo.information.file_name,
                 "full_name": repo.information.full_name,
                 "hide": repo.status.hide,

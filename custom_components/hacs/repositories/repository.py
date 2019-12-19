@@ -73,6 +73,7 @@ class RepositoryReleases:
 
     last_release = None
     last_release_object = None
+    last_release_object_downloads = None
     published_tags = []
     objects = []
     releases = False
@@ -625,6 +626,12 @@ class HacsRepository(Hacs):
                     if release.tag_name == self.status.selected_tag:
                         self.releases.last_release_object = release
                         break
+        if self.releases.last_release_object.assets:
+            self.releases.last_release_object_downloads = self.releases.last_release_object.assets[
+                0
+            ].attributes.get(
+                "download_count"
+            )
         self.versions.available = self.releases.objects[0].tag_name
 
     def remove(self):

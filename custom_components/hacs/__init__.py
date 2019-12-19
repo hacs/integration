@@ -174,7 +174,7 @@ async def async_remove_entry(hass, config_entry):
     """Handle removal of an entry."""
     Hacs().logger.info("Disabling HACS")
     Hacs().logger.info("Removing recuring tasks")
-    for task in Hacs().tasks:
+    for task in Hacs().recuring_tasks:
         task()
     Hacs().logger.info("Removing sensor")
     try:

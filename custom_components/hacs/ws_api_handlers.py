@@ -185,7 +185,7 @@ async def hacs_repository(hass, connection, msg):
             return
 
         repository = Hacs().get_by_id(repo_id)
-        Hacs().logger.info(f"Running {action} for {repository.information.full_name}")
+        Hacs().logger.debug(f"Running {action} for {repository.information.full_name}")
 
         if action == "update":
             await repository.update_repository()

@@ -41,7 +41,6 @@ class HacsData(Hacs):
                 repository_manifest = None
             content[repository.information.uid] = {
                 "authors": repository.information.authors,
-                "topics": repository.information.topics,
                 "category": repository.information.category,
                 "description": repository.information.description,
                 "downloads": repository.releases.last_release_object_downloads,
@@ -49,15 +48,16 @@ class HacsData(Hacs):
                 "hide": repository.status.hide,
                 "installed_commit": repository.versions.installed_commit,
                 "installed": repository.status.installed,
-                "stars": repository.information.stars,
                 "last_commit": repository.versions.available_commit,
-                "last_updated": repository.information.last_updated,
                 "last_release_tag": repository.versions.available,
-                "repository_manifest": repository_manifest,
+                "last_updated": repository.information.last_updated,
                 "name": repository.information.name,
                 "new": repository.status.new,
+                "repository_manifest": repository_manifest,
                 "selected_tag": repository.status.selected_tag,
                 "show_beta": repository.status.show_beta,
+                "stars": repository.information.stars,
+                "topics": repository.information.topics,
                 "version_installed": repository.versions.installed,
             }
 

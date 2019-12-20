@@ -19,6 +19,7 @@ class HacsManifest:
     filename: str = None
     manifest: dict = {}
     hacs: str = None
+    hide_default_branch: bool = False
     domains: List[str] = []
     country: List[str] = []
     homeassistant: str = None

@@ -43,6 +43,9 @@ def test_manifest_structure():
     assert isinstance(manifest.hacs, (str, type(None)))
     assert not manifest.hacs
 
+    assert isinstance(manifest.hide_default_branch, bool)
+    assert not manifest.hide_default_branch
+
 
 def test_edge_pass_none():
     with pytest.raises(HacsRepositoryInfo):

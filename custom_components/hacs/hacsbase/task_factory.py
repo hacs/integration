@@ -22,12 +22,12 @@ class HacsTaskFactory:
         logger.info("Prosessing %s tasks", len(self.tasks))
         start = time.time()
         await asyncio.gather(*self.tasks)
-        self.tasks = []
         logger.info(
             "Task prosessing of %s tasks completed in %s seconds",
             len(self.tasks),
             timedelta(seconds=round(time.time() - start)).seconds,
         )
+        self.tasks = []
 
     async def safe_common_update(self, repository):
         async with max_concurrent_tasks:

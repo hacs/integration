@@ -350,7 +350,9 @@ class HacsRepository(Hacs):
         self.information.default_branch = self.repository_object.default_branch
 
         # Update last updaeted
-        self.information.last_updated = self.repository_object.pushed_at
+        self.information.last_updated = self.repository_object.attributes.get(
+            "pushed_at", 0
+        )
 
         # Update topics
         self.information.topics = self.repository_object.topics

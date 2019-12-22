@@ -7,7 +7,7 @@ First upgrade to version 0.16.3, then upgrade to the latest version.
 
 - [General documentation](https://hacs.xyz/)
 - [Configuration](https://hacs.xyz/docs/configuration/start)
-- [FAQ](https://hacs.xyz/docs/faq)
+- [FAQ](https://hacs.xyz/docs/faq/what)
 - [GitHub](https://github.com/hacs)
 - [Forum post](https://community.home-assistant.io/t/custom-component-hacs/121727)
 - [Discord](https://discord.gg/apgchf8)

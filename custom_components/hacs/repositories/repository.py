@@ -589,9 +589,6 @@ class HacsRepository(Hacs):
                 info = info.content.replace("<svg", "<disabled").replace(
                     "</svg", "</disabled"
                 )
-                info = info.replace(
-                    '<a href="http', '<a rel="noreferrer" target="_blank" href="http'
-                )
 
                 self.information.additional_info = render_template(info, self)
 

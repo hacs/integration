@@ -1,6 +1,7 @@
 # HACS (Home Assistant Community Store)
 
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/hacs/integration.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hacs/integration/alerts/)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/hacs/integration.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hacs/integration/alerts/)[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhacs%2Fintegration.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fhacs%2Fintegration?ref=badge_shield)
+
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/hacs/integration.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hacs/integration/context:python)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/hacs/integration.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hacs/integration/context:javascript)
 [![Downloads for latest release](https://img.shields.io/github/downloads/hacs/integration/latest/total.svg)](https://github.com/hacs/integration/releases/latest)
@@ -52,3 +53,7 @@ HACS is not a full replacement for `custom_updater` and even though their "missi
 ~~If~~ When you experience issues/bugs with this the best way to report them is to open an issue in **this** repo.
 
 [Issue link](https://hacs.xyz/issues/)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhacs%2Fintegration.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fhacs%2Fintegration?ref=badge_large)

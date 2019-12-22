@@ -1,5 +1,8 @@
-![gif](https://raw.githubusercontent.com/hacs/documentation/master/static/img/demo.gif)
+{%- if (version_installed.split(".")[1] | int) < 17 %}
+## DO NOT UPGRADE TO THE LATEST VERSION
 
+First upgrade to version 0.16.3, then upgrade to the latest version.
+{% endif -%}
 ## Useful links
 
 - [General documentation](https://hacs.xyz/)

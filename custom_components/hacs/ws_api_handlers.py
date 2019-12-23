@@ -1,5 +1,6 @@
 """WebSocket API for HACS."""
 # pylint: disable=unused-argument
+import sys
 import os
 import voluptuous as vol
 from aiogithubapi import AIOGitHubException
@@ -273,12 +274,16 @@ async def hacs_repository_data(hass, connection, msg):
 
         if not Hacs().get_by_name(repo_id):
             try:
-                result = await Hacs().register_repository(repo_id, data.lower())
+                await Hacs().register_repository(repo_id, data.lower())
             except Exception as exception:  # pylint: disable=broad-except
-                result = exception
-            if result is not None:
-                result = {"message": str(result), "action": "add_repository"}
-                hass.bus.async_fire("hacs/error", result)
+                hass.bus.async_fire(
+                    "hacs/error",
+                    {
+                        "action": "add_repository",
+                        "exception": str(sys.exc_info()[0].__name__),
+                        "message": str(exception),
+                    },
+                )
         else:
             hass.bus.async_fire(
                 "hacs/error",

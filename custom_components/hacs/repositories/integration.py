@@ -3,6 +3,7 @@ import json
 from aiogithubapi import AIOGitHubException
 from homeassistant.loader import async_get_custom_components
 from .repository import HacsRepository, register_repository_class
+from ..hacsbase.exceptions import HacsRequirement
 
 
 @register_repository_class
@@ -153,13 +154,18 @@ class HacsIntegration(HacsRepository):
             return False
 
         if manifest:
-            self.manifest = manifest
-            self.information.authors = manifest["codeowners"]
-            self.domain = manifest["domain"]
-            self.information.name = manifest["name"]
-            self.information.homeassistant_version = manifest.get("homeassistant")
+            try:
+                self.manifest = manifest
+                self.information.authors = manifest["codeowners"]
+                self.domain = manifest["domain"]
+                self.information.name = manifest["name"]
+                self.information.homeassistant_version = manifest.get("homeassistant")
 
-            # Set local path
-            self.content.path.local = self.localpath
-            return True
+                # Set local path
+                self.content.path.local = self.localpath
+                return True
+            except KeyError as exception:
+                raise HacsRequirement(
+                    f"Missing expected key {exception} in 'manifest.json'"
+                )
         return False

@@ -272,7 +272,10 @@ async def hacs_repository_data(hass, connection, msg):
             Hacs().common.skip.remove(repo_id)
 
         if not Hacs().get_by_name(repo_id):
-            result = await Hacs().register_repository(repo_id, data.lower())
+            try:
+                result = await Hacs().register_repository(repo_id, data.lower())
+            except Exception as exception:  # pylint: disable=broad-except
+                result = exception
             if result is not None:
                 result = {"message": str(result), "action": "add_repository"}
                 hass.bus.async_fire("hacs/error", result)

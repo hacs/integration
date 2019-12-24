@@ -147,14 +147,16 @@ async def hacs_startup(hacs):
         hacs.common.categories.append("appdaemon")
     if hacs.configuration.python_script:
         hacs.configuration.python_script = False
-        hacs.logger.warning(
-            "Configuration option 'python_script' is deprecated, HACS will know if you use it, this option will be removed in a future release."
-        )
+        if hacs.configuration.config_type == "yaml":
+            hacs.logger.warning(
+                "Configuration option 'python_script' is deprecated, HACS will know if you use it, this option will be removed in a future release."
+            )
     if hacs.configuration.theme:
         hacs.configuration.theme = False
-        hacs.logger.warning(
-            "Configuration option 'theme' is deprecated, HACS will know if you use it, this option will be removed in a future release."
-        )
+        if hacs.configuration.config_type == "yaml":
+            hacs.logger.warning(
+                "Configuration option 'theme' is deprecated, HACS will know if you use it, this option will be removed in a future release."
+            )
 
     await hacs.hass.async_add_executor_job(setup_extra_stores, hacs)
 

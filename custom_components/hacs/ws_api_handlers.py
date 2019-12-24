@@ -238,13 +238,13 @@ async def hacs_repository(hass, connection, msg):
         repository.state = None
         await Hacs().data.async_write()
     except AIOGitHubException as exception:
-        hass.bus.async_fire("hacs/error", {"message": exception})
+        hass.bus.async_fire("hacs/error", {"message": str(exception)})
     except AttributeError as exception:
         hass.bus.async_fire(
             "hacs/error", {"message": f"Could not use repository with ID {repo_id}"}
         )
     except Exception as exception:  # pylint: disable=broad-except
-        hass.bus.async_fire("hacs/error", {"message": exception})
+        hass.bus.async_fire("hacs/error", {"message": str(exception)})
 
 
 @websocket_api.async_response

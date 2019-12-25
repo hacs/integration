@@ -26,6 +26,14 @@ class HacsStatus:
     upgrading_all = False
 
 
+class HacsFrontend:
+    """HacsFrontend."""
+
+    version_running = None
+    version_available = None
+    update_pending = False
+
+
 class HacsCommon:
     """Common for HACS."""
 
@@ -70,6 +78,7 @@ class Hacs:
     hacsweb = f"/hacsweb/{token}"
     hacsapi = f"/hacsapi/{token}"
     repositories = []
+    frontend = HacsFrontend()
     repo = None
     data_repo = None
     developer = Developer()

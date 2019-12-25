@@ -19,6 +19,7 @@ for req in requirements:
         manifest["requirements"].remove(req.split(">")[0].split("=")[0])
         manifest["requirements"].append(req)
 
+print(json.dumps(manifest["requirements"], indent=4, sort_keys=True))
 
 with open(f"{os.getcwd()}/custom_components/hacs/manifest.json", "w") as manifestfile:
     manifestfile.write(json.dumps(manifest, indent=4, sort_keys=True))

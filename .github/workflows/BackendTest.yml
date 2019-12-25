@@ -30,6 +30,11 @@ jobs:
         sudo apt install -y python-dev pkg-config libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libswscale-dev libavresample-dev libavfilter-dev
         python -m pip install --upgrade pip setuptools wheel colorlog==4.0.2
 
+    - name: Update integration requirements
+      run : |
+        source /home/runner/work/integration/integration/manage/hacs
+        hacs-update-requirements
+
     - name: Install dependencies for custom_components
       run: |
         for file in $(find custom_components/ -name "manifest.json"); do

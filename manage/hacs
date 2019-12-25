@@ -1,76 +1,10 @@
  #!/bin/bash
 
-LOKALISE_VERSION="0.721"
-SECRETS="/workspaces/integration/manage/secrets.json"
-
-function hacs-download-translations {
-    ## check secrets file
-    if [[ ! -f "$SECRETS" ]]; then
-        echo "Secret file not found"
-        return 1
-    fi
-
-    ## Install lokalise CLI if missing
-    if [[ -z $(which lokalise) ]]; then
-        echo "Installing curl"
-        apk add curl
-
-        echo "Installing lokalise CLI"
-        curl -sSL "https://s3-eu-west-1.amazonaws.com/lokalise-assets/cli/lokalise-${LOKALISE_VERSION}-linux-amd64.tgz" -o /tmp/lokalise.tgz
-        tar -xvzf /tmp/lokalise.tgz -C /usr/bin
-    fi
-
-    token=$(jq .lokalise_token "$SECRETS" -r)
-    project=$(jq .lokalise_project "$SECRETS" -r)
-
-    echo "Downloading translations"
-    rm -R /tmp/lokalise || echo ""
-    lokalise \
-        --token "$token" \
-        export "$project" \
-        --type json \
-        --unzip_to  /tmp/lokalise \
-        --filter reviewed \
-        --export_empty skip \
-        --export_sort a_z
-
-    rm -R /workspaces/integration/custom_components/hacs/.translations || echo ""
-    mkdir /workspaces/integration/custom_components/hacs/.translations
-
-    cp /tmp/lokalise/locale/* /workspaces/integration/custom_components/hacs/.translations/
+function hacs-update-requirements {
+    echo "Updating requirements."
+    python3 ./manage/update_requirements.py
+    echo "Update done."
 }
-
-function hacs-download-frontend {
-    git clone https://github.com/hacs/frontend.git /tmp/frontend
-    cd /tmp/frontend
-    npm install
-    npm run build
-    rm -R /workspaces/integration/custom_components/hacs/frontend
-    mkdir /workspaces/integration/custom_components/hacs/frontend
-    cp -f /tmp/frontend/build/main.js.gz /workspaces/integration/custom_components/hacs/frontend/main.js.gz
-    rm -R /tmp/frontend
-}
-
-function hacs-prepare-release {
-    echo "Downloading releases"
-    hacs-download-translations
-
-    echo "Downloading frontend"
-    hacs-download-frontend
-
-    echo "Controlling the version number"
-    local=$(cat /workspaces/integration/custom_components/hacs/const.py | grep "VERSION = " |  tr -d '[:space:]' | tr -d "VERSION=")
-    remote=$(curl -sSL https://api.github.com/repos/hacs/integration/releases/latest | jq .tag_name)
-
-    if [ "$remote" == "$local" ]; then
-        echo "Versions match! You forgot to bump it!"
-        return 1
-    fi
-
-    cd /workspaces/integration
-
-}
-
 
 
 

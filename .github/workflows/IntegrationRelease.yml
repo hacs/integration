@@ -9,7 +9,13 @@ jobs:
     name: Prepare release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: Check out repository
+        uses: actions/checkout@v1
+
+      - name: Update integration requirements
+        run : |
+          source /home/runner/work/integration/integration/manage/hacs
+          hacs-update-requirements
 
 
       # Get updated translations

@@ -6,13 +6,7 @@ from github import Github
 BODY = """
 [![Downloads for this release](https://img.shields.io/github/downloads/hacs/integration/{version}/total.svg)](https://github.com/hacs/integration/releases/{version})
 
-## Integration changes
-
-{integration_changes}
-
-## Frontend changes
-
-{frontend_changes}
+{changes}
 
 ## Links
 
@@ -23,12 +17,38 @@ BODY = """
 - [Or by me a ☕️ / 🍺](https://www.buymeacoffee.com/ludeeus)
 """
 
-CAHNGE = "- [{line}]({link}) @{author}\n"
+CHANGES = """
+## Integration changes
+
+{integration_changes}
+
+## Frontend changes
+
+{frontend_changes}
+"""
+
+COMMANDS = """
+***
+<details>
+  <summary>HACS Bot commands</summary>
+
+_Commands can only be issued by a user with write privileges to the repository._
+
+Command | Description
+-- | --
+`@hacs-bot no` | Will close the issue, and not publish a new release.
+`@hacs-bot close` | Same as `@hacs-bot no`.
+`@hacs-bot yes` | Will create a new release and close the issue.
+`@hacs-bot LGTM` | Same as `@hacs-bot yes`.
+`@hacs-bot release x.xx.x` | Same as `@hacs-bot yes` but will change the release number to the one specified.
+
+</details>
+"""
+
+CHANGE = "- [{line}]({link}) @{author}\n"
 NOCHANGE = "_No changes in this release._"
 
 GITHUB = Github(sys.argv[2])
-FRONTEND_CHANGES = ""
-INTEGRATION_CHANGES = ""
 
 
 def new_commits(repo, sha):
@@ -44,14 +64,13 @@ def new_commits(repo, sha):
     return reversed(list(commits)[:-1])
 
 
-def last_integration_release(github):
+def last_integration_release(github, skip=True):
     """Return last release."""
     repo = github.get_repo("hacs/integration")
     tag_sha = None
     data = {}
     tags = list(repo.get_tags())
     reg = "(v|^)?(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$"
-    skip = True
     if tags:
         for tag in tags:
             tag_name = tag.name
@@ -75,11 +94,11 @@ def last_frontend_release(repo, tag_name):
                 return tag.commit.sha
 
 
-def get_frontend_commits(github):
+def get_frontend_commits(github, skip=True):
     changes = ""
     repo = github.get_repo("hacs/frontend")
     integration = github.get_repo("hacs/integration")
-    last_tag = last_integration_release(github)["tag_name"]
+    last_tag = last_integration_release(github, skip)["tag_name"]
     contents = integration.get_contents(
         "custom_components/hacs/manifest.json", ref=f"refs/tags/{last_tag}"
     )
@@ -92,7 +111,7 @@ def get_frontend_commits(github):
         changes = NOCHANGE
     else:
         for commit in commits:
-            changes += CAHNGE.format(
+            changes += CHANGE.format(
                 line=repo.get_git_commit(commit.sha).message,
                 link=commit.html_url,
                 author=commit.author.login,
@@ -101,16 +120,16 @@ def get_frontend_commits(github):
     return changes
 
 
-def get_integration_commits(github):
+def get_integration_commits(github, skip=True):
     changes = ""
     repo = github.get_repo("hacs/integration")
-    commits = new_commits(repo, last_integration_release(github)["tag_sha"])
+    commits = new_commits(repo, last_integration_release(github, skip)["tag_sha"])
 
     if not commits:
         changes = NOCHANGE
     else:
         for commit in commits:
-            changes += CAHNGE.format(
+            changes += CHANGE.format(
                 line=repo.get_git_commit(commit.sha).message,
                 link=commit.html_url,
                 author=commit.author.login,
@@ -120,14 +139,36 @@ def get_integration_commits(github):
 
 
 ## Update release notes:
-VERSION = str(sys.argv[4]).replace("refs/tags/", "")
+UPDATERELEASE = str(sys.argv[4])
 REPO = GITHUB.get_repo("hacs/integration")
-RELEASE = REPO.get_release(VERSION)
-RELEASE.update_release(
-    name=VERSION,
-    message=BODY.format(
-        version=VERSION,
-        integration_changes=get_integration_commits(GITHUB),
-        frontend_changes=get_frontend_commits(GITHUB),
-    ),
-)
+if UPDATERELEASE == "yes":
+    VERSION = str(sys.argv[6]).replace("refs/tags/", "")
+    RELEASE = REPO.get_release(VERSION)
+    RELEASE.update_release(
+        name=VERSION,
+        message=BODY.format(
+            version=VERSION,
+            changes=CHANGES.format(
+                integration_changes=get_integration_commits(GITHUB),
+                frontend_changes=get_frontend_commits(GITHUB),
+            ),
+        ),
+    )
+else:
+    frontend_changes = get_frontend_commits(GITHUB, False)
+    integration_changes = get_integration_commits(GITHUB, False)
+    if integration_changes != NOCHANGE or frontend_changes != NOCHANGE:
+        VERSION = last_integration_release(GITHUB, False)["tag_name"]
+        VERSION = f"{VERSION[:-1]}{int(VERSION[-1])+1}"
+        REPO.create_issue(
+            title=f"Create release {VERSION}?",
+            labels=["New release"],
+            assignee="ludeeus",
+            body=CHANGES.format(
+                integration_changes=integration_changes,
+                frontend_changes=frontend_changes,
+            )
+            + COMMANDS,
+        )
+    else:
+        print("Not enough changes for a release.")

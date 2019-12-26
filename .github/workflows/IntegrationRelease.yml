@@ -61,3 +61,11 @@ jobs:
           asset_name: hacs.zip
           tag: ${{ github.ref }}
           overwrite: true
+
+      - name: Enable version 3.7 of Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+
+      - name: Update release notes
+        run: python3 /home/runner/work/integration/integration/manage/generate_releasenotes.py --tag ${{ github.ref }}

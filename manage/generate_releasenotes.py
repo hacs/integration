@@ -26,7 +26,7 @@ BODY = """
 CAHNGE = "- [{line}]({link}) @{author}\n"
 NOCHANGE = "_No changes in this release._"
 
-GITHUB = Github("e9556ecf7e532d2d7c9d57e12d805f4a14302a5b")
+GITHUB = Github(sys.argv[2])
 FRONTEND_CHANGES = ""
 INTEGRATION_CHANGES = ""
 
@@ -120,7 +120,7 @@ def get_integration_commits(github):
 
 
 ## Update release notes:
-VERSION = str(sys.argv[2]).replace("refs/tags/", "")
+VERSION = str(sys.argv[4]).replace("refs/tags/", "")
 REPO = GITHUB.get_repo("hacs/integration")
 RELEASE = REPO.get_release(VERSION)
 RELEASE.update_release(

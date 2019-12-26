@@ -149,13 +149,13 @@ async def hacs_startup(hacs):
         hacs.configuration.python_script = False
         if hacs.configuration.config_type == "yaml":
             hacs.logger.warning(
-                "Configuration option 'python_script' is deprecated, HACS will know if you use it, this option will be removed in a future release."
+                "Configuration option 'python_script' is deprecated and you should remove it from your configuration, HACS will know if you use 'python_script' in your Home Assistant configuration, this option will be removed in a future release."
             )
     if hacs.configuration.theme:
         hacs.configuration.theme = False
         if hacs.configuration.config_type == "yaml":
             hacs.logger.warning(
-                "Configuration option 'theme' is deprecated, HACS will know if you use it, this option will be removed in a future release."
+                "Configuration option 'theme' is deprecated and you should remove it from your configuration, HACS will know if you use 'theme' in your Home Assistant configuration, this option will be removed in a future release."
             )
 
     await hacs.hass.async_add_executor_job(setup_extra_stores, hacs)

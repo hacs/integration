@@ -6,15 +6,15 @@ from github import Github
 BODY = """
 [![Downloads for this release](https://img.shields.io/github/downloads/hacs/integration/{version}/total.svg)](https://github.com/hacs/integration/releases/{version})
 
-# Integration changes
+## Integration changes
 
 {integration_changes}
 
-# Frontend changes
+## Frontend changes
 
 {frontend_changes}
 
-# Links
+## Links
 
 - [Discord server for HACS](https://discord.gg/apgchf8)
 - [HACS Documentation](https://hacs.xyz/)

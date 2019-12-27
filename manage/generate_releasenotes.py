@@ -111,10 +111,11 @@ def get_frontend_commits(github, skip=True):
         changes = NOCHANGE
     else:
         for commit in commits:
+            msg = repo.get_git_commit(commit.sha).message
+            if "\n" in msg:
+                msg = msg.split("\n")[0]
             changes += CHANGE.format(
-                line=repo.get_git_commit(commit.sha).message,
-                link=commit.html_url,
-                author=commit.author.login,
+                line=msg, link=commit.html_url, author=commit.author.login
             )
 
     return changes
@@ -129,10 +130,11 @@ def get_integration_commits(github, skip=True):
         changes = NOCHANGE
     else:
         for commit in commits:
+            msg = repo.get_git_commit(commit.sha).message
+            if "\n" in msg:
+                msg = msg.split("\n")[0]
             changes += CHANGE.format(
-                line=repo.get_git_commit(commit.sha).message,
-                link=commit.html_url,
-                author=commit.author.login,
+                line=msg, link=commit.html_url, author=commit.author.login
             )
 
     return changes

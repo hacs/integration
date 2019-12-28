@@ -112,6 +112,8 @@ def get_frontend_commits(github, skip=True):
     else:
         for commit in commits:
             msg = repo.get_git_commit(commit.sha).message
+            if " Merge branch " in msg:
+                continue
             if "\n" in msg:
                 msg = msg.split("\n")[0]
             changes += CHANGE.format(
@@ -131,6 +133,8 @@ def get_integration_commits(github, skip=True):
     else:
         for commit in commits:
             msg = repo.get_git_commit(commit.sha).message
+            if " Merge branch " in msg:
+                continue
             if "\n" in msg:
                 msg = msg.split("\n")[0]
             changes += CHANGE.format(

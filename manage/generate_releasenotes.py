@@ -13,8 +13,8 @@ BODY = """
 - [Discord server for HACS](https://discord.gg/apgchf8)
 - [HACS Documentation](https://hacs.xyz/)
 - [How to submit bugs/feature requests](https://hacs.xyz/docs/issues)
-- [If you like what I (@ludeeus) do please consider sposoring me on GitHub](https://github.com/sponsors/ludeeus)
-- [Or by me a ☕️ / 🍺](https://www.buymeacoffee.com/ludeeus)
+- [If you like what I (@ludeeus) do please consider sponsoring me on GitHub](https://github.com/sponsors/ludeeus)
+- [Or buy me a ☕️ / 🍺](https://www.buymeacoffee.com/ludeeus)
 """
 
 CHANGES = """

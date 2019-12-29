@@ -12,6 +12,7 @@ from integrationhelper import Logger
 from .task_factory import HacsTaskFactory
 
 from ..const import ELEMENT_TYPES
+from ..setup import setup_extra_stores
 from ..store import async_load_from_store, async_save_to_store
 from ..helpers.get_defaults import get_default_repos_lists, get_default_repos_orgs
 
@@ -184,6 +185,7 @@ class Hacs:
     async def startup_tasks(self):
         """Tasks tha are started after startup."""
         self.system.status.background_task = True
+        await self.hass.async_add_executor_job(setup_extra_stores, self)
         self.hass.bus.async_fire("hacs/status", {})
         self.logger.debug(self.github.ratelimits.remaining)
         self.logger.debug(self.github.ratelimits.reset_utc)

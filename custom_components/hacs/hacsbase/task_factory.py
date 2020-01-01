@@ -19,11 +19,11 @@ class HacsTaskFactory:
         if not self.tasks:
             logger.debug("No tasks to execute")
             return
-        logger.info("Prosessing %s tasks", len(self.tasks))
+        logger.info("Processing %s tasks", len(self.tasks))
         start = time.time()
         await asyncio.gather(*self.tasks)
         logger.info(
-            "Task prosessing of %s tasks completed in %s seconds",
+            "Task processing of %s tasks completed in %s seconds",
             len(self.tasks),
             timedelta(seconds=round(time.time() - start)).seconds,
         )

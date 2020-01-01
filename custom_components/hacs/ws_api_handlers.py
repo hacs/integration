@@ -97,6 +97,7 @@ async def hacs_config(hass, connection, msg):
     content["onboarding_done"] = config.onboarding_done
     content["version"] = Hacs().version
     content["dev"] = config.dev
+    content["debug"] = config.debug
     content["country"] = config.country
     content["experimental"] = config.experimental
     content["categories"] = Hacs().common.categories

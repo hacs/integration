@@ -45,6 +45,7 @@ class HacsData(Hacs):
                 "description": repository.information.description,
                 "downloads": repository.releases.last_release_object_downloads,
                 "full_name": repository.information.full_name,
+                "first_install": repository.status.first_install,
                 "hide": repository.status.hide,
                 "installed_commit": repository.versions.installed_commit,
                 "installed": repository.status.installed,

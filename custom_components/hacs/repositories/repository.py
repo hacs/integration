@@ -129,6 +129,15 @@ class HacsRepository(Hacs):
         return False
 
     @property
+    def config_flow(self):
+        """Return bool if integration has config_flow."""
+        if self.manifest:
+            if self.information.full_name == "hacs/integration":
+                return False
+            return self.manifest.get("config_flow", False)
+        return False
+
+    @property
     def ref(self):
         """Return the ref."""
         if self.status.selected_tag is not None:

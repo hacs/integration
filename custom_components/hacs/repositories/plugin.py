@@ -2,6 +2,7 @@
 import json
 from aiogithubapi import AIOGitHubException
 from .repository import HacsRepository, register_repository_class
+from ..hacsbase.exceptions import HacsException
 
 
 @register_repository_class
@@ -30,7 +31,9 @@ class HacsPlugin(HacsRepository):
         await self.get_plugin_location()
 
         if self.content.path.remote is None:
-            self.validate.errors.append("Repostitory structure not compliant")
+            raise HacsException(
+                f"Repostitory structure for {self.ref.replace('tags/','')} is not compliant"
+            )
 
         if self.content.path.remote == "release":
             self.content.single = True

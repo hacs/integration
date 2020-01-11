@@ -7,6 +7,7 @@ from aiogithubapi import AIOGitHubException
 from homeassistant.components import websocket_api
 import homeassistant.helpers.config_validation as cv
 from .hacsbase import Hacs
+from .hacsbase.exceptions import HacsException
 from .store import async_load_from_store, async_save_to_store
 
 
@@ -277,7 +278,9 @@ async def hacs_repository_data(hass, connection, msg):
 
         if not Hacs().get_by_name(repo_id):
             try:
-                await Hacs().register_repository(repo_id, data.lower())
+                registration = await Hacs().register_repository(repo_id, data.lower())
+                if registration is not None:
+                    raise HacsException(registration)
             except Exception as exception:  # pylint: disable=broad-except
                 hass.bus.async_fire(
                     "hacs/error",
@@ -290,7 +293,10 @@ async def hacs_repository_data(hass, connection, msg):
         else:
             hass.bus.async_fire(
                 "hacs/error",
-                {"message": f"Repository '{repo_id}' exists in the store."},
+                {
+                    "action": "add_repository",
+                    "message": f"Repository '{repo_id}' exists in the store.",
+                },
             )
 
         repository = Hacs().get_by_name(repo_id)

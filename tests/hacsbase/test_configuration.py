@@ -2,7 +2,7 @@
 # pylint: disable=missing-docstring
 import pytest
 from custom_components.hacs.hacsbase.configuration import Configuration
-from custom_components.hacs.hacsbase.exceptions import HacsUserScrewupException
+from custom_components.hacs.hacsbase.exceptions import HacsException
 
 
 def test_configuration_and_option():
@@ -45,7 +45,7 @@ def test_configuration_and_option():
 
 
 def test_edge_option_only_pass_empty_dict_as_configuration():
-    with pytest.raises(HacsUserScrewupException):
+    with pytest.raises(HacsException):
         assert Configuration.from_dict({}, {"experimental": True})
 
 
@@ -54,5 +54,5 @@ def test_edge_configuration_only_pass_none_as_option():
 
 
 def test_edge_options_true():
-    with pytest.raises(HacsUserScrewupException):
+    with pytest.raises(HacsException):
         assert Configuration.from_dict({"options": True}, None)

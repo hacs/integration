@@ -1,7 +1,7 @@
 """HACS Manifest Test Suite."""
 # pylint: disable=missing-docstring
 import pytest
-from custom_components.hacs.hacsbase.exceptions import HacsRepositoryInfo
+from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.repositories.manifest import HacsManifest
 
 
@@ -48,5 +48,5 @@ def test_manifest_structure():
 
 
 def test_edge_pass_none():
-    with pytest.raises(HacsRepositoryInfo):
+    with pytest.raises(HacsException):
         assert HacsManifest.from_dict(None)

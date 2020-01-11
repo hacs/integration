@@ -3,7 +3,7 @@ import json
 from aiogithubapi import AIOGitHubException
 from homeassistant.loader import async_get_custom_components
 from .repository import HacsRepository, register_repository_class
-from ..hacsbase.exceptions import HacsRequirement
+from ..hacsbase.exceptions import HacsException
 
 
 @register_repository_class
@@ -156,7 +156,7 @@ class HacsIntegration(HacsRepository):
                 self.content.path.local = self.localpath
                 return True
             except KeyError as exception:
-                raise HacsRequirement(
+                raise HacsException(
                     f"Missing expected key {exception} in 'manifest.json'"
                 )
         return False

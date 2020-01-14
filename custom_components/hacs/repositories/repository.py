@@ -536,7 +536,7 @@ class HacsRepository(Hacs):
                     continue
 
                 # Save the content of the file.
-                if self.content.single:
+                if self.content.single or content.path is None:
                     local_directory = self.content.path.local
 
                 else:

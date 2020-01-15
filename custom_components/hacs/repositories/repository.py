@@ -10,6 +10,7 @@ from aiogithubapi import AIOGitHubException
 from .manifest import HacsManifest
 from ..helpers.misc import get_repository_name
 from ..hacsbase import Hacs
+from ..hacsbase.exceptions import HacsException
 from ..hacsbase.backup import Backup
 from ..handler.download import async_download_file, async_save_file
 from ..helpers.misc import version_left_higher_then_right
@@ -383,6 +384,9 @@ class HacsRepository(Hacs):
         """Common installation steps of the repository."""
         self.validate.errors = []
         persistent_directory = None
+
+        if not self.can_install:
+            raise HacsException("Wrong HA version found")
 
         await self.update_repository()
 

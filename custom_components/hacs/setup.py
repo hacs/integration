@@ -95,4 +95,9 @@ async def setup_frontend(hacs):
         config=config,
         require_admin=True,
     )
+
+    if "frontend_extra_module_url" not in hacs.hass.data:
+        hacs.hass.data["frontend_extra_module_url"] = set()
+    hacs.hass.data["frontend_extra_module_url"].add("/hacsfiles/iconset.js")
+
     await setup_ws_api(hacs.hass)

@@ -73,7 +73,7 @@ class HACSSensor(HACSDevice):
     @property
     def icon(self):
         """Return the icon of the sensor."""
-        return "mdi:store"
+        return "hacs:hacs"
 
     @property
     def unit_of_measurement(self):

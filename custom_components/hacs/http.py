@@ -26,6 +26,10 @@ class HacsFrontend(HomeAssistantView, Hacs):
 
             if os.path.exists(servefile):
                 return web.FileResponse(servefile)
+        elif requested_file == "iconset.js":
+            return web.FileResponse(
+                f"{self.system.config_path}/custom_components/hacs/iconset.js"
+            )
 
         try:
             file = f"{self.system.config_path}/www/community/{requested_file}"

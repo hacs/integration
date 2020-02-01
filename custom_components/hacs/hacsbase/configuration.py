@@ -23,8 +23,8 @@ class Configuration:
     plugin_path: str = "www/community/"
     python_script_path: str = "python_scripts/"
     python_script: bool = False
-    sidepanel_icon: str = "mdi:alpha-c-box"
-    sidepanel_title: str = "Community"
+    sidepanel_icon: str = "mdi:store"
+    sidepanel_title: str = "HACS"
     theme_path: str = "themes/"
     theme: bool = False
     token: str = None

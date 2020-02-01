@@ -8,6 +8,7 @@ from homeassistant.core import callback
 from homeassistant.helpers import aiohttp_client
 
 from .const import DOMAIN
+from . import Hacs
 from .configuration_schema import hacs_base_config_schema, hacs_config_option_schema
 
 
@@ -92,6 +93,9 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)
 
-        schema = hacs_config_option_schema(self.config_entry.options)
+        if Hacs.configuration.config_type == "yaml":
+            schema = {vol.Optional("not_in_use", default=""): str}
+        else:
+            schema = hacs_config_option_schema(self.config_entry.options)
 
         return self.async_show_form(step_id="user", data_schema=vol.Schema(schema))

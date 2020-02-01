@@ -1,6 +1,5 @@
 """Sensor platform for HACS."""
 # pylint: disable=unused-argument
-from integrationhelper import Logger
 from homeassistant.helpers.entity import Entity
 from .hacsbase import Hacs as hacs
 from .const import DOMAIN, VERSION, NAME_SHORT
@@ -8,12 +7,12 @@ from .const import DOMAIN, VERSION, NAME_SHORT
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup sensor platform."""
-    async_add_entities([HACSSensor()])
+    await async_add_entities([HACSSensor()])
 
 
 async def async_setup_entry(hass, config_entry, async_add_devices):
     """Setup sensor platform."""
-    async_add_devices([HACSSensor()])
+    await async_add_devices([HACSSensor()])
 
 
 class HACSDevice(Entity):
@@ -37,7 +36,6 @@ class HACSSensor(HACSDevice):
     def __init__(self):
         """Initialize."""
         self._state = None
-        self.logger = Logger("hacs.sensor")
         self.repositories = []
 
     async def async_update(self):

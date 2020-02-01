@@ -1,6 +1,5 @@
 """HACS Constrains Test Suite."""
 # pylint: disable=missing-docstring,invalid-name
-import json
 import os
 from custom_components.hacs.constrains import (
     constrain_translations,
@@ -39,35 +38,24 @@ def test_check_constans(tmpdir):
     translations_dir = f"{hacs.system.config_path}/custom_components/hacs/.translations"
     os.makedirs(translations_dir, exist_ok=True)
 
-    manifest_dir = f"{hacs.system.config_path}/custom_components/hacs"
-    os.makedirs(manifest_dir, exist_ok=True)
-    with open(f"{manifest_dir}/manifest.json", "w") as manifest:
-        manifest.write(json.dumps({"homeassistant": "9.99.8"}))
     assert constrain_version(hacs)
-
     assert check_constans(hacs)
+    assert constrain_translations(hacs)
 
     temp_cleanup(tmpdir)
 
 
 def test_ha_version(tmpdir):
     hacs = Hacs()
-    hacs.system.ha_version = HAVERSION
     hacs.system.config_path = tmpdir.dirname
 
-    manifest_dir = f"{hacs.system.config_path}/custom_components/hacs"
-    os.makedirs(manifest_dir, exist_ok=True)
-
-    with open(f"{manifest_dir}/manifest.json", "w") as manifest:
-        manifest.write(json.dumps({"homeassistant": HAVERSION}))
+    hacs.system.ha_version = HAVERSION
     assert constrain_version(hacs)
 
-    with open(f"{manifest_dir}/manifest.json", "w") as manifest:
-        manifest.write(json.dumps({"homeassistant": "9.99.8"}))
+    hacs.system.ha_version = "1.0.0"
     assert constrain_version(hacs)
 
-    with open(f"{manifest_dir}/manifest.json", "w") as manifest:
-        manifest.write(json.dumps({"homeassistant": "10.0.0"}))
+    hacs.system.ha_version = "0.97.0"
     assert not constrain_version(hacs)
 
     temp_cleanup(tmpdir)

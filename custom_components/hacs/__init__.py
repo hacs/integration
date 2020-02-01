@@ -61,7 +61,6 @@ async def async_setup_entry(hass, config_entry):
     Hacs.configuration = Configuration.from_dict(
         config_entry.data, config_entry.options
     )
-    Hacs.configuration.print()
     Hacs.configuration.config_type = "flow"
     Hacs.configuration.config_entry = config_entry
     config_entry.add_update_listener(reload_hacs)
@@ -168,6 +167,9 @@ async def hacs_startup(hacs):
         )
     else:
         async_call_later(hacs.hass, 5, hacs().startup_tasks())
+
+    # Show the configuration
+    hacs.configuration.print()
 
     # Mischief managed!
     return True

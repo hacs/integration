@@ -3,7 +3,7 @@ iconset.name = "hacs";
 iconset.size = "1024";
 iconset.innerHTML = `
 <svg version="1.1"  id="hacs" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-	 viewBox="0 0 500 500">
+	 viewBox="20 20 430 430">
 <g>
 	<path class="st1" d="M367.1,110.6H132.9c-2.4,0-4.4-2-4.4-4.4V78.9c0-2.4,2-4.4,4.4-4.4h234.2c2.4,0,4.4,2,4.4,4.4v27.3
 		C371.5,108.6,369.5,110.6,367.1,110.6z"/>

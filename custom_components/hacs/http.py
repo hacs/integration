@@ -11,31 +11,22 @@ class HacsFrontend(HomeAssistantView, Hacs):
     """Base View Class for HACS."""
 
     requires_auth = False
-    name = "hacs_frontend"
-    url = r"/hacs_frontend/{requested_file:.+}"
+    name = "hacs_files"
+    url = r"/hacsfiles/{requested_file:.+}"
 
     async def get(self, request, requested_file):  # pylint: disable=unused-argument
         """Handle HACS Web requests."""
-        if self.configuration.debug:
-            servefile = await self.hass.async_add_executor_job(locate_debug_gz)
-            self.logger.debug("Serving DEBUG frontend")
-        else:
-            servefile = await self.hass.async_add_executor_job(locate_gz)
 
-        if os.path.exists(servefile):
-            return web.FileResponse(servefile)
-        return web.Response(status=404)
+        if requested_file.startswith("frontend-"):
+            if self.configuration.debug:
+                servefile = await self.hass.async_add_executor_job(locate_debug_gz)
+                self.logger.debug("Serving DEBUG frontend")
+            else:
+                servefile = await self.hass.async_add_executor_job(locate_gz)
 
+            if os.path.exists(servefile):
+                return web.FileResponse(servefile)
 
-class HacsPluginView(HomeAssistantView, Hacs):
-    """Serve plugins."""
-
-    requires_auth = False
-    name = "hacs_plugin"
-    url = r"/community_plugin/{requested_file:.+}"
-
-    async def get(self, request, requested_file):  # pylint: disable=unused-argument
-        """Serve plugins for lovelace."""
         try:
             file = f"{self.system.config_path}/www/community/{requested_file}"
 
@@ -59,3 +50,9 @@ class HacsPluginView(HomeAssistantView, Hacs):
             )
 
         return web.Response(status=404)
+
+
+class HacsPluginViewLegacy(HacsFrontend):
+    """Alias for legacy, remove with 2.0"""
+
+    url = r"/community_plugin/{requested_file:.+}"

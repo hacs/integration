@@ -46,3 +46,14 @@ def hacs_config_option_schema(options: dict = {}) -> dict:
         vol.Optional(EXPERIMENTAL, default=options.get(EXPERIMENTAL)): bool,
         vol.Optional(DEBUG, default=options.get(DEBUG)): bool,
     }
+
+
+def hacs_config_combined() -> dict:
+    """Combine the configuration options."""
+    base = hacs_base_config_schema()
+    options = hacs_config_option_schema()
+
+    for option in options:
+        base[option] = options[option]
+
+    return base

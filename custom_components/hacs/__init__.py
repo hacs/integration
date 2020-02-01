@@ -14,7 +14,7 @@ from homeassistant.exceptions import ConfigEntryNotReady, ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 
-from .configuration_schema import hacs_base_config_schema, hacs_config_option_schema
+from .configuration_schema import hacs_config_combined
 from .const import DOMAIN, ELEMENT_TYPES, STARTUP, VERSION
 from .constrains import check_constans
 from .hacsbase import Hacs
@@ -22,10 +22,7 @@ from .hacsbase.configuration import Configuration
 from .hacsbase.data import HacsData
 from .setup import add_sensor, load_hacs_repository, setup_frontend
 
-CONFIG_SCHEMA = vol.Schema(
-    {DOMAIN: (hacs_base_config_schema(), hacs_config_option_schema())},
-    extra=vol.ALLOW_EXTRA,
-)
+CONFIG_SCHEMA = vol.Schema({DOMAIN: hacs_config_combined()}, extra=vol.ALLOW_EXTRA)
 
 
 async def async_setup(hass, config):

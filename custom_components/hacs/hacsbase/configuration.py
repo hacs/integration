@@ -23,7 +23,7 @@ class Configuration:
     plugin_path: str = "www/community/"
     python_script_path: str = "python_scripts/"
     python_script: bool = False
-    sidepanel_icon: str = "mdi:store"
+    sidepanel_icon: str = "hacs:hacs"
     sidepanel_title: str = "HACS"
     theme_path: str = "themes/"
     theme: bool = False

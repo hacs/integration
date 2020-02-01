@@ -18,7 +18,7 @@ def test_configuration_and_option():
     assert config.sidepanel_title == "HACS"
 
     assert isinstance(config.sidepanel_icon, str)
-    assert config.sidepanel_icon == "mdi:store"
+    assert config.sidepanel_icon == "hacs:hacs"
 
     assert isinstance(config.appdaemon, bool)
     assert not config.appdaemon

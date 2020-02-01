@@ -34,7 +34,7 @@ def hacs_config_option_schema(options: dict = {}) -> dict:
             DEBUG: False,
             EXPERIMENTAL: False,
             RELEASE_LIMIT: 5,
-            SIDEPANEL_ICON: "mdi:store",
+            SIDEPANEL_ICON: "hacs:hacs",
             SIDEPANEL_TITLE: "HACS",
         }
     return {

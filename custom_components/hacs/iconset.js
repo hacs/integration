@@ -2,13 +2,9 @@ const iconset = document.createElement("ha-iconset-svg");
 iconset.name = "hacs";
 iconset.size = "1024";
 iconset.innerHTML = `
-<svg version="1.1"  id="hacs" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:none;}
-</style>
+<svg version="1.1"  id="hacs" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="0 0 500 500">
 <g>
-	<path class="st0" d="M0,0h500v500H0V0z"/>
 	<path class="st1" d="M367.1,110.6H132.9c-2.4,0-4.4-2-4.4-4.4V78.9c0-2.4,2-4.4,4.4-4.4h234.2c2.4,0,4.4,2,4.4,4.4v27.3
 		C371.5,108.6,369.5,110.6,367.1,110.6z"/>
 	<g>

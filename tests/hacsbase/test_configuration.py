@@ -15,10 +15,10 @@ def test_configuration_and_option():
     assert config.token == "xxxxxxxxxx"
 
     assert isinstance(config.sidepanel_title, str)
-    assert config.sidepanel_title == "Community"
+    assert config.sidepanel_title == "HACS"
 
     assert isinstance(config.sidepanel_icon, str)
-    assert config.sidepanel_icon == "mdi:alpha-c-box"
+    assert config.sidepanel_icon == "mdi:store"
 
     assert isinstance(config.appdaemon, bool)
     assert not config.appdaemon

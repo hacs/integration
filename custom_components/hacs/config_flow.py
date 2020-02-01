@@ -92,9 +92,6 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)
 
-        return self.async_show_form(
-            step_id="user",
-            data_schema=vol.Schema(
-                hacs_config_option_schema(self.config_entry.options)
-            ),
-        )
+        schema = hacs_config_option_schema(self.config_entry.options)
+
+        return self.async_show_form(step_id="user", data_schema=vol.Schema(schema))

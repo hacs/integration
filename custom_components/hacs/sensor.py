@@ -7,12 +7,12 @@ from .const import DOMAIN, VERSION, NAME_SHORT
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup sensor platform."""
-    await async_add_entities([HACSSensor()])
+    async_add_entities([HACSSensor()])
 
 
 async def async_setup_entry(hass, config_entry, async_add_devices):
     """Setup sensor platform."""
-    await async_add_devices([HACSSensor()])
+    async_add_devices([HACSSensor()])
 
 
 class HACSDevice(Entity):
@@ -24,7 +24,7 @@ class HACSDevice(Entity):
         return {
             "identifiers": {(DOMAIN, self.unique_id)},
             "name": NAME_SHORT,
-            "manufacturer": NAME_SHORT,
+            "manufacturer": "hacs.xyz",
             "model": "",
             "sw_version": VERSION,
         }

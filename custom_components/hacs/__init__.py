@@ -22,9 +22,10 @@ from .hacsbase.configuration import Configuration
 from .hacsbase.data import HacsData
 from .setup import add_sensor, load_hacs_repository, setup_frontend
 
-SCHEMA = hacs_base_config_schema()
-SCHEMA[vol.Optional("options")] = hacs_config_option_schema()
-CONFIG_SCHEMA = vol.Schema({DOMAIN: SCHEMA}, extra=vol.ALLOW_EXTRA)
+CONFIG_SCHEMA = vol.Schema(
+    {DOMAIN: (hacs_base_config_schema(), hacs_config_option_schema())},
+    extra=vol.ALLOW_EXTRA,
+)
 
 
 async def async_setup(hass, config):
@@ -56,9 +57,11 @@ async def async_setup_entry(hass, config_entry):
             )
         return False
     Hacs.hass = hass
+
     Hacs.configuration = Configuration.from_dict(
         config_entry.data, config_entry.options
     )
+    Hacs.configuration.print()
     Hacs.configuration.config_type = "flow"
     Hacs.configuration.config_entry = config_entry
     config_entry.add_update_listener(reload_hacs)
@@ -113,7 +116,7 @@ async def hacs_startup(hacs):
     hacs.data = HacsData()
 
     # Check HACS Constrains
-    if not await hacs.hass.async_add_executor_job(check_constans, hacs):
+    if not await check_constans(hacs):
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)

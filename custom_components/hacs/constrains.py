@@ -8,13 +8,13 @@ from .helpers.misc import version_left_higher_then_right
 MINIMUM_HA_VERSION = "0.98.0"
 
 
-async def check_constans(hacs):
+def check_constans(hacs):
     """Check HACS constrains."""
-    if not await hacs.hass.async_add_executor_job(constrain_translations, hacs):
+    if not constrain_translations(hacs):
         return False
-    if not await hacs.hass.async_add_executor_job(constrain_custom_updater, hacs):
+    if not constrain_custom_updater(hacs):
         return False
-    if not await hacs.hass.async_add_executor_job(constrain_version, hacs):
+    if not constrain_version(hacs):
         return False
     return True
 

@@ -1,10 +1,11 @@
 """HACS Startup constrains."""
 # pylint: disable=bad-continuation
 import os
-import json
 
 from .const import CUSTOM_UPDATER_LOCATIONS, CUSTOM_UPDATER_WARNING
 from .helpers.misc import version_left_higher_then_right
+
+MINIMUM_HA_VERSION = "0.98.0"
 
 
 def check_constans(hacs):
@@ -32,17 +33,9 @@ def constrain_custom_updater(hacs):
 
 def constrain_version(hacs):
     """Check if the version is valid."""
-    with open(
-        f"{hacs.system.config_path}/custom_components/hacs/manifest.json", "r"
-    ) as read:
-        manifest = json.loads(read.read())
-
-    # Check if HA is the required version.
-    installed = hacs.system.ha_version
-    minimum = manifest["homeassistant"]
-    if not version_left_higher_then_right(installed, minimum):
+    if not version_left_higher_then_right(hacs.system.ha_version, MINIMUM_HA_VERSION):
         hacs.logger.critical(
-            f"You need HA version {manifest['homeassistant']} or newer to use this integration."
+            f"You need HA version {MINIMUM_HA_VERSION} or newer to use this integration."
         )
         return False
     return True
@@ -55,6 +48,4 @@ def constrain_translations(hacs):
     ):
         hacs.logger.critical("You are missing the translations directory.")
         return False
-
     return True
-

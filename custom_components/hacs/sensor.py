@@ -3,6 +3,7 @@
 from integrationhelper import Logger
 from homeassistant.helpers.entity import Entity
 from .hacsbase import Hacs as hacs
+from .const import DOMAIN, VERSION, NAME_SHORT
 
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
@@ -15,7 +16,22 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
     async_add_devices([HACSSensor()])
 
 
-class HACSSensor(Entity):
+class HACSDevice(Entity):
+    """HACS Device class."""
+
+    @property
+    def device_info(self):
+        """Return device information about HACS."""
+        return {
+            "identifiers": {(DOMAIN, self.unique_id)},
+            "name": NAME_SHORT,
+            "manufacturer": NAME_SHORT,
+            "model": "",
+            "sw_version": VERSION,
+        }
+
+
+class HACSSensor(HACSDevice):
     """HACS Sensor class."""
 
     def __init__(self):
@@ -59,7 +75,7 @@ class HACSSensor(Entity):
     @property
     def icon(self):
         """Return the icon of the sensor."""
-        return "mdi:package"
+        return "mdi:store"
 
     @property
     def unit_of_measurement(self):
@@ -79,4 +95,7 @@ class HACSSensor(Entity):
                     "available version": repository.display_available_version,
                 }
             )
-        return {"repositories": data}
+        return {
+            "repositories": data,
+            "attribution": "It is expected to see [object Object] here, for more info see https://hacs.xyz/docs/basic/sensor",
+        }

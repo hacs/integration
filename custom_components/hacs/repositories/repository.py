@@ -260,6 +260,9 @@ class HacsRepository(Hacs):
             f"hacs.repository.{self.information.category}.{self.information.full_name}"
         )
 
+        if self.ref is None:
+            self.ref = version_to_install(self)
+
         # Step 1: Make sure the repository exist.
         self.logger.debug("Checking repository.")
         try:

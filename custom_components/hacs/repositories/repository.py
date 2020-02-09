@@ -14,6 +14,7 @@ from ..hacsbase.exceptions import HacsException
 from ..hacsbase.backup import Backup
 from ..handler.download import async_download_file, async_save_file
 from ..helpers.misc import version_left_higher_then_right
+from ..helpers.install import install_repository, version_to_install
 
 
 RERPOSITORY_CLASSES = {}
@@ -115,6 +116,7 @@ class HacsRepository(Hacs):
         self.versions = RepositoryVersions()
         self.pending_restart = False
         self.logger = None
+        self.ref = None
 
     @property
     def pending_upgrade(self):
@@ -137,19 +139,6 @@ class HacsRepository(Hacs):
                 return False
             return self.manifest.get("config_flow", False)
         return False
-
-    @property
-    def ref(self):
-        """Return the ref."""
-        if self.status.selected_tag is not None:
-            if self.status.selected_tag == self.information.default_branch:
-                return self.information.default_branch
-            return "tags/{}".format(self.status.selected_tag)
-
-        if self.releases.releases:
-            return "tags/{}".format(self.versions.available)
-
-        return self.information.default_branch
 
     @property
     def custom(self):
@@ -382,85 +371,7 @@ class HacsRepository(Hacs):
 
     async def install(self):
         """Common installation steps of the repository."""
-        self.validate.errors = []
-        persistent_directory = None
-
-        if not self.can_install:
-            raise HacsException("Wrong HA version found")
-
-        await self.update_repository()
-
-        if self.repository_manifest:
-            if self.repository_manifest.persistent_directory:
-                if os.path.exists(
-                    f"{self.content.path.local}/{self.repository_manifest.persistent_directory}"
-                ):
-                    persistent_directory = Backup(
-                        f"{self.content.path.local}/{self.repository_manifest.persistent_directory}",
-                        tempfile.gettempdir() + "/hacs_persistent_directory/",
-                    )
-                    persistent_directory.create()
-
-        if self.status.installed and not self.content.single:
-            backup = Backup(self.content.path.local)
-            backup.create()
-
-        if self.repository_manifest.zip_release:
-            validate = await self.download_zip(self.validate)
-        else:
-            validate = await self.download_content(
-                self.validate,
-                self.content.path.remote,
-                self.content.path.local,
-                self.ref,
-            )
-
-        if validate.errors:
-            for error in validate.errors:
-                self.logger.error(error)
-            if self.status.installed and not self.content.single:
-                backup.restore()
-
-        if self.status.installed and not self.content.single:
-            backup.cleanup()
-
-        if persistent_directory is not None:
-            persistent_directory.restore()
-            persistent_directory.cleanup()
-
-        if validate.success:
-            if self.information.full_name not in self.common.installed:
-                if self.information.full_name == "hacs/integration":
-                    self.common.installed.append(self.information.full_name)
-            self.status.installed = True
-            self.versions.installed_commit = self.versions.available_commit
-
-            if self.status.selected_tag is not None:
-                self.versions.installed = self.status.selected_tag
-            else:
-                self.versions.installed = self.versions.available
-
-            if self.information.category == "integration":
-                if (
-                    self.config_flow
-                    and self.information.full_name != "hacs/integration"
-                ):
-                    await self.reload_custom_components()
-                self.pending_restart = True
-
-            elif self.information.category == "theme":
-                try:
-                    await self.hass.services.async_call("frontend", "reload_themes", {})
-                except Exception:  # pylint: disable=broad-except
-                    pass
-            self.hass.bus.async_fire(
-                "hacs/repository",
-                {
-                    "id": 1337,
-                    "action": "install",
-                    "repository": self.information.full_name,
-                },
-            )
+        await install_repository(self)
 
     async def download_zip(self, validate):
         """Download ZIP archive from repository release."""
@@ -502,75 +413,15 @@ class HacsRepository(Hacs):
 
     async def download_content(self, validate, directory_path, local_directory, ref):
         """Download the content of a directory."""
-        try:
-            # Get content
-            contents = []
-            if self.releases.releases:
-                for release in self.releases.objects:
-                    if self.status.selected_tag == release.tag_name:
-                        contents = release.assets
-            if not contents:
-                if self.content.single:
-                    contents = self.content.objects
-                else:
-                    contents = await self.repository_object.get_contents(
-                        directory_path, self.ref
-                    )
+        from custom_components.hacs.helpers.download import download_content
 
-            for content in contents:
-                if content.type == "dir" and (
-                    self.repository_manifest.content_in_root
-                    or self.content.path.remote != ""
-                ):
-                    await self.download_content(
-                        validate, content.path, local_directory, ref
-                    )
-                    continue
-                if self.information.category == "plugin":
-                    if not content.name.endswith(".js"):
-                        if self.content.path.remote != "dist":
-                            continue
-
-                self.logger.debug(f"Downloading {content.name}")
-
-                filecontent = await async_download_file(self.hass, content.download_url)
-
-                if filecontent is None:
-                    validate.errors.append(f"[{content.name}] was not downloaded.")
-                    continue
-
-                # Save the content of the file.
-                if self.content.single or content.path is None:
-                    local_directory = self.content.path.local
-
-                else:
-                    _content_path = content.path
-                    if not self.repository_manifest.content_in_root:
-                        _content_path = _content_path.replace(
-                            f"{self.content.path.remote}/", ""
-                        )
-
-                    local_directory = f"{self.content.path.local}/{_content_path}"
-                    local_directory = local_directory.split("/")
-                    del local_directory[-1]
-                    local_directory = "/".join(local_directory)
-
-                # Check local directory
-                pathlib.Path(local_directory).mkdir(parents=True, exist_ok=True)
-
-                local_file_path = f"{local_directory}/{content.name}"
-                result = await async_save_file(local_file_path, filecontent)
-                if result:
-                    self.logger.info(f"download of {content.name} complete")
-                    continue
-                validate.errors.append(f"[{content.name}] was not downloaded.")
-
-        except Exception:
-            validate.errors.append(f"Download was not complete.")
+        validate = await download_content(self, validate, local_directory)
         return validate
 
     async def get_repository_manifest_content(self):
         """Get the content of the hacs.json file."""
+        if self.ref is None:
+            self.ref = version_to_install(self)
         try:
             manifest = await self.repository_object.get_contents("hacs.json", self.ref)
             self.repository_manifest = HacsManifest.from_dict(
@@ -582,6 +433,9 @@ class HacsRepository(Hacs):
     async def get_info_md_content(self):
         """Get the content of info.md"""
         from ..handler.template import render_template
+
+        if self.ref is None:
+            self.ref = version_to_install(self)
 
         info = None
         info_files = ["info", "info.md"]

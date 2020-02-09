@@ -65,7 +65,10 @@ async def install_repository(repository):
         repository.status.installed = True
         repository.versions.installed_commit = repository.versions.available_commit
 
-        repository.versions.installed = version
+        if version == repository.information.default_branch:
+            repository.versions.installed = None
+        else:
+            repository.versions.installed = version
 
         await reload_after_install(repository)
         installation_complete(repository)

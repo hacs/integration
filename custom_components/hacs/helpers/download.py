@@ -78,7 +78,6 @@ async def download_content(repository, validate, local_directory):
             raise HacsException("No content to download")
 
         for content in contents:
-            repository.logger.info(content)
             repository.logger.debug(f"Downloading {content.name}")
 
             filecontent = await async_download_file(
@@ -97,7 +96,7 @@ async def download_content(repository, validate, local_directory):
                 _content_path = content.path
                 if not repository.repository_manifest.content_in_root:
                     _content_path = _content_path.replace(
-                        f"{repository.content.path.remote}/", ""
+                        f"{repository.content.path.remote}", ""
                     )
 
                 local_directory = f"{repository.content.path.local}/{_content_path}"

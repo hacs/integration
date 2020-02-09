@@ -35,7 +35,10 @@ async def install_repository(repository):
         backup = Backup(repository.content.path.local)
         backup.create()
 
-    if repository.repository_manifest.zip_release:
+    if (
+        repository.repository_manifest.zip_release
+        and version != repository.information.default_branch
+    ):
         validate = await repository.download_zip(repository.validate)
     else:
         validate = await repository.download_content(

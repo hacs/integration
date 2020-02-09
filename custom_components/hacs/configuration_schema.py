@@ -23,7 +23,7 @@ def hacs_base_config_schema(config: dict = {}) -> dict:
     if not config:
         config = {
             TOKEN: "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
-            SIDEPANEL_ICON: "hacs:hacs",
+            SIDEPANEL_ICON: "mdi:alpha-c-box",
             SIDEPANEL_TITLE: "HACS",
             APPDAEMON: False,
             PYTHON_SCRIPT: False,

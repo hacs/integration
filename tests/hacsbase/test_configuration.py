@@ -8,6 +8,9 @@ from custom_components.hacs.hacsbase.exceptions import HacsException
 def test_configuration_and_option():
     config = Configuration.from_dict({"token": "xxxxxxxxxx"}, {})
 
+    assert isinstance(config.to_json(), dict)
+    config.print()
+
     assert isinstance(config.options, dict)
     assert isinstance(config.config, dict)
 
@@ -15,10 +18,10 @@ def test_configuration_and_option():
     assert config.token == "xxxxxxxxxx"
 
     assert isinstance(config.sidepanel_title, str)
-    assert config.sidepanel_title == "HACS"
+    assert config.sidepanel_title == "Community"
 
     assert isinstance(config.sidepanel_icon, str)
-    assert config.sidepanel_icon == "hacs:hacs"
+    assert config.sidepanel_icon == "mdi:alpha-c-box"
 
     assert isinstance(config.appdaemon, bool)
     assert not config.appdaemon

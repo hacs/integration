@@ -1,4 +1,4 @@
-"""Helpers: Misc: version_to_install."""
+"""Helpers: Install: version_to_install."""
 # pylint: disable=missing-docstring
 from custom_components.hacs.helpers.install import version_to_install
 from tests.dummy_repository import dummy_repository_base
@@ -19,6 +19,16 @@ def test_version_to_install():
 
     repository = dummy_repository_base()
     repository.status.selected_tag = None
+    repository.versions.available = None
+    assert version_to_install(repository) == "master"
+
+    repository = dummy_repository_base()
+    repository.status.selected_tag = "2"
+    repository.versions.available = None
+    assert version_to_install(repository) == "2"
+
+    repository = dummy_repository_base()
+    repository.status.selected_tag = "master"
     repository.versions.available = None
     assert version_to_install(repository) == "master"
 

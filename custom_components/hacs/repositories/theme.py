@@ -16,8 +16,8 @@ class HacsTheme(HacsRepository):
         self.information.full_name = full_name
         self.information.category = self.category
         self.content.path.remote = "themes"
-        self.content.path.local = f"{self.system.config_path}/themes"
-        self.content.single = True
+        self.content.path.local = f"{self.system.config_path}/themes/{full_name.split('/')[1].replace('-','_').lower()}"
+        self.content.single = False
 
     async def validate_repository(self):
         """Validate."""
@@ -25,14 +25,25 @@ class HacsTheme(HacsRepository):
         await self.common_validate()
 
         # Custom step 1: Validate content.
-        try:
-            self.content.objects = await self.repository_object.get_contents(
-                self.content.path.remote, self.ref
-            )
-        except AIOGitHubException:
+        compliant = False
+        for treefile in self.treefiles:
+            self.logger.debug(treefile)
+            if treefile.startswith("themes/") and treefile.endswith(".yaml"):
+                compliant = True
+                break
+        if not compliant:
             raise HacsException(
                 f"Repostitory structure for {self.ref.replace('tags/','')} is not compliant"
             )
+
+        if self.repository_manifest:
+            if self.repository_manifest.content_in_root:
+                self.content.path.remote = ""
+
+        self.content.objects = await self.repository_object.get_contents(
+            self.content.path.remote, self.ref
+        )
+
         if not isinstance(self.content.objects, list):
             self.validate.errors.append("Repostitory structure not compliant")
 

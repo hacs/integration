@@ -118,4 +118,6 @@ def version_to_install(repository):
             return repository.information.default_branch
         if repository.status.selected_tag in repository.releases.published_tags:
             return repository.status.selected_tag
+    if repository.information.default_branch is None:
+        return "master"
     return repository.information.default_branch

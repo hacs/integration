@@ -10,6 +10,12 @@ def test_version_to_install():
     assert version_to_install(repository) == "master"
 
     repository = dummy_repository_base()
+    repository.information.default_branch = None
+    repository.versions.available = None
+    repository.status.selected_tag = None
+    assert version_to_install(repository) == "master"
+
+    repository = dummy_repository_base()
     repository.status.selected_tag = "2"
     assert version_to_install(repository) == "2"
 

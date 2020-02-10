@@ -49,6 +49,13 @@ async def download_zip(repository, validate):
     return validate
 
 
+class contentObj:
+    def __init__(self, url, path, name):
+        self.download_url = url
+        self.path = path
+        self.name = name
+
+
 async def download_content(repository, validate, local_directory):
     """Download the content of a directory."""
     contents = []
@@ -64,20 +71,31 @@ async def download_content(repository, validate, local_directory):
         if not contents:
             if repository.content.single:
                 for repository_object in repository.content.objects:
-                    contents.append(repository_object)
+                    contents.append(
+                        contentObj(
+                            repository_object.download_url,
+                            repository_object.path,
+                            repository_object.name,
+                        )
+                    )
             else:
                 tree = await repository.repository_object.get_tree(repository.ref)
                 for path in tree:
                     if path.is_directory:
                         continue
-                    if repository.content.path.remote in path.full_path:
-                        path.name = path.filename
-                        contents.append(path)
+                    if path.full_path.startswith(repository.content.path.remote):
+                        contents.append(
+                            contentObj(path.download_url, path.full_path, path.filename)
+                        )
 
         if not contents:
             raise HacsException("No content to download")
 
         for content in contents:
+            if repository.repository_manifest.content_in_root:
+                if repository.repository_manifest.filename is not None:
+                    if content.name != repository.repository_manifest.filename:
+                        continue
             repository.logger.debug(f"Downloading {content.name}")
 
             filecontent = await async_download_file(

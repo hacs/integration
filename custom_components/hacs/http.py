@@ -32,7 +32,10 @@ class HacsFrontend(HomeAssistantView, Hacs):
             )
 
         try:
-            file = f"{self.system.config_path}/www/community/{requested_file}"
+            if requested_file.startswith("themes"):
+                file = f"{self.system.config_path}/{requested_file}"
+            else:
+                file = f"{self.system.config_path}/www/community/{requested_file}"
 
             # Serve .gz if it exist
             if os.path.exists(file + ".gz"):

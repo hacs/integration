@@ -71,6 +71,15 @@ async def async_save_file(location, content):
                     with gzip.open(location + ".gz", "wb") as f_out:
                         shutil.copyfileobj(f_in, f_out)
 
+        # Remove with 2.0
+        if "themes" in location and location.endswith(".yaml"):
+            filename = location.split("/")[-1]
+            base = location.split("/themes/")[0]
+            combined = f"{base}/themes/{filename}"
+            if os.path.exists(combined):
+                logger.info(f"Removing old theme file {combined}")
+                os.remove(combined)
+
     except Exception as error:  # pylint: disable=broad-except
         msg = "Could not write data to {} - {}".format(location, error)
         logger.error(msg)

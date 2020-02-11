@@ -7,6 +7,74 @@ from custom_components.hacs.handler.download import async_download_file, async_s
 from custom_components.hacs.helpers.filters import filter_content_return_one_of_type
 
 
+class FileInformation:
+    def __init__(self, url, path, name):
+        self.download_url = url
+        self.path = path
+        self.name = name
+
+
+def gather_files_to_download(repository):
+    """Return a list of file objects to be downloaded."""
+    files = []
+    tree = repository.tree
+    releaseobjects = repository.releases.objects
+    category = repository.information.category
+    remotelocation = repository.content.path.remote
+
+    if (
+        repository.releases.releases
+        and releaseobjects
+        and category in ["plugin", "theme"]
+    ):
+        for release in releaseobjects or []:
+            if repository.status.selected_tag == release.tag_name:
+                for asset in release.assets or []:
+                    files.append(asset)
+        if files:
+            return files
+
+    if repository.content.single:
+        for treefile in tree:
+            if treefile.filename == repository.information.filename:
+                files.append(
+                    FileInformation(
+                        treefile.download_url, treefile.full_path, treefile.filename
+                    )
+                )
+        return files
+
+    if category == "plugin":
+        for treefile in tree:
+            if treefile.path in ["", "dist"]:
+                if not remotelocation:
+                    if treefile.filename != repository.information.file_name:
+                        continue
+                files.append(
+                    FileInformation(
+                        treefile.download_url, treefile.full_path, treefile.filename
+                    )
+                )
+        if files:
+            return files
+
+    if repository.repository_manifest.content_in_root:
+        if repository.repository_manifest.filename is None:
+            if category == "theme":
+                tree = filter_content_return_one_of_type(
+                    repository.tree, "themes", "yaml", "full_path"
+                )
+
+    for path in tree:
+        if path.is_directory:
+            continue
+        if path.full_path.startswith(repository.content.path.remote):
+            files.append(
+                FileInformation(path.download_url, path.full_path, path.filename)
+            )
+    return files
+
+
 async def download_zip(repository, validate):
     """Download ZIP archive from repository release."""
     contents = []
@@ -50,51 +118,10 @@ async def download_zip(repository, validate):
     return validate
 
 
-class contentObj:
-    def __init__(self, url, path, name):
-        self.download_url = url
-        self.path = path
-        self.name = name
-
-
 async def download_content(repository, validate, local_directory):
     """Download the content of a directory."""
-    contents = []
+    contents = gather_files_to_download(repository)
     try:
-        if repository.releases.releases and repository.information.category in [
-            "plugin",
-            "theme",
-        ]:
-            for release in repository.releases.objects:
-                if repository.status.selected_tag == release.tag_name:
-                    for asset in release.assets:
-                        contents.append(asset)
-        if not contents:
-            if repository.content.single:
-                for repository_object in repository.content.objects:
-                    contents.append(
-                        contentObj(
-                            repository_object.download_url,
-                            repository_object.path,
-                            repository_object.name,
-                        )
-                    )
-            else:
-                tree = repository.tree
-                if repository.repository_manifest.content_in_root:
-                    if repository.repository_manifest.filename is None:
-                        if repository.information.category == "theme":
-                            tree = filter_content_return_one_of_type(
-                                repository.tree, "themes", "yaml", "full_path"
-                            )
-                for path in tree:
-                    if path.is_directory:
-                        continue
-                    if path.full_path.startswith(repository.content.path.remote):
-                        contents.append(
-                            contentObj(path.download_url, path.full_path, path.filename)
-                        )
-
         if not contents:
             raise HacsException("No content to download")
 

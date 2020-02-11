@@ -67,9 +67,12 @@ class HacsTheme(HacsRepository):
         await self.common_registration()
 
         # Set name
-        self.information.file_name = find_first_of_filetype(
-            self.content.files, "yaml"
-        ).split("/")[-1]
+        if self.repository_manifest.filename is not None:
+            self.information.file_name = self.repository_manifest.filename
+        else:
+            self.information.file_name = find_first_of_filetype(
+                self.content.files, "yaml"
+            ).split("/")[-1]
         self.information.name = self.information.file_name.replace(".yaml", "")
         self.content.path.local = (
             f"{self.system.config_path}/themes/{self.information.name}"
@@ -95,9 +98,12 @@ class HacsTheme(HacsRepository):
         )
 
         # Update name
-        self.information.file_name = find_first_of_filetype(
-            self.content.files, "yaml"
-        ).split("/")[-1]
+        if self.repository_manifest.filename is not None:
+            self.information.file_name = self.repository_manifest.filename
+        else:
+            self.information.file_name = find_first_of_filetype(
+                self.content.files, "yaml"
+            ).split("/")[-1]
         self.information.name = self.information.file_name.replace(".yaml", "")
         self.content.path.local = (
             f"{self.system.config_path}/themes/{self.information.name}"

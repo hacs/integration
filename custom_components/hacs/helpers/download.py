@@ -81,10 +81,12 @@ async def download_content(repository, validate, local_directory):
                     )
             else:
                 tree = repository.tree
-                if repository.information.category == "theme":
-                    tree = filter_content_return_one_of_type(
-                        repository.tree, "themes", "yaml", "full_path"
-                    )
+                if repository.repository_manifest.content_in_root:
+                    if repository.repository_manifest.filename is None:
+                        if repository.information.category == "theme":
+                            tree = filter_content_return_one_of_type(
+                                repository.tree, "themes", "yaml", "full_path"
+                            )
                 for path in tree:
                     if path.is_directory:
                         continue

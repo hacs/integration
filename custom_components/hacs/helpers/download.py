@@ -4,6 +4,7 @@ import tempfile
 import zipfile
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.handler.download import async_download_file, async_save_file
+from custom_components.hacs.helpers.filters import filter_content_return_one_of_type
 
 
 async def download_zip(repository, validate):
@@ -80,7 +81,13 @@ async def download_content(repository, validate, local_directory):
                     )
             else:
                 tree = await repository.repository_object.get_tree(repository.ref)
+                if repository.information.category == "theme":
+                    tree = filter_content_return_one_of_type(
+                        tree, "themes", "yaml", "full_path"
+                    )
+                    repository.logger.debug(tree)
                 for path in tree:
+                    repository.logger.info(path.full_path)
                     if path.is_directory:
                         continue
                     if path.full_path.startswith(repository.content.path.remote):

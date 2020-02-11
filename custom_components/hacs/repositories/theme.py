@@ -1,7 +1,7 @@
 """Class for themes in HACS."""
-from aiogithubapi import AIOGitHubException
 from .repository import HacsRepository, register_repository_class
 from ..hacsbase.exceptions import HacsException
+from ..helpers.filters import filter_content_return_one_of_type
 
 
 @register_repository_class
@@ -16,7 +16,7 @@ class HacsTheme(HacsRepository):
         self.information.full_name = full_name
         self.information.category = self.category
         self.content.path.remote = "themes"
-        self.content.path.local = f"{self.system.config_path}/themes/{full_name.split('/')[1].replace('-','_').lower()}"
+        self.content.path.local = f"{self.system.config_path}/themes"
         self.content.single = False
 
     async def validate_repository(self):
@@ -47,9 +47,12 @@ class HacsTheme(HacsRepository):
         if not isinstance(self.content.objects, list):
             self.validate.errors.append("Repostitory structure not compliant")
 
+        files = filter_content_return_one_of_type(
+            self.content.objects, "themes", "yaml"
+        )
         self.content.files = []
-        for filename in self.content.objects:
-            self.content.files.append(filename.name)
+        for _file in files:
+            self.content.files.append(_file.name)
 
         # Handle potential errors
         if self.validate.errors:
@@ -68,6 +71,9 @@ class HacsTheme(HacsRepository):
 
         # Set name
         self.information.name = self.content.objects[0].name.replace(".yaml", "")
+        self.content.path.local = (
+            f"{self.system.config_path}/themes/{self.information.name}"
+        )
 
     async def update_repository(self):  # lgtm[py/similar-function]
         """Update."""
@@ -84,14 +90,16 @@ class HacsTheme(HacsRepository):
             self.content.path.remote, self.ref
         )
 
+        files = filter_content_return_one_of_type(
+            self.content.objects, "themes", "yaml"
+        )
         self.content.files = []
-        for filename in self.content.objects:
-            self.content.files.append(filename.name)
+        for _file in files:
+            self.content.files.append(_file.name)
 
         # Update name
         self.information.file_name = self.content.objects[0].name
         self.information.name = self.content.objects[0].name.replace(".yaml", "")
-
-        self.content.files = []
-        for filename in self.content.objects:
-            self.content.files.append(filename.name)
+        self.content.path.local = (
+            f"{self.system.config_path}/themes/{self.information.name}"
+        )

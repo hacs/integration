@@ -1,0 +1,29 @@
+"""Filter functions."""
+
+
+def filter_content_return_one_of_type(
+    content, namestartswith, filterfiltype, attr="name"
+):
+    """Only match 1 of the filter."""
+    contents = []
+    filetypefound = False
+    for filename in content:
+        if isinstance(filename, str):
+            if filename.startswith(namestartswith):
+                if filename.endswith(f".{filterfiltype}"):
+                    if not filetypefound:
+                        contents.append(filename)
+                        filetypefound = True
+                    continue
+                else:
+                    contents.append(filename)
+        else:
+            if getattr(filename, attr).startswith(namestartswith):
+                if getattr(filename, attr).endswith(f".{filterfiltype}"):
+                    if not filetypefound:
+                        contents.append(filename)
+                        filetypefound = True
+                    continue
+                else:
+                    contents.append(filename)
+    return contents

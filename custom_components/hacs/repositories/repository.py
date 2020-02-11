@@ -103,6 +103,7 @@ class HacsRepository(Hacs):
     def __init__(self):
         """Set up HacsRepository."""
 
+        self.data = {}
         self.content = RepositoryContent()
         self.content.path = RepositoryPath()
         self.information = RepositoryInformation()
@@ -270,6 +271,7 @@ class HacsRepository(Hacs):
             self.repository_object = await self.github.get_repo(
                 self.information.full_name
             )
+            self.data = self.repository_object.attributes
         except Exception as exception:  # Gotta Catch 'Em All
             if not self.system.status.startup:
                 self.logger.error(exception)

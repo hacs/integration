@@ -345,8 +345,18 @@ class HacsRepository(Hacs):
 
         self.logger.debug("Getting repository information")
 
+        # Set ref
+        if self.ref is None:
+            self.ref = version_to_install(self)
+
         # Attach repository
         self.repository_object = await self.github.get_repo(self.information.full_name)
+
+        # Update tree
+        self.tree = await self.repository_object.get_tree(self.ref)
+        self.treefiles = []
+        for treefile in self.tree:
+            self.treefiles.append(treefile.full_path)
 
         # Update description
         if self.repository_object.description:

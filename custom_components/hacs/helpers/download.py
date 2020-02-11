@@ -80,14 +80,12 @@ async def download_content(repository, validate, local_directory):
                         )
                     )
             else:
-                tree = await repository.repository_object.get_tree(repository.ref)
+                tree = repository.tree
                 if repository.information.category == "theme":
                     tree = filter_content_return_one_of_type(
-                        tree, "themes", "yaml", "full_path"
+                        repository.tree, "themes", "yaml", "full_path"
                     )
-                    repository.logger.debug(tree)
                 for path in tree:
-                    repository.logger.info(path.full_path)
                     if path.is_directory:
                         continue
                     if path.full_path.startswith(repository.content.path.remote):

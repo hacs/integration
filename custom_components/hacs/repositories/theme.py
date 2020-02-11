@@ -1,7 +1,7 @@
 """Class for themes in HACS."""
 from .repository import HacsRepository, register_repository_class
 from ..hacsbase.exceptions import HacsException
-from ..helpers.filters import filter_content_return_one_of_type
+from ..helpers.filters import filter_content_return_one_of_type, find_first_of_filetype
 
 
 @register_repository_class
@@ -47,12 +47,9 @@ class HacsTheme(HacsRepository):
         if not isinstance(self.content.objects, list):
             self.validate.errors.append("Repostitory structure not compliant")
 
-        files = filter_content_return_one_of_type(
-            self.content.objects, "themes", "yaml"
+        self.content.files = filter_content_return_one_of_type(
+            self.treefiles, "themes", "yaml"
         )
-        self.content.files = []
-        for _file in files:
-            self.content.files.append(_file.name)
 
         # Handle potential errors
         if self.validate.errors:
@@ -70,7 +67,10 @@ class HacsTheme(HacsRepository):
         await self.common_registration()
 
         # Set name
-        self.information.name = self.content.objects[0].name.replace(".yaml", "")
+        self.information.file_name = find_first_of_filetype(
+            self.content.files, "yaml"
+        ).split("/")[-1]
+        self.information.name = self.information.file_name.replace(".yaml", "")
         self.content.path.local = (
             f"{self.system.config_path}/themes/{self.information.name}"
         )
@@ -90,16 +90,15 @@ class HacsTheme(HacsRepository):
             self.content.path.remote, self.ref
         )
 
-        files = filter_content_return_one_of_type(
-            self.content.objects, "themes", "yaml"
+        self.content.files = filter_content_return_one_of_type(
+            self.treefiles, "themes", "yaml"
         )
-        self.content.files = []
-        for _file in files:
-            self.content.files.append(_file.name)
 
         # Update name
-        self.information.file_name = self.content.objects[0].name
-        self.information.name = self.content.objects[0].name.replace(".yaml", "")
+        self.information.file_name = find_first_of_filetype(
+            self.content.files, "yaml"
+        ).split("/")[-1]
+        self.information.name = self.information.file_name.replace(".yaml", "")
         self.content.path.local = (
             f"{self.system.config_path}/themes/{self.information.name}"
         )

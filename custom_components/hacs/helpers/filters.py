@@ -27,3 +27,18 @@ def filter_content_return_one_of_type(
                 else:
                     contents.append(filename)
     return contents
+
+
+def find_first_of_filetype(content, filterfiltype, attr="name"):
+    """Find the first of the file type."""
+    filename = ""
+    for _filename in content:
+        if isinstance(_filename, str):
+            if _filename.endswith(f".{filterfiltype}"):
+                filename = _filename
+                break
+        else:
+            if getattr(_filename, attr).endswith(f".{filterfiltype}"):
+                filename = getattr(_filename, attr)
+                break
+    return filename

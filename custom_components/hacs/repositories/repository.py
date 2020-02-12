@@ -15,6 +15,7 @@ from ..hacsbase.backup import Backup
 from ..handler.download import async_download_file, async_save_file
 from ..helpers.misc import version_left_higher_then_right
 from ..helpers.install import install_repository, version_to_install
+from custom_components.hacs.helpers.information import get_info_md_content
 
 
 RERPOSITORY_CLASSES = {}
@@ -346,8 +347,7 @@ class HacsRepository(Hacs):
         self.logger.debug("Getting repository information")
 
         # Set ref
-        if self.ref is None:
-            self.ref = version_to_install(self)
+        self.ref = version_to_install(self)
 
         # Attach repository
         self.repository_object = await self.github.get_repo(self.information.full_name)
@@ -386,7 +386,7 @@ class HacsRepository(Hacs):
         await self.get_repository_manifest_content()
 
         # Update "info.md"
-        await self.get_info_md_content()
+        self.information.additional_info = await get_info_md_content(self)
 
         # Update releases
         await self.get_releases()
@@ -451,40 +451,6 @@ class HacsRepository(Hacs):
             )
         except (AIOGitHubException, Exception):  # Gotta Catch 'Em All
             pass
-
-    async def get_info_md_content(self):
-        """Get the content of info.md"""
-        from ..handler.template import render_template
-
-        if self.ref is None:
-            self.ref = version_to_install(self)
-
-        info = None
-        info_files = ["info", "info.md"]
-
-        if self.repository_manifest is not None:
-            if self.repository_manifest.render_readme:
-                info_files = ["readme", "readme.md"]
-        try:
-            root = await self.repository_object.get_contents("", self.ref)
-            for file in root:
-                if file.name.lower() in info_files:
-
-                    info = await self.repository_object.get_contents(
-                        file.name, self.ref
-                    )
-                    break
-            if info is None:
-                self.information.additional_info = ""
-            else:
-                info = info.content.replace("<svg", "<disabled").replace(
-                    "</svg", "</disabled"
-                )
-
-                self.information.additional_info = render_template(info, self)
-
-        except (AIOGitHubException, Exception):
-            self.information.additional_info = ""
 
     async def get_releases(self):
         """Get repository releases."""

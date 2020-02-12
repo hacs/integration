@@ -18,6 +18,8 @@ def gather_files_to_download(repository):
     """Return a list of file objects to be downloaded."""
     files = []
     tree = repository.tree
+    ref = repository.ref.replace("tags/", "")
+    default = repository.information.default_branch
     releaseobjects = repository.releases.objects
     category = repository.information.category
     remotelocation = repository.content.path.remote
@@ -26,9 +28,10 @@ def gather_files_to_download(repository):
         repository.releases.releases
         and releaseobjects
         and category in ["plugin", "theme"]
+        and ref != default
     ):
         for release in releaseobjects or []:
-            if repository.status.selected_tag == release.tag_name:
+            if ref == release.tag_name:
                 for asset in release.assets or []:
                     files.append(asset)
         if files:

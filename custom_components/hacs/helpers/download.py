@@ -36,7 +36,7 @@ def gather_files_to_download(repository):
 
     if repository.content.single:
         for treefile in tree:
-            if treefile.filename == repository.information.filename:
+            if treefile.filename == repository.information.file_name:
                 files.append(
                     FileInformation(
                         treefile.download_url, treefile.full_path, treefile.filename
@@ -50,6 +50,12 @@ def gather_files_to_download(repository):
                 if not remotelocation:
                     if treefile.filename != repository.information.file_name:
                         continue
+                if remotelocation == "dist" and not treefile.filename.startswith(
+                    "dist"
+                ):
+                    continue
+                if treefile.is_directory:
+                    continue
                 files.append(
                     FileInformation(
                         treefile.download_url, treefile.full_path, treefile.filename

@@ -62,13 +62,12 @@ def gather_files_to_download(repository):
                     "dist"
                 ):
                     continue
-                if treefile.is_directory:
-                    continue
-                files.append(
-                    FileInformation(
-                        treefile.download_url, treefile.full_path, treefile.filename
+                if not treefile.is_directory:
+                    files.append(
+                        FileInformation(
+                            treefile.download_url, treefile.full_path, treefile.filename
+                        )
                     )
-                )
         if files:
             return files
 

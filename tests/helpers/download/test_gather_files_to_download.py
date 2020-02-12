@@ -1,6 +1,7 @@
 """Helpers: Download: reload_after_install."""
 # pylint: disable=missing-docstring
 from aiogithubapi.content import AIOGithubTreeContent
+from aiogithubapi.release import AIOGithubRepositoryRelease
 
 from custom_components.hacs.helpers.download import gather_files_to_download
 from tests.dummy_repository import dummy_repository_base, dummy_repository_plugin
@@ -68,3 +69,14 @@ def test_gather_plugin_files_from_dist():
     assert "dist/subdir" not in files
     assert "dist/test.js" in files
 
+
+def test_gather_plugin_files_from_release():
+    repository = dummy_repository_plugin()
+    repository.information.file_name = "test.js"
+    repository.releases.releases = True
+    release = AIOGithubRepositoryRelease(
+        {"tag_name": "3", "assets": [{"name": "test.js"}]}
+    )
+    repository.releases.objects = [release]
+    files = [x.name for x in gather_files_to_download(repository)]
+    assert "test.js" in files

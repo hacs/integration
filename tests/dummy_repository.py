@@ -2,6 +2,7 @@
 # pylint: disable=missing-docstring
 from integrationhelper import Logger
 from homeassistant.core import HomeAssistant
+from custom_components.hacs.helpers.install import version_to_install
 from custom_components.hacs.repositories import HacsIntegration, HacsTheme, HacsPlugin
 from custom_components.hacs.repositories.repository import HacsRepository
 
@@ -17,6 +18,7 @@ def dummy_repository_base(repository=None):
     repository.information.default_branch = "master"
     repository.versions.available = "3"
     repository.status.selected_tag = "3"
+    repository.ref = version_to_install(repository)
     repository.manifest = {"config_flow": False, "domain": "test"}
     repository.releases.published_tags = ["1", "2", "3"]
     return repository

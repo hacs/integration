@@ -2,7 +2,7 @@
 # pylint: disable=missing-docstring
 from integrationhelper import Logger
 from homeassistant.core import HomeAssistant
-from custom_components.hacs.repositories import HacsIntegration, HacsTheme
+from custom_components.hacs.repositories import HacsIntegration, HacsTheme, HacsPlugin
 from custom_components.hacs.repositories.repository import HacsRepository
 
 
@@ -29,4 +29,9 @@ def dummy_repository_integration():
 
 def dummy_repository_theme():
     repository = HacsTheme("test/test")
+    return dummy_repository_base(repository)
+
+
+def dummy_repository_plugin():
+    repository = HacsPlugin("test/test")
     return dummy_repository_base(repository)

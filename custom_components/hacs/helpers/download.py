@@ -56,7 +56,7 @@ def gather_files_to_download(repository):
         for treefile in tree:
             if treefile.path in ["", "dist"]:
                 if not remotelocation:
-                    if treefile.filename != repository.information.file_name:
+                    if treefile.full_path != repository.information.file_name:
                         continue
                 if remotelocation == "dist" and not treefile.filename.startswith(
                     "dist"

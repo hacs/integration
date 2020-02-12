@@ -14,22 +14,27 @@ class FileInformation:
         self.name = name
 
 
+def should_try_releases(repository):
+    """Return a boolean indicating whether to download releases or not."""
+    if repository.ref == repository.information.default_branch:
+        return False
+    if repository.information.category not in ["plugin", "theme"]:
+        return False
+    if not repository.releases.releases:
+        return False
+    return True
+
+
 def gather_files_to_download(repository):
     """Return a list of file objects to be downloaded."""
     files = []
     tree = repository.tree
-    ref = repository.ref.replace("tags/", "")
-    default = repository.information.default_branch
+    ref = f"{repository.ref}".replace("tags/", "")
     releaseobjects = repository.releases.objects
     category = repository.information.category
     remotelocation = repository.content.path.remote
 
-    if (
-        repository.releases.releases
-        and releaseobjects
-        and category in ["plugin", "theme"]
-        and ref != default
-    ):
+    if should_try_releases(repository):
         for release in releaseobjects or []:
             if ref == release.tag_name:
                 for asset in release.assets or []:

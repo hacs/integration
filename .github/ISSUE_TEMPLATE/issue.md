@@ -30,7 +30,9 @@ A clear and concise description of what the bug is.
 
 <details>
   <summary>Logs</summary>
+
 ```text
 Paste your logs here.
 ```
+
 </details>

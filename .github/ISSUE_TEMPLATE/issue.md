@@ -28,8 +28,9 @@ A clear and concise description of what the bug is.
 
 <!-- To enable debug logs check this https://www.home-assistant.io/components/logger/ -->
 
+<details>
+  <summary>Logs</summary>
 ```text
-
-Add your logs here.
-
+Paste your logs here.
 ```
+</details>

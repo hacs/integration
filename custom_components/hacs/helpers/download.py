@@ -16,6 +16,10 @@ class FileInformation:
 
 def should_try_releases(repository):
     """Return a boolean indicating whether to download releases or not."""
+    if repository.repository_manifest.zip_release:
+        if repository.repository_manifest.filename.endswith(".zip"):
+            if repository.ref != repository.data.default_branch:
+                return True
     if repository.ref == repository.data.default_branch:
         return False
     if repository.information.category not in ["plugin", "theme"]:

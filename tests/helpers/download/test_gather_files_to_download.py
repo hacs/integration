@@ -4,7 +4,11 @@ from aiogithubapi.content import AIOGithubTreeContent
 from aiogithubapi.release import AIOGithubRepositoryRelease
 
 from custom_components.hacs.helpers.download import gather_files_to_download
-from tests.dummy_repository import dummy_repository_base, dummy_repository_plugin
+from tests.dummy_repository import (
+    dummy_repository_base,
+    dummy_repository_plugin,
+    dummy_repository_theme,
+)
 
 
 def test_gather_files_to_download():
@@ -81,3 +85,36 @@ def test_gather_plugin_files_from_release():
     repository.releases.objects = [release]
     files = [x.name for x in gather_files_to_download(repository)]
     assert "test.js" in files
+
+
+def test_gather_zip_release():
+    repository = dummy_repository_plugin()
+    repository.information.file_name = "test.zip"
+    repository.repository_manifest.zip_release = True
+    repository.repository_manifest.filename = "test.zip"
+    repository.releases.objects = [
+        AIOGithubRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.zip"}]})
+    ]
+    files = [x.name for x in gather_files_to_download(repository)]
+    assert "test.zip" in files
+
+
+def test_gather_content_in_root_theme():
+    repository = dummy_repository_theme()
+    repository.repository_manifest.content_in_root = True
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "test.yaml", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent({"path": "dir", "type": "tree"}, "test/test", "master"),
+        AIOGithubTreeContent(
+            {"path": "test2.yaml", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "readme.md", "type": "blob"}, "test/test", "master"
+        ),
+    ]
+    files = [x.path for x in gather_files_to_download(repository)]
+    assert "readme.md" not in files
+    assert "test2.yaml" not in files
+    assert "test.yaml" not in files

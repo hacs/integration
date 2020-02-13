@@ -34,3 +34,15 @@ def test_no_releases():
     repository.information.category = "plugin"
     repository.releases.releases = False
     assert not should_try_releases(repository)
+
+
+def test_zip_release():
+    repository = dummy_repository_base()
+    repository.releases.releases = False
+    repository.repository_manifest.zip_release = True
+    repository.repository_manifest.filename = "test.zip"
+    assert should_try_releases(repository)
+
+    # Select a branch
+    repository.ref = "master"
+    assert not should_try_releases(repository)

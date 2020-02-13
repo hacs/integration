@@ -8,6 +8,7 @@ from tests.dummy_repository import (
     dummy_repository_base,
     dummy_repository_plugin,
     dummy_repository_theme,
+    dummy_repository_python_script,
 )
 
 
@@ -99,9 +100,33 @@ def test_gather_zip_release():
     assert "test.zip" in files
 
 
+def test_single_file_repo():
+    repository = dummy_repository_base()
+    repository.content.single = True
+    repository.information.file_name = "test.file"
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "test.file", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent({"path": "dir", "type": "tree"}, "test/test", "master"),
+        AIOGithubTreeContent(
+            {"path": "test.yaml", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "readme.md", "type": "blob"}, "test/test", "master"
+        ),
+    ]
+    files = [x.path for x in gather_files_to_download(repository)]
+    assert "readme.md" not in files
+    assert "test.yaml" not in files
+    assert "test.file" in files
+
+
 def test_gather_content_in_root_theme():
     repository = dummy_repository_theme()
     repository.repository_manifest.content_in_root = True
+    repository.content.path.remote = ""
+    repository.information.file_name = "test.yaml"
     repository.tree = [
         AIOGithubTreeContent(
             {"path": "test.yaml", "type": "blob"}, "test/test", "master"
@@ -110,11 +135,7 @@ def test_gather_content_in_root_theme():
         AIOGithubTreeContent(
             {"path": "test2.yaml", "type": "blob"}, "test/test", "master"
         ),
-        AIOGithubTreeContent(
-            {"path": "readme.md", "type": "blob"}, "test/test", "master"
-        ),
     ]
     files = [x.path for x in gather_files_to_download(repository)]
-    assert "readme.md" not in files
     assert "test2.yaml" not in files
-    assert "test.yaml" not in files
+    assert "test.yaml" in files

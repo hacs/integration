@@ -3,7 +3,13 @@
 from integrationhelper import Logger
 from homeassistant.core import HomeAssistant
 from custom_components.hacs.helpers.install import version_to_install
-from custom_components.hacs.repositories import HacsIntegration, HacsTheme, HacsPlugin
+from custom_components.hacs.repositories import (
+    HacsIntegration,
+    HacsTheme,
+    HacsPlugin,
+    HacsAppdaemon,
+    HacsPythonScript,
+)
 from custom_components.hacs.repositories.repository import HacsRepository
 from custom_components.hacs.repositories.data import RepositoryData
 
@@ -39,4 +45,14 @@ def dummy_repository_theme():
 
 def dummy_repository_plugin():
     repository = HacsPlugin("test/test")
+    return dummy_repository_base(repository)
+
+
+def dummy_repository_python_script():
+    repository = HacsPythonScript("test/test")
+    return dummy_repository_base(repository)
+
+
+def dummy_repository_appdaemon():
+    repository = HacsAppdaemon("test/test")
     return dummy_repository_base(repository)

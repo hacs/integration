@@ -79,7 +79,7 @@ def gather_files_to_download(repository):
         if repository.repository_manifest.filename is None:
             if category == "theme":
                 tree = filter_content_return_one_of_type(
-                    repository.tree, "themes", "yaml", "full_path"
+                    repository.tree, "", "yaml", "full_path"
                 )
 
     for path in tree:

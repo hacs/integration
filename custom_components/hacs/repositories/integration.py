@@ -144,8 +144,8 @@ class HacsIntegration(HacsRepository):
                 manifest_path, self.ref
             )
             manifest = json.loads(manifest.content)
-        except Exception:  # pylint: disable=broad-except
-            return False
+        except Exception as exception:  # pylint: disable=broad-except
+            raise HacsException(f"Could not read manifest.json [{exception}]")
 
         if manifest:
             try:

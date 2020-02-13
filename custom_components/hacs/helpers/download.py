@@ -16,7 +16,7 @@ class FileInformation:
 
 def should_try_releases(repository):
     """Return a boolean indicating whether to download releases or not."""
-    if repository.ref == repository.information.default_branch:
+    if repository.ref == repository.data.default_branch:
         return False
     if repository.information.category not in ["plugin", "theme"]:
         return False

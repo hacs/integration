@@ -16,7 +16,7 @@ async def install_repository(repository):
         )
 
     version = version_to_install(repository)
-    if version == repository.information.default_branch:
+    if version == repository.data.default_branch:
         repository.ref = version
     else:
         repository.ref = f"tags/{version}"
@@ -38,7 +38,7 @@ async def install_repository(repository):
 
     if (
         repository.repository_manifest.zip_release
-        and version != repository.information.default_branch
+        and version != repository.data.default_branch
     ):
         validate = await repository.download_zip(repository.validate)
     else:
@@ -63,13 +63,13 @@ async def install_repository(repository):
         persistent_directory.cleanup()
 
     if validate.success:
-        if repository.information.full_name not in repository.common.installed:
-            if repository.information.full_name == "hacs/integration":
-                repository.common.installed.append(repository.information.full_name)
+        if repository.data.full_name not in repository.common.installed:
+            if repository.data.full_name == "hacs/integration":
+                repository.common.installed.append(repository.data.full_name)
         repository.status.installed = True
         repository.versions.installed_commit = repository.versions.available_commit
 
-        if version == repository.information.default_branch:
+        if version == repository.data.default_branch:
             repository.versions.installed = None
         else:
             repository.versions.installed = version
@@ -82,7 +82,7 @@ async def reload_after_install(repository):
     """Reload action after installation success."""
     if repository.information.category == "integration":
         if repository.config_flow:
-            if repository.information.full_name != "hacs/integration":
+            if repository.data.full_name != "hacs/integration":
                 await repository.reload_custom_components()
         repository.pending_restart = True
 
@@ -97,11 +97,7 @@ def installation_complete(repository):
     """Action to run when the installation is complete."""
     repository.hass.bus.async_fire(
         "hacs/repository",
-        {
-            "id": 1337,
-            "action": "install",
-            "repository": repository.information.full_name,
-        },
+        {"id": 1337, "action": "install", "repository": repository.data.full_name},
     )
 
 
@@ -115,10 +111,10 @@ def version_to_install(repository):
             return repository.status.selected_tag
         return repository.versions.available
     if repository.status.selected_tag is not None:
-        if repository.status.selected_tag == repository.information.default_branch:
-            return repository.information.default_branch
+        if repository.status.selected_tag == repository.data.default_branch:
+            return repository.data.default_branch
         if repository.status.selected_tag in repository.releases.published_tags:
             return repository.status.selected_tag
-    if repository.information.default_branch is None:
+    if repository.data.default_branch is None:
         return "master"
-    return repository.information.default_branch
+    return repository.data.default_branch

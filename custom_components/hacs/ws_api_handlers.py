@@ -139,7 +139,7 @@ async def hacs_repositories(hass, connection, msg):
                 "country": repo.repository_manifest.country,
                 "config_flow": repo.config_flow,
                 "custom": repo.custom,
-                "default_branch": repo.information.default_branch,
+                "default_branch": repo.data.default_branch,
                 "description": repo.information.description,
                 "domain": repo.manifest.get("domain"),
                 "downloads": repo.releases.last_release_object_downloads,
@@ -230,7 +230,7 @@ async def hacs_repository(hass, connection, msg):
             repository.remove()
 
         elif action == "set_version":
-            if msg["version"] == repository.information.default_branch:
+            if msg["version"] == repository.data.default_branch:
                 repository.status.selected_tag = None
             else:
                 repository.status.selected_tag = msg["version"]

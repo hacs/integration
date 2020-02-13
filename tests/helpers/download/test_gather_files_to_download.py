@@ -10,8 +10,11 @@ from tests.dummy_repository import dummy_repository_base, dummy_repository_plugi
 def test_gather_files_to_download():
     repository = dummy_repository_base()
     repository.content.path.remote = ""
-    dummyfile = {"path": "test/path/file.file", "type": "blob"}
-    repository.tree = [AIOGithubTreeContent(dummyfile, "test/test", "master")]
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "test/path/file.file", "type": "blob"}, "test/test", "master"
+        )
+    ]
     files = [x.path for x in gather_files_to_download(repository)]
     assert "test/path/file.file" in files
 
@@ -20,7 +23,6 @@ def test_gather_plugin_files_from_root():
     repository = dummy_repository_plugin()
     repository.content.path.remote = ""
     repository.information.file_name = "test.js"
-    dummyfile = {"path": "test.js", "type": "blob"}
     repository.tree = [
         AIOGithubTreeContent(
             {"path": "test.js", "type": "blob"}, "test/test", "master"
@@ -44,7 +46,6 @@ def test_gather_plugin_files_from_dist():
     repository = dummy_repository_plugin()
     repository.content.path.remote = "dist"
     repository.information.file_name = "test.js"
-    dummyfile = {"path": "test.js", "type": "blob"}
     repository.tree = [
         AIOGithubTreeContent(
             {"path": "test.js", "type": "blob"}, "test/test", "master"

@@ -5,6 +5,9 @@ from homeassistant.core import HomeAssistant
 from custom_components.hacs.helpers.install import version_to_install
 from custom_components.hacs.repositories import HacsIntegration, HacsTheme, HacsPlugin
 from custom_components.hacs.repositories.repository import HacsRepository
+from custom_components.hacs.repositories.data import RepositoryData
+
+from tests.sample_data import repository_data
 
 
 def dummy_repository_base(repository=None):
@@ -15,12 +18,12 @@ def dummy_repository_base(repository=None):
     repository.logger = Logger("hacs.test.test")
     repository.information.name = "test"
     repository.information.full_name = "test/test"
-    repository.information.default_branch = "master"
     repository.versions.available = "3"
     repository.status.selected_tag = "3"
     repository.ref = version_to_install(repository)
     repository.manifest = {"config_flow": False, "domain": "test"}
     repository.releases.published_tags = ["1", "2", "3"]
+    repository.data = RepositoryData().from_dict(repository_data)
     return repository
 
 

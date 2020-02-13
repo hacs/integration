@@ -273,7 +273,7 @@ class HacsRepository(Hacs):
             self.repository_object = await self.github.get_repo(
                 self.information.full_name
             )
-            self.data.from_dict(self.repository_object.attributes)
+            self.data = self.data.from_dict(self.repository_object.attributes)
         except Exception as exception:  # Gotta Catch 'Em All
             if not self.system.status.startup:
                 self.logger.error(exception)
@@ -318,7 +318,7 @@ class HacsRepository(Hacs):
             self.repository_object = await self.github.get_repo(
                 self.information.full_name
             )
-            self.data.from_dict(self.repository_object.attributes)
+            self.data = self.data.from_dict(self.repository_object.attributes)
 
         # Set id
         self.information.uid = str(self.repository_object.id)
@@ -350,7 +350,7 @@ class HacsRepository(Hacs):
 
         # Attach repository
         self.repository_object = await self.github.get_repo(self.information.full_name)
-        self.data.from_dict(self.repository_object.attributes)
+        self.data = self.data.from_dict(self.repository_object.attributes)
 
         # Update tree
         self.tree = await self.repository_object.get_tree(self.ref)

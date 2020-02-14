@@ -1,6 +1,7 @@
 """Setup functions for HACS."""
 # pylint: disable=bad-continuation
 from custom_components.hacs.helpers.information import get_repository
+from custom_components.hacs.helpers.register_repository import register_repository
 
 
 async def load_hacs_repository(hacs):
@@ -15,7 +16,7 @@ async def load_hacs_repository(hacs):
     try:
         repository = hacs().get_by_name("hacs/integration")
         if repository is None:
-            await hacs().register_repository("hacs/integration", "integration")
+            await register_repository(hacs, "hacs/integration", "integration")
             repository = hacs().get_by_name("hacs/integration")
         if repository is None:
             raise AIOGitHubException("Unknown error")

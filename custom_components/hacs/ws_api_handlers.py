@@ -9,6 +9,7 @@ import homeassistant.helpers.config_validation as cv
 from .hacsbase import Hacs
 from .hacsbase.exceptions import HacsException
 from .store import async_load_from_store, async_save_to_store
+from custom_components.hacs.helpers.register_repository import register_repository
 
 
 async def setup_ws_api(hass):
@@ -278,7 +279,7 @@ async def hacs_repository_data(hass, connection, msg):
 
         if not Hacs().get_by_name(repo_id):
             try:
-                registration = await Hacs().register_repository(repo_id, data.lower())
+                registration = await register_repository(Hacs, repo_id, data.lower())
                 if registration is not None:
                     raise HacsException(registration)
             except Exception as exception:  # pylint: disable=broad-except

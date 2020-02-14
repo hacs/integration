@@ -1,10 +1,10 @@
 """Class for themes in HACS."""
-from .repository import HacsRepository, register_repository_class
+from integrationhelper import Logger
+from .repository import HacsRepository
 from ..hacsbase.exceptions import HacsException
 from ..helpers.filters import filter_content_return_one_of_type, find_first_of_filetype
 
 
-@register_repository_class
 class HacsTheme(HacsRepository):
     """Themes in HACS."""
 
@@ -18,6 +18,7 @@ class HacsTheme(HacsRepository):
         self.content.path.remote = "themes"
         self.content.path.local = f"{self.system.config_path}/themes"
         self.content.single = False
+        self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")
 
     async def validate_repository(self):
         """Validate."""

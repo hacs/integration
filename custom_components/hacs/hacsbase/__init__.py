@@ -17,6 +17,8 @@ from ..setup import setup_extra_stores
 from ..store import async_load_from_store, async_save_to_store
 from ..helpers.get_defaults import get_default_repos_lists, get_default_repos_orgs
 
+from custom_components.hacs.helpers.register_repository import register_repository
+
 
 class HacsStatus:
     """HacsStatus."""
@@ -140,50 +142,7 @@ class Hacs:
 
     async def register_repository(self, full_name, category, check=True):
         """Register a repository."""
-        from ..repositories.repository import RERPOSITORY_CLASSES
-
-        if full_name in self.common.skip:
-            if full_name != "hacs/integration":
-                self.logger.debug(f"Skipping {full_name}")
-                return
-
-        if category not in RERPOSITORY_CLASSES:
-            msg = f"{category} is not a valid repository category."
-            self.logger.error(msg)
-            raise HacsException(msg)
-
-        repository = RERPOSITORY_CLASSES[category](full_name)
-        if check:
-            try:
-                await repository.registration()
-                if self.system.status.new:
-                    repository.status.new = False
-                if repository.validate.errors:
-                    self.common.skip.append(repository.information.full_name)
-                    if not self.system.status.startup:
-                        self.logger.error(f"Validation for {full_name} failed.")
-                    return repository.validate.errors
-                repository.logger.info("Registration complete")
-            except AIOGitHubException as exception:
-                self.logger.debug(self.github.ratelimits.remaining)
-                self.logger.debug(self.github.ratelimits.reset_utc)
-                self.common.skip.append(repository.information.full_name)
-                # if not self.system.status.startup:
-                if self.system.status.startup:
-                    self.logger.error(
-                        f"Validation for {full_name} failed with {exception}."
-                    )
-                return exception
-        self.hass.bus.async_fire(
-            "hacs/repository",
-            {
-                "id": 1337,
-                "action": "registration",
-                "repository": repository.information.full_name,
-                "repository_id": repository.information.uid,
-            },
-        )
-        self.repositories.append(repository)
+        await register_repository(self, full_name, category, check=True)
 
     async def startup_tasks(self):
         """Tasks tha are started after startup."""

@@ -1,15 +1,16 @@
 """Class for integrations in HACS."""
 import json
 from aiogithubapi import AIOGitHubException
+from integrationhelper import Logger
+
 from homeassistant.loader import async_get_custom_components
-from .repository import HacsRepository, register_repository_class
+from .repository import HacsRepository
 from ..hacsbase.exceptions import HacsException
 
 
 from custom_components.hacs.helpers.information import get_repository
 
 
-@register_repository_class
 class HacsIntegration(HacsRepository):
     """Integrations in HACS."""
 
@@ -23,6 +24,7 @@ class HacsIntegration(HacsRepository):
         self.domain = None
         self.content.path.remote = "custom_components"
         self.content.path.local = self.localpath
+        self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")
 
     @property
     def localpath(self):

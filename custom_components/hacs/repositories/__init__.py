@@ -4,3 +4,11 @@ from .integration import HacsIntegration
 from .python_script import HacsPythonScript
 from .appdaemon import HacsAppdaemon
 from .plugin import HacsPlugin
+
+RERPOSITORY_CLASSES = {
+    "theme": HacsTheme,
+    "integration": HacsIntegration,
+    "python_script": HacsPythonScript,
+    "appdaemon": HacsAppdaemon,
+    "plugin": HacsPlugin,
+}

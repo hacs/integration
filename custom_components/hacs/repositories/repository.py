@@ -1,17 +1,14 @@
 """Repository."""
 # pylint: disable=broad-except, bad-continuation, no-member
-import pathlib
 import json
 import os
 import tempfile
 import zipfile
-from integrationhelper import Validate, Logger
+from integrationhelper import Validate
 from aiogithubapi import AIOGitHubException
 from .manifest import HacsManifest
 from ..helpers.misc import get_repository_name
 from ..hacsbase import Hacs
-from ..hacsbase.exceptions import HacsException
-from ..hacsbase.backup import Backup
 from ..handler.download import async_download_file, async_save_file
 from ..helpers.misc import version_left_higher_then_right
 from ..helpers.install import install_repository, version_to_install
@@ -20,15 +17,6 @@ from custom_components.hacs.helpers.information import (
     get_repository,
 )
 from custom_components.hacs.repositories.data import RepositoryData
-
-
-RERPOSITORY_CLASSES = {}
-
-
-def register_repository_class(cls):
-    """Register class."""
-    RERPOSITORY_CLASSES[cls.category] = cls
-    return cls
 
 
 class RepositoryVersions:
@@ -121,7 +109,6 @@ class HacsRepository(Hacs):
         self.releases = RepositoryReleases()
         self.versions = RepositoryVersions()
         self.pending_restart = False
-        self.logger = None
         self.tree = []
         self.treefiles = []
         self.ref = None
@@ -264,9 +251,6 @@ class HacsRepository(Hacs):
         """Common validation steps of the repository."""
         # Attach helpers
         self.validate.errors = []
-        self.logger = Logger(
-            f"hacs.repository.{self.information.category}.{self.information.full_name}"
-        )
         if self.ref is None:
             self.ref = version_to_install(self)
 
@@ -310,12 +294,6 @@ class HacsRepository(Hacs):
 
     async def common_registration(self):
         """Common registration steps of the repository."""
-        # Attach logger
-        if self.logger is None:
-            self.logger = Logger(
-                f"hacs.repository.{self.information.category}.{self.information.full_name}"
-            )
-
         # Attach repository
         if self.repository_object is None:
             self.repository_object = await get_repository(
@@ -340,12 +318,6 @@ class HacsRepository(Hacs):
 
     async def common_update(self):
         """Common information update steps of the repository."""
-        # Attach logger
-        if self.logger is None:
-            self.logger = Logger(
-                f"hacs.repository.{self.information.category}.{self.information.full_name}"
-            )
-
         self.logger.debug("Getting repository information")
 
         # Set ref
@@ -492,11 +464,6 @@ class HacsRepository(Hacs):
 
     def remove(self):
         """Run remove tasks."""
-        # Attach logger
-        if self.logger is None:
-            self.logger = Logger(
-                f"hacs.repository.{self.information.category}.{self.information.full_name}"
-            )
         self.logger.info("Starting removal")
 
         if self.information.uid in self.common.installed:
@@ -507,11 +474,6 @@ class HacsRepository(Hacs):
 
     async def uninstall(self):
         """Run uninstall tasks."""
-        # Attach logger
-        if self.logger is None:
-            self.logger = Logger(
-                f"hacs.repository.{self.information.category}.{self.information.full_name}"
-            )
         self.logger.info("Uninstalling")
         await self.remove_local_directory()
         self.status.installed = False

@@ -1,11 +1,12 @@
 """Class for plugins in HACS."""
 import json
 from aiogithubapi import AIOGitHubException
-from .repository import HacsRepository, register_repository_class
+from integrationhelper import Logger
+
+from .repository import HacsRepository
 from ..hacsbase.exceptions import HacsException
 
 
-@register_repository_class
 class HacsPlugin(HacsRepository):
     """Plugins in HACS."""
 
@@ -21,6 +22,7 @@ class HacsPlugin(HacsRepository):
         self.content.path.local = (
             f"{self.system.config_path}/www/community/{full_name.split('/')[-1]}"
         )
+        self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")
 
     async def validate_repository(self):
         """Validate."""

@@ -1,10 +1,11 @@
 """Class for python_scripts in HACS."""
 from aiogithubapi import AIOGitHubException
-from .repository import HacsRepository, register_repository_class
+from integrationhelper import Logger
+
+from .repository import HacsRepository
 from ..hacsbase.exceptions import HacsException
 
 
-@register_repository_class
 class HacsPythonScript(HacsRepository):
     """python_scripts in HACS."""
 
@@ -18,6 +19,7 @@ class HacsPythonScript(HacsRepository):
         self.content.path.remote = "python_scripts"
         self.content.path.local = f"{self.system.config_path}/python_scripts"
         self.content.single = True
+        self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")
 
     async def validate_repository(self):
         """Validate."""

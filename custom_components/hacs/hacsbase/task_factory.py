@@ -5,6 +5,9 @@ from datetime import timedelta
 import asyncio
 from aiogithubapi import AIOGitHubException
 
+from custom_components.hacs.helpers.register_repository import register_repository
+
+
 max_concurrent_tasks = asyncio.Semaphore(15)
 sleeper = 5
 
@@ -63,7 +66,7 @@ class HacsTaskFactory:
     async def safe_register(self, hacs, repo, category):
         async with max_concurrent_tasks:
             try:
-                await hacs.register_repository(repo, category)
+                await register_repository(hacs, repo, category)
             except AIOGitHubException as exception:
                 logger.error(exception)
 

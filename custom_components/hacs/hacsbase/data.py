@@ -6,6 +6,8 @@ from ..repositories.repository import HacsRepository
 from ..repositories.manifest import HacsManifest
 from ..store import async_save_to_store, async_load_from_store
 
+from custom_components.hacs.helpers.register_repository import register_repository
+
 
 class HacsData(Hacs):
     """HacsData class."""
@@ -89,8 +91,8 @@ class HacsData(Hacs):
                     # Skip the old repo location
                     continue
                 if not self.is_known(repo["full_name"]):
-                    await self.register_repository(
-                        repo["full_name"], repo["category"], False
+                    await register_repository(
+                        self, repo["full_name"], repo["category"], False
                     )
                 repository = self.get_by_name(repo["full_name"])
                 if repository is None:

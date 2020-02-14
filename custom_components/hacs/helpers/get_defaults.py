@@ -2,6 +2,7 @@
 import json
 from aiogithubapi import AIOGitHub, AIOGitHubException
 from integrationhelper import Logger
+from custom_components.hacs.helpers.information import get_repository
 
 
 async def get_default_repos_orgs(github: type(AIOGitHub), category: str) -> dict:
@@ -27,13 +28,13 @@ async def get_default_repos_orgs(github: type(AIOGitHub), category: str) -> dict
     return repositories
 
 
-async def get_default_repos_lists(github: type(AIOGitHub), default: str) -> dict:
+async def get_default_repos_lists(session, token, default: str) -> dict:
     """Gets repositories from default list."""
     repositories = []
     logger = Logger("hacs")
 
     try:
-        repo = await github.get_repo("hacs/default")
+        repo = await get_repository(session, token, "hacs/default")
         content = await repo.get_contents(default)
         repositories = json.loads(content.content)
 

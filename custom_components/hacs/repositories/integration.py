@@ -6,6 +6,9 @@ from .repository import HacsRepository, register_repository_class
 from ..hacsbase.exceptions import HacsException
 
 
+from custom_components.hacs.helpers.information import get_repository
+
+
 @register_repository_class
 class HacsIntegration(HacsRepository):
     """Integrations in HACS."""
@@ -32,8 +35,8 @@ class HacsIntegration(HacsRepository):
 
         # Attach repository
         if self.repository_object is None:
-            self.repository_object = await self.github.get_repo(
-                self.information.full_name
+            self.repository_object = await get_repository(
+                self.session, self.configuration.token, self.information.full_name
             )
 
         # Custom step 1: Validate content.

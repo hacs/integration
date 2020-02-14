@@ -2,7 +2,7 @@
 # pylint: disable=dangerous-default-value
 import logging
 import voluptuous as vol
-from aiogithubapi import AIOGitHub, AIOGitHubException, AIOGitHubAuthentication
+from aiogithubapi import AIOGitHubException, AIOGitHubAuthentication
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers import aiohttp_client
@@ -11,6 +11,7 @@ from .const import DOMAIN
 from . import Hacs
 from .configuration_schema import hacs_base_config_schema, hacs_config_option_schema
 
+from custom_components.hacs.helpers.information import get_repository
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -69,8 +70,7 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Return true if token is valid."""
         try:
             session = aiohttp_client.async_get_clientsession(self.hass)
-            client = AIOGitHub(token, session)
-            await client.get_repo("hacs/org")
+            await get_repository(session, token, "hacs/org")
             return True
         except (AIOGitHubException, AIOGitHubAuthentication) as exception:
             _LOGGER.error(exception)

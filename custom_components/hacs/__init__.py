@@ -33,6 +33,7 @@ async def async_setup(hass, config):
         return True
     hass.data[DOMAIN] = config
     Hacs.hass = hass
+    Hacs.session = async_create_clientsession(hass)
     Hacs.configuration = Configuration.from_dict(
         config[DOMAIN], config[DOMAIN].get("options")
     )

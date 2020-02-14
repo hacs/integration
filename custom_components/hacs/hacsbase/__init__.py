@@ -90,6 +90,7 @@ class Hacs:
     github = None
     hass = None
     version = None
+    session = None
     factory = HacsTaskFactory()
     system = System()
     recuring_tasks = []
@@ -353,7 +354,7 @@ class Hacs:
         repositories = {}
         for category in self.common.categories:
             repositories[category] = await get_default_repos_lists(
-                self.github, category
+                self.session, self.configuration.token, category
             )
             org = await get_default_repos_orgs(self.github, category)
             for repo in org:
@@ -370,7 +371,9 @@ class Hacs:
         self.logger.info("Loading known repositories")
         repositories = await self.get_repositories()
 
-        for item in await get_default_repos_lists(self.github, "blacklist"):
+        for item in await get_default_repos_lists(
+            self.session, self.configuration.token, "blacklist"
+        ):
             if item not in self.common.blacklist:
                 self.common.blacklist.append(item)
 

@@ -1,6 +1,7 @@
 """Return repository information if any."""
-from aiogithubapi import AIOGitHubException
+from aiogithubapi import AIOGitHubException, AIOGitHub
 from custom_components.hacs.handler.template import render_template
+from custom_components.hacs.hacsbase.exceptions import HacsException
 
 
 def info_file(repository):
@@ -29,3 +30,14 @@ async def get_info_md_content(repository):
         return render_template(info, repository)
     except (AIOGitHubException, Exception):  # pylint: disable=broad-except
         return ""
+
+
+async def get_repository(session, token, repository_full_name):
+    """Return a repository object or None."""
+    try:
+        github = AIOGitHub(token, session)
+        repository = await github.get_repo(repository_full_name)
+        return repository
+    except AIOGitHubException as exception:
+        HacsException(exception)
+

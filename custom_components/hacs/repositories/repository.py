@@ -15,7 +15,10 @@ from ..hacsbase.backup import Backup
 from ..handler.download import async_download_file, async_save_file
 from ..helpers.misc import version_left_higher_then_right
 from ..helpers.install import install_repository, version_to_install
-from custom_components.hacs.helpers.information import get_info_md_content
+from custom_components.hacs.helpers.information import (
+    get_info_md_content,
+    get_repository,
+)
 from custom_components.hacs.repositories.data import RepositoryData
 
 
@@ -270,8 +273,8 @@ class HacsRepository(Hacs):
         # Step 1: Make sure the repository exist.
         self.logger.debug("Checking repository.")
         try:
-            self.repository_object = await self.github.get_repo(
-                self.information.full_name
+            self.repository_object = await get_repository(
+                self.session, self.configuration.token, self.information.full_name
             )
             self.data = self.data.from_dict(self.repository_object.attributes)
         except Exception as exception:  # Gotta Catch 'Em All
@@ -315,8 +318,8 @@ class HacsRepository(Hacs):
 
         # Attach repository
         if self.repository_object is None:
-            self.repository_object = await self.github.get_repo(
-                self.information.full_name
+            self.repository_object = await get_repository(
+                self.session, self.configuration.token, self.information.full_name
             )
             self.data = self.data.from_dict(self.repository_object.attributes)
 
@@ -349,7 +352,9 @@ class HacsRepository(Hacs):
         self.ref = version_to_install(self)
 
         # Attach repository
-        self.repository_object = await self.github.get_repo(self.information.full_name)
+        self.repository_object = await get_repository(
+            self.session, self.configuration.token, self.information.full_name
+        )
         self.data = self.data.from_dict(self.repository_object.attributes)
 
         # Update tree

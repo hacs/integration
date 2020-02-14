@@ -13,3 +13,10 @@ repository_data = {
     "default_branch": "master",
     "last_commit": "12345678",
 }
+
+response_rate_limit_header = {
+    "X-RateLimit-Limit": "999",
+    "X-RateLimit-Remaining": "999",
+    "X-RateLimit-Reset": "999",
+    "Content-Type": "application/json",
+}

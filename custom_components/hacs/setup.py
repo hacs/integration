@@ -1,5 +1,6 @@
 """Setup functions for HACS."""
 # pylint: disable=bad-continuation
+from custom_components.hacs.helpers.information import get_repository
 
 
 async def load_hacs_repository(hacs):
@@ -22,7 +23,9 @@ async def load_hacs_repository(hacs):
         repository.versions.installed = VERSION
         repository.status.new = False
         hacs.repo = repository.repository_object
-        hacs.data_repo = await hacs().github.get_repo("hacs/default")
+        hacs.data_repo = await get_repository(
+            hacs.session, hacs.configuration.token, "hacs/default"
+        )
     except (
         AIOGitHubException,
         AIOGitHubRatelimit,

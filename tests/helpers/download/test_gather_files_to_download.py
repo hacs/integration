@@ -8,7 +8,7 @@ from tests.dummy_repository import (
     dummy_repository_base,
     dummy_repository_plugin,
     dummy_repository_theme,
-    dummy_repository_python_script,
+    dummy_repository_appdaemon,
 )
 
 
@@ -139,3 +139,54 @@ def test_gather_content_in_root_theme():
     files = [x.path for x in gather_files_to_download(repository)]
     assert "test2.yaml" not in files
     assert "test.yaml" in files
+
+
+def test_gather_appdaemon_files_base():
+    repository = dummy_repository_appdaemon()
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "test.py", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "apps/test/test.py", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": ".github/file.file", "type": "blob"}, "test/test", "master"
+        ),
+    ]
+    files = [x.path for x in gather_files_to_download(repository)]
+    assert ".github/file.file" not in files
+    assert "test.py" not in files
+    assert "apps/test/test.py" in files
+
+
+def test_gather_appdaemon_files_with_subdir():
+    repository = dummy_repository_appdaemon()
+    repository.information.file_name = "test.py"
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "test.py", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "apps/test/test.py", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "apps/test/core/test.py", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "apps/test/devices/test.py", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "apps/test/test/test.py", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": ".github/file.file", "type": "blob"}, "test/test", "master"
+        ),
+    ]
+    files = [x.path for x in gather_files_to_download(repository)]
+    assert ".github/file.file" not in files
+    assert "test.py" not in files
+    assert "apps/test/test.py" in files
+    assert "apps/test/devices/test.py" in files
+    assert "apps/test/test/test.py" in files
+    assert "apps/test/core/test.py" in files

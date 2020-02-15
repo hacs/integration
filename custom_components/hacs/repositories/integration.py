@@ -9,6 +9,7 @@ from ..hacsbase.exceptions import HacsException
 
 
 from custom_components.hacs.helpers.information import get_repository
+from custom_components.hacs.helpers.filters import get_first_directory_in_directory
 
 
 class HacsIntegration(HacsRepository):
@@ -52,19 +53,12 @@ class HacsIntegration(HacsRepository):
                 self.content.path.remote = ""
 
         if self.content.path.remote == "custom_components":
-            try:
-                ccdir = await self.repository_object.get_contents(
-                    self.content.path.remote, self.ref
-                )
-            except AIOGitHubException:
+            name = get_first_directory_in_directory(self.tree, "custom_components")
+            if not name:
                 raise HacsException(
                     f"Repostitory structure for {self.ref.replace('tags/','')} is not compliant"
                 )
-
-            for item in ccdir or []:
-                if item.type == "dir":
-                    self.content.path.remote = item.path
-                    break
+            self.content.path.remote = f"custom_components/{name}"
 
         if not await self.get_manifest():
             self.validate.errors.append("Missing manifest file.")
@@ -96,32 +90,13 @@ class HacsIntegration(HacsRepository):
             return
         await self.common_update()
 
-        # Get integration objects.
-
         if self.repository_manifest:
             if self.repository_manifest.content_in_root:
                 self.content.path.remote = ""
 
         if self.content.path.remote == "custom_components":
-            ccdir = await self.repository_object.get_contents(
-                self.content.path.remote, self.ref
-            )
-            if not isinstance(ccdir, list):
-                self.validate.errors.append("Repostitory structure not compliant")
-
-            self.content.path.remote = ccdir[0].path
-
-        try:
-            self.content.objects = await self.repository_object.get_contents(
-                self.content.path.remote, self.ref
-            )
-        except AIOGitHubException:
-            return
-
-        self.content.files = []
-        if isinstance(self.content.objects, list):
-            for filename in self.content.objects or []:
-                self.content.files.append(filename.name)
+            name = get_first_directory_in_directory(self.tree, "custom_components")
+            self.content.path.remote = f"custom_components/{name}"
 
         await self.get_manifest()
 
@@ -137,6 +112,8 @@ class HacsIntegration(HacsRepository):
     async def get_manifest(self):
         """Get info from the manifest file."""
         manifest_path = f"{self.content.path.remote}/manifest.json"
+        if not manifest_path in [x.filename for x in self.tree]:
+            return False
         try:
             manifest = await self.repository_object.get_contents(
                 manifest_path, self.ref

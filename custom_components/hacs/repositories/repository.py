@@ -296,13 +296,10 @@ class HacsRepository(Hacs):
             self.treefiles.append(treefile.full_path)
 
         # Update description
-        if self.repository_object.description:
-            self.information.description = self.repository_object.description
+        self.information.description = self.data.description
 
         # Set stargazers_count
-        self.information.stars = self.repository_object.attributes.get(
-            "stargazers_count", 0
-        )
+        self.information.stars = self.data.stargazers_count
 
         # Update last updaeted
         self.information.last_updated = self.repository_object.attributes.get(
@@ -310,7 +307,7 @@ class HacsRepository(Hacs):
         )
 
         # Update topics
-        self.information.topics = self.repository_object.topics
+        self.information.topics = self.data.topics
 
         # Update last available commit
         await self.repository_object.set_last_commit()
@@ -373,6 +370,8 @@ class HacsRepository(Hacs):
 
     async def get_repository_manifest_content(self):
         """Get the content of the hacs.json file."""
+        if not "hacs.json" in [x.filename for x in self.tree]:
+            return
         if self.ref is None:
             self.ref = version_to_install(self)
         try:

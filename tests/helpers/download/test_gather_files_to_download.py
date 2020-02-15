@@ -93,8 +93,9 @@ def test_gather_plugin_files_from_release_multiple():
     repository.information.file_name = "test.js"
     repository.releases.releases = True
     repository.releases.objects = [
-        AIOGithubRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.js"}]}),
-        AIOGithubRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.png"}]}),
+        AIOGithubRepositoryRelease(
+            {"tag_name": "3", "assets": [{"name": "test.js"}, {"name": "test.png"}]}
+        )
     ]
     files = [x.name for x in gather_files_to_download(repository)]
     assert "test.js" in files

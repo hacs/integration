@@ -39,5 +39,13 @@ async def get_repository(session, token, repository_full_name):
         repository = await github.get_repo(repository_full_name)
         return repository
     except AIOGitHubException as exception:
-        HacsException(exception)
+        raise HacsException(exception)
 
+
+async def get_tree(repository, ref):
+    """Return the repository tree."""
+    try:
+        tree = await repository.get_tree(ref)
+        return tree
+    except AIOGitHubException as exception:
+        raise HacsException(exception)

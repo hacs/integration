@@ -15,6 +15,7 @@ from ..helpers.install import install_repository, version_to_install
 from custom_components.hacs.helpers.information import (
     get_info_md_content,
     get_repository,
+    get_tree,
 )
 from custom_components.hacs.repositories.data import RepositoryData
 
@@ -268,7 +269,7 @@ class HacsRepository(Hacs):
             return
 
         if not self.tree:
-            self.tree = await self.repository_object.get_tree(self.ref)
+            self.tree = await get_tree(self.repository_object, self.ref)
             self.treefiles = []
             for treefile in self.tree:
                 self.treefiles.append(treefile.full_path)
@@ -330,7 +331,7 @@ class HacsRepository(Hacs):
         self.data = self.data.from_dict(self.repository_object.attributes)
 
         # Update tree
-        self.tree = await self.repository_object.get_tree(self.ref)
+        self.tree = await get_tree(self.repository_object, self.ref)
         self.treefiles = []
         for treefile in self.tree:
             self.treefiles.append(treefile.full_path)

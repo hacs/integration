@@ -37,12 +37,17 @@ class HacsIntegration(HacsRepository):
 
         # Attach repository
         if self.repository_object is None:
-            self.repository_object = await get_repository(
-                self.session, self.configuration.token, self.information.full_name
-            )
+            try:
+                self.repository_object = await get_repository(
+                    self.session, self.configuration.token, self.information.full_name
+                )
+            except HacsException as exception:
+                self.validate.errors.append(exception)
+                return self.validate.success
 
         # Custom step 1: Validate content.
         if self.repository_manifest:
+
             if self.repository_manifest.content_in_root:
                 self.content.path.remote = ""
 

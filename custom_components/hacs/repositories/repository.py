@@ -16,6 +16,7 @@ from custom_components.hacs.helpers.information import (
     get_info_md_content,
     get_repository,
     get_tree,
+    get_releases,
 )
 from custom_components.hacs.helpers.validate_repository import common_validate
 from custom_components.hacs.repositories.repositorydata import RepositoryData
@@ -74,6 +75,7 @@ class RepositoryReleases:
     published_tags = []
     objects = []
     releases = False
+    downloads = None
 
 
 class RepositoryPath:
@@ -383,42 +385,6 @@ class HacsRepository(Hacs):
             )
         except (AIOGitHubException, Exception):  # Gotta Catch 'Em All
             pass
-
-    async def get_releases(self):
-        """Get repository releases."""
-        if self.status.show_beta:
-            self.releases.objects = await self.repository_object.get_releases(
-                prerelease=True, returnlimit=self.configuration.release_limit
-            )
-        else:
-            self.releases.objects = await self.repository_object.get_releases(
-                prerelease=False, returnlimit=self.configuration.release_limit
-            )
-
-        if not self.releases.objects:
-            return
-
-        self.releases.releases = True
-
-        self.releases.published_tags = []
-
-        for release in self.releases.objects:
-            self.releases.published_tags.append(release.tag_name)
-
-        self.releases.last_release_object = self.releases.objects[0]
-        if self.status.selected_tag is not None:
-            if self.status.selected_tag != self.data.default_branch:
-                for release in self.releases.objects:
-                    if release.tag_name == self.status.selected_tag:
-                        self.releases.last_release_object = release
-                        break
-        if self.releases.last_release_object.assets:
-            self.releases.last_release_object_downloads = self.releases.last_release_object.assets[
-                0
-            ].attributes.get(
-                "download_count"
-            )
-        self.versions.available = self.releases.objects[0].tag_name
 
     def remove(self):
         """Run remove tasks."""

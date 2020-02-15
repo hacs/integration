@@ -2,7 +2,11 @@
 from aiogithubapi import AIOGitHubException
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.helpers.install import version_to_install
-from custom_components.hacs.helpers.information import get_repository, get_tree
+from custom_components.hacs.helpers.information import (
+    get_repository,
+    get_tree,
+    get_releases,
+)
 
 
 async def common_validate(hacs, repository):
@@ -49,7 +53,23 @@ async def common_validate(hacs, repository):
         raise HacsException("Repository is in the blacklist.")
 
     # Step 5: Get releases.
-    await repository.get_releases()
+    try:
+        releases = await get_releases(
+            repository.repository_object,
+            repository.status.show_beta,
+            hacs.configuration.release_limit,
+        )
+        if releases:
+            repository.releases.releases = True
+            repository.releases.published_tags = [x.tag_name for x in releases]
+            repository.versions.available = next(iter(releases)).tag_name
+            assets = next(iter(releases)).assets
+            if assets:
+                downloads = next(iter(assets)).attributes.get("download_count")
+                repository.releases.downloads = downloads
+
+    except (AIOGitHubException, HacsException):
+        repository.releases.releases = False
 
     # Step 6: Get the content of hacs.json
     await repository.get_repository_manifest_content()

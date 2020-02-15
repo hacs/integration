@@ -66,18 +66,6 @@ class HacsIntegration(HacsRepository):
                     self.content.path.remote = item.path
                     break
 
-        if self.repository_manifest.zip_release:
-            self.content.objects = self.releases.last_release_object.assets
-
-        else:
-            self.content.objects = await self.repository_object.get_contents(
-                self.content.path.remote, self.ref
-            )
-
-        self.content.files = []
-        for filename in self.content.objects or []:
-            self.content.files.append(filename.name)
-
         if not await self.get_manifest():
             self.validate.errors.append("Missing manifest file.")
 

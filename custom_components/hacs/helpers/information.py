@@ -49,3 +49,12 @@ async def get_tree(repository, ref):
         return tree
     except AIOGitHubException as exception:
         raise HacsException(exception)
+
+
+async def get_releases(repository, prerelease=False, returnlimit=5):
+    """Return the repository releases."""
+    try:
+        releases = await repository.get_releases(prerelease, returnlimit)
+        return releases
+    except AIOGitHubException as exception:
+        raise HacsException(exception)

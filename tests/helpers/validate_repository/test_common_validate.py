@@ -86,6 +86,69 @@ async def test_common_base(aresponses, event_loop):
 
 
 @pytest.mark.asyncio
+async def test_get_releases_exception(aresponses, event_loop):
+    aresponses.add(
+        "api.github.com",
+        "/rate_limit",
+        "get",
+        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/repos/test/test",
+        "get",
+        aresponses.Response(
+            body=json.dumps(repository_data), headers=response_rate_limit_header
+        ),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/rate_limit",
+        "get",
+        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/repos/test/test/git/trees/3",
+        "get",
+        aresponses.Response(
+            body=json.dumps(tree_files_base), headers=response_rate_limit_header
+        ),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/rate_limit",
+        "get",
+        aresponses.Response(
+            body=json.dumps({"message": "X"}),
+            headers=response_rate_limit_header_with_limit,
+            status=403,
+        ),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/rate_limit",
+        "get",
+        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/repos/test/test/contents/hacs.json",
+        "get",
+        aresponses.Response(body=json.dumps({}), headers=response_rate_limit_header),
+    )
+
+    async with aiohttp.ClientSession(loop=event_loop) as session:
+        Hacs.session = session
+        Hacs.configuration = Configuration()
+        Hacs.configuration.token = TOKEN
+        repository = dummy_repository_base()
+        repository.ref = None
+        await common_validate(Hacs, repository)
+        assert not repository.releases.releases
+
+
+@pytest.mark.asyncio
 async def test_common_archived(aresponses, event_loop):
     aresponses.add(
         "api.github.com",

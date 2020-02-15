@@ -11,7 +11,7 @@ from custom_components.hacs.repositories import (
     HacsPythonScript,
 )
 from custom_components.hacs.repositories.repository import HacsRepository
-from custom_components.hacs.repositories.data import RepositoryData
+from custom_components.hacs.repositories.repositorydata import RepositoryData
 
 from tests.sample_data import repository_data
 
@@ -29,7 +29,7 @@ def dummy_repository_base(repository=None):
     repository.ref = version_to_install(repository)
     repository.manifest = {"config_flow": False, "domain": "test"}
     repository.releases.published_tags = ["1", "2", "3"]
-    repository.data = RepositoryData().from_dict(repository_data)
+    repository.data = RepositoryData().create_from_dict(repository_data)
     return repository
 
 

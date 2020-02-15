@@ -17,7 +17,7 @@ from custom_components.hacs.helpers.information import (
     get_repository,
     get_tree,
 )
-from custom_components.hacs.repositories.data import RepositoryData
+from custom_components.hacs.repositories.repositorydata import RepositoryData
 
 
 class RepositoryVersions:
@@ -261,7 +261,7 @@ class HacsRepository(Hacs):
             self.repository_object = await get_repository(
                 self.session, self.configuration.token, self.information.full_name
             )
-            self.data = self.data.from_dict(self.repository_object.attributes)
+            self.data = self.data.create_from_dict(self.repository_object.attributes)
         except Exception as exception:  # Gotta Catch 'Em All
             if not self.system.status.startup:
                 self.logger.error(exception)
@@ -300,7 +300,7 @@ class HacsRepository(Hacs):
             self.repository_object = await get_repository(
                 self.session, self.configuration.token, self.information.full_name
             )
-            self.data = self.data.from_dict(self.repository_object.attributes)
+            self.data = self.data.create_from_dict(self.repository_object.attributes)
 
         # Set id
         self.information.uid = str(self.repository_object.id)
@@ -328,7 +328,7 @@ class HacsRepository(Hacs):
         self.repository_object = await get_repository(
             self.session, self.configuration.token, self.information.full_name
         )
-        self.data = self.data.from_dict(self.repository_object.attributes)
+        self.data = self.data.create_from_dict(self.repository_object.attributes)
 
         # Update tree
         self.tree = await get_tree(self.repository_object, self.ref)

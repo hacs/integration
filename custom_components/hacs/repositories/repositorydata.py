@@ -24,7 +24,7 @@ class RepositoryData:
         return self.__dict__
 
     @staticmethod
-    def from_dict(source: dict):
+    def create_from_dict(source: dict):
         """Set attributes from dicts."""
         data = RepositoryData()
         for key in source:
@@ -36,3 +36,14 @@ class RepositoryData:
                 else:
                     setattr(data, key, source[key])
         return data
+
+    def update_data(self, data: dict):
+        """Update data of the repository."""
+        for key in data:
+            if key in self.__dict__:
+                if key == "pushed_at":
+                    setattr(
+                        self, key, datetime.strptime(data[key], "%Y-%m-%dT%H:%M:%SZ")
+                    )
+                else:
+                    setattr(self, key, data[key])

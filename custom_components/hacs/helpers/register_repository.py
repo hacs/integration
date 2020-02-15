@@ -23,7 +23,6 @@ async def register_repository(hacs, full_name, category, check=True):
     if check:
         try:
             await repository.registration()
-            print(1)
             if hacs.system.status.new:
                 repository.status.new = False
             if repository.validate.errors:

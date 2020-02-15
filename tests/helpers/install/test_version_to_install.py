@@ -43,3 +43,9 @@ def test_version_to_install():
     repository.versions.available = "3"
     version_to_install(repository)
     assert repository.status.selected_tag is None
+
+    repository = dummy_repository_base()
+    repository.data.default_branch = "dev"
+    repository.versions.available = None
+    repository.status.selected_tag = None
+    assert version_to_install(repository) == "dev"

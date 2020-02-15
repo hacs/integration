@@ -252,8 +252,6 @@ class HacsRepository(Hacs):
         """Common validation steps of the repository."""
         # Attach helpers
         self.validate.errors = []
-        if self.ref is None:
-            self.ref = version_to_install(self)
 
         # Step 1: Make sure the repository exist.
         self.logger.debug("Checking repository.")
@@ -267,6 +265,9 @@ class HacsRepository(Hacs):
                 self.logger.error(exception)
             self.validate.errors.append("Repository does not exist.")
             return
+
+        if self.ref is None:
+            self.ref = version_to_install(self)
 
         if not self.tree:
             self.tree = await get_tree(self.repository_object, self.ref)
@@ -321,14 +322,14 @@ class HacsRepository(Hacs):
         """Common information update steps of the repository."""
         self.logger.debug("Getting repository information")
 
-        # Set ref
-        self.ref = version_to_install(self)
-
         # Attach repository
         self.repository_object = await get_repository(
             self.session, self.configuration.token, self.information.full_name
         )
         self.data = self.data.create_from_dict(self.repository_object.attributes)
+
+        # Set ref
+        self.ref = version_to_install(self)
 
         # Update tree
         self.tree = await get_tree(self.repository_object, self.ref)

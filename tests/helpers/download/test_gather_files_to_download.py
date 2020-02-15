@@ -88,6 +88,19 @@ def test_gather_plugin_files_from_release():
     assert "test.js" in files
 
 
+def test_gather_plugin_files_from_release_multiple():
+    repository = dummy_repository_plugin()
+    repository.information.file_name = "test.js"
+    repository.releases.releases = True
+    repository.releases.objects = [
+        AIOGithubRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.js"}]}),
+        AIOGithubRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.png"}]}),
+    ]
+    files = [x.name for x in gather_files_to_download(repository)]
+    assert "test.js" in files
+    assert "test.png" in files
+
+
 def test_gather_zip_release():
     repository = dummy_repository_plugin()
     repository.information.file_name = "test.zip"

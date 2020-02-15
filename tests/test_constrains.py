@@ -38,6 +38,25 @@ def test_check_constans(tmpdir):
     translations_dir = f"{hacs.system.config_path}/custom_components/hacs/.translations"
     os.makedirs(translations_dir, exist_ok=True)
 
+    custom_updater_dir = f"{hacs.system.config_path}/custom_components/custom_updater"
+    os.makedirs(custom_updater_dir, exist_ok=True)
+    with open(f"{custom_updater_dir}/__init__.py", "w") as cufile:
+        cufile.write("")
+
+    assert not check_constans(hacs)
+    temp_cleanup(tmpdir)
+
+    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/.translations"
+    os.makedirs(translations_dir, exist_ok=True)
+
+    hacs.system.ha_version = "0.97.0"
+    assert not check_constans(hacs)
+
+    hacs.system.ha_version = HAVERSION
+
+    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/.translations"
+    os.makedirs(translations_dir, exist_ok=True)
+
     assert constrain_version(hacs)
     assert check_constans(hacs)
     assert constrain_translations(hacs)
@@ -48,6 +67,9 @@ def test_check_constans(tmpdir):
 def test_ha_version(tmpdir):
     hacs = Hacs()
     hacs.system.config_path = tmpdir.dirname
+
+    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/.translations"
+    os.makedirs(translations_dir, exist_ok=True)
 
     hacs.system.ha_version = HAVERSION
     assert constrain_version(hacs)
@@ -64,6 +86,9 @@ def test_ha_version(tmpdir):
 def test_custom_updater(tmpdir):
     hacs = Hacs()
     hacs.system.config_path = tmpdir.dirname
+
+    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/.translations"
+    os.makedirs(translations_dir, exist_ok=True)
 
     assert constrain_custom_updater(hacs)
 

@@ -12,3 +12,9 @@ async def test_runtime_error():  # Issue#927
     factory.tasks.append(factory.execute())
 
     await factory.execute()
+
+
+@pytest.mark.asyncio
+async def test_no_tasks():
+    factory = HacsTaskFactory()
+    await factory.execute()

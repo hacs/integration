@@ -9,6 +9,7 @@ from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.helpers.validate_repository import common_validate
 from tests.sample_data import (
     response_rate_limit_header,
+    response_rate_limit_header_with_limit,
     repository_data,
     tree_files_base,
     repository_data_archived,
@@ -215,5 +216,77 @@ async def test_common_blacklist(aresponses, event_loop):
         Hacs.configuration.token = TOKEN
         Hacs.common.blacklist.append("test/test")
         repository = dummy_repository_base()
+        with pytest.raises(HacsException):
+            await common_validate(Hacs, repository)
+
+
+@pytest.mark.asyncio
+async def test_common_base_exception_does_not_exsist(aresponses, event_loop):
+    aresponses.add(
+        "api.github.com",
+        "/rate_limit",
+        "get",
+        aresponses.Response(headers=response_rate_limit_header_with_limit, status=500),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/repos/test/test",
+        "get",
+        aresponses.Response(
+            body=json.dumps({"message": "X"}),
+            headers=response_rate_limit_header_with_limit,
+            status=500,
+        ),
+    )
+
+    async with aiohttp.ClientSession(loop=event_loop) as session:
+        Hacs.session = session
+        Hacs.configuration = Configuration()
+        Hacs.configuration.token = TOKEN
+        Hacs.common.blacklist = []
+        Hacs.system.status.startup = False
+        repository = dummy_repository_base()
+        with pytest.raises(HacsException):
+            await common_validate(Hacs, repository)
+
+
+@pytest.mark.asyncio
+async def test_common_base_exception_tree_issues(aresponses, event_loop):
+    aresponses.add(
+        "api.github.com",
+        "/rate_limit",
+        "get",
+        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/repos/test/test",
+        "get",
+        aresponses.Response(
+            body=json.dumps(repository_data), headers=response_rate_limit_header
+        ),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/rate_limit",
+        "get",
+        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/repos/test/test/git/trees/3",
+        "get",
+        aresponses.Response(
+            body=json.dumps({"message": "X"}), headers=response_rate_limit_header
+        ),
+    )
+
+    async with aiohttp.ClientSession(loop=event_loop) as session:
+        Hacs.session = session
+        Hacs.configuration = Configuration()
+        Hacs.configuration.token = TOKEN
+        repository = dummy_repository_base()
+        Hacs.common.blacklist = []
+        Hacs.system.status.startup = False
         with pytest.raises(HacsException):
             await common_validate(Hacs, repository)

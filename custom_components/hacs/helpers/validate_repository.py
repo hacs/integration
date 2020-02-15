@@ -1,4 +1,5 @@
 """Helper to do common validation for repositories."""
+from aiogithubapi import AIOGitHubException
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.helpers.install import version_to_install
 from custom_components.hacs.helpers.information import get_repository, get_tree
@@ -11,13 +12,12 @@ async def common_validate(hacs, repository):
     # Step 1: Make sure the repository exist.
     repository.logger.debug("Checking repository.")
     try:
-        repository.repository_object = await get_repository(
+        repository_object = await get_repository(
             hacs.session, hacs.configuration.token, repository.information.full_name
         )
-        repository.data = repository.data.create_from_dict(
-            repository.repository_object.attributes
-        )
-    except HacsException as exception:
+        repository.repository_object = repository_object
+        repository.data = repository.data.create_from_dict(repository_object.attributes)
+    except (AIOGitHubException, HacsException) as exception:
         if not hacs.system.status.startup:
             repository.logger.error(exception)
         repository.validate.errors.append("Repository does not exist.")
@@ -28,10 +28,12 @@ async def common_validate(hacs, repository):
 
     try:
         repository.tree = await get_tree(repository.repository_object, repository.ref)
+        if not repository.tree:
+            raise HacsException("No files in tree")
         repository.treefiles = []
         for treefile in repository.tree:
             repository.treefiles.append(treefile.full_path)
-    except HacsException as exception:
+    except (AIOGitHubException, HacsException) as exception:
         if not hacs.system.status.startup:
             repository.logger.error(exception)
         raise HacsException(exception)

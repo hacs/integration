@@ -11,7 +11,7 @@ from tests.sample_data import (
     tree_files_base_integration,
 )
 
-TOKEN = "xxxxxxxxxxxxxxxxxxxxxxx"
+from tests.common import TOKEN
 
 
 @pytest.mark.asyncio
@@ -20,7 +20,7 @@ async def test_get_tree(aresponses, event_loop):
         "api.github.com",
         "/rate_limit",
         "get",
-        aresponses.Response(body=b"{}", headers=response_rate_limit_header),
+        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
     )
     aresponses.add(
         "api.github.com",
@@ -34,7 +34,7 @@ async def test_get_tree(aresponses, event_loop):
         "api.github.com",
         "/rate_limit",
         "get",
-        aresponses.Response(body=b"{}", headers=response_rate_limit_header),
+        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
     )
     aresponses.add(
         "api.github.com",

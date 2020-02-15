@@ -17,6 +17,7 @@ from custom_components.hacs.helpers.information import (
     get_repository,
     get_tree,
 )
+from custom_components.hacs.helpers.validate_repository import common_validate
 from custom_components.hacs.repositories.repositorydata import RepositoryData
 
 
@@ -250,49 +251,7 @@ class HacsRepository(Hacs):
 
     async def common_validate(self):
         """Common validation steps of the repository."""
-        # Attach helpers
-        self.validate.errors = []
-
-        # Step 1: Make sure the repository exist.
-        self.logger.debug("Checking repository.")
-        try:
-            self.repository_object = await get_repository(
-                self.session, self.configuration.token, self.information.full_name
-            )
-            self.data = self.data.create_from_dict(self.repository_object.attributes)
-        except Exception as exception:  # Gotta Catch 'Em All
-            if not self.system.status.startup:
-                self.logger.error(exception)
-            self.validate.errors.append("Repository does not exist.")
-            return
-
-        if self.ref is None:
-            self.ref = version_to_install(self)
-
-        if not self.tree:
-            self.tree = await get_tree(self.repository_object, self.ref)
-            self.treefiles = []
-            for treefile in self.tree:
-                self.treefiles.append(treefile.full_path)
-
-        # Step 2: Make sure the repository is not archived.
-        if self.repository_object.archived:
-            self.validate.errors.append("Repository is archived.")
-            return
-
-        # Step 3: Make sure the repository is not in the blacklist.
-        if self.information.full_name in self.common.blacklist:
-            self.validate.errors.append("Repository is in the blacklist.")
-            return
-
-        # Step 5: Get releases.
-        await self.get_releases()
-
-        # Step 6: Get the content of hacs.json
-        await self.get_repository_manifest_content()
-
-        # Set repository name
-        self.information.name = self.information.full_name.split("/")[1]
+        await common_validate(self, self)
 
     async def common_registration(self):
         """Common registration steps of the repository."""
@@ -304,19 +263,16 @@ class HacsRepository(Hacs):
             self.data = self.data.create_from_dict(self.repository_object.attributes)
 
         # Set id
-        self.information.uid = str(self.repository_object.id)
+        self.information.uid = str(self.data.id)
 
         # Set topics
-        self.information.topics = self.repository_object.topics
+        self.information.topics = self.data.topics
 
         # Set stargazers_count
-        self.information.stars = self.repository_object.attributes.get(
-            "stargazers_count", 0
-        )
+        self.information.stars = self.data.stargazers_count
 
         # Set description
-        if self.repository_object.description:
-            self.information.description = self.repository_object.description
+        self.information.description = self.data.description
 
     async def common_update(self):
         """Common information update steps of the repository."""

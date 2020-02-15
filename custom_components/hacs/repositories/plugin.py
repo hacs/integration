@@ -107,7 +107,6 @@ class HacsPlugin(HacsRepository):
                     except AIOGitHubException:
                         continue
                 else:
-                    await self.get_releases()
                     if self.releases.releases:
                         if self.releases.last_release_object.assets is not None:
                             objects = self.releases.last_release_object.assets

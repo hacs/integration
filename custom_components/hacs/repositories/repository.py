@@ -322,9 +322,6 @@ class HacsRepository(Hacs):
         # Update "info.md"
         self.information.additional_info = await get_info_md_content(self)
 
-        # Update releases
-        await self.get_releases()
-
     async def install(self):
         """Common installation steps of the repository."""
         await install_repository(self)

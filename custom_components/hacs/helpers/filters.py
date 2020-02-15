@@ -42,3 +42,14 @@ def find_first_of_filetype(content, filterfiltype, attr="name"):
                 filename = getattr(_filename, attr)
                 break
     return filename
+
+
+def get_first_directory_in_directory(content, dirname):
+    """Return the first directory in dirname or None."""
+    directory = None
+    for path in content:
+        if path.full_path.startswith(dirname):
+            if path.is_directory:
+                directory = path.filename
+                break
+    return directory

@@ -36,6 +36,15 @@ tree_files_base = {
     ]
 }
 
+integration_manifest = {
+    "domain": "test",
+    "name": "Test",
+    "documentation": "https://test.docs",
+    "dependencies": [],
+    "codeowners": ["developer"],
+    "requirements": [],
+}
+
 release_data = [
     {
         "tag_name": "3",

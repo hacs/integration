@@ -6,6 +6,7 @@ from custom_components.hacs.helpers.filters import get_first_directory_in_direct
 
 def test_valid():
     tree = [
+        AIOGithubTreeContent({"path": "test", "type": "tree"}, "test/test", "master"),
         AIOGithubTreeContent(
             {"path": "test/path", "type": "tree"}, "test/test", "master"
         ),

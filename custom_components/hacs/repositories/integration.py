@@ -8,7 +8,7 @@ from .repository import HacsRepository
 from ..hacsbase.exceptions import HacsException
 
 
-from custom_components.hacs.helpers.information import get_repository
+from custom_components.hacs.helpers.information import get_integration_manifest
 from custom_components.hacs.helpers.filters import get_first_directory_in_directory
 
 
@@ -36,32 +36,23 @@ class HacsIntegration(HacsRepository):
         """Validate."""
         await self.common_validate()
 
-        # Attach repository
-        if self.repository_object is None:
-            try:
-                self.repository_object = await get_repository(
-                    self.session, self.configuration.token, self.information.full_name
-                )
-            except HacsException as exception:
-                self.validate.errors.append(exception)
-                return self.validate.success
-
         # Custom step 1: Validate content.
         if self.repository_manifest:
-
             if self.repository_manifest.content_in_root:
                 self.content.path.remote = ""
 
         if self.content.path.remote == "custom_components":
             name = get_first_directory_in_directory(self.tree, "custom_components")
-            if not name:
+            if name is None:
                 raise HacsException(
                     f"Repostitory structure for {self.ref.replace('tags/','')} is not compliant"
                 )
             self.content.path.remote = f"custom_components/{name}"
 
-        if not await self.get_manifest():
-            self.validate.errors.append("Missing manifest file.")
+        try:
+            await get_integration_manifest(self)
+        except HacsException as exception:
+            self.logger.error(exception)
 
         # Handle potential errors
         if self.validate.errors:
@@ -77,9 +68,6 @@ class HacsIntegration(HacsRepository):
 
         # Run common registration steps.
         await self.common_registration()
-
-        # Get the content of the manifest file.
-        await self.get_manifest()
 
         # Set local path
         self.content.path.local = self.localpath
@@ -98,7 +86,10 @@ class HacsIntegration(HacsRepository):
             name = get_first_directory_in_directory(self.tree, "custom_components")
             self.content.path.remote = f"custom_components/{name}"
 
-        await self.get_manifest()
+        try:
+            await get_integration_manifest(self)
+        except HacsException as exception:
+            self.logger.error(exception)
 
         # Set local path
         self.content.path.local = self.localpath
@@ -108,33 +99,3 @@ class HacsIntegration(HacsRepository):
         self.logger.info("Reloading custom_component cache")
         del self.hass.data["custom_components"]
         await async_get_custom_components(self.hass)
-
-    async def get_manifest(self):
-        """Get info from the manifest file."""
-        manifest_path = f"{self.content.path.remote}/manifest.json"
-        if not manifest_path in [x.full_path for x in self.tree]:
-            raise HacsException(f"No file found '{manifest_path}'")
-        try:
-            manifest = await self.repository_object.get_contents(
-                manifest_path, self.ref
-            )
-            manifest = json.loads(manifest.content)
-        except Exception as exception:  # pylint: disable=broad-except
-            raise HacsException(f"Could not read manifest.json [{exception}]")
-
-        if manifest:
-            try:
-                self.manifest = manifest
-                self.information.authors = manifest["codeowners"]
-                self.domain = manifest["domain"]
-                self.information.name = manifest["name"]
-                self.information.homeassistant_version = manifest.get("homeassistant")
-
-                # Set local path
-                self.content.path.local = self.localpath
-                return True
-            except KeyError as exception:
-                raise HacsException(
-                    f"Missing expected key {exception} in 'manifest.json'"
-                )
-        return False

@@ -17,7 +17,6 @@ from custom_components.hacs.helpers.information import (
     get_info_md_content,
     get_repository,
     get_tree,
-    get_releases,
 )
 from custom_components.hacs.helpers.validate_repository import common_validate
 from custom_components.hacs.repositories.repositorydata import RepositoryData
@@ -342,7 +341,9 @@ class HacsRepository:
                 return validate
 
             for content in contents or []:
-                filecontent = await async_download_file(self.hass, content.download_url)
+                filecontent = await async_download_file(
+                    self.hacs.hass, content.download_url
+                )
 
                 if filecontent is None:
                     validate.errors.append(f"[{content.name}] was not downloaded.")
@@ -392,10 +393,10 @@ class HacsRepository:
         self.logger.info("Starting removal")
 
         if self.information.uid in self.hacs.common.installed:
-            self.common.installed.remove(self.information.uid)
-        for repository in self.repositories:
+            self.hacs.common.installed.remove(self.information.uid)
+        for repository in self.hacs.repositories:
             if repository.information.uid == self.information.uid:
-                self.repositories.remove(repository)
+                self.hacs.repositories.remove(repository)
 
     async def uninstall(self):
         """Run uninstall tasks."""
@@ -409,14 +410,16 @@ class HacsRepository:
                 self.pending_restart = True
         elif self.information.category == "theme":
             try:
-                await self.hass.services.async_call("frontend", "reload_themes", {})
+                await self.hacs.hass.services.async_call(
+                    "frontend", "reload_themes", {}
+                )
             except Exception:  # pylint: disable=broad-except
                 pass
         if self.information.full_name in self.hacs.common.installed:
-            self.common.installed.remove(self.information.full_name)
+            self.hacs.common.installed.remove(self.information.full_name)
         self.versions.installed = None
         self.versions.installed_commit = None
-        self.hass.bus.async_fire(
+        self.hacs.hass.bus.async_fire(
             "hacs/repository",
             {
                 "id": 1337,

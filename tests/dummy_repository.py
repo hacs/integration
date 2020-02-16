@@ -19,8 +19,8 @@ from tests.sample_data import repository_data
 def dummy_repository_base(repository=None):
     if repository is None:
         repository = HacsRepository()
-    repository.hass = HomeAssistant()
-    repository.hass.data = {"custom_components": []}
+    repository.hacs.hass = HomeAssistant()
+    repository.hacs.hass.data = {"custom_components": []}
     repository.logger = Logger("hacs.test.test")
     repository.information.name = "test"
     repository.information.full_name = "test/test"

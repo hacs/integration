@@ -53,7 +53,7 @@ class HacsIntegration(HacsRepository):
         # Handle potential errors
         if self.validate.errors:
             for error in self.validate.errors:
-                if not self.system.status.startup:
+                if not self.hacs.system.status.startup:
                     self.logger.error(error)
         return self.validate.success
 
@@ -92,5 +92,5 @@ class HacsIntegration(HacsRepository):
     async def reload_custom_components(self):
         """Reload custom_components (and config flows)in HA."""
         self.logger.info("Reloading custom_component cache")
-        del self.hass.data["custom_components"]
-        await async_get_custom_components(self.hass)
+        del self.hacs.hass.data["custom_components"]
+        await async_get_custom_components(self.hacs.hass)

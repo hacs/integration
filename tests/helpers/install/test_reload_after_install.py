@@ -1,6 +1,7 @@
 """Helpers: Install: reload_after_install."""
 # pylint: disable=missing-docstring
 import pytest
+
 from custom_components.hacs.helpers.install import reload_after_install
 from tests.dummy_repository import dummy_repository_integration, dummy_repository_theme
 

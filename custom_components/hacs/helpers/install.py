@@ -21,25 +21,21 @@ async def install_repository(repository):
     else:
         repository.ref = f"tags/{version}"
 
-    if repository.repository_manifest:
-        if repository.data.persistent_directory:
-            if os.path.exists(
-                f"{repository.content.path.local}/{repository.data.persistent_directory}"
-            ):
-                persistent_directory = Backup(
-                    f"{repository.content.path.local}/{repository.data.persistent_directory}",
-                    tempfile.gettempdir() + "/hacs_persistent_directory/",
-                )
-                persistent_directory.create()
+    if repository.data.persistent_directory:
+        if os.path.exists(
+            f"{repository.content.path.local}/{repository.data.persistent_directory}"
+        ):
+            persistent_directory = Backup(
+                f"{repository.content.path.local}/{repository.data.persistent_directory}",
+                tempfile.gettempdir() + "/hacs_persistent_directory/",
+            )
+            persistent_directory.create()
 
     if repository.status.installed and not repository.content.single:
         backup = Backup(repository.content.path.local)
         backup.create()
 
-    if (
-        repository.data.zip_release
-        and version != repository.data.default_branch
-    ):
+    if repository.data.zip_release and version != repository.data.default_branch:
         validate = await repository.download_zip(repository.validate)
     else:
         validate = await repository.download_content(
@@ -63,9 +59,9 @@ async def install_repository(repository):
         persistent_directory.cleanup()
 
     if validate.success:
-        if repository.data.full_name not in repository.common.installed:
+        if repository.data.full_name not in repository.hacs.common.installed:
             if repository.data.full_name == "hacs/integration":
-                repository.common.installed.append(repository.data.full_name)
+                repository.hacs.common.installed.append(repository.data.full_name)
         repository.status.installed = True
         repository.versions.installed_commit = repository.versions.available_commit
 
@@ -88,14 +84,16 @@ async def reload_after_install(repository):
 
     elif repository.information.category == "theme":
         try:
-            await repository.hass.services.async_call("frontend", "reload_themes", {})
+            await repository.hacs.hass.services.async_call(
+                "frontend", "reload_themes", {}
+            )
         except Exception:  # pylint: disable=broad-except
             pass
 
 
 def installation_complete(repository):
     """Action to run when the installation is complete."""
-    repository.hass.bus.async_fire(
+    repository.hacs.hass.bus.async_fire(
         "hacs/repository",
         {"id": 1337, "action": "install", "repository": repository.data.full_name},
     )

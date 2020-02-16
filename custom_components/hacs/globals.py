@@ -11,6 +11,3 @@ def get_hacs():
 
     return hacs[0]
 
-
-def get_hass():
-    return get_hacs().hass

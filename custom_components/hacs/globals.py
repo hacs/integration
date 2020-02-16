@@ -10,3 +10,7 @@ def get_hacs():
         hacs.append(Hacs())
 
     return hacs[0]
+
+
+def get_hass():
+    return get_hacs().hass

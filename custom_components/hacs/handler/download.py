@@ -7,15 +7,17 @@ import aiofiles
 import async_timeout
 from integrationhelper import Logger
 import backoff
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from ..hacsbase.exceptions import HacsException
+
+from custom_components.hacs.globals import get_hacs
 
 
 @backoff.on_exception(backoff.expo, Exception, max_tries=5)
-async def async_download_file(hass, url):
+async def async_download_file(url):
     """
     Download files, and return the content.
     """
+    hacs = get_hacs()
     logger = Logger("hacs.download.downloader")
     if url is None:
         return
@@ -28,8 +30,8 @@ async def async_download_file(hass, url):
 
     result = None
 
-    with async_timeout.timeout(60, loop=hass.loop):
-        request = await async_get_clientsession(hass).get(url)
+    with async_timeout.timeout(60, loop=hacs.hass.loop):
+        request = await hacs.session.get(url)
 
         # Make sure that we got a valid result
         if request.status == 200:

@@ -48,7 +48,7 @@ def get_first_directory_in_directory(content, dirname):
     """Return the first directory in dirname or None."""
     directory = None
     for path in content:
-        if path.full_path.startswith(dirname):
+        if path.full_path.startswith(dirname) and path.full_path != dirname:
             if path.is_directory:
                 directory = path.filename
                 break

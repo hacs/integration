@@ -36,20 +36,8 @@ class HacsTheme(HacsRepository):
                 f"Repostitory structure for {self.ref.replace('tags/','')} is not compliant"
             )
 
-        if self.repository_manifest:
-            if self.data.content_in_root:
-                self.content.path.remote = ""
-
-        self.content.objects = await self.repository_object.get_contents(
-            self.content.path.remote, self.ref
-        )
-
-        if not isinstance(self.content.objects, list):
-            self.validate.errors.append("Repostitory structure not compliant")
-
-        self.content.files = filter_content_return_one_of_type(
-            self.treefiles, "themes", "yaml"
-        )
+        if self.data.content_in_root:
+            self.content.path.remote = ""
 
         # Handle potential errors
         if self.validate.errors:
@@ -88,13 +76,6 @@ class HacsTheme(HacsRepository):
         # Get theme objects.
         if self.data.content_in_root:
             self.content.path.remote = ""
-        self.content.objects = await self.repository_object.get_contents(
-            self.content.path.remote, self.ref
-        )
-
-        self.content.files = filter_content_return_one_of_type(
-            self.treefiles, "themes", "yaml"
-        )
 
         # Update name
         if self.data.filename is not None:

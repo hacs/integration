@@ -38,12 +38,12 @@ async def install_repository(repository):
         backup.create()
 
     if repository.data.zip_release and version != repository.data.default_branch:
-        validate = await repository.download_zip(repository)
+        await repository.download_zip(repository)
     else:
-        validate = await download_content(repository)
+        await download_content(repository)
 
-    if validate.errors:
-        for error in validate.errors:
+    if repository.validate.errors:
+        for error in repository.validate.errors:
             repository.logger.error(error)
         if repository.status.installed and not repository.content.single:
             backup.restore()
@@ -55,7 +55,7 @@ async def install_repository(repository):
         persistent_directory.restore()
         persistent_directory.cleanup()
 
-    if validate.success:
+    if repository.validate.success:
         if repository.data.full_name not in repository.hacs.common.installed:
             if repository.data.full_name == "hacs/integration":
                 repository.hacs.common.installed.append(repository.data.full_name)

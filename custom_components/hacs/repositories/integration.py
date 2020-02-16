@@ -113,7 +113,7 @@ class HacsIntegration(HacsRepository):
         """Get info from the manifest file."""
         manifest_path = f"{self.content.path.remote}/manifest.json"
         if not manifest_path in [x.full_path for x in self.tree]:
-            return False
+            raise HacsException(f"No file found '{manifest_path}'")
         try:
             manifest = await self.repository_object.get_contents(
                 manifest_path, self.ref

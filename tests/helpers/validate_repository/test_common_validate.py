@@ -43,10 +43,10 @@ async def test_common_base(aresponses, event_loop):
     )
     aresponses.add(
         "api.github.com",
-        "/repos/test/test/git/trees/3",
+        "/repos/test/test/releases",
         "get",
         aresponses.Response(
-            body=json.dumps(tree_files_base), headers=response_rate_limit_header
+            body=json.dumps(release_data), headers=response_rate_limit_header
         ),
     )
     aresponses.add(
@@ -57,10 +57,10 @@ async def test_common_base(aresponses, event_loop):
     )
     aresponses.add(
         "api.github.com",
-        "/repos/test/test/releases",
+        "/repos/test/test/git/trees/3",
         "get",
         aresponses.Response(
-            body=json.dumps(release_data), headers=response_rate_limit_header
+            body=json.dumps(tree_files_base), headers=response_rate_limit_header
         ),
     )
     aresponses.add(
@@ -105,6 +105,16 @@ async def test_get_releases_exception(aresponses, event_loop):
         "api.github.com",
         "/rate_limit",
         "get",
+        aresponses.Response(
+            body=json.dumps({"message": "X"}),
+            headers=response_rate_limit_header_with_limit,
+            status=403,
+        ),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/rate_limit",
+        "get",
         aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
     )
     aresponses.add(
@@ -113,16 +123,6 @@ async def test_get_releases_exception(aresponses, event_loop):
         "get",
         aresponses.Response(
             body=json.dumps(tree_files_base), headers=response_rate_limit_header
-        ),
-    )
-    aresponses.add(
-        "api.github.com",
-        "/rate_limit",
-        "get",
-        aresponses.Response(
-            body=json.dumps({"message": "X"}),
-            headers=response_rate_limit_header_with_limit,
-            status=403,
         ),
     )
     aresponses.add(
@@ -165,47 +165,6 @@ async def test_common_archived(aresponses, event_loop):
             headers=response_rate_limit_header,
         ),
     )
-    aresponses.add(
-        "api.github.com",
-        "/rate_limit",
-        "get",
-        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
-    )
-    aresponses.add(
-        "api.github.com",
-        "/repos/test/test/git/trees/3",
-        "get",
-        aresponses.Response(
-            body=json.dumps(tree_files_base), headers=response_rate_limit_header
-        ),
-    )
-    aresponses.add(
-        "api.github.com",
-        "/rate_limit",
-        "get",
-        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
-    )
-    aresponses.add(
-        "api.github.com",
-        "/repos/test/test/releases",
-        "get",
-        aresponses.Response(
-            body=json.dumps(release_data), headers=response_rate_limit_header
-        ),
-    )
-    aresponses.add(
-        "api.github.com",
-        "/rate_limit",
-        "get",
-        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
-    )
-    aresponses.add(
-        "api.github.com",
-        "/repos/test/test/contents/hacs.json",
-        "get",
-        aresponses.Response(body=json.dumps({}), headers=response_rate_limit_header),
-    )
-
     async with aiohttp.ClientSession(loop=event_loop) as session:
         Hacs.session = session
         Hacs.configuration = Configuration()
@@ -232,47 +191,6 @@ async def test_common_blacklist(aresponses, event_loop):
             body=json.dumps(repository_data), headers=response_rate_limit_header
         ),
     )
-    aresponses.add(
-        "api.github.com",
-        "/rate_limit",
-        "get",
-        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
-    )
-    aresponses.add(
-        "api.github.com",
-        "/repos/test/test/git/trees/3",
-        "get",
-        aresponses.Response(
-            body=json.dumps(tree_files_base), headers=response_rate_limit_header
-        ),
-    )
-    aresponses.add(
-        "api.github.com",
-        "/rate_limit",
-        "get",
-        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
-    )
-    aresponses.add(
-        "api.github.com",
-        "/repos/test/test/releases",
-        "get",
-        aresponses.Response(
-            body=json.dumps(release_data), headers=response_rate_limit_header
-        ),
-    )
-    aresponses.add(
-        "api.github.com",
-        "/rate_limit",
-        "get",
-        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
-    )
-    aresponses.add(
-        "api.github.com",
-        "/repos/test/test/contents/hacs.json",
-        "get",
-        aresponses.Response(body=json.dumps({}), headers=response_rate_limit_header),
-    )
-
     async with aiohttp.ClientSession(loop=event_loop) as session:
         Hacs.session = session
         Hacs.configuration = Configuration()
@@ -281,6 +199,7 @@ async def test_common_blacklist(aresponses, event_loop):
         repository = dummy_repository_base()
         with pytest.raises(HacsException):
             await common_validate(Hacs, repository)
+        Hacs.common.blacklist = []
 
 
 @pytest.mark.asyncio
@@ -306,7 +225,6 @@ async def test_common_base_exception_does_not_exsist(aresponses, event_loop):
         Hacs.session = session
         Hacs.configuration = Configuration()
         Hacs.configuration.token = TOKEN
-        Hacs.common.blacklist = []
         Hacs.system.status.startup = False
         repository = dummy_repository_base()
         with pytest.raises(HacsException):
@@ -327,6 +245,20 @@ async def test_common_base_exception_tree_issues(aresponses, event_loop):
         "get",
         aresponses.Response(
             body=json.dumps(repository_data), headers=response_rate_limit_header
+        ),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/rate_limit",
+        "get",
+        aresponses.Response(body=b"{}", headers=response_rate_limit_header, status=200),
+    )
+    aresponses.add(
+        "api.github.com",
+        "/repos/test/test/releases",
+        "get",
+        aresponses.Response(
+            body=json.dumps(release_data), headers=response_rate_limit_header
         ),
     )
     aresponses.add(

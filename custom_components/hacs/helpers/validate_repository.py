@@ -13,7 +13,7 @@ async def common_validate(hacs, repository):
     """Common validation steps of the repository."""
     repository.validate.errors = []
 
-    # Step 1: Make sure the repository exist.
+    # Make sure the repository exist.
     repository.logger.debug("Checking repository.")
     try:
         repository_object = await get_repository(
@@ -27,32 +27,17 @@ async def common_validate(hacs, repository):
         repository.validate.errors.append("Repository does not exist.")
         raise HacsException(exception)
 
-    if repository.ref is None:
-        repository.ref = version_to_install(repository)
-
-    try:
-        repository.tree = await get_tree(repository.repository_object, repository.ref)
-        if not repository.tree:
-            raise HacsException("No files in tree")
-        repository.treefiles = []
-        for treefile in repository.tree:
-            repository.treefiles.append(treefile.full_path)
-    except (AIOGitHubException, HacsException) as exception:
-        if not hacs.system.status.startup:
-            repository.logger.error(exception)
-        raise HacsException(exception)
-
-    # Step 2: Make sure the repository is not archived.
+    # Make sure the repository is not archived.
     if repository.data.archived:
         repository.validate.errors.append("Repository is archived.")
         raise HacsException("Repository is archived.")
 
-    # Step 3: Make sure the repository is not in the blacklist.
+    # Make sure the repository is not in the blacklist.
     if repository.data.full_name in hacs.common.blacklist:
         repository.validate.errors.append("Repository is in the blacklist.")
         raise HacsException("Repository is in the blacklist.")
 
-    # Step 5: Get releases.
+    # Get releases.
     try:
         releases = await get_releases(
             repository.repository_object,
@@ -70,6 +55,24 @@ async def common_validate(hacs, repository):
 
     except (AIOGitHubException, HacsException):
         repository.releases.releases = False
+
+    repository.ref = version_to_install(repository)
+
+    repository.logger.debug(
+        f"Running checks against {repository.ref.replace('tags/', '')}"
+    )
+
+    try:
+        repository.tree = await get_tree(repository.repository_object, repository.ref)
+        if not repository.tree:
+            raise HacsException("No files in tree")
+        repository.treefiles = []
+        for treefile in repository.tree:
+            repository.treefiles.append(treefile.full_path)
+    except (AIOGitHubException, HacsException) as exception:
+        if not hacs.system.status.startup:
+            repository.logger.error(exception)
+        raise HacsException(exception)
 
     # Step 6: Get the content of hacs.json
     await repository.get_repository_manifest_content()

@@ -4,6 +4,7 @@ import tempfile
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.hacsbase.backup import Backup
+from custom_components.hacs.helpers.download import download_content
 
 
 async def install_repository(repository):
@@ -39,7 +40,7 @@ async def install_repository(repository):
     if repository.data.zip_release and version != repository.data.default_branch:
         validate = await repository.download_zip(repository)
     else:
-        validate = await repository.download_content(repository)
+        validate = await download_content(repository)
 
     if validate.errors:
         for error in validate.errors:

@@ -22,12 +22,12 @@ async def install_repository(repository):
         repository.ref = f"tags/{version}"
 
     if repository.repository_manifest:
-        if repository.repository_manifest.persistent_directory:
+        if repository.data.persistent_directory:
             if os.path.exists(
-                f"{repository.content.path.local}/{repository.repository_manifest.persistent_directory}"
+                f"{repository.content.path.local}/{repository.data.persistent_directory}"
             ):
                 persistent_directory = Backup(
-                    f"{repository.content.path.local}/{repository.repository_manifest.persistent_directory}",
+                    f"{repository.content.path.local}/{repository.data.persistent_directory}",
                     tempfile.gettempdir() + "/hacs_persistent_directory/",
                 )
                 persistent_directory.create()
@@ -37,7 +37,7 @@ async def install_repository(repository):
         backup.create()
 
     if (
-        repository.repository_manifest.zip_release
+        repository.data.zip_release
         and version != repository.data.default_branch
     ):
         validate = await repository.download_zip(repository.validate)

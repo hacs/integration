@@ -142,12 +142,12 @@ class Hacs:
 
     async def register_repository(self, full_name, category, check=True):
         """Register a repository."""
-        await register_repository(self, full_name, category, check=True)
+        await register_repository(full_name, category, check=True)
 
     async def startup_tasks(self):
         """Tasks tha are started after startup."""
         self.system.status.background_task = True
-        await self.hass.async_add_executor_job(setup_extra_stores, self)
+        await self.hass.async_add_executor_job(setup_extra_stores)
         self.hass.bus.async_fire("hacs/status", {})
         self.logger.debug(self.github.ratelimits.remaining)
         self.logger.debug(self.github.ratelimits.reset_utc)

@@ -1,13 +1,15 @@
 """Register a repository."""
 from aiogithubapi import AIOGitHubException
+from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.exceptions import (
     HacsException,
     HacsExpectedException,
 )
 
 
-async def register_repository(hacs, full_name, category, check=True):
+async def register_repository(full_name, category, check=True):
     """Register a repository."""
+    hacs = get_hacs()
     from custom_components.hacs.repositories import (
         RERPOSITORY_CLASSES,
     )  # To hanle import error

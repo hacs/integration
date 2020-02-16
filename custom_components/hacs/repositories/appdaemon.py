@@ -23,7 +23,7 @@ class HacsAppdaemon(HacsRepository):
     @property
     def localpath(self):
         """Return localpath."""
-        return f"{self.system.config_path}/appdaemon/apps/{self.information.name}"
+        return f"{self.hacs.system.config_path}/appdaemon/apps/{self.information.name}"
 
     async def validate_repository(self):
         """Validate."""
@@ -53,7 +53,7 @@ class HacsAppdaemon(HacsRepository):
         # Handle potential errors
         if self.validate.errors:
             for error in self.validate.errors:
-                if not self.system.status.startup:
+                if not self.hacs.system.status.startup:
                     self.logger.error(error)
         return self.validate.success
 
@@ -70,13 +70,13 @@ class HacsAppdaemon(HacsRepository):
 
     async def update_repository(self):
         """Update."""
-        if self.github.ratelimits.remaining == 0:
+        if self.hacs.github.ratelimits.remaining == 0:
             return
         await self.common_update()
 
         # Get appdaemon objects.
         if self.repository_manifest:
-            if self.repository_manifest.content_in_root:
+            if self.data.content_in_root:
                 self.content.path.remote = ""
 
         if self.content.path.remote == "apps":

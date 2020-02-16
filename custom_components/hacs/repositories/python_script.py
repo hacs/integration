@@ -17,7 +17,7 @@ class HacsPythonScript(HacsRepository):
         self.information.full_name = full_name
         self.information.category = self.category
         self.content.path.remote = "python_scripts"
-        self.content.path.local = f"{self.system.config_path}/python_scripts"
+        self.content.path.local = f"{self.hacs.system.config_path}/python_scripts"
         self.content.single = True
         self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")
 
@@ -46,7 +46,7 @@ class HacsPythonScript(HacsRepository):
         # Handle potential errors
         if self.validate.errors:
             for error in self.validate.errors:
-                if not self.system.status.startup:
+                if not self.hacs.system.status.startup:
                     self.logger.error(error)
         return self.validate.success
 
@@ -63,14 +63,14 @@ class HacsPythonScript(HacsRepository):
 
     async def update_repository(self):  # lgtm[py/similar-function]
         """Update."""
-        if self.github.ratelimits.remaining == 0:
+        if self.hacs.github.ratelimits.remaining == 0:
             return
         # Run common update steps.
         await self.common_update()
 
         # Get python_script objects.
         if self.repository_manifest:
-            if self.repository_manifest.content_in_root:
+            if self.data.content_in_root:
                 self.content.path.remote = ""
 
         self.content.objects = await self.repository_object.get_contents(

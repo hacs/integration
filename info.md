@@ -7,7 +7,7 @@ This is **only** intended for development!
 ## DO NOT UPGRADE TO THE LATEST VERSION!
 
 First upgrade to version [0.16.3](https://github.com/hacs/integration/releases/tag/0.16.3), then upgrade to the latest version.
-{% endif -%}
+{% endif %}
 ## Useful links
 
 - [General documentation](https://hacs.xyz/)

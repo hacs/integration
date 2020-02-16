@@ -25,26 +25,26 @@ def test_info_file():
     assert info_file(repository) == "INFO.MD"
 
     repository = dummy_repository_base()
-    repository.repository_manifest.render_readme = True
+    repository.data.render_readme = True
     repository.treefiles.append("info.md")
     assert not info_file(repository)
 
     repository = dummy_repository_base()
-    repository.repository_manifest.render_readme = True
+    repository.data.render_readme = True
     repository.treefiles.append("readme")
     assert info_file(repository) == "readme"
 
     repository = dummy_repository_base()
-    repository.repository_manifest.render_readme = True
+    repository.data.render_readme = True
     repository.treefiles.append("README")
     assert info_file(repository) == "README"
 
     repository = dummy_repository_base()
-    repository.repository_manifest.render_readme = True
+    repository.data.render_readme = True
     repository.treefiles.append("readme.md")
     assert info_file(repository) == "readme.md"
 
     repository = dummy_repository_base()
-    repository.repository_manifest.render_readme = True
+    repository.data.render_readme = True
     repository.treefiles.append("README.MD")
     assert info_file(repository) == "README.MD"

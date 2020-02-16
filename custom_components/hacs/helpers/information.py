@@ -7,7 +7,7 @@ from custom_components.hacs.hacsbase.exceptions import HacsException
 
 def info_file(repository):
     """get info filename."""
-    if repository.repository_manifest.render_readme:
+    if repository.data.render_readme:
         for filename in ["readme", "readme.md", "README", "README.md", "README.MD"]:
             if filename in repository.treefiles:
                 return filename

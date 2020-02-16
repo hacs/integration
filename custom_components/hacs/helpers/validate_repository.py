@@ -1,5 +1,6 @@
 """Helper to do common validation for repositories."""
 from aiogithubapi import AIOGitHubException
+from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.helpers.install import version_to_install
 from custom_components.hacs.helpers.information import (
@@ -9,8 +10,9 @@ from custom_components.hacs.helpers.information import (
 )
 
 
-async def common_validate(hacs, repository):
+async def common_validate(repository):
     """Common validation steps of the repository."""
+    hacs = get_hacs()
     repository.validate.errors = []
 
     # Make sure the repository exist.

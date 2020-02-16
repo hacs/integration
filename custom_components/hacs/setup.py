@@ -1,11 +1,13 @@
 """Setup functions for HACS."""
 # pylint: disable=bad-continuation
+from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.helpers.information import get_repository
 from custom_components.hacs.helpers.register_repository import register_repository
 
 
-async def load_hacs_repository(hacs):
+async def load_hacs_repository():
     """Load HACS repositroy."""
+    hacs = get_hacs()
     from .const import VERSION
     from aiogithubapi import (
         AIOGitHubAuthentication,
@@ -14,10 +16,10 @@ async def load_hacs_repository(hacs):
     )
 
     try:
-        repository = hacs().get_by_name("hacs/integration")
+        repository = hacs.get_by_name("hacs/integration")
         if repository is None:
-            await register_repository(hacs, "hacs/integration", "integration")
-            repository = hacs().get_by_name("hacs/integration")
+            await register_repository("hacs/integration", "integration")
+            repository = hacs.get_by_name("hacs/integration")
         if repository is None:
             raise AIOGitHubException("Unknown error")
         repository.status.installed = True
@@ -37,8 +39,9 @@ async def load_hacs_repository(hacs):
     return True
 
 
-def setup_extra_stores(hacs):
+def setup_extra_stores():
     """Set up extra stores in HACS if enabled in Home Assistant."""
+    hacs = get_hacs()
     if "python_script" in hacs.hass.config.components:
         hacs.common.categories.append("python_script")
 
@@ -46,10 +49,12 @@ def setup_extra_stores(hacs):
         hacs.common.categories.append("theme")
 
 
-def add_sensor(hacs):
+def add_sensor():
     """Add sensor."""
     from .const import DOMAIN
     from homeassistant.helpers import discovery
+
+    hacs = get_hacs()
 
     try:
         if hacs.configuration.config_type == "yaml":
@@ -68,11 +73,13 @@ def add_sensor(hacs):
         pass
 
 
-async def setup_frontend(hacs):
+async def setup_frontend():
     """Configure the HACS frontend elements."""
     from .http import HacsFrontend, HacsPluginViewLegacy
     from .ws_api_handlers import setup_ws_api
     from hacs_frontend.version import VERSION as FE_VERSION
+
+    hacs = get_hacs()
 
     hacs.hass.http.register_view(HacsFrontend())
     hacs.frontend.version_running = FE_VERSION

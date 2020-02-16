@@ -16,8 +16,8 @@ class FileInformation:
 
 def should_try_releases(repository):
     """Return a boolean indicating whether to download releases or not."""
-    if repository.repository_manifest.zip_release:
-        if repository.repository_manifest.filename.endswith(".zip"):
+    if repository.data.zip_release:
+        if repository.data.filename.endswith(".zip"):
             if repository.ref != repository.data.default_branch:
                 return True
     if repository.ref == repository.data.default_branch:
@@ -75,8 +75,8 @@ def gather_files_to_download(repository):
         if files:
             return files
 
-    if repository.repository_manifest.content_in_root:
-        if repository.repository_manifest.filename is None:
+    if repository.data.content_in_root:
+        if repository.data.filename is None:
             if category == "theme":
                 tree = filter_content_return_one_of_type(
                     repository.tree, "", "yaml", "full_path"
@@ -116,11 +116,11 @@ async def download_zip(repository, validate):
                 continue
 
             result = await async_save_file(
-                f"{tempfile.gettempdir()}/{repository.repository_manifest.filename}",
+                f"{tempfile.gettempdir()}/{repository.data.filename}",
                 filecontent,
             )
             with zipfile.ZipFile(
-                f"{tempfile.gettempdir()}/{repository.repository_manifest.filename}",
+                f"{tempfile.gettempdir()}/{repository.data.filename}",
                 "r",
             ) as zip_file:
                 zip_file.extractall(repository.content.path.local)
@@ -143,9 +143,9 @@ async def download_content(repository, validate, local_directory):
             raise HacsException("No content to download")
 
         for content in contents:
-            if repository.repository_manifest.content_in_root:
-                if repository.repository_manifest.filename is not None:
-                    if content.name != repository.repository_manifest.filename:
+            if repository.data.content_in_root:
+                if repository.data.filename is not None:
+                    if content.name != repository.data.filename:
                         continue
             repository.logger.debug(f"Downloading {content.name}")
 
@@ -163,7 +163,7 @@ async def download_content(repository, validate, local_directory):
 
             else:
                 _content_path = content.path
-                if not repository.repository_manifest.content_in_root:
+                if not repository.data.content_in_root:
                     _content_path = _content_path.replace(
                         f"{repository.content.path.remote}", ""
                     )

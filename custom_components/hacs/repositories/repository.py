@@ -8,10 +8,11 @@ from integrationhelper import Validate
 from aiogithubapi import AIOGitHubException
 from .manifest import HacsManifest
 from ..helpers.misc import get_repository_name
-from ..hacsbase import Hacs
 from ..handler.download import async_download_file, async_save_file
 from ..helpers.misc import version_left_higher_then_right
 from ..helpers.install import install_repository, version_to_install
+
+from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.helpers.information import (
     get_info_md_content,
     get_repository,
@@ -94,12 +95,12 @@ class RepositoryContent:
     single = False
 
 
-class HacsRepository(Hacs):
+class HacsRepository:
     """HacsRepository."""
 
     def __init__(self):
         """Set up HacsRepository."""
-
+        self.hacs = get_hacs()
         self.data = RepositoryData()
         self.content = RepositoryContent()
         self.content.path = RepositoryPath()
@@ -147,7 +148,7 @@ class HacsRepository(Hacs):
             "custom-cards",
         ]:
             return False
-        if self.information.full_name in self.common.default:
+        if self.information.full_name in self.hacs.common.default:
             return False
         if self.information.full_name == "hacs/integration":
             return False
@@ -160,12 +161,14 @@ class HacsRepository(Hacs):
         if self.information.homeassistant_version is not None:
             target = self.information.homeassistant_version
         if self.repository_manifest is not None:
-            if self.repository_manifest.homeassistant is not None:
-                target = self.repository_manifest.homeassistant
+            if self.data.homeassistant is not None:
+                target = self.data.homeassistant
 
         if target is not None:
             if self.releases.releases:
-                if not version_left_higher_then_right(self.system.ha_version, target):
+                if not version_left_higher_then_right(
+                    self.hacs.system.ha_version, target
+                ):
                     return False
         return True
 
@@ -253,14 +256,16 @@ class HacsRepository(Hacs):
 
     async def common_validate(self):
         """Common validation steps of the repository."""
-        await common_validate(self, self)
+        await common_validate(self)
 
     async def common_registration(self):
         """Common registration steps of the repository."""
         # Attach repository
         if self.repository_object is None:
             self.repository_object = await get_repository(
-                self.session, self.configuration.token, self.information.full_name
+                self.hacs.session,
+                self.hacs.configuration.token,
+                self.information.full_name,
             )
             self.data = self.data.create_from_dict(self.repository_object.attributes)
 
@@ -282,7 +287,7 @@ class HacsRepository(Hacs):
 
         # Attach repository
         self.repository_object = await get_repository(
-            self.session, self.configuration.token, self.information.full_name
+            self.hacs.session, self.hacs.configuration.token, self.information.full_name
         )
         self.data = self.data.create_from_dict(self.repository_object.attributes)
 
@@ -344,11 +349,10 @@ class HacsRepository(Hacs):
                     continue
 
                 result = await async_save_file(
-                    f"{tempfile.gettempdir()}/{self.repository_manifest.filename}",
-                    filecontent,
+                    f"{tempfile.gettempdir()}/{self.data.filename}", filecontent
                 )
                 with zipfile.ZipFile(
-                    f"{tempfile.gettempdir()}/{self.repository_manifest.filename}", "r"
+                    f"{tempfile.gettempdir()}/{self.data.filename}", "r"
                 ) as zip_file:
                     zip_file.extractall(self.content.path.local)
 
@@ -379,6 +383,7 @@ class HacsRepository(Hacs):
             self.repository_manifest = HacsManifest.from_dict(
                 json.loads(manifest.content)
             )
+            self.data.update_data(json.loads(manifest.content))
         except (AIOGitHubException, Exception):  # Gotta Catch 'Em All
             pass
 
@@ -386,7 +391,7 @@ class HacsRepository(Hacs):
         """Run remove tasks."""
         self.logger.info("Starting removal")
 
-        if self.information.uid in self.common.installed:
+        if self.information.uid in self.hacs.common.installed:
             self.common.installed.remove(self.information.uid)
         for repository in self.repositories:
             if repository.information.uid == self.information.uid:
@@ -407,7 +412,7 @@ class HacsRepository(Hacs):
                 await self.hass.services.async_call("frontend", "reload_themes", {})
             except Exception:  # pylint: disable=broad-except
                 pass
-        if self.information.full_name in self.common.installed:
+        if self.information.full_name in self.hacs.common.installed:
             self.common.installed.remove(self.information.full_name)
         self.versions.installed = None
         self.versions.installed_commit = None

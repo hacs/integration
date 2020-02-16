@@ -66,7 +66,7 @@ class HacsTaskFactory:
     async def safe_register(self, hacs, repo, category):
         async with max_concurrent_tasks:
             try:
-                await register_repository(hacs, repo, category)
+                await register_repository(repo, category)
             except AIOGitHubException as exception:
                 logger.error(exception)
 

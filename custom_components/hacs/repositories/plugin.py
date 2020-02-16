@@ -20,7 +20,7 @@ class HacsPlugin(HacsRepository):
         self.information.file_name = None
         self.information.javascript_type = None
         self.content.path.local = (
-            f"{self.system.config_path}/www/community/{full_name.split('/')[-1]}"
+            f"{self.hacs.system.config_path}/www/community/{full_name.split('/')[-1]}"
         )
         self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")
 
@@ -47,7 +47,7 @@ class HacsPlugin(HacsRepository):
         # Handle potential errors
         if self.validate.errors:
             for error in self.validate.errors:
-                if not self.system.status.startup:
+                if not self.hacs.system.status.startup:
                     self.logger.error(error)
         return self.validate.success
 
@@ -61,7 +61,7 @@ class HacsPlugin(HacsRepository):
 
     async def update_repository(self):
         """Update."""
-        if self.github.ratelimits.remaining == 0:
+        if self.hacs.github.ratelimits.remaining == 0:
             return
         # Run common update steps.
         await self.common_update()
@@ -89,9 +89,8 @@ class HacsPlugin(HacsRepository):
 
         possible_locations = ["dist", "release", ""]
 
-        if self.repository_manifest:
-            if self.repository_manifest.content_in_root:
-                possible_locations = [""]
+        if self.data.content_in_root:
+            possible_locations = [""]
 
         for location in possible_locations:
             if self.content.path.remote is not None:
@@ -124,8 +123,8 @@ class HacsPlugin(HacsRepository):
                 ]
 
                 if self.repository_manifest:
-                    if self.repository_manifest.filename:
-                        valid_filenames.append(self.repository_manifest.filename)
+                    if self.data.filename:
+                        valid_filenames.append(self.data.filename)
 
                 for name in valid_filenames:
                     if name in files:

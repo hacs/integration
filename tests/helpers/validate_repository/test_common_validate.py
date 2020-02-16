@@ -3,7 +3,7 @@
 import json
 import aiohttp
 import pytest
-from custom_components.hacs.hacsbase import Hacs
+from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.helpers.validate_repository import common_validate
@@ -77,12 +77,13 @@ async def test_common_base(aresponses, event_loop):
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        Hacs.session = session
-        Hacs.configuration = Configuration()
-        Hacs.configuration.token = TOKEN
+        hacs = get_hacs()
+        hacs.session = session
+        hacs.configuration = Configuration()
+        hacs.configuration.token = TOKEN
         repository = dummy_repository_base()
         repository.ref = None
-        await common_validate(Hacs, repository)
+        await common_validate(repository)
 
 
 @pytest.mark.asyncio
@@ -139,12 +140,13 @@ async def test_get_releases_exception(aresponses, event_loop):
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        Hacs.session = session
-        Hacs.configuration = Configuration()
-        Hacs.configuration.token = TOKEN
+        hacs = get_hacs()
+        hacs.session = session
+        hacs.configuration = Configuration()
+        hacs.configuration.token = TOKEN
         repository = dummy_repository_base()
         repository.ref = None
-        await common_validate(Hacs, repository)
+        await common_validate(repository)
         assert not repository.releases.releases
 
 
@@ -166,13 +168,14 @@ async def test_common_archived(aresponses, event_loop):
         ),
     )
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        Hacs.session = session
-        Hacs.configuration = Configuration()
-        Hacs.configuration.token = TOKEN
+        hacs = get_hacs()
+        hacs.session = session
+        hacs.configuration = Configuration()
+        hacs.configuration.token = TOKEN
         repository = dummy_repository_base()
         repository.data.archived = True
         with pytest.raises(HacsException):
-            await common_validate(Hacs, repository)
+            await common_validate(repository)
 
 
 @pytest.mark.asyncio
@@ -192,14 +195,15 @@ async def test_common_blacklist(aresponses, event_loop):
         ),
     )
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        Hacs.session = session
-        Hacs.configuration = Configuration()
-        Hacs.configuration.token = TOKEN
-        Hacs.common.blacklist.append("test/test")
+        hacs = get_hacs()
+        hacs.session = session
+        hacs.configuration = Configuration()
+        hacs.configuration.token = TOKEN
+        hacs.common.blacklist.append("test/test")
         repository = dummy_repository_base()
         with pytest.raises(HacsException):
-            await common_validate(Hacs, repository)
-        Hacs.common.blacklist = []
+            await common_validate(repository)
+        hacs.common.blacklist = []
 
 
 @pytest.mark.asyncio
@@ -222,13 +226,14 @@ async def test_common_base_exception_does_not_exsist(aresponses, event_loop):
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        Hacs.session = session
-        Hacs.configuration = Configuration()
-        Hacs.configuration.token = TOKEN
-        Hacs.system.status.startup = False
+        hacs = get_hacs()
+        hacs.session = session
+        hacs.configuration = Configuration()
+        hacs.configuration.token = TOKEN
+        hacs.system.status.startup = False
         repository = dummy_repository_base()
         with pytest.raises(HacsException):
-            await common_validate(Hacs, repository)
+            await common_validate(repository)
 
 
 @pytest.mark.asyncio
@@ -277,11 +282,12 @@ async def test_common_base_exception_tree_issues(aresponses, event_loop):
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        Hacs.session = session
-        Hacs.configuration = Configuration()
-        Hacs.configuration.token = TOKEN
+        hacs = get_hacs()
+        hacs.session = session
+        hacs.configuration = Configuration()
+        hacs.configuration.token = TOKEN
         repository = dummy_repository_base()
-        Hacs.common.blacklist = []
-        Hacs.system.status.startup = False
+        hacs.common.blacklist = []
+        hacs.system.status.startup = False
         with pytest.raises(HacsException):
-            await common_validate(Hacs, repository)
+            await common_validate(repository)

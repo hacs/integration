@@ -105,8 +105,8 @@ def test_gather_plugin_files_from_release_multiple():
 def test_gather_zip_release():
     repository = dummy_repository_plugin()
     repository.information.file_name = "test.zip"
-    repository.repository_manifest.zip_release = True
-    repository.repository_manifest.filename = "test.zip"
+    repository.data.zip_release = True
+    repository.data.filename = "test.zip"
     repository.releases.objects = [
         AIOGithubRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.zip"}]})
     ]
@@ -138,7 +138,7 @@ def test_single_file_repo():
 
 def test_gather_content_in_root_theme():
     repository = dummy_repository_theme()
-    repository.repository_manifest.content_in_root = True
+    repository.data.content_in_root = True
     repository.content.path.remote = ""
     repository.information.file_name = "test.yaml"
     repository.tree = [

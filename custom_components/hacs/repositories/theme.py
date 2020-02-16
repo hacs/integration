@@ -16,7 +16,7 @@ class HacsTheme(HacsRepository):
         self.information.full_name = full_name
         self.information.category = self.category
         self.content.path.remote = "themes"
-        self.content.path.local = f"{self.system.config_path}/themes"
+        self.content.path.local = f"{self.hacs.system.config_path}/themes"
         self.content.single = False
         self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")
 
@@ -28,7 +28,6 @@ class HacsTheme(HacsRepository):
         # Custom step 1: Validate content.
         compliant = False
         for treefile in self.treefiles:
-            self.logger.debug(treefile)
             if treefile.startswith("themes/") and treefile.endswith(".yaml"):
                 compliant = True
                 break
@@ -38,7 +37,7 @@ class HacsTheme(HacsRepository):
             )
 
         if self.repository_manifest:
-            if self.repository_manifest.content_in_root:
+            if self.data.content_in_root:
                 self.content.path.remote = ""
 
         self.content.objects = await self.repository_object.get_contents(
@@ -55,7 +54,7 @@ class HacsTheme(HacsRepository):
         # Handle potential errors
         if self.validate.errors:
             for error in self.validate.errors:
-                if not self.system.status.startup:
+                if not self.hacs.system.status.startup:
                     self.logger.error(error)
         return self.validate.success
 
@@ -68,27 +67,27 @@ class HacsTheme(HacsRepository):
         await self.common_registration()
 
         # Set name
-        if self.repository_manifest.filename is not None:
-            self.information.file_name = self.repository_manifest.filename
+        if self.data.filename is not None:
+            self.information.file_name = self.data.filename
         else:
             self.information.file_name = find_first_of_filetype(
                 self.content.files, "yaml"
             ).split("/")[-1]
         self.information.name = self.information.file_name.replace(".yaml", "")
         self.content.path.local = (
-            f"{self.system.config_path}/themes/{self.information.name}"
+            f"{self.hacs.system.config_path}/themes/{self.information.name}"
         )
 
     async def update_repository(self):  # lgtm[py/similar-function]
         """Update."""
-        if self.github.ratelimits.remaining == 0:
+        if self.hacs.github.ratelimits.remaining == 0:
             return
         # Run common update steps.
         await self.common_update()
 
         # Get theme objects.
         if self.repository_manifest:
-            if self.repository_manifest.content_in_root:
+            if self.data.content_in_root:
                 self.content.path.remote = ""
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
@@ -99,13 +98,13 @@ class HacsTheme(HacsRepository):
         )
 
         # Update name
-        if self.repository_manifest.filename is not None:
-            self.information.file_name = self.repository_manifest.filename
+        if self.data.filename is not None:
+            self.information.file_name = self.data.filename
         else:
             self.information.file_name = find_first_of_filetype(
                 self.content.files, "yaml"
             ).split("/")[-1]
         self.information.name = self.information.file_name.replace(".yaml", "")
         self.content.path.local = (
-            f"{self.system.config_path}/themes/{self.information.name}"
+            f"{self.hacs.system.config_path}/themes/{self.information.name}"
         )

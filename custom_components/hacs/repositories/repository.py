@@ -341,9 +341,7 @@ class HacsRepository:
                 return validate
 
             for content in contents or []:
-                filecontent = await async_download_file(
-                    self.hacs.hass, content.download_url
-                )
+                filecontent = await async_download_file(content.download_url)
 
                 if filecontent is None:
                     validate.errors.append(f"[{content.name}] was not downloaded.")
@@ -370,7 +368,7 @@ class HacsRepository:
         """Download the content of a directory."""
         from custom_components.hacs.helpers.download import download_content
 
-        validate = await download_content(self, validate, local_directory)
+        validate = await download_content(self)
         return validate
 
     async def get_repository_manifest_content(self):

@@ -1,6 +1,7 @@
 """Install helper for repositories."""
 import os
 import tempfile
+from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.hacsbase.backup import Backup
 
@@ -88,7 +89,8 @@ async def reload_after_install(repository):
 
 def installation_complete(repository):
     """Action to run when the installation is complete."""
-    repository.hacs.hass.bus.async_fire(
+    hacs = get_hacs()
+    hacs.hass.bus.async_fire(
         "hacs/repository",
         {"id": 1337, "action": "install", "repository": repository.data.full_name},
     )

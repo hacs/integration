@@ -4,6 +4,7 @@ Custom element manager for community created elements.
 For more details about this integration, please refer to the documentation at
 https://hacs.xyz/
 """
+
 import voluptuous as vol
 from aiogithubapi import AIOGitHub
 from homeassistant import config_entries
@@ -16,7 +17,7 @@ from homeassistant.helpers.event import async_call_later
 
 from .configuration_schema import hacs_base_config_schema, hacs_config_option_schema
 from .const import DOMAIN, ELEMENT_TYPES, STARTUP, VERSION
-from .constrains import check_constans
+from .constrains import check_constans, check_requirements
 from .hacsbase.configuration import Configuration
 from .hacsbase.data import HacsData
 from .setup import add_sensor, load_hacs_repository, setup_frontend
@@ -30,6 +31,9 @@ CONFIG_SCHEMA = vol.Schema({DOMAIN: SCHEMA}, extra=vol.ALLOW_EXTRA)
 
 async def async_setup(hass, config):
     """Set up this integration using yaml."""
+    if check_requirements():
+        return False
+
     hacs = get_hacs()
     if DOMAIN not in config:
         return True
@@ -52,6 +56,9 @@ async def async_setup(hass, config):
 
 async def async_setup_entry(hass, config_entry):
     """Set up this integration using UI."""
+    if check_requirements():
+        return False
+
     hacs = get_hacs()
     conf = hass.data.get(DOMAIN)
     if config_entry.source == config_entries.SOURCE_IMPORT:

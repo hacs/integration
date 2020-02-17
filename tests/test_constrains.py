@@ -1,11 +1,13 @@
 """HACS Constrains Test Suite."""
 # pylint: disable=missing-docstring,invalid-name
 import os
+import sys
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.constrains import (
     constrain_translations,
     constrain_custom_updater,
     constrain_version,
+    check_requirements,
     check_constans,
 )
 
@@ -119,3 +121,12 @@ def test_translations(tmpdir):
     assert constrain_translations()
 
     temp_cleanup(tmpdir)
+
+
+def test_requirements():
+    paths = sys.path
+    sys.path = []
+    assert not check_requirements()
+    sys.path = paths
+    assert check_requirements()
+

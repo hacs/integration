@@ -124,9 +124,5 @@ def test_translations(tmpdir):
 
 
 def test_requirements():
-    paths = sys.path
-    sys.path = []
-    assert not check_requirements()
-    sys.path = paths
     assert check_requirements()
 

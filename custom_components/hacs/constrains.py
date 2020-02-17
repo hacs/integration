@@ -90,12 +90,9 @@ def check_requirements():
         missing.append("aiofiles")
 
     if missing:
-        import logging
-
-        logger = logging.getLogger("custom_components.hacs")
+        hacs = get_hacs()
         for requirement in missing:
-            print(requirement)
-            logger.critical(
+            hacs.logger.critical(
                 "Required python requirement '%s' is not installed", requirement
             )
         return False

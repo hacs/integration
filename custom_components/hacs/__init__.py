@@ -31,9 +31,6 @@ CONFIG_SCHEMA = vol.Schema({DOMAIN: SCHEMA}, extra=vol.ALLOW_EXTRA)
 
 async def async_setup(hass, config):
     """Set up this integration using yaml."""
-    if check_requirements():
-        return False
-
     hacs = get_hacs()
     if DOMAIN not in config:
         return True
@@ -56,9 +53,6 @@ async def async_setup(hass, config):
 
 async def async_setup_entry(hass, config_entry):
     """Set up this integration using UI."""
-    if check_requirements():
-        return False
-
     hacs = get_hacs()
     conf = hass.data.get(DOMAIN)
     if config_entry.source == config_entries.SOURCE_IMPORT:
@@ -86,7 +80,6 @@ async def async_setup_entry(hass, config_entry):
 async def startup_wrapper_for_yaml():
     """Startup wrapper for yaml config."""
     hacs = get_hacs()
-    hacs.logger.info(hacs.configuration.token)
     startup_result = await hacs_startup()
     if not startup_result:
         hacs.system.disabled = True
@@ -103,6 +96,8 @@ async def startup_wrapper_for_yaml():
 
 async def hacs_startup():
     """HACS startup tasks."""
+    if not check_requirements():
+        return False
     hacs = get_hacs()
     if hacs.configuration.debug:
         try:

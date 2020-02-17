@@ -93,7 +93,7 @@ def check_requirements():
         hacs = get_hacs()
         for requirement in missing:
             hacs.logger.critical(
-                "Required python requirement '%s' is not installed", requirement
+                f"Required python requirement '{requirement}' is not installed"
             )
         return False
     return True

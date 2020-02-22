@@ -136,6 +136,7 @@ async def hacs_startup():
 
     if not await hacs.hass.async_add_executor_job(internet_connectivity_check):
         hacs.logger.critical("No network connectivity")
+        return False
 
     # Load HACS
     if not await load_hacs_repository():

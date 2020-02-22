@@ -14,7 +14,7 @@ def internet_connectivity_check():
             )
 
             host["connection"] = True
-        except socket.error:
+        except Exception:  # pylint: disable=broad-except
             host["connection"] = False
 
     return False not in [x["connection"] for x in hosts]

@@ -13,6 +13,7 @@ class RepositoryData:
     pushed_at: str = None
     archived: str = None
     description: str = None
+    category: str = None
     topics: List[str] = []
     fork: bool = False
     default_branch: str = None

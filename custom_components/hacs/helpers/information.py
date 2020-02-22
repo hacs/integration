@@ -86,3 +86,49 @@ async def get_integration_manifest(repository):
 
     except KeyError as exception:
         raise HacsException(f"Missing expected key {exception} in 'manifest.json'")
+
+
+def find_file_name(repository):
+    """Get the filename to target."""
+    tree = repository.tree
+    releases = repository.releases.objects
+
+    if repository.information.category == "plugin":
+        if repository.data.content_in_root:
+            possible_locations = [""]
+        else:
+            possible_locations = ["release", "dist", ""]
+
+        # Handler for plug requirement 3
+        if repository.data.filename:
+            valid_filenames = [repository.data.filename]
+        else:
+            valid_filenames = [
+                f"{repository.information.name.replace('lovelace-', '')}.js",
+                f"{repository.information.name}.js",
+                f"{repository.information.name}.umd.js",
+                f"{repository.information.name}-bundle.js",
+            ]
+
+        for location in possible_locations:
+            if location == "release":
+                if not releases:
+                    continue
+                release = releases[0]
+                if not release.assets:
+                    continue
+                asset = release.assets[0]
+                for filename in valid_filenames:
+                    if filename == asset.name:
+                        repository.information.file_name = filename
+                        repository.content.path.remote = "release"
+                        break
+
+            else:
+                for filename in valid_filenames:
+                    if f"{location+'/' if location else ''}{filename}" in [
+                        x.full_path for x in tree
+                    ]:
+                        repository.information.file_name = filename
+                        repository.content.path.remote = location
+                        break

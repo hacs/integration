@@ -3,7 +3,9 @@
 from aiogithubapi.content import AIOGithubTreeContent
 from aiogithubapi.release import AIOGithubRepositoryRelease
 
+from custom_components.hacs.helpers.information import find_file_name
 from custom_components.hacs.helpers.download import gather_files_to_download
+
 from tests.dummy_repository import (
     dummy_repository_base,
     dummy_repository_plugin,
@@ -27,7 +29,6 @@ def test_gather_files_to_download():
 def test_gather_plugin_files_from_root():
     repository = dummy_repository_plugin()
     repository.content.path.remote = ""
-    repository.information.file_name = "test.js"
     repository.tree = [
         AIOGithubTreeContent(
             {"path": "test.js", "type": "blob"}, "test/test", "master"
@@ -40,6 +41,7 @@ def test_gather_plugin_files_from_root():
             {"path": "dist/test.js", "type": "blob"}, "test/test", "master"
         ),
     ]
+    find_file_name(repository)
     files = [x.path for x in gather_files_to_download(repository)]
     assert "test.js" in files
     assert "dir" not in files
@@ -232,4 +234,22 @@ def test_gather_plugin_multiple_files_in_root():
     assert "dep1.js" in files
     assert "dep2.js" in files
     assert "dep3.js" in files
+    assert "info.md" not in files
+
+
+def test_gather_plugin_different_card_name():
+    repository = dummy_repository_plugin()
+    repository.content.path.remote = ""
+    repository.data.file_name = "card.js"
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "card.js", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "info.md", "type": "blob"}, "test/test", "master"
+        ),
+    ]
+    find_file_name(repository)
+    files = [x.path for x in gather_files_to_download(repository)]
+    assert "card.js" in files
     assert "info.md" not in files

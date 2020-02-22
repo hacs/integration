@@ -13,8 +13,6 @@ for i in $(seq $minimum $current); do
     echo "Testing HACS with Home Assistant Core version 0.$i.0"
     python3 -m pip install homeassistant==0.$i.0
     hass --script check_config --config /home/runner/work/integration/integration
-    cd /home/runner/work/integration/integration
-    python3 -m pytest
     echo
     echo
 done
@@ -22,13 +20,10 @@ done
 echo "Testing HACS with latest Home Assistant Core Beta"
 python3 -m pip install -U --pre homeassistant
 hass --script check_config --config /home/runner/work/integration/integration
-cd /home/runner/work/integration/integration
-python3 -m pytest
 echo
 echo
 
 echo "Testing HACS with Home Assistant Core Dev"
 python3 -m pip install git+git://github.com/home-assistant/home-assistant.git@dev
 hass --script check_config --config /home/runner/work/integration/integration
-cd /home/runner/work/integration/integration
-python3 -m pytest
+

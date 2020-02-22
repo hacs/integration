@@ -1,0 +1,27 @@
+name: "Cron actions 12:00 every day"
+
+on:
+  push:
+  schedule:
+    - cron:  '30 16 */3 * *'
+
+jobs:
+  cron:
+    name: Test all versions of Home Assistant Core
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v1
+
+      - name: Enable version 3.7 of Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+
+      - name: Install requirements
+        run: |
+          python3 -m pip install setuptools wheel
+          python3 -m pip install -r /home/runner/work/integration/integration/requirements.txt
+
+      - name: Run tests against multiple Home Assistant Core versions
+        run: bash /home/runner/work/integration/integration/manage/test_ha_versions

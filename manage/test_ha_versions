@@ -1,0 +1,11 @@
+
+minimum="98"
+current=$(python3 manage/get_ha_version.py)
+
+cp -f /home/runner/work/integration/integration/devcontainer/sample_configuration.yaml /home/runner/work/integration/integration/configuration.yaml
+
+for i in $(seq $minimum $current); do
+    echo "Testing HACS with Home Assistant Core version 0.$i.0"
+    python3 -m pip install homeassistant==0.$i.0
+    hass --script check_config --config /home/runner/work/integration/integration/
+done

@@ -23,6 +23,7 @@ from .hacsbase.data import HacsData
 from .setup import add_sensor, load_hacs_repository, setup_frontend
 
 from custom_components.hacs.globals import get_hacs
+from custom_components.hacs.helpers.network import internet_connectivity_check
 
 SCHEMA = hacs_base_config_schema()
 SCHEMA[vol.Optional("options")] = hacs_config_option_schema()
@@ -96,9 +97,9 @@ async def startup_wrapper_for_yaml():
 
 async def hacs_startup():
     """HACS startup tasks."""
+    hacs = get_hacs()
     if not check_requirements():
         return False
-    hacs = get_hacs()
     if hacs.configuration.debug:
         try:
             await hacs.hass.services.async_call(
@@ -133,8 +134,8 @@ async def hacs_startup():
     # Set up frontend
     await setup_frontend()
 
-    # Set up sensor
-    await hacs.hass.async_add_executor_job(add_sensor)
+    if not await hacs.hass.async_add_executor_job(internet_connectivity_check):
+        hacs.logger.critical("No network connectivity")
 
     # Load HACS
     if not await load_hacs_repository():
@@ -177,6 +178,9 @@ async def hacs_startup():
 
     # Show the configuration
     hacs.configuration.print()
+
+    # Set up sensor
+    await hacs.hass.async_add_executor_job(add_sensor)
 
     # Mischief managed!
     return True

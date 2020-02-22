@@ -14,6 +14,6 @@ First upgrade to version [0.16.3](https://github.com/hacs/integration/releases/t
 - [Configuration](https://hacs.xyz/docs/configuration/start)
 - [FAQ](https://hacs.xyz/docs/faq/what)
 - [GitHub](https://github.com/hacs)
-- [Forum post](https://community.home-assistant.io/t/custom-component-hacs/121727)
 - [Discord](https://discord.gg/apgchf8)
 - [Become a GitHub sponsor? ❤️](https://github.com/sponsors/ludeeus)
+- [BuyMe~~Coffee~~Beer? 🍺🙈](https://buymeacoffee.com/ludeeus)

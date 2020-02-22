@@ -31,12 +31,12 @@ HACS is not a full replacement for `custom_updater` and even though their "missi
 ## Useful links
 
 - [General documentation](https://hacs.xyz/)
-- [Installation](https://hacs.xyz/docs/installation/manual)
 - [Configuration](https://hacs.xyz/docs/configuration/start)
-- [FAQ](https://hacs.xyz/docs/faq)
-- [Repository](https://github.com/hacs/integration)
-- [Forum post](https://community.home-assistant.io/t/custom-component-hacs/121727)
-- [BuyMeCoffee? :see_no_evil:](https://buymeacoffee.com/ludeeus)
+- [FAQ](https://hacs.xyz/docs/faq/what)
+- [GitHub](https://github.com/hacs)
+- [Discord](https://discord.gg/apgchf8)
+- [Become a GitHub sponsor? ❤️](https://github.com/sponsors/ludeeus)
+- [BuyMe~~Coffee~~Beer? 🍺🙈](https://buymeacoffee.com/ludeeus)
 
 **YouTube Promo for HACS🙈:**
 

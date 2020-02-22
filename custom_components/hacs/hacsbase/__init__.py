@@ -273,6 +273,7 @@ class Hacs:
     async def recuring_tasks_all(self, notarealarg=None):
         """Recuring tasks for all repositories."""
         self.logger.debug("Starting recuring background task for all repositories")
+        await self.hass.async_add_executor_job(setup_extra_stores)
         self.system.status.background_task = True
         self.hass.bus.async_fire("hacs/status", {})
         self.logger.debug(self.github.ratelimits.remaining)
@@ -342,7 +343,6 @@ class Hacs:
                     continue
                 if self.is_known(repo):
                     continue
-                self.factory.tasks.append(
-                    self.factory.safe_register(self, repo, category)
-                )
+                self.factory.tasks.append(self.factory.safe_register(repo, category))
         await self.factory.execute()
+        self.logger.info("Loading known repositories finished")

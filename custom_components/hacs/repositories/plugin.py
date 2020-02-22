@@ -1,10 +1,11 @@
 """Class for plugins in HACS."""
 import json
-from aiogithubapi import AIOGitHubException
 from integrationhelper import Logger
 
 from .repository import HacsRepository
 from ..hacsbase.exceptions import HacsException
+
+from custom_components.hacs.helpers.information import find_file_name
 
 
 class HacsPlugin(HacsRepository):
@@ -17,6 +18,7 @@ class HacsPlugin(HacsRepository):
         super().__init__()
         self.information.full_name = full_name
         self.information.category = self.category
+        self.data.category = self.category
         self.information.file_name = None
         self.information.javascript_type = None
         self.content.path.local = (
@@ -30,7 +32,7 @@ class HacsPlugin(HacsRepository):
         await self.common_validate()
 
         # Custom step 1: Validate content.
-        await self.get_plugin_location()
+        find_file_name(self)
 
         if self.content.path.remote is None:
             raise HacsException(
@@ -39,10 +41,6 @@ class HacsPlugin(HacsRepository):
 
         if self.content.path.remote == "release":
             self.content.single = True
-
-        self.content.files = []
-        for filename in self.content.objects:
-            self.content.files.append(filename.name)
 
         # Handle potential errors
         if self.validate.errors:
@@ -67,7 +65,7 @@ class HacsPlugin(HacsRepository):
         await self.common_update()
 
         # Get plugin objects.
-        await self.get_plugin_location()
+        find_file_name(self)
 
         # Get JS type
         await self.parse_readme_for_jstype()
@@ -77,66 +75,6 @@ class HacsPlugin(HacsRepository):
 
         if self.content.path.remote == "release":
             self.content.single = True
-
-        self.content.files = []
-        for filename in self.content.objects:
-            self.content.files.append(filename.name)
-
-    async def get_plugin_location(self):
-        """Get plugin location."""
-        if self.content.path.remote is not None:
-            return
-
-        possible_locations = ["dist", "release", ""]
-
-        if self.data.content_in_root:
-            possible_locations = [""]
-
-        for location in possible_locations:
-            if self.content.path.remote is not None:
-                continue
-            try:
-                objects = []
-                files = []
-                if location != "release":
-                    try:
-                        objects = await self.repository_object.get_contents(
-                            location, self.ref
-                        )
-                    except AIOGitHubException:
-                        continue
-                else:
-                    if self.releases.releases:
-                        if self.releases.last_release_object.assets is not None:
-                            objects = self.releases.last_release_object.assets
-
-                for item in objects:
-                    if item.name.endswith(".js"):
-                        files.append(item.name)
-
-                # Handler for plug requirement 3
-                valid_filenames = [
-                    f"{self.information.name.replace('lovelace-', '')}.js",
-                    f"{self.information.name}.js",
-                    f"{self.information.name}.umd.js",
-                    f"{self.information.name}-bundle.js",
-                ]
-
-                if self.repository_manifest:
-                    if self.data.filename:
-                        valid_filenames.append(self.data.filename)
-
-                for name in valid_filenames:
-                    if name in files:
-                        # YES! We got it!
-                        self.information.file_name = name
-                        self.content.path.remote = location
-                        self.content.objects = objects
-                        self.content.files = files
-                        break
-
-            except SystemError:
-                pass
 
     async def get_package_content(self):
         """Get package content."""

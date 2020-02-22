@@ -59,13 +59,15 @@ def gather_files_to_download(repository):
     if category == "plugin":
         for treefile in tree:
             if treefile.path in ["", "dist"]:
-                if not remotelocation:
-                    if treefile.full_path != repository.information.file_name:
-                        continue
                 if remotelocation == "dist" and not treefile.filename.startswith(
                     "dist"
                 ):
                     continue
+                if not remotelocation:
+                    if not treefile.filename.endswith(".js"):
+                        continue
+                    if treefile.path != "":
+                        continue
                 if not treefile.is_directory:
                     files.append(
                         FileInformation(

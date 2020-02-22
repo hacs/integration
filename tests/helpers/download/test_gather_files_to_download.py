@@ -43,7 +43,7 @@ def test_gather_plugin_files_from_root():
     files = [x.path for x in gather_files_to_download(repository)]
     assert "test.js" in files
     assert "dir" not in files
-    assert "aaaa.js" not in files
+    assert "aaaa.js" in files
     assert "dist/test.js" not in files
 
 
@@ -204,3 +204,32 @@ def test_gather_appdaemon_files_with_subdir():
     assert "apps/test/devices/test.py" in files
     assert "apps/test/test/test.py" in files
     assert "apps/test/core/test.py" in files
+
+
+def test_gather_plugin_multiple_files_in_root():
+    repository = dummy_repository_plugin()
+    repository.content.path.remote = ""
+    repository.information.file_name = "test.js"
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "test.js", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "dep1.js", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "dep2.js", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "dep3.js", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "info.md", "type": "blob"}, "test/test", "master"
+        ),
+    ]
+    files = [x.path for x in gather_files_to_download(repository)]
+    assert "test.js" in files
+    assert "dep1.js" in files
+    assert "dep2.js" in files
+    assert "dep3.js" in files
+    assert "info.md" not in files

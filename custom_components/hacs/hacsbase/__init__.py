@@ -119,7 +119,7 @@ class Hacs:
         """Get repository by full_name."""
         try:
             for repository in self.repositories:
-                if repository.data.full_name == repository_full_name:
+                if repository.data.full_name.lower() == repository_full_name.lower():
                     return repository
         except Exception:  # pylint: disable=broad-except
             pass
@@ -127,10 +127,9 @@ class Hacs:
 
     def is_known(self, repository_full_name):
         """Return a bool if the repository is known."""
-        for repository in self.repositories:
-            if repository.data.full_name == repository_full_name:
-                return True
-        return False
+        return repository_full_name.lower() in [
+            x.data.full_name.lower() for x in self.repositories
+        ]
 
     @property
     def sorted_by_name(self):

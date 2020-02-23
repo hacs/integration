@@ -2,7 +2,7 @@
 from integrationhelper import Logger
 from .repository import HacsRepository
 from ..hacsbase.exceptions import HacsException
-from ..helpers.filters import filter_content_return_one_of_type, find_first_of_filetype
+from ..helpers.filters import find_first_of_filetype
 
 
 class HacsTheme(HacsRepository):
@@ -14,7 +14,7 @@ class HacsTheme(HacsRepository):
         """Initialize."""
         super().__init__()
         self.information.full_name = full_name
-        self.information.category = self.category
+        self.category = self.category
         self.content.path.remote = "themes"
         self.content.path.local = f"{self.hacs.system.config_path}/themes"
         self.content.single = False
@@ -56,12 +56,12 @@ class HacsTheme(HacsRepository):
 
         # Set name
         if self.data.filename is not None:
-            self.information.file_name = self.data.filename
+            self.data.file_name = self.data.filename
         else:
-            self.information.file_name = find_first_of_filetype(
+            self.data.file_name = find_first_of_filetype(
                 self.content.files, "yaml"
             ).split("/")[-1]
-        self.information.name = self.information.file_name.replace(".yaml", "")
+        self.information.name = self.data.file_name.replace(".yaml", "")
         self.content.path.local = (
             f"{self.hacs.system.config_path}/themes/{self.information.name}"
         )
@@ -79,12 +79,12 @@ class HacsTheme(HacsRepository):
 
         # Update name
         if self.data.filename is not None:
-            self.information.file_name = self.data.filename
+            self.data.file_name = self.data.filename
         else:
-            self.information.file_name = find_first_of_filetype(
+            self.data.file_name = find_first_of_filetype(
                 self.content.files, "yaml"
             ).split("/")[-1]
-        self.information.name = self.information.file_name.replace(".yaml", "")
+        self.information.name = self.data.file_name.replace(".yaml", "")
         self.content.path.local = (
             f"{self.hacs.system.config_path}/themes/{self.information.name}"
         )

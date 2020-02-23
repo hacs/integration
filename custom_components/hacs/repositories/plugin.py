@@ -17,9 +17,7 @@ class HacsPlugin(HacsRepository):
         """Initialize."""
         super().__init__()
         self.information.full_name = full_name
-        self.information.category = self.category
-        self.data.category = self.category
-        self.information.file_name = None
+        self.data.file_name = None
         self.information.javascript_type = None
         self.content.path.local = (
             f"{self.hacs.system.config_path}/www/community/{full_name.split('/')[-1]}"

@@ -18,7 +18,6 @@ class HacsIntegration(HacsRepository):
         """Initialize."""
         super().__init__()
         self.information.full_name = full_name
-        self.information.category = self.category
         self.domain = None
         self.content.path.remote = "custom_components"
         self.content.path.local = self.localpath

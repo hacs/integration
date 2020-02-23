@@ -12,7 +12,7 @@ def test_find_file_name_base():
         AIOGithubTreeContent({"path": "test.js", "type": "blob"}, "test/test", "master")
     ]
     find_file_name(repository)
-    assert repository.information.file_name == "test.js"
+    assert repository.data.file_name == "test.js"
     assert repository.content.path.remote == ""
 
 
@@ -23,7 +23,7 @@ def test_find_file_name_root():
         AIOGithubTreeContent({"path": "test.js", "type": "blob"}, "test/test", "master")
     ]
     find_file_name(repository)
-    assert repository.information.file_name == "test.js"
+    assert repository.data.file_name == "test.js"
     assert repository.content.path.remote == ""
 
 
@@ -35,7 +35,7 @@ def test_find_file_name_dist():
         )
     ]
     find_file_name(repository)
-    assert repository.information.file_name == "test.js"
+    assert repository.data.file_name == "test.js"
     assert repository.content.path.remote == "dist"
 
 
@@ -46,7 +46,7 @@ def test_find_file_name_different_name():
         AIOGithubTreeContent({"path": "card.js", "type": "blob"}, "test/test", "master")
     ]
     find_file_name(repository)
-    assert repository.information.file_name == "card.js"
+    assert repository.data.file_name == "card.js"
     assert repository.content.path.remote == ""
 
 
@@ -56,7 +56,7 @@ def test_find_file_release():
         AIOGithubRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.js"}]})
     ]
     find_file_name(repository)
-    assert repository.information.file_name == "test.js"
+    assert repository.data.file_name == "test.js"
     assert repository.content.path.remote == "release"
 
 
@@ -69,5 +69,5 @@ def test_find_file_release_no_asset():
         AIOGithubTreeContent({"path": "test.js", "type": "blob"}, "test/test", "master")
     ]
     find_file_name(repository)
-    assert repository.information.file_name == "test.js"
+    assert repository.data.file_name == "test.js"
     assert repository.content.path.remote == ""

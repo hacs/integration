@@ -22,7 +22,7 @@ def should_try_releases(repository):
                 return True
     if repository.ref == repository.data.default_branch:
         return False
-    if repository.information.category not in ["plugin", "theme"]:
+    if repository.category not in ["plugin", "theme"]:
         return False
     if not repository.releases.releases:
         return False
@@ -35,7 +35,7 @@ def gather_files_to_download(repository):
     tree = repository.tree
     ref = f"{repository.ref}".replace("tags/", "")
     releaseobjects = repository.releases.objects
-    category = repository.information.category
+    category = repository.category
     remotelocation = repository.content.path.remote
 
     if should_try_releases(repository):
@@ -48,7 +48,7 @@ def gather_files_to_download(repository):
 
     if repository.content.single:
         for treefile in tree:
-            if treefile.filename == repository.information.file_name:
+            if treefile.filename == repository.data.file_name:
                 files.append(
                     FileInformation(
                         treefile.download_url, treefile.full_path, treefile.filename

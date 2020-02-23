@@ -73,13 +73,13 @@ async def install_repository(repository):
 
 async def reload_after_install(repository):
     """Reload action after installation success."""
-    if repository.information.category == "integration":
+    if repository.category == "integration":
         if repository.config_flow:
             if repository.data.full_name != "hacs/integration":
                 await repository.reload_custom_components()
         repository.pending_restart = True
 
-    elif repository.information.category == "theme":
+    elif repository.category == "theme":
         try:
             await repository.hacs.hass.services.async_call(
                 "frontend", "reload_themes", {}

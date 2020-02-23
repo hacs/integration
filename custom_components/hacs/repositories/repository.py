@@ -97,6 +97,8 @@ class RepositoryContent:
 class HacsRepository:
     """HacsRepository."""
 
+    category = None
+
     def __init__(self):
         """Set up HacsRepository."""
         self.hacs = get_hacs()
@@ -177,7 +179,7 @@ class HacsRepository:
         return get_repository_name(
             self.repository_manifest,
             self.information.name,
-            self.information.category,
+            self.category,
             self.manifest,
         )
 
@@ -401,12 +403,12 @@ class HacsRepository:
         self.logger.info("Uninstalling")
         await self.remove_local_directory()
         self.status.installed = False
-        if self.information.category == "integration":
+        if self.category == "integration":
             if self.config_flow:
                 await self.reload_custom_components()
             else:
                 self.pending_restart = True
-        elif self.information.category == "theme":
+        elif self.category == "theme":
             try:
                 await self.hacs.hass.services.async_call(
                     "frontend", "reload_themes", {}
@@ -432,11 +434,11 @@ class HacsRepository:
         from asyncio import sleep
 
         try:
-            if self.information.category == "python_script":
+            if self.category == "python_script":
                 local_path = "{}/{}.py".format(
                     self.content.path.local, self.information.name
                 )
-            elif self.information.category == "theme":
+            elif self.category == "theme":
                 local_path = "{}/{}.yaml".format(
                     self.content.path.local, self.information.name
                 )
@@ -446,7 +448,7 @@ class HacsRepository:
             if os.path.exists(local_path):
                 self.logger.debug(f"Removing {local_path}")
 
-                if self.information.category in ["python_script", "theme"]:
+                if self.category in ["python_script", "theme"]:
                     os.remove(local_path)
                 else:
                     shutil.rmtree(local_path)

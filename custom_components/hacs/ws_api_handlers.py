@@ -77,7 +77,7 @@ async def hacs_settings(hass, connection, msg):
 
     elif action == "clear_new":
         for repo in hacs.repositories:
-            if msg.get("category") == repo.information.category:
+            if msg.get("category") == repo.category:
                 if repo.status.new:
                     hacs.logger.debug(
                         f"Clearing new flag from '{repo.information.full_name}'"
@@ -134,14 +134,14 @@ async def hacs_repositories(hass, connection, msg):
     repositories = hacs.repositories
     content = []
     for repo in repositories:
-        if repo.information.category in hacs.common.categories:
+        if repo.category in hacs.common.categories:
             data = {
                 "additional_info": repo.information.additional_info,
                 "authors": repo.information.authors,
                 "available_version": repo.display_available_version,
                 "beta": repo.status.show_beta,
                 "can_install": repo.can_install,
-                "category": repo.information.category,
+                "category": repo.category,
                 "country": repo.data.country,
                 "config_flow": repo.config_flow,
                 "custom": repo.custom,
@@ -149,7 +149,7 @@ async def hacs_repositories(hass, connection, msg):
                 "description": repo.information.description,
                 "domain": repo.manifest.get("domain"),
                 "downloads": repo.releases.downloads,
-                "file_name": repo.information.file_name,
+                "file_name": repo.data.file_name,
                 "first_install": repo.status.first_install,
                 "full_name": repo.information.full_name,
                 "hide": repo.status.hide,

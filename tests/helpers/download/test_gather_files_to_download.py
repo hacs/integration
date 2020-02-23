@@ -52,7 +52,7 @@ def test_gather_plugin_files_from_root():
 def test_gather_plugin_files_from_dist():
     repository = dummy_repository_plugin()
     repository.content.path.remote = "dist"
-    repository.information.file_name = "test.js"
+    repository.data.file_name = "test.js"
     repository.tree = [
         AIOGithubTreeContent(
             {"path": "test.js", "type": "blob"}, "test/test", "master"
@@ -80,7 +80,7 @@ def test_gather_plugin_files_from_dist():
 
 def test_gather_plugin_files_from_release():
     repository = dummy_repository_plugin()
-    repository.information.file_name = "test.js"
+    repository.data.file_name = "test.js"
     repository.releases.releases = True
     release = AIOGithubRepositoryRelease(
         {"tag_name": "3", "assets": [{"name": "test.js"}]}
@@ -92,7 +92,7 @@ def test_gather_plugin_files_from_release():
 
 def test_gather_plugin_files_from_release_multiple():
     repository = dummy_repository_plugin()
-    repository.information.file_name = "test.js"
+    repository.data.file_name = "test.js"
     repository.releases.releases = True
     repository.releases.objects = [
         AIOGithubRepositoryRelease(
@@ -106,7 +106,7 @@ def test_gather_plugin_files_from_release_multiple():
 
 def test_gather_zip_release():
     repository = dummy_repository_plugin()
-    repository.information.file_name = "test.zip"
+    repository.data.file_name = "test.zip"
     repository.data.zip_release = True
     repository.data.filename = "test.zip"
     repository.releases.objects = [
@@ -119,7 +119,7 @@ def test_gather_zip_release():
 def test_single_file_repo():
     repository = dummy_repository_base()
     repository.content.single = True
-    repository.information.file_name = "test.file"
+    repository.data.file_name = "test.file"
     repository.tree = [
         AIOGithubTreeContent(
             {"path": "test.file", "type": "blob"}, "test/test", "master"
@@ -142,7 +142,7 @@ def test_gather_content_in_root_theme():
     repository = dummy_repository_theme()
     repository.data.content_in_root = True
     repository.content.path.remote = ""
-    repository.information.file_name = "test.yaml"
+    repository.data.file_name = "test.yaml"
     repository.tree = [
         AIOGithubTreeContent(
             {"path": "test.yaml", "type": "blob"}, "test/test", "master"
@@ -178,7 +178,7 @@ def test_gather_appdaemon_files_base():
 
 def test_gather_appdaemon_files_with_subdir():
     repository = dummy_repository_appdaemon()
-    repository.information.file_name = "test.py"
+    repository.data.file_name = "test.py"
     repository.tree = [
         AIOGithubTreeContent(
             {"path": "test.py", "type": "blob"}, "test/test", "master"
@@ -211,7 +211,7 @@ def test_gather_appdaemon_files_with_subdir():
 def test_gather_plugin_multiple_files_in_root():
     repository = dummy_repository_plugin()
     repository.content.path.remote = ""
-    repository.information.file_name = "test.js"
+    repository.data.file_name = "test.js"
     repository.tree = [
         AIOGithubTreeContent(
             {"path": "test.js", "type": "blob"}, "test/test", "master"

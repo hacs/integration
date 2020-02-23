@@ -4,6 +4,8 @@ from integrationhelper import Logger
 
 from .repository import HacsRepository
 from ..hacsbase.exceptions import HacsException
+from ..helpers.filters import find_first_of_filetype
+from ..helpers.information import find_file_name
 
 
 class HacsPythonScript(HacsRepository):
@@ -15,7 +17,7 @@ class HacsPythonScript(HacsRepository):
         """Initialize."""
         super().__init__()
         self.information.full_name = full_name
-        self.information.category = self.category
+        self.category = self.category
         self.content.path.remote = "python_scripts"
         self.content.path.local = f"{self.hacs.system.config_path}/python_scripts"
         self.content.single = True
@@ -27,21 +29,20 @@ class HacsPythonScript(HacsRepository):
         await self.common_validate()
 
         # Custom step 1: Validate content.
-        try:
-            self.content.objects = await self.repository_object.get_contents(
-                self.content.path.remote, self.ref
-            )
-        except AIOGitHubException:
+        if self.data.content_in_root:
+            self.content.path.remote = ""
+
+        compliant = False
+        for treefile in self.treefiles:
+            if treefile.startswith(f"{self.content.path.remote}") and treefile.endswith(
+                ".py"
+            ):
+                compliant = True
+                break
+        if not compliant:
             raise HacsException(
                 f"Repostitory structure for {self.ref.replace('tags/','')} is not compliant"
             )
-
-        if not isinstance(self.content.objects, list):
-            self.validate.errors.append("Repostitory structure not compliant")
-
-        self.content.files = []
-        for filename in self.content.objects:
-            self.content.files.append(filename.name)
 
         # Handle potential errors
         if self.validate.errors:
@@ -59,7 +60,9 @@ class HacsPythonScript(HacsRepository):
         await self.common_registration()
 
         # Set name
-        self.information.name = self.content.objects[0].name.replace(".py", "")
+        find_file_name(self)
+        if self.data.file_name:
+            self.information.name = self.data.file_name.replace(".py", "")
 
     async def update_repository(self):  # lgtm[py/similar-function]
         """Update."""
@@ -69,21 +72,22 @@ class HacsPythonScript(HacsRepository):
         await self.common_update()
 
         # Get python_script objects.
-        if self.repository_manifest:
-            if self.data.content_in_root:
-                self.content.path.remote = ""
+        if self.data.content_in_root:
+            self.content.path.remote = ""
 
-        self.content.objects = await self.repository_object.get_contents(
-            self.content.path.remote, self.ref
-        )
-
-        self.content.files = []
-        for filename in self.content.objects:
-            self.content.files.append(filename.name)
+        compliant = False
+        for treefile in self.treefiles:
+            if treefile.startswith(f"{self.content.path.remote}") and treefile.endswith(
+                ".py"
+            ):
+                compliant = True
+                break
+        if not compliant:
+            raise HacsException(
+                f"Repostitory structure for {self.ref.replace('tags/','')} is not compliant"
+            )
 
         # Update name
-        self.information.name = self.content.objects[0].name.replace(".py", "")
-
-        self.content.files = []
-        for filename in self.content.objects:
-            self.content.files.append(filename.name)
+        find_file_name(self)
+        if self.data.file_name:
+            self.information.name = self.data.file_name.replace(".py", "")

@@ -15,7 +15,6 @@ class HacsAppdaemon(HacsRepository):
         """Initialize."""
         super().__init__()
         self.information.full_name = full_name
-        self.information.category = self.category
         self.content.path.local = self.localpath
         self.content.path.remote = "apps"
         self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")

@@ -20,6 +20,7 @@ class RepositoryData:
     stargazers_count: int = 0
     last_commit: str = None
     name: str = None
+    file_name: str = None
     content_in_root: bool = False
     zip_release: bool = False
     filename: str = None

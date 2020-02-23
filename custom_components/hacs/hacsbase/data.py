@@ -44,7 +44,7 @@ class HacsData:
                 repository_manifest = None
             content[repository.information.uid] = {
                 "authors": repository.information.authors,
-                "category": repository.information.category,
+                "category": repository.category,
                 "description": repository.information.description,
                 "downloads": repository.releases.last_release_object_downloads,
                 "full_name": repository.information.full_name,

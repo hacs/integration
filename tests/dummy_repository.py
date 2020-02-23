@@ -22,14 +22,13 @@ def dummy_repository_base(repository=None):
     repository.hacs.hass = HomeAssistant()
     repository.hacs.hass.data = {"custom_components": []}
     repository.logger = Logger("hacs.test.test")
-    repository.information.full_name = "test/test"
+    repository.data.full_name = "test/test"
     repository.versions.available = "3"
     repository.status.selected_tag = "3"
     repository.ref = version_to_install(repository)
-    repository.manifest = {"config_flow": False, "domain": "test"}
+    repository.integration_manifest = {"config_flow": False, "domain": "test"}
     repository.releases.published_tags = ["1", "2", "3"]
-    repository.data = RepositoryData().create_from_dict(repository_data)
-    repository.data.name = "test"
+    repository.data.update_data(repository_data)
     return repository
 
 

@@ -20,7 +20,6 @@ def mock_setup(entities):  # pylint: disable=unused-argument
 def test_sensor_data():
     sensor = HACSSensor()
     repository = HacsIntegration("test/test")
-    repository.data.name = "test"
     sensor.repositories = [repository]
     assert sensor.name == "hacs"
     assert sensor.device_state_attributes
@@ -34,13 +33,11 @@ def test_sensor_data():
 async def test_sensor_update():
     sensor = HACSSensor()
     repository = HacsIntegration("test/test")
-    repository.data.name = "test"
     repository.status.installed = True
     repository.versions.installed = "1"
     repository.versions.available = "2"
     hacs.repositories.append(repository)
     repository = HacsIntegration("test/test")
-    repository.data.name = "test"
     repository.status.installed = True
     repository.versions.installed = "1"
     repository.versions.available = "1"

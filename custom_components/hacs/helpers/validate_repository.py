@@ -19,10 +19,10 @@ async def common_validate(repository):
     repository.logger.debug("Checking repository.")
     try:
         repository_object = await get_repository(
-            hacs.session, hacs.configuration.token, repository.information.full_name
+            hacs.session, hacs.configuration.token, repository.data.full_name
         )
         repository.repository_object = repository_object
-        repository.data = repository.data.create_from_dict(repository_object.attributes)
+        repository.data.update_data(repository_object.attributes)
     except (AIOGitHubException, HacsException) as exception:
         if not hacs.system.status.startup:
             repository.logger.error(exception)
@@ -80,5 +80,3 @@ async def common_validate(repository):
     # Step 6: Get the content of hacs.json
     await repository.get_repository_manifest_content()
 
-    # Set repository name
-    repository.data.name = repository.information.full_name.split("/")[1]

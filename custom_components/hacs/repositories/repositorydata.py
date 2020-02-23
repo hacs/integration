@@ -11,14 +11,16 @@ class RepositoryData:
     id: int = 0
     full_name: str = ""
     pushed_at: str = ""
+    category: str = ""
     archived: bool = False
     description: str = ""
+    manifest_name: str = None
     topics: List[str] = []
     fork: bool = False
+    domain: str = ""
     default_branch: str = None
     stargazers_count: int = 0
     last_commit: str = ""
-    name: str = None
     file_name: str = ""
     content_in_root: bool = False
     zip_release: bool = False
@@ -27,10 +29,18 @@ class RepositoryData:
     hide_default_branch: bool = False
     domains: List[str] = []
     country: List[str] = []
+    authors: List[str] = []
     homeassistant: str = None  # Minimum Home Assistant version
     hacs: str = None  # Minimum HACS version
     persistent_directory: str = None
     iot_class: str = None
+
+    @property
+    def name(self):
+        """Return the name."""
+        if self.category == "integration":
+            return self.domain
+        return self.full_name.split("/")[-1]
 
     def to_json(self):
         """Export to json."""

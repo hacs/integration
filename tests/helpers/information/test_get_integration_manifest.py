@@ -64,7 +64,7 @@ async def test_get_integration_manifest(aresponses, event_loop):
             )
         ]
         await get_integration_manifest(repository)
-        assert repository.domain == integration_manifest["domain"]
+        assert repository.data.domain == integration_manifest["domain"]
 
 
 @pytest.mark.asyncio

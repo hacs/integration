@@ -43,11 +43,11 @@ class HacsData:
             else:
                 repository_manifest = None
             content[repository.information.uid] = {
-                "authors": repository.information.authors,
-                "category": repository.category,
-                "description": repository.information.description,
-                "downloads": repository.releases.last_release_object_downloads,
-                "full_name": repository.information.full_name,
+                "authors": repository.data.authors,
+                "category": repository.data.category,
+                "description": repository.data.description,
+                "downloads": repository.releases.downloads,
+                "full_name": repository.data.full_name,
                 "first_install": repository.status.first_install,
                 "hide": repository.status.hide,
                 "installed_commit": repository.versions.installed_commit,
@@ -60,8 +60,8 @@ class HacsData:
                 "repository_manifest": repository_manifest,
                 "selected_tag": repository.status.selected_tag,
                 "show_beta": repository.status.show_beta,
-                "stars": repository.information.stars,
-                "topics": repository.information.topics,
+                "stars": repository.data.stargazers_count,
+                "topics": repository.data.topics,
                 "version_installed": repository.versions.installed,
             }
 
@@ -117,13 +117,12 @@ def restore_repository_data(
     repository: type(HacsRepository), repository_data: dict
 ) -> None:
     """Restore Repository Data"""
-    repository.information.authors = repository_data.get("authors", [])
-    repository.information.description = repository_data.get("description")
-    repository.data.name = repository_data.get("name")
+    repository.data.authors = repository_data.get("authors", [])
+    repository.data.description = repository_data.get("description")
     repository.releases.last_release_object_downloads = repository_data.get("downloads")
     repository.information.last_updated = repository_data.get("last_updated")
-    repository.information.topics = repository_data.get("topics", [])
-    repository.information.stars = repository_data.get("stars", 0)
+    repository.data.topics = repository_data.get("topics", [])
+    repository.data.stargazers_count = repository_data.get("stars", 0)
     repository.releases.last_release = repository_data.get("last_release_tag")
     repository.status.hide = repository_data.get("hide", False)
     repository.status.installed = repository_data.get("installed", False)

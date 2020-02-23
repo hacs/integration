@@ -13,7 +13,7 @@ async def test_reload_after_install():
     await reload_after_install(repository)
     assert repository.pending_restart
 
-    repository.manifest["config_flow"] = True
+    repository.integration_manifest["config_flow"] = True
     await reload_after_install(repository)
 
     repository = dummy_repository_theme()

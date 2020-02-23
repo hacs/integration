@@ -12,21 +12,19 @@ from custom_components.hacs.repositories.repository import HacsRepository
 class HacsIntegration(HacsRepository):
     """Integrations in HACS."""
 
-    category = "integration"
-
     def __init__(self, full_name):
         """Initialize."""
         super().__init__()
-        self.information.full_name = full_name
-        self.domain = None
+        self.data.full_name = full_name
+        self.data.category = "integration"
         self.content.path.remote = "custom_components"
         self.content.path.local = self.localpath
-        self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")
+        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):
         """Return localpath."""
-        return f"{self.hacs.system.config_path}/custom_components/{self.domain}"
+        return f"{self.hacs.system.config_path}/custom_components/{self.data.domain}"
 
     async def validate_repository(self):
         """Validate."""

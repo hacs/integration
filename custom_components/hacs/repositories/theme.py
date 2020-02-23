@@ -8,17 +8,15 @@ from ..helpers.information import find_file_name
 class HacsTheme(HacsRepository):
     """Themes in HACS."""
 
-    category = "theme"
-
     def __init__(self, full_name):
         """Initialize."""
         super().__init__()
-        self.information.full_name = full_name
-        self.category = self.category
+        self.data.full_name = full_name
+        self.data.category = "theme"
         self.content.path.remote = "themes"
         self.content.path.local = f"{self.hacs.system.config_path}/themes/"
         self.content.single = False
-        self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")
+        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
 
     async def validate_repository(self):
         """Validate."""

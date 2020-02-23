@@ -6,10 +6,9 @@ from custom_components.hacs.repositories.repository import HacsRepository
 def test_hacs_repository_core_mostly_defaults():
     repository = HacsRepository()
 
-    repository.information.full_name = "developer/repository"
+    repository.data.full_name = "developer/repository"
     repository.data.default_branch = "master"
-    repository.data.name = repository.information.full_name.split("/")[1]
-    repository.information.description = "Awesome GitHub repository"
+    repository.data.description = "Awesome GitHub repository"
 
     assert repository.display_name == "Repository"
     assert repository.custom

@@ -9,15 +9,14 @@ from ..hacsbase.exceptions import HacsException
 class HacsAppdaemon(HacsRepository):
     """Appdaemon apps in HACS."""
 
-    category = "appdaemon"
-
     def __init__(self, full_name):
         """Initialize."""
         super().__init__()
-        self.information.full_name = full_name
+        self.data.full_name = full_name
+        self.data.category = "appdaemon"
         self.content.path.local = self.localpath
         self.content.path.remote = "apps"
-        self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")
+        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):
@@ -40,14 +39,9 @@ class HacsAppdaemon(HacsRepository):
             self.validate.errors.append("Repostitory structure not compliant")
 
         self.content.path.remote = addir[0].path
-        self.data.name = addir[0].name
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )
-
-        self.content.files = []
-        for filename in self.content.objects:
-            self.content.files.append(filename.name)
 
         # Handle potential errors
         if self.validate.errors:
@@ -83,14 +77,9 @@ class HacsAppdaemon(HacsRepository):
                 self.content.path.remote, self.ref
             )
             self.content.path.remote = addir[0].path
-            self.data.name = addir[0].name
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )
-
-        self.content.files = []
-        for filename in self.content.objects:
-            self.content.files.append(filename.name)
 
         # Set local path
         self.content.path.local = self.localpath

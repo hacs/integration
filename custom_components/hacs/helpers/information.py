@@ -75,11 +75,11 @@ async def get_integration_manifest(repository):
         raise HacsException(f"Could not read manifest.json [{exception}]")
 
     try:
-        repository.manifest = manifest
-        repository.information.authors = manifest["codeowners"]
-        repository.domain = manifest["domain"]
-        repository.data.name = manifest["name"]
-        repository.information.homeassistant_version = manifest.get("homeassistant")
+        repository.integration_manifest = manifest
+        repository.data.authors = manifest["codeowners"]
+        repository.data.domain = manifest["domain"]
+        repository.data.manifest_name = manifest["name"]
+        repository.data.homeassistant = manifest.get("homeassistant")
 
         # Set local path
         repository.content.path.local = repository.localpath
@@ -90,15 +90,15 @@ async def get_integration_manifest(repository):
 
 def find_file_name(repository):
     """Get the filename to target."""
-    if repository.category == "plugin":
+    if repository.data.category == "plugin":
         get_file_name_plugin(repository)
-    elif repository.category == "integration":
+    elif repository.data.category == "integration":
         get_file_name_integration(repository)
-    elif repository.category == "theme":
+    elif repository.data.category == "theme":
         get_file_name_theme(repository)
-    elif repository.category == "appdaemon":
+    elif repository.data.category == "appdaemon":
         get_file_name_appdaemon(repository)
-    elif repository.category == "python_script":
+    elif repository.data.category == "python_script":
         get_file_name_python_script(repository)
 
 
@@ -162,8 +162,6 @@ def get_file_name_theme(repository):
             repository.content.path.remote
         ) and treefile.full_path.endswith(".yaml"):
             repository.data.file_name = treefile.filename
-            if repository.data.name is None:
-                repository.data.name = treefile.filename.replace(".yaml", "")
 
 
 def get_file_name_appdaemon(repository):
@@ -181,5 +179,3 @@ def get_file_name_python_script(repository):
             repository.content.path.remote
         ) and treefile.full_path.endswith(".py"):
             repository.data.file_name = treefile.filename
-            if repository.data.name is None:
-                repository.data.name = treefile.filename.replace(".py", "")

@@ -11,18 +11,17 @@ from custom_components.hacs.helpers.information import find_file_name
 class HacsPlugin(HacsRepository):
     """Plugins in HACS."""
 
-    category = "plugin"
-
     def __init__(self, full_name):
         """Initialize."""
         super().__init__()
-        self.information.full_name = full_name
+        self.data.full_name = full_name
         self.data.file_name = None
+        self.data.category = "plugin"
         self.information.javascript_type = None
         self.content.path.local = (
             f"{self.hacs.system.config_path}/www/community/{full_name.split('/')[-1]}"
         )
-        self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")
+        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
 
     async def validate_repository(self):
         """Validate."""
@@ -81,7 +80,7 @@ class HacsPlugin(HacsRepository):
             package = json.loads(package.content)
 
             if package:
-                self.information.authors = package["author"]
+                self.data.authors = package["author"]
         except Exception:  # pylint: disable=broad-except
             pass
 

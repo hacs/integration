@@ -97,8 +97,6 @@ class RepositoryContent:
 class HacsRepository:
     """HacsRepository."""
 
-    category = None
-
     def __init__(self):
         """Set up HacsRepository."""
         self.hacs = get_hacs()
@@ -109,7 +107,7 @@ class HacsRepository:
         self.repository_object = None
         self.status = RepositoryStatus()
         self.state = None
-        self.manifest = {}
+        self.integration_manifest = {}
         self.repository_manifest = HacsManifest.from_dict({})
         self.validate = Validate()
         self.releases = RepositoryReleases()
@@ -135,23 +133,20 @@ class HacsRepository:
     @property
     def config_flow(self):
         """Return bool if integration has config_flow."""
-        if self.manifest:
-            if self.information.full_name == "hacs/integration":
+        if self.integration_manifest:
+            if self.data.full_name == "hacs/integration":
                 return False
-            return self.manifest.get("config_flow", False)
+            return self.integration_manifest.get("config_flow", False)
         return False
 
     @property
     def custom(self):
         """Return flag if the repository is custom."""
-        if self.information.full_name.split("/")[0] in [
-            "custom-components",
-            "custom-cards",
-        ]:
+        if self.data.full_name.split("/")[0] in ["custom-components", "custom-cards"]:
             return False
-        if self.information.full_name in self.hacs.common.default:
+        if self.data.full_name in self.hacs.common.default:
             return False
-        if self.information.full_name == "hacs/integration":
+        if self.data.full_name == "hacs/integration":
             return False
         return True
 
@@ -176,12 +171,7 @@ class HacsRepository:
     @property
     def display_name(self):
         """Return display name."""
-        return get_repository_name(
-            self.repository_manifest,
-            self.data.name,
-            self.category,
-            self.manifest,
-        )
+        return get_repository_name(self)
 
     @property
     def display_status(self):
@@ -264,23 +254,21 @@ class HacsRepository:
         # Attach repository
         if self.repository_object is None:
             self.repository_object = await get_repository(
-                self.hacs.session,
-                self.hacs.configuration.token,
-                self.information.full_name,
+                self.hacs.session, self.hacs.configuration.token, self.data.full_name
             )
-            self.data = self.data.create_from_dict(self.repository_object.attributes)
+            self.data.update_data(self.repository_object.attributes)
 
         # Set id
         self.information.uid = str(self.data.id)
 
         # Set topics
-        self.information.topics = self.data.topics
+        self.data.topics = self.data.topics
 
         # Set stargazers_count
-        self.information.stars = self.data.stargazers_count
+        self.data.stargazers_count = self.data.stargazers_count
 
         # Set description
-        self.information.description = self.data.description
+        self.data.description = self.data.description
 
     async def common_update(self):
         """Common information update steps of the repository."""
@@ -288,9 +276,9 @@ class HacsRepository:
 
         # Attach repository
         self.repository_object = await get_repository(
-            self.hacs.session, self.hacs.configuration.token, self.information.full_name
+            self.hacs.session, self.hacs.configuration.token, self.data.full_name
         )
-        self.data = self.data.create_from_dict(self.repository_object.attributes)
+        self.data.update_data(self.repository_object.attributes)
 
         # Set ref
         self.ref = version_to_install(self)
@@ -302,10 +290,10 @@ class HacsRepository:
             self.treefiles.append(treefile.full_path)
 
         # Update description
-        self.information.description = self.data.description
+        self.data.description = self.data.description
 
         # Set stargazers_count
-        self.information.stars = self.data.stargazers_count
+        self.data.stargazers_count = self.data.stargazers_count
 
         # Update last updaeted
         self.information.last_updated = self.repository_object.attributes.get(
@@ -313,7 +301,7 @@ class HacsRepository:
         )
 
         # Update topics
-        self.information.topics = self.data.topics
+        self.data.topics = self.data.topics
 
         # Update last available commit
         await self.repository_object.set_last_commit()
@@ -403,29 +391,25 @@ class HacsRepository:
         self.logger.info("Uninstalling")
         await self.remove_local_directory()
         self.status.installed = False
-        if self.category == "integration":
+        if self.data.category == "integration":
             if self.config_flow:
                 await self.reload_custom_components()
             else:
                 self.pending_restart = True
-        elif self.category == "theme":
+        elif self.data.category == "theme":
             try:
                 await self.hacs.hass.services.async_call(
                     "frontend", "reload_themes", {}
                 )
             except Exception:  # pylint: disable=broad-except
                 pass
-        if self.information.full_name in self.hacs.common.installed:
-            self.hacs.common.installed.remove(self.information.full_name)
+        if self.data.full_name in self.hacs.common.installed:
+            self.hacs.common.installed.remove(self.data.full_name)
         self.versions.installed = None
         self.versions.installed_commit = None
         self.hacs.hass.bus.async_fire(
             "hacs/repository",
-            {
-                "id": 1337,
-                "action": "uninstall",
-                "repository": self.information.full_name,
-            },
+            {"id": 1337, "action": "uninstall", "repository": self.data.full_name},
         )
 
     async def remove_local_directory(self):
@@ -434,11 +418,9 @@ class HacsRepository:
         from asyncio import sleep
 
         try:
-            if self.category == "python_script":
-                local_path = "{}/{}.py".format(
-                    self.content.path.local, self.data.name
-                )
-            elif self.category == "theme":
+            if self.data.category == "python_script":
+                local_path = "{}/{}.py".format(self.content.path.local, self.data.name)
+            elif self.data.category == "theme":
                 local_path = "{}/{}.yaml".format(
                     self.content.path.local, self.data.name
                 )
@@ -448,7 +430,7 @@ class HacsRepository:
             if os.path.exists(local_path):
                 self.logger.debug(f"Removing {local_path}")
 
-                if self.category in ["python_script", "theme"]:
+                if self.data.category in ["python_script", "theme"]:
                     os.remove(local_path)
                 else:
                     shutil.rmtree(local_path)

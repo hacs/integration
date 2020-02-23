@@ -15,12 +15,12 @@ class HacsPythonScript(HacsRepository):
     def __init__(self, full_name):
         """Initialize."""
         super().__init__()
-        self.information.full_name = full_name
-        self.category = self.category
+        self.data.full_name = full_name
+        self.data.category = "python_script"
         self.content.path.remote = "python_scripts"
         self.content.path.local = f"{self.hacs.system.config_path}/python_scripts"
         self.content.single = True
-        self.logger = Logger(f"hacs.repository.{self.category}.{full_name}")
+        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
 
     async def validate_repository(self):
         """Validate."""

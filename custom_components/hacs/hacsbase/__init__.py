@@ -117,7 +117,7 @@ class Hacs:
         """Get repository by full_name."""
         try:
             for repository in self.repositories:
-                if repository.information.full_name == repository_full_name:
+                if repository.data.full_name == repository_full_name:
                     return repository
         except Exception:  # pylint: disable=broad-except
             pass
@@ -126,7 +126,7 @@ class Hacs:
     def is_known(self, repository_full_name):
         """Return a bool if the repository is known."""
         for repository in self.repositories:
-            if repository.information.full_name == repository_full_name:
+            if repository.data.full_name == repository_full_name:
                 return True
         return False
 
@@ -138,7 +138,7 @@ class Hacs:
     @property
     def sorted_by_repository_name(self):
         """Return a sorted(by repository_name) list of repository objects."""
-        return sorted(self.repositories, key=lambda x: x.information.full_name)
+        return sorted(self.repositories, key=lambda x: x.data.full_name)
 
     async def register_repository(self, full_name, category, check=True):
         """Register a repository."""
@@ -259,7 +259,7 @@ class Hacs:
         for repository in self.repositories:
             if (
                 repository.status.installed
-                and repository.category in self.common.categories
+                and repository.data.category in self.common.categories
             ):
                 self.factory.tasks.append(self.factory.safe_update(repository))
 
@@ -279,7 +279,7 @@ class Hacs:
         self.logger.debug(self.github.ratelimits.remaining)
         self.logger.debug(self.github.ratelimits.reset_utc)
         for repository in self.repositories:
-            if repository.category in self.common.categories:
+            if repository.data.category in self.common.categories:
                 self.factory.tasks.append(self.factory.safe_common_update(repository))
 
         await self.factory.execute()
@@ -299,7 +299,7 @@ class Hacs:
                 repository = self.get_by_name(repository)
                 if repository.status.installed:
                     self.logger.warning(
-                        f"You have {repository.information.full_name} installed with HACS "
+                        f"You have {repository.data.full_name} installed with HACS "
                         + "this repository has been blacklisted, please consider removing it."
                     )
                 else:

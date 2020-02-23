@@ -48,7 +48,7 @@ class HACSSensor(HACSDevice):
         for repository in hacs.repositories:
             if (
                 repository.pending_upgrade
-                and repository.category in hacs.common.categories
+                and repository.data.category in hacs.common.categories
             ):
                 self.repositories.append(repository)
         self._state = len(self.repositories)
@@ -87,7 +87,7 @@ class HACSSensor(HACSDevice):
         for repository in self.repositories:
             data.append(
                 {
-                    "name": repository.information.full_name,
+                    "name": repository.data.full_name,
                     "display_name": repository.display_name,
                     "installed version": repository.display_installed_version,
                     "available version": repository.display_available_version,

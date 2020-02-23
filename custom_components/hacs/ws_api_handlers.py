@@ -77,10 +77,10 @@ async def hacs_settings(hass, connection, msg):
 
     elif action == "clear_new":
         for repo in hacs.repositories:
-            if msg.get("category") == repo.category:
+            if msg.get("category") == repo.data.category:
                 if repo.status.new:
                     hacs.logger.debug(
-                        f"Clearing new flag from '{repo.information.full_name}'"
+                        f"Clearing new flag from '{repo.data.full_name}'"
                     )
                     repo.status.new = False
     else:
@@ -134,24 +134,24 @@ async def hacs_repositories(hass, connection, msg):
     repositories = hacs.repositories
     content = []
     for repo in repositories:
-        if repo.category in hacs.common.categories:
+        if repo.data.category in hacs.common.categories:
             data = {
                 "additional_info": repo.information.additional_info,
-                "authors": repo.information.authors,
+                "authors": repo.data.authors,
                 "available_version": repo.display_available_version,
                 "beta": repo.status.show_beta,
                 "can_install": repo.can_install,
-                "category": repo.category,
+                "category": repo.data.category,
                 "country": repo.data.country,
                 "config_flow": repo.config_flow,
                 "custom": repo.custom,
                 "default_branch": repo.data.default_branch,
-                "description": repo.information.description,
-                "domain": repo.manifest.get("domain"),
+                "description": repo.data.description,
+                "domain": repo.integration_manifest.get("domain"),
                 "downloads": repo.releases.downloads,
                 "file_name": repo.data.file_name,
                 "first_install": repo.status.first_install,
-                "full_name": repo.information.full_name,
+                "full_name": repo.data.full_name,
                 "hide": repo.status.hide,
                 "hide_default_branch": repo.data.hide_default_branch,
                 "homeassistant": repo.data.homeassistant,
@@ -168,11 +168,11 @@ async def hacs_repositories(hass, connection, msg):
                 "pending_upgrade": repo.pending_upgrade,
                 "releases": repo.releases.published_tags,
                 "selected_tag": repo.status.selected_tag,
-                "stars": repo.information.stars,
+                "stars": repo.data.stargazers_count,
                 "state": repo.state,
                 "status_description": repo.display_status_description,
                 "status": repo.display_status,
-                "topics": repo.information.topics,
+                "topics": repo.data.topics,
                 "updated_info": repo.status.updated_info,
                 "version_or_commit": repo.display_version_or_commit,
             }
@@ -201,7 +201,7 @@ async def hacs_repository(hass, connection, msg):
             return
 
         repository = hacs.get_by_id(repo_id)
-        hacs.logger.debug(f"Running {action} for {repository.information.full_name}")
+        hacs.logger.debug(f"Running {action} for {repository.data.full_name}")
 
         if action == "update":
             await repository.update_repository()
@@ -315,7 +315,7 @@ async def hacs_repository_data(hass, connection, msg):
         hass.bus.async_fire("hacs/repository", {})
         return
 
-    hacs.logger.debug(f"Running {action} for {repository.information.full_name}")
+    hacs.logger.debug(f"Running {action} for {repository.data.full_name}")
 
     if action == "set_state":
         repository.state = data

@@ -66,7 +66,7 @@ async def test_download_content_integration(aresponses, tmp_path, event_loop):
     hacs = get_hacs()
     hacs.system.config_path = tmp_path
     repository = dummy_repository_integration()
-    repository.domain = "test"
+    repository.data.domain = "test"
     repository.content.path.local = repository.localpath
     repository.content.path.remote = "custom_components/test"
     integration_files = [

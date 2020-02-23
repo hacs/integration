@@ -12,3 +12,12 @@ def get_hacs():
 
     return hacs[0]
 
+
+def is_removed(repository):
+    return repository in [x.repository for x in removed_repositories]
+
+
+def get_removed(repository):
+    if not is_removed(repository):
+        return None
+    return [x for x in removed_repositories if x.repository == repository][0]

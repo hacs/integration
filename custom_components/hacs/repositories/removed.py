@@ -9,9 +9,3 @@ class RemovedRepository:
     link: str = ""
     removal_type: str = ""  # archived, not_compliant, critical, dev, broken
     acknowledged: bool = False
-
-    def update_data(self, data: dict):
-        """Update data of the repository."""
-        for key in data:
-            if key in self.__dict__:
-                setattr(self, key, data[key])

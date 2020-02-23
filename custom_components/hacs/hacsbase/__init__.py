@@ -18,6 +18,8 @@ from ..store import async_load_from_store, async_save_to_store
 from ..helpers.get_defaults import get_default_repos_lists, get_default_repos_orgs
 
 from custom_components.hacs.helpers.register_repository import register_repository
+from custom_components.hacs.globals import removed_repositories, is_removed
+from custom_components.hacs.repositories.removed import RemovedRepository
 
 
 class HacsStatus:
@@ -335,6 +337,10 @@ class Hacs:
             self.session, self.configuration.token, "blacklist"
         ):
             if item not in self.common.blacklist:
+                if not is_removed(item):
+                    removed = RemovedRepository()
+                    removed.repository = item
+                    removed_repositories.append(removed)
                 self.common.blacklist.append(item)
 
         for category in repositories:

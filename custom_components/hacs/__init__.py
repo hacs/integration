@@ -63,7 +63,7 @@ async def async_setup_entry(hass, config_entry):
             )
         return False
     hacs.hass = hass
-
+    hacs.session = async_create_clientsession(hass)
     hacs.configuration = Configuration.from_dict(
         config_entry.data, config_entry.options
     )

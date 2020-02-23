@@ -49,7 +49,9 @@ async def common_validate(repository):
         if releases:
             repository.releases.releases = True
             repository.releases.objects = releases
-            repository.releases.published_tags = [x.tag_name for x in releases]
+            repository.releases.published_tags = [
+                x.tag_name for x in releases if not x.draft
+            ]
             repository.versions.available = next(iter(releases)).tag_name
             assets = next(iter(releases)).assets
             if assets:

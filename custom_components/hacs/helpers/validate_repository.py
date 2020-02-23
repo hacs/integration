@@ -12,11 +12,19 @@ from custom_components.hacs.helpers.information import (
 
 async def common_validate(repository):
     """Common validation steps of the repository."""
-    hacs = get_hacs()
     repository.validate.errors = []
 
     # Make sure the repository exist.
     repository.logger.debug("Checking repository.")
+    await common_update_data(repository)
+
+    # Step 6: Get the content of hacs.json
+    await repository.get_repository_manifest_content()
+
+
+async def common_update_data(repository):
+    """Common update data."""
+    hacs = get_hacs()
     try:
         repository_object = await get_repository(
             hacs.session, hacs.configuration.token, repository.data.full_name
@@ -78,7 +86,3 @@ async def common_validate(repository):
         if not hacs.system.status.startup:
             repository.logger.error(exception)
         raise HacsException(exception)
-
-    # Step 6: Get the content of hacs.json
-    await repository.get_repository_manifest_content()
-

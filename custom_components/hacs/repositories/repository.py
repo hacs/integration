@@ -18,7 +18,10 @@ from custom_components.hacs.helpers.information import (
     get_repository,
     get_tree,
 )
-from custom_components.hacs.helpers.validate_repository import common_validate
+from custom_components.hacs.helpers.validate_repository import (
+    common_validate,
+    common_update_data,
+)
 from custom_components.hacs.repositories.repositorydata import RepositoryData
 
 
@@ -275,33 +278,12 @@ class HacsRepository:
         self.logger.debug("Getting repository information")
 
         # Attach repository
-        self.repository_object = await get_repository(
-            self.hacs.session, self.hacs.configuration.token, self.data.full_name
-        )
-        self.data.update_data(self.repository_object.attributes)
-
-        # Set ref
-        self.ref = version_to_install(self)
-
-        # Update tree
-        self.tree = await get_tree(self.repository_object, self.ref)
-        self.treefiles = []
-        for treefile in self.tree:
-            self.treefiles.append(treefile.full_path)
-
-        # Update description
-        self.data.description = self.data.description
-
-        # Set stargazers_count
-        self.data.stargazers_count = self.data.stargazers_count
+        await common_update_data(self)
 
         # Update last updaeted
         self.information.last_updated = self.repository_object.attributes.get(
             "pushed_at", 0
         )
-
-        # Update topics
-        self.data.topics = self.data.topics
 
         # Update last available commit
         await self.repository_object.set_last_commit()

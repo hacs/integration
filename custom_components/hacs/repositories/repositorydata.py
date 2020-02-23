@@ -12,7 +12,7 @@ class RepositoryData:
     full_name: str = None
     pushed_at: str = None
     archived: str = None
-    description: str = None
+    description: str = ""
     category: str = None
     topics: List[str] = []
     fork: bool = False

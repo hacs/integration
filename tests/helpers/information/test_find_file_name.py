@@ -2,7 +2,11 @@
 # pylint: disable=missing-docstring
 from aiogithubapi.content import AIOGithubTreeContent
 from aiogithubapi.release import AIOGithubRepositoryRelease
-from tests.dummy_repository import dummy_repository_plugin
+from tests.dummy_repository import (
+    dummy_repository_plugin,
+    dummy_repository_theme,
+    dummy_repository_python_script,
+)
 from custom_components.hacs.helpers.information import find_file_name
 
 
@@ -71,3 +75,27 @@ def test_find_file_release_no_asset():
     find_file_name(repository)
     assert repository.data.file_name == "test.js"
     assert repository.content.path.remote == ""
+
+
+def test_find_file_name_base_theme():
+    repository = dummy_repository_theme()
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "themes/test.yaml", "type": "blob"}, "test/test", "master"
+        )
+    ]
+    find_file_name(repository)
+    assert repository.data.file_name == "test.yaml"
+    assert repository.data.name == "test"
+
+
+def test_find_file_name_base_python_script():
+    repository = dummy_repository_python_script()
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "python_scripts/test.py", "type": "blob"}, "test/test", "master"
+        )
+    ]
+    find_file_name(repository)
+    assert repository.data.file_name == "test.py"
+    assert repository.data.name == "test"

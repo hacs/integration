@@ -1,5 +1,4 @@
 # pylint: disable=invalid-name, missing-docstring
-
 hacs = []
 removed_repositories = []
 
@@ -19,5 +18,9 @@ def is_removed(repository):
 
 def get_removed(repository):
     if not is_removed(repository):
-        return None
+        from custom_components.hacs.repositories.removed import RemovedRepository
+
+        repository = RemovedRepository()
+        repository.repository = repository
+        removed_repositories.append(repository)
     return [x for x in removed_repositories if x.repository == repository][0]

@@ -18,7 +18,7 @@ from ..store import async_load_from_store, async_save_to_store
 from ..helpers.get_defaults import get_default_repos_lists, get_default_repos_orgs
 
 from custom_components.hacs.helpers.register_repository import register_repository
-from custom_components.hacs.globals import removed_repositories, is_removed
+from custom_components.hacs.globals import removed_repositories, get_removed
 from custom_components.hacs.repositories.removed import RemovedRepository
 
 
@@ -220,6 +220,8 @@ class Hacs:
 
         for repository in critical:
             self.common.blacklist.append(repository["repository"])
+            removed_repo = get_removed(repository["repository"])
+            removed_repo.removal_type = "critical"
             repo = self.get_by_name(repository["repository"])
 
             stored = {
@@ -228,7 +230,6 @@ class Hacs:
                 "link": repository["link"],
                 "acknowledged": True,
             }
-
             if repository["repository"] not in instored:
                 if repo is not None and repo.installed:
                     self.logger.critical(
@@ -240,6 +241,7 @@ class Hacs:
                     repo.remove()
                     await repo.uninstall()
             stored_critical.append(stored)
+            removed_repo.update_data(stored)
 
         # Save to FS
         await async_save_to_store(self.hass, "critical", stored_critical)
@@ -337,10 +339,8 @@ class Hacs:
             self.session, self.configuration.token, "blacklist"
         ):
             if item not in self.common.blacklist:
-                if not is_removed(item):
-                    removed = RemovedRepository()
-                    removed.repository = item
-                    removed_repositories.append(removed)
+                removed = get_removed(item)
+                removed.removal_type = "blacklist"
                 self.common.blacklist.append(item)
 
         for category in repositories:

@@ -4,7 +4,6 @@ from integrationhelper import Logger
 
 from .repository import HacsRepository
 from ..hacsbase.exceptions import HacsException
-from ..helpers.filters import find_first_of_filetype
 from ..helpers.information import find_file_name
 
 
@@ -61,8 +60,6 @@ class HacsPythonScript(HacsRepository):
 
         # Set name
         find_file_name(self)
-        if self.data.file_name:
-            self.information.name = self.data.file_name.replace(".py", "")
 
     async def update_repository(self):  # lgtm[py/similar-function]
         """Update."""
@@ -89,5 +86,3 @@ class HacsPythonScript(HacsRepository):
 
         # Update name
         find_file_name(self)
-        if self.data.file_name:
-            self.information.name = self.data.file_name.replace(".py", "")

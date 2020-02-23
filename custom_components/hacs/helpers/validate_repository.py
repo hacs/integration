@@ -81,4 +81,4 @@ async def common_validate(repository):
     await repository.get_repository_manifest_content()
 
     # Set repository name
-    repository.information.name = repository.information.full_name.split("/")[1]
+    repository.data.name = repository.information.full_name.split("/")[1]

@@ -78,7 +78,7 @@ async def get_integration_manifest(repository):
         repository.manifest = manifest
         repository.information.authors = manifest["codeowners"]
         repository.domain = manifest["domain"]
-        repository.information.name = manifest["name"]
+        repository.data.name = manifest["name"]
         repository.information.homeassistant_version = manifest.get("homeassistant")
 
         # Set local path
@@ -117,10 +117,10 @@ def get_file_name_plugin(repository):
         valid_filenames = [repository.data.filename]
     else:
         valid_filenames = [
-            f"{repository.information.name.replace('lovelace-', '')}.js",
-            f"{repository.information.name}.js",
-            f"{repository.information.name}.umd.js",
-            f"{repository.information.name}-bundle.js",
+            f"{repository.data.name.replace('lovelace-', '')}.js",
+            f"{repository.data.name}.js",
+            f"{repository.data.name}.umd.js",
+            f"{repository.data.name}-bundle.js",
         ]
 
     for location in possible_locations:
@@ -156,7 +156,13 @@ def get_file_name_integration(repository):
 def get_file_name_theme(repository):
     """Get the filename to target."""
     tree = repository.tree
-    releases = repository.releases.objects
+
+    for treefile in tree:
+        if treefile.full_path.startswith(
+            repository.content.path.remote
+        ) and treefile.full_path.endswith(".yaml"):
+            repository.data.file_name = treefile.filename
+            repository.data.name = treefile.filename.replace(".yaml", "")
 
 
 def get_file_name_appdaemon(repository):
@@ -174,3 +180,4 @@ def get_file_name_python_script(repository):
             repository.content.path.remote
         ) and treefile.full_path.endswith(".py"):
             repository.data.file_name = treefile.filename
+            repository.data.name = treefile.filename.replace(".py", "")

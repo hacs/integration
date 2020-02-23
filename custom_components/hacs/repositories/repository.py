@@ -178,7 +178,7 @@ class HacsRepository:
         """Return display name."""
         return get_repository_name(
             self.repository_manifest,
-            self.information.name,
+            self.data.name,
             self.category,
             self.manifest,
         )
@@ -436,11 +436,11 @@ class HacsRepository:
         try:
             if self.category == "python_script":
                 local_path = "{}/{}.py".format(
-                    self.content.path.local, self.information.name
+                    self.content.path.local, self.data.name
                 )
             elif self.category == "theme":
                 local_path = "{}/{}.yaml".format(
-                    self.content.path.local, self.information.name
+                    self.content.path.local, self.data.name
                 )
             else:
                 local_path = self.content.path.local

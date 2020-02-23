@@ -7,7 +7,7 @@ class RemovedRepository:
     repository: str = ""
     reason: str = ""
     link: str = ""
-    removal_type: str = ""  # archived, not_compliant, critical, dev
+    removal_type: str = ""  # archived, not_compliant, critical, dev, broken
     acknowledged: bool = False
 
     def update_data(self, data: dict):

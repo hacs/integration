@@ -22,7 +22,7 @@ class HacsAppdaemon(HacsRepository):
     @property
     def localpath(self):
         """Return localpath."""
-        return f"{self.hacs.system.config_path}/appdaemon/apps/{self.information.name}"
+        return f"{self.hacs.system.config_path}/appdaemon/apps/{self.data.name}"
 
     async def validate_repository(self):
         """Validate."""
@@ -40,7 +40,7 @@ class HacsAppdaemon(HacsRepository):
             self.validate.errors.append("Repostitory structure not compliant")
 
         self.content.path.remote = addir[0].path
-        self.information.name = addir[0].name
+        self.data.name = addir[0].name
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )
@@ -83,7 +83,7 @@ class HacsAppdaemon(HacsRepository):
                 self.content.path.remote, self.ref
             )
             self.content.path.remote = addir[0].path
-            self.information.name = addir[0].name
+            self.data.name = addir[0].name
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref
         )

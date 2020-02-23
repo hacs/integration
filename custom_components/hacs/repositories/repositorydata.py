@@ -9,21 +9,20 @@ class RepositoryData:
     """RepositoryData class."""
 
     id: int = 0
-    full_name: str = None
-    pushed_at: str = None
-    archived: str = None
+    full_name: str = ""
+    pushed_at: str = ""
+    archived: bool = False
     description: str = ""
-    category: str = None
     topics: List[str] = []
     fork: bool = False
     default_branch: str = None
     stargazers_count: int = 0
-    last_commit: str = None
+    last_commit: str = ""
     name: str = None
-    file_name: str = None
+    file_name: str = ""
     content_in_root: bool = False
     zip_release: bool = False
-    filename: str = None
+    filename: str = ""
     render_readme: bool = False
     hide_default_branch: bool = False
     domains: List[str] = []

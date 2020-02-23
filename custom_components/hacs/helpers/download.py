@@ -78,7 +78,7 @@ def gather_files_to_download(repository):
             return files
 
     if repository.data.content_in_root:
-        if repository.data.filename is None:
+        if not repository.data.filename:
             if category == "theme":
                 tree = filter_content_return_one_of_type(
                     repository.tree, "", "yaml", "full_path"

@@ -144,7 +144,7 @@ class HacsRepository:
         """Return flag if the repository is custom."""
         if self.data.full_name.split("/")[0] in ["custom-components", "custom-cards"]:
             return False
-        if self.data.full_name in self.hacs.common.default:
+        if self.data.full_name.lower() in [x.lower() for x in self.hacs.common.default]:
             return False
         if self.data.full_name == "hacs/integration":
             return False

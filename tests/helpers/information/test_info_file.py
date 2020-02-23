@@ -24,6 +24,8 @@ def test_info_file():
     repository.treefiles.append("INFO.MD")
     assert info_file(repository) == "INFO.MD"
 
+
+def test_info_file_render_readme():
     repository = dummy_repository_base()
     repository.data.render_readme = True
     repository.treefiles.append("info.md")

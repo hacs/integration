@@ -3,7 +3,8 @@
 import json
 import aiohttp
 import pytest
-from custom_components.hacs.hacsbase import Hacs
+
+from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.setup import load_hacs_repository
 from tests.sample_data import (
@@ -18,6 +19,7 @@ TOKEN = "xxxxxxxxxxxxxxxxxxxxxxx"
 
 @pytest.mark.asyncio
 async def _load_hacs_repository(aresponses, event_loop):
+    hacs = get_hacs()
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -82,7 +84,7 @@ async def _load_hacs_repository(aresponses, event_loop):
         aresponses.Response(body=b"{}", headers=response_rate_limit_header),
     )
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        Hacs.session = session
-        Hacs.configuration = Configuration()
-        Hacs.configuration.token = TOKEN
-        await load_hacs_repository(Hacs)
+        hacs.session = session
+        hacs.configuration = Configuration()
+        hacs.configuration.token = TOKEN
+        await load_hacs_repository()

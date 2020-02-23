@@ -23,5 +23,7 @@ def get_removed(repository):
         removed_repo = RemovedRepository()
         removed_repo.repository = repository
         removed_repositories.append(removed_repo)
-    filter_repos = [x for x in removed_repositories if x.repository == repository]
+    filter_repos = [
+        x for x in removed_repositories if x.repository.lower() == repository.lower()
+    ]
     return filter_repos[0]

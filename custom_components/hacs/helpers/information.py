@@ -162,7 +162,8 @@ def get_file_name_theme(repository):
             repository.content.path.remote
         ) and treefile.full_path.endswith(".yaml"):
             repository.data.file_name = treefile.filename
-            repository.data.name = treefile.filename.replace(".yaml", "")
+            if repository.data.name is None:
+                repository.data.name = treefile.filename.replace(".yaml", "")
 
 
 def get_file_name_appdaemon(repository):
@@ -180,4 +181,5 @@ def get_file_name_python_script(repository):
             repository.content.path.remote
         ) and treefile.full_path.endswith(".py"):
             repository.data.file_name = treefile.filename
-            repository.data.name = treefile.filename.replace(".py", "")
+            if repository.data.name is None:
+                repository.data.name = treefile.filename.replace(".py", "")

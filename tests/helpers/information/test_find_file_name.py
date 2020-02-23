@@ -99,3 +99,29 @@ def test_find_file_name_base_python_script():
     find_file_name(repository)
     assert repository.data.file_name == "test.py"
     assert repository.data.name == "test"
+
+
+def test_find_file_name_base_theme_set():
+    repository = dummy_repository_theme()
+    repository.data.name = None
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "themes/file.yaml", "type": "blob"}, "test/test", "master"
+        )
+    ]
+    find_file_name(repository)
+    assert repository.data.file_name == "file.yaml"
+    assert repository.data.name == "file"
+
+
+def test_find_file_name_base_python_script_set():
+    repository = dummy_repository_python_script()
+    repository.data.name = None
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "python_scripts/file.py", "type": "blob"}, "test/test", "master"
+        )
+    ]
+    find_file_name(repository)
+    assert repository.data.file_name == "file.py"
+    assert repository.data.name == "file"

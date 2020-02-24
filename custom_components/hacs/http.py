@@ -45,7 +45,8 @@ class HacsFrontend(HomeAssistantView):
             if os.path.exists(file):
                 hacs.logger.debug("Serving {} from {}".format(requested_file, file))
                 response = web.FileResponse(file)
-                response.headers["Cache-Control"] = "max-age=0, must-revalidate"
+                response.headers["Cache-Control"] = "no-store, max-age=0"
+                response.headers["Pragma"] = "no-store"
                 return response
             else:
                 hacs.logger.error(f"Tried to serve up '{file}' but it does not exist")
@@ -63,4 +64,5 @@ class HacsFrontend(HomeAssistantView):
 class HacsPluginViewLegacy(HacsFrontend):
     """Alias for legacy, remove with 2.0"""
 
+    name = "community_plugin"
     url = r"/community_plugin/{requested_file:.+}"

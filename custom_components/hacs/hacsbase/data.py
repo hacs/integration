@@ -97,9 +97,6 @@ class HacsData:
             # Repositories
             for entry in repositories:
                 repo = repositories[entry]
-                if repo["full_name"] == "hacs/integration":
-                    # Skip the old repo location
-                    continue
                 if not self.hacs.is_known(repo["full_name"]):
                     await register_repository(
                         repo["full_name"], repo["category"], False

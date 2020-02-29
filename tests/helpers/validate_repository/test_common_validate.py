@@ -3,7 +3,7 @@
 import json
 import aiohttp
 import pytest
-from custom_components.hacs.globals import get_hacs
+from custom_components.hacs.globals import get_hacs, get_removed
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.helpers.validate_repository import common_validate
@@ -199,11 +199,11 @@ async def test_common_blacklist(aresponses, event_loop):
         hacs.session = session
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
-        hacs.common.blacklist.append("test/test")
+        removed = get_removed("test/test")
+        assert removed.repository == "test/test"
         repository = dummy_repository_base()
         with pytest.raises(HacsException):
             await common_validate(repository)
-        hacs.common.blacklist = []
 
 
 @pytest.mark.asyncio
@@ -287,7 +287,6 @@ async def test_common_base_exception_tree_issues(aresponses, event_loop):
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
         repository = dummy_repository_base()
-        hacs.common.blacklist = []
         hacs.system.status.startup = False
         with pytest.raises(HacsException):
             await common_validate(repository)

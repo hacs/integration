@@ -18,7 +18,7 @@ from ..store import async_load_from_store, async_save_to_store
 from ..helpers.get_defaults import get_default_repos_lists, get_default_repos_orgs
 
 from custom_components.hacs.helpers.register_repository import register_repository
-from custom_components.hacs.globals import removed_repositories, get_removed
+from custom_components.hacs.globals import removed_repositories, get_removed, is_removed
 from custom_components.hacs.repositories.removed import RemovedRepository
 
 
@@ -44,7 +44,6 @@ class HacsCommon:
     """Common for HACS."""
 
     categories = []
-    blacklist = []
     default = []
     installed = []
     skip = []
@@ -156,7 +155,7 @@ class Hacs:
         await self.handle_critical_repositories_startup()
         await self.handle_critical_repositories()
         await self.load_known_repositories()
-        await self.clear_out_blacklisted_repositories()
+        await self.clear_out_removed_repositories()
 
         self.recuring_tasks.append(
             async_track_time_interval(
@@ -218,7 +217,6 @@ class Hacs:
         stored_critical = []
 
         for repository in critical:
-            self.common.blacklist.append(repository["repository"])
             removed_repo = get_removed(repository["repository"])
             removed_repo.removal_type = "critical"
             repo = self.get_by_name(repository["repository"])
@@ -287,23 +285,24 @@ class Hacs:
 
         await self.factory.execute()
         await self.load_known_repositories()
-        await self.clear_out_blacklisted_repositories()
+        await self.clear_out_removed_repositories()
         self.system.status.background_task = False
         await self.data.async_write()
         self.hass.bus.async_fire("hacs/status", {})
         self.hass.bus.async_fire("hacs/repository", {"action": "reload"})
         self.logger.debug("Recuring background task for all repositories done")
 
-    async def clear_out_blacklisted_repositories(self):
+    async def clear_out_removed_repositories(self):
         """Clear out blaclisted repositories."""
         need_to_save = False
-        for repository in self.common.blacklist:
-            if self.is_known(repository):
-                repository = self.get_by_name(repository)
-                if repository.status.installed:
+        for removed in removed_repositories:
+            if self.is_known(removed.repository):
+                repository = self.get_by_name(removed.repository)
+                if repository.status.installed and removed.removal_type != "critical":
                     self.logger.warning(
                         f"You have {repository.data.full_name} installed with HACS "
-                        + "this repository has been blacklisted, please consider removing it."
+                        + f"this repository has been removed, please consider removing it. "
+                        + f"Removal reason ({removed.removal_type})"
                     )
                 else:
                     need_to_save = True
@@ -335,16 +334,16 @@ class Hacs:
         repositories = await self.get_repositories()
 
         for item in await get_default_repos_lists(
-            self.session, self.configuration.token, "blacklist"
+            self.session, self.configuration.token, "removed"
         ):
-            if item not in self.common.blacklist:
-                removed = get_removed(item)
-                removed.removal_type = "blacklist"
-                self.common.blacklist.append(item)
+            removed = get_removed(item["repository"])
+            removed.reason = item.get("reason")
+            removed.link = item.get("link")
+            removed.removal_type = item.get("removal_type")
 
         for category in repositories:
             for repo in repositories[category]:
-                if repo in self.common.blacklist:
+                if is_removed(repo):
                     continue
                 if self.is_known(repo):
                     continue

@@ -1,6 +1,6 @@
 """Helper to do common validation for repositories."""
 from aiogithubapi import AIOGitHubException
-from custom_components.hacs.globals import get_hacs
+from custom_components.hacs.globals import get_hacs, is_removed
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.helpers.install import version_to_install
 from custom_components.hacs.helpers.information import (
@@ -43,7 +43,7 @@ async def common_update_data(repository):
         raise HacsException("Repository is archived.")
 
     # Make sure the repository is not in the blacklist.
-    if repository.data.full_name in hacs.common.blacklist:
+    if is_removed(repository.data.full_name):
         repository.validate.errors.append("Repository is in the blacklist.")
         raise HacsException("Repository is in the blacklist.")
 

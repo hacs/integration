@@ -78,6 +78,27 @@ def test_gather_plugin_files_from_dist():
     assert "dist/test.js" in files
 
 
+def test_gather_plugin_multiple_plugin_files_from_dist():
+    repository = dummy_repository_plugin()
+    repository.content.path.remote = "dist"
+    repository.data.file_name = "test.js"
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "test.js", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "dist/test.js", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "dist/test2.js", "type": "blob"}, "test/test", "master"
+        ),
+    ]
+    files = [x.path for x in gather_files_to_download(repository)]
+    assert "test.js" not in files
+    assert "dist/test.js" in files
+    assert "dist/test2.js" in files
+
+
 def test_gather_plugin_files_from_release():
     repository = dummy_repository_plugin()
     repository.data.file_name = "test.js"

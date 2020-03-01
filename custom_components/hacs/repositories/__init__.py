@@ -1,9 +1,9 @@
 """Initialize repositories."""
-from .theme import HacsTheme
-from .integration import HacsIntegration
-from .python_script import HacsPythonScript
-from .appdaemon import HacsAppdaemon
-from .plugin import HacsPlugin
+from custom_components.hacs.repositories.theme import HacsTheme
+from custom_components.hacs.repositories.integration import HacsIntegration
+from custom_components.hacs.repositories.python_script import HacsPythonScript
+from custom_components.hacs.repositories.appdaemon import HacsAppdaemon
+from custom_components.hacs.repositories.plugin import HacsPlugin
 
 RERPOSITORY_CLASSES = {
     "theme": HacsTheme,

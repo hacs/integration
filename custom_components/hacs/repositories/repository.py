@@ -16,7 +16,6 @@ from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.helpers.information import (
     get_info_md_content,
     get_repository,
-    get_tree,
 )
 from custom_components.hacs.helpers.validate_repository import (
     common_validate,

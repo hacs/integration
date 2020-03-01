@@ -1,5 +1,4 @@
 """Class for python_scripts in HACS."""
-from aiogithubapi import AIOGitHubException
 from integrationhelper import Logger
 
 from .repository import HacsRepository

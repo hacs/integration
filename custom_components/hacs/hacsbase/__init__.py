@@ -9,13 +9,16 @@ from homeassistant.helpers.event import async_call_later, async_track_time_inter
 from aiogithubapi import AIOGitHubException, AIOGitHubRatelimit
 from integrationhelper import Logger
 
-from .task_factory import HacsTaskFactory
-from .exceptions import HacsException
+from custom_components.hacs.hacsbase.task_factory import HacsTaskFactory
+from custom_components.hacs.hacsbase.exceptions import HacsException
 
-from ..const import ELEMENT_TYPES
-from ..setup import setup_extra_stores
-from ..store import async_load_from_store, async_save_to_store
-from ..helpers.get_defaults import get_default_repos_lists, get_default_repos_orgs
+from custom_components.hacs.const import ELEMENT_TYPES
+from custom_components.hacs.setup import setup_extra_stores
+from custom_components.hacs.store import async_load_from_store, async_save_to_store
+from custom_components.hacs.helpers.get_defaults import (
+    get_default_repos_lists,
+    get_default_repos_orgs,
+)
 
 from custom_components.hacs.helpers.register_repository import register_repository
 from custom_components.hacs.globals import removed_repositories, get_removed, is_removed

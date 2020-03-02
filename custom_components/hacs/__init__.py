@@ -31,7 +31,7 @@ from custom_components.hacs.setup import (
 
 from custom_components.hacs.globals import get_hacs
 
-# from custom_components.hacs.helpers.network import internet_connectivity_check
+from custom_components.hacs.helpers.network import internet_connectivity_check
 
 SCHEMA = hacs_base_config_schema()
 SCHEMA[vol.Optional("options")] = hacs_config_option_schema()
@@ -142,9 +142,9 @@ async def hacs_startup():
     # Set up frontend
     await setup_frontend()
 
-    #    if not await hacs.hass.async_add_executor_job(internet_connectivity_check):
-    #        hacs.logger.critical("No network connectivity")
-    #        return False
+    if not await hacs.hass.async_add_executor_job(internet_connectivity_check):
+        hacs.logger.critical("No network connectivity")
+        return False
 
     # Load HACS
     if not await load_hacs_repository():

@@ -89,6 +89,11 @@ def check_requirements():
     except ImportError:
         missing.append("aiofiles")
 
+    try:
+        from pythonping import ping  # pylint: disable=unused-import
+    except ImportError:
+        missing.append("pythonping")
+
     if missing:
         hacs = get_hacs()
         for requirement in missing:

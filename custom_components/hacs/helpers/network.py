@@ -1,17 +1,14 @@
 """Verify network."""
-import socket
+import requests
 
 
 def internet_connectivity_check():
     """Verify network connectivity."""
-    hosts = [{"host": "github.com", "port": 443, "connection": False}]
+    hosts = [{"host": "https://github.com", "connection": False}]
 
     for host in hosts:
         try:
-            socket.setdefaulttimeout(3)
-            socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(
-                (host["host"], host["port"])
-            )
+            requests.get(host["host"])
 
             host["connection"] = True
         except Exception:  # pylint: disable=broad-except

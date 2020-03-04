@@ -136,11 +136,12 @@ async def download_zip(repository, validate):
 async def download_content(repository):
     """Download the content of a directory."""
     contents = gather_files_to_download(repository)
+    repository.logger.debug(repository.data.filename)
     if not contents:
         raise HacsException("No content to download")
 
     for content in contents:
-        if repository.data.content_in_root and repository.data.filename is not None:
+        if repository.data.content_in_root and repository.data.filename:
             if content.name != repository.data.filename:
                 continue
         repository.logger.debug(f"Downloading {content.name}")

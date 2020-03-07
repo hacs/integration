@@ -11,6 +11,7 @@ async def install_repository(repository):
     """Common installation steps of the repository."""
     persistent_directory = None
     await repository.update_repository()
+    repository.validate.errors = []
 
     if not repository.can_install:
         raise HacsException(

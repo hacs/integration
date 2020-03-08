@@ -26,6 +26,9 @@ def test_configuration_and_option():
     assert isinstance(config.appdaemon, bool)
     assert not config.appdaemon
 
+    assert isinstance(config.netdaemon, bool)
+    assert not config.netdaemon
+
     assert isinstance(config.python_script, bool)
     assert not config.python_script
 

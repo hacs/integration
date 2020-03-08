@@ -38,7 +38,7 @@ class RepositoryData:
     @property
     def name(self):
         """Return the name."""
-        if self.category == "integration":
+        if self.category in ["integration", "netdaemon"]:
             return self.domain
         return self.full_name.split("/")[-1]
 

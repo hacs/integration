@@ -3,7 +3,7 @@ import os
 import tempfile
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.exceptions import HacsException
-from custom_components.hacs.hacsbase.backup import Backup
+from custom_components.hacs.hacsbase.backup import Backup, BackupNetDaemon
 from custom_components.hacs.helpers.download import download_content
 
 
@@ -24,7 +24,11 @@ async def install_repository(repository):
     else:
         repository.ref = f"tags/{version}"
 
-    if repository.data.persistent_directory:
+    if repository.status.installed and repository.data.category == "netdaemon":
+        persistent_directory = BackupNetDaemon(repository)
+        persistent_directory.create()
+
+    elif repository.data.persistent_directory:
         if os.path.exists(
             f"{repository.content.path.local}/{repository.data.persistent_directory}"
         ):

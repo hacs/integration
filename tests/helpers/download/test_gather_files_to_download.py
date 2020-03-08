@@ -11,6 +11,7 @@ from tests.dummy_repository import (
     dummy_repository_plugin,
     dummy_repository_theme,
     dummy_repository_appdaemon,
+    dummy_repository_netdaemon,
 )
 
 
@@ -176,6 +177,29 @@ def test_gather_content_in_root_theme():
     files = [x.path for x in gather_files_to_download(repository)]
     assert "test2.yaml" not in files
     assert "test.yaml" in files
+
+
+def test_gather_netdaemon_files_base():
+    repository = dummy_repository_netdaemon()
+    repository.tree = [
+        AIOGithubTreeContent(
+            {"path": "test.cs", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "apps/test/test.cs", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": "apps/test/test.yaml", "type": "blob"}, "test/test", "master"
+        ),
+        AIOGithubTreeContent(
+            {"path": ".github/file.file", "type": "blob"}, "test/test", "master"
+        ),
+    ]
+    files = [x.path for x in gather_files_to_download(repository)]
+    assert ".github/file.file" not in files
+    assert "test.cs" not in files
+    assert "apps/test/test.cs" in files
+    assert "apps/test/test.yaml" in files
 
 
 def test_gather_appdaemon_files_base():

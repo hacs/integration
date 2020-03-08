@@ -70,3 +70,48 @@ class Backup:
             while os.path.exists(self.backup_path):
                 sleep(0.1)
             self.logger.debug(f"Backup dir {self.backup_path} cleared")
+
+
+class BackupNetDaemon:
+    """BackupNetDaemon."""
+
+    def __init__(self, repository):
+        """Initialize."""
+        self.repository = repository
+        self.logger = Logger("hacs.backup")
+        self.backup_path = (
+            tempfile.gettempdir() + "/hacs_persistent_netdaemon/" + repository.data.name
+        )
+
+    def create(self):
+        """Create a backup in /tmp"""
+        if os.path.exists(self.backup_path):
+            shutil.rmtree(self.backup_path)
+            while os.path.exists(self.backup_path):
+                sleep(0.1)
+        os.makedirs(self.backup_path, exist_ok=True)
+
+        for filename in os.listdir(self.repository.content.path.local):
+            if filename.endswith(".yaml"):
+                source_file_name = f"{self.repository.content.path.local}/{filename}"
+                target_file_name = f"{self.backup_path}/{filename}"
+                shutil.copyfile(source_file_name, target_file_name)
+
+    def restore(self):
+        """Create a backup in /tmp"""
+        if os.path.exists(self.backup_path):
+            for filename in os.listdir(self.backup_path):
+                if filename.endswith(".yaml"):
+                    source_file_name = f"{self.backup_path}/{filename}"
+                    target_file_name = (
+                        f"{self.repository.content.path.local}/{filename}"
+                    )
+                    shutil.copyfile(source_file_name, target_file_name)
+
+    def cleanup(self):
+        """Create a backup in /tmp"""
+        if os.path.exists(self.backup_path):
+            shutil.rmtree(self.backup_path)
+            while os.path.exists(self.backup_path):
+                sleep(0.1)
+            self.logger.debug(f"Backup dir {self.backup_path} cleared")

@@ -166,6 +166,8 @@ async def hacs_startup():
     hacs.common.categories = ELEMENT_TYPES
     if hacs.configuration.appdaemon:
         hacs.common.categories.append("appdaemon")
+    if hacs.configuration.netdaemon:
+        hacs.common.categories.append("netdaemon")
     if hacs.configuration.python_script:
         hacs.configuration.python_script = False
         if hacs.configuration.config_type == "yaml":

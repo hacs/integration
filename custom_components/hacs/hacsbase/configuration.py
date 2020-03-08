@@ -11,6 +11,8 @@ class Configuration:
     # Main configuration:
     appdaemon_path: str = "appdaemon/apps/"
     appdaemon: bool = False
+    netdaemon_path: str = "netdaemon/apps/"
+    netdaemon: bool = False
     config: dict = {}
     config_entry: dict = {}
     config_type: str = None

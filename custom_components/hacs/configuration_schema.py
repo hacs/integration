@@ -27,6 +27,7 @@ def hacs_base_config_schema(config: dict = {}) -> dict:
             SIDEPANEL_ICON: "mdi:alpha-c-box",
             SIDEPANEL_TITLE: "HACS",
             APPDAEMON: False,
+            NETDAEMON: False,
             PYTHON_SCRIPT: False,
             THEME: False,
         }

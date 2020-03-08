@@ -47,7 +47,7 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Show the configuration form to edit location data."""
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema(hacs_base_config_schema(user_input)),
+            data_schema=vol.Schema(hacs_base_config_schema(user_input, True)),
             errors=self._errors,
         )
 

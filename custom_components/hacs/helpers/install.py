@@ -91,6 +91,13 @@ async def reload_after_install(repository):
             )
         except Exception:  # pylint: disable=broad-except
             pass
+    elif repository.data.category == "netdaemon":
+        try:
+            await repository.hacs.hass.services.async_call(
+                "hassio", "addon_restart", {"addon": "e466aeb3_netdaemon"}
+            )
+        except Exception:  # pylint: disable=broad-except
+            pass
 
 
 def installation_complete(repository):

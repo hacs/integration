@@ -145,7 +145,7 @@ def get_file_name_plugin(repository):
                 if f"{location+'/' if location else ''}{filename}" in [
                     x.full_path for x in tree
                 ]:
-                    repository.data.file_name = filename
+                    repository.data.file_name = filename.split("/")[-1]
                     repository.content.path.remote = location
                     break
 

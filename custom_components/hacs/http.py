@@ -32,7 +32,7 @@ class HacsPluginViewLegacy(HacsFrontend):
         if hacs.system.ha_version.split(".")[1] >= "107":
             logger = Logger("hacs.deprecated")
             logger.warning(
-                "The '/community_plugin/*' is deprecated and will be removed in an upcomming version of HACS, it has been replaced by '/hacsfiles/*', if you use the UI to manage your lovelace configuration, you can update this by going to the settings tab in HACS, if you use YAML to manage your lovelace configuration, you manually need to replace the URL in your resources."
+                "The '/community_plugin/*' is deprecated and will be removed in an upcoming version of HACS, it has been replaced by '/hacsfiles/*', if you use the UI to manage your lovelace configuration, you can update this by going to the settings tab in HACS, if you use YAML to manage your lovelace configuration, you manually need to replace the URL in your resources."
             )
 
         return await get_file_response(requested_file)

@@ -104,7 +104,7 @@ def get_frontend_commits(github, skip=True):
     )
     for req in json.loads(contents.decoded_content)["requirements"]:
         if "hacs_frontend" in req:
-            hacs_frontend = req.split("=")[1]
+            hacs_frontend = req.split("==")[1]
     commits = new_commits(repo, last_frontend_release(repo, hacs_frontend))
 
     if not commits:

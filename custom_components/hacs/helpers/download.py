@@ -1,4 +1,5 @@
 """Helpers to download repository content."""
+import os
 import pathlib
 import tempfile
 import zipfile
@@ -123,6 +124,8 @@ async def download_zip(repository, validate):
                 f"{tempfile.gettempdir()}/{repository.data.filename}", "r"
             ) as zip_file:
                 zip_file.extractall(repository.content.path.local)
+
+            os.remove(f"{tempfile.gettempdir()}/{repository.data.filename}")
 
             if result:
                 repository.logger.info(f"download of {content.name} complete")

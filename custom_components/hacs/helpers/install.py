@@ -11,7 +11,7 @@ async def install_repository(repository):
     """Common installation steps of the repository."""
     persistent_directory = None
     await repository.update_repository()
-    if repository.content.path.local is not None:
+    if repository.content.path.local is None:
         raise HacsException("repository.content.path.local is None")
     repository.validate.errors = []
 

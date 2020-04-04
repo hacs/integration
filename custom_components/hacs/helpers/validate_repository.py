@@ -66,7 +66,7 @@ async def common_update_data(repository):
         repository.releases.releases = False
 
     repository.ref = version_to_install(repository)
-    if releases:
+    if repository.releases.releases:
         for release in releases:
             if release.tag_name == repository.ref:
                 assets = release.assets

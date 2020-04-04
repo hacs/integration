@@ -8,6 +8,7 @@ from homeassistant.helpers.event import async_call_later, async_track_time_inter
 
 from aiogithubapi import AIOGitHubException, AIOGitHubRatelimit
 from integrationhelper import Logger
+from queueman import QueueManager
 
 from custom_components.hacs.hacsbase.task_factory import HacsTaskFactory
 from custom_components.hacs.hacsbase.exceptions import HacsException
@@ -21,6 +22,7 @@ from custom_components.hacs.helpers.get_defaults import (
 )
 
 from custom_components.hacs.helpers.register_repository import register_repository
+from custom_components.hacs.helpers.remaining_github_calls import get_fetch_updates_for
 from custom_components.hacs.globals import removed_repositories, get_removed, is_removed
 from custom_components.hacs.repositories.removed import RemovedRepository
 
@@ -98,6 +100,7 @@ class Hacs:
     version = None
     session = None
     factory = HacsTaskFactory()
+    queue = QueueManager()
     system = System()
     recuring_tasks = []
     common = HacsCommon()
@@ -170,9 +173,16 @@ class Hacs:
                 self.hass, self.recuring_tasks_all, timedelta(minutes=800)
             )
         )
+        self.recuring_tasks.append(
+            async_track_time_interval(
+                self.hass, self.prosess_queue, timedelta(minutes=10)
+            )
+        )
 
         self.hass.bus.async_fire("hacs/reload", {"force": True})
         await self.recuring_tasks_installed()
+
+        await self.prosess_queue()
 
         self.system.status.startup = False
         self.system.status.new = False
@@ -251,6 +261,25 @@ class Hacs:
             self.logger.critical("Resarting Home Assistant")
             self.hass.async_create_task(self.hass.async_stop(100))
 
+    async def prosess_queue(self, notarealarg=None):
+        """Recuring tasks for installed repositories."""
+        if not self.queue.has_pending_tasks:
+            self.logger.debug("Nothing in the queue")
+            return
+        if self.queue.running:
+            self.logger.debug("Queue is already running")
+            return
+
+        can_update = await get_fetch_updates_for(self.github)
+        if can_update == 0:
+            self.logger.info(
+                "HACS is ratelimited, repository updates will resume later."
+            )
+        else:
+            self.system.status.background_task = True
+            await self.queue.execute(can_update)
+            self.system.status.background_task = False
+
     async def recuring_tasks_installed(self, notarealarg=None):
         """Recuring tasks for installed repositories."""
         self.logger.debug(
@@ -265,9 +294,8 @@ class Hacs:
                 repository.status.installed
                 and repository.data.category in self.common.categories
             ):
-                self.factory.tasks.append(self.factory.safe_update(repository))
+                self.queue.add(self.factory.safe_update(repository))
 
-        await self.factory.execute()
         await self.handle_critical_repositories()
         self.system.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
@@ -284,9 +312,8 @@ class Hacs:
         self.logger.debug(self.github.ratelimits.reset_utc)
         for repository in self.repositories:
             if repository.data.category in self.common.categories:
-                self.factory.tasks.append(self.factory.safe_common_update(repository))
+                self.queue.add(self.factory.safe_common_update(repository))
 
-        await self.factory.execute()
         await self.load_known_repositories()
         await self.clear_out_removed_repositories()
         self.system.status.background_task = False
@@ -350,6 +377,4 @@ class Hacs:
                     continue
                 if self.is_known(repo):
                     continue
-                self.factory.tasks.append(self.factory.safe_register(repo, category))
-        await self.factory.execute()
-        self.logger.info("Loading known repositories finished")
+                self.queue.add(self.factory.safe_register(repo, category))

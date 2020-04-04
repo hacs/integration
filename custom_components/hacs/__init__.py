@@ -21,6 +21,7 @@ from custom_components.hacs.configuration_schema import (
 )
 from custom_components.hacs.const import DOMAIN, ELEMENT_TYPES, STARTUP, VERSION
 from custom_components.hacs.constrains import check_constans, check_requirements
+from custom_components.hacs.helpers.remaining_github_calls import get_fetch_updates_for
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.setup import (
@@ -42,6 +43,8 @@ async def async_setup(hass, config):
     """Set up this integration using yaml."""
     hacs = get_hacs()
     if DOMAIN not in config:
+        return True
+    if hacs.configuration and hacs.configuration.config_type == "flow":
         return True
     hass.data[DOMAIN] = config
     hacs.hass = hass
@@ -113,6 +116,12 @@ async def hacs_startup():
             await hacs.hass.services.async_call(
                 "logger", "set_level", {"hacs": "debug"}
             )
+            await hacs.hass.services.async_call(
+                "logger", "set_level", {"queueman": "debug"}
+            )
+            await hacs.hass.services.async_call(
+                "logger", "set_level", {"AioGitHub": "debug"}
+            )
         except ServiceNotFound:
             hacs.logger.error(
                 "Could not set logging level to debug, logger is not enabled"
@@ -131,6 +140,12 @@ async def hacs_startup():
         hacs.configuration.token, async_create_clientsession(hacs.hass)
     )
     hacs.data = HacsData()
+
+    can_update = await get_fetch_updates_for(hacs.github)
+    if can_update == 0:
+        hacs.logger.info("HACS is ratelimited, repository updates will resume in 1h.")
+    else:
+        hacs.logger.debug(f"Can update {can_update} repositories")
 
     # Check HACS Constrains
     if not await hacs.hass.async_add_executor_job(check_constans):

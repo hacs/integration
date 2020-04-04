@@ -5,8 +5,10 @@ from custom_components.hacs.hacsbase.exceptions import (
     HacsException,
     HacsExpectedException,
 )
+from queueman import concurrent
 
 
+# @concurrent(15, 5)
 async def register_repository(full_name, category, check=True):
     """Register a repository."""
     hacs = get_hacs()

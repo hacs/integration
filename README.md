@@ -20,14 +20,6 @@ HACS is a integration that gives the user a powerful UI to handle downloads of c
   - Manage(Install/Upgrade/Remove)
   - Shortcuts to repositories/issue tracker
 
-## Why?
-
-About half a year after the first version of [`custom_updater`](https://github.com/custom-components/custom_updater), I started to hate it, really hate it and I didn't see any way of getting it to a state where I would have been happy with it, most of my issues with that you can find here https://github.com/custom-components/custom_updater/issues/117.
-
-With the amount of users it had/have(/has?) I figured it would be better to start over with the same "mission", that's where HACS came to life.
-
-HACS is not a full replacement for `custom_updater` and even though their "mission" is the same how they work is completely different, where the main issue is to make it easy for both the user and the developer, for most elements it will just work (with some exceptions of course).
-
 ## Useful links
 
 - [General documentation](https://hacs.xyz/)
@@ -38,13 +30,6 @@ HACS is not a full replacement for `custom_updater` and even though their "missi
 - [Become a GitHub sponsor? ❤️](https://github.com/sponsors/ludeeus)
 - [BuyMe~~Coffee~~Beer? 🍺🙈](https://buymeacoffee.com/ludeeus)
 
-**YouTube Promo for HACS🙈:**
-
-[![HACS Promo](https://img.youtube.com/vi/vq0qQtDAOW0/0.jpg)](https://www.youtube.com/watch?v=vq0qQtDAOW0 "HACS Promo")
-
-**Install and Setup Walkthrough by [DrZzs](https://www.youtube.com/channel/UC7G4tLa4Kt6A9e3hJ-HO8ng)**
-
-[![Walkthrough](https://img.youtube.com/vi/aJTTCAvzpIU/0.jpg)](https://www.youtube.com/watch?v=aJTTCAvzpIU "Walkthrough")
 
 ## Issues
 

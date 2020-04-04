@@ -277,8 +277,10 @@ class Hacs:
             )
         else:
             self.system.status.background_task = True
+            self.hass.bus.async_fire("hacs/status", {})
             await self.queue.execute(can_update)
             self.system.status.background_task = False
+            self.hass.bus.async_fire("hacs/status", {})
 
     async def recuring_tasks_installed(self, notarealarg=None):
         """Recuring tasks for installed repositories."""

@@ -55,13 +55,6 @@ async def hacs_settings(hass, connection, msg):
     elif action == "set_fe_compact_false":
         hacs.configuration.frontend_compact = True
 
-    elif action == "reload_data":
-        hacs.system.status.reloading_data = True
-        hass.bus.async_fire("hacs/status", {})
-        await hacs.recuring_tasks_all()
-        hacs.system.status.reloading_data = False
-        hass.bus.async_fire("hacs/status", {})
-
     elif action == "upgrade_all":
         hacs.system.status.upgrading_all = True
         hacs.system.status.background_task = True
@@ -79,9 +72,7 @@ async def hacs_settings(hass, connection, msg):
         for repo in hacs.repositories:
             if msg.get("category") == repo.data.category:
                 if repo.status.new:
-                    hacs.logger.debug(
-                        f"Clearing new flag from '{repo.data.full_name}'"
-                    )
+                    hacs.logger.debug(f"Clearing new flag from '{repo.data.full_name}'")
                     repo.status.new = False
     else:
         hacs.logger.error(f"WS action '{action}' is not valid")
@@ -242,6 +233,8 @@ async def hacs_repository(hass, connection, msg):
             else:
                 repository.status.selected_tag = msg["version"]
             await repository.update_repository()
+
+            hass.bus.async_fire("hacs/reload", {"force": True})
 
         else:
             hacs.logger.error(f"WS action '{action}' is not valid")

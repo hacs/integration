@@ -402,6 +402,12 @@ class HacsRepository:
             if self.data.category == "python_script":
                 local_path = "{}/{}.py".format(self.content.path.local, self.data.name)
             elif self.data.category == "theme":
+                if os.path.exists(
+                    f"{self.hacs.system.config_path}/{self.hacs.configuration.theme_path}/{self.data.name}.yaml"
+                ):
+                    os.remove(
+                        f"{self.hacs.system.config_path}/{self.hacs.configuration.theme_path}/{self.data.name}.yaml"
+                    )
                 local_path = "{}/{}.yaml".format(
                     self.content.path.local, self.data.name
                 )
@@ -411,7 +417,7 @@ class HacsRepository:
             if os.path.exists(local_path):
                 self.logger.debug(f"Removing {local_path}")
 
-                if self.data.category in ["python_script", "theme"]:
+                if self.data.category in ["python_script"]:
                     os.remove(local_path)
                 else:
                     shutil.rmtree(local_path)

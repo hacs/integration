@@ -1,6 +1,7 @@
 const iconset = document.createElement("ha-iconset-svg");
 iconset.name = "hacs";
 iconset.size = "1024";
+iconset.style = "display: hidden;"
 iconset.innerHTML = `
 <svg version="1.1"  id="hacs" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 	 viewBox="20 20 430 430">

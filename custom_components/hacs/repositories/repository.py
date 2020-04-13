@@ -408,9 +408,8 @@ class HacsRepository:
                     os.remove(
                         f"{self.hacs.system.config_path}/{self.hacs.configuration.theme_path}/{self.data.name}.yaml"
                     )
-                local_path = "{}/{}.yaml".format(
-                    self.content.path.local, self.data.name
-                )
+                local_path = self.content.path.local
+
             else:
                 local_path = self.content.path.local
 

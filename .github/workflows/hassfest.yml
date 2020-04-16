@@ -11,28 +11,4 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - uses: "actions/checkout@v2"
-
-      - uses: "actions/setup-python@v1"
-        with:
-          python-version: "3.7"
-
-      - name: Clone home-assistant/core
-        run: git clone --depth 1 https://github.com/home-assistant/core.git -b hassfest-ci /tmp/hassfest
-
-      - name: Setup home-assistant/core
-        run: |
-          cd /tmp/hassfest || exit 1
-          python3 -m venv venv
-          . venv/bin/activate
-          pip install -e .
-          deactivate
-
-      - name: Run hassfest validate
-        run: |
-          cd /tmp/hassfest || exit 1
-          python3 -m venv venv
-          . venv/bin/activate
-          for manifestfile in $(find "$GITHUB_WORKSPACE" -type f -name manifest.json); do
-            python3 -m script.hassfest --action validate --integration-path $(dirname -- "$manifestfile")
-          done
-          deactivate
+      - uses: ludeeus/actions/hassfest@hassfest

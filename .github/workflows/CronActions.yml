@@ -24,3 +24,13 @@ jobs:
 
       - name: Create issue sugesting a new release
         run: python3 /home/runner/work/integration/integration/manage/generate_releasenotes.py --token ${{ secrets.GITHUB_TOKEN }} --release no
+
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Hassfest validation
+      uses: "home-assistant/actions/hassfest@master"

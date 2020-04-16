@@ -17,11 +17,11 @@ jobs:
           python-version: "3.7"
 
       - name: Clone home-assistant/core
-        run: git clone --depth 1 https://github.com/home-assistant/core.git -b hassfest-ci /github/workspace/hassfest
+        run: git clone --depth 1 https://github.com/home-assistant/core.git -b hassfest-ci "$GITHUB_WORKSPACE"/hassfest
 
       - name: Setup home-assistant/core
         run: |
-          cd /github/workspace/hassfest || exit 1
+          cd "$GITHUB_WORKSPACE"//hassfest || exit 1
           python3 -m venv venv
           . venv/bin/activate
           pip install -e .
@@ -29,8 +29,8 @@ jobs:
 
       - name: Run hassfest validate
         run: |
-          cd /github/workspace/hassfest || exit 1
+          cd "$GITHUB_WORKSPACE"/hassfest || exit 1
           python3 -m venv venv
           . venv/bin/activate
-          find /github/workspace/hassfest -type f -name manifest.json -exec bash -c 'python3 -m script.hassfest --action validate --integration-path $(dirname -- {})' \;
+          find "$GITHUB_WORKSPACE" -type f -name manifest.json -exec bash -c 'python3 -m script.hassfest --action validate --integration-path $(dirname -- {})' \;
           deactivate

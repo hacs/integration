@@ -1,0 +1,38 @@
+name: Validate with hassfest
+
+on:
+  push:
+    branches: "*"
+  pull_request:
+    branches: "*"
+  schedule:
+    cron:  '0 0 * * *'
+
+jobs:
+  validate:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v2"
+
+      - uses: "actions/setup-python@v1"
+        with:
+        python-version: "3.7"
+
+      - name: Clone home-assistant/core
+        run: git clone --depth 1 https://github.com/home-assistant/core.git -b hassfest-ci /github/workspace/hassfest
+
+      - name: Setup home-assistant/core
+        run: |
+          cd /github/workspace/hassfest || exit 1
+          python3 -m venv venv
+          . venv/bin/activate
+          pip install -e .
+          deactivate
+
+      - name: Run hassfest validate
+        run: |
+          cd /github/workspace/hassfest || exit 1
+          python3 -m venv venv
+          . venv/bin/activate
+          find /github/workspace/hassfest -type f -name manifest.json -exec bash -c 'python3 -m script.hassfest --action validate --integration-path $(dirname -- {})' \;
+          deactivate

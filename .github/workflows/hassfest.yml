@@ -33,6 +33,6 @@ jobs:
           python3 -m venv venv
           . venv/bin/activate
           for manifestfile in $(find "$GITHUB_WORKSPACE" -type f -name manifest.json); do
-            python3 -m script.hassfest --action validate --integration-path "$manifestfile"
+            python3 -m script.hassfest --action validate --integration-path $(dirname -- "$manifestfile")
           done
           deactivate

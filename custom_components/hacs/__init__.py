@@ -6,7 +6,7 @@ https://hacs.xyz/
 """
 
 import voluptuous as vol
-from aiogithubapi import AIOGitHub
+from aiogithubapi import AIOGitHub, AIOGitHubException
 from homeassistant import config_entries
 from homeassistant.const import EVENT_HOMEASSISTANT_START
 from homeassistant.const import __version__ as HAVERSION
@@ -81,7 +81,10 @@ async def async_setup_entry(hass, config_entry):
     hacs.configuration.config_type = "flow"
     hacs.configuration.config_entry = config_entry
     config_entry.add_update_listener(reload_hacs)
-    startup_result = await hacs_startup()
+    try:
+        startup_result = await hacs_startup()
+    except AIOGitHubException:
+        startup_result = False
     if not startup_result:
         hacs.system.disabled = True
         raise ConfigEntryNotReady
@@ -92,7 +95,10 @@ async def async_setup_entry(hass, config_entry):
 async def startup_wrapper_for_yaml():
     """Startup wrapper for yaml config."""
     hacs = get_hacs()
-    startup_result = await hacs_startup()
+    try:
+        startup_result = await hacs_startup()
+    except AIOGitHubException:
+        startup_result = False
     if not startup_result:
         hacs.system.disabled = True
         hacs.hass.components.frontend.async_remove_panel(

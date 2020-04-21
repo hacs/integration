@@ -6,7 +6,7 @@ async def remaining(github):
     """Helper to calculate the remaining calls to github."""
     try:
         ratelimits = await github.get_ratelimit()
-    except Exception:  # pylint: disable=broad-except
+    except:  # pylint: disable=broad-except
         return 0
     if ratelimits.remaining:
         return int(ratelimits.remaining)

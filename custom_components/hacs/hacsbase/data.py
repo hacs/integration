@@ -5,7 +5,7 @@ from ..repositories.repository import HacsRepository
 from ..repositories.manifest import HacsManifest
 from ..store import async_save_to_store, async_load_from_store
 
-from custom_components.hacs.globals import get_hacs, removed_repositories, get_removed
+from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.helpers.register_repository import register_repository
 
 
@@ -33,10 +33,6 @@ class HacsData:
                 "compact": self.hacs.configuration.frontend_compact,
                 "onboarding_done": self.hacs.configuration.onboarding_done,
             },
-        )
-
-        await async_save_to_store(
-            self.hacs.hass, "removed", [x.__dict__ for x in removed_repositories]
         )
 
         # Repositories
@@ -77,7 +73,6 @@ class HacsData:
         """Restore saved data."""
         hacs = await async_load_from_store(self.hacs.hass, "hacs")
         repositories = await async_load_from_store(self.hacs.hass, "repositories")
-        removed = await async_load_from_store(self.hacs.hass, "removed")
         try:
             if not hacs and not repositories:
                 # Assume new install
@@ -89,10 +84,6 @@ class HacsData:
             self.hacs.configuration.frontend_mode = hacs.get("view", "Grid")
             self.hacs.configuration.frontend_compact = hacs.get("compact", False)
             self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
-
-            for entry in removed:
-                removed_repo = get_removed(entry["repository"])
-                removed_repo.update_data(entry)
 
             # Repositories
             for entry in repositories:

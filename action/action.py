@@ -35,7 +35,7 @@ CATEGORIES = [
     "theme"
 ]
 
-def event_data():
+def get_event_data():
     with open(os.getenv("GITHUB_EVENT_PATH"), "r") as ev:
         return json.loads(ev.read())
 
@@ -69,7 +69,7 @@ async def preflight():
         print(f"Actor: {GITHUB_ACTOR}")
     else:
         category = os.getenv("INPUT_CATEGORY")
-        event_data = event_data()
+        event_data = get_event_data()
         if event_data.get("pull_request") is None:
             repository = os.getenv("GITHUB_REPOSITORY")
         else:

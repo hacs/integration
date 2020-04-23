@@ -63,6 +63,7 @@ def chose_category():
 
 async def preflight():
     """Preflight cheks."""
+    ref = None
     if os.getenv("GITHUB_REPOSITORY") == "hacs/default":
         categoty = chose_category()
         repository = chose_repository(category)
@@ -75,6 +76,7 @@ async def preflight():
             repository = os.getenv("GITHUB_REPOSITORY")
         else:
             head = event_data["pull_request"]["head"]
+            ref = head["ref"]
             repository = head["repo"]["full_name"]
         print(os.getenv("GITHUB_HEAD_REF"))
         print(os.getenv("GITHUB_BASE_REF"))
@@ -104,10 +106,10 @@ async def preflight():
             print("Repository does not have issues enabled")
             exit(1)
 
-    await validate_repository(repository, category)
+    await validate_repository(repository, category, ref)
 
 
-async def validate_repository(repository, category):
+async def validate_repository(repository, category, ref=None):
     """Validate."""
     async with aiohttp.ClientSession() as session:
         hacs = get_hacs()
@@ -115,7 +117,7 @@ async def validate_repository(repository, category):
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
         hacs.github = AIOGitHub(hacs.configuration.token, hacs.session)
-        await register_repository(repository, category)
+        await register_repository(repository, category, ref=ref)
         print("All good!")
 
 

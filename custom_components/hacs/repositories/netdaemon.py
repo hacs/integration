@@ -58,8 +58,11 @@ class HacsNetdaemon(HacsRepository):
                     self.logger.error(error)
         return self.validate.success
 
-    async def registration(self):
+    async def registration(self, ref=None):
         """Registration."""
+        if ref is not None:
+            self.ref = ref
+            self.force_branch = True
         if not await self.validate_repository():
             return False
 

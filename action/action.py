@@ -8,6 +8,7 @@ import json
 from aiogithubapi import AIOGitHub, AIOGitHubException
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from custom_components.hacs.globals import get_hacs
+from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.helpers.register_repository import register_repository
 
@@ -115,7 +116,10 @@ async def validate_repository(repository, category, ref=None):
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
         hacs.github = AIOGitHub(hacs.configuration.token, hacs.session)
-        await register_repository(repository, category, ref=ref)
+        try:
+            await register_repository(repository, category, ref=ref)
+        except HacsException:
+            exit(1)
         print("All good!")
 
 

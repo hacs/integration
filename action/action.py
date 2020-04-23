@@ -71,6 +71,7 @@ async def preflight():
     print(os.getenv("GITHUB_EVENT_NAME"))
     print(os.getenv("GITHUB_HEAD_REF"))
     print(os.getenv("GITHUB_BASE_REF"))
+    print(event())
     print(f"Category: {category}")
     print(f"Repository: {repository}")
     print(f"Actor: {GITHUB_ACTOR}")

@@ -70,7 +70,8 @@ async def preflight():
     else:
         category = os.getenv("INPUT_CATEGORY")
         event_data = get_event_data()
-        if event_data.get("pull_request") is None:
+        pr = True if event_data.get("pull_request") is not None else False
+        if not pr:
             repository = os.getenv("GITHUB_REPOSITORY")
         else:
             head = event_data["pull_request"]["head"]
@@ -96,10 +97,10 @@ async def preflight():
     async with aiohttp.ClientSession() as session:
         github = AIOGitHub(TOKEN, session)
         repo = await github.get_repo(repository)
-        if repo.description is None:
+        if not pr and repo.description is None:
             print("Repository is missing description")
             exit(1)
-        if not repo.attributes["has_issues"]:
+        if not pr and not repo.attributes["has_issues"]:
             print("Repository does not have issues enabled")
             exit(1)
 

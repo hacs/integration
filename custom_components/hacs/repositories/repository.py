@@ -109,6 +109,7 @@ class HacsRepository:
         self.repository_object = None
         self.status = RepositoryStatus()
         self.state = None
+        self.force_branch = False
         self.integration_manifest = {}
         self.repository_manifest = HacsManifest.from_dict({})
         self.validate = Validate()

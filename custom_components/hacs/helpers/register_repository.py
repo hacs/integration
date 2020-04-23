@@ -9,7 +9,7 @@ from queueman import concurrent
 
 
 # @concurrent(15, 5)
-async def register_repository(full_name, category, check=True):
+async def register_repository(full_name, category, check=True, ref=None):
     """Register a repository."""
     hacs = get_hacs()
     from custom_components.hacs.repositories import (
@@ -26,7 +26,7 @@ async def register_repository(full_name, category, check=True):
     repository = RERPOSITORY_CLASSES[category](full_name)
     if check:
         try:
-            await repository.registration()
+            await repository.registration(ref)
             if hacs.system.status.new:
                 repository.status.new = False
             if repository.validate.errors:
@@ -34,7 +34,10 @@ async def register_repository(full_name, category, check=True):
                 if not hacs.system.status.startup:
                     hacs.logger.error(f"Validation for {full_name} failed.")
                 return repository.validate.errors
-            repository.logger.info("Registration complete")
+            if ref is None:
+                repository.logger.info("Validation complete")
+            else:
+                repository.logger.info("Registration complete")
         except AIOGitHubException as exception:
             hacs.common.skip.append(repository.data.full_name)
             raise HacsException(f"Validation for {full_name} failed with {exception}.")

@@ -65,7 +65,8 @@ async def common_update_data(repository):
     except (AIOGitHubException, HacsException):
         repository.releases.releases = False
 
-    repository.ref = version_to_install(repository)
+    if not repository.force_branch:
+        repository.ref = version_to_install(repository)
     if repository.releases.releases:
         for release in releases:
             if release.tag_name == repository.ref:

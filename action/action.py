@@ -35,9 +35,11 @@ CATEGORIES = [
     "theme"
 ]
 
+def get_event_data():
+    with open(os.getenv("GITHUB_EVENT_PATH"), "r") as ev:
+        return json.loads(ev.read())
+
 def chose_repository(category):
-    if os.getenv("GITHUB_REPOSITORY") != "hacs/default":
-        return os.getenv("GITHUB_REPOSITORY")
     if category is None:
         return
     with open(f"/default/{category}", "r") as cat_file:
@@ -61,12 +63,24 @@ def chose_category():
 
 async def preflight():
     """Preflight cheks."""
-    category = os.getenv("INPUT_CATEGORY") or chose_category()
-    repository = chose_repository(category)
+    ref = None
+    if os.getenv("GITHUB_REPOSITORY") == "hacs/default":
+        categoty = chose_category()
+        repository = chose_repository(category)
+        print(f"Actor: {GITHUB_ACTOR}")
+    else:
+        category = os.getenv("INPUT_CATEGORY")
+        event_data = get_event_data()
+        pr = True if event_data.get("pull_request") is not None else False
+        if not pr:
+            repository = os.getenv("GITHUB_REPOSITORY")
+        else:
+            head = event_data["pull_request"]["head"]
+            ref = head["ref"]
+            repository = head["repo"]["full_name"]
 
     print(f"Category: {category}")
     print(f"Repository: {repository}")
-    print(f"Actor: {GITHUB_ACTOR}")
 
     if TOKEN is None:
         print("No GitHub token found, use env GITHUB_TOKEN to set this.")
@@ -83,17 +97,17 @@ async def preflight():
     async with aiohttp.ClientSession() as session:
         github = AIOGitHub(TOKEN, session)
         repo = await github.get_repo(repository)
-        if repo.description is None:
+        if not pr and repo.description is None:
             print("Repository is missing description")
             exit(1)
-        if not repo.attributes["has_issues"]:
+        if not pr and not repo.attributes["has_issues"]:
             print("Repository does not have issues enabled")
             exit(1)
 
-    await validate_repository(repository, category)
+    await validate_repository(repository, category, ref)
 
 
-async def validate_repository(repository, category):
+async def validate_repository(repository, category, ref=None):
     """Validate."""
     async with aiohttp.ClientSession() as session:
         hacs = get_hacs()
@@ -101,7 +115,7 @@ async def validate_repository(repository, category):
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
         hacs.github = AIOGitHub(hacs.configuration.token, hacs.session)
-        await register_repository(repository, category)
+        await register_repository(repository, category, ref=ref)
         print("All good!")
 
 

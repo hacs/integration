@@ -27,6 +27,8 @@ GITHUB_WORKSPACE = os.getenv("GITHUB_WORKSPACE")
 GITHUB_ACTOR = os.getenv("GITHUB_ACTOR")
 
 def chose_repository(category):
+    if os.getenv("GITHUB_REPOSITORY") != "default":
+        return os.getenv("GITHUB_REPOSITORY")
     if category is None:
         return
     with open(f"/default/{category}", "r") as cat_file:
@@ -51,7 +53,7 @@ def chose_category():
 async def preflight():
     """Preflight cheks."""
     category = os.getenv("INPUT_CATEGORY") or chose_category()
-    repository = os.getenv("INPUT_REPOSITORY") or chose_repository(category)
+    repository = chose_repository(category)
 
     print(f"Category: {category}")
     print(f"Repository: {repository}")

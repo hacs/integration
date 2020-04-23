@@ -22,7 +22,7 @@ HANDLER.setFormatter(FORMATTER)
 
 LOGGER.addHandler(HANDLER)
 
-TOKEN = os.getenv("GITHUB_TOKEN")
+TOKEN = os.getenv("ACTIONS_RUNTIME_TOKEN")
 GITHUB_WORKSPACE = os.getenv("GITHUB_WORKSPACE")
 
 def chose_repository(category):
@@ -48,8 +48,8 @@ def chose_category():
 
 async def preflight():
     """Preflight cheks."""
-    category = os.getenv("HACS_CATEGORY") or chose_category()
-    repository = os.getenv("HACS_REPOSITORY") or chose_repository(category)
+    category = os.getenv("INPUT_CATEGORY") or chose_category()
+    repository = os.getenv("INPUT_REPOSITORY") or chose_repository(category)
 
     print(f"Category: {category}")
     print(f"Repository: {repository}")
@@ -59,11 +59,11 @@ async def preflight():
         exit(1)
 
     if repository is None:
-        print("No repository found, use env HACS_REPOSITORY to set this.")
+        print("No repository found, use env REPOSITORY to set this.")
         exit(1)
 
     if category is None:
-        print("No category found, use env HACS_CATEGORY to set this.")
+        print("No category found, use env CATEGORY to set this.")
         exit(1)
 
     async with aiohttp.ClientSession() as session:

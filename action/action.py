@@ -36,7 +36,7 @@ CATEGORIES = [
 ]
 
 def event():
-    with open(os.getenv("GITHUB_EVENT_PATH "), "r") as ev:
+    with open(os.getenv("GITHUB_EVENT_PATH"), "r") as ev:
         return json.loads(ev.read())
 
 def chose_repository(category):
@@ -67,8 +67,8 @@ async def preflight():
     """Preflight cheks."""
     category = os.getenv("INPUT_CATEGORY") or chose_category()
     repository = chose_repository(category)
-    print(os.getenv("GITHUB_REF"))
-    print(os.getenv("GITHUB_EVENT_NAME"))
+    event = os.getenv("GITHUB_EVENT_NAME")
+
     print(os.getenv("GITHUB_HEAD_REF"))
     print(os.getenv("GITHUB_BASE_REF"))
     print(event())

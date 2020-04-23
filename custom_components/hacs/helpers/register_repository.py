@@ -9,9 +9,10 @@ from queueman import concurrent
 
 
 # @concurrent(15, 5)
-async def register_repository(full_name, category, check=True, ref=None):
+async def register_repository(full_name, category, check=True, ref=None, action=False):
     """Register a repository."""
     hacs = get_hacs()
+    hacs.action = action
     from custom_components.hacs.repositories import (
         RERPOSITORY_CLASSES,
     )  # To hanle import error

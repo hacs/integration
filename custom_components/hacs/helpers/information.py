@@ -88,7 +88,7 @@ async def get_integration_manifest(repository):
         repository.content.path.local = repository.localpath
 
     except KeyError as exception:
-        raise HacsException(f"Missing expected key {exception} in 'manifest.json'")
+        raise HacsException(f"Missing expected key {exception} in '{manifest_path}'")
 
 
 def find_file_name(repository):

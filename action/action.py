@@ -37,6 +37,8 @@ CATEGORIES = [
 ]
 
 def get_event_data():
+    if os.getenv("GITHUB_EVENT_PATH") is None:
+        return {}
     with open(os.getenv("GITHUB_EVENT_PATH"), "r") as ev:
         return json.loads(ev.read())
 
@@ -52,8 +54,7 @@ def chose_repository(category):
         new.remove(repo)
     
     if len(new) != 1:
-        print(f"{new} is not a single repo")
-        exit(1)
+        exit(f"{new} is not a single repo")
 
     return new[0]
 
@@ -64,7 +65,7 @@ def chose_category():
 
 async def preflight():
     """Preflight cheks."""
-    ref = os.getenv("GITHUB_HEAD_REF") 
+    ref = os.getenv("GITHUB_HEAD_REF", "new") 
     if os.getenv("GITHUB_REPOSITORY") == "hacs/default":
         categoty = chose_category()
         repository = chose_repository(category)
@@ -75,7 +76,7 @@ async def preflight():
         event_data = get_event_data()
         pr = True if event_data.get("pull_request") is not None else False
         if not pr:
-            repository = os.getenv("GITHUB_REPOSITORY")
+            repository = os.getenv("INPUT_REPOSITORY")
         else:
             head = event_data["pull_request"]["head"]
             ref = head["ref"]
@@ -85,26 +86,21 @@ async def preflight():
     print(f"Repository: {repository}")
 
     if TOKEN is None:
-        print("No GitHub token found, use env GITHUB_TOKEN to set this.")
-        exit(1)
+        exit("No GitHub token found, use env GITHUB_TOKEN to set this.")
 
     if repository is None:
-        print("No repository found, use env REPOSITORY to set this.")
-        exit(1)
+        exit("No repository found, use env REPOSITORY to set this.")
 
     if category is None:
-        print("No category found, use env CATEGORY to set this.")
-        exit(1)
+        exit("No category found, use env CATEGORY to set this.")
 
     async with aiohttp.ClientSession() as session:
         github = AIOGitHub(TOKEN, session)
         repo = await github.get_repo(repository)
         if not pr and repo.description is None:
-            print("Repository is missing description")
-            exit(1)
-        if not pr and not repo.attributes["has_issues"]:
-            print("Repository does not have issues enabled")
-            exit(1)
+            exit("Repository is missing description")
+        #if not pr and not repo.attributes["has_issues"]:
+            #exit("Repository does not have issues enabled")
 
     await validate_repository(repository, category, ref)
 
@@ -119,8 +115,8 @@ async def validate_repository(repository, category, ref=None):
         hacs.github = AIOGitHub(hacs.configuration.token, hacs.session)
         try:
             await register_repository(repository, category, ref=ref, action=True)
-        except HacsException:
-            exit(1)
+        except HacsException as exception:
+            exit(exception)
         print("All good!")
 
 

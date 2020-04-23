@@ -27,7 +27,7 @@ GITHUB_WORKSPACE = os.getenv("GITHUB_WORKSPACE")
 GITHUB_ACTOR = os.getenv("GITHUB_ACTOR")
 
 def chose_repository(category):
-    if os.getenv("GITHUB_REPOSITORY") != "default":
+    if os.getenv("GITHUB_REPOSITORY") != "hacs/default":
         return os.getenv("GITHUB_REPOSITORY")
     if category is None:
         return

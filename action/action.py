@@ -76,7 +76,7 @@ async def preflight():
         event_data = get_event_data()
         pr = True if event_data.get("pull_request") is not None else False
         if not pr:
-            repository = os.getenv("INPUT_REPOSITORY")
+            repository = os.getenv("GITHUB_REPOSITORY")
         else:
             head = event_data["pull_request"]["head"]
             ref = head["ref"]

@@ -39,13 +39,14 @@ async def register_repository(full_name, category, check=True):
             hacs.common.skip.append(repository.data.full_name)
             raise HacsException(f"Validation for {full_name} failed with {exception}.")
 
-    hacs.hass.bus.async_fire(
-        "hacs/repository",
-        {
-            "id": 1337,
-            "action": "registration",
-            "repository": repository.data.full_name,
-            "repository_id": repository.information.uid,
-        },
-    )
+    if hacs.hass is not None:
+        hacs.hass.bus.async_fire(
+            "hacs/repository",
+            {
+                "id": 1337,
+                "action": "registration",
+                "repository": repository.data.full_name,
+                "repository_id": repository.information.uid,
+            },
+        )
     hacs.repositories.append(repository)

@@ -35,6 +35,10 @@ CATEGORIES = [
     "theme"
 ]
 
+def event():
+    with open(os.getenv("GITHUB_EVENT_PATH "), "r") ev:
+        return json.loads(ev.read())
+
 def chose_repository(category):
     if os.getenv("GITHUB_REPOSITORY") != "hacs/default":
         return os.getenv("GITHUB_REPOSITORY")
@@ -63,7 +67,10 @@ async def preflight():
     """Preflight cheks."""
     category = os.getenv("INPUT_CATEGORY") or chose_category()
     repository = chose_repository(category)
-
+    print(os.getenv("GITHUB_REF"))
+    print(os.getenv("GITHUB_EVENT_NAME"))
+    print(os.getenv("GITHUB_HEAD_REF"))
+    print(os.getenv("GITHUB_BASE_REF"))
     print(f"Category: {category}")
     print(f"Repository: {repository}")
     print(f"Actor: {GITHUB_ACTOR}")

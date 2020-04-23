@@ -26,6 +26,15 @@ TOKEN = os.getenv("INPUT_GITHUB_TOKEN")
 GITHUB_WORKSPACE = os.getenv("GITHUB_WORKSPACE")
 GITHUB_ACTOR = os.getenv("GITHUB_ACTOR")
 
+CATEGORIES = [
+    "appdaemon",
+    "integration",
+    "netdaemon",
+    "plugin",
+    "python_script",
+    "theme"
+]
+
 def chose_repository(category):
     if os.getenv("GITHUB_REPOSITORY") != "hacs/default":
         return os.getenv("GITHUB_REPOSITORY")
@@ -47,7 +56,7 @@ def chose_repository(category):
 
 def chose_category():
     for name in os.getenv("CHANGED_FILES", "").split(" "):
-        if name in ["plugin", "integration"]:
+        if name in CATEGORIES:
             return name
 
 async def preflight():

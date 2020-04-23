@@ -40,8 +40,6 @@ def event_data():
         return json.loads(ev.read())
 
 def chose_repository(category):
-    if os.getenv("GITHUB_REPOSITORY") != "hacs/default":
-        return os.getenv("GITHUB_REPOSITORY")
     if category is None:
         return
     with open(f"/default/{category}", "r") as cat_file:
@@ -65,16 +63,23 @@ def chose_category():
 
 async def preflight():
     """Preflight cheks."""
-    category = os.getenv("INPUT_CATEGORY") or chose_category()
-    repository = chose_repository(category)
-    event = os.getenv("GITHUB_EVENT_NAME")
-
-    print(os.getenv("GITHUB_HEAD_REF"))
-    print(os.getenv("GITHUB_BASE_REF"))
-    print(event_data())
-    print(f"Category: {category}")
-    print(f"Repository: {repository}")
-    print(f"Actor: {GITHUB_ACTOR}")
+    if os.getenv("GITHUB_REPOSITORY") == "hacs/default":
+        categoty = chose_category()
+        repository = chose_repository(category)
+        print(f"Actor: {GITHUB_ACTOR}")
+    else:
+        category = os.getenv("INPUT_CATEGORY")
+        event_data = event_data()
+        if event_data.get("pull_request") is None:
+            repository = os.getenv("GITHUB_REPOSITORY")
+        else:
+            head = event_data["pull_request"]["head"]
+            repository = head["repo"]["full_name"]
+        print(os.getenv("GITHUB_HEAD_REF"))
+        print(os.getenv("GITHUB_BASE_REF"))
+        print(event_data())
+        print(f"Category: {category}")
+        print(f"Repository: {repository}")
 
     if TOKEN is None:
         print("No GitHub token found, use env GITHUB_TOKEN to set this.")

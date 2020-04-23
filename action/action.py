@@ -22,8 +22,9 @@ HANDLER.setFormatter(FORMATTER)
 
 LOGGER.addHandler(HANDLER)
 
-TOKEN = os.getenv("ACTIONS_RUNTIME_TOKEN")
+TOKEN = os.getenv("INPUT_GITHUB_TOKEN")
 GITHUB_WORKSPACE = os.getenv("GITHUB_WORKSPACE")
+GITHUB_ACTOR = os.getenv("GITHUB_ACTOR")
 
 def chose_repository(category):
     if category is None:
@@ -38,6 +39,7 @@ def chose_repository(category):
     
     if len(new) != 1:
         print(f"{new} is not a single repo")
+        exit(1)
 
     return new[0]
 
@@ -53,6 +55,7 @@ async def preflight():
 
     print(f"Category: {category}")
     print(f"Repository: {repository}")
+    print(f"Actor: {GITHUB_ACTOR}")
 
     if TOKEN is None:
         print("No GitHub token found, use env GITHUB_TOKEN to set this.")

@@ -36,7 +36,7 @@ CATEGORIES = [
 ]
 
 def event():
-    with open(os.getenv("GITHUB_EVENT_PATH "), "r") ev:
+    with open(os.getenv("GITHUB_EVENT_PATH "), "r") as ev:
         return json.loads(ev.read())
 
 def chose_repository(category):

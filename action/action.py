@@ -35,7 +35,7 @@ CATEGORIES = [
     "theme"
 ]
 
-def event():
+def event_data():
     with open(os.getenv("GITHUB_EVENT_PATH"), "r") as ev:
         return json.loads(ev.read())
 
@@ -71,7 +71,7 @@ async def preflight():
 
     print(os.getenv("GITHUB_HEAD_REF"))
     print(os.getenv("GITHUB_BASE_REF"))
-    print(event())
+    print(event_data())
     print(f"Category: {category}")
     print(f"Repository: {repository}")
     print(f"Actor: {GITHUB_ACTOR}")

@@ -65,7 +65,7 @@ def chose_category():
 
 async def preflight():
     """Preflight cheks."""
-    ref = os.getenv("GITHUB_HEAD_REF", "new") 
+    ref = None
     if os.getenv("GITHUB_REPOSITORY") == "hacs/default":
         categoty = chose_category()
         repository = chose_repository(category)

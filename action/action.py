@@ -112,6 +112,7 @@ async def validate_repository(repository, category, ref=None):
     """Validate."""
     async with aiohttp.ClientSession() as session:
         hacs = get_hacs()
+        hacs.action = True
         hacs.session = session
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN

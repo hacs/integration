@@ -85,6 +85,7 @@ class Hacs:
     """The base class of HACS, nested thoughout the project."""
 
     token = f"{str(uuid.uuid4())}-{str(uuid.uuid4())}"
+    action = False
     hacsweb = f"/hacsweb/{token}"
     hacsapi = f"/hacsapi/{token}"
     repositories = []

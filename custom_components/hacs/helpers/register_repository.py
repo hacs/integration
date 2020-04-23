@@ -34,7 +34,7 @@ async def register_repository(full_name, category, check=True, ref=None):
                 if not hacs.system.status.startup:
                     hacs.logger.error(f"Validation for {full_name} failed.")
                 return repository.validate.errors
-            if ref is None:
+            if ref is not None:
                 repository.logger.info("Validation complete")
             else:
                 repository.logger.info("Registration complete")

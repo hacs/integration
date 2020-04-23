@@ -84,6 +84,8 @@ class HacsIntegration(HacsRepository):
         try:
             await get_integration_manifest(self)
         except HacsException as exception:
+            if self.hacs.action:
+                raise HacsException(exception)
             self.logger.error(exception)
 
         # Set local path

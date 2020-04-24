@@ -67,7 +67,7 @@ async def preflight():
     """Preflight cheks."""
     ref = None
     if os.getenv("GITHUB_REPOSITORY") == "hacs/default":
-        categoty = chose_category()
+        category = chose_category()
         repository = chose_repository(category)
         ref = None
         print(f"Actor: {GITHUB_ACTOR}")

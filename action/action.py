@@ -65,7 +65,7 @@ def chose_category():
 
 async def preflight():
     """Preflight cheks."""
-    ref = None
+    event_data = get_event_data()
     if os.getenv("GITHUB_REPOSITORY") == "hacs/default":
         category = chose_category()
         repository = chose_repository(category)
@@ -74,10 +74,10 @@ async def preflight():
         print(f"Actor: {GITHUB_ACTOR}")
     else:
         category = os.getenv("INPUT_CATEGORY").lower()
-        event_data = get_event_data()
         pr = True if event_data.get("pull_request") is not None else False
         if not pr:
             repository = os.getenv("GITHUB_REPOSITORY")
+            ref = None
         else:
             head = event_data["pull_request"]["head"]
             ref = head["ref"]

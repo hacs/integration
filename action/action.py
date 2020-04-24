@@ -70,9 +70,10 @@ async def preflight():
         category = chose_category()
         repository = chose_repository(category)
         ref = None
+        pr = False
         print(f"Actor: {GITHUB_ACTOR}")
     else:
-        category = os.getenv("INPUT_CATEGORY")
+        category = os.getenv("INPUT_CATEGORY").lower()
         event_data = get_event_data()
         pr = True if event_data.get("pull_request") is not None else False
         if not pr:

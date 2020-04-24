@@ -66,10 +66,10 @@ def chose_category():
 async def preflight():
     """Preflight cheks."""
     event_data = get_event_data()
+    ref = None
     if os.getenv("GITHUB_REPOSITORY") == "hacs/default":
         category = chose_category()
         repository = chose_repository(category)
-        ref = None
         pr = False
         print(f"Actor: {GITHUB_ACTOR}")
     else:
@@ -81,7 +81,6 @@ async def preflight():
             repository = head["repo"]["full_name"]
         else:
             repository = os.getenv("GITHUB_REPOSITORY")
-            ref = None
 
     print(f"Category: {category}")
     print(f"Repository: {repository}")
@@ -100,8 +99,10 @@ async def preflight():
         repo = await github.get_repo(repository)
         if not pr and repo.description is None:
             exit("Repository is missing description")
-        #if not pr and not repo.attributes["has_issues"]:
-            #exit("Repository does not have issues enabled")
+        if not pr and not repo.attributes["has_issues"]:
+            exit("Repository does not have issues enabled")
+        if ref is None and os.getenv("GITHUB_REPOSITORY") != "hacs/default":
+            ref = repo.default_branch
 
     await validate_repository(repository, category, ref)
 

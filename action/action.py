@@ -75,13 +75,13 @@ async def preflight():
     else:
         category = os.getenv("INPUT_CATEGORY").lower()
         pr = True if event_data.get("pull_request") is not None else False
-        if not pr:
-            repository = os.getenv("GITHUB_REPOSITORY")
-            ref = None
-        else:
+        if pr:
             head = event_data["pull_request"]["head"]
             ref = head["ref"]
             repository = head["repo"]["full_name"]
+        else:
+            repository = os.getenv("GITHUB_REPOSITORY")
+            ref = os.getenv("GITHUB_HEAD_REF")
 
     print(f"Category: {category}")
     print(f"Repository: {repository}")

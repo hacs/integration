@@ -81,7 +81,7 @@ async def preflight():
             repository = head["repo"]["full_name"]
         else:
             repository = os.getenv("GITHUB_REPOSITORY")
-            ref = os.getenv("GITHUB_HEAD_REF")
+            ref = None
 
     print(f"Category: {category}")
     print(f"Repository: {repository}")

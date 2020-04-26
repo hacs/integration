@@ -30,7 +30,9 @@ async def get_info_md_content(repository):
         info = info.content.replace("<svg", "<disabled").replace("</svg", "</disabled")
         return render_template(info, repository)
     except (AIOGitHubException, Exception):  # pylint: disable=broad-except
-        return ""
+        if repository.hacs.action:
+            raise HacsException("No info file found")
+    return ""
 
 
 async def get_repository(session, token, repository_full_name):
@@ -83,6 +85,14 @@ async def get_integration_manifest(repository):
         repository.data.domain = manifest["domain"]
         repository.data.manifest_name = manifest["name"]
         repository.data.homeassistant = manifest.get("homeassistant")
+
+        if repository.hacs.action:
+            if manifest.get("documentation") is None:
+                raise HacsException("manifest.json is missing documentation")
+            if manifest.get("homeassistant") is not None:
+                raise HacsException(
+                    "The homeassistant key in manifest.json is no longer valid"
+                )
 
         # Set local path
         repository.content.path.local = repository.localpath

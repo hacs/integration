@@ -12,6 +12,7 @@ from ..handler.download import async_download_file, async_save_file
 from ..helpers.misc import version_left_higher_then_right
 from ..helpers.install import install_repository, version_to_install
 
+from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.helpers.information import (
     get_info_md_content,
@@ -273,6 +274,10 @@ class HacsRepository:
         # Set description
         self.data.description = self.data.description
 
+        if self.hacs.action:
+            if self.data.description is None or len(self.data.description) == 0:
+                raise HacsException("Missing repository description")
+
     async def common_update(self):
         """Common information update steps of the repository."""
         self.logger.debug("Getting repository information")
@@ -346,7 +351,12 @@ class HacsRepository:
     async def get_repository_manifest_content(self):
         """Get the content of the hacs.json file."""
         if not "hacs.json" in [x.filename for x in self.tree]:
+            if self.hacs.action:
+                raise HacsException("No hacs.json file in the root of the repository.")
             return
+        if self.hacs.action:
+            self.logger.debug("Found hacs.json")
+
         if self.ref is None:
             self.ref = version_to_install(self)
         try:
@@ -355,8 +365,11 @@ class HacsRepository:
                 json.loads(manifest.content)
             )
             self.data.update_data(json.loads(manifest.content))
-        except (AIOGitHubException, Exception):  # Gotta Catch 'Em All
-            pass
+        except (AIOGitHubException, Exception) as exception:  # Gotta Catch 'Em All
+            if self.hacs.action:
+                raise HacsException(f"hacs.json file is not valid ({exception}).")
+        if self.hacs.action:
+            self.logger.debug("hacs.json is valid")
 
     def remove(self):
         """Run remove tasks."""

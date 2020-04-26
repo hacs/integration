@@ -124,6 +124,8 @@ class HacsRepository:
     @property
     def pending_upgrade(self):
         """Return pending upgrade."""
+        if not self.can_install:
+            return False
         if self.status.installed:
             if self.status.selected_tag is not None:
                 if self.status.selected_tag == self.data.default_branch:

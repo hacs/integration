@@ -89,6 +89,10 @@ async def get_integration_manifest(repository):
         if repository.hacs.action:
             if manifest.get("documentation") is None:
                 raise HacsException("manifest.json is missing documentation")
+            if manifest.get("homeassistant") is not None:
+                raise HacsException(
+                    "The homeassistant key in manifest.json is no longer valid"
+                )
 
         # Set local path
         repository.content.path.local = repository.localpath

@@ -386,7 +386,8 @@ class HacsRepository:
     async def uninstall(self):
         """Run uninstall tasks."""
         self.logger.info("Uninstalling")
-        await self.remove_local_directory()
+        if not await self.remove_local_directory():
+            raise HacsException("Could not uninstall")
         self.status.installed = False
         if self.data.category == "integration":
             if self.config_flow:
@@ -425,7 +426,11 @@ class HacsRepository:
                         f"{self.hacs.system.config_path}/{self.hacs.configuration.theme_path}/{self.data.name}.yaml"
                     )
                 local_path = self.content.path.local
-
+            elif self.data.category == "integration":
+                if not self.data.domain:
+                    self.logger.error("Missing domain")
+                    return False
+                local_path = self.content.path.local
             else:
                 local_path = self.content.path.local
 
@@ -442,4 +447,5 @@ class HacsRepository:
 
         except Exception as exception:
             self.logger.debug(f"Removing {local_path} failed with {exception}")
-            return
+            return False
+        return True

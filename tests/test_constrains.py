@@ -17,7 +17,7 @@ HAVERSION = "9.99.9"
 
 def temp_cleanup(tmpdir):
     manifest = f"{tmpdir.dirname}/custom_components/hacs/manifest.json"
-    translations_dir = f"{tmpdir.dirname}/custom_components/hacs/.translations"
+    translations_dir = f"{tmpdir.dirname}/custom_components/hacs/translations"
     custom_updater1 = f"{tmpdir.dirname}/custom_components/custom_updater/__init__.py"
     custom_updater2 = f"{tmpdir.dirname}/custom_components/custom_updater.py"
 
@@ -38,7 +38,7 @@ def test_check_constans(tmpdir):
 
     assert not check_constans()
 
-    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/.translations"
+    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/translations"
     os.makedirs(translations_dir, exist_ok=True)
 
     custom_updater_dir = f"{hacs.system.config_path}/custom_components/custom_updater"
@@ -49,7 +49,7 @@ def test_check_constans(tmpdir):
     assert not check_constans()
     temp_cleanup(tmpdir)
 
-    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/.translations"
+    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/translations"
     os.makedirs(translations_dir, exist_ok=True)
 
     hacs.system.ha_version = "0.97.0"
@@ -57,7 +57,7 @@ def test_check_constans(tmpdir):
 
     hacs.system.ha_version = HAVERSION
 
-    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/.translations"
+    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/translations"
     os.makedirs(translations_dir, exist_ok=True)
 
     assert constrain_version()
@@ -71,7 +71,7 @@ def test_ha_version(tmpdir):
     hacs = get_hacs()
     hacs.system.config_path = tmpdir.dirname
 
-    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/.translations"
+    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/translations"
     os.makedirs(translations_dir, exist_ok=True)
 
     hacs.system.ha_version = HAVERSION
@@ -90,7 +90,7 @@ def test_custom_updater(tmpdir):
     hacs = get_hacs()
     hacs.system.config_path = tmpdir.dirname
 
-    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/.translations"
+    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/translations"
     os.makedirs(translations_dir, exist_ok=True)
 
     assert constrain_custom_updater()
@@ -116,7 +116,7 @@ def test_translations(tmpdir):
 
     assert not constrain_translations()
 
-    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/.translations"
+    translations_dir = f"{hacs.system.config_path}/custom_components/hacs/translations"
     os.makedirs(translations_dir, exist_ok=True)
     assert constrain_translations()
 
@@ -125,4 +125,3 @@ def test_translations(tmpdir):
 
 def test_requirements():
     assert check_requirements()
-

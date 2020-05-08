@@ -10,7 +10,6 @@ async def run_action_checks(repository):
     """Checks to run as an action."""
     brands = await repository.hacs.github.get_repo("home-assistant/brands")
     brandstree = await get_tree(brands, "master")
-    repository.logger.info(repository.integration_manifest.get("requirements"))
     if repository.integration_manifest["domain"] not in [
         x.filename for x in brandstree
     ]:
@@ -25,7 +24,6 @@ async def run_action_checks(repository):
             "home-assistant/wheels-custom-integrations"
         )
         wheeltree = await get_tree(wheels, "master")
-        repository.logger.info([x.filename for x in brandstree])
         if f"{repository.integration_manifest['domain']}.jsons" not in [
             x.filename for x in wheeltree
         ]:

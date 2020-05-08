@@ -2,7 +2,7 @@ const hacsIconPath = "m 20.064849,22.306912 c -0.0319,0.369835 -0.280561,0.70778
 const iconSets = window.customIconsets;
 
 if (iconSets !== undefined) {
-	iconSets.set("hacs", async () => { return { hacs: {path: hacsIconPath } } })
+	iconSets["hacs"] = async () => { return { hacs: hacsIconPath } }
 } else {
 	const iconset = document.createElement("ha-iconset-svg");
 	iconset.name = "hacs";

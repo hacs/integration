@@ -9,8 +9,8 @@ async def run_action_checks(repository):
     """Checks to run as an action."""
     brands = await repository.hacs.github.get_repo("home-assistant/brands")
     if (
-        repository.integration_manifest.get("dependencies") is not None
-        and len(repository.integration_manifest.get("dependencies")) != 0
+        repository.integration_manifest.get("requirements") is not None
+        and len(repository.integration_manifest.get("requirements")) != 0
     ):
         wheels = await repository.hacs.github.get_repo(
             "home-assistant/wheels-custom-integrations"

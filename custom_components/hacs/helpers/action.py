@@ -11,6 +11,7 @@ async def run_action_checks(repository):
     brands = await repository.hacs.github.get_repo("home-assistant/brands")
     brandstree = await get_tree(brands, "master")
     repository.logger.info([x.filename for x in brandstree])
+    repository.logger.info(repository.integration_manifest)
     if (
         f"custom_integrations/{repository.integration_manifest['domain']}/icon.png"
         not in [x.filename for x in brandstree]

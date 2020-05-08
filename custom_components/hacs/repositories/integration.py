@@ -6,6 +6,7 @@ from homeassistant.loader import async_get_custom_components
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.helpers.filters import get_first_directory_in_directory
 from custom_components.hacs.helpers.information import get_integration_manifest
+from custom_components.hacs.helpers.action import run_action_checks
 from custom_components.hacs.repositories.repository import HacsRepository
 
 
@@ -48,6 +49,9 @@ class HacsIntegration(HacsRepository):
             if self.hacs.action:
                 raise HacsException(exception)
             self.logger.error(exception)
+
+        if self.hacs.action:
+            await run_action_checks(self)
 
         # Handle potential errors
         if self.validate.errors:

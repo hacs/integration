@@ -20,5 +20,4 @@ async def run_action_checks(repository):
             x.filename for x in wheeltree
         ]:
             raise HacsException(f"Integration not added to {WHEEL_REPO}")
-        else:
-            repository.logger.info(f"Integration is added to {WHEEL_REPO}, nice!")
+        repository.logger.info(f"Integration is added to {WHEEL_REPO}, nice!")

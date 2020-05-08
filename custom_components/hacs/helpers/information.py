@@ -93,7 +93,7 @@ async def get_integration_manifest(repository):
                 raise HacsException(
                     "The homeassistant key in manifest.json is no longer valid"
                 )
-            if manifest.get("issue_tracker") is not None:
+            if manifest.get("issue_tracker") is None:
                 raise HacsException("The 'issue_tracker' is missing in manifest.json")
 
         # Set local path

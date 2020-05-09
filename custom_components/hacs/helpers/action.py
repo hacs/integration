@@ -26,8 +26,11 @@ async def run_action_checks(repository):
             "home-assistant/wheels-custom-integrations"
         )
         wheeltree = await get_tree(wheels, "master")
-        if f"{repository.integration_manifest['domain']}.json" not in [
-            x.filename for x in wheeltree
-        ]:
+        wheelfiles = [x.filename for x in wheeltree]
+        if (
+            f"{repository.integration_manifest['domain']}.json" in wheelfiles
+            or repository.integration_manifest["domain"] in wheelfiles
+        ):
+            repository.logger.info(f"Integration is added to {WHEEL_REPO}, nice!")
+        else:
             raise HacsException(f"Integration not added to {WHEEL_REPO}")
-        repository.logger.info(f"Integration is added to {WHEEL_REPO}, nice!")

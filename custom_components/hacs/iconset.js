@@ -3,18 +3,5 @@ const haIconSet = window.customElements.get("ha-iconset-svg")
 
 if (haIconSet === undefined) {
 	window.customIconsets = window.customIconsets || {}
-	window.customIconsets["hacs"] = async () => { return { hacs: { path: hacsIconPath } } }
-} else {
-	const iconset = document.createElement("ha-iconset-svg");
-	iconset.name = "hacs";
-	iconset.size = "24";
-	iconset.innerHTML = `
-	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-	<svg  height="24" width="24" viewBox="0 0 24 24" id="hacs" version="1.1">
-		<g>
-			<path style="stroke-width:0.0637648" d="${hacsIconPath}" id="path103" />
-		</g>
-	</svg>
-	`
-	document.body.appendChild(iconset);
+	window.customIconsets["hacs"] = async () => { return { path: hacsIconPath } }
 }

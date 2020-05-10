@@ -1,15 +1,16 @@
 """Validate a GitHub repository to be used with HACS."""
-import sys
-import os
 import asyncio
-import logging
-import aiohttp
 import json
-from aiogithubapi import AIOGitHub, AIOGitHubException
-from homeassistant.helpers.aiohttp_client import async_create_clientsession
+import logging
+import os
+import sys
+
+import aiohttp
+from aiogithubapi import GitHub
+
 from custom_components.hacs.globals import get_hacs
-from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.hacsbase.configuration import Configuration
+from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.helpers.register_repository import register_repository
 
 LOGGER = logging.getLogger()
@@ -33,14 +34,16 @@ CATEGORIES = [
     "netdaemon",
     "plugin",
     "python_script",
-    "theme"
+    "theme",
 ]
+
 
 def get_event_data():
     if os.getenv("GITHUB_EVENT_PATH") is None:
         return {}
     with open(os.getenv("GITHUB_EVENT_PATH"), "r") as ev:
         return json.loads(ev.read())
+
 
 def chose_repository(category):
     if category is None:
@@ -52,16 +55,18 @@ def chose_repository(category):
 
     for repo in current:
         new.remove(repo)
-    
+
     if len(new) != 1:
         exit(f"{new} is not a single repo")
 
     return new[0]
 
+
 def chose_category():
     for name in os.getenv("CHANGED_FILES", "").split(" "):
         if name in CATEGORIES:
             return name
+
 
 async def preflight():
     """Preflight cheks."""
@@ -95,7 +100,7 @@ async def preflight():
         exit("No category found, use env CATEGORY to set this.")
 
     async with aiohttp.ClientSession() as session:
-        github = AIOGitHub(TOKEN, session)
+        github = GitHub(TOKEN, session)
         repo = await github.get_repo(repository)
         if not pr and repo.description is None:
             exit("Repository is missing description")
@@ -114,13 +119,12 @@ async def validate_repository(repository, category, ref=None):
         hacs.session = session
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
-        hacs.github = AIOGitHub(hacs.configuration.token, hacs.session)
+        hacs.github = GitHub(hacs.configuration.token, hacs.session)
         try:
             await register_repository(repository, category, ref=ref, action=True)
         except HacsException as exception:
             exit(exception)
         print("All good!")
-
 
 
 LOOP = asyncio.get_event_loop()

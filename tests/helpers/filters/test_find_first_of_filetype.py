@@ -1,15 +1,15 @@
 """Helpers: Filters: find_first_of_filetype."""
 # pylint: disable=missing-docstring
-from aiogithubapi.content import AIOGithubTreeContent
+from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from custom_components.hacs.helpers.filters import find_first_of_filetype
 
 
 def test_valid_objects():
     tree = [
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": "test/path/file.file", "type": "blob"}, "test/test", "master"
         ),
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": "test/path/sub", "type": "blob"}, "test/test", "master"
         ),
     ]
@@ -23,10 +23,10 @@ def test_valid_list():
 
 def test_not_valid():
     tree = [
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": ".github/path/file.yaml", "type": "blob"}, "test/test", "master"
         ),
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": ".github/path/file.js", "type": "blob"}, "test/test", "master"
         ),
     ]

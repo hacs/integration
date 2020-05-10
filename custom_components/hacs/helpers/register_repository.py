@@ -1,5 +1,5 @@
 """Register a repository."""
-from aiogithubapi import AIOGitHubException
+from aiogithubapi import AIOGitHubAPIException
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.exceptions import (
     HacsException,
@@ -41,7 +41,7 @@ async def register_repository(full_name, category, check=True, ref=None, action=
                 repository.logger.info("Validation complete")
             else:
                 repository.logger.info("Registration complete")
-        except AIOGitHubException as exception:
+        except AIOGitHubAPIException as exception:
             hacs.common.skip.append(repository.data.full_name)
             raise HacsException(f"Validation for {full_name} failed with {exception}.")
 

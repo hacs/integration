@@ -5,7 +5,7 @@ import os
 import tempfile
 import zipfile
 from integrationhelper import Validate
-from aiogithubapi import AIOGitHubException
+from aiogithubapi import AIOGitHubAPIException
 from .manifest import HacsManifest
 from ..helpers.misc import get_repository_name
 from ..handler.download import async_download_file, async_save_file
@@ -367,7 +367,7 @@ class HacsRepository:
                 json.loads(manifest.content)
             )
             self.data.update_data(json.loads(manifest.content))
-        except (AIOGitHubException, Exception) as exception:  # Gotta Catch 'Em All
+        except (AIOGitHubAPIException, Exception) as exception:  # Gotta Catch 'Em All
             if self.hacs.action:
                 raise HacsException(f"hacs.json file is not valid ({exception}).")
         if self.hacs.action:

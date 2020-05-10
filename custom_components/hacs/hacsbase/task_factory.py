@@ -3,7 +3,7 @@ import logging
 import time
 from datetime import timedelta
 import asyncio
-from aiogithubapi import AIOGitHubException
+from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.helpers.register_repository import register_repository
@@ -48,7 +48,7 @@ class HacsTaskFactory:
         async with max_concurrent_tasks:
             try:
                 await repository.common_update()
-            except (AIOGitHubException, HacsException) as exception:
+            except (AIOGitHubAPIException, HacsException) as exception:
                 logger.error("%s - %s", repository.data.full_name, exception)
 
             # Due to GitHub ratelimits we need to sleep a bit
@@ -58,7 +58,7 @@ class HacsTaskFactory:
         async with max_concurrent_tasks:
             try:
                 await repository.update_repository()
-            except (AIOGitHubException, HacsException) as exception:
+            except (AIOGitHubAPIException, HacsException) as exception:
                 logger.error("%s - %s", repository.data.full_name, exception)
 
             # Due to GitHub ratelimits we need to sleep a bit
@@ -68,7 +68,7 @@ class HacsTaskFactory:
         async with max_concurrent_tasks:
             try:
                 await register_repository(repo, category)
-            except (AIOGitHubException, HacsException) as exception:
+            except (AIOGitHubAPIException, HacsException) as exception:
                 logger.error("%s - %s", repo, exception)
 
             # Due to GitHub ratelimits we need to sleep a bit

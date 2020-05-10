@@ -7,8 +7,7 @@ from custom_components.hacs.constrains import (
     constrain_translations,
     constrain_custom_updater,
     constrain_version,
-    check_requirements,
-    check_constans,
+    check_constrains,
 )
 
 
@@ -31,12 +30,12 @@ def temp_cleanup(tmpdir):
         os.remove(custom_updater2)
 
 
-def test_check_constans(tmpdir):
+def test_check_constrains(tmpdir):
     hacs = get_hacs()
     hacs.system.ha_version = HAVERSION
     hacs.system.config_path = tmpdir.dirname
 
-    assert not check_constans()
+    assert not check_constrains()
 
     translations_dir = f"{hacs.system.config_path}/custom_components/hacs/translations"
     os.makedirs(translations_dir, exist_ok=True)
@@ -46,14 +45,14 @@ def test_check_constans(tmpdir):
     with open(f"{custom_updater_dir}/__init__.py", "w") as cufile:
         cufile.write("")
 
-    assert not check_constans()
+    assert not check_constrains()
     temp_cleanup(tmpdir)
 
     translations_dir = f"{hacs.system.config_path}/custom_components/hacs/translations"
     os.makedirs(translations_dir, exist_ok=True)
 
     hacs.system.ha_version = "0.97.0"
-    assert not check_constans()
+    assert not check_constrains()
 
     hacs.system.ha_version = HAVERSION
 
@@ -61,7 +60,7 @@ def test_check_constans(tmpdir):
     os.makedirs(translations_dir, exist_ok=True)
 
     assert constrain_version()
-    assert check_constans()
+    assert check_constrains()
     assert constrain_translations()
 
     temp_cleanup(tmpdir)
@@ -121,7 +120,3 @@ def test_translations(tmpdir):
     assert constrain_translations()
 
     temp_cleanup(tmpdir)
-
-
-def test_requirements():
-    assert check_requirements()

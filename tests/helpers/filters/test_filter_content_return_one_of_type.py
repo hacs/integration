@@ -1,18 +1,18 @@
 """Helpers: Filters: filter_content_return_one_of_type."""
 # pylint: disable=missing-docstring
-from aiogithubapi.content import AIOGithubTreeContent
+from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from custom_components.hacs.helpers.filters import filter_content_return_one_of_type
 
 
 def test_valid_objects():
     tree = [
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": "test/file.file", "type": "blob"}, "test/test", "master"
         ),
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": "test/newfile.file", "type": "blob"}, "test/test", "master"
         ),
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": "test/file.png", "type": "blob"}, "test/test", "master"
         ),
     ]

@@ -138,6 +138,16 @@ async def test_get_releases_exception(aresponses, event_loop):
         "get",
         aresponses.Response(body=json.dumps({}), headers=response_rate_limit_header),
     )
+    aresponses.add(
+        "api.github.com",
+        "/repos/test/test/releases",
+        "get",
+        aresponses.Response(
+            body=json.dumps(release_data),
+            headers=response_rate_limit_header_with_limit,
+            status=403,
+        ),
+    )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:
         hacs = get_hacs()

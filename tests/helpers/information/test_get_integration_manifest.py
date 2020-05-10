@@ -4,7 +4,7 @@ import base64
 import json
 import aiohttp
 import pytest
-from aiogithubapi import AIOGithubTreeContent
+from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.helpers.information import (
     get_integration_manifest,
@@ -57,7 +57,7 @@ async def test_get_integration_manifest(aresponses, event_loop):
         repository.repository_object = await get_repository(session, TOKEN, "test/test")
         repository.content.path.remote = "custom_components/test"
         repository.tree = [
-            AIOGithubTreeContent(
+            AIOGitHubAPIRepositoryTreeContent(
                 {"path": "custom_components/test/manifest.json", "type": "blob"},
                 "test/test",
                 "master",
@@ -129,7 +129,7 @@ async def test_get_integration_manifest_format_issue(aresponses, event_loop):
         repository.repository_object = await get_repository(session, TOKEN, "test/test")
         repository.content.path.remote = "custom_components/test"
         repository.tree = [
-            AIOGithubTreeContent(
+            AIOGitHubAPIRepositoryTreeContent(
                 {"path": "custom_components/test/manifest.json", "type": "blob"},
                 "test/test",
                 "master",
@@ -178,7 +178,7 @@ async def test_get_integration_manifest_missing_required_key(aresponses, event_l
         repository.repository_object = await get_repository(session, TOKEN, "test/test")
         repository.content.path.remote = "custom_components/test"
         repository.tree = [
-            AIOGithubTreeContent(
+            AIOGitHubAPIRepositoryTreeContent(
                 {"path": "custom_components/test/manifest.json", "type": "blob"},
                 "test/test",
                 "master",

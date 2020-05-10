@@ -3,7 +3,7 @@
 import sys
 import os
 import voluptuous as vol
-from aiogithubapi import AIOGitHubException
+from aiogithubapi import AIOGitHubAPIException
 from homeassistant.components import websocket_api
 import homeassistant.helpers.config_validation as cv
 from .hacsbase.exceptions import HacsException
@@ -240,7 +240,7 @@ async def hacs_repository(hass, connection, msg):
 
         await hacs.data.async_write()
         message = None
-    except AIOGitHubException as exception:
+    except AIOGitHubAPIException as exception:
         message = str(exception)
         hass.bus.async_fire("hacs/error", {"message": str(exception)})
     except AttributeError as exception:

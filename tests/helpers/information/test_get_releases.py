@@ -76,6 +76,16 @@ async def test_get_releases_exception(aresponses, event_loop):
             body=b"{}", headers=response_rate_limit_header_with_limit, status=403
         ),
     )
+    aresponses.add(
+        "api.github.com",
+        "/repos/test/test/releases",
+        "get",
+        aresponses.Response(
+            body=json.dumps(release_data),
+            headers=response_rate_limit_header_with_limit,
+            status=403,
+        ),
+    )
     async with aiohttp.ClientSession(loop=event_loop) as session:
         repository = await get_repository(session, TOKEN, "test/test")
         with pytest.raises(HacsException):

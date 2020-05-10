@@ -1,16 +1,18 @@
 """Helpers: Filters: get_first_directory_in_directory."""
 # pylint: disable=missing-docstring
-from aiogithubapi.content import AIOGithubTreeContent
+from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from custom_components.hacs.helpers.filters import get_first_directory_in_directory
 
 
 def test_valid():
     tree = [
-        AIOGithubTreeContent({"path": "test", "type": "tree"}, "test/test", "master"),
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "test", "type": "tree"}, "test/test", "master"
+        ),
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": "test/path", "type": "tree"}, "test/test", "master"
         ),
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": "test/path/sub", "type": "tree"}, "test/test", "master"
         ),
     ]
@@ -19,7 +21,7 @@ def test_valid():
 
 def test_not_valid():
     tree = [
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": ".github/path/file.file", "type": "tree"}, "test/test", "master"
         )
     ]

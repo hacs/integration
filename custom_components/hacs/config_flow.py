@@ -2,7 +2,7 @@
 # pylint: disable=dangerous-default-value
 import logging
 import voluptuous as vol
-from aiogithubapi import AIOGitHubException, AIOGitHubAuthentication
+from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPIAuthenticationException
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers import aiohttp_client
@@ -72,7 +72,10 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             session = aiohttp_client.async_get_clientsession(self.hass)
             await get_repository(session, token, "hacs/org")
             return True
-        except (AIOGitHubException, AIOGitHubAuthentication) as exception:
+        except (
+            AIOGitHubAPIException,
+            AIOGitHubAPIAuthenticationException,
+        ) as exception:
             _LOGGER.error(exception)
         return False
 

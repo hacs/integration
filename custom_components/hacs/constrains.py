@@ -10,7 +10,7 @@ from custom_components.hacs.globals import get_hacs
 MINIMUM_HA_VERSION = "0.98.0"
 
 
-def check_constans():
+def check_constrains():
     """Check HACS constrains."""
     if not constrain_translations():
         return False
@@ -52,48 +52,5 @@ def constrain_translations():
         f"{hacs.system.config_path}/custom_components/hacs/translations"
     ):
         hacs.logger.critical("You are missing the translations directory.")
-        return False
-    return True
-
-
-def check_requirements():
-    """Check the requirements"""
-    missing = []
-    try:
-        from aiogithubapi import AIOGitHubException  # pylint: disable=unused-import
-    except ImportError:
-        missing.append("aiogithubapi")
-
-    try:
-        from hacs_frontend import locate_gz  # pylint: disable=unused-import
-    except ImportError:
-        missing.append("hacs_frontend")
-
-    try:
-        import semantic_version  # pylint: disable=unused-import
-    except ImportError:
-        missing.append("semantic_version")
-
-    try:
-        from integrationhelper import Logger  # pylint: disable=unused-import
-    except ImportError:
-        missing.append("integrationhelper")
-
-    try:
-        import backoff  # pylint: disable=unused-import
-    except ImportError:
-        missing.append("backoff")
-
-    try:
-        import aiofiles  # pylint: disable=unused-import
-    except ImportError:
-        missing.append("aiofiles")
-
-    if missing:
-        hacs = get_hacs()
-        for requirement in missing:
-            hacs.logger.critical(
-                f"Required python requirement '{requirement}' is not installed"
-            )
         return False
     return True

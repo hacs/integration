@@ -77,6 +77,16 @@ async def test_get_tree_exception(aresponses, event_loop):
             body=b"{}", headers=response_rate_limit_header_with_limit, status=403
         ),
     )
+    aresponses.add(
+        "api.github.com",
+        "/repos/test/test/git/trees/master",
+        "get",
+        aresponses.Response(
+            body=json.dumps(tree_files_base),
+            headers=response_rate_limit_header_with_limit,
+            status=403,
+        ),
+    )
     async with aiohttp.ClientSession(loop=event_loop) as session:
         repository = await get_repository(session, TOKEN, "test/test")
         with pytest.raises(HacsException):

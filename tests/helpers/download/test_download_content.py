@@ -3,7 +3,7 @@
 import os
 import aiohttp
 import pytest
-from aiogithubapi.content import AIOGithubTreeContent
+from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 
 from custom_components.hacs.helpers.download import download_content
 
@@ -25,7 +25,7 @@ async def test_download_content(aresponses, tmp_path, event_loop):
     repository.content.path.remote = ""
     repository.content.path.local = tmp_path
     repository.tree = [
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": "test/path/file.file", "type": "blob"}, "test/test", "master"
         )
     ]
@@ -77,7 +77,7 @@ async def test_download_content_integration(aresponses, tmp_path, event_loop):
     ]
     for integration_file in integration_files:
         repository.tree.append(
-            AIOGithubTreeContent(
+            AIOGitHubAPIRepositoryTreeContent(
                 {"path": f"custom_components/test/{integration_file}", "type": "blob"},
                 "test/test",
                 "master",

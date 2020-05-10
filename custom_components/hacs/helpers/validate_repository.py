@@ -1,5 +1,5 @@
 """Helper to do common validation for repositories."""
-from aiogithubapi import AIOGitHubException
+from aiogithubapi import AIOGitHubAPIException
 from custom_components.hacs.globals import get_hacs, is_removed
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.helpers.install import version_to_install
@@ -31,7 +31,7 @@ async def common_update_data(repository):
         )
         repository.repository_object = repository_object
         repository.data.update_data(repository_object.attributes)
-    except (AIOGitHubException, HacsException) as exception:
+    except (AIOGitHubAPIException, HacsException) as exception:
         if not hacs.system.status.startup:
             repository.logger.error(exception)
         repository.validate.errors.append("Repository does not exist.")
@@ -62,7 +62,7 @@ async def common_update_data(repository):
             ]
             repository.versions.available = next(iter(releases)).tag_name
 
-    except (AIOGitHubException, HacsException):
+    except (AIOGitHubAPIException, HacsException):
         repository.releases.releases = False
 
     if not repository.force_branch:
@@ -86,7 +86,7 @@ async def common_update_data(repository):
         repository.treefiles = []
         for treefile in repository.tree:
             repository.treefiles.append(treefile.full_path)
-    except (AIOGitHubException, HacsException) as exception:
+    except (AIOGitHubAPIException, HacsException) as exception:
         if not hacs.system.status.startup:
             repository.logger.error(exception)
         raise HacsException(exception)

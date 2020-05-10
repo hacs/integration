@@ -59,8 +59,6 @@ class HacsPlugin(HacsRepository):
 
     async def update_repository(self):
         """Update."""
-        if self.hacs.github.ratelimits.remaining == 0:
-            return
         # Run common update steps.
         await self.common_update()
 

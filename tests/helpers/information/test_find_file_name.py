@@ -1,7 +1,7 @@
 """Helpers: Install: find_file_name."""
 # pylint: disable=missing-docstring
-from aiogithubapi.content import AIOGithubTreeContent
-from aiogithubapi.release import AIOGithubRepositoryRelease
+from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
+from aiogithubapi.objects.repository.release import AIOGitHubAPIRepositoryRelease
 from tests.dummy_repository import (
     dummy_repository_plugin,
     dummy_repository_theme,
@@ -13,7 +13,9 @@ from custom_components.hacs.helpers.information import find_file_name
 def test_find_file_name_base():
     repository = dummy_repository_plugin()
     repository.tree = [
-        AIOGithubTreeContent({"path": "test.js", "type": "blob"}, "test/test", "master")
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "test.js", "type": "blob"}, "test/test", "master"
+        )
     ]
     find_file_name(repository)
     assert repository.data.file_name == "test.js"
@@ -24,7 +26,9 @@ def test_find_file_name_root():
     repository = dummy_repository_plugin()
     repository.data.content_in_root = True
     repository.tree = [
-        AIOGithubTreeContent({"path": "test.js", "type": "blob"}, "test/test", "master")
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "test.js", "type": "blob"}, "test/test", "master"
+        )
     ]
     find_file_name(repository)
     assert repository.data.file_name == "test.js"
@@ -34,7 +38,7 @@ def test_find_file_name_root():
 def test_find_file_name_dist():
     repository = dummy_repository_plugin()
     repository.tree = [
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": "dist/test.js", "type": "blob"}, "test/test", "master"
         )
     ]
@@ -47,7 +51,9 @@ def test_find_file_name_different_name():
     repository = dummy_repository_plugin()
     repository.data.filename = "card.js"
     repository.tree = [
-        AIOGithubTreeContent({"path": "card.js", "type": "blob"}, "test/test", "master")
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "card.js", "type": "blob"}, "test/test", "master"
+        )
     ]
     find_file_name(repository)
     assert repository.data.file_name == "card.js"
@@ -57,7 +63,9 @@ def test_find_file_name_different_name():
 def test_find_file_release():
     repository = dummy_repository_plugin()
     repository.releases.objects = [
-        AIOGithubRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.js"}]})
+        AIOGitHubAPIRepositoryRelease(
+            {"tag_name": "3", "assets": [{"name": "test.js"}]}
+        )
     ]
     find_file_name(repository)
     assert repository.data.file_name == "test.js"
@@ -67,10 +75,12 @@ def test_find_file_release():
 def test_find_file_release_no_asset():
     repository = dummy_repository_plugin()
     repository.releases.objects = [
-        AIOGithubRepositoryRelease({"tag_name": "3", "assets": []})
+        AIOGitHubAPIRepositoryRelease({"tag_name": "3", "assets": []})
     ]
     repository.tree = [
-        AIOGithubTreeContent({"path": "test.js", "type": "blob"}, "test/test", "master")
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "test.js", "type": "blob"}, "test/test", "master"
+        )
     ]
     find_file_name(repository)
     assert repository.data.file_name == "test.js"
@@ -80,7 +90,7 @@ def test_find_file_release_no_asset():
 def test_find_file_name_base_theme():
     repository = dummy_repository_theme()
     repository.tree = [
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": "themes/test.yaml", "type": "blob"}, "test/test", "master"
         )
     ]
@@ -92,7 +102,7 @@ def test_find_file_name_base_theme():
 def test_find_file_name_base_python_script():
     repository = dummy_repository_python_script()
     repository.tree = [
-        AIOGithubTreeContent(
+        AIOGitHubAPIRepositoryTreeContent(
             {"path": "python_scripts/test.py", "type": "blob"}, "test/test", "master"
         )
     ]

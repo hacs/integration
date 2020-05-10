@@ -6,7 +6,7 @@ from datetime import timedelta
 
 from homeassistant.helpers.event import async_call_later, async_track_time_interval
 
-from aiogithubapi import AIOGitHubException, AIOGitHubRatelimit
+from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPIRatelimitException
 from integrationhelper import Logger
 from queueman import QueueManager
 
@@ -156,8 +156,6 @@ class Hacs:
         self.system.status.background_task = True
         await self.hass.async_add_executor_job(setup_extra_stores)
         self.hass.bus.async_fire("hacs/status", {})
-        self.logger.debug(self.github.ratelimits.remaining)
-        self.logger.debug(self.github.ratelimits.reset_utc)
 
         await self.handle_critical_repositories_startup()
         await self.handle_critical_repositories()
@@ -216,7 +214,7 @@ class Hacs:
         try:
             critical = await self.data_repo.get_contents("critical")
             critical = json.loads(critical.content)
-        except AIOGitHubException:
+        except AIOGitHubAPIException:
             pass
 
         if not critical:
@@ -290,8 +288,7 @@ class Hacs:
         )
         self.system.status.background_task = True
         self.hass.bus.async_fire("hacs/status", {})
-        self.logger.debug(self.github.ratelimits.remaining)
-        self.logger.debug(self.github.ratelimits.reset_utc)
+
         for repository in self.repositories:
             if (
                 repository.status.installed
@@ -311,8 +308,7 @@ class Hacs:
         await self.hass.async_add_executor_job(setup_extra_stores)
         self.system.status.background_task = True
         self.hass.bus.async_fire("hacs/status", {})
-        self.logger.debug(self.github.ratelimits.remaining)
-        self.logger.debug(self.github.ratelimits.reset_utc)
+
         for repository in self.repositories:
             if repository.data.category in self.common.categories:
                 self.queue.add(self.factory.safe_common_update(repository))

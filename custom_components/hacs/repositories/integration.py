@@ -76,8 +76,6 @@ class HacsIntegration(HacsRepository):
 
     async def update_repository(self):
         """Update."""
-        if self.hacs.github.ratelimits.remaining == 0:
-            return
         await self.common_update()
 
         if self.data.content_in_root:

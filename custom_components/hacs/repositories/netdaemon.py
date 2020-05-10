@@ -74,8 +74,6 @@ class HacsNetdaemon(HacsRepository):
 
     async def update_repository(self):
         """Update."""
-        if self.hacs.github.ratelimits.remaining == 0:
-            return
         await self.common_update()
 
         # Get appdaemon objects.

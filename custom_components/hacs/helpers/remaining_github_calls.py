@@ -5,11 +5,11 @@ import math
 async def remaining(github):
     """Helper to calculate the remaining calls to github."""
     try:
-        ratelimits = await github.get_ratelimit()
+        ratelimits = await github.get_rate_limit()
     except:  # pylint: disable=broad-except
         return 0
-    if ratelimits.remaining:
-        return int(ratelimits.remaining)
+    if ratelimits.get("remaining") is not None:
+        return int(ratelimits["remaining"])
     return 0
 
 

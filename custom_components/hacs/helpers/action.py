@@ -9,13 +9,14 @@ WHEEL_REPO = "https://github.com/home-assistant/wheels-custom-integrations"
 
 async def run_action_checks(repository):
     """Checks to run as an action."""
+    issues = []
     if os.getenv("SKIP_BRANDS_CHECK") is None:
         brands = await repository.hacs.github.get_repo("home-assistant/brands")
         brandstree = await get_tree(brands, "master")
         if repository.integration_manifest["domain"] not in [
             x.filename for x in brandstree
         ]:
-            raise HacsException(f"Integration not added to {BRANDS_REPO}")
+            issues.append(f"Integration not added to {BRANDS_REPO}")
         repository.logger.info(f"Integration is added to {BRANDS_REPO}, nice!")
 
     if (
@@ -33,4 +34,9 @@ async def run_action_checks(repository):
         ):
             repository.logger.info(f"Integration is added to {WHEEL_REPO}, nice!")
         else:
-            raise HacsException(f"Integration not added to {WHEEL_REPO}")
+            issues.append(f"Integration not added to {WHEEL_REPO}")
+
+    if issues:
+        for issue in issues:
+            repository.logger.error(issue)
+        raise HacsException(f"Found issues while validating the repository")

@@ -17,7 +17,8 @@ async def run_action_checks(repository):
             x.filename for x in brandstree
         ]:
             issues.append(f"Integration not added to {BRANDS_REPO}")
-        repository.logger.info(f"Integration is added to {BRANDS_REPO}, nice!")
+        else:
+            repository.logger.info(f"Integration is added to {BRANDS_REPO}, nice!")
 
     if (
         repository.integration_manifest.get("requirements") is not None

@@ -357,7 +357,7 @@ class HacsRepository:
                 raise HacsException("No hacs.json file in the root of the repository.")
             return
         if self.hacs.action:
-            self.logger.debug("Found hacs.json")
+            self.logger.info("Found hacs.json")
 
         if self.ref is None:
             self.ref = version_to_install(self)
@@ -371,7 +371,7 @@ class HacsRepository:
             if self.hacs.action:
                 raise HacsException(f"hacs.json file is not valid ({exception}).")
         if self.hacs.action:
-            self.logger.debug("hacs.json is valid")
+            self.logger.info("hacs.json is valid")
 
     def remove(self):
         """Run remove tasks."""

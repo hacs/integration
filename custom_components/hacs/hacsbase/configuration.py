@@ -50,7 +50,7 @@ class Configuration:
             logger.debug(f"{key}: {config[key]}")
 
     @staticmethod
-    def from_dict(configuration: dict, options: dict):
+    def from_dict(configuration: dict, options: dict = None):
         """Set attributes from dicts."""
         if isinstance(options, bool) or isinstance(configuration.get("options"), bool):
             raise HacsException("Configuration is not valid.")

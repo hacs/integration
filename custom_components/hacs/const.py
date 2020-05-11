@@ -15,8 +15,8 @@ DOMAIN_DATA = f"{NAME_SHORT.lower()}_data"
 ELEMENT_TYPES = ["integration", "plugin"]
 
 IFRAME = {
-    "title": "Community",
-    "icon": "mdi:alpha-c-box",
+    "title": "HACS",
+    "icon": "hacs:hacs",
     "url": "/community_overview",
     "path": "community",
     "require_admin": True,

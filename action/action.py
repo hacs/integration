@@ -15,7 +15,7 @@ from custom_components.hacs.helpers.register_repository import register_reposito
 
 LOGGER = logging.getLogger()
 LOGGER_AIOGITHUBAPI = logging.getLogger("AIOGitHubAPI")
-LOGGER_AIOGITHUBAPI.setLevel(logging.info)
+LOGGER_AIOGITHUBAPI.setLevel(logging.INFO)
 LOGGER.setLevel(logging.DEBUG)
 
 FORMATTER = logging.Formatter("%(name)s - %(message)s")

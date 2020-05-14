@@ -205,6 +205,9 @@ async def hacs_repository(hass, connection, msg):
             if not was_installed:
                 hass.bus.async_fire("hacs/reload", {"force": True})
 
+        elif action == "not_new":
+            repository.status.new = False
+
         elif action == "uninstall":
             await repository.uninstall()
 
@@ -321,6 +324,15 @@ async def hacs_repository_data(hass, connection, msg):
         repository.status.selected_tag = data
         await repository.update_repository()
         repository.state = None
+
+    elif action == "install":
+        was_installed = repository.status.installed
+        repository.status.selected_tag = data
+        await repository.update_repository()
+        await repository.install()
+        repository.state = None
+        if not was_installed:
+            hass.bus.async_fire("hacs/reload", {"force": True})
 
     elif action == "add":
         repository.state = None

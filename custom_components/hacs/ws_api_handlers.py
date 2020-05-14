@@ -70,10 +70,9 @@ async def hacs_settings(hass, connection, msg):
 
     elif action == "clear_new":
         for repo in hacs.repositories:
-            if msg.get("category") == repo.data.category:
-                if repo.status.new:
-                    hacs.logger.debug(f"Clearing new flag from '{repo.data.full_name}'")
-                    repo.status.new = False
+            if repo.status.new:
+                hacs.logger.debug(f"Clearing new flag from '{repo.data.full_name}'")
+                repo.status.new = False
     else:
         hacs.logger.error(f"WS action '{action}' is not valid")
     hass.bus.async_fire("hacs/config", {})

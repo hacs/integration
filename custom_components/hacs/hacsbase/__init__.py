@@ -372,6 +372,6 @@ class Hacs:
             for repo in repositories[category]:
                 if is_removed(repo):
                     continue
-                if self.is_known(repo):
+                if self.get_by_name(repo) is not None:
                     continue
                 self.queue.add(self.factory.safe_register(repo, category))

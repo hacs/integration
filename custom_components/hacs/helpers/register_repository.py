@@ -45,7 +45,11 @@ async def register_repository(full_name, category, check=True, ref=None, action=
             hacs.common.skip.append(repository.data.full_name)
             raise HacsException(f"Validation for {full_name} failed with {exception}.")
 
-    if repository.data.id not in [x.data.id for x in hacs.repositories]:
+    exists = [x for x in hacs.repositories if str(x.data.id) == str(repository.data.id)]
+    if exists:
+        repository = exists[0]
+
+    else:
         hacs.repositories.append(repository)
         if hacs.hass is not None:
             hacs.hass.bus.async_fire(

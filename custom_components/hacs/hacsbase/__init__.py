@@ -131,11 +131,9 @@ class Hacs:
             pass
         return None
 
-    def is_known(self, repository_full_name):
+    def is_known(self, id):
         """Return a bool if the repository is known."""
-        return repository_full_name.lower() in [
-            x.data.full_name.lower() for x in self.repositories
-        ]
+        return str(id) in [str(x.data.id) for x in self.repositories]
 
     @property
     def sorted_by_name(self):
@@ -325,8 +323,8 @@ class Hacs:
         """Clear out blaclisted repositories."""
         need_to_save = False
         for removed in removed_repositories:
-            if self.is_known(removed.repository):
-                repository = self.get_by_name(removed.repository)
+            repository = self.get_by_name(removed.repository)
+            if repository is not None:
                 if repository.status.installed and removed.removal_type != "critical":
                     self.logger.warning(
                         f"You have {repository.data.full_name} installed with HACS "

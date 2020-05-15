@@ -46,6 +46,7 @@ class HacsData:
                 "authors": repository.data.authors,
                 "category": repository.data.category,
                 "description": repository.data.description,
+                "domain": repository.data.domain,
                 "downloads": repository.releases.downloads,
                 "full_name": repository.data.full_name,
                 "first_install": repository.status.first_install,
@@ -88,7 +89,7 @@ class HacsData:
             # Repositories
             for entry in repositories:
                 repo = repositories[entry]
-                if not self.hacs.is_known(repo["full_name"]):
+                if not self.hacs.is_known(entry):
                     await register_repository(
                         repo["full_name"], repo["category"], False
                     )
@@ -99,6 +100,7 @@ class HacsData:
 
                 # Restore repository attributes
                 repository.information.uid = entry
+                repository.data.id = entry
                 await self.hacs.hass.async_add_executor_job(
                     restore_repository_data, repository, repo
                 )
@@ -119,6 +121,7 @@ def restore_repository_data(
     repository.releases.last_release_object_downloads = repository_data.get("downloads")
     repository.information.last_updated = repository_data.get("last_updated")
     repository.data.topics = repository_data.get("topics", [])
+    repository.data.domain = repository_data.get("domain", None)
     repository.data.stargazers_count = repository_data.get("stars", 0)
     repository.releases.last_release = repository_data.get("last_release_tag")
     repository.status.hide = repository_data.get("hide", False)

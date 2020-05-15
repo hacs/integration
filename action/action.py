@@ -56,7 +56,8 @@ def chose_repository(category):
         new = json.loads(cat_file.read())
 
     for repo in current:
-        new.remove(repo)
+        if repo in new:
+            new.remove(repo)
 
     if len(new) != 1:
         exit(f"{new} is not a single repo")

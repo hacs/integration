@@ -115,6 +115,10 @@ def find_file_name(repository):
     elif repository.data.category == "python_script":
         get_file_name_python_script(repository)
 
+    if repository.hacs.action:
+        repository.logger.info(f"filename {repository.data.file_name}")
+        repository.logger.info(f"location {repository.content.path.remote}")
+
 
 def get_file_name_plugin(repository):
     """Get the filename to target."""

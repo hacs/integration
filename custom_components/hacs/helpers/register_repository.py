@@ -50,9 +50,13 @@ async def register_repository(full_name, category, check=True, ref=None, action=
         if str(repository.data.id) == "0"
         else [x for x in hacs.repositories if str(x.data.id) == str(repository.data.id)]
     )
+
     if exists:
         repository = exists[0]
+        if not exists[0].custom:
+            hacs.common.default.append(str(repository.data.id))
         hacs.repositories.remove(exists[0])
+        return
 
     else:
         if hacs.hass is not None:

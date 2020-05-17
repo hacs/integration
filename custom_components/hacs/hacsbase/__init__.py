@@ -368,7 +368,9 @@ class Hacs:
                     continue
                 repository = self.get_by_name(repo)
                 if repository is not None:
-                    if repository.data.id not in self.common.default:
+                    if str(repository.data.id) not in self.common.default:
                         self.common.default.append(str(repository.data.id))
+                    else:
+                        continue
                     continue
                 self.queue.add(self.factory.safe_register(repo, category))

@@ -84,6 +84,8 @@ class RepositoryData:
                             key,
                             datetime.strptime(source[key], "%Y-%m-%dT%H:%M:%S"),
                         )
+                elif key == "id":
+                    setattr(data, key, str(source[key]))
                 elif key == "county":
                     if isinstance(source[key], str):
                         setattr(data, key, [source[key]])
@@ -108,6 +110,8 @@ class RepositoryData:
                         setattr(
                             self, key, datetime.strptime(data[key], "%Y-%m-%dT%H:%M:%S")
                         )
+                elif key == "id":
+                    setattr(self, key, str(data[key]))
                 elif key == "county":
                     if isinstance(data[key], str):
                         setattr(self, key, [data[key]])

@@ -29,7 +29,7 @@ async def register_repository(full_name, category, check=True, ref=None, action=
         try:
             await repository.registration(ref)
             if hacs.system.status.new:
-                repository.status.new = False
+                repository.data.new = False
             if repository.validate.errors:
                 hacs.common.skip.append(repository.data.full_name)
                 if not hacs.system.status.startup:

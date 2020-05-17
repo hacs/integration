@@ -53,10 +53,10 @@ class HacsData:
                 "installed_commit": repository.data.installed_commit,
                 "installed": repository.data.installed,
                 "last_commit": repository.data.last_commit,
-                "last_release_tag": repository.versions.available,
+                "last_release_tag": repository.data.last_version,
                 "last_updated": repository.data.last_updated,
                 "name": repository.data.name,
-                "new": repository.status.new,
+                "new": repository.data.new,
                 "repository_manifest": repository_manifest,
                 "selected_tag": repository.data.selected_tag,
                 "show_beta": repository.data.show_beta,
@@ -65,7 +65,10 @@ class HacsData:
                 "version_installed": repository.data.installed_version,
             }
             if data:
-                if repository.data.installed:
+                if repository.data.installed and (
+                    repository.data.installed_commit
+                    or repository.data.installed_version
+                ):
                     await async_save_to_store(
                         self.hacs.hass,
                         f"hacs/{repository.data.id}.hacs",
@@ -87,6 +90,7 @@ class HacsData:
                 self.hacs.system.status.new = True
                 return True
             self.logger.info("Restore started")
+            self.hacs.system.status.new = False
 
             # Hacs
             self.hacs.configuration.frontend_mode = hacs.get("view", "Grid")
@@ -151,10 +155,10 @@ def restore_repository_data(
     repository.releases.last_release = repository_data.get("last_release_tag")
     repository.data.hide = repository_data.get("hide", False)
     repository.data.installed = repository_data.get("installed", False)
-    repository.status.new = repository_data.get("new", True)
+    repository.data.new = repository_data.get("new", True)
     repository.data.selected_tag = repository_data.get("selected_tag")
     repository.data.show_beta = repository_data.get("show_beta", False)
-    repository.versions.available = repository_data.get("last_release_tag")
+    repository.data.last_version = repository_data.get("last_release_tag")
     repository.data.last_commit = repository_data.get("last_commit")
     repository.data.installed_version = repository_data.get("version_installed")
     repository.data.installed_commit = repository_data.get("installed_commit")

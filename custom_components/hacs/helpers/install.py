@@ -81,7 +81,7 @@ async def install_repository(repository):
 async def reload_after_install(repository):
     """Reload action after installation success."""
     if repository.data.category == "integration":
-        if repository.config_flow:
+        if repository.data.config_flow:
             if repository.data.full_name != "hacs/integration":
                 await repository.reload_custom_components()
         repository.pending_restart = True
@@ -113,13 +113,13 @@ def installation_complete(repository):
 
 def version_to_install(repository):
     """Determine which version to isntall."""
-    if repository.versions.available is not None:
+    if repository.data.last_version is not None:
         if repository.data.selected_tag is not None:
-            if repository.data.selected_tag == repository.versions.available:
+            if repository.data.selected_tag == repository.data.last_version:
                 repository.data.selected_tag = None
-                return repository.versions.available
+                return repository.data.last_version
             return repository.data.selected_tag
-        return repository.versions.available
+        return repository.data.last_version
     if repository.data.selected_tag is not None:
         if repository.data.selected_tag == repository.data.default_branch:
             return repository.data.default_branch

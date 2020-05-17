@@ -182,7 +182,6 @@ class Hacs:
         await self.prosess_queue()
 
         self.system.status.startup = False
-        self.system.status.new = False
         self.system.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
         await self.data.async_write()

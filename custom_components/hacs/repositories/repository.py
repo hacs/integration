@@ -13,6 +13,7 @@ from ..helpers.misc import version_left_higher_then_right
 from ..helpers.install import install_repository, version_to_install
 
 from custom_components.hacs.hacsbase.exceptions import HacsException
+from custom_components.hacs.store import async_remove_store
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.helpers.information import (
     get_info_md_content,
@@ -137,15 +138,6 @@ class HacsRepository:
         return False
 
     @property
-    def config_flow(self):
-        """Return bool if integration has config_flow."""
-        if self.integration_manifest:
-            if self.data.full_name == "hacs/integration":
-                return False
-            return self.data.config_flow
-        return False
-
-    @property
     def custom(self):
         """Return flag if the repository is custom."""
         if self.data.full_name.split("/")[0] in ["custom-components", "custom-cards"]:
@@ -181,7 +173,7 @@ class HacsRepository:
     @property
     def display_status(self):
         """Return display_status."""
-        if self.status.new:
+        if self.data.new:
             status = "new"
         elif self.pending_restart:
             status = "pending-restart"
@@ -220,8 +212,8 @@ class HacsRepository:
     @property
     def display_available_version(self):
         """Return display_authors"""
-        if self.versions.available is not None:
-            available = self.versions.available
+        if self.data.last_version is not None:
+            available = self.data.last_version
         else:
             if self.data.last_commit is not None:
                 available = self.data.last_commit
@@ -384,7 +376,7 @@ class HacsRepository:
             raise HacsException("Could not uninstall")
         self.data.installed = False
         if self.data.category == "integration":
-            if self.config_flow:
+            if self.data.config_flow:
                 await self.reload_custom_components()
             else:
                 self.pending_restart = True
@@ -397,6 +389,9 @@ class HacsRepository:
                 pass
         if self.data.full_name in self.hacs.common.installed:
             self.hacs.common.installed.remove(self.data.full_name)
+
+        await async_remove_store(self.hacs.hass, f"hacs/{self.data.id}.hacs")
+
         self.data.installed_version = None
         self.data.installed_commit = None
         self.hacs.hass.bus.async_fire(

@@ -11,7 +11,7 @@ def test_version_to_install():
 
     repository = dummy_repository_base()
     repository.data.default_branch = None
-    repository.versions.available = None
+    repository.data.last_version = None
     repository.data.selected_tag = None
     assert version_to_install(repository) == "master"
 
@@ -25,27 +25,27 @@ def test_version_to_install():
 
     repository = dummy_repository_base()
     repository.data.selected_tag = None
-    repository.versions.available = None
+    repository.data.last_version = None
     assert version_to_install(repository) == "master"
 
     repository = dummy_repository_base()
     repository.data.selected_tag = "2"
-    repository.versions.available = None
+    repository.data.last_version = None
     assert version_to_install(repository) == "2"
 
     repository = dummy_repository_base()
     repository.data.selected_tag = "master"
-    repository.versions.available = None
+    repository.data.last_version = None
     assert version_to_install(repository) == "master"
 
     repository = dummy_repository_base()
     repository.data.selected_tag = "3"
-    repository.versions.available = "3"
+    repository.data.last_version = "3"
     version_to_install(repository)
     assert repository.data.selected_tag is None
 
     repository = dummy_repository_base()
     repository.data.default_branch = "dev"
-    repository.versions.available = None
+    repository.data.last_version = None
     repository.data.selected_tag = None
     assert version_to_install(repository) == "dev"

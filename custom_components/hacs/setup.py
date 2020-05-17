@@ -23,7 +23,7 @@ async def load_hacs_repository():
             raise HacsException("Unknown error")
         repository.data.installed = True
         repository.data.installed_version = VERSION
-        repository.status.new = False
+        repository.data.new = False
         hacs.repo = repository.repository_object
         hacs.data_repo = await get_repository(
             hacs.session, hacs.configuration.token, "hacs/default"

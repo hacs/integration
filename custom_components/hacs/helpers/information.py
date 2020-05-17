@@ -41,7 +41,7 @@ async def get_repository(session, token, repository_full_name):
         github = GitHub(token, session)
         repository = await github.get_repo(repository_full_name)
         return repository
-    except AIOGitHubAPIException as exception:
+    except (AIOGitHubAPIException, Exception) as exception:
         raise HacsException(exception)
 
 

@@ -70,9 +70,9 @@ async def hacs_settings(hass, connection, msg):
 
     elif action == "clear_new":
         for repo in hacs.repositories:
-            if repo.status.new:
+            if repo.data.new:
                 hacs.logger.debug(f"Clearing new flag from '{repo.data.full_name}'")
-                repo.status.new = False
+                repo.data.new = False
     else:
         hacs.logger.error(f"WS action '{action}' is not valid")
     hass.bus.async_fire("hacs/config", {})
@@ -134,7 +134,7 @@ async def hacs_repositories(hass, connection, msg):
                 "can_install": repo.can_install,
                 "category": repo.data.category,
                 "country": repo.data.country,
-                "config_flow": repo.config_flow,
+                "config_flow": repo.data.config_flow,
                 "custom": repo.custom,
                 "default_branch": repo.data.default_branch,
                 "description": repo.data.description,
@@ -155,7 +155,7 @@ async def hacs_repositories(hass, connection, msg):
                 "local_path": repo.content.path.local,
                 "main_action": repo.main_action,
                 "name": repo.display_name,
-                "new": repo.status.new,
+                "new": repo.data.new,
                 "pending_upgrade": repo.pending_upgrade,
                 "releases": repo.data.published_tags,
                 "selected_tag": repo.data.selected_tag,
@@ -197,7 +197,7 @@ async def hacs_repository(hass, connection, msg):
         if action == "update":
             await repository.update_repository()
             repository.status.updated_info = True
-            repository.status.new = False
+            repository.data.new = False
 
         elif action == "install":
             was_installed = repository.data.installed
@@ -206,7 +206,7 @@ async def hacs_repository(hass, connection, msg):
                 hass.bus.async_fire("hacs/reload", {"force": True})
 
         elif action == "not_new":
-            repository.status.new = False
+            repository.data.new = False
 
         elif action == "uninstall":
             await repository.uninstall()
@@ -223,6 +223,10 @@ async def hacs_repository(hass, connection, msg):
 
         elif action == "hide_beta":
             repository.data.show_beta = False
+            await repository.update_repository()
+
+        elif action == "toggle_beta":
+            repository.data.show_beta = not repository.data.show_beta
             await repository.update_repository()
 
         elif action == "delete":

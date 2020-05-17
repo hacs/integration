@@ -35,12 +35,12 @@ async def test_sensor_update():
     repository = HacsIntegration("test/test")
     repository.data.installed = True
     repository.data.installed_version = "1"
-    repository.versions.available = "2"
+    repository.data.last_version = "2"
     hacs.repositories.append(repository)
     repository = HacsIntegration("test/test")
     repository.data.installed = True
     repository.data.installed_version = "1"
-    repository.versions.available = "1"
+    repository.data.last_version = "1"
     print(repository.pending_upgrade)
     hacs.repositories.append(repository)
     hacs.common.categories = ["integration"]

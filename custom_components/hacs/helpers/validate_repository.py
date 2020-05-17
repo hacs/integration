@@ -60,7 +60,7 @@ async def common_update_data(repository):
             repository.data.published_tags = [
                 x.tag_name for x in releases if not x.draft
             ]
-            repository.versions.available = next(iter(releases)).tag_name
+            repository.data.last_version = next(iter(releases)).tag_name
 
     except (AIOGitHubAPIException, HacsException):
         repository.data.releases = False

@@ -10,19 +10,19 @@ from custom_components.hacs.helpers.information import (
 )
 
 
-async def common_validate(repository):
+async def common_validate(repository, ignore_issues=False):
     """Common validation steps of the repository."""
     repository.validate.errors = []
 
     # Make sure the repository exist.
     repository.logger.debug("Checking repository.")
-    await common_update_data(repository)
+    await common_update_data(repository, ignore_issues)
 
     # Step 6: Get the content of hacs.json
     await repository.get_repository_manifest_content()
 
 
-async def common_update_data(repository):
+async def common_update_data(repository, ignore_issues=False):
     """Common update data."""
     hacs = get_hacs()
     try:
@@ -38,12 +38,12 @@ async def common_update_data(repository):
         raise HacsException(exception)
 
     # Make sure the repository is not archived.
-    if repository.data.archived:
+    if repository.data.archived and not ignore_issues:
         repository.validate.errors.append("Repository is archived.")
         raise HacsException("Repository is archived.")
 
     # Make sure the repository is not in the blacklist.
-    if is_removed(repository.data.full_name):
+    if is_removed(repository.data.full_name) and not ignore_issues:
         repository.validate.errors.append("Repository is in the blacklist.")
         raise HacsException("Repository is in the blacklist.")
 

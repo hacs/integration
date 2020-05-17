@@ -242,9 +242,9 @@ class HacsRepository:
         }
         return actions[self.display_status]
 
-    async def common_validate(self):
+    async def common_validate(self, ignore_issues=False):
         """Common validation steps of the repository."""
-        await common_validate(self)
+        await common_validate(self, ignore_issues)
 
     async def common_registration(self):
         """Common registration steps of the repository."""
@@ -268,12 +268,12 @@ class HacsRepository:
             if self.data.description is None or len(self.data.description) == 0:
                 raise HacsException("Missing repository description")
 
-    async def common_update(self):
+    async def common_update(self, ignore_issues=False):
         """Common information update steps of the repository."""
         self.logger.debug("Getting repository information")
 
         # Attach repository
-        await common_update_data(self)
+        await common_update_data(self, ignore_issues)
 
         # Update last updaeted
         self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)

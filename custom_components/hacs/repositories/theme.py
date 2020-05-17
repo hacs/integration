@@ -59,10 +59,9 @@ class HacsTheme(HacsRepository):
         find_file_name(self)
         self.content.path.local = f"{self.hacs.system.config_path}/themes/{self.data.file_name.replace('.yaml', '')}"
 
-    async def update_repository(self):  # lgtm[py/similar-function]
+    async def update_repository(self, ignore_issues=False):
         """Update."""
-        # Run common update steps.
-        await self.common_update()
+        await self.common_update(ignore_issues)
 
         # Get theme objects.
         if self.data.content_in_root:

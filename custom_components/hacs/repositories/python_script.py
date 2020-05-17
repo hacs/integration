@@ -63,10 +63,9 @@ class HacsPythonScript(HacsRepository):
         # Set name
         find_file_name(self)
 
-    async def update_repository(self):  # lgtm[py/similar-function]
+    async def update_repository(self, ignore_issues=False):
         """Update."""
-        # Run common update steps.
-        await self.common_update()
+        await self.common_update(ignore_issues)
 
         # Get python_script objects.
         if self.data.content_in_root:

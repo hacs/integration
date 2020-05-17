@@ -64,9 +64,9 @@ class HacsAppdaemon(HacsRepository):
         # Set local path
         self.content.path.local = self.localpath
 
-    async def update_repository(self):
+    async def update_repository(self, ignore_issues=False):
         """Update."""
-        await self.common_update()
+        await self.common_update(ignore_issues)
 
         # Get appdaemon objects.
         if self.repository_manifest:

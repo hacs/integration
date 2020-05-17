@@ -16,10 +16,10 @@ def render_template(content, context):
     try:
         render = Template(content)
         render = render.render(
-            installed=context.status.installed,
+            installed=context.data.installed,
             pending_update=context.pending_upgrade,
             prerelease=prerelease,
-            selected_tag=context.status.selected_tag,
+            selected_tag=context.data.selected_tag,
             version_available=context.releases.last_release,
             version_installed=context.display_installed_version,
         )

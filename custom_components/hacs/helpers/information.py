@@ -84,6 +84,7 @@ async def get_integration_manifest(repository):
         repository.data.authors = manifest["codeowners"]
         repository.data.domain = manifest["domain"]
         repository.data.manifest_name = manifest["name"]
+        repository.data.config_flow = manifest.get("config_flow", False)
 
         if repository.hacs.action:
             if manifest.get("documentation") is None:

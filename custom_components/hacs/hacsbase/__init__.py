@@ -115,7 +115,7 @@ class Hacs:
         """Get repository by ID."""
         try:
             for repository in self.repositories:
-                if repository.information.uid == repository_id:
+                if str(repository.data.id) == str(repository_id):
                     return repository
         except Exception:  # pylint: disable=broad-except
             pass
@@ -131,9 +131,9 @@ class Hacs:
             pass
         return None
 
-    def is_known(self, id):
+    def is_known(self, repository_id):
         """Return a bool if the repository is known."""
-        return str(id) in [str(x.data.id) for x in self.repositories]
+        return str(repository_id) in [str(x.data.id) for x in self.repositories]
 
     @property
     def sorted_by_name(self):
@@ -289,7 +289,7 @@ class Hacs:
 
         for repository in self.repositories:
             if (
-                repository.status.installed
+                repository.data.installed
                 and repository.data.category in self.common.categories
             ):
                 self.queue.add(self.factory.safe_update(repository))
@@ -325,7 +325,7 @@ class Hacs:
         for removed in removed_repositories:
             repository = self.get_by_name(removed.repository)
             if repository is not None:
-                if repository.status.installed and removed.removal_type != "critical":
+                if repository.data.installed and removed.removal_type != "critical":
                     self.logger.warning(
                         f"You have {repository.data.full_name} installed with HACS "
                         + f"this repository has been removed, please consider removing it. "
@@ -348,11 +348,6 @@ class Hacs:
             org = await get_default_repos_orgs(self.github, category)
             for repo in org:
                 repositories[category].append(repo)
-
-        for category in repositories:
-            for repo in repositories[category]:
-                if repo not in self.common.default:
-                    self.common.default.append(repo)
         return repositories
 
     async def load_known_repositories(self):
@@ -372,6 +367,9 @@ class Hacs:
             for repo in repositories[category]:
                 if is_removed(repo):
                     continue
-                if self.get_by_name(repo) is not None:
+                repository = self.get_by_name(repo)
+                if repository is not None:
+                    if repository.data.id not in self.common.default:
+                        self.common.default.append(str(repository.data.id))
                     continue
                 self.queue.add(self.factory.safe_register(repo, category))

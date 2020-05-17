@@ -21,8 +21,8 @@ async def load_hacs_repository():
             repository = hacs.get_by_name("hacs/integration")
         if repository is None:
             raise HacsException("Unknown error")
-        repository.status.installed = True
-        repository.versions.installed = VERSION
+        repository.data.installed = True
+        repository.data.installed_version = VERSION
         repository.status.new = False
         hacs.repo = repository.repository_object
         hacs.data_repo = await get_repository(

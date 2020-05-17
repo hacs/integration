@@ -157,7 +157,7 @@ async def test_get_releases_exception(aresponses, event_loop):
         repository = dummy_repository_base()
         repository.ref = None
         await common_validate(repository)
-        assert not repository.releases.releases
+        assert not repository.data.releases
 
 
 @pytest.mark.asyncio

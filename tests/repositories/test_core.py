@@ -25,22 +25,22 @@ def test_hacs_repository_core_mostly_defaults():
 def test_hacs_repository_core_can_install_legacy():
     repository = HacsRepository()
     repository.hacs.system.ha_version = "1.0.0"
-    repository.releases.releases = True
+    repository.data.releases = True
 
-    repository.information.homeassistant_version = "1.1.0"
+    repository.data.homeassistant = "1.1.0"
     assert not repository.can_install
 
-    repository.information.homeassistant_version = "1.0.0"
+    repository.data.homeassistant = "1.0.0"
     assert repository.can_install
 
-    repository.information.homeassistant_version = "0.1.0"
+    repository.data.homeassistant = "0.1.0"
     assert repository.can_install
 
 
 def test_hacs_repository_core_can_install_manifest():
     repository = HacsRepository()
     repository.hacs.system.ha_version = "1.0.0"
-    repository.releases.releases = True
+    repository.data.releases = True
 
     repository.data.homeassistant = "1.1.0"
     assert not repository.can_install

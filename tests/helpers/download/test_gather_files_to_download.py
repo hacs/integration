@@ -105,7 +105,7 @@ def test_gather_plugin_multiple_plugin_files_from_dist():
 def test_gather_plugin_files_from_release():
     repository = dummy_repository_plugin()
     repository.data.file_name = "test.js"
-    repository.releases.releases = True
+    repository.data.releases = True
     release = AIOGitHubAPIRepositoryRelease(
         {"tag_name": "3", "assets": [{"name": "test.js"}]}
     )
@@ -117,7 +117,7 @@ def test_gather_plugin_files_from_release():
 def test_gather_plugin_files_from_release_multiple():
     repository = dummy_repository_plugin()
     repository.data.file_name = "test.js"
-    repository.releases.releases = True
+    repository.data.releases = True
     repository.releases.objects = [
         AIOGitHubAPIRepositoryRelease(
             {"tag_name": "3", "assets": [{"name": "test.js"}, {"name": "test.png"}]}

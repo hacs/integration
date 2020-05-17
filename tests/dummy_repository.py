@@ -27,10 +27,10 @@ def dummy_repository_base(repository=None):
     repository.data.full_name = "test/test"
     repository.data.domain = "test"
     repository.versions.available = "3"
-    repository.status.selected_tag = "3"
+    repository.data.selected_tag = "3"
     repository.ref = version_to_install(repository)
     repository.integration_manifest = {"config_flow": False, "domain": "test"}
-    repository.releases.published_tags = ["1", "2", "3"]
+    repository.data.published_tags = ["1", "2", "3"]
     repository.data.update_data(repository_data)
     return repository
 

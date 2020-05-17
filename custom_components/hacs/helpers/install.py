@@ -26,7 +26,7 @@ async def install_repository(repository):
     else:
         repository.ref = f"tags/{version}"
 
-    if repository.status.installed and repository.data.category == "netdaemon":
+    if repository.data.installed and repository.data.category == "netdaemon":
         persistent_directory = BackupNetDaemon(repository)
         persistent_directory.create()
 
@@ -40,7 +40,7 @@ async def install_repository(repository):
             )
             persistent_directory.create()
 
-    if repository.status.installed and not repository.content.single:
+    if repository.data.installed and not repository.content.single:
         backup = Backup(repository.content.path.local)
         backup.create()
 
@@ -52,10 +52,10 @@ async def install_repository(repository):
     if repository.validate.errors:
         for error in repository.validate.errors:
             repository.logger.error(error)
-        if repository.status.installed and not repository.content.single:
+        if repository.data.installed and not repository.content.single:
             backup.restore()
 
-    if repository.status.installed and not repository.content.single:
+    if repository.data.installed and not repository.content.single:
         backup.cleanup()
 
     if persistent_directory is not None:
@@ -66,13 +66,13 @@ async def install_repository(repository):
         if repository.data.full_name not in repository.hacs.common.installed:
             if repository.data.full_name == "hacs/integration":
                 repository.hacs.common.installed.append(repository.data.full_name)
-        repository.status.installed = True
-        repository.versions.installed_commit = repository.versions.available_commit
+        repository.data.installed = True
+        repository.data.installed_commit = repository.data.last_commit
 
         if version == repository.data.default_branch:
-            repository.versions.installed = None
+            repository.data.installed_version = None
         else:
-            repository.versions.installed = version
+            repository.data.installed_version = version
 
         await reload_after_install(repository)
         installation_complete(repository)
@@ -114,17 +114,17 @@ def installation_complete(repository):
 def version_to_install(repository):
     """Determine which version to isntall."""
     if repository.versions.available is not None:
-        if repository.status.selected_tag is not None:
-            if repository.status.selected_tag == repository.versions.available:
-                repository.status.selected_tag = None
+        if repository.data.selected_tag is not None:
+            if repository.data.selected_tag == repository.versions.available:
+                repository.data.selected_tag = None
                 return repository.versions.available
-            return repository.status.selected_tag
+            return repository.data.selected_tag
         return repository.versions.available
-    if repository.status.selected_tag is not None:
-        if repository.status.selected_tag == repository.data.default_branch:
+    if repository.data.selected_tag is not None:
+        if repository.data.selected_tag == repository.data.default_branch:
             return repository.data.default_branch
-        if repository.status.selected_tag in repository.releases.published_tags:
-            return repository.status.selected_tag
+        if repository.data.selected_tag in repository.data.published_tags:
+            return repository.data.selected_tag
     if repository.data.default_branch is None:
         return "master"
     return repository.data.default_branch

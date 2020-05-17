@@ -126,10 +126,10 @@ class HacsRepository:
         """Return pending upgrade."""
         if not self.can_install:
             return False
-        if self.status.installed:
-            if self.status.selected_tag is not None:
-                if self.status.selected_tag == self.data.default_branch:
-                    if self.versions.installed_commit != self.versions.available_commit:
+        if self.data.installed:
+            if self.data.selected_tag is not None:
+                if self.data.selected_tag == self.data.default_branch:
+                    if self.data.installed_commit != self.data.last_commit:
                         return True
                     return False
             if self.display_installed_version != self.display_available_version:
@@ -142,7 +142,7 @@ class HacsRepository:
         if self.integration_manifest:
             if self.data.full_name == "hacs/integration":
                 return False
-            return self.integration_manifest.get("config_flow", False)
+            return self.data.config_flow
         return False
 
     @property
@@ -150,7 +150,7 @@ class HacsRepository:
         """Return flag if the repository is custom."""
         if self.data.full_name.split("/")[0] in ["custom-components", "custom-cards"]:
             return False
-        if self.data.full_name.lower() in [x.lower() for x in self.hacs.common.default]:
+        if str(self.data.id) in [str(x) for x in self.hacs.common.default]:
             return False
         if self.data.full_name == "hacs/integration":
             return False
@@ -160,14 +160,13 @@ class HacsRepository:
     def can_install(self):
         """Return bool if repository can be installed."""
         target = None
-        if self.information.homeassistant_version is not None:
-            target = self.information.homeassistant_version
-        if self.repository_manifest is not None:
-            if self.data.homeassistant is not None:
-                target = self.data.homeassistant
+        if self.data.homeassistant is not None:
+            target = self.data.homeassistant
+        if self.data.homeassistant is not None:
+            target = self.data.homeassistant
 
         if target is not None:
-            if self.releases.releases:
+            if self.data.releases:
                 if not version_left_higher_then_right(
                     self.hacs.system.ha_version, target
                 ):
@@ -188,7 +187,7 @@ class HacsRepository:
             status = "pending-restart"
         elif self.pending_upgrade:
             status = "pending-upgrade"
-        elif self.status.installed:
+        elif self.data.installed:
             status = "installed"
         else:
             status = "default"
@@ -209,11 +208,11 @@ class HacsRepository:
     @property
     def display_installed_version(self):
         """Return display_authors"""
-        if self.versions.installed is not None:
-            installed = self.versions.installed
+        if self.data.installed_version is not None:
+            installed = self.data.installed_version
         else:
-            if self.versions.installed_commit is not None:
-                installed = self.versions.installed_commit
+            if self.data.installed_commit is not None:
+                installed = self.data.installed_commit
             else:
                 installed = ""
         return installed
@@ -224,8 +223,8 @@ class HacsRepository:
         if self.versions.available is not None:
             available = self.versions.available
         else:
-            if self.versions.available_commit is not None:
-                available = self.versions.available_commit
+            if self.data.last_commit is not None:
+                available = self.data.last_commit
             else:
                 available = ""
         return available
@@ -233,7 +232,7 @@ class HacsRepository:
     @property
     def display_version_or_commit(self):
         """Does the repositoriy use releases or commits?"""
-        if self.releases.releases:
+        if self.data.releases:
             version_or_commit = "version"
         else:
             version_or_commit = "commit"
@@ -264,9 +263,6 @@ class HacsRepository:
             )
             self.data.update_data(self.repository_object.attributes)
 
-        # Set id
-        self.information.uid = str(self.data.id)
-
         # Set topics
         self.data.topics = self.data.topics
 
@@ -288,13 +284,11 @@ class HacsRepository:
         await common_update_data(self)
 
         # Update last updaeted
-        self.information.last_updated = self.repository_object.attributes.get(
-            "pushed_at", 0
-        )
+        self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)
 
         # Update last available commit
         await self.repository_object.set_last_commit()
-        self.versions.available_commit = self.repository_object.last_commit
+        self.data.last_commit = self.repository_object.last_commit
 
         # Get the content of hacs.json
         await self.get_repository_manifest_content()
@@ -377,10 +371,10 @@ class HacsRepository:
         """Run remove tasks."""
         self.logger.info("Starting removal")
 
-        if self.information.uid in self.hacs.common.installed:
-            self.hacs.common.installed.remove(self.information.uid)
+        if self.data.id in self.hacs.common.installed:
+            self.hacs.common.installed.remove(self.data.id)
         for repository in self.hacs.repositories:
-            if repository.information.uid == self.information.uid:
+            if repository.data.id == self.data.id:
                 self.hacs.repositories.remove(repository)
 
     async def uninstall(self):
@@ -388,7 +382,7 @@ class HacsRepository:
         self.logger.info("Uninstalling")
         if not await self.remove_local_directory():
             raise HacsException("Could not uninstall")
-        self.status.installed = False
+        self.data.installed = False
         if self.data.category == "integration":
             if self.config_flow:
                 await self.reload_custom_components()
@@ -403,8 +397,8 @@ class HacsRepository:
                 pass
         if self.data.full_name in self.hacs.common.installed:
             self.hacs.common.installed.remove(self.data.full_name)
-        self.versions.installed = None
-        self.versions.installed_commit = None
+        self.data.installed_version = None
+        self.data.installed_commit = None
         self.hacs.hass.bus.async_fire(
             "hacs/repository",
             {"id": 1337, "action": "uninstall", "repository": self.data.full_name},

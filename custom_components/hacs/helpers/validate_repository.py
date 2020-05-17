@@ -51,29 +51,29 @@ async def common_update_data(repository):
     try:
         releases = await get_releases(
             repository.repository_object,
-            repository.status.show_beta,
+            repository.data.show_beta,
             hacs.configuration.release_limit,
         )
         if releases:
-            repository.releases.releases = True
+            repository.data.releases = True
             repository.releases.objects = releases
-            repository.releases.published_tags = [
+            repository.data.published_tags = [
                 x.tag_name for x in releases if not x.draft
             ]
             repository.versions.available = next(iter(releases)).tag_name
 
     except (AIOGitHubAPIException, HacsException):
-        repository.releases.releases = False
+        repository.data.releases = False
 
     if not repository.force_branch:
         repository.ref = version_to_install(repository)
-    if repository.releases.releases:
+    if repository.data.releases:
         for release in releases:
             if release.tag_name == repository.ref:
                 assets = release.assets
                 if assets:
                     downloads = next(iter(assets)).attributes.get("download_count")
-                    repository.releases.downloads = downloads
+                    repository.data.downloads = downloads
 
     repository.logger.debug(
         f"Running checks against {repository.ref.replace('tags/', '')}"

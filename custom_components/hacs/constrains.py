@@ -7,7 +7,7 @@ from .helpers.misc import version_left_higher_then_right
 
 from custom_components.hacs.globals import get_hacs
 
-MINIMUM_HA_VERSION = "0.110.0b0"
+MINIMUM_HA_VERSION = "0.110.0"
 
 
 def check_constrains():

@@ -49,3 +49,8 @@ def test_version_to_install():
     repository.data.last_version = None
     repository.data.selected_tag = None
     assert version_to_install(repository) == "dev"
+
+    repository = dummy_repository_base()
+    repository.data.default_branch = "master"
+    repository.data.last_version = "2"
+    assert version_to_install(repository) == "2"

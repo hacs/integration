@@ -33,11 +33,12 @@ class RepositoryData:
     installed: bool = False
     installed_commit: str = None
     installed_version: str = None
+    open_issues: int = 0
     last_commit: str = None
     last_version: str = None
     last_updated: str = 0
     manifest_name: str = None
-    new: bool = False
+    new: bool = True
     persistent_directory: str = None
     pushed_at: str = ""
     releases: bool = False

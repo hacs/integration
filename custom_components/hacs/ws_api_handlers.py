@@ -150,6 +150,7 @@ async def hacs_repositories(hass, connection, msg):
                 "info": repo.information.info,
                 "installed_version": repo.display_installed_version,
                 "installed": repo.data.installed,
+                "issues": repo.data.open_issues,
                 "javascript_type": repo.information.javascript_type,
                 "last_updated": repo.data.last_updated,
                 "local_path": repo.content.path.local,

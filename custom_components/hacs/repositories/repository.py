@@ -345,8 +345,8 @@ class HacsRepository:
         if self.hacs.action:
             self.logger.info("Found hacs.json")
 
-        if self.ref is None:
-            self.ref = version_to_install(self)
+        self.ref = version_to_install(self)
+
         try:
             manifest = await self.repository_object.get_contents("hacs.json", self.ref)
             self.repository_manifest = HacsManifest.from_dict(

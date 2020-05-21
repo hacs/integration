@@ -55,11 +55,10 @@ async def async_setup_entry(hass, config_entry):
     """Set up this integration using UI."""
     hacs = get_hacs()
     conf = hass.data.get(DOMAIN)
+    if conf is not None:
+        return False
     if config_entry.source == config_entries.SOURCE_IMPORT:
-        if conf is None:
-            hass.async_create_task(
-                hass.config_entries.async_remove(config_entry.entry_id)
-            )
+        hass.async_create_task(hass.config_entries.async_remove(config_entry.entry_id))
         return False
     hacs.hass = hass
     hacs.session = async_create_clientsession(hass)

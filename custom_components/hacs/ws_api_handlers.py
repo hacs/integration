@@ -77,6 +77,7 @@ async def hacs_settings(hass, connection, msg):
         hacs.logger.error(f"WS action '{action}' is not valid")
     hass.bus.async_fire("hacs/config", {})
     await hacs.data.async_write()
+    connection.send_message(websocket_api.result_message(msg["id"], {}))
 
 
 @websocket_api.async_response
@@ -198,7 +199,6 @@ async def hacs_repository(hass, connection, msg):
         if action == "update":
             await repository.update_repository(True)
             repository.status.updated_info = True
-            repository.data.new = False
 
         elif action == "install":
             was_installed = repository.data.installed
@@ -261,6 +261,7 @@ async def hacs_repository(hass, connection, msg):
         hass.bus.async_fire("hacs/error", {"message": message})
 
     repository.state = None
+    connection.send_message(websocket_api.result_message(msg["id"], {}))
 
 
 @websocket_api.async_response
@@ -347,6 +348,7 @@ async def hacs_repository_data(hass, connection, msg):
         hacs.logger.error(f"WS action '{action}' is not valid")
 
     await hacs.data.async_write()
+    connection.send_message(websocket_api.result_message(msg["id"], {}))
 
 
 @websocket_api.async_response

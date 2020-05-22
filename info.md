@@ -4,11 +4,6 @@
 
 This is **only** intended for development!
 
-{%- elif (version_installed.split(".")[1] | int) < 17 and version_installed != "0.16.3" %}
-
-## DO NOT UPGRADE TO THE LATEST VERSION!
-
-First upgrade to version [0.16.3](https://github.com/hacs/integration/releases/tag/0.16.3), then upgrade to the latest version.
 {%- elif (version_installed.split(".")[0] | int) < 1 %}
 
 # Breaking changes!

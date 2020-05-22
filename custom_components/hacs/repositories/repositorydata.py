@@ -73,6 +73,8 @@ class RepositoryData:
         for key in source:
             if key in data.__dict__:
                 if key == "pushed_at":
+                    if source[key] == "":
+                        continue
                     if "Z" in source[key]:
                         setattr(
                             data,
@@ -101,6 +103,8 @@ class RepositoryData:
         for key in data:
             if key in self.__dict__:
                 if key == "pushed_at":
+                    if data[key] == "":
+                        continue
                     if "Z" in data[key]:
                         setattr(
                             self,

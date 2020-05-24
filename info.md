@@ -9,6 +9,7 @@ This is **only** intended for development!
 # Breaking changes!
 
 Read the release notes!
+https://github.com/hacs/integration/releases/tag/1.0.0
 {% endif %}
 
 ## Useful links

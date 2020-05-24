@@ -198,11 +198,12 @@ async def async_remove_entry(hass, config_entry):
     hacs.logger.info("Removing recuring tasks")
     for task in hacs.recuring_tasks:
         task()
-    hacs.logger.info("Removing sensor")
-    try:
-        await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")
-    except ValueError:
-        pass
+    if config_entry.state == "loaded":
+        hacs.logger.info("Removing sensor")
+        try:
+            await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")
+        except ValueError:
+            pass
     hacs.logger.info("Removing sidepanel")
     try:
         hass.components.frontend.async_remove_panel("hacs")

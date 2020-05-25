@@ -1,5 +1,6 @@
 """Setup functions for HACS."""
 # pylint: disable=bad-continuation
+import os
 from hacs_frontend.version import VERSION as FE_VERSION
 from homeassistant.helpers import discovery
 
@@ -8,6 +9,16 @@ from custom_components.hacs.const import VERSION, DOMAIN
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.helpers.information import get_repository
 from custom_components.hacs.helpers.register_repository import register_repository
+
+
+def clear_storage():
+    """Clear old files from storage."""
+    hacs = get_hacs()
+    storagefiles = ["hacs"]
+    for s_f in storagefiles:
+        path = f"{hacs.system.config_path}/.storage/{s_f}"
+        if os.path.isfile(path):
+            os.remove(path)
 
 
 async def load_hacs_repository():

@@ -22,6 +22,7 @@ from custom_components.hacs.helpers.remaining_github_calls import get_fetch_upda
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.setup import (
+    clear_storage,
     add_sensor,
     load_hacs_repository,
     setup_frontend,
@@ -102,6 +103,7 @@ async def startup_wrapper_for_yaml():
 async def hacs_startup():
     """HACS startup tasks."""
     hacs = get_hacs()
+
     if hacs.configuration.debug:
         try:
             await hacs.hass.services.async_call(
@@ -124,6 +126,8 @@ async def hacs_startup():
     hacs.logger.info(STARTUP)
     hacs.system.config_path = hacs.hass.config.path()
     hacs.system.ha_version = HAVERSION
+
+    await hacs.hass.async_add_executor_job(clear_storage)
 
     hacs.system.lovelace_mode = lovelace_info.get("mode", "yaml")
     hacs.system.disabled = False

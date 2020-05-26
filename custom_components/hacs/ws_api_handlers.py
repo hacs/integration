@@ -201,6 +201,7 @@ async def hacs_repository(hass, connection, msg):
             repository.status.updated_info = True
 
         elif action == "install":
+            repository.data.new = False
             was_installed = repository.data.installed
             await repository.install()
             if not was_installed:
@@ -210,6 +211,7 @@ async def hacs_repository(hass, connection, msg):
             repository.data.new = False
 
         elif action == "uninstall":
+            repository.data.new = False
             await repository.uninstall()
 
         elif action == "hide":

@@ -75,7 +75,10 @@ async def preflight():
     """Preflight cheks."""
     event_data = get_event_data()
     ref = None
-    if os.getenv("GITHUB_REPOSITORY") == "hacs/default":
+    if os.getenv("REPOSITORY") and os.getenv("CATEGORY"):
+        repository = os.getenv("REPOSITORY")
+        category =  os.getenv("CATEGORY")
+    elif os.getenv("GITHUB_REPOSITORY") == "hacs/default":
         category = chose_category()
         repository = chose_repository(category)
         pr = False

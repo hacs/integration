@@ -78,6 +78,7 @@ async def preflight():
     if os.getenv("REPOSITORY") and os.getenv("CATEGORY"):
         repository = os.getenv("REPOSITORY")
         category =  os.getenv("CATEGORY")
+        pr = False
     elif os.getenv("GITHUB_REPOSITORY") == "hacs/default":
         category = chose_category()
         repository = chose_repository(category)

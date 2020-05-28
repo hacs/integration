@@ -353,6 +353,8 @@ class HacsRepository:
                 json.loads(manifest.content)
             )
             self.data.update_data(json.loads(manifest.content))
+            if self.hacs.action:
+                self.logger.info(json.loads(manifest.content))
         except (AIOGitHubAPIException, Exception) as exception:  # Gotta Catch 'Em All
             if self.hacs.action:
                 raise HacsException(f"hacs.json file is not valid ({exception}).")

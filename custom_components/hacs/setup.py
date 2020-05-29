@@ -7,7 +7,10 @@ from homeassistant.helpers import discovery
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.const import VERSION, DOMAIN
 from custom_components.hacs.globals import get_hacs
-from custom_components.hacs.helpers.information import get_repository
+from custom_components.hacs.helpers.information import (
+    get_repository,
+    get_frontend_version,
+)
 from custom_components.hacs.helpers.register_repository import register_repository
 
 
@@ -90,6 +93,9 @@ async def setup_frontend():
 
     hacs.hass.http.register_view(HacsFrontend())
     hacs.frontend.version_running = FE_VERSION
+    hacs.frontend.version_expected = await hacs.hass.async_add_executor_job(
+        get_frontend_version
+    )
 
     # Add to sidepanel
     custom_panel_config = {

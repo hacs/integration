@@ -92,6 +92,8 @@ async def hacs_config(hass, connection, msg):
     content["frontend_compact"] = config.frontend_compact
     content["onboarding_done"] = config.onboarding_done
     content["version"] = hacs.version
+    content["frontend_expected"] = hacs.frontend.version_expected
+    content["frontend_running"] = hacs.frontend.version_running
     content["dev"] = config.dev
     content["debug"] = config.debug
     content["country"] = config.country

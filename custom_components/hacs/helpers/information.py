@@ -1,6 +1,7 @@
 """Return repository information if any."""
 import json
 from aiogithubapi import AIOGitHubAPIException, GitHub
+from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.handler.template import render_template
 from custom_components.hacs.hacsbase.exceptions import HacsException
 
@@ -61,6 +62,28 @@ async def get_releases(repository, prerelease=False, returnlimit=5):
         return releases
     except AIOGitHubAPIException as exception:
         raise HacsException(exception)
+
+
+def get_frontend_version():
+    """get the frontend version from the manifest."""
+    manifest = read_hacs_manifest()
+    frontend = 0
+    for requirement in manifest.get("requirements", []):
+        if requirement.startswith("hacs_frontend"):
+            frontend = requirement.split("==")[1]
+            break
+    return frontend
+
+
+def read_hacs_manifest():
+    """Reads the HACS manifest file and returns the contents."""
+    hacs = get_hacs()
+    content = {}
+    with open(
+        f"{hacs.system.config_path}/custom_components/hacs/manifest.json"
+    ) as manifest:
+        content = json.loads(manifest.read())
+    return content
 
 
 async def get_integration_manifest(repository):

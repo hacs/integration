@@ -52,6 +52,7 @@ class HacsPythonScript(HacsRepository):
     async def registration(self, ref=None):
         """Registration."""
         if ref is not None:
+            self.data.selected_tag = ref
             self.ref = ref
             self.force_branch = True
         if not await self.validate_repository():

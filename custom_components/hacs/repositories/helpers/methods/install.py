@@ -8,4 +8,6 @@ class RepositoryMethodInstall:
         await self.async_install()
 
     async def async_install(self) -> None:
+        await self.pre_install()
         await install_repository(self)
+        await self.post_install()

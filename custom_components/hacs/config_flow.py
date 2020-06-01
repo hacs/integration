@@ -91,5 +91,6 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
             schema = {vol.Optional("not_in_use", default=""): str}
         else:
             schema = hacs_config_option_schema(self.config_entry.options)
+            del schema["frontend_repo"]
 
         return self.async_show_form(step_id="user", data_schema=vol.Schema(schema))

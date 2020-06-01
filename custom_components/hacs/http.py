@@ -7,6 +7,8 @@ from hacs_frontend import locate_gz, locate_debug_gz
 
 from custom_components.hacs.globals import get_hacs
 
+IGNORE = ["class-map.js.map"]
+
 
 class HacsFrontend(HomeAssistantView):
     """Base View Class for HACS."""
@@ -24,14 +26,26 @@ async def get_file_response(requested_file):
     """Get file."""
     hacs = get_hacs()
 
+    if requested_file in IGNORE:
+        hacs.logger.debug(f"Ignoring request for {requested_file}")
+        return web.Response(status=200)
+
     if requested_file.startswith("frontend-"):
         if hacs.configuration.debug:
             servefile = await hacs.hass.async_add_executor_job(locate_debug_gz)
             hacs.logger.debug("Serving DEBUG frontend")
+        elif hacs.configuration.frontend_repo:
+            hacs.logger.debug("Serving DEVELOPMENT frontend")
+            servefile = f"{hacs.configuration.frontend_repo}/hacs_frontend/main.js"
         else:
             servefile = await hacs.hass.async_add_executor_job(locate_gz)
 
         if os.path.exists(servefile):
+            if hacs.configuration.frontend_repo:
+                response = web.FileResponse(servefile)
+                response.headers["Cache-Control"] = "no-store, max-age=0"
+                response.headers["Pragma"] = "no-store"
+                return response
             return web.FileResponse(servefile)
     elif requested_file == "iconset.js":
         return web.FileResponse(

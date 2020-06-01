@@ -2,10 +2,9 @@
 import json
 from integrationhelper import Logger
 
-from .repository import HacsRepository
-from ..hacsbase.exceptions import HacsException
-
+from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.helpers.information import find_file_name
+from custom_components.hacs.repositories.repository import HacsRepository
 
 
 class HacsPlugin(HacsRepository):
@@ -24,9 +23,7 @@ class HacsPlugin(HacsRepository):
     @property
     def localpath(self):
         """Return localpath."""
-        return (
-            f"{self.hacs.system.config_path}/www/community/{self.data.full_name.split('/')[-1]}"
-        )
+        return f"{self.hacs.system.config_path}/www/community/{self.data.full_name.split('/')[-1]}"
 
     async def validate_repository(self):
         """Validate."""
@@ -59,7 +56,9 @@ class HacsPlugin(HacsRepository):
         find_file_name(self)
 
         if self.content.path.remote is None:
-            self.validate.errors.append("Repostitory structure not compliant")
+            self.validate.errors.append(
+                f"Repostitory structure for {self.ref.replace('tags/','')} is not compliant"
+            )
 
         if self.content.path.remote == "release":
             self.content.single = True

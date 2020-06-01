@@ -5,16 +5,10 @@ from custom_components.hacs.helpers.misc import version_left_higher_then_right
 class RepositoryPropertyCanBeInstalled:
     @property
     def can_be_installed(self) -> bool:
-        target = None
         if self.data.homeassistant is not None:
-            target = self.data.homeassistant
-        if self.data.homeassistant is not None:
-            target = self.data.homeassistant
-
-        if target is not None:
             if self.data.releases:
                 if not version_left_higher_then_right(
-                    self.hacs.system.ha_version, target
+                    self.hacs.system.ha_version, self.data.homeassistant
                 ):
                     return False
         return True

@@ -21,9 +21,7 @@ class HacsTheme(HacsRepository):
     async def async_post_installation(self):
         """Run post installation steps."""
         try:
-            await self.hacs.hass.services.async_call(
-                "frontend", "reload_themes", {}
-            )
+            await self.hacs.hass.services.async_call("frontend", "reload_themes", {})
         except Exception:  # pylint: disable=broad-except
             pass
 
@@ -53,18 +51,8 @@ class HacsTheme(HacsRepository):
                     self.logger.error(error)
         return self.validate.success
 
-    async def registration(self, ref=None):
+    async def async_post_registration(self):
         """Registration."""
-        if ref is not None:
-            self.data.selected_tag = ref
-            self.ref = ref
-            self.force_branch = True
-        if not await self.validate_repository():
-            return False
-
-        # Run common registration steps.
-        await self.common_registration()
-
         # Set name
         find_file_name(self)
         self.content.path.local = f"{self.hacs.system.config_path}/themes/{self.data.file_name.replace('.yaml', '')}"

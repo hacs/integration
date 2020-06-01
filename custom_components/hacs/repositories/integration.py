@@ -67,18 +67,8 @@ class HacsIntegration(HacsRepository):
                     self.logger.error(error)
         return self.validate.success
 
-    async def registration(self, ref=None):
+    async def async_post_registration(self):
         """Registration."""
-        if ref is not None:
-            self.data.selected_tag = ref
-            self.ref = ref
-            self.force_branch = True
-        if not await self.validate_repository():
-            return False
-
-        # Run common registration steps.
-        await self.common_registration()
-
         # Set local path
         self.content.path.local = self.localpath
 

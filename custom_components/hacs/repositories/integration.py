@@ -1,4 +1,5 @@
 """Class for integrations in HACS."""
+# pylint: disable=attribute-defined-outside-init
 from integrationhelper import Logger
 
 from homeassistant.loader import async_get_custom_components
@@ -25,6 +26,16 @@ class HacsIntegration(HacsRepository):
     def localpath(self):
         """Return localpath."""
         return f"{self.hacs.system.config_path}/custom_components/{self.data.domain}"
+
+    async def async_post_installation(self):
+        """Run post installation steps."""
+        if self.data.config_flow:
+            if self.data.full_name != "hacs/integration":
+                await self.reload_custom_components()
+            if self.data.first_install:
+                self.pending_restart = False
+                return
+        self.pending_restart = True
 
     async def validate_repository(self):
         """Validate."""
@@ -56,20 +67,6 @@ class HacsIntegration(HacsRepository):
                     self.logger.error(error)
         return self.validate.success
 
-    async def registration(self, ref=None):
-        """Registration."""
-        if ref is not None:
-            self.ref = ref
-            self.force_branch = True
-        if not await self.validate_repository():
-            return False
-
-        # Run common registration steps.
-        await self.common_registration()
-
-        # Set local path
-        self.content.path.local = self.localpath
-
     async def update_repository(self, ignore_issues=False):
         """Update."""
         await self.common_update(ignore_issues)
@@ -94,3 +91,4 @@ class HacsIntegration(HacsRepository):
         self.logger.info("Reloading custom_component cache")
         del self.hacs.hass.data["custom_components"]
         await async_get_custom_components(self.hacs.hass)
+        self.logger.info("Custom_component cache reloaded")

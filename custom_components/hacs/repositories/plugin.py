@@ -2,10 +2,9 @@
 import json
 from integrationhelper import Logger
 
-from .repository import HacsRepository
-from ..hacsbase.exceptions import HacsException
-
+from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.helpers.information import find_file_name
+from custom_components.hacs.repositories.repository import HacsRepository
 
 
 class HacsPlugin(HacsRepository):
@@ -18,10 +17,13 @@ class HacsPlugin(HacsRepository):
         self.data.file_name = None
         self.data.category = "plugin"
         self.information.javascript_type = None
-        self.content.path.local = (
-            f"{self.hacs.system.config_path}/www/community/{full_name.split('/')[-1]}"
-        )
+        self.content.path.local = self.localpath
         self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
+
+    @property
+    def localpath(self):
+        """Return localpath."""
+        return f"{self.hacs.system.config_path}/www/community/{self.data.full_name.split('/')[-1]}"
 
     async def validate_repository(self):
         """Validate."""
@@ -46,17 +48,6 @@ class HacsPlugin(HacsRepository):
                     self.logger.error(error)
         return self.validate.success
 
-    async def registration(self, ref=None):
-        """Registration."""
-        if ref is not None:
-            self.ref = ref
-            self.force_branch = True
-        if not await self.validate_repository():
-            return False
-
-        # Run common registration steps.
-        await self.common_registration()
-
     async def update_repository(self, ignore_issues=False):
         """Update."""
         await self.common_update(ignore_issues)
@@ -65,7 +56,9 @@ class HacsPlugin(HacsRepository):
         find_file_name(self)
 
         if self.content.path.remote is None:
-            self.validate.errors.append("Repostitory structure not compliant")
+            self.validate.errors.append(
+                f"Repostitory structure for {self.ref.replace('tags/','')} is not compliant"
+            )
 
         if self.content.path.remote == "release":
             self.content.single = True

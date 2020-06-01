@@ -5,7 +5,6 @@ from custom_components.hacs.hacsbase.exceptions import (
     HacsException,
     HacsExpectedException,
 )
-from queueman import concurrent
 
 
 # @concurrent(15, 5)
@@ -27,7 +26,7 @@ async def register_repository(full_name, category, check=True, ref=None, action=
     repository = RERPOSITORY_CLASSES[category](full_name)
     if check:
         try:
-            await repository.registration(ref)
+            await repository.async_registration(ref)
             if hacs.system.status.new:
                 repository.data.new = False
             if repository.validate.errors:

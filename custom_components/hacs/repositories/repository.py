@@ -9,9 +9,9 @@ from aiogithubapi import AIOGitHubAPIException
 from .manifest import HacsManifest
 from ..helpers.misc import get_repository_name
 from ..handler.download import async_download_file, async_save_file
-from ..helpers.misc import version_left_higher_then_right
-from ..helpers.install import install_repository, version_to_install
+from ..helpers.install import version_to_install
 
+from custom_components.hacs.repositories.helpers import RepositoryHelpers
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.store import async_remove_store
 from custom_components.hacs.globals import get_hacs
@@ -98,7 +98,7 @@ class RepositoryContent:
     single = False
 
 
-class HacsRepository:
+class HacsRepository(RepositoryHelpers):
     """HacsRepository."""
 
     def __init__(self):
@@ -121,49 +121,6 @@ class HacsRepository:
         self.tree = []
         self.treefiles = []
         self.ref = None
-
-    @property
-    def pending_upgrade(self):
-        """Return pending upgrade."""
-        if not self.can_install:
-            return False
-        if self.data.installed:
-            if self.data.selected_tag is not None:
-                if self.data.selected_tag == self.data.default_branch:
-                    if self.data.installed_commit != self.data.last_commit:
-                        return True
-                    return False
-            if self.display_installed_version != self.display_available_version:
-                return True
-        return False
-
-    @property
-    def custom(self):
-        """Return flag if the repository is custom."""
-        if self.data.full_name.split("/")[0] in ["custom-components", "custom-cards"]:
-            return False
-        if str(self.data.id) in [str(x) for x in self.hacs.common.default]:
-            return False
-        if self.data.full_name == "hacs/integration":
-            return False
-        return True
-
-    @property
-    def can_install(self):
-        """Return bool if repository can be installed."""
-        target = None
-        if self.data.homeassistant is not None:
-            target = self.data.homeassistant
-        if self.data.homeassistant is not None:
-            target = self.data.homeassistant
-
-        if target is not None:
-            if self.data.releases:
-                if not version_left_higher_then_right(
-                    self.hacs.system.ha_version, target
-                ):
-                    return False
-        return True
 
     @property
     def display_name(self):
@@ -287,10 +244,6 @@ class HacsRepository:
 
         # Update "info.md"
         self.information.additional_info = await get_info_md_content(self)
-
-    async def install(self):
-        """Common installation steps of the repository."""
-        await install_repository(self)
 
     async def download_zip(self, validate):
         """Download ZIP archive from repository release."""

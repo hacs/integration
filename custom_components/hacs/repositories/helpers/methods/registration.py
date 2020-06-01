@@ -15,7 +15,7 @@ class RepositoryMethodRegistration:
 
     async def async_registration(self, ref=None) -> None:
         # Run local pre registration steps.
-        await self.async_post_registration()
+        await self.async_pre_registration()
 
         if ref is not None:
             self.data.selected_tag = ref

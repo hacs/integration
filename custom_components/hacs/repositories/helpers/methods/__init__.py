@@ -6,6 +6,11 @@ from .installation import (
     RepositoryMethodInstall,
     RepositoryMethodPostInstall,
 )
+from .registration import (
+    RepositoryMethodPreRegistration,
+    RepositoryMethodRegistration,
+    RepositoryMethodPostRegistration,
+)
 
 
 class RepositoryHelperMethods(
@@ -14,5 +19,8 @@ class RepositoryHelperMethods(
     RepositoryMethodInstall,
     RepositoryMethodPostInstall,
     RepositoryMethodPreInstall,
+    RepositoryMethodPreRegistration,
+    RepositoryMethodRegistration,
+    RepositoryMethodPostRegistration,
 ):
     pass

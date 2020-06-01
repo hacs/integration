@@ -28,6 +28,9 @@ class RepositoryMethodRegistration:
         # Run common registration steps.
         await self.common_registration()
 
+        # Set correct local path
+        self.content.path.local = self.localpath
+
         # Run local post registration steps.
         await self.async_post_registration()
 

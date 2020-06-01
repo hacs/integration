@@ -58,11 +58,6 @@ class HacsNetdaemon(HacsRepository):
                     self.logger.error(error)
         return self.validate.success
 
-    async def async_post_registration(self):
-        """Registration."""
-        # Set local path
-        self.content.path.local = self.localpath
-
     async def update_repository(self, ignore_issues=False):
         """Update."""
         await self.common_update(ignore_issues)

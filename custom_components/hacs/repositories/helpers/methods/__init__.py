@@ -1,4 +1,4 @@
-# pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
+"""Collection of repository methods that are nested to all repositories."""
 from .exsist_on_local_fs import RepositoryMethodExsistOnLocalFS
 from .reinstall_if_needed import RepositoryMethodReinstallIfNeeded
 from .installation import (
@@ -23,4 +23,4 @@ class RepositoryHelperMethods(
     RepositoryMethodRegistration,
     RepositoryMethodPostRegistration,
 ):
-    pass
+    """Collection of repository methods that are nested to all repositories."""

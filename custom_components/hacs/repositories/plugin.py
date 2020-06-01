@@ -18,10 +18,15 @@ class HacsPlugin(HacsRepository):
         self.data.file_name = None
         self.data.category = "plugin"
         self.information.javascript_type = None
-        self.content.path.local = (
-            f"{self.hacs.system.config_path}/www/community/{full_name.split('/')[-1]}"
-        )
+        self.content.path.local = self.localpath
         self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
+
+    @property
+    def localpath(self):
+        """Return localpath."""
+        return (
+            f"{self.hacs.system.config_path}/www/community/{self.data.full_name.split('/')[-1]}"
+        )
 
     async def validate_repository(self):
         """Validate."""

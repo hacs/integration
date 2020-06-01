@@ -17,9 +17,14 @@ class HacsPythonScript(HacsRepository):
         self.data.full_name = full_name
         self.data.category = "python_script"
         self.content.path.remote = "python_scripts"
-        self.content.path.local = f"{self.hacs.system.config_path}/python_scripts"
+        self.content.path.local = self.localpath
         self.content.single = True
         self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
+
+    @property
+    def localpath(self):
+        """Return localpath."""
+        return f"{self.hacs.system.config_path}/python_scripts"
 
     async def validate_repository(self):
         """Validate."""

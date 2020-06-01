@@ -91,3 +91,4 @@ class HacsIntegration(HacsRepository):
         self.logger.info("Reloading custom_component cache")
         del self.hacs.hass.data["custom_components"]
         await async_get_custom_components(self.hacs.hass)
+        self.logger.info("Custom_component cache reloaded")

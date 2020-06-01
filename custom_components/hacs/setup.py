@@ -21,6 +21,7 @@ def clear_storage():
     for s_f in storagefiles:
         path = f"{hacs.system.config_path}/.storage/{s_f}"
         if os.path.isfile(path):
+            hacs.logger.info(f"Cleaning up old storage file {path}")
             os.remove(path)
 
 

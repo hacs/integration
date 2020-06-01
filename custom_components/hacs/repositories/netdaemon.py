@@ -90,3 +90,12 @@ class HacsNetdaemon(HacsRepository):
 
         # Set local path
         self.content.path.local = self.localpath
+
+    async def async_post_installation(self):
+        """Run post installation steps."""
+        try:
+            await self.hacs.hass.services.async_call(
+                "hassio", "addon_restart", {"addon": "c6a2317c_netdaemon"}
+            )
+        except Exception:  # pylint: disable=broad-except
+            pass

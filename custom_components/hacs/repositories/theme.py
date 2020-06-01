@@ -18,6 +18,15 @@ class HacsTheme(HacsRepository):
         self.content.single = False
         self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
 
+    async def async_post_installation(self):
+        """Run post installation steps."""
+        try:
+            await self.hacs.hass.services.async_call(
+                "frontend", "reload_themes", {}
+            )
+        except Exception:  # pylint: disable=broad-except
+            pass
+
     async def validate_repository(self):
         """Validate."""
         # Run common validation steps.

@@ -1,7 +1,6 @@
 """Install helper for repositories."""
 import os
 import tempfile
-from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.hacsbase.backup import Backup, BackupNetDaemon
 from custom_components.hacs.helpers.download import download_content
@@ -73,42 +72,6 @@ async def install_repository(repository):
             repository.data.installed_version = None
         else:
             repository.data.installed_version = version
-
-        await reload_after_install(repository)
-        installation_complete(repository)
-
-
-async def reload_after_install(repository):
-    """Reload action after installation success."""
-    if repository.data.category == "integration":
-        if repository.data.config_flow:
-            if repository.data.full_name != "hacs/integration":
-                await repository.reload_custom_components()
-        repository.pending_restart = True
-
-    elif repository.data.category == "theme":
-        try:
-            await repository.hacs.hass.services.async_call(
-                "frontend", "reload_themes", {}
-            )
-        except Exception:  # pylint: disable=broad-except
-            pass
-    elif repository.data.category == "netdaemon":
-        try:
-            await repository.hacs.hass.services.async_call(
-                "hassio", "addon_restart", {"addon": "c6a2317c_netdaemon"}
-            )
-        except Exception:  # pylint: disable=broad-except
-            pass
-
-
-def installation_complete(repository):
-    """Action to run when the installation is complete."""
-    hacs = get_hacs()
-    hacs.hass.bus.async_fire(
-        "hacs/repository",
-        {"id": 1337, "action": "install", "repository": repository.data.full_name},
-    )
 
 
 def version_to_install(repository):

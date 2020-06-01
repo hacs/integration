@@ -1,4 +1,5 @@
 """Class for integrations in HACS."""
+# pylint: disable=attribute-defined-outside-init
 from integrationhelper import Logger
 
 from homeassistant.loader import async_get_custom_components
@@ -25,6 +26,16 @@ class HacsIntegration(HacsRepository):
     def localpath(self):
         """Return localpath."""
         return f"{self.hacs.system.config_path}/custom_components/{self.data.domain}"
+
+    async def async_post_installation(self):
+        """Run post installation steps."""
+        if self.data.config_flow:
+            if self.data.full_name != "hacs/integration":
+                await self.reload_custom_components()
+            if self.data.first_install:
+                self.pending_restart = False
+                return
+        self.pending_restart = True
 
     async def validate_repository(self):
         """Validate."""

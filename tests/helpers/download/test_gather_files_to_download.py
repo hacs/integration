@@ -1,4 +1,4 @@
-"""Helpers: Download: reload_after_install."""
+"""Helpers: Download: gather_files_to_reload."""
 # pylint: disable=missing-docstring
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from aiogithubapi.objects.repository.release import AIOGitHubAPIRepositoryRelease

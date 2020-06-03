@@ -15,7 +15,7 @@ from homeassistant.exceptions import ConfigEntryNotReady, ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 
-from custom_components.hacs.configuration_schema import hacs_config_combined
+from custom_components.hacs.configuration_schema import hacs_config_combined, FRONTEND_REPO, FRONTEND_REPO_URL
 from custom_components.hacs.const import DOMAIN, ELEMENT_TYPES, STARTUP, VERSION
 from custom_components.hacs.constrains import check_constrains
 from custom_components.hacs.helpers.remaining_github_calls import get_fetch_updates_for
@@ -42,10 +42,18 @@ async def async_setup(hass, config):
         return True
     if hacs.configuration and hacs.configuration.config_type == "flow":
         return True
+
+    configuration = config[DOMAIN]
+
+    if configuration.get(FRONTEND_REPO) and configuration.get(FRONTEND_REPO_URL):
+        hacs.logger.critical("Could not setup HACS, set only one of ('frontend_repo', 'frontend_repo_url)")
+
+        return False
+
     hass.data[DOMAIN] = config
     hacs.hass = hass
     hacs.session = async_create_clientsession(hass)
-    hacs.configuration = Configuration.from_dict(config[DOMAIN])
+    hacs.configuration = Configuration.from_dict(configuration)
     hacs.configuration.config = config
     hacs.configuration.config_type = "yaml"
     await startup_wrapper_for_yaml()

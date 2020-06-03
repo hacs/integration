@@ -92,5 +92,6 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
         else:
             schema = hacs_config_option_schema(self.config_entry.options)
             del schema["frontend_repo"]
+            del schema["frontend_repo_url"]
 
         return self.async_show_form(step_id="user", data_schema=vol.Schema(schema))

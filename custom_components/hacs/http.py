@@ -34,19 +34,29 @@ async def get_file_response(requested_file):
         if hacs.configuration.debug:
             servefile = await hacs.hass.async_add_executor_job(locate_debug_gz)
             hacs.logger.debug("Serving DEBUG frontend")
+        elif hacs.configuration.frontend_repo_url:
+            hacs.logger.debug("Serving REMOTE DEVELOPMENT frontend")
+            request = await hacs.session.get(f"{hacs.configuration.frontend_repo_url}/main.js")
+            if request.status == 200:
+                result = await request.read()
+                response = web.Response(body=result)
+                response.headers["Cache-Control"] = "no-store, max-age=0"
+                response.headers["Pragma"] = "no-store"
+                return response
         elif hacs.configuration.frontend_repo:
-            hacs.logger.debug("Serving DEVELOPMENT frontend")
+            hacs.logger.debug("Serving LOCAL DEVELOPMENT frontend")
             servefile = f"{hacs.configuration.frontend_repo}/hacs_frontend/main.js"
         else:
             servefile = await hacs.hass.async_add_executor_job(locate_gz)
 
         if os.path.exists(servefile):
+            response = web.FileResponse(servefile)
             if hacs.configuration.frontend_repo:
-                response = web.FileResponse(servefile)
                 response.headers["Cache-Control"] = "no-store, max-age=0"
                 response.headers["Pragma"] = "no-store"
-                return response
-            return web.FileResponse(servefile)
+
+            return response
+
     elif requested_file == "iconset.js":
         return web.FileResponse(
             f"{hacs.system.config_path}/custom_components/hacs/iconset.js"

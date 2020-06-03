@@ -46,7 +46,8 @@ async def async_setup(hass, config):
     configuration = config[DOMAIN]
 
     if configuration.get(FRONTEND_REPO) and configuration.get(FRONTEND_REPO_URL):
-        hacs.logger.error("Could not setup HACS, set only one of frontend_repo and frontend_repo_url.")
+        hacs.logger.critical("Could not setup HACS, set only one of ('frontend_repo', 'frontend_repo_url)")
+
         return False
 
     hass.data[DOMAIN] = config

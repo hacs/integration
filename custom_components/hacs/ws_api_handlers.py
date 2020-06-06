@@ -31,7 +31,7 @@ async def setup_ws_api(hass):
     {
         vol.Required("type"): "hacs/settings",
         vol.Optional("action"): cv.string,
-        vol.Optional("category"): cv.string,
+        vol.Optional("categories"): cv.ensure_list,
     }
 )
 async def hacs_settings(hass, connection, msg):
@@ -70,7 +70,7 @@ async def hacs_settings(hass, connection, msg):
 
     elif action == "clear_new":
         for repo in hacs.repositories:
-            if repo.data.new:
+            if repo.data.new and repo.category in msg.get("categories", []):
                 hacs.logger.debug(f"Clearing new flag from '{repo.data.full_name}'")
                 repo.data.new = False
     else:

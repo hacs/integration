@@ -15,3 +15,7 @@ class RemovedRepository:
         for key in data:
             if key in self.__dict__:
                 setattr(self, key, data[key])
+
+    def to_json(self):
+        """Return a JSON representation of the data."""
+        return self.__dict__

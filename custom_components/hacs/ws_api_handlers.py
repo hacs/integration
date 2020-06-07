@@ -128,9 +128,7 @@ async def hacs_removed(hass, connection, msg):
     content = []
     for repo in removed_repositories:
         content.append(repo.to_json())
-    connection.send_message(
-        websocket_api.result_message(msg["id"], content)
-    )
+    connection.send_message(websocket_api.result_message(msg["id"], content))
 
 
 @websocket_api.async_response
@@ -266,16 +264,15 @@ async def hacs_repository(hass, connection, msg):
         await hacs.data.async_write()
         message = None
     except AIOGitHubAPIException as exception:
-        message = str(exception)
-        hass.bus.async_fire("hacs/error", {"message": str(exception)})
+        message = exception
     except AttributeError as exception:
         message = f"Could not use repository with ID {repo_id} ({exception})"
     except Exception as exception:  # pylint: disable=broad-except
-        message = str(exception)
+        message = exception
 
     if message is not None:
         hacs.logger.error(message)
-        hass.bus.async_fire("hacs/error", {"message": message})
+        hass.bus.async_fire("hacs/error", {"message": str(exception)})
 
     repository.state = None
     connection.send_message(websocket_api.result_message(msg["id"], {}))
@@ -339,30 +336,43 @@ async def hacs_repository_data(hass, connection, msg):
         return
 
     hacs.logger.debug(f"Running {action} for {repository.data.full_name}")
+    try:
+        if action == "set_state":
+            repository.state = data
 
-    if action == "set_state":
-        repository.state = data
+        elif action == "set_version":
+            repository.data.selected_tag = data
+            await repository.update_repository()
 
-    elif action == "set_version":
-        repository.data.selected_tag = data
-        await repository.update_repository()
-        repository.state = None
+            repository.state = None
 
-    elif action == "install":
-        was_installed = repository.data.installed
-        repository.data.selected_tag = data
-        await repository.update_repository()
-        await repository.install()
-        repository.state = None
-        if not was_installed:
-            hass.bus.async_fire("hacs/reload", {"force": True})
+        elif action == "install":
+            was_installed = repository.data.installed
+            repository.data.selected_tag = data
+            await repository.update_repository()
+            await repository.install()
+            repository.state = None
+            if not was_installed:
+                hass.bus.async_fire("hacs/reload", {"force": True})
 
-    elif action == "add":
-        repository.state = None
+        elif action == "add":
+            repository.state = None
 
-    else:
-        repository.state = None
-        hacs.logger.error(f"WS action '{action}' is not valid")
+        else:
+            repository.state = None
+            hacs.logger.error(f"WS action '{action}' is not valid")
+
+        message = None
+    except AIOGitHubAPIException as exception:
+        message = exception
+    except AttributeError as exception:
+        message = f"Could not use repository with ID {repo_id} ({exception})"
+    except Exception as exception:  # pylint: disable=broad-except
+        message = exception
+
+    if message is not None:
+        hacs.logger.error(message)
+        hass.bus.async_fire("hacs/error", {"message": str(exception)})
 
     await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"], {}))

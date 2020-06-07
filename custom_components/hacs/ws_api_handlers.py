@@ -199,6 +199,7 @@ async def hacs_repositories(hass, connection, msg):
 async def hacs_repository(hass, connection, msg):
     """Handle get media player cover command."""
     hacs = get_hacs()
+    data = {}
     try:
         repo_id = msg.get("repository")
         action = msg.get("action")
@@ -249,6 +250,12 @@ async def hacs_repository(hass, connection, msg):
             repository.data.show_beta = False
             repository.remove()
 
+        elif action == "release_notes":
+            data = [
+                {"tag": x.attributes["tag_name"], "body": x.attributes["body"]}
+                for x in repository.releases.objects
+            ]
+
         elif action == "set_version":
             if msg["version"] == repository.data.default_branch:
                 repository.data.selected_tag = None
@@ -272,10 +279,10 @@ async def hacs_repository(hass, connection, msg):
 
     if message is not None:
         hacs.logger.error(message)
-        hass.bus.async_fire("hacs/error", {"message": str(exception)})
+        hass.bus.async_fire("hacs/error", {"message": str(message)})
 
     repository.state = None
-    connection.send_message(websocket_api.result_message(msg["id"], {}))
+    connection.send_message(websocket_api.result_message(msg["id"], data))
 
 
 @websocket_api.async_response
@@ -372,7 +379,7 @@ async def hacs_repository_data(hass, connection, msg):
 
     if message is not None:
         hacs.logger.error(message)
-        hass.bus.async_fire("hacs/error", {"message": str(exception)})
+        hass.bus.async_fire("hacs/error", {"message": str(message)})
 
     await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"], {}))

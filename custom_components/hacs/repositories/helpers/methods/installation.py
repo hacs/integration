@@ -26,12 +26,12 @@ class RepositoryMethodInstall:
 
 
 class RepositoryMethodPostInstall:
-    async def async_post_install(self) -> None:
+    async def async_post_installation(self) -> None:
         pass
 
     async def _async_post_install(self) -> None:
         self.logger.info("Running post installation steps")
-        await self.async_post_install()
+        await self.async_post_installation()
         self.data.new = False
         self.hacs.hass.bus.async_fire(
             "hacs/repository",

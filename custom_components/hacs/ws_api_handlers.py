@@ -71,7 +71,7 @@ async def hacs_settings(hass, connection, msg):
 
     elif action == "clear_new":
         for repo in hacs.repositories:
-            if repo.data.new and repo.category in msg.get("categories", []):
+            if repo.data.new and repo.data.category in msg.get("categories", []):
                 hacs.logger.debug(f"Clearing new flag from '{repo.data.full_name}'")
                 repo.data.new = False
     else:

@@ -4,4 +4,4 @@ class RepositoryMethodReinstallIfNeeded:
         if self.data.installed:
             if not await self.async_exsist_on_local_fs():
                 self.logger.error("Missing from local FS, should be reinstalled.")
-                # await self.install()
+                # await self.async_install()

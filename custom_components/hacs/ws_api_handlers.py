@@ -63,7 +63,7 @@ async def hacs_settings(hass, connection, msg):
         for repository in hacs.repositories:
             if repository.pending_upgrade:
                 repository.data.selected_tag = None
-                await repository.install()
+                await repository.async_install()
         hacs.system.status.upgrading_all = False
         hacs.system.status.background_task = False
         hass.bus.async_fire("hacs/status", {})
@@ -217,7 +217,7 @@ async def hacs_repository(hass, connection, msg):
         elif action == "install":
             repository.data.new = False
             was_installed = repository.data.installed
-            await repository.install()
+            await repository.async_install()
             if not was_installed:
                 hass.bus.async_fire("hacs/reload", {"force": True})
 
@@ -357,7 +357,7 @@ async def hacs_repository_data(hass, connection, msg):
             was_installed = repository.data.installed
             repository.data.selected_tag = data
             await repository.update_repository()
-            await repository.install()
+            await repository.async_install()
             repository.state = None
             if not was_installed:
                 hass.bus.async_fire("hacs/reload", {"force": True})

@@ -6,4 +6,4 @@ from tests.dummy_repository import dummy_repository_integration
 async def test_installation(aresponses, event_loop):
     repository = dummy_repository_integration()
     await repository.async_pre_install()
-    await repository.async_post_install()
+    await repository.async_post_installation()

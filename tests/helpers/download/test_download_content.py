@@ -72,7 +72,7 @@ async def test_download_content_integration(aresponses, tmp_path, event_loop):
     integration_files = [
         "__init__.py",
         "sensor.py",
-        ".translations/en.json",
+        "translations/en.json",
         "manifest.json",
     ]
     for integration_file in integration_files:

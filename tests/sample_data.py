@@ -83,6 +83,6 @@ def tree_files_base_integration():
         {"path": "custom_components/test/sensor.py", "type": "blob"}
     )
     integrationtree["tree"].append(
-        {"path": "custom_components/test/.translations/en.json", "type": "blob"}
+        {"path": "custom_components/test/translations/en.json", "type": "blob"}
     )
     return integrationtree

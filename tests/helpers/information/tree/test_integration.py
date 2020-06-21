@@ -50,7 +50,7 @@ async def test_base(aresponses, event_loop):
         tree = await get_tree(repository, repository.default_branch)
         filestocheck = [
             "custom_components/test/__init__.py",
-            "custom_components/test/.translations/en.json",
+            "custom_components/test/translations/en.json",
             "custom_components/test/manifest.json",
         ]
         for check in filestocheck:

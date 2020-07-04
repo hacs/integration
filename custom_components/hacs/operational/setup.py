@@ -8,10 +8,6 @@ from homeassistant.exceptions import ConfigEntryNotReady, ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 
-from custom_components.hacs.configuration_schema import (
-    FRONTEND_REPO,
-    FRONTEND_REPO_URL,
-)
 from custom_components.hacs.const import DOMAIN, ELEMENT_TYPES, STARTUP, VERSION
 from custom_components.hacs.constrains import check_constrains
 from custom_components.hacs.hacs import get_hacs
@@ -24,9 +20,11 @@ from custom_components.hacs.operational.relaod import async_reload_entry
 from custom_components.hacs.operational.remove import async_remove_entry
 from custom_components.hacs.setup import (
     add_sensor,
-    clear_storage,
     load_hacs_repository,
     setup_frontend,
+)
+from custom_components.hacs.operational.setup_actions.clear_storage import (
+    async_clear_storage,
 )
 
 
@@ -40,8 +38,7 @@ def common_setup(hass):
 async def async_setup_entry(hass, config_entry):
     """Set up this integration using UI."""
     hacs = get_hacs()
-    conf = hass.data.get(DOMAIN)
-    if conf is not None:
+    if hass.data.get(DOMAIN) is not None:
         return False
     if config_entry.source == config_entries.SOURCE_IMPORT:
         hass.async_create_task(hass.config_entries.async_remove(config_entry.entry_id))
@@ -137,7 +134,8 @@ async def async_hacs_startup():
     hacs.system.config_path = hacs.hass.config.path()
     hacs.system.ha_version = HAVERSION
 
-    await hacs.hass.async_add_executor_job(clear_storage)
+    # Clear old storage files
+    await async_clear_storage()
 
     hacs.system.lovelace_mode = lovelace_info.get("mode", "yaml")
     hacs.system.disabled = False

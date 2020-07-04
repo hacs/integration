@@ -18,17 +18,6 @@ from custom_components.hacs.helpers.functions.register_repository import (
 )
 
 
-def clear_storage():
-    """Clear old files from storage."""
-    hacs = get_hacs()
-    storagefiles = ["hacs"]
-    for s_f in storagefiles:
-        path = f"{hacs.system.config_path}/.storage/{s_f}"
-        if os.path.isfile(path):
-            hacs.logger.info(f"Cleaning up old storage file {path}")
-            os.remove(path)
-
-
 async def load_hacs_repository():
     """Load HACS repositroy."""
     hacs = get_hacs()

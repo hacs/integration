@@ -22,10 +22,13 @@ from custom_components.hacs.helpers.functions.validate_repository import (
 from custom_components.hacs.repositories.repositorydata import RepositoryData
 from custom_components.hacs.share import get_hacs
 
-from ..handler.download import async_download_file, async_save_file
-from ..helpers.functions.misc import get_repository_name
-from ..helpers.functions.version_to_install import version_to_install
-from .manifest import HacsManifest
+from custom_components.hacs.helpers.functions.download import async_download_file
+from custom_components.hacs.helpers.functions.save import async_save_file
+from custom_components.hacs.helpers.functions.misc import get_repository_name
+from custom_components.hacs.helpers.functions.version_to_install import (
+    version_to_install,
+)
+from custom_components.hacs.repositories.manifest import HacsManifest
 
 
 class RepositoryVersions:

@@ -4,46 +4,8 @@ import os
 import shutil
 
 import aiofiles
-import async_timeout
-import backoff
 
-from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.logger import getLogger
-from custom_components.hacs.share import get_hacs
-
-
-@backoff.on_exception(backoff.expo, Exception, max_tries=5)
-async def async_download_file(url):
-    """
-    Download files, and return the content.
-    """
-    hacs = get_hacs()
-    logger = getLogger("download.download")
-    if url is None:
-        return
-
-    # There is a bug somewhere... TODO: Find that bug....
-    if "tags/" in url:
-        url = url.replace("tags/", "")
-
-    logger.debug(f"Downloading {url}")
-
-    result = None
-
-    with async_timeout.timeout(60, loop=hacs.hass.loop):
-        request = await hacs.session.get(url)
-
-        # Make sure that we got a valid result
-        if request.status == 200:
-            result = await request.read()
-        else:
-            raise HacsException(
-                "Got status code {} when trying to download {}".format(
-                    request.status, url
-                )
-            )
-
-    return result
 
 
 async def async_save_file(location, content):

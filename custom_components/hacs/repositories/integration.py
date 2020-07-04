@@ -5,8 +5,12 @@ from homeassistant.loader import async_get_custom_components
 from integrationhelper import Logger
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.filters import get_first_directory_in_directory
-from custom_components.hacs.helpers.information import get_integration_manifest
+from custom_components.hacs.helpers.functions.filters import (
+    get_first_directory_in_directory,
+)
+from custom_components.hacs.helpers.functions.information import (
+    get_integration_manifest,
+)
 from custom_components.hacs.repositories.repository import HacsRepository
 
 

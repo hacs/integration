@@ -1,6 +1,6 @@
 """Helpers: Download: should_try_releases."""
 # pylint: disable=missing-docstring
-from custom_components.hacs.helpers.download import should_try_releases
+from custom_components.hacs.helpers.functions.download import should_try_releases
 from tests.dummy_repository import dummy_repository_base
 
 

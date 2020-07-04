@@ -9,11 +9,13 @@ from custom_components.hacs.api.register import async_setup_hacs_websockt_api
 from custom_components.hacs.const import DOMAIN, VERSION
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.globals import get_hacs
-from custom_components.hacs.helpers.information import (
+from custom_components.hacs.helpers.functions.information import (
     get_frontend_version,
     get_repository,
 )
-from custom_components.hacs.helpers.register_repository import register_repository
+from custom_components.hacs.helpers.functions.register_repository import (
+    register_repository,
+)
 
 
 def clear_storage():

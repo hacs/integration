@@ -8,7 +8,9 @@ from queueman import QueueManager, concurrent
 
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.handler.download import async_download_file, async_save_file
-from custom_components.hacs.helpers.filters import filter_content_return_one_of_type
+from custom_components.hacs.helpers.functions.filters import (
+    filter_content_return_one_of_type,
+)
 
 
 class FileInformation:

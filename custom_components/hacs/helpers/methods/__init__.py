@@ -1,8 +1,6 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
 
-from custom_components.hacs.helpers.methods.exsist_on_local_fs import (
-    RepositoryMethodExsistOnLocalFS,
-)
+
 from custom_components.hacs.helpers.methods.get_list_from_default import (
     GetListFromDefault,
 )
@@ -22,7 +20,6 @@ from custom_components.hacs.helpers.methods.reinstall_if_needed import (
 
 
 class RepositoryHelperMethods(
-    RepositoryMethodExsistOnLocalFS,
     RepositoryMethodReinstallIfNeeded,
     RepositoryMethodInstall,
     RepositoryMethodPostInstall,

@@ -6,7 +6,7 @@ rules = {}
 
 def get_hacs():
     if not hacs:
-        from custom_components.hacs.hacsbase import Hacs
+        from custom_components.hacs.hacsbase.hacs import Hacs
 
         hacs.append(Hacs())
 

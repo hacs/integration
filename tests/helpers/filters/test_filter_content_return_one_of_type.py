@@ -2,7 +2,9 @@
 # pylint: disable=missing-docstring
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 
-from custom_components.hacs.helpers.filters import filter_content_return_one_of_type
+from custom_components.hacs.helpers.functions.filters import (
+    filter_content_return_one_of_type,
+)
 
 
 def test_valid_objects():

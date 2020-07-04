@@ -8,7 +8,7 @@ import pytest
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.information import (
+from custom_components.hacs.helpers.functions.information import (
     get_integration_manifest,
     get_repository,
 )

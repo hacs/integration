@@ -3,12 +3,14 @@ from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.globals import get_hacs, is_removed
-from custom_components.hacs.helpers.information import (
+from custom_components.hacs.helpers.functions.information import (
     get_releases,
     get_repository,
     get_tree,
 )
-from custom_components.hacs.helpers.install import version_to_install
+from custom_components.hacs.helpers.functions.version_to_install import (
+    version_to_install,
+)
 
 
 async def common_validate(repository, ignore_issues=False):
@@ -26,6 +28,7 @@ async def common_validate(repository, ignore_issues=False):
 async def common_update_data(repository, ignore_issues=False):
     """Common update data."""
     hacs = get_hacs()
+    releases = []
     try:
         repository_object = await get_repository(
             hacs.session, hacs.configuration.token, repository.data.full_name
@@ -69,7 +72,7 @@ async def common_update_data(repository, ignore_issues=False):
     if not repository.force_branch:
         repository.ref = version_to_install(repository)
     if repository.data.releases:
-        for release in releases:
+        for release in releases or []:
             if release.tag_name == repository.ref:
                 assets = release.assets
                 if assets:

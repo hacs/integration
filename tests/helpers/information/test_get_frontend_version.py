@@ -5,7 +5,7 @@ import json
 import os
 
 from custom_components.hacs.globals import get_hacs
-from custom_components.hacs.helpers.information import get_frontend_version
+from custom_components.hacs.helpers.functions.information import get_frontend_version
 
 
 def temp_cleanup(tmpdir):

@@ -6,7 +6,10 @@ import aiohttp
 import pytest
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.information import get_repository, get_tree
+from custom_components.hacs.helpers.functions.information import (
+    get_repository,
+    get_tree,
+)
 from tests.common import TOKEN
 from tests.sample_data import (
     repository_data,

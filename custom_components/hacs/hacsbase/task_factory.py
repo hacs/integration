@@ -7,7 +7,9 @@ from datetime import timedelta
 from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.register_repository import register_repository
+from custom_components.hacs.helpers.functions.register_repository import (
+    register_repository,
+)
 
 max_concurrent_tasks = asyncio.Semaphore(15)
 sleeper = 5

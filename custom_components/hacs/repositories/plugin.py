@@ -4,7 +4,7 @@ import json
 from integrationhelper import Logger
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.information import find_file_name
+from custom_components.hacs.helpers.functions.information import find_file_name
 from custom_components.hacs.repositories.repository import HacsRepository
 
 
@@ -67,7 +67,9 @@ class HacsPlugin(HacsRepository):
     async def get_package_content(self):
         """Get package content."""
         try:
-            package = await self.repository_object.get_contents("package.json")
+            package = await self.repository_object.get_contents(
+                "package.json", self.ref
+            )
             package = json.loads(package.content)
 
             if package:

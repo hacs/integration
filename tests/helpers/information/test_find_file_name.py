@@ -3,7 +3,7 @@
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from aiogithubapi.objects.repository.release import AIOGitHubAPIRepositoryRelease
 
-from custom_components.hacs.helpers.information import find_file_name
+from custom_components.hacs.helpers.functions.information import find_file_name
 from tests.dummy_repository import (
     dummy_repository_plugin,
     dummy_repository_python_script,

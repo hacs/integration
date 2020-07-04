@@ -2,7 +2,9 @@
 from integrationhelper import Logger
 
 from custom_components.hacs.globals import get_hacs
-from custom_components.hacs.helpers.register_repository import register_repository
+from custom_components.hacs.helpers.functions.register_repository import (
+    register_repository,
+)
 
 from ..const import VERSION
 from ..repositories.manifest import HacsManifest
@@ -142,9 +144,7 @@ class HacsData:
         return True
 
 
-def restore_repository_data(
-    repository: type(HacsRepository), repository_data: dict
-) -> None:
+def restore_repository_data(repository, repository_data: dict) -> None:
     """Restore Repository Data"""
     repository.data.authors = repository_data.get("authors", [])
     repository.data.description = repository_data.get("description")

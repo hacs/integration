@@ -25,7 +25,9 @@ from custom_components.hacs.constrains import check_constrains
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
-from custom_components.hacs.helpers.remaining_github_calls import get_fetch_updates_for
+from custom_components.hacs.helpers.functions.remaining_github_calls import (
+    get_fetch_updates_for,
+)
 from custom_components.hacs.setup import (
     add_sensor,
     clear_storage,

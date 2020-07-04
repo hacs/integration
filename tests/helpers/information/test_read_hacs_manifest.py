@@ -5,7 +5,7 @@ import json
 import os
 
 from custom_components.hacs.globals import get_hacs
-from custom_components.hacs.helpers.information import read_hacs_manifest
+from custom_components.hacs.helpers.functions.information import read_hacs_manifest
 
 
 def temp_cleanup(tmpdir):

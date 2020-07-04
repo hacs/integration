@@ -8,7 +8,7 @@ import pytest
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.globals import get_hacs, get_removed
 from custom_components.hacs.hacsbase.configuration import Configuration
-from custom_components.hacs.helpers.validate_repository import common_validate
+from custom_components.hacs.helpers.functions.validate_repository import common_validate
 from tests.common import TOKEN
 from tests.dummy_repository import dummy_repository_base
 from tests.sample_data import (

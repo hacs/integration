@@ -8,7 +8,9 @@ from homeassistant.components import websocket_api
 
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.globals import get_hacs
-from custom_components.hacs.helpers.register_repository import register_repository
+from custom_components.hacs.helpers.functions.register_repository import (
+    register_repository,
+)
 
 
 @websocket_api.async_response

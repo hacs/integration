@@ -2,7 +2,9 @@
 from integrationhelper import Logger
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.filters import get_first_directory_in_directory
+from custom_components.hacs.helpers.functions.filters import (
+    get_first_directory_in_directory,
+)
 
 from .repository import HacsRepository
 

@@ -3,7 +3,7 @@ from integrationhelper import Logger
 
 from custom_components.hacs.exceptions import HacsException
 
-from ..helpers.information import find_file_name
+from custom_components.hacs.helpers.functions.information import find_file_name
 from .repository import HacsRepository
 
 

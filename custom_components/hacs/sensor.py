@@ -3,7 +3,7 @@
 from homeassistant.helpers.entity import Entity
 
 from custom_components.hacs.const import DOMAIN, NAME_SHORT, VERSION
-from custom_components.hacs.hacsbase import Hacs as hacs
+from custom_components.hacs.hacsbase.hacs import Hacs as hacs
 
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):

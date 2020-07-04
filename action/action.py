@@ -11,7 +11,9 @@ from aiogithubapi import GitHub
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.configuration import Configuration
-from custom_components.hacs.helpers.register_repository import register_repository
+from custom_components.hacs.helpers.functions.register_repository import (
+    register_repository,
+)
 
 LOGGER = logging.getLogger()
 LOGGER_AIOGITHUBAPI = logging.getLogger("AIOGitHubAPI")

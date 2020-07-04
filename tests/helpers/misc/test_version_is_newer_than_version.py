@@ -1,6 +1,6 @@
 """Helpers: Misc: version_left_higher_then_right."""
 # pylint: disable=missing-docstring
-from custom_components.hacs.helpers.misc import version_left_higher_then_right
+from custom_components.hacs.helpers.functions.misc import version_left_higher_then_right
 
 
 def test_basic():

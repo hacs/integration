@@ -7,7 +7,7 @@ from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.globals import get_hacs
-from custom_components.hacs.helpers.information import get_repository
+from custom_components.hacs.helpers.functions.information import get_repository
 
 
 class GetListFromDefault(ABC):

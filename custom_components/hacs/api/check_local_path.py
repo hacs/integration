@@ -3,7 +3,7 @@ import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant.components import websocket_api
 
-from custom_components.hacs.helpers.methods import RepositoryMethodExsistOnLocalFS
+from custom_components.hacs.helpers.functions.path_exsist import async_path_exsist
 
 
 @websocket_api.async_response
@@ -12,14 +12,13 @@ from custom_components.hacs.helpers.methods import RepositoryMethodExsistOnLocal
 )
 async def check_local_path(hass, connection, msg):
     """Handle get media player cover command."""
-    helper = RepositoryMethodExsistOnLocalFS()
     path = msg.get("path")
     exist = {"exist": False}
 
     if path is None:
         return
 
-    if await helper.async_exsist_on_local_fs(path):
+    if await async_path_exsist(path):
         exist["exist"] = True
 
     connection.send_message(websocket_api.result_message(msg["id"], exist))

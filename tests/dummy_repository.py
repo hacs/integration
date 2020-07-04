@@ -5,7 +5,9 @@ import tempfile
 from homeassistant.core import HomeAssistant
 from integrationhelper import Logger
 
-from custom_components.hacs.helpers.install import version_to_install
+from custom_components.hacs.helpers.functions.version_to_install import (
+    version_to_install,
+)
 from custom_components.hacs.repositories import (
     HacsAppdaemon,
     HacsIntegration,

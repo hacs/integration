@@ -9,7 +9,7 @@ from aiogithubapi import AIOGitHubAPIException
 from integrationhelper import Validate
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.hacs import get_hacs
+from custom_components.hacs.share import get_hacs
 from custom_components.hacs.helpers import RepositoryHelpers
 from custom_components.hacs.helpers.functions.information import (
     get_info_md_content,

@@ -9,7 +9,7 @@ import backoff
 from integrationhelper import Logger
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.hacs import get_hacs
+from custom_components.hacs.share import get_hacs
 
 
 @backoff.on_exception(backoff.expo, Exception, max_tries=5)

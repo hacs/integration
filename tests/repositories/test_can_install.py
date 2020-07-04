@@ -1,5 +1,5 @@
 """Configuration Test Suite: can install."""
-from custom_components.hacs.hacs import get_hacs
+from custom_components.hacs.share import get_hacs
 
 # pylint: disable=missing-docstring
 from custom_components.hacs.repositories.repository import HacsRepository

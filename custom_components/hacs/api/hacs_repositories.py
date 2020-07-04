@@ -2,7 +2,7 @@
 import voluptuous as vol
 from homeassistant.components import websocket_api
 
-from custom_components.hacs.hacs import get_hacs
+from custom_components.hacs.share import get_hacs
 
 
 @websocket_api.async_response

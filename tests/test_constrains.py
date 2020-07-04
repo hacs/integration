@@ -9,7 +9,7 @@ from custom_components.hacs.constrains import (
     constrain_translations,
     constrain_version,
 )
-from custom_components.hacs.hacs import get_hacs
+from custom_components.hacs.share import get_hacs
 
 HAVERSION = "9.99.9"
 

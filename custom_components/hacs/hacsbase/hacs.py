@@ -9,7 +9,11 @@ from homeassistant.helpers.event import async_track_time_interval
 from integrationhelper import Logger
 from queueman import QueueManager
 
-from custom_components.hacs.hacs import get_removed, is_removed, removed_repositories
+from custom_components.hacs.share import (
+    get_removed,
+    is_removed,
+    list_removed_repositories,
+)
 from custom_components.hacs.operational.task_factory import HacsTaskFactory
 from custom_components.hacs.helpers import HacsHelpers
 from custom_components.hacs.helpers.functions.register_repository import (
@@ -322,7 +326,7 @@ class Hacs(HacsHelpers):
     async def clear_out_removed_repositories(self):
         """Clear out blaclisted repositories."""
         need_to_save = False
-        for removed in removed_repositories:
+        for removed in list_removed_repositories():
             repository = self.get_by_name(removed.repository)
             if repository is not None:
                 if repository.data.installed and removed.removal_type != "critical":

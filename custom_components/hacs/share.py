@@ -2,9 +2,6 @@ import os
 
 SHARE = {"hacs": None, "factory": None, "removed_repositories": [], "rules": {}}
 
-hacs = []
-removed_repositories = []
-
 
 def get_hacs():
     if SHARE["hacs"] is None:
@@ -48,3 +45,7 @@ def get_removed(repository):
     if filter_repos:
         return filter_repos.pop()
     return None
+
+
+def list_removed_repositories():
+    return SHARE["removed_repositories"]

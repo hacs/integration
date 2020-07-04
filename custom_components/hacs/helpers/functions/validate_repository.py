@@ -2,7 +2,7 @@
 from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.hacs import get_hacs, is_removed
+from custom_components.hacs.share import get_hacs, is_removed
 from custom_components.hacs.helpers.functions.information import (
     get_releases,
     get_repository,

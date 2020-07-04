@@ -1,4 +1,4 @@
-from custom_components.hacs.hacs import get_hacs
+from custom_components.hacs.share import get_hacs
 
 
 def _setup_extra_stores():

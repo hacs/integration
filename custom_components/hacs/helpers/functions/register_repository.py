@@ -2,7 +2,7 @@
 from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.exceptions import HacsException, HacsExpectedException
-from custom_components.hacs.hacs import get_hacs
+from custom_components.hacs.share import get_hacs
 
 
 # @concurrent(15, 5)

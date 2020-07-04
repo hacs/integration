@@ -1,5 +1,5 @@
 """Remove HACS."""
-from custom_components.hacs.hacs import get_hacs
+from custom_components.hacs.share import get_hacs
 
 
 async def async_remove_entry(hass, config_entry):

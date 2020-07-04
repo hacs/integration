@@ -1,4 +1,4 @@
-from custom_components.hacs.hacs import get_hacs
+from custom_components.hacs.share import get_hacs
 from custom_components.hacs.const import DOMAIN
 from homeassistant.helpers import discovery
 

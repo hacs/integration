@@ -1,8 +1,7 @@
 from hacs_frontend.version import VERSION as FE_VERSION
 
-from custom_components.hacs.hacs import get_hacs
-from custom_components.hacs.helpers.functions.information import \
-    get_frontend_version
+from custom_components.hacs.share import get_hacs
+from custom_components.hacs.helpers.functions.information import get_frontend_version
 
 
 async def async_setup_frontend():

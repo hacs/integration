@@ -10,7 +10,7 @@ from homeassistant.helpers.event import async_call_later
 
 from custom_components.hacs.const import DOMAIN, ELEMENT_TYPES, STARTUP, VERSION
 from custom_components.hacs.constrains import check_constrains
-from custom_components.hacs.hacs import get_hacs
+from custom_components.hacs.share import get_hacs
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.helpers.functions.remaining_github_calls import (

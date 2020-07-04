@@ -1,5 +1,5 @@
 import os
-from custom_components.hacs.hacs import get_hacs
+from custom_components.hacs.share import get_hacs
 from custom_components.hacs.helpers.functions.logger import getLogger
 
 

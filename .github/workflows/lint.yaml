@@ -14,6 +14,7 @@ env:
 
 jobs:
   prepare:
+    runs-on: ubuntu-latest
     name: Preparations
     needs: prepare-base
     steps:
@@ -40,7 +41,7 @@ jobs:
         run: |
           pre-commit install-hooks
 
-  python_matrix:
+  matrix:
     runs-on: ubuntu-latest
     name: Run ${{ matrix.checks }}
     needs: prepare

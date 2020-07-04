@@ -16,7 +16,7 @@ from custom_components.hacs.repositories import (
     HacsPythonScript,
     HacsTheme,
 )
-from custom_components.hacs.repositories.repository import HacsRepository
+from custom_components.hacs.helpers.classes.repository import HacsRepository
 from tests.sample_data import repository_data
 
 

@@ -11,6 +11,7 @@ from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
 from custom_components.hacs.share import get_hacs
+from custom_components.hacs.helpers.functions.logger import getLogger
 
 
 @websocket_api.async_response
@@ -25,6 +26,7 @@ from custom_components.hacs.share import get_hacs
 async def hacs_repository_data(hass, connection, msg):
     """Handle get media player cover command."""
     hacs = get_hacs()
+    logger = getLogger("api.repository_data")
     repo_id = msg.get("repository")
     action = msg.get("action")
     data = msg.get("data")
@@ -70,7 +72,7 @@ async def hacs_repository_data(hass, connection, msg):
         hass.bus.async_fire("hacs/repository", {})
         return
 
-    hacs.logger.debug(f"Running {action} for {repository.data.full_name}")
+    logger.debug(f"Running {action} for {repository.data.full_name}")
     try:
         if action == "set_state":
             repository.state = data
@@ -95,7 +97,7 @@ async def hacs_repository_data(hass, connection, msg):
 
         else:
             repository.state = None
-            hacs.logger.error(f"WS action '{action}' is not valid")
+            logger.error(f"WS action '{action}' is not valid")
 
         message = None
     except AIOGitHubAPIException as exception:
@@ -106,7 +108,7 @@ async def hacs_repository_data(hass, connection, msg):
         message = exception
 
     if message is not None:
-        hacs.logger.error(message)
+        logger.error(message)
         hass.bus.async_fire("hacs/error", {"message": str(message)})
 
     await hacs.data.async_write()

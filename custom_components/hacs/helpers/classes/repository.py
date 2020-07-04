@@ -19,7 +19,7 @@ from custom_components.hacs.helpers.functions.validate_repository import (
     common_update_data,
     common_validate,
 )
-from custom_components.hacs.repositories.repositorydata import RepositoryData
+from custom_components.hacs.helpers.classes.repositorydata import RepositoryData
 from custom_components.hacs.share import get_hacs
 
 from custom_components.hacs.helpers.functions.download import async_download_file
@@ -28,7 +28,7 @@ from custom_components.hacs.helpers.functions.misc import get_repository_name
 from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
 )
-from custom_components.hacs.repositories.manifest import HacsManifest
+from custom_components.hacs.helpers.classes.manifest import HacsManifest
 
 
 class RepositoryVersions:

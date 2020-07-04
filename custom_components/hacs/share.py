@@ -47,7 +47,7 @@ def is_removed(repository):
 
 def get_removed(repository):
     if not is_removed(repository):
-        from custom_components.hacs.repositories.removed import RemovedRepository
+        from custom_components.hacs.helpers.classes.removed import RemovedRepository
 
         removed_repo = RemovedRepository()
         removed_repo.repository = repository

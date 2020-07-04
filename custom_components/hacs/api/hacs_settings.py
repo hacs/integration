@@ -1,9 +1,11 @@
 """API Handler for hacs_settings"""
+import logging
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant.components import websocket_api
 
 from custom_components.hacs.share import get_hacs
+from custom_components.hacs.helpers.functions.logger import getLogger
 
 
 @websocket_api.async_response
@@ -17,8 +19,10 @@ from custom_components.hacs.share import get_hacs
 async def hacs_settings(hass, connection, msg):
     """Handle get media player cover command."""
     hacs = get_hacs()
+    logger = getLogger("api.settings")
+
     action = msg["action"]
-    hacs.logger.debug(f"WS action '{action}'")
+    logger.debug(f"WS action '{action}'")
 
     if action == "set_fe_grid":
         hacs.configuration.frontend_mode = "Grid"
@@ -51,10 +55,10 @@ async def hacs_settings(hass, connection, msg):
     elif action == "clear_new":
         for repo in hacs.repositories:
             if repo.data.new and repo.data.category in msg.get("categories", []):
-                hacs.logger.debug(f"Clearing new flag from '{repo.data.full_name}'")
+                logger.debug(f"Clearing new flag from '{repo.data.full_name}'")
                 repo.data.new = False
     else:
-        hacs.logger.error(f"WS action '{action}' is not valid")
+        logger.error(f"WS action '{action}' is not valid")
     hass.bus.async_fire("hacs/config", {})
     await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"], {}))

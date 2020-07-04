@@ -3,7 +3,7 @@ from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.information import find_file_name
 from custom_components.hacs.helpers.functions.logger import getLogger
 
-from .repository import HacsRepository
+from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 
 class HacsTheme(HacsRepository):

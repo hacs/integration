@@ -1,6 +1,6 @@
 """HACS Repository Helper properties."""
 # pylint: disable=missing-docstring
-from custom_components.hacs.repositories.repository import HacsRepository
+from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 
 def test_repository_helpers_properties_can_be_installed():

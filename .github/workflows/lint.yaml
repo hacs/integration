@@ -8,40 +8,6 @@ on:
     branches:
       - master
 
-env:
-  DEFAULT_PYTHON: 3.7
-  PRE_COMMIT_HOME: ~/.cache/pre-commit
-
-jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    name: Preparations
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        id: python
-        with:
-          python-version: ${{ env.DEFAULT_PYTHON }}
-
-      - name: Create pre-commit environment
-        id: cache-precommit
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.PRE_COMMIT_HOME }}
-          key: |
-            ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pre-commit-
-
-      - name: Install pre-commit dependencies
-        run: |
-          python3 -m pip install setuptools wheel
-          python3 -m pip install pre-commit
-          pre-commit install-hooks --config .github/pre-commit-config.yaml
-
   matrix:
     runs-on: ubuntu-latest
     name: Run ${{ matrix.checks }}
@@ -65,15 +31,13 @@ jobs:
         uses: actions/setup-python@v2
         id: python
         with:
-          python-version: ${{ env.DEFAULT_PYTHON }}
+          python-version: 3.8
 
-      - name: Restore pre-commit environment from cache
-        id: cache-precommit
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.PRE_COMMIT_HOME }}
-          key: |
-            ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: Install pre-commit dependencies
+        run: |
+          python3 -m pip install setuptools wheel
+          python3 -m pip install pre-commit
+          pre-commit install-hooks --config .github/pre-commit-config.yaml
 
       - name: Run the check
         run: pre-commit run --hook-stage manual ${{ matrix.checks }} --all-files --config .github/pre-commit-config.yaml

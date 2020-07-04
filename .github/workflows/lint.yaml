@@ -8,6 +8,7 @@ on:
     branches:
       - master
 
+jobs:
   matrix:
     runs-on: ubuntu-latest
     name: Run ${{ matrix.checks }}
@@ -32,9 +33,8 @@ on:
         with:
           python-version: 3.8
 
-      - name: Install pre-commit dependencies
+      - name: Install pre-commit
         run: |
-          python3 -m pip install setuptools wheel
           python3 -m pip install pre-commit
           pre-commit install-hooks --config .github/pre-commit-config.yaml
 

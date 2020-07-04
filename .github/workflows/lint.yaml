@@ -14,7 +14,7 @@ env:
 
 jobs:
   prepare:
-    name: preperations
+    name: Preparations
     needs: prepare-base
     steps:
       - name: Check out repository
@@ -26,7 +26,7 @@ jobs:
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
 
-      - name: Creat pre-commit environment
+      - name: Create pre-commit environment
         id: cache-precommit
         uses: actions/cache@v2
         with:
@@ -79,7 +79,7 @@ jobs:
         run: |
           python3 -m pip install setuptools wheel
           python3 -m pip install pre-commit
-          pre-commit install-hooks
+          pre-commit install-hooks --config .github/pre-commit-config.yaml
 
       - name: Run the check
-        run: pre-commit run --hook-stage manual ${{ matrix.checks }} --all-files
+        run: pre-commit run --hook-stage manual ${{ matrix.checks }} --all-files --config .github/pre-commit-config.yaml

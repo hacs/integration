@@ -20,7 +20,7 @@ LOGGER_AIOGITHUBAPI = logging.getLogger("AIOGitHubAPI")
 LOGGER_AIOGITHUBAPI.setLevel(logging.INFO)
 LOGGER.setLevel(logging.DEBUG)
 
-FORMATTER = logging.Formatter("%(name)s - %(message)s")
+FORMATTER = logging.Formatter("[%(severity)s] %(name)s - %(message)s")
 
 HANDLER = logging.StreamHandler(sys.stdout)
 HANDLER.setLevel(logging.DEBUG)

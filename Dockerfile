@@ -9,6 +9,6 @@ RUN \
     && python3 -m pip install -r /hacs/requirements.txt
 
 COPY entrypoint.sh /entrypoint.sh
-COPY action.py /hacs/action.py
+COPY action.js /hacs/action.py
 
 ENTRYPOINT ["/entrypoint.sh"]

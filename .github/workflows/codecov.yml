@@ -1,23 +1,33 @@
-name: Workflow for Codecov
-on: [push]
+name: Codecov
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
+
     - name: Setup Python
-      uses: actions/setup-python@master
+      uses: actions/setup-python@v2
       with:
-        version: 3.7
+        version: 3.8
+
     - name: Install dependencies
-      run: |
-        pip install git+git://github.com/home-assistant/home-assistant.git@dev
-        pip install -r requirements.txt
+      run: make init
+
     - name: Generate coverage report
       run: |
         pip install pytest
         pip install pytest-cov
         python3 -m pytest --cov=./ --cov-report=xml
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1.0.3
       with:

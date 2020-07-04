@@ -1,7 +1,7 @@
 import pytest
 
-from tests.dummy_repository import dummy_repository_base
 from custom_components.hacs.helpers.functions.path_exsist import async_path_exsist
+from tests.dummy_repository import dummy_repository_base
 
 
 @pytest.mark.asyncio

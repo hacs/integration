@@ -1,6 +1,7 @@
 """Helper to calculate the remaining calls to github."""
-from custom_components.hacs.helpers.functions.logger import getLogger
 import math
+
+from custom_components.hacs.helpers.functions.logger import getLogger
 
 
 async def remaining(github):

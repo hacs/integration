@@ -1,8 +1,8 @@
 """Custom template support."""
-from custom_components.hacs.helpers.functions.logger import getLogger
-
 # pylint: disable=broad-except
 from jinja2 import Template
+
+from custom_components.hacs.helpers.functions.logger import getLogger
 
 
 def render_template(content, context):

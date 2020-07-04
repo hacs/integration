@@ -2,7 +2,6 @@
 from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.share import get_hacs, is_removed
 from custom_components.hacs.helpers.functions.information import (
     get_releases,
     get_repository,
@@ -11,6 +10,7 @@ from custom_components.hacs.helpers.functions.information import (
 from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
 )
+from custom_components.hacs.share import get_hacs, is_removed
 
 
 async def common_validate(repository, ignore_issues=False):

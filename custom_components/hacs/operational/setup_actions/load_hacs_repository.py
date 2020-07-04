@@ -1,10 +1,10 @@
-from custom_components.hacs.share import get_hacs
+from custom_components.hacs.const import VERSION
+from custom_components.hacs.exceptions import HacsException
+from custom_components.hacs.helpers.functions.information import get_repository
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
-from custom_components.hacs.helpers.functions.information import get_repository
-from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.const import VERSION
+from custom_components.hacs.share import get_hacs
 
 
 async def async_load_hacs_repository():

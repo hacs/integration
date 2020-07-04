@@ -3,8 +3,8 @@
 import tempfile
 
 from homeassistant.core import HomeAssistant
-from custom_components.hacs.helpers.functions.logger import getLogger
 
+from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
 )

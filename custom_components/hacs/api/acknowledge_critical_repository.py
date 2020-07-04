@@ -3,7 +3,10 @@ import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant.components import websocket_api
 
-from custom_components.hacs.store import async_load_from_store, async_save_to_store
+from custom_components.hacs.helpers.functions.store import (
+    async_load_from_store,
+    async_save_to_store,
+)
 
 
 @websocket_api.async_response

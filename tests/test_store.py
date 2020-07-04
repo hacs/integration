@@ -3,7 +3,10 @@
 import pytest
 from homeassistant.core import HomeAssistant
 
-from custom_components.hacs.store import async_load_from_store, async_save_to_store
+from custom_components.hacs.helpers.functions.store import (
+    async_load_from_store,
+    async_save_to_store,
+)
 
 REPOSITORIES = {"999999": {"name": "test1"}, "888888": {"name": "test2"}}
 

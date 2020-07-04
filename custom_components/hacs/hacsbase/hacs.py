@@ -18,6 +18,10 @@ from custom_components.hacs.helpers.functions.register_repository import (
 from custom_components.hacs.helpers.functions.remaining_github_calls import (
     get_fetch_updates_for,
 )
+from custom_components.hacs.helpers.functions.store import (
+    async_load_from_store,
+    async_save_to_store,
+)
 from custom_components.hacs.operational.setup_actions.categories import (
     async_setup_extra_stores,
 )
@@ -28,7 +32,6 @@ from custom_components.hacs.share import (
     is_removed,
     list_removed_repositories,
 )
-from custom_components.hacs.store import async_load_from_store, async_save_to_store
 
 
 class HacsStatus:

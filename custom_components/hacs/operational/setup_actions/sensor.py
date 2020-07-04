@@ -1,6 +1,7 @@
-from custom_components.hacs.share import get_hacs
-from custom_components.hacs.const import DOMAIN
 from homeassistant.helpers import discovery
+
+from custom_components.hacs.const import DOMAIN
+from custom_components.hacs.share import get_hacs
 
 
 def _add_sensor():

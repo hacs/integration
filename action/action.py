@@ -9,11 +9,11 @@ import aiohttp
 from aiogithubapi import GitHub
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.share import get_hacs
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
+from custom_components.hacs.share import get_hacs
 
 TOKEN = os.getenv("INPUT_GITHUB_TOKEN")
 GITHUB_WORKSPACE = os.getenv("GITHUB_WORKSPACE")

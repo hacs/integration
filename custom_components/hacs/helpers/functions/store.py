@@ -2,7 +2,7 @@
 from homeassistant.helpers.json import JSONEncoder
 from homeassistant.helpers.storage import Store
 
-from .hacsbase.const import STORAGE_VERSION
+from custom_components.hacs.const import STORAGE_VERSION
 
 
 async def async_load_from_store(hass, key):

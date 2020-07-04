@@ -5,8 +5,8 @@ from datetime import timedelta
 
 from aiogithubapi import AIOGitHubAPIException
 
-from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.exceptions import HacsException
+from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )

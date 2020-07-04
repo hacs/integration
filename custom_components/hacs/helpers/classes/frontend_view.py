@@ -3,9 +3,9 @@ from aiohttp import web
 from homeassistant.components.http import HomeAssistantView
 
 from custom_components.hacs.helpers.functions.logger import getLogger
+from custom_components.hacs.webresponses.category import async_serve_category_file
 from custom_components.hacs.webresponses.frontend import async_serve_frontend
 from custom_components.hacs.webresponses.iconset import serve_iconset
-from custom_components.hacs.webresponses.category import async_serve_category_file
 
 IGNORE = ["class-map.js.map"]
 

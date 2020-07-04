@@ -12,7 +12,7 @@ def get_hacs():
 
         _hacs = Hacs()
 
-        if os.getenv("GITHUB_ACTION"):
+        if not os.getenv("PYTEST") and os.getenv("GITHUB_ACTION"):
             _hacs.action = True
 
         hacs.append(_hacs)

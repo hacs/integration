@@ -18,6 +18,7 @@ COUNTRY = "country"
 DEBUG = "debug"
 RELEASE_LIMIT = "release_limit"
 EXPERIMENTAL = "experimental"
+PATH_OR_URL = "path_or_url"
 
 
 def hacs_base_config_schema(config: dict = {}) -> dict:
@@ -55,8 +56,8 @@ def hacs_config_option_schema(options: dict = {}) -> dict:
         vol.Optional(NETDAEMON, default=options.get(NETDAEMON)): bool,
         vol.Optional(DEBUG, default=options.get(DEBUG)): bool,
         vol.Optional(EXPERIMENTAL, default=options.get(EXPERIMENTAL)): bool,
-        vol.Optional(FRONTEND_REPO, default=options.get(FRONTEND_REPO)): str,
-        vol.Optional(FRONTEND_REPO_URL, default=options.get(FRONTEND_REPO_URL)): str,
+        vol.Exclusive(FRONTEND_REPO, PATH_OR_URL): str,
+        vol.Exclusive(FRONTEND_REPO_URL, PATH_OR_URL): str,
     }
 
 

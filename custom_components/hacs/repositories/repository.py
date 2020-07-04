@@ -225,7 +225,7 @@ class HacsRepository(RepositoryHelpers):
 
         if self.hacs.action:
             if self.data.description is None or len(self.data.description) == 0:
-                raise HacsException("Missing repository description")
+                raise HacsException("::error:: Missing repository description")
 
     async def common_update(self, ignore_issues=False):
         """Common information update steps of the repository."""
@@ -295,7 +295,9 @@ class HacsRepository(RepositoryHelpers):
         """Get the content of the hacs.json file."""
         if not "hacs.json" in [x.filename for x in self.tree]:
             if self.hacs.action:
-                raise HacsException("No hacs.json file in the root of the repository.")
+                raise HacsException(
+                    "::error:: No hacs.json file in the root of the repository."
+                )
             return
         if self.hacs.action:
             self.logger.info("Found hacs.json")
@@ -308,11 +310,11 @@ class HacsRepository(RepositoryHelpers):
                 json.loads(manifest.content)
             )
             self.data.update_data(json.loads(manifest.content))
-            if self.hacs.action:
-                self.logger.info(json.loads(manifest.content))
         except (AIOGitHubAPIException, Exception) as exception:  # Gotta Catch 'Em All
             if self.hacs.action:
-                raise HacsException(f"hacs.json file is not valid ({exception}).")
+                raise HacsException(
+                    f"::error:: hacs.json file is not valid ({exception})."
+                )
         if self.hacs.action:
             self.logger.info("hacs.json is valid")
 

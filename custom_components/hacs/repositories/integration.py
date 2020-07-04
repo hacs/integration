@@ -61,7 +61,7 @@ class HacsIntegration(HacsRepository):
             await get_integration_manifest(self)
         except HacsException as exception:
             if self.hacs.action:
-                raise HacsException(exception)
+                raise HacsException(f"::error:: {exception}")
             self.logger.error(exception)
 
         # Handle potential errors

@@ -34,7 +34,7 @@ async def get_info_md_content(repository):
         return render_template(info, repository)
     except (AIOGitHubAPIException, Exception):  # pylint: disable=broad-except
         if repository.hacs.action:
-            raise HacsException("No info file found")
+            raise HacsException("::error:: No info file found")
     return ""
 
 
@@ -113,10 +113,10 @@ async def get_integration_manifest(repository):
 
         if repository.hacs.action:
             if manifest.get("documentation") is None:
-                raise HacsException("manifest.json is missing documentation")
+                raise HacsException("::error:: manifest.json is missing documentation")
             if manifest.get("homeassistant") is not None:
                 raise HacsException(
-                    "The homeassistant key in manifest.json is no longer valid"
+                    "::error:: The homeassistant key in manifest.json is no longer valid"
                 )
             # if manifest.get("issue_tracker") is None:
             #    raise HacsException("The 'issue_tracker' is missing in manifest.json")

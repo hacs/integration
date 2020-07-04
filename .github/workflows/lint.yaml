@@ -38,5 +38,5 @@ jobs:
           python3 -m pip install pre-commit
           pre-commit install-hooks --config .github/pre-commit-config.yaml
 
-      - name: Run the check
+      - name: Run the check (${{ matrix.checks }})
         run: pre-commit run --hook-stage manual ${{ matrix.checks }} --all-files --config .github/pre-commit-config.yaml

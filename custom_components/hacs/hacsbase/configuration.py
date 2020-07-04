@@ -1,7 +1,7 @@
 """HACS Configuration."""
 import attr
-from integrationhelper import Logger
 
+from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.exceptions import HacsException
 
 
@@ -45,7 +45,7 @@ class Configuration:
 
     def print(self):
         """Print the current configuration to the log."""
-        logger = Logger("hacs.configuration")
+        logger = getLogger("configuration")
         config = self.to_json()
         for key in config:
             if key in ["config", "config_entry", "options", "token"]:

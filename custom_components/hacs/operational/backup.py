@@ -4,7 +4,7 @@ import shutil
 import tempfile
 from time import sleep
 
-from integrationhelper import Logger
+from custom_components.hacs.helpers.functions.logger import getLogger
 
 BACKUP_PATH = tempfile.gettempdir() + "/hacs_backup/"
 
@@ -14,7 +14,7 @@ class Backup:
 
     def __init__(self, local_path, backup_path=BACKUP_PATH):
         """initialize."""
-        self.logger = Logger("hacs.backup")
+        self.logger = getLogger("backup")
         self.local_path = local_path
         self.backup_path = backup_path
         self.backup_path_full = f"{self.backup_path}{self.local_path.split('/')[-1]}"
@@ -78,7 +78,7 @@ class BackupNetDaemon:
     def __init__(self, repository):
         """Initialize."""
         self.repository = repository
-        self.logger = Logger("hacs.backup")
+        self.logger = getLogger("backup")
         self.backup_path = (
             tempfile.gettempdir() + "/hacs_persistent_netdaemon/" + repository.data.name
         )

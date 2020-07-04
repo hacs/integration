@@ -1,6 +1,6 @@
 """Class for appdaemon apps in HACS."""
 from aiogithubapi import AIOGitHubAPIException
-from integrationhelper import Logger
+from custom_components.hacs.helpers.functions.logger import getLogger
 
 from custom_components.hacs.exceptions import HacsException
 
@@ -17,7 +17,7 @@ class HacsAppdaemon(HacsRepository):
         self.data.category = "appdaemon"
         self.content.path.local = self.localpath
         self.content.path.remote = "apps"
-        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
+        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):

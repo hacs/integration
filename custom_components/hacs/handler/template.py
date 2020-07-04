@@ -1,5 +1,5 @@
 """Custom template support."""
-from integrationhelper import Logger
+from custom_components.hacs.helpers.functions.logger import getLogger
 
 # pylint: disable=broad-except
 from jinja2 import Template
@@ -26,5 +26,6 @@ def render_template(content, context):
         )
         return render
     except Exception as exception:
-        Logger("hacs.template").debug(exception)
+        logger = getLogger("template")
+        logger.debug(exception)
         return content

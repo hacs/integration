@@ -1,5 +1,5 @@
 """Class for themes in HACS."""
-from integrationhelper import Logger
+from custom_components.hacs.helpers.functions.logger import getLogger
 
 from custom_components.hacs.exceptions import HacsException
 
@@ -18,7 +18,7 @@ class HacsTheme(HacsRepository):
         self.content.path.remote = "themes"
         self.content.path.local = self.localpath
         self.content.single = False
-        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
+        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):

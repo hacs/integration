@@ -6,27 +6,27 @@ from datetime import timedelta
 
 from aiogithubapi import AIOGitHubAPIException
 from homeassistant.helpers.event import async_track_time_interval
-from integrationhelper import Logger
-from queueman import QueueManager
 
-from custom_components.hacs.share import (
-    get_removed,
-    is_removed,
-    list_removed_repositories,
-)
-from custom_components.hacs.operational.task_factory import HacsTaskFactory
 from custom_components.hacs.helpers import HacsHelpers
-from custom_components.hacs.helpers.functions.register_repository import (
-    register_repository,
-)
 from custom_components.hacs.helpers.functions.get_list_from_default import (
     async_get_list_from_default,
+)
+from custom_components.hacs.helpers.functions.logger import getLogger
+from custom_components.hacs.helpers.functions.register_repository import (
+    register_repository,
 )
 from custom_components.hacs.helpers.functions.remaining_github_calls import (
     get_fetch_updates_for,
 )
 from custom_components.hacs.operational.setup_actions.categories import (
     async_setup_extra_stores,
+)
+from custom_components.hacs.share import (
+    get_factory,
+    get_queue,
+    get_removed,
+    is_removed,
+    list_removed_repositories,
 )
 from custom_components.hacs.store import async_load_from_store, async_save_to_store
 
@@ -100,13 +100,13 @@ class Hacs(HacsHelpers):
     developer = Developer()
     data = None
     configuration = None
-    logger = Logger("hacs")
+    logger = getLogger()
     github = None
     hass = None
     version = None
     session = None
-    factory = HacsTaskFactory()
-    queue = QueueManager()
+    factory = get_factory()
+    queue = get_queue()
     system = System()
     recuring_tasks = []
     common = HacsCommon()

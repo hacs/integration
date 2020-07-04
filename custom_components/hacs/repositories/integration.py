@@ -1,9 +1,6 @@
 """Class for integrations in HACS."""
 from homeassistant.loader import async_get_custom_components
 
-# pylint: disable=attribute-defined-outside-init
-from integrationhelper import Logger
-
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.filters import (
     get_first_directory_in_directory,
@@ -11,6 +8,7 @@ from custom_components.hacs.helpers.functions.filters import (
 from custom_components.hacs.helpers.functions.information import (
     get_integration_manifest,
 )
+from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.repositories.repository import HacsRepository
 
 
@@ -24,7 +22,7 @@ class HacsIntegration(HacsRepository):
         self.data.category = "integration"
         self.content.path.remote = "custom_components"
         self.content.path.local = self.localpath
-        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
+        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):

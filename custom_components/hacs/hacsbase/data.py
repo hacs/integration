@@ -1,5 +1,5 @@
 """Data handler for HACS."""
-from integrationhelper import Logger
+from custom_components.hacs.helpers.functions.logger import getLogger
 
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.helpers.functions.register_repository import (
@@ -16,7 +16,7 @@ class HacsData:
 
     def __init__(self):
         """Initialize."""
-        self.logger = Logger("hacs.data")
+        self.logger = getLogger("data")
         self.hacs = get_hacs()
 
     async def async_write(self):

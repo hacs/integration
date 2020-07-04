@@ -1,6 +1,12 @@
 import os
 
-SHARE = {"hacs": None, "factory": None, "removed_repositories": [], "rules": {}}
+SHARE = {
+    "hacs": None,
+    "factory": None,
+    "queue": None,
+    "removed_repositories": [],
+    "rules": {},
+}
 
 
 def get_hacs():
@@ -19,11 +25,20 @@ def get_hacs():
 
 def get_factory():
     if SHARE["factory"] is None:
-        from custom_components.hacs.operational.task_factory import HacsTaskFactory
+        from custom_components.hacs.operational.factory import HacsTaskFactory
 
         SHARE["factory"] = HacsTaskFactory()
 
     return SHARE["factory"]
+
+
+def get_queue():
+    if SHARE["queue"] is None:
+        from queueman import QueueManager
+
+        SHARE["queue"] = QueueManager()
+
+    return SHARE["queue"]
 
 
 def is_removed(repository):

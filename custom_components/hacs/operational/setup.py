@@ -2,7 +2,7 @@
 from aiogithubapi import AIOGitHubAPIException, GitHub
 from homeassistant import config_entries
 from homeassistant.components.lovelace import system_health_info
-from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
+from homeassistant.const import EVENT_HOMEASSISTANT_START
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.exceptions import ConfigEntryNotReady, ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
@@ -10,7 +10,6 @@ from homeassistant.helpers.event import async_call_later
 
 from custom_components.hacs.const import DOMAIN, ELEMENT_TYPES, STARTUP, VERSION
 from custom_components.hacs.constrains import check_constrains
-from custom_components.hacs.share import get_hacs
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.helpers.functions.remaining_github_calls import (
@@ -21,16 +20,17 @@ from custom_components.hacs.operational.remove import async_remove_entry
 from custom_components.hacs.operational.setup_actions.clear_storage import (
     async_clear_storage,
 )
+from custom_components.hacs.operational.setup_actions.frontend import (
+    async_setup_frontend,
+)
 from custom_components.hacs.operational.setup_actions.load_hacs_repository import (
     async_load_hacs_repository,
 )
 from custom_components.hacs.operational.setup_actions.sensor import async_add_sensor
-from custom_components.hacs.operational.setup_actions.frontend import (
-    async_setup_frontend,
-)
 from custom_components.hacs.operational.setup_actions.websocket_api import (
     async_setup_hacs_websockt_api,
 )
+from custom_components.hacs.share import get_hacs
 
 
 def _common_setup(hass):
@@ -191,9 +191,7 @@ async def async_hacs_startup():
 
     # Setup startup tasks
     if hacs.configuration.config_type == "yaml":
-        hacs.hass.bus.async_listen_once(
-            EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks()
-        )
+        hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs.startup_tasks())
     else:
         async_call_later(hacs.hass, 5, hacs.startup_tasks())
 

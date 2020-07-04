@@ -29,6 +29,6 @@ async def async_get_list_from_default(default: str) -> List:
     except Exception as exception:
         logger.error(exception)
 
-    logger.debug(f"Got {len(repositories)} repositories from {default}")
+    logger.debug(f"Got {len(repositories)} repositories for {default}")
 
     return repositories

@@ -3,7 +3,7 @@
 import tempfile
 
 from homeassistant.core import HomeAssistant
-from integrationhelper import Logger
+from custom_components.hacs.helpers.functions.logger import getLogger
 
 from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
@@ -26,7 +26,7 @@ def dummy_repository_base(repository=None):
     repository.hacs.hass = HomeAssistant()
     repository.hacs.hass.data = {"custom_components": []}
     repository.hacs.system.config_path = tempfile.gettempdir()
-    repository.logger = Logger("hacs.test.test")
+    repository.logger = getLogger("test.test")
     repository.data.full_name = "test/test"
     repository.data.domain = "test"
     repository.data.last_version = "3"

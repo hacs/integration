@@ -1,7 +1,7 @@
 """Class for plugins in HACS."""
 import json
 
-from integrationhelper import Logger
+from custom_components.hacs.helpers.functions.logger import getLogger
 
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.information import find_file_name
@@ -19,7 +19,7 @@ class HacsPlugin(HacsRepository):
         self.data.category = "plugin"
         self.information.javascript_type = None
         self.content.path.local = self.localpath
-        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
+        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):

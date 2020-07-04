@@ -6,9 +6,9 @@ import shutil
 import aiofiles
 import async_timeout
 import backoff
-from integrationhelper import Logger
 
 from custom_components.hacs.exceptions import HacsException
+from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.share import get_hacs
 
 
@@ -18,7 +18,7 @@ async def async_download_file(url):
     Download files, and return the content.
     """
     hacs = get_hacs()
-    logger = Logger("hacs.download.downloader")
+    logger = getLogger("download.download")
     if url is None:
         return
 
@@ -48,7 +48,7 @@ async def async_download_file(url):
 
 async def async_save_file(location, content):
     """Save files."""
-    logger = Logger("hacs.download.save")
+    logger = getLogger("download.save")
     logger.debug(f"Saving {location}")
     mode = "w"
     encoding = "utf-8"

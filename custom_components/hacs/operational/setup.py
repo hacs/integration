@@ -116,22 +116,6 @@ async def async_hacs_startup():
     """HACS startup tasks."""
     hacs = get_hacs()
 
-    if hacs.configuration.debug:
-        try:
-            await hacs.hass.services.async_call(
-                "logger", "set_level", {"hacs": "debug"}
-            )
-            await hacs.hass.services.async_call(
-                "logger", "set_level", {"queueman": "debug"}
-            )
-            await hacs.hass.services.async_call(
-                "logger", "set_level", {"AioGitHub": "debug"}
-            )
-        except ServiceNotFound:
-            hacs.logger.error(
-                "Could not set logging level to debug, logger is not enabled"
-            )
-
     lovelace_info = await system_health_info(hacs.hass)
     hacs.logger.debug(f"Configuration type: {hacs.configuration.config_type}")
     hacs.version = VERSION
@@ -162,10 +146,6 @@ async def async_hacs_startup():
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
         return False
 
-    # Set up frontend
-    await async_setup_frontend()
-    await async_setup_hacs_websockt_api()
-
     # Load HACS
     if not await async_load_hacs_repository():
         if hacs.configuration.config_type == "flow":
@@ -188,6 +168,10 @@ async def async_hacs_startup():
         hacs.common.categories.append("appdaemon")
     if hacs.configuration.netdaemon:
         hacs.common.categories.append("netdaemon")
+
+    # Set up frontend
+    await async_setup_frontend()
+    await async_setup_hacs_websockt_api()
 
     # Setup startup tasks
     if hacs.configuration.config_type == "yaml":

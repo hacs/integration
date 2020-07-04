@@ -10,7 +10,7 @@ from integrationhelper import Logger
 from queueman import QueueManager
 
 from custom_components.hacs.hacs import get_removed, is_removed, removed_repositories
-from custom_components.hacs.hacsbase.task_factory import HacsTaskFactory
+from custom_components.hacs.operational.task_factory import HacsTaskFactory
 from custom_components.hacs.helpers import HacsHelpers
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
@@ -21,7 +21,9 @@ from custom_components.hacs.helpers.functions.get_list_from_default import (
 from custom_components.hacs.helpers.functions.remaining_github_calls import (
     get_fetch_updates_for,
 )
-from custom_components.hacs.setup import setup_extra_stores
+from custom_components.hacs.operational.setup_actions.categories import (
+    async_setup_extra_stores,
+)
 from custom_components.hacs.store import async_load_from_store, async_save_to_store
 
 
@@ -151,7 +153,7 @@ class Hacs(HacsHelpers):
     async def startup_tasks(self):
         """Tasks that are started after startup."""
         self.system.status.background_task = True
-        await self.hass.async_add_executor_job(setup_extra_stores)
+        await async_setup_extra_stores()
         self.hass.bus.async_fire("hacs/status", {})
 
         await self.handle_critical_repositories_startup()
@@ -301,7 +303,7 @@ class Hacs(HacsHelpers):
     async def recurring_tasks_all(self, notarealarg=None):
         """Recurring tasks for all repositories."""
         self.logger.debug("Starting recurring background task for all repositories")
-        await self.hass.async_add_executor_job(setup_extra_stores)
+        await async_setup_extra_stores()
         self.system.status.background_task = True
         self.hass.bus.async_fire("hacs/status", {})
 

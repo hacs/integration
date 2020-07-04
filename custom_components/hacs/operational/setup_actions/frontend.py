@@ -1,31 +1,13 @@
-"""Setup functions for HACS."""
-# pylint: disable=bad-continuation
-import os
-
 from hacs_frontend.version import VERSION as FE_VERSION
 
-
-from custom_components.hacs.api.register import async_setup_hacs_websockt_api
-
 from custom_components.hacs.hacs import get_hacs
-from custom_components.hacs.helpers.functions.information import get_frontend_version
+from custom_components.hacs.helpers.functions.information import \
+    get_frontend_version
 
 
-def setup_extra_stores():
-    """Set up extra stores in HACS if enabled in Home Assistant."""
-    hacs = get_hacs()
-    if "python_script" in hacs.hass.config.components:
-        if "python_script" not in hacs.common.categories:
-            hacs.common.categories.append("python_script")
-
-    if hacs.hass.services.services.get("frontend", {}).get("reload_themes") is not None:
-        if "theme" not in hacs.common.categories:
-            hacs.common.categories.append("theme")
-
-
-async def setup_frontend():
+async def async_setup_frontend():
     """Configure the HACS frontend elements."""
-    from .http import HacsFrontend
+    from custom_components.hacs.http import HacsFrontend
 
     hacs = get_hacs()
 
@@ -58,5 +40,3 @@ async def setup_frontend():
     if "frontend_extra_module_url" not in hacs.hass.data:
         hacs.hass.data["frontend_extra_module_url"] = set()
     hacs.hass.data["frontend_extra_module_url"].add("/hacsfiles/iconset.js")
-
-    await async_setup_hacs_websockt_api()

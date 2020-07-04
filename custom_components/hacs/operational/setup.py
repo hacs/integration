@@ -18,14 +18,19 @@ from custom_components.hacs.helpers.functions.remaining_github_calls import (
 )
 from custom_components.hacs.operational.relaod import async_reload_entry
 from custom_components.hacs.operational.remove import async_remove_entry
-from custom_components.hacs.setup import setup_frontend
 from custom_components.hacs.operational.setup_actions.clear_storage import (
     async_clear_storage,
 )
 from custom_components.hacs.operational.setup_actions.load_hacs_repository import (
     async_load_hacs_repository,
 )
-from custom_components.hacs.operational.setup_actions.add_sensor import async_add_sensor
+from custom_components.hacs.operational.setup_actions.sensor import async_add_sensor
+from custom_components.hacs.operational.setup_actions.frontend import (
+    async_setup_frontend,
+)
+from custom_components.hacs.operational.setup_actions.websocket_api import (
+    async_setup_hacs_websockt_api,
+)
 
 
 def _common_setup(hass):
@@ -158,7 +163,8 @@ async def async_hacs_startup():
         return False
 
     # Set up frontend
-    await setup_frontend()
+    await async_setup_frontend()
+    await async_setup_hacs_websockt_api()
 
     # Load HACS
     if not await async_load_hacs_repository():

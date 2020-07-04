@@ -4,7 +4,7 @@ import asyncio
 
 import pytest
 
-from custom_components.hacs.hacsbase.task_factory import HacsTaskFactory
+from custom_components.hacs.operational.task_factory import HacsTaskFactory
 
 
 @pytest.mark.asyncio

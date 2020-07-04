@@ -18,7 +18,9 @@ COUNTRY = "country"
 DEBUG = "debug"
 RELEASE_LIMIT = "release_limit"
 EXPERIMENTAL = "experimental"
-PATH_OR_URL = "path_or_url"
+
+# Config group
+PATH_OR_URL = "frontend_repo_path_or_url"
 
 
 def hacs_base_config_schema(config: dict = {}) -> dict:

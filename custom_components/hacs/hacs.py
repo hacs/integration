@@ -1,13 +1,13 @@
-# pylint: disable=invalid-name, missing-docstring
 import os
+
+SHARE = {"hacs": None, "factory": None, "removed_repositories": [], "rules": {}}
 
 hacs = []
 removed_repositories = []
-rules = {}
 
 
 def get_hacs():
-    if not hacs:
+    if SHARE["hacs"] is None:
         from custom_components.hacs.hacsbase.hacs import Hacs
 
         _hacs = Hacs()
@@ -15,13 +15,22 @@ def get_hacs():
         if not os.getenv("PYTEST") and os.getenv("GITHUB_ACTION"):
             _hacs.action = True
 
-        hacs.append(_hacs)
+        SHARE["hacs"] = _hacs
 
-    return hacs[0]
+    return SHARE["hacs"]
+
+
+def get_factory():
+    if SHARE["factory"] is None:
+        from custom_components.hacs.operational.task_factory import HacsTaskFactory
+
+        SHARE["factory"] = HacsTaskFactory()
+
+    return SHARE["factory"]
 
 
 def is_removed(repository):
-    return repository in [x.repository for x in removed_repositories]
+    return repository in [x.repository for x in SHARE["removed_repositories"]]
 
 
 def get_removed(repository):
@@ -30,8 +39,12 @@ def get_removed(repository):
 
         removed_repo = RemovedRepository()
         removed_repo.repository = repository
-        removed_repositories.append(removed_repo)
+        SHARE["removed_repositories"].append(removed_repo)
     filter_repos = [
-        x for x in removed_repositories if x.repository.lower() == repository.lower()
+        x
+        for x in SHARE["removed_repositories"]
+        if x.repository.lower() == repository.lower()
     ]
-    return filter_repos[0]
+    if filter_repos:
+        return filter_repos.pop()
+    return None

@@ -1,4 +1,6 @@
 # pylint: disable=invalid-name, missing-docstring
+import os
+
 hacs = []
 removed_repositories = []
 rules = {}
@@ -8,7 +10,12 @@ def get_hacs():
     if not hacs:
         from custom_components.hacs.hacsbase.hacs import Hacs
 
-        hacs.append(Hacs())
+        _hacs = Hacs()
+
+        if os.getenv("GITHUB_ACTION"):
+            _hacs.action = True
+
+        hacs.append(_hacs)
 
     return hacs[0]
 

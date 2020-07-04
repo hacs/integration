@@ -130,7 +130,7 @@ async def validate_repository(repository, category, ref=None):
         hacs.configuration.token = TOKEN
         hacs.github = GitHub(hacs.configuration.token, hacs.session)
         try:
-            await register_repository(repository, category, ref=ref, action=True)
+            await register_repository(repository, category, ref=ref)
         except HacsException as exception:
             exit(exception)
         print("All good!")

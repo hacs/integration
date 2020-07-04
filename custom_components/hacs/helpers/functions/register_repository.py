@@ -6,10 +6,9 @@ from custom_components.hacs.globals import get_hacs
 
 
 # @concurrent(15, 5)
-async def register_repository(full_name, category, check=True, ref=None, action=False):
+async def register_repository(full_name, category, check=True, ref=None):
     """Register a repository."""
     hacs = get_hacs()
-    hacs.action = action
     from custom_components.hacs.repositories import (
         RERPOSITORY_CLASSES,
     )  # To handle import error

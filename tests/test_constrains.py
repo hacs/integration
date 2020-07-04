@@ -3,7 +3,7 @@
 import os
 import sys
 
-from custom_components.hacs.constrains import (
+from custom_components.hacs.helpers.functions.constrains import (
     check_constrains,
     constrain_custom_updater,
     constrain_translations,

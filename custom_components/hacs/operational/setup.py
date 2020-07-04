@@ -2,7 +2,7 @@
 from aiogithubapi import AIOGitHubAPIException, GitHub
 from homeassistant import config_entries
 from homeassistant.components.lovelace import system_health_info
-from homeassistant.const import EVENT_HOMEASSISTANT_START
+from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.exceptions import ConfigEntryNotReady, ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
@@ -18,17 +18,17 @@ from custom_components.hacs.helpers.functions.remaining_github_calls import (
 )
 from custom_components.hacs.operational.relaod import async_reload_entry
 from custom_components.hacs.operational.remove import async_remove_entry
-from custom_components.hacs.setup import (
-    add_sensor,
-    load_hacs_repository,
-    setup_frontend,
-)
+from custom_components.hacs.setup import setup_frontend
 from custom_components.hacs.operational.setup_actions.clear_storage import (
     async_clear_storage,
 )
+from custom_components.hacs.operational.setup_actions.load_hacs_repository import (
+    async_load_hacs_repository,
+)
+from custom_components.hacs.operational.setup_actions.add_sensor import async_add_sensor
 
 
-def common_setup(hass):
+def _common_setup(hass):
     """Common setup stages."""
     hacs = get_hacs()
     hacs.hass = hass
@@ -44,7 +44,7 @@ async def async_setup_entry(hass, config_entry):
         hass.async_create_task(hass.config_entries.async_remove(config_entry.entry_id))
         return False
 
-    common_setup(hass)
+    await hass.async_add_executor_job(_common_setup, hass)
 
     hacs.configuration = Configuration.from_dict(
         config_entry.data, config_entry.options
@@ -63,7 +63,7 @@ async def async_setup(hass, config):
     if hacs.configuration and hacs.configuration.config_type == "flow":
         return True
 
-    common_setup(hass)
+    await hass.async_add_executor_job(_common_setup, hass)
 
     hass.data[DOMAIN] = config[DOMAIN]
     hacs.configuration = Configuration.from_dict(config[DOMAIN])
@@ -161,7 +161,7 @@ async def async_hacs_startup():
     await setup_frontend()
 
     # Load HACS
-    if not await load_hacs_repository():
+    if not await async_load_hacs_repository():
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
@@ -185,15 +185,14 @@ async def async_hacs_startup():
 
     # Setup startup tasks
     if hacs.configuration.config_type == "yaml":
-        hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs.startup_tasks())
+        hacs.hass.bus.async_listen_once(
+            EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks()
+        )
     else:
         async_call_later(hacs.hass, 5, hacs.startup_tasks())
 
-    # Show the configuration
-    hacs.configuration.print()
-
     # Set up sensor
-    await hacs.hass.async_add_executor_job(add_sensor)
+    await async_add_sensor()
 
     # Mischief managed!
     return True

@@ -12,7 +12,9 @@ from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.operational.setup_actions.clear_storage import (
     async_clear_storage,
 )
-from custom_components.hacs.setup import load_hacs_repository
+from custom_components.hacs.operational.setup_actions.load_hacs_repository import (
+    async_load_hacs_repository,
+)
 from tests.sample_data import (
     release_data,
     repository_data,
@@ -106,4 +108,4 @@ async def _load_hacs_repository(aresponses, event_loop):
         hacs.session = session
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
-        await load_hacs_repository()
+        await async_load_hacs_repository()

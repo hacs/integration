@@ -1,17 +1,19 @@
 """HACS Setup Test Suite."""
 # pylint: disable=missing-docstring
 import json
+import os
+
 import aiohttp
 import pytest
-import os
+
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.configuration import Configuration
-from custom_components.hacs.setup import load_hacs_repository, clear_storage
+from custom_components.hacs.setup import clear_storage, load_hacs_repository
 from tests.sample_data import (
-    response_rate_limit_header,
-    repository_data,
-    tree_files_base_integration,
     release_data,
+    repository_data,
+    response_rate_limit_header,
+    tree_files_base_integration,
 )
 
 TOKEN = "xxxxxxxxxxxxxxxxxxxxxxx"

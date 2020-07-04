@@ -2,10 +2,10 @@
 # pylint: disable=bad-continuation
 import os
 
+from custom_components.hacs.globals import get_hacs
+
 from .const import CUSTOM_UPDATER_LOCATIONS, CUSTOM_UPDATER_WARNING
 from .helpers.misc import version_left_higher_then_right
-
-from custom_components.hacs.globals import get_hacs
 
 MINIMUM_HA_VERSION = "0.110.0"
 

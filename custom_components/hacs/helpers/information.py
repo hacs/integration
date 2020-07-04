@@ -1,9 +1,11 @@
 """Return repository information if any."""
 import json
+
 from aiogithubapi import AIOGitHubAPIException, GitHub
+
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.handler.template import render_template
-from custom_components.hacs.hacsbase.exceptions import HacsException
 
 
 def info_file(repository):

@@ -1,10 +1,10 @@
 """Class for integrations in HACS."""
+from homeassistant.loader import async_get_custom_components
+
 # pylint: disable=attribute-defined-outside-init
 from integrationhelper import Logger
 
-from homeassistant.loader import async_get_custom_components
-
-from custom_components.hacs.hacsbase.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.filters import get_first_directory_in_directory
 from custom_components.hacs.helpers.information import get_integration_manifest
 from custom_components.hacs.repositories.repository import HacsRepository

@@ -1,15 +1,17 @@
 """Setup functions for HACS."""
 # pylint: disable=bad-continuation
 import os
+
 from hacs_frontend.version import VERSION as FE_VERSION
 from homeassistant.helpers import discovery
 
-from custom_components.hacs.hacsbase.exceptions import HacsException
-from custom_components.hacs.const import VERSION, DOMAIN
+from custom_components.hacs.api.register import async_setup_hacs_websockt_api
+from custom_components.hacs.const import DOMAIN, VERSION
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.helpers.information import (
-    get_repository,
     get_frontend_version,
+    get_repository,
 )
 from custom_components.hacs.helpers.register_repository import register_repository
 
@@ -88,7 +90,6 @@ def add_sensor():
 async def setup_frontend():
     """Configure the HACS frontend elements."""
     from .http import HacsFrontend
-    from .ws_api_handlers import setup_ws_api
 
     hacs = get_hacs()
 
@@ -122,4 +123,4 @@ async def setup_frontend():
         hacs.hass.data["frontend_extra_module_url"] = set()
     hacs.hass.data["frontend_extra_module_url"].add("/hacsfiles/iconset.js")
 
-    await setup_ws_api(hacs.hass)
+    await async_setup_hacs_websockt_api()

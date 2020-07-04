@@ -1,9 +1,10 @@
 """HACS http endpoints."""
 import os
-from integrationhelper import Logger
-from homeassistant.components.http import HomeAssistantView
+
 from aiohttp import web
-from hacs_frontend import locate_gz, locate_debug_gz
+from hacs_frontend import locate_debug_gz, locate_gz
+from homeassistant.components.http import HomeAssistantView
+from integrationhelper import Logger
 
 from custom_components.hacs.globals import get_hacs
 
@@ -36,7 +37,9 @@ async def get_file_response(requested_file):
             hacs.logger.debug("Serving DEBUG frontend")
         elif hacs.configuration.frontend_repo_url:
             hacs.logger.debug("Serving REMOTE DEVELOPMENT frontend")
-            request = await hacs.session.get(f"{hacs.configuration.frontend_repo_url}/main.js")
+            request = await hacs.session.get(
+                f"{hacs.configuration.frontend_repo_url}/main.js"
+            )
             if request.status == 200:
                 result = await request.read()
                 response = web.Response(body=result)

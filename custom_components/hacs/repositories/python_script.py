@@ -1,9 +1,10 @@
 """Class for python_scripts in HACS."""
 from integrationhelper import Logger
 
-from .repository import HacsRepository
-from ..hacsbase.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
+
 from ..helpers.information import find_file_name
+from .repository import HacsRepository
 
 
 class HacsPythonScript(HacsRepository):

@@ -1,12 +1,13 @@
 """Data handler for HACS."""
 from integrationhelper import Logger
-from ..const import VERSION
-from ..repositories.repository import HacsRepository
-from ..repositories.manifest import HacsManifest
-from ..store import async_save_to_store, async_load_from_store
 
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.helpers.register_repository import register_repository
+
+from ..const import VERSION
+from ..repositories.manifest import HacsManifest
+from ..repositories.repository import HacsRepository
+from ..store import async_load_from_store, async_save_to_store
 
 
 class HacsData:

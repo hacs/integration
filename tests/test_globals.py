@@ -2,8 +2,8 @@
 # pylint: disable=missing-docstring
 from custom_components.hacs.globals import (
     get_hacs,
-    is_removed,
     get_removed,
+    is_removed,
     removed_repositories,
 )
 

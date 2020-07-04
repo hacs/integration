@@ -1,13 +1,13 @@
 # pylint: disable=missing-docstring,invalid-name
+import asyncio
 import logging
 import time
 from datetime import timedelta
-import asyncio
+
 from aiogithubapi import AIOGitHubAPIException
 
-from custom_components.hacs.hacsbase.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.register_repository import register_repository
-
 
 max_concurrent_tasks = asyncio.Semaphore(15)
 sleeper = 5

@@ -1,7 +1,8 @@
 """Custom template support."""
+from integrationhelper import Logger
+
 # pylint: disable=broad-except
 from jinja2 import Template
-from integrationhelper import Logger
 
 
 def render_template(content, context):

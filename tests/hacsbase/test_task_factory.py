@@ -1,7 +1,9 @@
 """Task Factory Test Suite."""
 # pylint: disable=missing-docstring
 import asyncio
+
 import pytest
+
 from custom_components.hacs.hacsbase.task_factory import HacsTaskFactory
 
 

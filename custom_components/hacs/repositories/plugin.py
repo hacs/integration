@@ -1,8 +1,9 @@
 """Class for plugins in HACS."""
 import json
+
 from integrationhelper import Logger
 
-from custom_components.hacs.hacsbase.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.information import find_file_name
 from custom_components.hacs.repositories.repository import HacsRepository
 

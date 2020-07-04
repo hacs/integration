@@ -1,19 +1,20 @@
 """Create a dummy repository."""
 # pylint: disable=missing-docstring
 import tempfile
-from integrationhelper import Logger
+
 from homeassistant.core import HomeAssistant
+from integrationhelper import Logger
+
 from custom_components.hacs.helpers.install import version_to_install
 from custom_components.hacs.repositories import (
-    HacsIntegration,
-    HacsTheme,
-    HacsPlugin,
     HacsAppdaemon,
+    HacsIntegration,
     HacsNetdaemon,
+    HacsPlugin,
     HacsPythonScript,
+    HacsTheme,
 )
 from custom_components.hacs.repositories.repository import HacsRepository
-
 from tests.sample_data import repository_data
 
 

@@ -8,9 +8,9 @@ import sys
 import aiohttp
 from aiogithubapi import GitHub
 
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.configuration import Configuration
-from custom_components.hacs.hacsbase.exceptions import HacsException
 from custom_components.hacs.helpers.register_repository import register_repository
 
 LOGGER = logging.getLogger()
@@ -77,7 +77,7 @@ async def preflight():
     ref = None
     if os.getenv("REPOSITORY") and os.getenv("CATEGORY"):
         repository = os.getenv("REPOSITORY")
-        category =  os.getenv("CATEGORY")
+        category = os.getenv("CATEGORY")
         pr = False
     elif os.getenv("GITHUB_REPOSITORY") == "hacs/default":
         category = chose_category()

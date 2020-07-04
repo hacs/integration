@@ -1,6 +1,7 @@
 """Test requirements against Home Assistant."""
-import warnings
 import json
+import warnings
+
 import requests
 
 MANIFEST_FILE = "custom_components/hacs/manifest.json"

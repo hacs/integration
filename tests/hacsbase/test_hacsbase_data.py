@@ -1,7 +1,8 @@
 """Data Test Suite."""
+from custom_components.hacs.hacsbase.data import restore_repository_data
+
 # pylint: disable=missing-docstring
 from custom_components.hacs.repositories.repository import HacsRepository
-from custom_components.hacs.hacsbase.data import restore_repository_data
 
 
 def test_restore_repository_data():

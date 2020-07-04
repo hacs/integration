@@ -1,5 +1,8 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
-class RepositoryPropertyPendingUpdate:
+from abc import ABC
+
+
+class RepositoryPropertyPendingUpdate(ABC):
     @property
     def pending_update(self) -> bool:
         if not self.can_install:

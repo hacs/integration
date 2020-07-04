@@ -1,8 +1,10 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
+from abc import ABC
+
 from custom_components.hacs.helpers.install import install_repository
 
 
-class RepositoryMethodPreInstall:
+class RepositoryMethodPreInstall(ABC):
     async def async_pre_install(self) -> None:
         pass
 
@@ -12,7 +14,7 @@ class RepositoryMethodPreInstall:
         self.logger.info("Pre installation steps competed")
 
 
-class RepositoryMethodInstall:
+class RepositoryMethodInstall(ABC):
     async def install(self) -> None:
         self.logger.warning("'install' is deprecated, use 'async_install' instead")
         await self.async_install()
@@ -25,7 +27,7 @@ class RepositoryMethodInstall:
         await self._async_post_install()
 
 
-class RepositoryMethodPostInstall:
+class RepositoryMethodPostInstall(ABC):
     async def async_post_installation(self) -> None:
         pass
 

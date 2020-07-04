@@ -1,10 +1,8 @@
 """Register a repository."""
 from aiogithubapi import AIOGitHubAPIException
+
+from custom_components.hacs.exceptions import HacsException, HacsExpectedException
 from custom_components.hacs.globals import get_hacs
-from custom_components.hacs.hacsbase.exceptions import (
-    HacsException,
-    HacsExpectedException,
-)
 
 
 # @concurrent(15, 5)

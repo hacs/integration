@@ -1,8 +1,10 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
+from abc import ABC
+
 from custom_components.hacs.helpers.misc import version_left_higher_then_right
 
 
-class RepositoryPropertyCanBeInstalled:
+class RepositoryPropertyCanBeInstalled(ABC):
     @property
     def can_be_installed(self) -> bool:
         if self.data.homeassistant is not None:

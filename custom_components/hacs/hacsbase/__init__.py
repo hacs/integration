@@ -4,27 +4,18 @@ import json
 import uuid
 from datetime import timedelta
 
-from homeassistant.helpers.event import async_call_later, async_track_time_interval
-
-from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPIRatelimitException
+from aiogithubapi import AIOGitHubAPIException
+from homeassistant.helpers.event import async_track_time_interval
 from integrationhelper import Logger
 from queueman import QueueManager
 
+from custom_components.hacs.globals import get_removed, is_removed, removed_repositories
 from custom_components.hacs.hacsbase.task_factory import HacsTaskFactory
-from custom_components.hacs.hacsbase.exceptions import HacsException
-
-from custom_components.hacs.const import ELEMENT_TYPES
-from custom_components.hacs.setup import setup_extra_stores
-from custom_components.hacs.store import async_load_from_store, async_save_to_store
-from custom_components.hacs.helpers.get_defaults import (
-    get_default_repos_lists,
-    get_default_repos_orgs,
-)
-
+from custom_components.hacs.helpers import HacsHelpers
 from custom_components.hacs.helpers.register_repository import register_repository
 from custom_components.hacs.helpers.remaining_github_calls import get_fetch_updates_for
-from custom_components.hacs.globals import removed_repositories, get_removed, is_removed
-from custom_components.hacs.repositories.removed import RemovedRepository
+from custom_components.hacs.setup import setup_extra_stores
+from custom_components.hacs.store import async_load_from_store, async_save_to_store
 
 
 class HacsStatus:
@@ -82,7 +73,7 @@ class Developer:
         return False
 
 
-class Hacs:
+class Hacs(HacsHelpers):
     """The base class of HACS, nested thoughout the project."""
 
     token = f"{str(uuid.uuid4())}-{str(uuid.uuid4())}"
@@ -158,7 +149,7 @@ class Hacs:
 
         await self.handle_critical_repositories_startup()
         await self.handle_critical_repositories()
-        await self.load_known_repositories()
+        await self.async_load_default_repositories()
         await self.clear_out_removed_repositories()
 
         self.recuring_tasks.append(
@@ -311,7 +302,7 @@ class Hacs:
             if repository.data.category in self.common.categories:
                 self.queue.add(self.factory.safe_common_update(repository))
 
-        await self.load_known_repositories()
+        await self.async_load_default_repositories()
         await self.clear_out_removed_repositories()
         self.system.status.background_task = False
         await self.data.async_write()
@@ -338,26 +329,14 @@ class Hacs:
         if need_to_save:
             await self.data.async_write()
 
-    async def get_repositories(self):
-        """Return a list of repositories."""
-        repositories = {}
-        for category in self.common.categories:
-            repositories[category] = await get_default_repos_lists(
-                self.session, self.configuration.token, category
-            )
-            org = await get_default_repos_orgs(self.github, category)
-            for repo in org:
-                repositories[category].append(repo)
-        return repositories
-
-    async def load_known_repositories(self):
+    async def async_load_default_repositories(self):
         """Load known repositories."""
         self.logger.info("Loading known repositories")
-        repositories = await self.get_repositories()
+        repositories = {}
+        for category in self.common.categories:
+            repositories[category] = await self.async_get_list_from_default(category)
 
-        for item in await get_default_repos_lists(
-            self.session, self.configuration.token, "removed"
-        ):
+        for item in await self.async_get_list_from_default("removed"):
             removed = get_removed(item["repository"])
             removed.reason = item.get("reason")
             removed.link = item.get("link")

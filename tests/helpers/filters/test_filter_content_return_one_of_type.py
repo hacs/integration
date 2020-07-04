@@ -1,6 +1,7 @@
 """Helpers: Filters: filter_content_return_one_of_type."""
 # pylint: disable=missing-docstring
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
+
 from custom_components.hacs.helpers.filters import filter_content_return_one_of_type
 
 

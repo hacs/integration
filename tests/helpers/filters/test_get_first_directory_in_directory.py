@@ -1,6 +1,7 @@
 """Helpers: Filters: get_first_directory_in_directory."""
 # pylint: disable=missing-docstring
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
+
 from custom_components.hacs.helpers.filters import get_first_directory_in_directory
 
 

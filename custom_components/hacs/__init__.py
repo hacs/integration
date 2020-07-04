@@ -6,31 +6,32 @@ https://hacs.xyz/
 """
 
 import voluptuous as vol
-from aiogithubapi import GitHub, AIOGitHubAPIException
+from aiogithubapi import AIOGitHubAPIException, GitHub
 from homeassistant import config_entries
+from homeassistant.components.lovelace import system_health_info
 from homeassistant.const import EVENT_HOMEASSISTANT_START
 from homeassistant.const import __version__ as HAVERSION
-from homeassistant.components.lovelace import system_health_info
 from homeassistant.exceptions import ConfigEntryNotReady, ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 
-from custom_components.hacs.configuration_schema import hacs_config_combined, FRONTEND_REPO, FRONTEND_REPO_URL
+from custom_components.hacs.configuration_schema import (
+    FRONTEND_REPO,
+    FRONTEND_REPO_URL,
+    hacs_config_combined,
+)
 from custom_components.hacs.const import DOMAIN, ELEMENT_TYPES, STARTUP, VERSION
 from custom_components.hacs.constrains import check_constrains
-from custom_components.hacs.helpers.remaining_github_calls import get_fetch_updates_for
+from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
+from custom_components.hacs.helpers.remaining_github_calls import get_fetch_updates_for
 from custom_components.hacs.setup import (
-    clear_storage,
     add_sensor,
+    clear_storage,
     load_hacs_repository,
     setup_frontend,
 )
-
-from custom_components.hacs.globals import get_hacs
-
-from custom_components.hacs.helpers.network import internet_connectivity_check
 
 CONFIG_SCHEMA = vol.Schema({DOMAIN: hacs_config_combined()}, extra=vol.ALLOW_EXTRA)
 
@@ -46,7 +47,9 @@ async def async_setup(hass, config):
     configuration = config[DOMAIN]
 
     if configuration.get(FRONTEND_REPO) and configuration.get(FRONTEND_REPO_URL):
-        hacs.logger.critical("Could not setup HACS, set only one of ('frontend_repo', 'frontend_repo_url)")
+        hacs.logger.critical(
+            "Could not setup HACS, set only one of ('frontend_repo', 'frontend_repo_url)"
+        )
 
         return False
 
@@ -159,10 +162,6 @@ async def hacs_startup():
 
     # Set up frontend
     await setup_frontend()
-
-    if not await hacs.hass.async_add_executor_job(internet_connectivity_check):
-        hacs.logger.critical("No network connectivity")
-        return False
 
     # Load HACS
     if not await load_hacs_repository():

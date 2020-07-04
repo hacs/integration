@@ -10,8 +10,6 @@ def test_repository_helpers_properties_can_be_installed():
 
 def test_repository_helpers_properties_custom():
     repository = HacsRepository()
-    repository.data.full_name = "custom-components/test"
-    assert not repository.custom
 
     repository.data.full_name = "test/test"
     assert repository.custom

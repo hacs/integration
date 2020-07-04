@@ -1,6 +1,7 @@
 """Helpers: Filters: find_first_of_filetype."""
 # pylint: disable=missing-docstring
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
+
 from custom_components.hacs.helpers.filters import find_first_of_filetype
 
 

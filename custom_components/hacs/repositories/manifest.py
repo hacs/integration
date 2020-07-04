@@ -4,9 +4,10 @@ Manifest handling of a repository.
 https://hacs.xyz/docs/publish/start#hacsjson
 """
 from typing import List
+
 import attr
 
-from custom_components.hacs.hacsbase.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 
 
 @attr.s(auto_attribs=True)

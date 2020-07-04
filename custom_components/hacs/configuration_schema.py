@@ -1,6 +1,7 @@
 """HACS Configuration Schemas."""
 # pylint: disable=dangerous-default-value
 import voluptuous as vol
+
 from .const import LOCALE
 
 # Configuration:

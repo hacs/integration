@@ -1,7 +1,8 @@
 """HACS Manifest Test Suite."""
 # pylint: disable=missing-docstring
 import pytest
-from custom_components.hacs.hacsbase.exceptions import HacsException
+
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.repositories.manifest import HacsManifest
 
 

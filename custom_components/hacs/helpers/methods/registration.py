@@ -1,12 +1,13 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member, attribute-defined-outside-init
+from abc import ABC
 
 
-class RepositoryMethodPreRegistration:
+class RepositoryMethodPreRegistration(ABC):
     async def async_pre_registration(self):
         pass
 
 
-class RepositoryMethodRegistration:
+class RepositoryMethodRegistration(ABC):
     async def registration(self, ref=None) -> None:
         self.logger.warning(
             "'registration' is deprecated, use 'async_registration' instead"
@@ -35,6 +36,6 @@ class RepositoryMethodRegistration:
         await self.async_post_registration()
 
 
-class RepositoryMethodPostRegistration:
+class RepositoryMethodPostRegistration(ABC):
     async def async_post_registration(self):
         pass

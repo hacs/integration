@@ -1,5 +1,8 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
-class RepositoryMethodReinstallIfNeeded:
+from abc import ABC
+
+
+class RepositoryMethodReinstallIfNeeded(ABC):
     async def async_reinstall_if_needed(self) -> None:
         if self.data.installed:
             if not await self.async_exsist_on_local_fs():

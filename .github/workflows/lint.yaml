@@ -38,7 +38,9 @@ jobs:
 
       - name: Install pre-commit dependencies
         run: |
-          pre-commit install-hooks
+          python3 -m pip install setuptools wheel
+          python3 -m pip install pre-commit
+          pre-commit install-hooks --config .github/pre-commit-config.yaml
 
   matrix:
     runs-on: ubuntu-latest
@@ -72,12 +74,6 @@ jobs:
           path: ${{ env.PRE_COMMIT_HOME }}
           key: |
             ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
-
-      - name: Install pre-commit hooks
-        run: |
-          python3 -m pip install setuptools wheel
-          python3 -m pip install pre-commit
-          pre-commit install-hooks --config .github/pre-commit-config.yaml
 
       - name: Run the check
         run: pre-commit run --hook-stage manual ${{ matrix.checks }} --all-files --config .github/pre-commit-config.yaml

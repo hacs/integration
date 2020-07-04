@@ -6,7 +6,7 @@ import os
 import aiohttp
 import pytest
 
-from custom_components.hacs.globals import get_hacs
+from custom_components.hacs.hacs import get_hacs
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.setup import clear_storage, load_hacs_repository
 from tests.sample_data import (

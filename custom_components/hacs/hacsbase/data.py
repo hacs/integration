@@ -1,7 +1,7 @@
 """Data handler for HACS."""
 from integrationhelper import Logger
 
-from custom_components.hacs.globals import get_hacs
+from custom_components.hacs.hacs import get_hacs
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )

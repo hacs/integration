@@ -8,7 +8,7 @@ from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers import aiohttp_client
 
-from custom_components.hacs.globals import get_hacs
+from custom_components.hacs.hacs import get_hacs
 from custom_components.hacs.helpers.functions.information import get_repository
 
 from .configuration_schema import hacs_base_config_schema, hacs_config_option_schema

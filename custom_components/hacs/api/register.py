@@ -15,7 +15,7 @@ from custom_components.hacs.api.hacs_repository import hacs_repository
 from custom_components.hacs.api.hacs_repository_data import hacs_repository_data
 from custom_components.hacs.api.hacs_settings import hacs_settings
 from custom_components.hacs.api.hacs_status import hacs_status
-from custom_components.hacs.globals import get_hacs
+from custom_components.hacs.hacs import get_hacs
 
 
 async def async_setup_hacs_websockt_api():

@@ -9,11 +9,14 @@ from homeassistant.helpers.event import async_track_time_interval
 from integrationhelper import Logger
 from queueman import QueueManager
 
-from custom_components.hacs.globals import get_removed, is_removed, removed_repositories
+from custom_components.hacs.hacs import get_removed, is_removed, removed_repositories
 from custom_components.hacs.hacsbase.task_factory import HacsTaskFactory
 from custom_components.hacs.helpers import HacsHelpers
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
+)
+from custom_components.hacs.helpers.functions.get_list_from_default import (
+    async_get_list_from_default,
 )
 from custom_components.hacs.helpers.functions.remaining_github_calls import (
     get_fetch_updates_for,
@@ -338,9 +341,9 @@ class Hacs(HacsHelpers):
         self.logger.info("Loading known repositories")
         repositories = {}
         for category in self.common.categories:
-            repositories[category] = await self.async_get_list_from_default(category)
+            repositories[category] = await async_get_list_from_default(category)
 
-        for item in await self.async_get_list_from_default("removed"):
+        for item in await async_get_list_from_default("removed"):
             removed = get_removed(item["repository"])
             removed.reason = item.get("reason")
             removed.link = item.get("link")

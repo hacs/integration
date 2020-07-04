@@ -4,7 +4,7 @@ import voluptuous as vol
 from aiogithubapi import AIOGitHubAPIException
 from homeassistant.components import websocket_api
 
-from custom_components.hacs.globals import get_hacs
+from custom_components.hacs.hacs import get_hacs
 
 
 @websocket_api.async_response

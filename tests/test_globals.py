@@ -1,6 +1,6 @@
 """Test globals."""
 # pylint: disable=missing-docstring
-from custom_components.hacs.globals import (
+from custom_components.hacs.hacs import (
     get_hacs,
     get_removed,
     is_removed,

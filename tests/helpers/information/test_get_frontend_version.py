@@ -4,7 +4,7 @@ import json
 # pylint: disable=missing-docstring
 import os
 
-from custom_components.hacs.globals import get_hacs
+from custom_components.hacs.hacs import get_hacs
 from custom_components.hacs.helpers.functions.information import get_frontend_version
 
 

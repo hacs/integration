@@ -1,9 +1,4 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
-
-
-from custom_components.hacs.helpers.methods.get_list_from_default import (
-    GetListFromDefault,
-)
 from custom_components.hacs.helpers.methods.installation import (
     RepositoryMethodInstall,
     RepositoryMethodPostInstall,
@@ -31,5 +26,5 @@ class RepositoryHelperMethods(
     """Collection of repository methods that are nested to all repositories."""
 
 
-class HacsHelperMethods(GetListFromDefault):
+class HacsHelperMethods:
     """Helper class for HACS methods"""

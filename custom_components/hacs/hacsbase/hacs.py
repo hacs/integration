@@ -78,7 +78,7 @@ class Developer:
 
 
 class Hacs(HacsHelpers):
-    """The base class of HACS, nested thoughout the project."""
+    """The base class of HACS, nested throughout the project."""
 
     token = f"{str(uuid.uuid4())}-{str(uuid.uuid4())}"
     action = False
@@ -146,7 +146,7 @@ class Hacs(HacsHelpers):
         await register_repository(full_name, category, check=True)
 
     async def startup_tasks(self):
-        """Tasks tha are started after startup."""
+        """Tasks that are started after startup."""
         self.system.status.background_task = True
         await self.hass.async_add_executor_job(setup_extra_stores)
         self.hass.bus.async_fire("hacs/status", {})
@@ -158,12 +158,12 @@ class Hacs(HacsHelpers):
 
         self.recuring_tasks.append(
             async_track_time_interval(
-                self.hass, self.recuring_tasks_installed, timedelta(minutes=30)
+                self.hass, self.recurring_tasks_installed, timedelta(minutes=30)
             )
         )
         self.recuring_tasks.append(
             async_track_time_interval(
-                self.hass, self.recuring_tasks_all, timedelta(minutes=800)
+                self.hass, self.recurring_tasks_all, timedelta(minutes=800)
             )
         )
         self.recuring_tasks.append(
@@ -173,7 +173,7 @@ class Hacs(HacsHelpers):
         )
 
         self.hass.bus.async_fire("hacs/reload", {"force": True})
-        await self.recuring_tasks_installed()
+        await self.recurring_tasks_installed()
 
         await self.prosess_queue()
 
@@ -248,13 +248,13 @@ class Hacs(HacsHelpers):
         # Save to FS
         await async_save_to_store(self.hass, "critical", stored_critical)
 
-        # Resart HASS
+        # Restart HASS
         if was_installed:
             self.logger.critical("Resarting Home Assistant")
             self.hass.async_create_task(self.hass.async_stop(100))
 
     async def prosess_queue(self, notarealarg=None):
-        """Recuring tasks for installed repositories."""
+        """Recurring tasks for installed repositories."""
         if not self.queue.has_pending_tasks:
             self.logger.debug("Nothing in the queue")
             return
@@ -274,10 +274,10 @@ class Hacs(HacsHelpers):
             self.system.status.background_task = False
             self.hass.bus.async_fire("hacs/status", {})
 
-    async def recuring_tasks_installed(self, notarealarg=None):
-        """Recuring tasks for installed repositories."""
+    async def recurring_tasks_installed(self, notarealarg=None):
+        """Recurring tasks for installed repositories."""
         self.logger.debug(
-            "Starting recuring background task for installed repositories"
+            "Starting recurring background task for installed repositories"
         )
         self.system.status.background_task = True
         self.hass.bus.async_fire("hacs/status", {})
@@ -293,11 +293,11 @@ class Hacs(HacsHelpers):
         self.system.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
         await self.data.async_write()
-        self.logger.debug("Recuring background task for installed repositories done")
+        self.logger.debug("Recurring background task for installed repositories done")
 
-    async def recuring_tasks_all(self, notarealarg=None):
-        """Recuring tasks for all repositories."""
-        self.logger.debug("Starting recuring background task for all repositories")
+    async def recurring_tasks_all(self, notarealarg=None):
+        """Recurring tasks for all repositories."""
+        self.logger.debug("Starting recurring background task for all repositories")
         await self.hass.async_add_executor_job(setup_extra_stores)
         self.system.status.background_task = True
         self.hass.bus.async_fire("hacs/status", {})
@@ -312,7 +312,7 @@ class Hacs(HacsHelpers):
         await self.data.async_write()
         self.hass.bus.async_fire("hacs/status", {})
         self.hass.bus.async_fire("hacs/repository", {"action": "reload"})
-        self.logger.debug("Recuring background task for all repositories done")
+        self.logger.debug("Recurring background task for all repositories done")
 
     async def clear_out_removed_repositories(self):
         """Clear out blaclisted repositories."""

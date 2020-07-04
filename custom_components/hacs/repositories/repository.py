@@ -363,7 +363,7 @@ class HacsRepository(RepositoryHelpers):
 
         try:
             if self.data.category == "python_script":
-                local_path = "{}/{}.py".format(self.content.path.local, self.data.name)
+                local_path = f"{self.content.path.local}/{self.data.name}.py"
             elif self.data.category == "theme":
                 if os.path.exists(
                     f"{self.hacs.system.config_path}/{self.hacs.configuration.theme_path}/{self.data.name}.yaml"

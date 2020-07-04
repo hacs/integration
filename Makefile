@@ -16,6 +16,10 @@ start: ## Start the HA with the integration
 test: ## Run pytest
 	python -m pytest;
 
+lint: ## Run linters
+	pre-commit install-hooks
+	pre-commit run --hook-stage manual --all-files;
+
 update: ## Pull master from hacs/integration
 	git pull upstream master;
 

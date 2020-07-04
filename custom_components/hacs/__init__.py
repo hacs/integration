@@ -181,7 +181,7 @@ async def hacs_startup():
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
         return False
 
-    # Add aditional categories
+    # Add additional categories
     hacs.common.categories = ELEMENT_TYPES
     if hacs.configuration.appdaemon:
         hacs.common.categories.append("appdaemon")
@@ -208,7 +208,7 @@ async def async_remove_entry(hass, config_entry):
     """Handle removal of an entry."""
     hacs = get_hacs()
     hacs.logger.info("Disabling HACS")
-    hacs.logger.info("Removing recuring tasks")
+    hacs.logger.info("Removing recurring tasks")
     for task in hacs.recuring_tasks:
         task()
     if config_entry.state == "loaded":

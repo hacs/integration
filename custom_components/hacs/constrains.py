@@ -46,7 +46,7 @@ def constrain_version():
 
 
 def constrain_translations():
-    """Check if traslations exist."""
+    """Check if translations exist."""
     hacs = get_hacs()
     if not os.path.exists(
         f"{hacs.system.config_path}/custom_components/hacs/translations"

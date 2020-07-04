@@ -27,7 +27,7 @@ class HacsTaskFactory:
             logger.debug("No tasks to execute")
             return
         if self.running:
-            logger.debug("Allready executing tasks")
+            logger.debug("Already executing tasks")
             return
         try:
             self.running = True

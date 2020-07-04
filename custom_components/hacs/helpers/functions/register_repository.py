@@ -12,7 +12,7 @@ async def register_repository(full_name, category, check=True, ref=None, action=
     hacs.action = action
     from custom_components.hacs.repositories import (
         RERPOSITORY_CLASSES,
-    )  # To hanle import error
+    )  # To handle import error
 
     if full_name in hacs.common.skip:
         if full_name != "hacs/integration":

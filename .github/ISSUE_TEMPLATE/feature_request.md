@@ -26,7 +26,7 @@ A good description of what you are suggesting.
 
 ## Implementation
 
-How do you see this beeing implemented?
+How do you see this being implemented?
 
 ## Alternatives
 

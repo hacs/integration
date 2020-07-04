@@ -45,16 +45,16 @@ CATEGORIES = [
 def get_event_data():
     if os.getenv("GITHUB_EVENT_PATH") is None:
         return {}
-    with open(os.getenv("GITHUB_EVENT_PATH"), "r") as ev:
+    with open(os.getenv("GITHUB_EVENT_PATH")) as ev:
         return json.loads(ev.read())
 
 
 def chose_repository(category):
     if category is None:
         return
-    with open(f"/default/{category}", "r") as cat_file:
+    with open(f"/default/{category}") as cat_file:
         current = json.loads(cat_file.read())
-    with open(f"{GITHUB_WORKSPACE}/{category}", "r") as cat_file:
+    with open(f"{GITHUB_WORKSPACE}/{category}") as cat_file:
         new = json.loads(cat_file.read())
 
     for repo in current:
@@ -74,7 +74,7 @@ def chose_category():
 
 
 async def preflight():
-    """Preflight cheks."""
+    """Preflight checks."""
     event_data = get_event_data()
     ref = None
     if os.getenv("REPOSITORY") and os.getenv("CATEGORY"):

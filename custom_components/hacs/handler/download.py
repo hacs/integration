@@ -83,7 +83,7 @@ async def async_save_file(location, content):
                 os.remove(combined)
 
     except Exception as error:  # pylint: disable=broad-except
-        msg = "Could not write data to {} - {}".format(location, error)
+        msg = f"Could not write data to {location} - {error}"
         logger.error(msg)
         return False
 

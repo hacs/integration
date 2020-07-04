@@ -1,0 +1,85 @@
+name: Lint
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+env:
+  DEFAULT_PYTHON: 3.7
+  PRE_COMMIT_HOME: ~/.cache/pre-commit
+
+jobs:
+  prepare:
+    name: preperations
+    needs: prepare-base
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        id: python
+        with:
+          python-version: ${{ env.DEFAULT_PYTHON }}
+
+      - name: Creat pre-commit environment
+        id: cache-precommit
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.PRE_COMMIT_HOME }}
+          key: |
+            ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pre-commit-
+
+      - name: Install pre-commit dependencies
+        run: |
+          pre-commit install-hooks
+
+  python_matrix:
+    runs-on: ubuntu-latest
+    name: Run ${{ matrix.checks }}
+    needs: prepare
+    strategy:
+      matrix:
+        checks:
+          - pyupgrade
+          - black
+          - codespell
+          - check-executables-have-shebangs
+          - check-json
+          - requirements-txt-fixer
+          - check-ast
+          - mixed-line-ending
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        id: python
+        with:
+          python-version: ${{ env.DEFAULT_PYTHON }}
+
+      - name: Restore pre-commit environment from cache
+        id: cache-precommit
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.PRE_COMMIT_HOME }}
+          key: |
+            ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Install pre-commit hooks
+        run: |
+          python3 -m pip install setuptools wheel
+          python3 -m pip install pre-commit
+          pre-commit install-hooks
+
+      - name: Run the check
+        run: pre-commit run --hook-stage manual ${{ matrix.checks }} --all-files

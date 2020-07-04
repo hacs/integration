@@ -53,7 +53,7 @@ def test_netdaemon_backup():
 
     with open(f"{repository.content.path.local}/dummy_file.yaml", "w") as dummy:
         dummy.write("test: test")
-    with open(f"{repository.content.path.local}/dummy_file.yaml", "r") as dummy:
+    with open(f"{repository.content.path.local}/dummy_file.yaml") as dummy:
         content = dummy.read()
         assert content == "test: test"
 
@@ -63,12 +63,12 @@ def test_netdaemon_backup():
     assert os.path.exists(backup.backup_path)
     with open(f"{repository.content.path.local}/dummy_file.yaml", "w") as dummy:
         dummy.write("tests: tests")
-    with open(f"{repository.content.path.local}/dummy_file.yaml", "r") as dummy:
+    with open(f"{repository.content.path.local}/dummy_file.yaml") as dummy:
         content = dummy.read()
         assert content == "tests: tests"
     backup.restore()
     backup.cleanup()
     assert not os.path.exists(backup.backup_path)
-    with open(f"{repository.content.path.local}/dummy_file.yaml", "r") as dummy:
+    with open(f"{repository.content.path.local}/dummy_file.yaml") as dummy:
         content = dummy.read()
         assert content == "test: test"

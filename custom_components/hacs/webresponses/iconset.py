@@ -7,4 +7,3 @@ def serve_iconset():
     return web.FileResponse(
         f"{hacs.system.config_path}/custom_components/hacs/iconset.js"
     )
-

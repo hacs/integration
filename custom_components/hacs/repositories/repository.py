@@ -6,7 +6,7 @@ import tempfile
 import zipfile
 
 from aiogithubapi import AIOGitHubAPIException
-from integrationhelper import Validate
+from custom_components.hacs.helpers.classes.validate import Validate
 
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.share import get_hacs

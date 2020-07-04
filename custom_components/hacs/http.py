@@ -4,7 +4,6 @@ import os
 from aiohttp import web
 from hacs_frontend import locate_debug_gz, locate_gz
 from homeassistant.components.http import HomeAssistantView
-from integrationhelper import Logger
 
 from custom_components.hacs.globals import get_hacs
 

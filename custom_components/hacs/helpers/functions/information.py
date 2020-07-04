@@ -193,8 +193,6 @@ def get_file_name_plugin(repository):
 
 def get_file_name_integration(repository):
     """Get the filename to target."""
-    tree = repository.tree
-    releases = repository.releases.objects
 
 
 def get_file_name_theme(repository):
@@ -210,8 +208,6 @@ def get_file_name_theme(repository):
 
 def get_file_name_appdaemon(repository):
     """Get the filename to target."""
-    tree = repository.tree
-    releases = repository.releases.objects
 
 
 def get_file_name_python_script(repository):

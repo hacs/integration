@@ -8,7 +8,6 @@ from custom_components.hacs.helpers.functions.register_repository import (
 
 from ..const import VERSION
 from ..repositories.manifest import HacsManifest
-from ..repositories.repository import HacsRepository
 from ..store import async_load_from_store, async_save_to_store
 
 

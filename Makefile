@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-
+HAS_APK := $(shell command -v apk 2>/dev/null)
 WHEELS := https://wheels.home-assistant.io/alpine-3.11/amd64/
 
 help: ## Shows help message.
@@ -7,12 +7,14 @@ help: ## Shows help message.
 	@awk 'BEGIN {FS = ":.*##";} /^[a-zA-Z_-]+:.*?##/ { printf " \033[36m make %-25s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST);
 	@echo
 
-init: homeassistant-install
-	if [ -z which apt ]; then \
-		sudo apt update && sudo apt install libxml2-dev libxslt-dev; \
-	else \
-		apk add libxml2-dev libxslt-dev; \
-	fi;
+init: homeassistant-install requirements
+
+requirements:
+ifdef HAS_APK
+	apk add libxml2-dev libxslt-dev
+else
+    sudo apt update && sudo apt install libxml2-dev libxslt-dev
+endif
 	python -m pip --disable-pip-version-check install -r requirements.txt --find-links $(WHEELS)
 
 start: ## Start the HA with the integration

@@ -49,4 +49,6 @@ jobs:
       run: make requirements
 
     - name: Validation
-      run: bellybutton lint
+      run: |
+        echo "::add-matcher::action/matchers/bellybutton.json"
+        bellybutton lint

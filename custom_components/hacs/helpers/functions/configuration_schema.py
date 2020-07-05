@@ -2,7 +2,7 @@
 # pylint: disable=dangerous-default-value
 import voluptuous as vol
 
-from .const import LOCALE
+from custom_components.hacs.const import LOCALE
 
 # Configuration:
 TOKEN = "token"

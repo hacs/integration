@@ -11,7 +11,7 @@ async def remaining(github):
         ratelimits = await github.get_rate_limit()
     except (BaseException, Exception) as exception:  # pylint: disable=broad-except
         logger.error(exception)
-        return 0
+        return None
     if ratelimits.get("remaining") is not None:
         return int(ratelimits["remaining"])
     return 0
@@ -22,6 +22,9 @@ async def get_fetch_updates_for(github):
     margin = 100
     limit = await remaining(github)
     pr_repo = 10
+
+    if limit is None:
+        return None
 
     if limit - margin <= pr_repo:
         return 0

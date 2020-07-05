@@ -126,6 +126,9 @@ async def async_hacs_startup():
     # Clear old storage files
     await async_clear_storage()
 
+    # Setup websocket API
+    await async_setup_hacs_websockt_api()
+
     hacs.system.lovelace_mode = lovelace_info.get("mode", "yaml")
     hacs.system.disabled = False
     hacs.github = GitHub(
@@ -134,10 +137,16 @@ async def async_hacs_startup():
     hacs.data = HacsData()
 
     can_update = await get_fetch_updates_for(hacs.github)
-    if can_update == 0:
-        hacs.logger.info("HACS is ratelimited, repository updates will resume in 1h.")
-    else:
+    if can_update is None:
+        hacs.logger.critical("Your GitHub token is not valid")
+        return False
+    elif can_update != 0:
         hacs.logger.debug(f"Can update {can_update} repositories")
+    else:
+        hacs.logger.info(
+            "HACS is ratelimited, repository updates will resume when the limit is cleared, this can take up to 1 hour"
+        )
+        return False
 
     # Check HACS Constrains
     if not await hacs.hass.async_add_executor_job(check_constrains):
@@ -171,7 +180,6 @@ async def async_hacs_startup():
 
     # Set up frontend
     await async_setup_frontend()
-    await async_setup_hacs_websockt_api()
 
     # Setup startup tasks
     if hacs.configuration.config_type == "yaml":

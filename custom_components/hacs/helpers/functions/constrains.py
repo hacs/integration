@@ -14,8 +14,6 @@ MINIMUM_HA_VERSION = "0.110.0"
 
 def check_constrains():
     """Check HACS constrains."""
-    if not constrain_translations():
-        return False
     if not constrain_custom_updater():
         return False
     if not constrain_version():
@@ -43,16 +41,5 @@ def constrain_version():
         hacs.logger.critical(
             f"You need HA version {MINIMUM_HA_VERSION} or newer to use this integration."
         )
-        return False
-    return True
-
-
-def constrain_translations():
-    """Check if translations exist."""
-    hacs = get_hacs()
-    if not os.path.exists(
-        f"{hacs.system.config_path}/custom_components/hacs/translations"
-    ):
-        hacs.logger.critical("You are missing the translations directory.")
         return False
     return True

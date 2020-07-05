@@ -40,3 +40,24 @@ jobs:
 
       - name: Run the check (${{ matrix.checks }})
         run: pre-commit run --hook-stage manual ${{ matrix.checks }} --all-files --config .github/pre-commit-config.yaml
+
+  lint-custom:
+    runs-on: ubuntu-latest
+    name: With bellybutton
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Enable version 3.8 of Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: make requirements
+
+    - name: Add problem matcher
+      run: echo "::add-matcher::.github/matchers/bellybutton.json"
+
+    - name: Validation
+      run: bellybutton lint

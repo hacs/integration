@@ -27,28 +27,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: HACS validation
-      #uses: "hacs/integration/action@master"
       uses: ./action
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CATEGORY: "integration"
-
-  validate-custom:
-    runs-on: ubuntu-latest
-    name: With custom rules
-    steps:
-    - name: Check out repository
-      uses: actions/checkout@v2
-
-    - name: Enable version 3.8 of Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
-    - name: Install dependencies
-      run: make requirements
-
-    - name: Validation
-      run: |
-        echo "::add-matcher::action/matchers/bellybutton.json"
-        bellybutton lint

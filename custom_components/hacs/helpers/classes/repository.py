@@ -265,7 +265,6 @@ class HacsRepository(RepositoryHelpers):
                 return validate
 
             for content in contents or []:
-                await self.async_download_zip_file(content, validate)
                 self.queue.add(self.async_download_zip_file(content, validate))
 
             await self.queue.execute()

@@ -39,19 +39,6 @@ async def hacs_settings(hass, connection, msg):
     elif action == "set_fe_compact_false":
         hacs.configuration.frontend_compact = True
 
-    elif action == "upgrade_all":
-        hacs.system.status.upgrading_all = True
-        hacs.system.status.background_task = True
-        hass.bus.async_fire("hacs/status", {})
-        for repository in hacs.repositories:
-            if repository.pending_upgrade:
-                repository.data.selected_tag = None
-                await repository.async_install()
-        hacs.system.status.upgrading_all = False
-        hacs.system.status.background_task = False
-        hass.bus.async_fire("hacs/status", {})
-        hass.bus.async_fire("hacs/repository", {})
-
     elif action == "clear_new":
         for repo in hacs.repositories:
             if repo.data.new and repo.data.category in msg.get("categories", []):

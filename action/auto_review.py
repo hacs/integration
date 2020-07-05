@@ -1,7 +1,10 @@
+import os
 from astpath import search
 
 checks = set()
 exitinformation = {"code": 0}
+
+GITHUB_ACTION = os.getenv("GITHUB_ACTION")
 
 
 def add(f):
@@ -16,9 +19,13 @@ def find(string):
 def formatOutput(filename, line, message, error=True):
     if error:
         exitinformation["code"] = 1
-    print(
-        f"::{'error' if error else 'warning'} file={filename[2:]},line={line}:: {message}"
-    )
+    print(f"{filename}:{line}")
+    if GITHUB_ACTION:
+        print(
+            f"::{'error' if error else 'warning'} file={filename[2:]},line={line}:: {message}"
+        )
+    else:
+        print(f"{message}\n")
 
 
 @add

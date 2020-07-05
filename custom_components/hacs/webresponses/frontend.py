@@ -33,7 +33,7 @@ async def async_serve_frontend():
                 response = web.Response(body=result)
 
                 servefile = response
-        except Exception as exception:
+        except (Exception, BaseException) as exception:
             logger.error(exception)
 
     elif hacs.configuration.frontend_repo:

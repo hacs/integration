@@ -101,7 +101,7 @@ async def get_integration_manifest(repository):
             manifest_path, repository.ref
         )
         manifest = json.loads(manifest.content)
-    except Exception as exception:  # pylint: disable=broad-except
+    except (Exception, BaseException) as exception:  # pylint: disable=broad-except
         raise HacsException(f"Could not read manifest.json [{exception}]")
 
     try:

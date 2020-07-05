@@ -29,7 +29,7 @@ class HacsTheme(HacsRepository):
         try:
             await self.hacs.hass.services.async_call("frontend", "reload_themes", {})
             self.logger.info("Themes reloaded")
-        except Exception:  # pylint: disable=broad-except
+        except (Exception, BaseException):  # pylint: disable=broad-except
             pass
 
     async def validate_repository(self):

@@ -44,7 +44,7 @@ async def async_save_file(location, content):
                 logger.info(f"Removing old theme file {combined}")
                 os.remove(combined)
 
-    except Exception as error:  # pylint: disable=broad-except
+    except (Exception, BaseException) as error:  # pylint: disable=broad-except
         msg = f"Could not write data to {location} - {error}"
         logger.error(msg)
         return False

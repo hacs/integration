@@ -41,7 +41,7 @@ class Backup:
             self.logger.debug(
                 f"Backup for {self.local_path}, created in {self.backup_path_full}"
             )
-        except Exception:  # pylint: disable=broad-except
+        except (Exception, BaseException):  # pylint: disable=broad-except
             pass
 
     def restore(self):

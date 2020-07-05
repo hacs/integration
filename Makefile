@@ -17,26 +17,27 @@ endif
 ifdef HAS_APT
 	sudo apt update && sudo apt install libxml2-dev libxslt-dev
 endif
-	python -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS)
-	python -m pip --disable-pip-version-check install -r requirements.txt --find-links $(WHEELS)
+	python3 -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS)
+	python3 -m pip --disable-pip-version-check install -r requirements.txt --find-links $(WHEELS)
 
 start: ## Start the HA with the integration
 	@bash manage/integration_start;
 
 test: ## Run pytest
-	python -m pytest;
+	python3 -m pytest --cov=./ --cov-report=xml;
 
 lint: ## Run linters
 	pre-commit install-hooks --config .github/pre-commit-config.yaml;
 	pre-commit run --hook-stage manual --all-files --config .github/pre-commit-config.yaml;
+	python3 action/auto_review.py
 
 update: ## Pull master from hacs/integration
 	git pull upstream master;
 
 homeassistant-install: ## Install the latest dev version of Home Assistant
-	python -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS);
-	python -m pip install -U --pre homeassistant;
-	#python -m pip --disable-pip-version-check \
+	python3 -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS);
+	python3 -m pip install -U --pre homeassistant;
+	#python3 -m pip --disable-pip-version-check \
 	#	install --upgrade git+git://github.com/home-assistant/home-assistant.git@dev;
 
 homeassistant-update: homeassistant-install ## Alias for 'homeassistant-install'

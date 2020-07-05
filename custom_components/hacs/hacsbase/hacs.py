@@ -3,7 +3,7 @@
 import json
 import uuid
 from datetime import timedelta
-
+import asyncio
 from aiogithubapi import AIOGitHubAPIException
 from homeassistant.helpers.event import async_track_time_interval
 
@@ -125,7 +125,7 @@ class Hacs(HacsHelpers):
             for repository in self.repositories:
                 if str(repository.data.id) == str(repository_id):
                     return repository
-        except Exception:  # pylint: disable=broad-except
+        except (Exception, BaseException):  # pylint: disable=broad-except
             pass
         return None
 
@@ -135,7 +135,7 @@ class Hacs(HacsHelpers):
             for repository in self.repositories:
                 if repository.data.full_name.lower() == repository_full_name.lower():
                     return repository
-        except Exception:  # pylint: disable=broad-except
+        except (Exception, BaseException):  # pylint: disable=broad-except
             pass
         return None
 
@@ -232,6 +232,7 @@ class Hacs(HacsHelpers):
             instored.append(stored["repository"])
 
         stored_critical = []
+        uninstall = []
 
         for repository in critical:
             removed_repo = get_removed(repository["repository"])
@@ -251,11 +252,17 @@ class Hacs(HacsHelpers):
                     )
                     was_installed = True
                     stored["acknowledged"] = False
-                    # Uninstall from HACS
+                    # Remove from HACS
+                    uninstall.append(repo)
                     repo.remove()
-                    await repo.uninstall()
+
             stored_critical.append(stored)
             removed_repo.update_data(stored)
+
+        # Uninstall
+        await asyncio.gather(
+            *[repository.uninstall() for repository in uninstall or []]
+        )
 
         # Save to FS
         await async_save_to_store(self.hass, "critical", stored_critical)
@@ -348,9 +355,6 @@ class Hacs(HacsHelpers):
     async def async_load_default_repositories(self):
         """Load known repositories."""
         self.logger.info("Loading known repositories")
-        repositories = {}
-        for category in self.common.categories:
-            repositories[category] = await async_get_list_from_default(category)
 
         for item in await async_get_list_from_default("removed"):
             removed = get_removed(item["repository"])
@@ -358,15 +362,23 @@ class Hacs(HacsHelpers):
             removed.link = item.get("link")
             removed.removal_type = item.get("removal_type")
 
-        for category in repositories:
-            for repo in repositories[category]:
-                if is_removed(repo):
+        await asyncio.gather(
+            *[
+                self.async_get_category_repositories(category)
+                for category in self.common.categories or []
+            ]
+        )
+
+    async def async_get_category_repositories(self, category):
+        repositories = await async_get_list_from_default(category)
+        for repo in repositories:
+            if is_removed(repo):
+                continue
+            repository = self.get_by_name(repo)
+            if repository is not None:
+                if str(repository.data.id) not in self.common.default:
+                    self.common.default.append(str(repository.data.id))
+                else:
                     continue
-                repository = self.get_by_name(repo)
-                if repository is not None:
-                    if str(repository.data.id) not in self.common.default:
-                        self.common.default.append(str(repository.data.id))
-                    else:
-                        continue
-                    continue
-                self.queue.add(self.factory.safe_register(repo, category))
+                continue
+            self.queue.add(self.factory.safe_register(repo, category))

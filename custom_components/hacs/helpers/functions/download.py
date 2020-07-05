@@ -1,4 +1,5 @@
 """Helpers to download repository content."""
+import asyncio
 import os
 import pathlib
 import tempfile
@@ -135,7 +136,7 @@ def gather_files_to_download(repository):
     return files
 
 
-async def download_zip(repository, validate):
+async def download_zip_files(repository, validate):
     """Download ZIP archive from repository release."""
     contents = []
     try:
@@ -149,28 +150,42 @@ async def download_zip(repository, validate):
         if not contents:
             return validate
 
-        for content in contents:
-            filecontent = await async_download_file(content.download_url)
+        await asyncio.gather(
+            *[
+                async_download_zip_file(repository, content, validate)
+                for content in contents or []
+            ]
+        )
+    except (Exception, BaseException) as exception:  # pylint: disable=broad-except
+        validate.errors.append(f"Download was not complete [{exception}]")
 
-            if filecontent is None:
-                validate.errors.append(f"[{content.name}] was not downloaded.")
-                continue
+    return validate
 
-            result = await async_save_file(
-                f"{tempfile.gettempdir()}/{repository.data.filename}", filecontent
-            )
-            with zipfile.ZipFile(
-                f"{tempfile.gettempdir()}/{repository.data.filename}", "r"
-            ) as zip_file:
-                zip_file.extractall(repository.content.path.local)
 
-            os.remove(f"{tempfile.gettempdir()}/{repository.data.filename}")
+async def async_download_zip_file(repository, content, validate):
+    """Download ZIP archive from repository release."""
+    try:
+        filecontent = await async_download_file(content.download_url)
 
-            if result:
-                repository.logger.info(f"download of {content.name} complete")
-                continue
+        if filecontent is None:
             validate.errors.append(f"[{content.name}] was not downloaded.")
-    except Exception as exception:  # pylint: disable=broad-except
+            return
+
+        result = await async_save_file(
+            f"{tempfile.gettempdir()}/{repository.data.filename}", filecontent
+        )
+        with zipfile.ZipFile(
+            f"{tempfile.gettempdir()}/{repository.data.filename}", "r"
+        ) as zip_file:
+            zip_file.extractall(repository.content.path.local)
+
+        os.remove(f"{tempfile.gettempdir()}/{repository.data.filename}")
+
+        if result:
+            repository.logger.info(f"download of {content.name} complete")
+            return
+        validate.errors.append(f"[{content.name}] was not downloaded.")
+    except (Exception, BaseException) as exception:  # pylint: disable=broad-except
         validate.errors.append(f"Download was not complete [{exception}]")
 
     return validate

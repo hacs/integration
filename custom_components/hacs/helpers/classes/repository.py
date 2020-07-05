@@ -4,6 +4,7 @@ import json
 import os
 import tempfile
 import zipfile
+import asyncio
 
 from aiogithubapi import AIOGitHubAPIException
 
@@ -250,7 +251,7 @@ class HacsRepository(RepositoryHelpers):
         # Update "info.md"
         self.information.additional_info = await get_info_md_content(self)
 
-    async def download_zip(self, validate):
+    async def download_zip_files(self, validate):
         """Download ZIP archive from repository release."""
         try:
             contents = False
@@ -263,26 +264,39 @@ class HacsRepository(RepositoryHelpers):
             if not contents:
                 return validate
 
-            for content in contents or []:
-                filecontent = await async_download_file(content.download_url)
+            await asyncio.gather(
+                *[
+                    self.async_download_zip_file(content, validate)
+                    for content in contents or []
+                ]
+            )
+        except (Exception, BaseException):
+            validate.errors.append(f"Download was not complete")
 
-                if filecontent is None:
-                    validate.errors.append(f"[{content.name}] was not downloaded")
-                    continue
+        return validate
 
-                result = await async_save_file(
-                    f"{tempfile.gettempdir()}/{self.data.filename}", filecontent
-                )
-                with zipfile.ZipFile(
-                    f"{tempfile.gettempdir()}/{self.data.filename}", "r"
-                ) as zip_file:
-                    zip_file.extractall(self.content.path.local)
+    async def async_download_zip_file(self, content, validate):
+        """Download ZIP archive from repository release."""
+        try:
+            filecontent = await async_download_file(content.download_url)
 
-                if result:
-                    self.logger.info(f"download of {content.name} complete")
-                    continue
+            if filecontent is None:
                 validate.errors.append(f"[{content.name}] was not downloaded")
-        except Exception:
+                return
+
+            result = await async_save_file(
+                f"{tempfile.gettempdir()}/{self.data.filename}", filecontent
+            )
+            with zipfile.ZipFile(
+                f"{tempfile.gettempdir()}/{self.data.filename}", "r"
+            ) as zip_file:
+                zip_file.extractall(self.content.path.local)
+
+            if result:
+                self.logger.info(f"download of {content.name} complete")
+                return
+            validate.errors.append(f"[{content.name}] was not downloaded")
+        except (Exception, BaseException):
             validate.errors.append(f"Download was not complete")
 
         return validate
@@ -347,7 +361,7 @@ class HacsRepository(RepositoryHelpers):
                 await self.hacs.hass.services.async_call(
                     "frontend", "reload_themes", {}
                 )
-            except Exception:  # pylint: disable=broad-except
+            except (Exception, BaseException):  # pylint: disable=broad-except
                 pass
         if self.data.full_name in self.hacs.common.installed:
             self.hacs.common.installed.remove(self.data.full_name)
@@ -396,7 +410,7 @@ class HacsRepository(RepositoryHelpers):
                 while os.path.exists(local_path):
                     await sleep(1)
 
-        except Exception as exception:
+        except (Exception, BaseException) as exception:
             self.logger.debug(f"Removing {local_path} failed with {exception}")
             return False
         return True

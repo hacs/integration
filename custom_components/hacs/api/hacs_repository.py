@@ -95,7 +95,7 @@ async def hacs_repository(hass, connection, msg):
         message = exception
     except AttributeError as exception:
         message = f"Could not use repository with ID {repo_id} ({exception})"
-    except Exception as exception:  # pylint: disable=broad-except
+    except (Exception, BaseException) as exception:  # pylint: disable=broad-except
         message = exception
 
     if message is not None:

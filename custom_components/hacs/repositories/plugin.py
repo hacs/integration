@@ -73,5 +73,5 @@ class HacsPlugin(HacsRepository):
 
             if package:
                 self.data.authors = package["author"]
-        except Exception:  # pylint: disable=broad-except
+        except (Exception, BaseException):  # pylint: disable=broad-except
             pass

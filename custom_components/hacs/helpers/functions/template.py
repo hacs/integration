@@ -4,6 +4,8 @@ from jinja2 import Template
 
 from custom_components.hacs.helpers.functions.logger import getLogger
 
+logger = getLogger("template")
+
 
 def render_template(content, context):
     """Render templates in content."""
@@ -25,7 +27,6 @@ def render_template(content, context):
             version_installed=context.display_installed_version,
         )
         return render
-    except Exception as exception:
-        logger = getLogger("template")
+    except (Exception, BaseException) as exception:
         logger.debug(exception)
         return content

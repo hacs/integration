@@ -28,7 +28,7 @@ async def async_serve_category_file(requested_file):
         else:
             logger.error(f"Tried to serve up '{servefile}' but it does not exist")
 
-    except Exception as error:
+    except (Exception, BaseException) as error:
         logger.debug(f"there was an issue trying to serve {requested_file} - {error}")
 
     return web.Response(status=404)

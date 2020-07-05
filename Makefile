@@ -8,6 +8,11 @@ help: ## Shows help message.
 	@echo
 
 init: homeassistant-install
+	if [ -z which apt ]; then \
+		sudo apt update && sudo apt install libxml2-dev libxslt-dev; \
+	else \
+		apk add libxml2-dev libxslt-dev; \
+	fi;
 	python -m pip --disable-pip-version-check install -r requirements.txt --find-links $(WHEELS)
 
 start: ## Start the HA with the integration

@@ -7,7 +7,7 @@ RUN \
     # && git checkout $tag -b $tag \  # disabled for now (During tests)
     && git checkout restructure \
     && git clone https://github.com/hacs/default.git /default \
-    && python3 -m pip install -r /hacs/requirements.txt
+    && make init
 
 COPY entrypoint.sh /entrypoint.sh
 COPY action.py /hacs/action.py

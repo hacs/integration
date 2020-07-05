@@ -29,7 +29,7 @@ test: ## Run pytest
 lint: ## Run linters
 	pre-commit install-hooks --config .github/pre-commit-config.yaml;
 	pre-commit run --hook-stage manual --all-files --config .github/pre-commit-config.yaml;
-	python3 action/auto_review.py
+	bellybutton lint
 
 update: ## Pull master from hacs/integration
 	git pull upstream master;

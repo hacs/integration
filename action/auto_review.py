@@ -6,6 +6,8 @@ exitinformation = {"code": 0}
 
 GITHUB_ACTION = os.getenv("GITHUB_ACTION")
 
+print("::add-matcher::action/matchers/bellybutton.json")
+
 
 def add(f):
     checks.add(f)

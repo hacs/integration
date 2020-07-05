@@ -1,5 +1,6 @@
 .DEFAULT_GOAL := help
 HAS_APK := $(shell command -v apk 2>/dev/null)
+HAS_APT := $(shell command -v apt 2>/dev/null)
 WHEELS := https://wheels.home-assistant.io/alpine-3.11/amd64/
 
 help: ## Shows help message.
@@ -12,8 +13,9 @@ init: homeassistant-install requirements
 requirements:
 ifdef HAS_APK
 	apk add libxml2-dev libxslt-dev
-else
-    sudo apt update && sudo apt install libxml2-dev libxslt-dev
+endif
+ifdef HAS_APT
+	sudo apt update && sudo apt install libxml2-dev libxslt-dev
 endif
 	python -m pip --disable-pip-version-check install -r requirements.txt --find-links $(WHEELS)
 

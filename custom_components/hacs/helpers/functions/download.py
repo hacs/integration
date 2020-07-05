@@ -4,17 +4,17 @@ import pathlib
 import tempfile
 import zipfile
 
-from queueman import QueueManager, concurrent
 import async_timeout
 import backoff
+from queueman import QueueManager, concurrent
 
-from custom_components.hacs.helpers.functions.logger import getLogger
-from custom_components.hacs.share import get_hacs
 from custom_components.hacs.helpers.classes.exceptions import HacsException
-from custom_components.hacs.helpers.functions.save import async_save_file
 from custom_components.hacs.helpers.functions.filters import (
     filter_content_return_one_of_type,
 )
+from custom_components.hacs.helpers.functions.logger import getLogger
+from custom_components.hacs.helpers.functions.save import async_save_file
+from custom_components.hacs.share import get_hacs
 
 
 class FileInformation:
@@ -26,15 +26,12 @@ class FileInformation:
 
 @backoff.on_exception(backoff.expo, Exception, max_tries=5)
 async def async_download_file(url):
-    """
-    Download files, and return the content.
-    """
+    """Download files, and return the content."""
     hacs = get_hacs()
     logger = getLogger("async_download_file")
     if url is None:
         return
 
-    # There is a bug somewhere... TODO: Find that bug....
     if "tags/" in url:
         url = url.replace("tags/", "")
 

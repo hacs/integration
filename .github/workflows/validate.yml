@@ -32,3 +32,16 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CATEGORY: "integration"
+
+  validate-custom:
+    runs-on: ubuntu-latest
+    name: With AST
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: make init
+
+    - name: Validation
+      run: python3 action/auto_review.py

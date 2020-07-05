@@ -256,7 +256,7 @@ class HacsRepository(RepositoryHelpers):
             contents = False
 
             for release in self.releases.objects:
-                self.logger.info(f"ref: {self.ref}  ---  tag: {release.tag_name}")
+                self.logger.info(f"ref: {self.ref}  ---  tag: {release.tag_name}.")
                 if release.tag_name == self.ref.split("/")[1]:
                     contents = release.assets
 
@@ -267,7 +267,7 @@ class HacsRepository(RepositoryHelpers):
                 filecontent = await async_download_file(content.download_url)
 
                 if filecontent is None:
-                    validate.errors.append(f"[{content.name}] was not downloaded.")
+                    validate.errors.append(f"[{content.name}] was not downloaded")
                     continue
 
                 result = await async_save_file(
@@ -281,9 +281,9 @@ class HacsRepository(RepositoryHelpers):
                 if result:
                     self.logger.info(f"download of {content.name} complete")
                     continue
-                validate.errors.append(f"[{content.name}] was not downloaded.")
+                validate.errors.append(f"[{content.name}] was not downloaded")
         except Exception:
-            validate.errors.append(f"Download was not complete.")
+            validate.errors.append(f"Download was not complete")
 
         return validate
 

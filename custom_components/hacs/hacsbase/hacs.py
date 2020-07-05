@@ -232,7 +232,6 @@ class Hacs(HacsHelpers):
             instored.append(stored["repository"])
 
         stored_critical = []
-        uninstall = []
 
         for repository in critical:
             removed_repo = get_removed(repository["repository"])
@@ -253,16 +252,14 @@ class Hacs(HacsHelpers):
                     was_installed = True
                     stored["acknowledged"] = False
                     # Remove from HACS
-                    uninstall.append(repo)
+                    self.queue.add(repository.uninstall())
                     repo.remove()
 
             stored_critical.append(stored)
             removed_repo.update_data(stored)
 
         # Uninstall
-        await asyncio.gather(
-            *[repository.uninstall() for repository in uninstall or []]
-        )
+        await self.queue.execute()
 
         # Save to FS
         await async_save_to_store(self.hass, "critical", stored_critical)
@@ -362,12 +359,10 @@ class Hacs(HacsHelpers):
             removed.link = item.get("link")
             removed.removal_type = item.get("removal_type")
 
-        await asyncio.gather(
-            *[
-                self.async_get_category_repositories(category)
-                for category in self.common.categories or []
-            ]
-        )
+        for category in self.common.categories or []:
+            self.queue.add(self.async_get_category_repositories(category))
+
+        await self.queue.execute()
 
     async def async_get_category_repositories(self, category):
         repositories = await async_get_list_from_default(category)

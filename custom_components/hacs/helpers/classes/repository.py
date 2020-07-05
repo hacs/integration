@@ -264,12 +264,10 @@ class HacsRepository(RepositoryHelpers):
             if not contents:
                 return validate
 
-            await asyncio.gather(
-                *[
-                    self.async_download_zip_file(content, validate)
-                    for content in contents or []
-                ]
-            )
+            for content in contents or []:
+                self.queue.add(self.async_download_zip_file(content, validate))
+
+            await self.queue.execute()
         except (Exception, BaseException):
             validate.errors.append(f"Download was not complete")
 

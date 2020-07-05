@@ -30,7 +30,7 @@ def formatOutput(filename, line, message, error=True):
 
 @add
 def findForLoopsContainingAwait():
-    message = "Do not await in a for loop, use asyncio.gather"
+    message = "Do not await in a for loop, use a QueueManager()"
     for line in find("//AsyncFunctionDef[body//For/body//Await]"):
         formatOutput(line[0], line[1], message)
 

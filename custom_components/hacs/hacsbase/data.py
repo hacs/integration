@@ -11,6 +11,7 @@ from custom_components.hacs.helpers.functions.store import (
 )
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.share import get_hacs
+from queueman import QueueManager
 
 
 class HacsData:
@@ -20,6 +21,7 @@ class HacsData:
         """Initialize."""
         self.logger = getLogger("data")
         self.hacs = get_hacs()
+        self.queue = QueueManager()
         self.content = {}
 
     async def async_write(self):
@@ -42,13 +44,10 @@ class HacsData:
 
         # Repositories
         self.content = {}
-        await asyncio.gather(
-            *[
-                self.async_store_repository_data(repository)
-                for repository in self.hacs.repositories or []
-            ]
-        )
+        for repository in self.hacs.repositories or []:
+            self.queue.add(self.async_store_repository_data(repository))
 
+        await self.queue.execute()
         await async_save_to_store(self.hacs.hass, "repositories", self.content)
         self.hacs.hass.bus.async_fire("hacs/repository", {})
         self.hacs.hass.bus.fire("hacs/config", {})
@@ -109,12 +108,12 @@ class HacsData:
             self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
 
             # Repositories
-            await asyncio.gather(
-                *[
+            for entry in repositories or []:
+                self.queue.add(
                     self.async_restore_repository(entry, repositories[entry])
-                    for entry in repositories or []
-                ]
-            )
+                )
+
+            await self.queue.execute()
 
             self.logger.info("Restore done")
         except (Exception, BaseException) as exception:  # pylint: disable=broad-except

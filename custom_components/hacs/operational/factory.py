@@ -22,30 +22,6 @@ class HacsTaskFactory:
         self.tasks = []
         self.running = False
 
-    async def execute(self):
-        if not self.tasks:
-            logger.debug("No tasks to execute")
-            return
-        if self.running:
-            logger.debug("Already executing tasks")
-            return
-        try:
-            self.running = True
-            logger.info("Processing %s tasks", len(self.tasks))
-            start = time.time()
-            await asyncio.gather(*self.tasks)
-            logger.info(
-                "Task processing of %s tasks completed in %s seconds",
-                len(self.tasks),
-                timedelta(seconds=round(time.time() - start)).seconds,
-            )
-            self.tasks = []
-            self.running = False
-        except RuntimeError:
-            logger.warning("RuntimeError, Clearing current tasks")
-            self.tasks = []
-            self.running = False
-
     async def safe_common_update(self, repository):
         async with max_concurrent_tasks:
             try:

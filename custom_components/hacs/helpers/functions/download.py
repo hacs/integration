@@ -139,6 +139,7 @@ def gather_files_to_download(repository):
 async def download_zip_files(repository, validate):
     """Download ZIP archive from repository release."""
     contents = []
+    queue = QueueManager()
     try:
         for release in repository.releases.objects:
             repository.logger.info(
@@ -150,12 +151,10 @@ async def download_zip_files(repository, validate):
         if not contents:
             return validate
 
-        await asyncio.gather(
-            *[
-                async_download_zip_file(repository, content, validate)
-                for content in contents or []
-            ]
-        )
+        for content in contents or []:
+            queue.add(async_download_zip_file(repository, content, validate))
+
+        await queue.execute()
     except (Exception, BaseException) as exception:  # pylint: disable=broad-except
         validate.errors.append(f"Download was not complete [{exception}]")
 

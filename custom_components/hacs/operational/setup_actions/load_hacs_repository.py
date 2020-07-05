@@ -1,5 +1,5 @@
 from custom_components.hacs.const import VERSION
-from custom_components.hacs.exceptions import HacsException
+from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.functions.information import get_repository
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,

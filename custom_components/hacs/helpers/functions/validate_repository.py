@@ -1,7 +1,7 @@
 """Helper to do common validation for repositories."""
 from aiogithubapi import AIOGitHubAPIException
 
-from custom_components.hacs.exceptions import HacsException
+from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.functions.information import (
     get_releases,
     get_repository,

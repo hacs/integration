@@ -8,7 +8,7 @@ import sys
 import aiohttp
 from aiogithubapi import GitHub
 
-from custom_components.hacs.exceptions import HacsException
+from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,

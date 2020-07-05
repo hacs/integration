@@ -1,7 +1,7 @@
 """Class for appdaemon apps in HACS."""
 from aiogithubapi import AIOGitHubAPIException
 
-from custom_components.hacs.exceptions import HacsException
+from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.functions.logger import getLogger
 
 from custom_components.hacs.helpers.classes.repository import HacsRepository

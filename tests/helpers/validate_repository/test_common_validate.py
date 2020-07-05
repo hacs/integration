@@ -5,7 +5,7 @@ import json
 import aiohttp
 import pytest
 
-from custom_components.hacs.exceptions import HacsException
+from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.helpers.functions.validate_repository import common_validate
 from custom_components.hacs.share import get_hacs, get_removed

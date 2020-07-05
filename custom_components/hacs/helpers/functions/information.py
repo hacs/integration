@@ -3,7 +3,7 @@ import json
 
 from aiogithubapi import AIOGitHubAPIException, GitHub
 
-from custom_components.hacs.exceptions import HacsException
+from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.functions.template import render_template
 from custom_components.hacs.share import get_hacs
 

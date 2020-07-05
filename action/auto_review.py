@@ -13,7 +13,7 @@ def find(string):
 
 
 def log(severity, filename, line, message):
-    print(f"::{severity} file={filename[2:]}, line={line}:: {message}")
+    print(f"::{severity} file={filename[2:]},line={line}:: {message}")
 
 
 @add

@@ -4,7 +4,6 @@ import json
 import os
 import tempfile
 import zipfile
-import asyncio
 
 from aiogithubapi import AIOGitHubAPIException
 

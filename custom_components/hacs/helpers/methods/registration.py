@@ -1,5 +1,6 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member, attribute-defined-outside-init
 from abc import ABC
+from custom_components.hacs.helpers.functions.check import async_run_repository_checks
 
 
 class RepositoryMethodPreRegistration(ABC):
@@ -38,4 +39,4 @@ class RepositoryMethodRegistration(ABC):
 
 class RepositoryMethodPostRegistration(ABC):
     async def async_post_registration(self):
-        pass
+        await async_run_repository_checks(self)

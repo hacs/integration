@@ -1,9 +1,7 @@
 """Validate a GitHub repository to be used with HACS."""
 import asyncio
 import json
-import logging
 import os
-import sys
 
 import aiohttp
 from aiogithubapi import GitHub
@@ -11,6 +9,7 @@ from homeassistant.core import HomeAssistant
 
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
@@ -37,9 +36,12 @@ CATEGORIES = [
     "theme",
 ]
 
+logger = getLogger("action")
+
 
 def error(error: str):
-    exit(f"::error:: {error}")
+    logger.error(error)
+    exit()
 
 
 def get_event_data():
@@ -85,7 +87,7 @@ async def preflight():
         category = chose_category()
         repository = chose_repository(category)
         pr = False
-        print(f"Actor: {GITHUB_ACTOR}")
+        logger.info(f"Actor: {GITHUB_ACTOR}")
     else:
         category = CATEGORY.lower()
         pr = True if event_data.get("pull_request") is not None else False
@@ -96,8 +98,8 @@ async def preflight():
         else:
             repository = GITHUB_REPOSITORY
 
-    print(f"Category: {category}")
-    print(f"Repository: {repository}")
+    logger.info(f"Category: {category}")
+    logger.info(f"Repository: {repository}")
 
     if TOKEN is None:
         error("No GitHub token found, use env GITHUB_TOKEN to set this.")

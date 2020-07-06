@@ -20,7 +20,7 @@ class RepositoryCheck(ABC):
         return "GITHUB_ACTION" in os.environ
 
     async def _async_run_check(self):
-        """DO NOT OVVERIDE THIS IN SUBCLASSES!"""
+        """DO NOT OVERRIDE THIS IN SUBCLASSES!"""
         try:
             await self.hacs.hass.async_add_executor_job(self.check)
             await self.async_check()

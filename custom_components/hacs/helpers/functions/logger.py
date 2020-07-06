@@ -17,4 +17,3 @@ def getLogger(name=None):
     return logging.getLogger(
         f"custom_components.hacs{'.' + name if name is not None else ''}"
     )
-

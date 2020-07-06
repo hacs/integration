@@ -32,7 +32,7 @@ class AwesomeRepository(RepositoryCheck):
             raise RepositoryCheckException("The repository is not awesome")
 
 class SuperAwesomeRepository(RepositoryActionCheck):
-    def check(self):
+    async def async_check(self):
         if self.repository != "super-awesome":
             raise RepositoryCheckException("The repository is not super-awesome")
 ```

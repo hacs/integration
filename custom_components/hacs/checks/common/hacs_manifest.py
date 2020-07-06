@@ -1,12 +1,10 @@
 from custom_components.hacs.helpers.classes.check import (
-    RepositoryCheck,
+    RepositoryActionCheck,
     RepositoryCheckException,
 )
 
 
-class HacsManifest(RepositoryCheck):
+class HacsManifest(RepositoryActionCheck):
     def check(self):
-        if not self.action:
-            return
         if "hacs.json" not in [x.filename for x in self.repository.tree]:
             raise RepositoryCheckException("The repository has no 'hacs.json' file")

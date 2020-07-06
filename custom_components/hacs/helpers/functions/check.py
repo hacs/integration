@@ -1,3 +1,4 @@
+import os
 import asyncio
 import glob
 import importlib
@@ -17,7 +18,7 @@ async def async_run_repository_checks(repository):
     checks = []
     for check in CHECKS.get("common", []):
         checks.append(check(repository))
-    for check in CHECKS.get("common", []):
+    for check in CHECKS.get(repository.data.category, []):
         checks.append(check(repository))
 
     await asyncio.gather(*[check._async_run_check() for check in checks or []])
@@ -57,5 +58,8 @@ def load_repository_checks():
 
         for check in inspect.getmembers(module, inspect.isclass):
             check = check[1]
+            base = check.__bases__[0].__name__
+            if "GITHUB_ACTION" not in os.environ and base == "RepositoryActionCheck":
+                continue
             if f"{root.replace('/', '.')}{category}" in check.__module__:
                 CHECKS[category].append(check)

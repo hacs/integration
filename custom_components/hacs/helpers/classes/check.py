@@ -15,10 +15,6 @@ class RepositoryCheck(ABC):
         self.failed = False
         self.logger = getLogger(f"{repository.data.category}.check")
 
-    @property
-    def action(self):
-        return "GITHUB_ACTION" in os.environ
-
     async def _async_run_check(self):
         """DO NOT OVERRIDE THIS IN SUBCLASSES!"""
         try:
@@ -33,3 +29,7 @@ class RepositoryCheck(ABC):
 
     async def async_check(self):
         pass
+
+
+class RepositoryActionCheck(RepositoryCheck):
+    pass

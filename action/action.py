@@ -7,9 +7,10 @@ import sys
 
 import aiohttp
 from aiogithubapi import GitHub
+from homeassistant.core import HomeAssistant
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.hacsbase.configuration import Configuration
+from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
@@ -35,18 +36,6 @@ CATEGORIES = [
     "python_script",
     "theme",
 ]
-
-
-def setLogger():
-    logger = logging.getLogger()
-    logger_aiogithubapi = logging.getLogger("AIOGitHubAPI")
-    logger_aiogithubapi.setLevel(logging.INFO)
-    logger.setLevel(logging.DEBUG)
-    formatter = logging.Formatter("%(message)s")
-    handler = logging.StreamHandler(sys.stdout)
-    handler.setLevel(logging.DEBUG)
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
 
 
 def error(error: str):
@@ -86,7 +75,6 @@ def chose_category():
 
 async def preflight():
     """Preflight checks."""
-    setLogger()
     event_data = get_event_data()
     ref = None
     if REPOSITORY and CATEGORY:
@@ -137,6 +125,7 @@ async def validate_repository(repository, category, ref=None):
     """Validate."""
     async with aiohttp.ClientSession() as session:
         hacs = get_hacs()
+        hacs.hass = HomeAssistant()
         hacs.session = session
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN

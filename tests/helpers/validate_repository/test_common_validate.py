@@ -1,22 +1,24 @@
 """Helpers: Information: get_repository."""
 # pylint: disable=missing-docstring
 import json
+
 import aiohttp
 import pytest
-from custom_components.hacs.globals import get_hacs, get_removed
-from custom_components.hacs.hacsbase.exceptions import HacsException
+
+from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.hacsbase.configuration import Configuration
-from custom_components.hacs.helpers.validate_repository import common_validate
+from custom_components.hacs.helpers.functions.validate_repository import common_validate
+from custom_components.hacs.share import get_hacs, get_removed
+from tests.common import TOKEN
+from tests.dummy_repository import dummy_repository_base
 from tests.sample_data import (
+    release_data,
+    repository_data,
+    repository_data_archived,
     response_rate_limit_header,
     response_rate_limit_header_with_limit,
-    repository_data,
     tree_files_base,
-    repository_data_archived,
-    release_data,
 )
-from tests.dummy_repository import dummy_repository_base
-from tests.common import TOKEN
 
 
 @pytest.mark.asyncio

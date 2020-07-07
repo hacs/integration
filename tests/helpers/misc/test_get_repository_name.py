@@ -1,9 +1,9 @@
 """Helpers: Misc: get_repository_name."""
-# pylint: disable=missing-docstring
-from custom_components.hacs.helpers.misc import get_repository_name
-from custom_components.hacs.repositories.manifest import HacsManifest
 from custom_components.hacs.const import ELEMENT_TYPES
 
+# pylint: disable=missing-docstring
+from custom_components.hacs.helpers.functions.misc import get_repository_name
+from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from tests.dummy_repository import dummy_repository_base
 
 ELEMENT_TYPES = ELEMENT_TYPES + ["appdaemon", "python_script", "theme"]

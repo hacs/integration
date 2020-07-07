@@ -1,9 +1,9 @@
 """Class for python_scripts in HACS."""
-from integrationhelper import Logger
+from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.helpers.functions.information import find_file_name
+from custom_components.hacs.helpers.functions.logger import getLogger
 
-from .repository import HacsRepository
-from ..hacsbase.exceptions import HacsException
-from ..helpers.information import find_file_name
+from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 
 class HacsPythonScript(HacsRepository):
@@ -19,7 +19,7 @@ class HacsPythonScript(HacsRepository):
         self.content.path.remote = "python_scripts"
         self.content.path.local = self.localpath
         self.content.single = True
-        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
+        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):

@@ -1,8 +1,9 @@
 """Sensor platform for HACS."""
 # pylint: disable=unused-argument
 from homeassistant.helpers.entity import Entity
-from .hacsbase import Hacs as hacs
-from .const import DOMAIN, VERSION, NAME_SHORT
+
+from custom_components.hacs.const import DOMAIN, NAME_SHORT, VERSION
+from custom_components.hacs.share import get_hacs
 
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
@@ -40,6 +41,7 @@ class HACSSensor(HACSDevice):
 
     async def async_update(self):
         """Update the sensor."""
+        hacs = get_hacs()
         if hacs.system.status.background_task:
             return
 
@@ -83,9 +85,9 @@ class HACSSensor(HACSDevice):
     @property
     def device_state_attributes(self):
         """Return attributes for the sensor."""
-        data = []
+        repositories = []
         for repository in self.repositories:
-            data.append(
+            repositories.append(
                 {
                     "name": repository.data.full_name,
                     "display_name": repository.display_name,
@@ -93,4 +95,4 @@ class HACSSensor(HACSDevice):
                     "available_version": repository.display_available_version,
                 }
             )
-        return {"repositories": data}
+        return {"repositories": repositories}

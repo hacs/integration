@@ -1,10 +1,11 @@
 """Class for netdaemon apps in HACS."""
-from integrationhelper import Logger
+from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.helpers.functions.filters import (
+    get_first_directory_in_directory,
+)
+from custom_components.hacs.helpers.functions.logger import getLogger
 
-from .repository import HacsRepository
-from ..hacsbase.exceptions import HacsException
-
-from custom_components.hacs.helpers.filters import get_first_directory_in_directory
+from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 
 class HacsNetdaemon(HacsRepository):
@@ -17,7 +18,7 @@ class HacsNetdaemon(HacsRepository):
         self.data.category = "netdaemon"
         self.content.path.local = self.localpath
         self.content.path.remote = "apps"
-        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
+        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):
@@ -82,5 +83,5 @@ class HacsNetdaemon(HacsRepository):
             await self.hacs.hass.services.async_call(
                 "hassio", "addon_restart", {"addon": "c6a2317c_netdaemon"}
             )
-        except Exception:  # pylint: disable=broad-except
+        except (Exception, BaseException):  # pylint: disable=broad-except
             pass

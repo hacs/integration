@@ -1,7 +1,8 @@
 """Helpers: Install: info_file."""
+from custom_components.hacs.helpers.functions.information import info_file
+
 # pylint: disable=missing-docstring
 from tests.dummy_repository import dummy_repository_base
-from custom_components.hacs.helpers.information import info_file
 
 
 def test_info_file():

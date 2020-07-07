@@ -1,7 +1,6 @@
 """Template tests."""
 # pylint: disable=missing-docstring
-from custom_components.hacs.handler.template import render_template
-
+from custom_components.hacs.helpers.functions.template import render_template
 from tests.dummy_repository import dummy_repository_base
 
 

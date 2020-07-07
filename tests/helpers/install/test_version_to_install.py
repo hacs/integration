@@ -1,6 +1,8 @@
 """Helpers: Install: version_to_install."""
 # pylint: disable=missing-docstring
-from custom_components.hacs.helpers.install import version_to_install
+from custom_components.hacs.helpers.functions.version_to_install import (
+    version_to_install,
+)
 from tests.dummy_repository import dummy_repository_base
 
 

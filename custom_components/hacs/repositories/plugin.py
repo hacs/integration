@@ -1,10 +1,10 @@
 """Class for plugins in HACS."""
 import json
-from integrationhelper import Logger
 
-from custom_components.hacs.hacsbase.exceptions import HacsException
-from custom_components.hacs.helpers.information import find_file_name
-from custom_components.hacs.repositories.repository import HacsRepository
+from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.helpers.functions.information import find_file_name
+from custom_components.hacs.helpers.functions.logger import getLogger
+from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 
 class HacsPlugin(HacsRepository):
@@ -18,7 +18,7 @@ class HacsPlugin(HacsRepository):
         self.data.category = "plugin"
         self.information.javascript_type = None
         self.content.path.local = self.localpath
-        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
+        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):
@@ -66,10 +66,12 @@ class HacsPlugin(HacsRepository):
     async def get_package_content(self):
         """Get package content."""
         try:
-            package = await self.repository_object.get_contents("package.json")
+            package = await self.repository_object.get_contents(
+                "package.json", self.ref
+            )
             package = json.loads(package.content)
 
             if package:
                 self.data.authors = package["author"]
-        except Exception:  # pylint: disable=broad-except
+        except (Exception, BaseException):  # pylint: disable=broad-except
             pass

@@ -1,13 +1,15 @@
 """Class for integrations in HACS."""
-# pylint: disable=attribute-defined-outside-init
-from integrationhelper import Logger
-
 from homeassistant.loader import async_get_custom_components
 
-from custom_components.hacs.hacsbase.exceptions import HacsException
-from custom_components.hacs.helpers.filters import get_first_directory_in_directory
-from custom_components.hacs.helpers.information import get_integration_manifest
-from custom_components.hacs.repositories.repository import HacsRepository
+from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.helpers.functions.filters import (
+    get_first_directory_in_directory,
+)
+from custom_components.hacs.helpers.functions.information import (
+    get_integration_manifest,
+)
+from custom_components.hacs.helpers.functions.logger import getLogger
+from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 
 class HacsIntegration(HacsRepository):
@@ -20,7 +22,7 @@ class HacsIntegration(HacsRepository):
         self.data.category = "integration"
         self.content.path.remote = "custom_components"
         self.content.path.local = self.localpath
-        self.logger = Logger(f"hacs.repository.{self.data.category}.{full_name}")
+        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):
@@ -57,7 +59,7 @@ class HacsIntegration(HacsRepository):
             await get_integration_manifest(self)
         except HacsException as exception:
             if self.hacs.action:
-                raise HacsException(exception)
+                raise HacsException(f"::error:: {exception}")
             self.logger.error(exception)
 
         # Handle potential errors

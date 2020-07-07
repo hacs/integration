@@ -1,0 +1,49 @@
+name: "Cron actions 16:30 every 3 days"
+
+on:
+  schedule:
+    - cron:  '30 16 */3 * *'
+
+jobs:
+  cron:
+    name: Sugest a new release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Enable version 3.8 of Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install requirements
+        run: |
+          python3 -m pip install setuptools wheel
+          python3 -m pip install -r /home/runner/work/integration/integration/requirements.txt
+
+      - name: Create issue sugesting a new release
+        run: python3 /home/runner/work/integration/integration/manage/generate_releasenotes.py --token ${{ secrets.GITHUB_TOKEN }} --release no
+
+  validate-hassfest:
+    runs-on: ubuntu-latest
+    name: With hassfest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Hassfest validation
+      uses: "home-assistant/actions/hassfest@master"
+
+  validate-hacs:
+    runs-on: ubuntu-latest
+    name: With HACS
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: HACS validation
+      uses: "hacs/integration/action@master"
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CATEGORY: "integration"

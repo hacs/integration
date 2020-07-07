@@ -1,9 +1,11 @@
 """Helpers: Information: read_hacs_manifest."""
+import json
+
 # pylint: disable=missing-docstring
 import os
-import json
-from custom_components.hacs.globals import get_hacs
-from custom_components.hacs.helpers.information import read_hacs_manifest
+
+from custom_components.hacs.helpers.functions.information import read_hacs_manifest
+from custom_components.hacs.share import get_hacs
 
 
 def temp_cleanup(tmpdir):

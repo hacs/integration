@@ -1,19 +1,20 @@
 """Adds config flow for HACS."""
-# pylint: disable=dangerous-default-value
-import logging
 import voluptuous as vol
-from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPIAuthenticationException
+from aiogithubapi import AIOGitHubAPIAuthenticationException, AIOGitHubAPIException
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers import aiohttp_client
 
-from .const import DOMAIN
+from custom_components.hacs.helpers.functions.information import get_repository
+
+# pylint: disable=dangerous-default-value
+from custom_components.hacs.helpers.functions.logger import getLogger
+from custom_components.hacs.share import get_hacs
+
 from .configuration_schema import hacs_base_config_schema, hacs_config_option_schema
+from .const import DOMAIN
 
-from custom_components.hacs.globals import get_hacs
-from custom_components.hacs.helpers.information import get_repository
-
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = getLogger(__name__)
 
 
 class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):

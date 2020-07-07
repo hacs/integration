@@ -1,6 +1,7 @@
 """Test requirements against Home Assistant."""
-import warnings
 import json
+import warnings
+
 import requests
 
 MANIFEST_FILE = "custom_components/hacs/manifest.json"
@@ -18,7 +19,7 @@ def test_requirement_versions():
             version = line.split("=")[-1]
             requirements[package] = version
 
-    with open(MANIFEST_FILE, "r") as manifest_file:
+    with open(MANIFEST_FILE) as manifest_file:
         for line in json.loads(manifest_file.read())["requirements"]:
             package = line.split(">")[0].split("=")[0]
             version = line.split("=")[-1]
@@ -43,7 +44,7 @@ def test_requirement_in_ha_core():
             version = line.split("=")[-1]
             requirements[package] = version
 
-    with open(MANIFEST_FILE, "r") as manifest_file:
+    with open(MANIFEST_FILE) as manifest_file:
         for line in json.loads(manifest_file.read())["requirements"]:
             package = line.split(">")[0].split("=")[0]
             assert package not in requirements

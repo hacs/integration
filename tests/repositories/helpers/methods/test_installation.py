@@ -1,4 +1,5 @@
 import pytest
+
 from tests.dummy_repository import dummy_repository_integration
 
 

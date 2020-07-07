@@ -1,6 +1,6 @@
 """Configuration Test Suite: Core repository."""
 # pylint: disable=missing-docstring
-from custom_components.hacs.repositories.repository import HacsRepository
+from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 
 def test_hacs_repository_core_mostly_defaults():

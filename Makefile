@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 HAS_APK := $(shell command -v apk 2>/dev/null)
 HAS_APT := $(shell command -v apt 2>/dev/null)
-WHEELS := https://wheels.home-assistant.io/alpine-3.11/amd64/
+WHEELS := https://wheels.home-assistant.io/alpine-3.12/amd64/
 
 help: ## Shows help message.
 	@printf "\033[1m%s\033[36m %s\033[32m %s\033[0m \n\n" "Development environment for" "HACS" "Integration";

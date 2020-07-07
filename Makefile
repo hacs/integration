@@ -18,7 +18,7 @@ ifdef HAS_APT
 	sudo apt update && sudo apt install libxml2-dev libxslt-dev
 endif
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS)
-	python3 -m pip --disable-pip-version-check install -r --ignore-installed requirements.txt --find-links $(WHEELS)
+	python3 -m pip --disable-pip-version-check install --ignore-installed -r requirements.txt --find-links $(WHEELS)
 
 start: ## Start the HA with the integration
 	@bash manage/integration_start;

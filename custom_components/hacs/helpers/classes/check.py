@@ -20,15 +20,13 @@ class RepositoryCheck(ABC):
     async def _async_run_check(self):
         """DO NOT OVERRIDE THIS IN SUBCLASSES!"""
         if ACTION:
-            self.logger.info(f"Running cehck '{self.__class__.__name__}'")
+            self.logger.info(f"Running check '{self.__class__.__name__}'")
         try:
             await self.hacs.hass.async_add_executor_job(self.check)
             await self.async_check()
         except RepositoryCheckException as exception:
             self.failed = True
             self.logger.error(exception)
-        self.logger.error("TEST ERROR")
-        self.failed = True
 
     def check(self):
         pass

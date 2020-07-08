@@ -29,7 +29,7 @@ async def async_run_repository_checks(repository):
     failed = len([x for x in checks if x.failed])
 
     if failed != 0 and ACTION:
-        exit(f"{failed}/{total} checks failed")
+        exit(f"::error::{failed}/{total} checks failed")
     elif failed != 0:
         repository.logger.error((f"{failed}/{total} checks failed"))
     else:

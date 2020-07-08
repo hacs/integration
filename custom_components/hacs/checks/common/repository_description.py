@@ -6,5 +6,5 @@ from custom_components.hacs.helpers.classes.check import (
 
 class RepositoryDescription(RepositoryCheck):
     def check(self):
-        if self.repository.data.description is None:
+        if not self.repository.data.description:
             raise RepositoryCheckException("The repository has no description")

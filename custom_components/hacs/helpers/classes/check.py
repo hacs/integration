@@ -20,7 +20,7 @@ class RepositoryCheck(ABC):
     async def _async_run_check(self):
         """DO NOT OVERRIDE THIS IN SUBCLASSES!"""
         if ACTION:
-            self.logger.info(f"Running {self.__class__.__name__}")
+            self.logger.info(f"Running cehck '{self.__class__.__name__}'")
         try:
             await self.hacs.hass.async_add_executor_job(self.check)
             await self.async_check()

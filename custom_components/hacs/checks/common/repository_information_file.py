@@ -17,4 +17,3 @@ class RepositoryInformationFile(RepositoryActionCheck):
             pass
         else:
             raise RepositoryCheckException("The repository has no information file")
-

@@ -1,5 +1,9 @@
 import os
 
+DEVCONTAINER = "DEVCONTAINER" in os.environ
+GITHUB_ACTION = "GITHUB_ACTION" in os.environ
+PYTEST = "PYTEST" in os.environ
+
 SHARE = {
     "hacs": None,
     "factory": None,
@@ -15,7 +19,7 @@ def get_hacs():
 
         _hacs = Hacs()
 
-        if not os.getenv("PYTEST") and os.getenv("GITHUB_ACTION"):
+        if not PYTEST and GITHUB_ACTION:
             _hacs.action = True
 
         SHARE["hacs"] = _hacs

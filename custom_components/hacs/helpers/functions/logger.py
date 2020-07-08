@@ -1,14 +1,15 @@
 """Custom logger for HACS."""
-import os
 import logging
+
+from custom_components.hacs.share import DEVCONTAINER, GITHUB_ACTION
 
 
 def getLogger(name=None):
-    if "GITHUB_ACTION" in os.environ:
+    if GITHUB_ACTION:
         logging.basicConfig(
             format="::%(levelname)s:: %(message)s", level="DEBUG",
         )
-    elif "DEVCONTAINER" in os.environ:
+    elif DEVCONTAINER:
         import colorlog
 
         colorlog.basicConfig(

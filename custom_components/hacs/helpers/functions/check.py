@@ -1,22 +1,19 @@
-import os
 import asyncio
 import glob
 import importlib
 import inspect
 
-
 from custom_components.hacs.share import get_hacs
 
-ACTION = "GITHUB_ACTION" in os.environ
 
 CHECKS = {}
 
 
 async def async_run_repository_checks(repository):
     if not CHECKS:
-        hass = get_hacs().hass
+        hacs = get_hacs()
         repository.logger.info("loading checks")
-        await hass.async_add_executor_job(load_repository_checks)
+        await hacs.hass.async_add_executor_job(load_repository_checks)
     checks = []
     for check in CHECKS.get("common", []):
         checks.append(check(repository))
@@ -28,7 +25,7 @@ async def async_run_repository_checks(repository):
     total = len(checks)
     failed = len([x for x in checks if x.failed])
 
-    if failed != 0 and ACTION:
+    if failed != 0 and hacs.action:
         exit(f"::error::{failed}/{total} checks failed")
     elif failed != 0:
         repository.logger.error(f"{failed}/{total} checks failed")
@@ -37,6 +34,7 @@ async def async_run_repository_checks(repository):
 
 
 def load_repository_checks():
+    hacs = get_hacs()
     root = "custom_components/hacs/checks/"
     files = glob.glob(f"{root}/**/*", recursive=True)
     for filename in files:
@@ -59,7 +57,7 @@ def load_repository_checks():
         for check in inspect.getmembers(module, inspect.isclass):
             check = check[1]
             base = check.__bases__[0].__name__
-            if "GITHUB_ACTION" not in os.environ and base == "RepositoryActionCheck":
+            if not hacs.action and base == "RepositoryActionCheck":
                 continue
             if f"{root.replace('/', '.')}{category}" in check.__module__:
                 CHECKS[category].append(check)

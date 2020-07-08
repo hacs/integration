@@ -28,6 +28,7 @@ class RepositoryCheck(ABC):
             self.failed = True
             self.logger.error(exception)
         self.logger.error("TEST ERROR")
+        self.failed = True
 
     def check(self):
         pass

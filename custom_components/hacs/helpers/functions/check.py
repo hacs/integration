@@ -7,6 +7,8 @@ import inspect
 
 from custom_components.hacs.share import get_hacs
 
+ACTION = "GITHUB_ACTION" in os.environ
+
 CHECKS = {}
 
 
@@ -26,14 +28,12 @@ async def async_run_repository_checks(repository):
     total = len(checks)
     failed = len([x for x in checks if x.failed])
 
-    if failed != 0:
-        repository.logger.error(
-            f"Total number of checks ({total}), number of failed checks ({failed}) for {repository.data.full_name}"
-        )
+    if failed != 0 and ACTION:
+        exit(f"{failed}/{total} checks failed")
+    elif failed != 0:
+        repository.logger.error((f"{failed}/{total} checks failed"))
     else:
-        repository.logger.debug(
-            f"All ({total}) checks passed for {repository.data.full_name}"
-        )
+        repository.logger.debug(f"All ({total}) checks passed")
 
 
 def load_repository_checks():

@@ -1,0 +1,43 @@
+repos:
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.6.2
+    hooks:
+      - id: pyupgrade
+        stages: [manual]
+        args:
+          - "--py37-plus"
+
+  - repo: https://github.com/psf/black
+    rev: 19.10b0
+    hooks:
+      - id: black
+        stages: [manual]
+        args:
+          - --safe
+          - --quiet
+        files: ^((custom_components|script|tests)/.+)?[^/]+\.py$
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v1.17.1
+    hooks:
+      - id: codespell
+        stages: [manual]
+        args:
+          - --quiet-level=2
+          - --ignore-words-list=hass,ba,fo
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.1.0
+    hooks:
+      - id: check-executables-have-shebangs
+        stages: [manual]
+      - id: check-json
+        stages: [manual]
+      - id: requirements-txt-fixer
+        stages: [manual]
+      - id: check-ast
+        stages: [manual]
+      - id: mixed-line-ending
+        stages: [manual]
+        args:
+          - --fix=lf

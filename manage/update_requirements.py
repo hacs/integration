@@ -1,6 +1,7 @@
-import os
-import requests
 import json
+import os
+
+import requests
 
 harequire = []
 request = requests.get(
@@ -13,13 +14,13 @@ for req in request:
 
 print(harequire)
 
-with open(f"{os.getcwd()}/custom_components/hacs/manifest.json", "r") as manifest:
+with open(f"{os.getcwd()}/custom_components/hacs/manifest.json") as manifest:
     manifest = json.load(manifest)
     requirements = []
     for req in manifest["requirements"]:
         requirements.append(req.split(">")[0].split("=")[0])
     manifest["requirements"] = requirements
-with open(f"{os.getcwd()}/requirements.txt", "r") as requirements:
+with open(f"{os.getcwd()}/requirements.txt") as requirements:
     tmp = requirements.readlines()
     requirements = []
     for req in tmp:

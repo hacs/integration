@@ -1,19 +1,22 @@
 """Create a dummy repository."""
 # pylint: disable=missing-docstring
 import tempfile
-from integrationhelper import Logger
-from homeassistant.core import HomeAssistant
-from custom_components.hacs.helpers.install import version_to_install
-from custom_components.hacs.repositories import (
-    HacsIntegration,
-    HacsTheme,
-    HacsPlugin,
-    HacsAppdaemon,
-    HacsNetdaemon,
-    HacsPythonScript,
-)
-from custom_components.hacs.repositories.repository import HacsRepository
 
+from homeassistant.core import HomeAssistant
+
+from custom_components.hacs.helpers.functions.logger import getLogger
+from custom_components.hacs.helpers.functions.version_to_install import (
+    version_to_install,
+)
+from custom_components.hacs.repositories import (
+    HacsAppdaemon,
+    HacsIntegration,
+    HacsNetdaemon,
+    HacsPlugin,
+    HacsPythonScript,
+    HacsTheme,
+)
+from custom_components.hacs.helpers.classes.repository import HacsRepository
 from tests.sample_data import repository_data
 
 
@@ -23,7 +26,7 @@ def dummy_repository_base(repository=None):
     repository.hacs.hass = HomeAssistant()
     repository.hacs.hass.data = {"custom_components": []}
     repository.hacs.system.config_path = tempfile.gettempdir()
-    repository.logger = Logger("hacs.test.test")
+    repository.logger = getLogger("test.test")
     repository.data.full_name = "test/test"
     repository.data.domain = "test"
     repository.data.last_version = "3"

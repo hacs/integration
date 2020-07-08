@@ -1,34 +1,31 @@
 """Validate a GitHub repository to be used with HACS."""
 import asyncio
 import json
-import logging
 import os
-import sys
 
 import aiohttp
 from aiogithubapi import GitHub
+from homeassistant.core import HomeAssistant
 
-from custom_components.hacs.globals import get_hacs
 from custom_components.hacs.hacsbase.configuration import Configuration
-from custom_components.hacs.hacsbase.exceptions import HacsException
-from custom_components.hacs.helpers.register_repository import register_repository
-
-LOGGER = logging.getLogger()
-LOGGER_AIOGITHUBAPI = logging.getLogger("AIOGitHubAPI")
-LOGGER_AIOGITHUBAPI.setLevel(logging.INFO)
-LOGGER.setLevel(logging.DEBUG)
-
-FORMATTER = logging.Formatter("%(name)s - %(message)s")
-
-HANDLER = logging.StreamHandler(sys.stdout)
-HANDLER.setLevel(logging.DEBUG)
-HANDLER.setFormatter(FORMATTER)
-
-LOGGER.addHandler(HANDLER)
+from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.helpers.functions.logger import getLogger
+from custom_components.hacs.helpers.functions.register_repository import (
+    register_repository,
+)
+from custom_components.hacs.share import get_hacs
 
 TOKEN = os.getenv("INPUT_GITHUB_TOKEN")
 GITHUB_WORKSPACE = os.getenv("GITHUB_WORKSPACE")
 GITHUB_ACTOR = os.getenv("GITHUB_ACTOR")
+GITHUB_EVENT_PATH = os.getenv("GITHUB_EVENT_PATH")
+GITHUB_REPOSITORY = os.getenv("GITHUB_REPOSITORY")
+CHANGED_FILES = os.getenv("CHANGED_FILES", "")
+
+
+REPOSITORY = os.getenv("REPOSITORY", os.getenv("INPUT_REPOSITORY"))
+CATEGORY = os.getenv("CATEGORY", os.getenv("INPUT_CATEGORY", ""))
+
 
 CATEGORIES = [
     "appdaemon",
@@ -39,20 +36,27 @@ CATEGORIES = [
     "theme",
 ]
 
+logger = getLogger("action")
+
+
+def error(error: str):
+    logger.error(error)
+    exit()
+
 
 def get_event_data():
-    if os.getenv("GITHUB_EVENT_PATH") is None:
+    if GITHUB_EVENT_PATH is None:
         return {}
-    with open(os.getenv("GITHUB_EVENT_PATH"), "r") as ev:
+    with open(GITHUB_EVENT_PATH) as ev:
         return json.loads(ev.read())
 
 
 def chose_repository(category):
     if category is None:
         return
-    with open(f"/default/{category}", "r") as cat_file:
+    with open(f"/default/{category}") as cat_file:
         current = json.loads(cat_file.read())
-    with open(f"{GITHUB_WORKSPACE}/{category}", "r") as cat_file:
+    with open(f"{GITHUB_WORKSPACE}/{category}") as cat_file:
         new = json.loads(cat_file.read())
 
     for repo in current:
@@ -60,60 +64,60 @@ def chose_repository(category):
             new.remove(repo)
 
     if len(new) != 1:
-        exit(f"{new} is not a single repo")
+        error(f"{new} is not a single repo")
 
     return new[0]
 
 
 def chose_category():
-    for name in os.getenv("CHANGED_FILES", "").split(" "):
+    for name in CHANGED_FILES.split(" "):
         if name in CATEGORIES:
             return name
 
 
 async def preflight():
-    """Preflight cheks."""
+    """Preflight checks."""
     event_data = get_event_data()
     ref = None
-    if os.getenv("REPOSITORY") and os.getenv("CATEGORY"):
-        repository = os.getenv("REPOSITORY")
-        category =  os.getenv("CATEGORY")
+    if REPOSITORY and CATEGORY:
+        repository = REPOSITORY
+        category = CATEGORY
         pr = False
-    elif os.getenv("GITHUB_REPOSITORY") == "hacs/default":
+    elif GITHUB_REPOSITORY == "hacs/default":
         category = chose_category()
         repository = chose_repository(category)
         pr = False
-        print(f"Actor: {GITHUB_ACTOR}")
+        logger.info(f"Actor: {GITHUB_ACTOR}")
     else:
-        category = os.getenv("INPUT_CATEGORY").lower()
+        category = CATEGORY.lower()
         pr = True if event_data.get("pull_request") is not None else False
         if pr:
             head = event_data["pull_request"]["head"]
             ref = head["ref"]
             repository = head["repo"]["full_name"]
         else:
-            repository = os.getenv("GITHUB_REPOSITORY")
+            repository = GITHUB_REPOSITORY
 
-    print(f"Category: {category}")
-    print(f"Repository: {repository}")
+    logger.info(f"Category: {category}")
+    logger.info(f"Repository: {repository}")
 
     if TOKEN is None:
-        exit("No GitHub token found, use env GITHUB_TOKEN to set this.")
+        error("No GitHub token found, use env GITHUB_TOKEN to set this.")
 
     if repository is None:
-        exit("No repository found, use env REPOSITORY to set this.")
+        error("No repository found, use env REPOSITORY to set this.")
 
     if category is None:
-        exit("No category found, use env CATEGORY to set this.")
+        error("No category found, use env CATEGORY to set this.")
 
     async with aiohttp.ClientSession() as session:
         github = GitHub(TOKEN, session)
         repo = await github.get_repo(repository)
         if not pr and repo.description is None:
-            exit("Repository is missing description")
+            error("Repository is missing description")
         if not pr and not repo.attributes["has_issues"]:
-            exit("Repository does not have issues enabled")
-        if ref is None and os.getenv("GITHUB_REPOSITORY") != "hacs/default":
+            error("Repository does not have issues enabled")
+        if ref is None and GITHUB_REPOSITORY != "hacs/default":
             ref = repo.default_branch
 
     await validate_repository(repository, category, ref)
@@ -123,15 +127,15 @@ async def validate_repository(repository, category, ref=None):
     """Validate."""
     async with aiohttp.ClientSession() as session:
         hacs = get_hacs()
+        hacs.hass = HomeAssistant()
         hacs.session = session
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
         hacs.github = GitHub(hacs.configuration.token, hacs.session)
         try:
-            await register_repository(repository, category, ref=ref, action=True)
+            await register_repository(repository, category, ref=ref)
         except HacsException as exception:
-            exit(exception)
-        print("All good!")
+            error(exception)
 
 
 LOOP = asyncio.get_event_loop()

@@ -2,20 +2,22 @@
 # pylint: disable=missing-docstring
 import base64
 import json
+
 import aiohttp
 import pytest
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
-from custom_components.hacs.hacsbase.exceptions import HacsException
-from custom_components.hacs.helpers.information import (
+
+from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.helpers.functions.information import (
     get_integration_manifest,
     get_repository,
 )
 from tests.common import TOKEN
 from tests.dummy_repository import dummy_repository_integration
 from tests.sample_data import (
-    response_rate_limit_header,
-    repository_data,
     integration_manifest,
+    repository_data,
+    response_rate_limit_header,
 )
 
 

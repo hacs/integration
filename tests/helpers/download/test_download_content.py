@@ -1,13 +1,13 @@
 """Helpers: Download: download_content."""
 # pylint: disable=missing-docstring
 import os
+
 import aiohttp
 import pytest
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 
-from custom_components.hacs.helpers.download import download_content
-
-from custom_components.hacs.globals import get_hacs
+from custom_components.hacs.helpers.functions.download import download_content
+from custom_components.hacs.share import get_hacs
 from tests.dummy_repository import dummy_repository_base, dummy_repository_integration
 from tests.sample_data import response_rate_limit_header
 

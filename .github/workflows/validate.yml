@@ -1,0 +1,33 @@
+name: Validate
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  validate-hassfest:
+    runs-on: ubuntu-latest
+    name: With hassfest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Hassfest validation
+      uses: "home-assistant/actions/hassfest@master"
+
+  validate-hacs:
+    runs-on: ubuntu-latest
+    name: With HACS
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: HACS validation
+      uses: ./action
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CATEGORY: "integration"

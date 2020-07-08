@@ -23,9 +23,9 @@ labels: "issue:frontend"
 
 <!-- You need to check ALL these boxes (tasks), if you do not do that, your issue is incomplete and may be closed -->
 
-- [ ] I'm running the newest version of HACS https://github.com/hacs/integration/releases/latest
+- [ ] I'm running the newest version of HACS <https://github.com/hacs/integration/releases/latest>
 - [ ] I have filled out the issue template to the best of my ability.
-- [ ] I have read https://hacs.xyz/docs/issues
+- [ ] I have read <https://hacs.xyz/docs/issues>
 - [ ] This issue is related to the frontend of HACS.
 - [ ] This issue only contain 1 issue (if you have multiple issues, open one issue for each issue).
 

@@ -1,0 +1,16 @@
+settings:
+  all_files: &all_files !settings
+    excluded: []
+    included:
+      - ~+/*
+    allow_ignore: yes
+
+default_settings: *all_files
+
+rules:
+  AwaitInLoop:
+    description: "Do not use await in loops"
+    expr: //AsyncFunctionDef[body//For/body//Await]
+  RequestsInAsync:
+    description: "Don't use requests in async context"
+    expr: //AsyncFunctionDef[body//Name[@id='requests']]

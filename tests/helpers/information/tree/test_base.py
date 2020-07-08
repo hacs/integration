@@ -1,12 +1,17 @@
 """Helpers: Information: get_repository."""
 # pylint: disable=missing-docstring
 import json
+
 import aiohttp
 import pytest
-from custom_components.hacs.helpers.information import get_tree, get_repository
+
+from custom_components.hacs.helpers.functions.information import (
+    get_repository,
+    get_tree,
+)
 from tests.sample_data import (
-    response_rate_limit_header,
     repository_data,
+    response_rate_limit_header,
     tree_files_base,
 )
 

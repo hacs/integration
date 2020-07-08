@@ -10,8 +10,9 @@ CHECKS = {}
 
 
 async def async_run_repository_checks(repository):
+    hacs = get_hacs()
+    print(CHECKS)
     if not CHECKS:
-        hacs = get_hacs()
         repository.logger.info("loading checks")
         await hacs.hass.async_add_executor_job(load_repository_checks)
     checks = []
@@ -60,4 +61,6 @@ def load_repository_checks():
             if not hacs.action and base == "RepositoryActionCheck":
                 continue
             if f"{root.replace('/', '.')}{category}" in check.__module__:
+                if check in CHECKS[category]:
+                    continue
                 CHECKS[category].append(check)

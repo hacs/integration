@@ -32,17 +32,20 @@ async def async_run_repository_checks(repository):
     for check in RULES.get(repository.data.category, []):
         checks.append(check(repository))
 
-    await asyncio.gather(*[check._async_run_check() for check in checks or []])
+    await asyncio.gather(
+        *[
+            check._async_run_check()
+            for check in checks or []
+            if hacs.action or not check.action_only
+        ]
+    )
 
     total = len(checks)
     failed = len([x for x in checks if x.failed])
 
-    if failed != 0 and hacs.action:
-        print(f"::error::{failed}/{total} checks failed")
-        exit(f"::error::{failed}/{total} checks failed")
-    elif failed != 0:
-        print(f"{failed}/{total} checks failed")
+    if failed != 0:
         repository.logger.error(f"{failed}/{total} checks failed")
+        if hacs.action:
+            exit(1)
     else:
-        print(f"All ({total}) checks passed")
         repository.logger.debug(f"All ({total}) checks passed")

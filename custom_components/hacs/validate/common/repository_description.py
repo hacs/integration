@@ -1,4 +1,4 @@
-from custom_components.hacs.helpers.classes.validate import (
+from custom_components.hacs.validate.base import (
     ValidationBase,
     ValidationException,
 )

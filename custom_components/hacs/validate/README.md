@@ -19,7 +19,7 @@ This is where the validation rules that run against the various repository categ
 ## Example
 
 ```python
-from custom_components.hacs.helpers.classes.validate import (
+from custom_components.hacs.validate.base import (
     ActionValidationBase,
     ValidationBase,
     ValidationException,

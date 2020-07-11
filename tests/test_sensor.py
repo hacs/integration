@@ -41,7 +41,6 @@ async def test_sensor_update():
     repository.data.installed = True
     repository.data.installed_version = "1"
     repository.data.last_version = "1"
-    print(repository.pending_upgrade)
     hacs.repositories.append(repository)
     hacs.common.categories = ["integration"]
     dummy_state = "DUMMY"

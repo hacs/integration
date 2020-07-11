@@ -32,7 +32,7 @@ async def async_serve_frontend():
                 result = await request.read()
                 response = web.Response(body=result)
 
-                servefile = response
+                return response
         except (Exception, BaseException) as exception:
             logger.error(exception)
 

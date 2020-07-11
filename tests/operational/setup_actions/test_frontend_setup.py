@@ -6,6 +6,10 @@ from custom_components.hacs.operational.setup_actions.frontend import (
 )
 
 
+from custom_components.hacs.share import get_hacs
+from homeassistant.core import HomeAssistant
+
+
 class MockHTTP:
     def register_view(self, _):
         pass
@@ -20,10 +24,6 @@ class MockComponents:
     @property
     def frontend(self):
         return MockFrontend()
-
-
-from custom_components.hacs.share import get_hacs
-from homeassistant.core import HomeAssistant
 
 
 @pytest.mark.asyncio

@@ -17,7 +17,6 @@ async def test_async_run_repository_checks():
     with pytest.raises(SystemExit):
         await async_run_repository_checks(repository)
 
-
     hacs.action = False
     await async_run_repository_checks(repository)
     hacs.system.running = False

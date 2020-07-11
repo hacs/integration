@@ -6,4 +6,3 @@ import pytest
 @pytest.mark.asyncio
 async def test_config_flow():
     pass
-

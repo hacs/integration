@@ -67,4 +67,3 @@ def load_repository_checks():
                 if check in RULES[category]:
                     continue
                 RULES[category].append(check)
-

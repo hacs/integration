@@ -10,6 +10,7 @@ async def test_async_add_sensor():
     hacs = get_hacs()
     hacs.hass = HomeAssistant()
     hacs.hass.config_entries = ConfigEntries(HomeAssistant(), {})
+    hacs.configuration.config = {}
     await async_add_sensor()
 
     hacs.configuration.config_type = "yaml"

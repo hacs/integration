@@ -1,15 +1,25 @@
+comment: false
 codecov:
   branch: master
 
 coverage:
   precision: 2
   round: down
-  range: "50...100"
+  range: "60...100"
 
   status:
-    project: yes
-    patch: yes
-    changes: no
+    patch: off
+    project:
+      default:
+        target: 60%
+      validate:
+        target: 100%
+        paths:
+          - custom_components/hacs/validate/
+      repositories:
+        target: 40%
+        paths:
+          - custom_components/hacs/repositories/
 
 parsers:
   gcov:

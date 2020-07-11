@@ -1,6 +1,6 @@
 import pytest
 
-from custom_components.hacs.checks.common.repository_topics import RepositoryTopics
+from custom_components.hacs.validate.common.repository_topics import RepositoryTopics
 from tests.dummy_repository import dummy_repository_base
 
 

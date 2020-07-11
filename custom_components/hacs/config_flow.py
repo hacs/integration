@@ -11,8 +11,11 @@ from custom_components.hacs.helpers.functions.information import get_repository
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.share import get_hacs
 
-from .configuration_schema import hacs_base_config_schema, hacs_config_option_schema
-from .const import DOMAIN
+from custom_components.hacs.helpers.functions.configuration_schema import (
+    hacs_base_config_schema,
+    hacs_config_option_schema,
+)
+from custom_components.hacs.const import DOMAIN
 
 _LOGGER = getLogger(__name__)
 

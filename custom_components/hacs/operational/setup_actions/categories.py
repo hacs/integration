@@ -8,7 +8,10 @@ def _setup_extra_stores():
         if "python_script" not in hacs.common.categories:
             hacs.common.categories.append("python_script")
 
-    if hacs.hass.services.services.get("frontend", {}).get("reload_themes") is not None:
+    if (
+        hacs.hass.services._services.get("frontend", {}).get("reload_themes")
+        is not None
+    ):
         if "theme" not in hacs.common.categories:
             hacs.common.categories.append("theme")
 

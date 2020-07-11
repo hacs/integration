@@ -1,7 +1,6 @@
 """HACS Constrains Test Suite."""
 # pylint: disable=missing-docstring,invalid-name
 import os
-import sys
 
 from custom_components.hacs.helpers.functions.constrains import (
     check_constrains,

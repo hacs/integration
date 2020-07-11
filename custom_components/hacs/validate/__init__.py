@@ -1,21 +1,31 @@
 import asyncio
-import glob
-import importlib
-import inspect
 
 from custom_components.hacs.share import get_hacs
 
+from .appdaemon import RULES as AppDaemonRules
+from .common import RULES as CommonRules
+from .integration import RULES as IntegrationRules
+from .netdaemon import RULES as NetDaemonRules
+from .plugin import RULES as PluginRules
+from .python_script import RULES as PythonScriptRules
+from .theme import RULES as ThemeRules
 
-RULES = {}
+
+RULES = {
+    "appdaemon": AppDaemonRules,
+    "common": CommonRules,
+    "integration": IntegrationRules,
+    "netdaemon": NetDaemonRules,
+    "plugin": PluginRules,
+    "python_script": PythonScriptRules,
+    "theme": ThemeRules,
+}
 
 
 async def async_run_repository_checks(repository):
     hacs = get_hacs()
     if not hacs.system.running:
         return
-    if not RULES:
-        repository.logger.info("loading checks")
-        await hacs.hass.async_add_executor_job(load_repository_checks)
     checks = []
     for check in RULES.get("common", []):
         checks.append(check(repository))
@@ -28,42 +38,11 @@ async def async_run_repository_checks(repository):
     failed = len([x for x in checks if x.failed])
 
     if failed != 0 and hacs.action:
+        print(f"::error::{failed}/{total} checks failed")
         exit(f"::error::{failed}/{total} checks failed")
     elif failed != 0:
+        print(f"{failed}/{total} checks failed")
         repository.logger.error(f"{failed}/{total} checks failed")
     else:
+        print(f"All ({total}) checks passed")
         repository.logger.debug(f"All ({total}) checks passed")
-
-
-def load_repository_checks():
-    hacs = get_hacs()
-    if not hacs.system.running:
-        return
-    root = "custom_components/hacs/validate/"
-    files = glob.glob(f"{root}/**/*", recursive=True)
-    for filename in files:
-        filename = filename.replace(root, "")
-        if (
-            filename.startswith("__pycache__")
-            or filename.endswith("check.py")
-            or "__init__.py" in filename
-            or filename[-3:] != ".py"
-        ):
-            continue
-
-        filename = filename[:-3]
-        category = filename.split("/")[0]
-        if category not in RULES:
-            RULES[category] = []
-        module_name = root.replace("/", ".") + filename.replace("/", ".")
-        module = importlib.import_module(module_name)
-
-        for check in inspect.getmembers(module, inspect.isclass):
-            check = check[1]
-            base = check.__bases__[0].__name__
-            if not hacs.action and base == "ActionValidationBase":
-                continue
-            if f"{root.replace('/', '.')}{category}" in check.__module__:
-                if check in RULES[category]:
-                    continue
-                RULES[category].append(check)

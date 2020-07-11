@@ -1,3 +1,4 @@
+comment: false
 codecov:
   branch: master
 
@@ -7,9 +8,16 @@ coverage:
   range: "50...100"
 
   status:
-    project: yes
-    patch: yes
-    changes: no
+    project:
+      default: on
+      validate:
+        target: 100%
+        flags:
+          - validate
+      repositories:
+        target: 100%
+        flags:
+          - repositories
 
 parsers:
   gcov:
@@ -21,3 +29,10 @@ parsers:
 
 ignore:
   - "tests"
+flags:
+  validate:
+    paths:
+      - custom_components/hacs/validate/
+  repositories:
+    paths:
+      - custom_components/hacs/repositories/

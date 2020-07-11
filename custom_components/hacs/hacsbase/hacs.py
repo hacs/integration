@@ -69,6 +69,7 @@ class System:
     config_path = None
     ha_version = None
     disabled = False
+    running = False
     lovelace_mode = "storage"
 
 
@@ -112,6 +113,7 @@ class Hacs(HacsHelpers):
     queue = get_queue()
     system = System()
     recuring_tasks = []
+
     common = HacsCommon()
 
     @staticmethod

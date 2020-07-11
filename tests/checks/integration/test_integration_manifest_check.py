@@ -1,7 +1,7 @@
 import pytest
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 
-from custom_components.hacs.checks.integration.integration_manifest import (
+from custom_components.hacs.validate.integration.integration_manifest import (
     IntegrationManifest,
 )
 from tests.dummy_repository import dummy_repository_integration

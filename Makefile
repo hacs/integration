@@ -8,7 +8,7 @@ help: ## Shows help message.
 	@awk 'BEGIN {FS = ":.*##";} /^[a-zA-Z_-]+:.*?##/ { printf " \033[36m make %-25s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST);
 	@echo
 
-init: homeassistant-install requirements
+init: requirements homeassistant-install install-custom_components
 
 requirements:
 ifdef HAS_APK
@@ -33,6 +33,9 @@ lint: ## Run linters
 
 update: ## Pull master from hacs/integration
 	git pull upstream master;
+
+install-custom_components:
+	python3 setup.py develop
 
 homeassistant-install: ## Install the latest dev version of Home Assistant
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS);

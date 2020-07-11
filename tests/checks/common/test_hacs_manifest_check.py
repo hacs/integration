@@ -1,8 +1,7 @@
 import pytest
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 
-from custom_components.hacs.checks.common.hacs_manifest import HacsManifest
-from custom_components.hacs.helpers.classes.check import RepositoryCheckException
+from custom_components.hacs.validate.common.hacs_manifest import HacsManifest
 from tests.dummy_repository import dummy_repository_base
 
 

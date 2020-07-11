@@ -6,19 +6,20 @@ import inspect
 from custom_components.hacs.share import get_hacs
 
 
-CHECKS = {}
+RULES = {}
 
 
 async def async_run_repository_checks(repository):
     hacs = get_hacs()
-    print(CHECKS)
-    if not CHECKS:
+    if not hacs.system.running:
+        return
+    if not RULES:
         repository.logger.info("loading checks")
         await hacs.hass.async_add_executor_job(load_repository_checks)
     checks = []
-    for check in CHECKS.get("common", []):
+    for check in RULES.get("common", []):
         checks.append(check(repository))
-    for check in CHECKS.get(repository.data.category, []):
+    for check in RULES.get(repository.data.category, []):
         checks.append(check(repository))
 
     await asyncio.gather(*[check._async_run_check() for check in checks or []])
@@ -36,7 +37,9 @@ async def async_run_repository_checks(repository):
 
 def load_repository_checks():
     hacs = get_hacs()
-    root = "custom_components/hacs/checks/"
+    if not hacs.system.running:
+        return
+    root = "custom_components/hacs/validate/"
     files = glob.glob(f"{root}/**/*", recursive=True)
     for filename in files:
         filename = filename.replace(root, "")
@@ -50,17 +53,18 @@ def load_repository_checks():
 
         filename = filename[:-3]
         category = filename.split("/")[0]
-        if category not in CHECKS:
-            CHECKS[category] = []
+        if category not in RULES:
+            RULES[category] = []
         module_name = root.replace("/", ".") + filename.replace("/", ".")
         module = importlib.import_module(module_name)
 
         for check in inspect.getmembers(module, inspect.isclass):
             check = check[1]
             base = check.__bases__[0].__name__
-            if not hacs.action and base == "RepositoryActionCheck":
+            if not hacs.action and base == "ActionValidationBase":
                 continue
             if f"{root.replace('/', '.')}{category}" in check.__module__:
-                if check in CHECKS[category]:
+                if check in RULES[category]:
                     continue
-                CHECKS[category].append(check)
+                RULES[category].append(check)
+

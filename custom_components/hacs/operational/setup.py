@@ -37,6 +37,7 @@ def _common_setup(hass):
     """Common setup stages."""
     hacs = get_hacs()
     hacs.hass = hass
+    hacs.system.running = True
     hacs.session = async_create_clientsession(hass)
 
 

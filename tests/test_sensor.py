@@ -4,7 +4,7 @@ import pytest
 from homeassistant.core import HomeAssistant as hass
 
 from custom_components.hacs.hacsbase.hacs import Hacs as hacs
-from custom_components.hacs.repositories.integration import HacsIntegration
+from custom_components.hacs.repositories import HacsIntegration
 from custom_components.hacs.sensor import (
     HACSSensor,
     async_setup_entry,

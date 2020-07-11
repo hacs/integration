@@ -1,5 +1,6 @@
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.share import get_hacs
+from custom_components.hacs.validate.rules import RULES
 
 
 class ValidationException(Exception):
@@ -12,6 +13,14 @@ class ValidationBase:
         self.hacs = get_hacs()
         self.failed = False
         self.logger = getLogger(f"{repository.data.category}.check")
+
+    def __init_subclass__(cls, category="common", **kwargs) -> None:
+        """Initialize a subclass, register if possible."""
+        super().__init_subclass__(**kwargs)
+        if RULES.get(category) is None:
+            RULES[category] = []
+        if cls not in RULES[category]:
+            RULES[category].append(cls)
 
     @property
     def action_only(self):

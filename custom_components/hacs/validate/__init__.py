@@ -1,25 +1,22 @@
 import asyncio
-
+import importlib
+import glob
+from os.path import dirname, join
 from custom_components.hacs.share import get_hacs
-
-from .appdaemon import RULES as AppDaemonRules
-from .common import RULES as CommonRules
-from .integration import RULES as IntegrationRules
-from .netdaemon import RULES as NetDaemonRules
-from .plugin import RULES as PluginRules
-from .python_script import RULES as PythonScriptRules
-from .theme import RULES as ThemeRules
+from custom_components.hacs.validate.rules import RULES
 
 
-RULES = {
-    "appdaemon": AppDaemonRules,
-    "common": CommonRules,
-    "integration": IntegrationRules,
-    "netdaemon": NetDaemonRules,
-    "plugin": PluginRules,
-    "python_script": PythonScriptRules,
-    "theme": ThemeRules,
-}
+def _initialize_rules():
+    rules = glob.glob(join(dirname(__file__), "**/*.py"))
+    for rule in rules:
+        rule = rule.split("custom_components/hacs")[-1]
+        rule = f"custom_components/hacs{rule}".replace("/", ".")[:-3]
+        importlib.__import__(rule)
+
+
+async def async_initialize_rules():
+    hass = get_hacs().hass
+    hass.async_add_executor_job(_initialize_rules)
 
 
 async def async_run_repository_checks(repository):

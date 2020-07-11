@@ -72,6 +72,7 @@ class RepositoryData:
         """Set attributes from dicts."""
         data = RepositoryData()
         for key in source:
+            print(key)
             if key in data.__dict__:
                 if key == "pushed_at":
                     if source[key] == "":
@@ -90,7 +91,7 @@ class RepositoryData:
                         )
                 elif key == "id":
                     setattr(data, key, str(source[key]))
-                elif key == "county":
+                elif key == "country":
                     if isinstance(source[key], str):
                         setattr(data, key, [source[key]])
                     else:
@@ -118,7 +119,7 @@ class RepositoryData:
                         )
                 elif key == "id":
                     setattr(self, key, str(data[key]))
-                elif key == "county":
+                elif key == "country":
                     if isinstance(data[key], str):
                         setattr(self, key, [data[key]])
                     else:

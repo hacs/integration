@@ -1,7 +1,7 @@
 from homeassistant.core import HomeAssistant
 import pytest
 
-from custom_components.hacs.share import get_hacs
+from custom_components.hacs.share import get_hacs, SHARE
 from custom_components.hacs.validate import (
     async_run_repository_checks,
     async_initialize_rules,
@@ -29,5 +29,6 @@ async def test_async_run_repository_checks():
         await async_run_repository_checks(repository)
 
     hacs.action = False
+    SHARE["rules"] = {}
     await async_run_repository_checks(repository)
     hacs.system.running = False

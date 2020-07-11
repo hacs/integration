@@ -2,8 +2,7 @@ import asyncio
 import importlib
 import glob
 from os.path import dirname, join
-from custom_components.hacs.share import get_hacs
-from custom_components.hacs.validate.rules import RULES
+from custom_components.hacs.share import get_hacs, SHARE
 
 
 def _initialize_rules():
@@ -11,22 +10,24 @@ def _initialize_rules():
     for rule in rules:
         rule = rule.split("custom_components/hacs")[-1]
         rule = f"custom_components/hacs{rule}".replace("/", ".")[:-3]
-        importlib.__import__(rule)
+        importlib.import_module(rule)
 
 
 async def async_initialize_rules():
     hass = get_hacs().hass
-    hass.async_add_executor_job(_initialize_rules)
+    await hass.async_add_executor_job(_initialize_rules)
 
 
 async def async_run_repository_checks(repository):
     hacs = get_hacs()
+    if not SHARE["rules"]:
+        await async_initialize_rules()
     if not hacs.system.running:
         return
     checks = []
-    for check in RULES.get("common", []):
+    for check in SHARE["rules"].get("common", []):
         checks.append(check(repository))
-    for check in RULES.get(repository.data.category, []):
+    for check in SHARE["rules"].get(repository.data.category, []):
         checks.append(check(repository))
 
     await asyncio.gather(
@@ -37,7 +38,7 @@ async def async_run_repository_checks(repository):
         ]
     )
 
-    total = len(checks)
+    total = len([x for x in checks if hacs.action or not x.action_only])
     failed = len([x for x in checks if x.failed])
 
     if failed != 0:

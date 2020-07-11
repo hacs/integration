@@ -1,6 +1,5 @@
 from custom_components.hacs.helpers.functions.logger import getLogger
-from custom_components.hacs.share import get_hacs
-from custom_components.hacs.validate.rules import RULES
+from custom_components.hacs.share import get_hacs, SHARE
 
 
 class ValidationException(Exception):
@@ -17,10 +16,10 @@ class ValidationBase:
     def __init_subclass__(cls, category="common", **kwargs) -> None:
         """Initialize a subclass, register if possible."""
         super().__init_subclass__(**kwargs)
-        if RULES.get(category) is None:
-            RULES[category] = []
-        if cls not in RULES[category]:
-            RULES[category].append(cls)
+        if SHARE["rules"].get(category) is None:
+            SHARE["rules"][category] = []
+        if cls not in SHARE["rules"][category]:
+            SHARE["rules"][category].append(cls)
 
     @property
     def action_only(self):

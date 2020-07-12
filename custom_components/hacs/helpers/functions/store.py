@@ -9,7 +9,9 @@ async def async_load_from_store(hass, key):
     """Load the retained data from store and return de-serialized data."""
     key = key if "/" in key else f"hacs.{key}"
     store = Store(hass, STORAGE_VERSION, key, encoder=JSONEncoder)
+    print(store.__dict__)
     restored = await store.async_load()
+    print(store)
     if restored is None:
         return {}
     return restored

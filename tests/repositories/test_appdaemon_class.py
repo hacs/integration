@@ -13,4 +13,3 @@ async def test_base():
     repository = HacsAppdaemon("test/test")
     repository.hacs = hacs
     assert repository.data.category == "appdaemon"
-

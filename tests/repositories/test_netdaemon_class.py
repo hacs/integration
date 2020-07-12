@@ -13,4 +13,3 @@ async def test_async_post_installation():
     repository = HacsNetdaemon("test/test")
     repository.hacs = hacs
     await repository.async_post_installation()
-

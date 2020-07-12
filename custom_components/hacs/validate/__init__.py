@@ -1,35 +1,33 @@
 import asyncio
-
-from custom_components.hacs.share import get_hacs
-
-from .appdaemon import RULES as AppDaemonRules
-from .common import RULES as CommonRules
-from .integration import RULES as IntegrationRules
-from .netdaemon import RULES as NetDaemonRules
-from .plugin import RULES as PluginRules
-from .python_script import RULES as PythonScriptRules
-from .theme import RULES as ThemeRules
+import importlib
+import glob
+from os.path import dirname, join
+from custom_components.hacs.share import get_hacs, SHARE
 
 
-RULES = {
-    "appdaemon": AppDaemonRules,
-    "common": CommonRules,
-    "integration": IntegrationRules,
-    "netdaemon": NetDaemonRules,
-    "plugin": PluginRules,
-    "python_script": PythonScriptRules,
-    "theme": ThemeRules,
-}
+def _initialize_rules():
+    rules = glob.glob(join(dirname(__file__), "**/*.py"))
+    for rule in rules:
+        rule = rule.split("custom_components/hacs")[-1]
+        rule = f"custom_components/hacs{rule}".replace("/", ".")[:-3]
+        importlib.import_module(rule)
+
+
+async def async_initialize_rules():
+    hass = get_hacs().hass
+    await hass.async_add_executor_job(_initialize_rules)
 
 
 async def async_run_repository_checks(repository):
     hacs = get_hacs()
+    if not SHARE["rules"]:
+        await async_initialize_rules()
     if not hacs.system.running:
         return
     checks = []
-    for check in RULES.get("common", []):
+    for check in SHARE["rules"].get("common", []):
         checks.append(check(repository))
-    for check in RULES.get(repository.data.category, []):
+    for check in SHARE["rules"].get(repository.data.category, []):
         checks.append(check(repository))
 
     await asyncio.gather(
@@ -40,7 +38,7 @@ async def async_run_repository_checks(repository):
         ]
     )
 
-    total = len(checks)
+    total = len([x for x in checks if hacs.action or not x.action_only])
     failed = len([x for x in checks if x.failed])
 
     if failed != 0:

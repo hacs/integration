@@ -3,7 +3,6 @@ from aiohttp import web
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.path_exsist import async_path_exsist
 from custom_components.hacs.share import get_hacs
-from custom_components.hacs.webresponses.frontend import logger
 
 
 async def async_serve_category_file(requested_file):
@@ -16,10 +15,10 @@ async def async_serve_category_file(requested_file):
             servefile = f"{hacs.system.config_path}/www/community/{requested_file}"
 
         # Serve .gz if it exist
-        if async_path_exsist(f"{servefile}.gz"):
+        if await async_path_exsist(f"{servefile}.gz"):
             servefile += ".gz"
 
-        if async_path_exsist(servefile):
+        if await async_path_exsist(servefile):
             logger.debug(f"Serving {requested_file} from {servefile}")
             response = web.FileResponse(servefile)
             response.headers["Cache-Control"] = "no-store, max-age=0"

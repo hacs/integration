@@ -31,6 +31,9 @@ lint: ## Run linters
 	pre-commit run --hook-stage manual --all-files --config .github/pre-commit-config.yaml;
 	bellybutton lint
 
+coverage:
+	coverage report --skip-covered
+
 update: ## Pull master from hacs/integration
 	git pull upstream master;
 

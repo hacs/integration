@@ -1,14 +1,13 @@
 """Custom logger for HACS."""
 import logging
-
-from custom_components.hacs.variables import GITHUB_ACTION
+import os
 
 
 def getLogger(name=None):
     if name is not None:
         name = name.replace("/", ".")
 
-    if GITHUB_ACTION:
+    if "GITHUB_ACTION" in os.environ:
         logging.basicConfig(
             format="::%(levelname)s:: %(message)s", level="DEBUG",
         )

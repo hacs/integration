@@ -31,7 +31,7 @@ class AwesomeRepository(ValidationBase):
         if self.repository != "awesome":
             raise ValidationException("The repository is not awesome")
 
-class SuperAwesomeRepository(ActionValidationBase):
+class SuperAwesomeRepository(ActionValidationBase, category="integration"):
     async def async_validate(self):
         if self.repository != "super-awesome":
             raise ValidationException("The repository is not super-awesome")

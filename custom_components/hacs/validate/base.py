@@ -1,5 +1,4 @@
-from custom_components.hacs.helpers.functions.logger import getLogger
-from custom_components.hacs.share import get_hacs
+from custom_components.hacs.share import get_hacs, SHARE
 
 
 class ValidationException(Exception):
@@ -11,7 +10,15 @@ class ValidationBase:
         self.repository = repository
         self.hacs = get_hacs()
         self.failed = False
-        self.logger = getLogger(f"{repository.data.category}.check")
+        self.logger = repository.logger
+
+    def __init_subclass__(cls, category="common", **kwargs) -> None:
+        """Initialize a subclass, register if possible."""
+        super().__init_subclass__(**kwargs)
+        if SHARE["rules"].get(category) is None:
+            SHARE["rules"][category] = []
+        if cls not in SHARE["rules"][category]:
+            SHARE["rules"][category].append(cls)
 
     @property
     def action_only(self):

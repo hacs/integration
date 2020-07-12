@@ -22,10 +22,6 @@ class RepositoryMethodPreInstall(ABC):
 
 
 class RepositoryMethodInstall(ABC):
-    async def install(self) -> None:
-        self.logger.warning("'install' is deprecated, use 'async_install' instead")
-        await self.async_install()
-
     async def async_install(self) -> None:
         await self._async_pre_install()
         self.logger.info("Running installation steps")

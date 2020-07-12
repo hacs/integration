@@ -58,7 +58,9 @@ def test_netdaemon_backup():
         assert content == "test: test"
 
     assert not os.path.exists(backup.backup_path)
-    backup.create()
+
+    os.makedirs(backup.backup_path, exist_ok=True)
+
     backup.create()
     assert os.path.exists(backup.backup_path)
     with open(f"{repository.content.path.local}/dummy_file.yaml", "w") as dummy:

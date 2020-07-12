@@ -28,7 +28,6 @@ class HacsTheme(HacsRepository):
         """Run post installation steps."""
         try:
             await self.hacs.hass.services.async_call("frontend", "reload_themes", {})
-            self.logger.info("Themes reloaded")
         except (Exception, BaseException):  # pylint: disable=broad-except
             pass
 

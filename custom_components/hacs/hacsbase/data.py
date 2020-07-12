@@ -53,10 +53,7 @@ class HacsData:
         self.hacs.hass.bus.fire("hacs/config", {})
 
     async def async_store_repository_data(self, repository):
-        if repository.repository_manifest is not None:
-            repository_manifest = repository.repository_manifest.manifest
-        else:
-            repository_manifest = None
+        repository_manifest = repository.repository_manifest.manifest
         data = {
             "authors": repository.data.authors,
             "category": repository.data.category,

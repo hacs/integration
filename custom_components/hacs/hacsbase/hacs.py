@@ -73,23 +73,6 @@ class System:
     lovelace_mode = "storage"
 
 
-class Developer:
-    """Developer settings/tools."""
-
-    template_id = "Repository ID"
-    template_content = ""
-    template_raw = ""
-
-    @property
-    def devcontainer(self):
-        """Is it a devcontainer?"""
-        import os
-
-        if "DEVCONTAINER" in os.environ:
-            return True
-        return False
-
-
 class Hacs(HacsHelpers):
     """The base class of HACS, nested throughout the project."""
 
@@ -101,7 +84,6 @@ class Hacs(HacsHelpers):
     frontend = HacsFrontend()
     repo = None
     data_repo = None
-    developer = Developer()
     data = None
     configuration = None
     logger = getLogger()
@@ -115,11 +97,6 @@ class Hacs(HacsHelpers):
     recuring_tasks = []
 
     common = HacsCommon()
-
-    @staticmethod
-    def init(hass, github_token):
-        """Return a initialized HACS object."""
-        return Hacs()
 
     def get_by_id(self, repository_id):
         """Get repository by ID."""

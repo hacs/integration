@@ -55,7 +55,7 @@ async def register_repository(full_name, category, check=True, ref=None):
             hacs.repositories.remove(exists[0])
 
     else:
-        if hacs.hass is not None:
+        if hacs.hass is not None and repository.data.new:
             hacs.hass.bus.async_fire(
                 "hacs/repository",
                 {

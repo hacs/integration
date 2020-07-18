@@ -118,25 +118,55 @@ class HacsData:
             return False
         return True
 
-    async def async_restore_repository(self, entry, repo):
+    async def async_restore_repository(self, entry, repository_data):
         if not self.hacs.is_known(entry):
-            await register_repository(repo["full_name"], repo["category"], False)
+            await register_repository(
+                repository_data["full_name"], repository_data["category"], False
+            )
         repository = [
             x
             for x in self.hacs.repositories
-            if str(x.data.id) == str(entry) or x.data.full_name == repo["full_name"]
+            if str(x.data.id) == str(entry)
+            or x.data.full_name == repository_data["full_name"]
         ]
         if not repository:
-            self.logger.error(f"Did not find {repo['full_name']} ({entry})")
+            self.logger.error(f"Did not find {repository_data['full_name']} ({entry})")
             return
 
         repository = repository[0]
 
         # Restore repository attributes
         repository.data.id = entry
-        await self.hacs.hass.async_add_executor_job(
-            restore_repository_data, repository, repo
+        repository.data.authors = repository_data.get("authors", [])
+        repository.data.description = repository_data.get("description")
+        repository.releases.last_release_object_downloads = repository_data.get(
+            "downloads"
         )
+        repository.data.last_updated = repository_data.get("last_updated")
+        repository.data.topics = repository_data.get("topics", [])
+        repository.data.domain = repository_data.get("domain", None)
+        repository.data.stargazers_count = repository_data.get("stars", 0)
+        repository.releases.last_release = repository_data.get("last_release_tag")
+        repository.data.hide = repository_data.get("hide", False)
+        repository.data.installed = repository_data.get("installed", False)
+        repository.data.new = repository_data.get("new", True)
+        repository.data.selected_tag = repository_data.get("selected_tag")
+        repository.data.show_beta = repository_data.get("show_beta", False)
+        repository.data.last_version = repository_data.get("last_release_tag")
+        repository.data.last_commit = repository_data.get("last_commit")
+        repository.data.installed_version = repository_data.get("version_installed")
+        repository.data.installed_commit = repository_data.get("installed_commit")
+
+        repository.repository_manifest = HacsManifest.from_dict(
+            repository_data.get("repository_manifest", {})
+        )
+
+        if repository.data.installed:
+            repository.status.first_install = False
+
+        if repository_data["full_name"] == "hacs/integration":
+            repository.data.installed_version = VERSION
+            repository.data.installed = True
 
         restored = await async_load_from_store(self.hacs.hass, f"hacs/{entry}.hacs")
 
@@ -147,35 +177,3 @@ class HacsData:
                     "Should be installed but is not... Fixing that!"
                 )
                 repository.data.installed = True
-
-
-def restore_repository_data(repository, repository_data: dict) -> None:
-    """Restore Repository Data"""
-    repository.data.authors = repository_data.get("authors", [])
-    repository.data.description = repository_data.get("description")
-    repository.releases.last_release_object_downloads = repository_data.get("downloads")
-    repository.data.last_updated = repository_data.get("last_updated")
-    repository.data.topics = repository_data.get("topics", [])
-    repository.data.domain = repository_data.get("domain", None)
-    repository.data.stargazers_count = repository_data.get("stars", 0)
-    repository.releases.last_release = repository_data.get("last_release_tag")
-    repository.data.hide = repository_data.get("hide", False)
-    repository.data.installed = repository_data.get("installed", False)
-    repository.data.new = repository_data.get("new", True)
-    repository.data.selected_tag = repository_data.get("selected_tag")
-    repository.data.show_beta = repository_data.get("show_beta", False)
-    repository.data.last_version = repository_data.get("last_release_tag")
-    repository.data.last_commit = repository_data.get("last_commit")
-    repository.data.installed_version = repository_data.get("version_installed")
-    repository.data.installed_commit = repository_data.get("installed_commit")
-
-    repository.repository_manifest = HacsManifest.from_dict(
-        repository_data.get("repository_manifest", {})
-    )
-
-    if repository.data.installed:
-        repository.status.first_install = False
-
-    if repository_data["full_name"] == "hacs/integration":
-        repository.data.installed_version = VERSION
-        repository.data.installed = True

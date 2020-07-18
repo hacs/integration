@@ -6,6 +6,7 @@ import tempfile
 import zipfile
 
 from aiogithubapi import AIOGitHubAPIException
+from queueman import QueueManager
 
 from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers import RepositoryHelpers
@@ -252,6 +253,7 @@ class HacsRepository(RepositoryHelpers):
 
     async def download_zip_files(self, validate):
         """Download ZIP archive from repository release."""
+        download_queue = QueueManager()
         try:
             contents = False
 
@@ -264,9 +266,9 @@ class HacsRepository(RepositoryHelpers):
                 return validate
 
             for content in contents or []:
-                self.queue.add(self.async_download_zip_file(content, validate))
+                download_queue.add(self.async_download_zip_file(content, validate))
 
-            await self.queue.execute()
+            await download_queue.execute()
         except (Exception, BaseException):
             validate.errors.append(f"Download was not complete")
 

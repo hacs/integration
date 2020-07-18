@@ -22,7 +22,7 @@ IFRAME = {
     "require_admin": True,
 }
 
-STORAGE_VERSION = "6"
+VERSION_STORAGE = "6"
 STORENAME = "hacs"
 
 # Messages

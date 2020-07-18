@@ -1,10 +1,10 @@
 from custom_components.hacs.validate.base import (
-    ValidationBase,
+    ActionValidationBase,
     ValidationException,
 )
 
 
-class RepositoryTopics(ValidationBase):
+class RepositoryTopics(ActionValidationBase):
     def check(self):
         if not self.repository.data.topics:
             raise ValidationException("The repository has no description")

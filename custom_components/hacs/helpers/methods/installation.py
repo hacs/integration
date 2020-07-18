@@ -83,7 +83,7 @@ async def async_install_repository(repository):
         backup.create()
 
     if repository.data.zip_release and version != repository.data.default_branch:
-        await repository.download_zip(repository)
+        await repository.download_zip_files(repository)
     else:
         await download_content(repository)
 

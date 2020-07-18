@@ -3,7 +3,8 @@
 import json
 import uuid
 from datetime import timedelta
-import asyncio
+
+from queueman import QueueManager
 from aiogithubapi import AIOGitHubAPIException
 from homeassistant.helpers.event import async_track_time_interval
 
@@ -191,6 +192,7 @@ class Hacs(HacsHelpers):
     async def handle_critical_repositories(self):
         """Handled critical repositories during runtime."""
         # Get critical repositories
+        critical_queue = QueueManager()
         instored = []
         critical = []
         was_installed = False
@@ -231,14 +233,14 @@ class Hacs(HacsHelpers):
                     was_installed = True
                     stored["acknowledged"] = False
                     # Remove from HACS
-                    self.queue.add(repository.uninstall())
+                    critical_queue.add(repository.uninstall())
                     repo.remove()
 
             stored_critical.append(stored)
             removed_repo.update_data(stored)
 
         # Uninstall
-        await self.queue.execute()
+        await critical_queue.execute()
 
         # Save to FS
         await async_save_to_store(self.hass, "critical", stored_critical)

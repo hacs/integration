@@ -3,7 +3,7 @@ from aiogithubapi.objects import repository
 import pytest
 import os
 from homeassistant.core import HomeAssistant
-from custom_components.hacs.hacsbase.data import restore_repository_data, HacsData
+from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.helpers.classes.repository import HacsRepository
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.share import get_hacs
@@ -45,9 +45,3 @@ async def test_hacs_data_restore(tmpdir):
     hacs.hass.config.config_dir = tmpdir
     await data.restore()
 
-
-def test_restore_repository_data():
-    repo = HacsRepository()
-    data = {"description": "test", "installed": True, "full_name": "hacs/integration"}
-    restore_repository_data(repo, data)
-    assert repo.data.description == "test"

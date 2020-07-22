@@ -44,4 +44,3 @@ async def test_hacs_data_restore(tmpdir):
     hacs.hass = HomeAssistant()
     hacs.hass.config.config_dir = tmpdir
     await data.restore()
-

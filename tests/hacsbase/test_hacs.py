@@ -19,6 +19,7 @@ async def test_hacs(tmpdir):
 
     hacs.repositories = [repo]
     assert hacs.get_by_id("1337").data.full_name == "test/test"
+    assert hacs.get_by_id("1337").data.full_name_lower == "test/test"
 
     hacs.repositories = [None]
     assert hacs.get_by_name(None) is None

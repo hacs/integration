@@ -13,6 +13,7 @@ class HacsTheme(HacsRepository):
         """Initialize."""
         super().__init__()
         self.data.full_name = full_name
+        self.data.full_name_lower = full_name.lower()
         self.data.category = "theme"
         self.content.path.remote = "themes"
         self.content.path.local = self.localpath

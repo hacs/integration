@@ -65,6 +65,7 @@ class RepositoryInformation:
     description = ""
     state = None
     full_name = None
+    full_name_lower = None
     file_name = None
     javascript_type = None
     homeassistant_version = None

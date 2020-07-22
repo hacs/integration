@@ -111,9 +111,10 @@ class Hacs(HacsHelpers):
 
     def get_by_name(self, repository_full_name):
         """Get repository by full_name."""
+        repository_full_name_lower = repository_full_name.lower()
         try:
             for repository in self.repositories:
-                if repository.data.full_name.lower() == repository_full_name.lower():
+                if repository.data.full_name_lower == repository_full_name_lower:
                     return repository
         except (Exception, BaseException):  # pylint: disable=broad-except
             pass

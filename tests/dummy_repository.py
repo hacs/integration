@@ -28,6 +28,7 @@ def dummy_repository_base(repository=None):
     repository.hacs.system.config_path = tempfile.gettempdir()
     repository.logger = getLogger("test.test")
     repository.data.full_name = "test/test"
+    repository.data.full_name_lower = "test/test"
     repository.data.domain = "test"
     repository.data.last_version = "3"
     repository.data.selected_tag = "3"

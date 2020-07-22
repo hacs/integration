@@ -14,6 +14,7 @@ class HacsPlugin(HacsRepository):
         """Initialize."""
         super().__init__()
         self.data.full_name = full_name
+        self.data.full_name_lower = full_name.lower()
         self.data.file_name = None
         self.data.category = "plugin"
         self.information.javascript_type = None

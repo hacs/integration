@@ -113,6 +113,11 @@ async def async_startup_wrapper_for_yaml():
     hacs.system.disabled = False
 
 
+async def _wait_for_startup(event):
+    """Startup after the start event."""
+    await get_hacs().startup_tasks()
+
+
 async def async_hacs_startup():
     """HACS startup tasks."""
     hacs = get_hacs()
@@ -183,7 +188,7 @@ async def async_hacs_startup():
     await async_setup_frontend()
 
     # Setup startup tasks
-    hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs.startup_tasks)
+    hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, _wait_for_startup)
 
     # Set up sensor
     await async_add_sensor()

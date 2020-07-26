@@ -183,10 +183,7 @@ async def async_hacs_startup():
     await async_setup_frontend()
 
     # Setup startup tasks
-    if hacs.configuration.config_type == "yaml":
-        hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs.startup_tasks())
-    else:
-        async_call_later(hacs.hass, 5, hacs.startup_tasks())
+    hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs.startup_tasks())
 
     # Set up sensor
     await async_add_sensor()

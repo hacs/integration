@@ -183,7 +183,7 @@ async def async_hacs_startup():
     await async_setup_frontend()
 
     # Setup startup tasks
-    hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs.startup_tasks())
+    hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, hacs.startup_tasks)
 
     # Set up sensor
     await async_add_sensor()

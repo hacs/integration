@@ -25,7 +25,7 @@ async def async_setup_frontend():
     # Add to sidepanel
     custom_panel_config = {
         "name": "hacs-frontend",
-        "embed_iframe": False,
+        "embed_iframe": True,
         "trust_external": False,
         "js_url": f"/hacsfiles/frontend-{hacs.frontend.version_running}.js",
     }

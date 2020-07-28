@@ -3,7 +3,8 @@
 import json
 import uuid
 from datetime import timedelta
-import asyncio
+
+from queueman import QueueManager
 from aiogithubapi import AIOGitHubAPIException
 from homeassistant.helpers.event import async_track_time_interval
 
@@ -69,24 +70,8 @@ class System:
     config_path = None
     ha_version = None
     disabled = False
+    running = False
     lovelace_mode = "storage"
-
-
-class Developer:
-    """Developer settings/tools."""
-
-    template_id = "Repository ID"
-    template_content = ""
-    template_raw = ""
-
-    @property
-    def devcontainer(self):
-        """Is it a devcontainer?"""
-        import os
-
-        if "DEVCONTAINER" in os.environ:
-            return True
-        return False
 
 
 class Hacs(HacsHelpers):
@@ -100,7 +85,6 @@ class Hacs(HacsHelpers):
     frontend = HacsFrontend()
     repo = None
     data_repo = None
-    developer = Developer()
     data = None
     configuration = None
     logger = getLogger()
@@ -112,12 +96,8 @@ class Hacs(HacsHelpers):
     queue = get_queue()
     system = System()
     recuring_tasks = []
-    common = HacsCommon()
 
-    @staticmethod
-    def init(hass, github_token):
-        """Return a initialized HACS object."""
-        return Hacs()
+    common = HacsCommon()
 
     def get_by_id(self, repository_id):
         """Get repository by ID."""
@@ -132,8 +112,9 @@ class Hacs(HacsHelpers):
     def get_by_name(self, repository_full_name):
         """Get repository by full_name."""
         try:
+            repository_full_name_lower = repository_full_name.lower()
             for repository in self.repositories:
-                if repository.data.full_name.lower() == repository_full_name.lower():
+                if repository.data.full_name_lower == repository_full_name_lower:
                     return repository
         except (Exception, BaseException):  # pylint: disable=broad-except
             pass
@@ -212,6 +193,7 @@ class Hacs(HacsHelpers):
     async def handle_critical_repositories(self):
         """Handled critical repositories during runtime."""
         # Get critical repositories
+        critical_queue = QueueManager()
         instored = []
         critical = []
         was_installed = False
@@ -252,14 +234,14 @@ class Hacs(HacsHelpers):
                     was_installed = True
                     stored["acknowledged"] = False
                     # Remove from HACS
-                    self.queue.add(repository.uninstall())
+                    critical_queue.add(repository.uninstall())
                     repo.remove()
 
             stored_critical.append(stored)
             removed_repo.update_data(stored)
 
         # Uninstall
-        await self.queue.execute()
+        await critical_queue.execute()
 
         # Save to FS
         await async_save_to_store(self.hass, "critical", stored_critical)

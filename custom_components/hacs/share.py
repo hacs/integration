@@ -15,7 +15,7 @@ def get_hacs():
 
         _hacs = Hacs()
 
-        if not os.getenv("PYTEST") and os.getenv("GITHUB_ACTION"):
+        if not "PYTEST" in os.environ and "GITHUB_ACTION" in os.environ:
             _hacs.action = True
 
         SHARE["hacs"] = _hacs
@@ -57,9 +57,8 @@ def get_removed(repository):
         for x in SHARE["removed_repositories"]
         if x.repository.lower() == repository.lower()
     ]
-    if filter_repos:
-        return filter_repos.pop()
-    return None
+
+    return filter_repos.pop() or None
 
 
 def list_removed_repositories():

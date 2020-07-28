@@ -1,6 +1,6 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member, attribute-defined-outside-init
 from abc import ABC
-from custom_components.hacs.helpers.functions.check import async_run_repository_checks
+from custom_components.hacs.validate import async_run_repository_checks
 
 
 class RepositoryMethodPreRegistration(ABC):

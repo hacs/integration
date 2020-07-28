@@ -12,6 +12,7 @@ def test_repository_helpers_properties_custom():
     repository = HacsRepository()
 
     repository.data.full_name = "test/test"
+    repository.data.full_name_lower = "test/test"
     assert repository.custom
 
     repository.data.id = 1337
@@ -22,6 +23,7 @@ def test_repository_helpers_properties_custom():
     assert repository.custom
 
     repository.data.full_name = "hacs/integration"
+    repository.data.full_name_lower = "hacs/integration"
     assert not repository.custom
 
 

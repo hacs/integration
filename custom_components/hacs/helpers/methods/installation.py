@@ -22,10 +22,6 @@ class RepositoryMethodPreInstall(ABC):
 
 
 class RepositoryMethodInstall(ABC):
-    async def install(self) -> None:
-        self.logger.warning("'install' is deprecated, use 'async_install' instead")
-        await self.async_install()
-
     async def async_install(self) -> None:
         await self._async_pre_install()
         self.logger.info("Running installation steps")
@@ -87,7 +83,7 @@ async def async_install_repository(repository):
         backup.create()
 
     if repository.data.zip_release and version != repository.data.default_branch:
-        await repository.download_zip(repository)
+        await repository.download_zip_files(repository)
     else:
         await download_content(repository)
 

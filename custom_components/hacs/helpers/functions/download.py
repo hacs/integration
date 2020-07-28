@@ -204,6 +204,7 @@ async def download_content(repository):
                 continue
         queue.add(dowload_repository_content(repository, content))
     await queue.execute()
+    return repository.validate
 
 
 @concurrent(10)

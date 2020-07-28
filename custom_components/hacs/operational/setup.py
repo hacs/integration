@@ -2,7 +2,7 @@
 from aiogithubapi import AIOGitHubAPIException, GitHub
 from homeassistant import config_entries
 from homeassistant.components.lovelace import system_health_info
-from homeassistant.const import EVENT_HOMEASSISTANT_START
+from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.exceptions import ConfigEntryNotReady, ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
@@ -188,7 +188,7 @@ async def async_hacs_startup():
     await async_setup_frontend()
 
     # Setup startup tasks
-    hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, _wait_for_startup)
+    hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, _wait_for_startup)
 
     # Set up sensor
     await async_add_sensor()

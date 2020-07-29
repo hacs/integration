@@ -41,7 +41,7 @@ logger = getLogger("action")
 
 def error(error: str):
     logger.error(error)
-    exit()
+    exit(1)
 
 
 def get_event_data():

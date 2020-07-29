@@ -1,6 +1,6 @@
-{%- if version_installed == "master" %}
+{%- if version_installed == "main" %}
 
-## You are running master!
+## You are running main!
 
 This is **only** intended for development!
 

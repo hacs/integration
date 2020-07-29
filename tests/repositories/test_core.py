@@ -8,7 +8,7 @@ def test_hacs_repository_core_mostly_defaults():
 
     repository.data.full_name = "developer/repository"
     repository.data.full_name_lower = "developer/repository"
-    repository.data.default_branch = "master"
+    repository.data.default_branch = "main"
     repository.data.description = "Awesome GitHub repository"
 
     assert repository.display_name == "Repository"

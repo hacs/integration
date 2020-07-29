@@ -18,7 +18,7 @@ async def test_hacs_manifest_with_manifest():
     repository = dummy_repository_base()
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "hacs.json", "type": "file"}, "test/test", "master"
+            {"path": "hacs.json", "type": "file"}, "test/test", "main"
         )
     ]
     check = HacsManifest(repository)

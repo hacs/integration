@@ -10,7 +10,7 @@ repository_data = {
     "stargazers_count": 999,
     "archived": False,
     "topics": ["topic1", "topic2"],
-    "default_branch": "master",
+    "default_branch": "main",
     "last_commit": "12345678",
 }
 
@@ -48,7 +48,7 @@ integration_manifest = {
 release_data = [
     {
         "tag_name": "3",
-        "target_commitish": "master",
+        "target_commitish": "main",
         "name": "3",
         "draft": False,
         "prerelease": False,

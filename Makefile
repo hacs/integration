@@ -34,8 +34,8 @@ lint: ## Run linters
 coverage:
 	coverage report --skip-covered
 
-update: ## Pull master from hacs/integration
-	git pull upstream master;
+update: ## Pull main from hacs/integration
+	git pull upstream main;
 
 install-custom_components:
 	python3 setup.py develop

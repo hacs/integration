@@ -20,7 +20,7 @@ async def test_hacs_manifest_with_manifest():
     repository = dummy_repository_integration()
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "manifest.json", "type": "file"}, "test/test", "master"
+            {"path": "manifest.json", "type": "file"}, "test/test", "main"
         )
     ]
     check = IntegrationManifest(repository)

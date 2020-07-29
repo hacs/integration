@@ -8,10 +8,10 @@ from custom_components.hacs.helpers.functions.filters import find_first_of_filet
 def test_valid_objects():
     tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test/path/file.file", "type": "blob"}, "test/test", "master"
+            {"path": "test/path/file.file", "type": "blob"}, "test/test", "main"
         ),
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test/path/sub", "type": "blob"}, "test/test", "master"
+            {"path": "test/path/sub", "type": "blob"}, "test/test", "main"
         ),
     ]
     assert find_first_of_filetype(tree, "file", "filename") == "file.file"
@@ -25,10 +25,10 @@ def test_valid_list():
 def test_not_valid():
     tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": ".github/path/file.yaml", "type": "blob"}, "test/test", "master"
+            {"path": ".github/path/file.yaml", "type": "blob"}, "test/test", "main"
         ),
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": ".github/path/file.js", "type": "blob"}, "test/test", "master"
+            {"path": ".github/path/file.js", "type": "blob"}, "test/test", "main"
         ),
     ]
     assert not find_first_of_filetype(tree, "file", "filename")

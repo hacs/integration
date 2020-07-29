@@ -28,7 +28,7 @@ async def test_has_info_file():
     repository = dummy_repository_base()
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "info", "type": "file"}, "test/test", "master"
+            {"path": "info", "type": "file"}, "test/test", "main"
         )
     ]
     check = RepositoryInformationFile(repository)
@@ -41,7 +41,7 @@ async def test_has_info_md_file():
     repository = dummy_repository_base()
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "info.md", "type": "file"}, "test/test", "master"
+            {"path": "info.md", "type": "file"}, "test/test", "main"
         )
     ]
     check = RepositoryInformationFile(repository)
@@ -55,7 +55,7 @@ async def test_has_readme_file():
     repository.data.render_readme = True
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "readme", "type": "file"}, "test/test", "master"
+            {"path": "readme", "type": "file"}, "test/test", "main"
         )
     ]
     check = RepositoryInformationFile(repository)
@@ -69,7 +69,7 @@ async def test_has_readme_md_file():
     repository.data.render_readme = True
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "readme.md", "type": "file"}, "test/test", "master"
+            {"path": "readme.md", "type": "file"}, "test/test", "main"
         )
     ]
     check = RepositoryInformationFile(repository)

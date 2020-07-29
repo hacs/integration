@@ -16,7 +16,7 @@ from tests.sample_data import response_rate_limit_header
 async def test_download_content(aresponses, tmp_path, event_loop):
     aresponses.add(
         "raw.githubusercontent.com",
-        "/test/test/master/test/path/file.file",
+        "/test/test/main/test/path/file.file",
         "get",
         aresponses.Response(body="test", headers=response_rate_limit_header),
     )
@@ -26,7 +26,7 @@ async def test_download_content(aresponses, tmp_path, event_loop):
     repository.content.path.local = tmp_path
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test/path/file.file", "type": "blob"}, "test/test", "master"
+            {"path": "test/path/file.file", "type": "blob"}, "test/test", "main"
         )
     ]
     async with aiohttp.ClientSession(loop=event_loop) as session:
@@ -80,7 +80,7 @@ async def test_download_content_integration(aresponses, tmp_path, event_loop):
             AIOGitHubAPIRepositoryTreeContent(
                 {"path": f"custom_components/test/{integration_file}", "type": "blob"},
                 "test/test",
-                "master",
+                "main",
             )
         )
 

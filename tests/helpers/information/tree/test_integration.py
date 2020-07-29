@@ -42,7 +42,7 @@ async def test_base(aresponses, event_loop):
     )
     aresponses.add(
         "api.github.com",
-        "/repos/test/test/git/trees/master",
+        "/repos/test/test/git/trees/main",
         "get",
         aresponses.Response(
             body=json.dumps(tree_files_base_integration()),

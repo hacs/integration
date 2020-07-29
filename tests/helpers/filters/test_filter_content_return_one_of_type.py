@@ -10,13 +10,13 @@ from custom_components.hacs.helpers.functions.filters import (
 def test_valid_objects():
     tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test/file.file", "type": "blob"}, "test/test", "master"
+            {"path": "test/file.file", "type": "blob"}, "test/test", "main"
         ),
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test/newfile.file", "type": "blob"}, "test/test", "master"
+            {"path": "test/newfile.file", "type": "blob"}, "test/test", "main"
         ),
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test/file.png", "type": "blob"}, "test/test", "master"
+            {"path": "test/file.png", "type": "blob"}, "test/test", "main"
         ),
     ]
     files = [

@@ -44,7 +44,7 @@ async def test_get_tree(aresponses, event_loop):
     )
     aresponses.add(
         "api.github.com",
-        "/repos/test/test/git/trees/master",
+        "/repos/test/test/git/trees/main",
         "get",
         aresponses.Response(
             body=json.dumps(tree_files_base), headers=response_rate_limit_header
@@ -83,7 +83,7 @@ async def test_get_tree_exception(aresponses, event_loop):
     )
     aresponses.add(
         "api.github.com",
-        "/repos/test/test/git/trees/master",
+        "/repos/test/test/git/trees/main",
         "get",
         aresponses.Response(
             body=json.dumps(tree_files_base),

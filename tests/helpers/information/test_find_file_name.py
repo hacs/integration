@@ -15,7 +15,7 @@ def test_find_file_name_base():
     repository = dummy_repository_plugin()
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.js", "type": "blob"}, "test/test", "master"
+            {"path": "test.js", "type": "blob"}, "test/test", "main"
         )
     ]
     find_file_name(repository)
@@ -28,7 +28,7 @@ def test_find_file_name_root():
     repository.data.content_in_root = True
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.js", "type": "blob"}, "test/test", "master"
+            {"path": "test.js", "type": "blob"}, "test/test", "main"
         )
     ]
     find_file_name(repository)
@@ -40,7 +40,7 @@ def test_find_file_name_dist():
     repository = dummy_repository_plugin()
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "dist/test.js", "type": "blob"}, "test/test", "master"
+            {"path": "dist/test.js", "type": "blob"}, "test/test", "main"
         )
     ]
     find_file_name(repository)
@@ -53,7 +53,7 @@ def test_find_file_name_different_name():
     repository.data.filename = "card.js"
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "card.js", "type": "blob"}, "test/test", "master"
+            {"path": "card.js", "type": "blob"}, "test/test", "main"
         )
     ]
     find_file_name(repository)
@@ -80,7 +80,7 @@ def test_find_file_release_no_asset():
     ]
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.js", "type": "blob"}, "test/test", "master"
+            {"path": "test.js", "type": "blob"}, "test/test", "main"
         )
     ]
     find_file_name(repository)
@@ -92,7 +92,7 @@ def test_find_file_name_base_theme():
     repository = dummy_repository_theme()
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "themes/test.yaml", "type": "blob"}, "test/test", "master"
+            {"path": "themes/test.yaml", "type": "blob"}, "test/test", "main"
         )
     ]
     find_file_name(repository)
@@ -104,7 +104,7 @@ def test_find_file_name_base_python_script():
     repository = dummy_repository_python_script()
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "python_scripts/test.py", "type": "blob"}, "test/test", "master"
+            {"path": "python_scripts/test.py", "type": "blob"}, "test/test", "main"
         )
     ]
     find_file_name(repository)

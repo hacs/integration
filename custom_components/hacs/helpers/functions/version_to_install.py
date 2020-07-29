@@ -16,5 +16,5 @@ def version_to_install(repository):
         if repository.data.selected_tag in repository.data.published_tags:
             return repository.data.selected_tag
     if repository.data.default_branch is None:
-        return "master"
+        return "main"
     return repository.data.default_branch

@@ -36,8 +36,8 @@ def test_repository_helpers_properties_pending_update():
 
     repository = HacsRepository()
     repository.data.installed = True
-    repository.data.default_branch = "master"
-    repository.data.selected_tag = "master"
+    repository.data.default_branch = "main"
+    repository.data.selected_tag = "main"
     assert not repository.pending_update
 
     repository.data.installed_commit = "1"

@@ -14,7 +14,7 @@ def test_base():
 
 def test_ref_is_default():
     repository = dummy_repository_base()
-    repository.ref = "master"
+    repository.ref = "main"
     repository.data.category = "plugin"
     repository.data.releases = True
     assert not should_try_releases(repository)
@@ -44,5 +44,5 @@ def test_zip_release():
     assert should_try_releases(repository)
 
     # Select a branch
-    repository.ref = "master"
+    repository.ref = "main"
     assert not should_try_releases(repository)

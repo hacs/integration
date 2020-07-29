@@ -62,7 +62,7 @@ async def test_get_integration_manifest(aresponses, event_loop):
             AIOGitHubAPIRepositoryTreeContent(
                 {"path": "custom_components/test/manifest.json", "type": "blob"},
                 "test/test",
-                "master",
+                "main",
             )
         ]
         await get_integration_manifest(repository)
@@ -134,7 +134,7 @@ async def test_get_integration_manifest_format_issue(aresponses, event_loop):
             AIOGitHubAPIRepositoryTreeContent(
                 {"path": "custom_components/test/manifest.json", "type": "blob"},
                 "test/test",
-                "master",
+                "main",
             )
         ]
         with pytest.raises(HacsException):
@@ -183,7 +183,7 @@ async def test_get_integration_manifest_missing_required_key(aresponses, event_l
             AIOGitHubAPIRepositoryTreeContent(
                 {"path": "custom_components/test/manifest.json", "type": "blob"},
                 "test/test",
-                "master",
+                "main",
             )
         ]
         with pytest.raises(HacsException):

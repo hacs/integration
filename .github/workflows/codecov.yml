@@ -21,7 +21,10 @@ jobs:
         python-version: 3.8
 
     - name: Install dependencies
-      run: make init
+      run: |
+        sudo apt update
+        sudo apt install -y musl-dev
+        make init
 
     - name: Generate coverage report
       env:

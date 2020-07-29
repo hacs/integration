@@ -1,5 +1,4 @@
 """Data handler for HACS."""
-import asyncio
 from custom_components.hacs.const import VERSION
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.register_repository import (

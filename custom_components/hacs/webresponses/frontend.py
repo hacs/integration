@@ -20,7 +20,7 @@ async def async_serve_frontend():
 
     if hacs.configuration.debug:
         logger.debug("Serving DEBUG frontend")
-        servefile = await hacs.hass.async_add_executor_job(locate_debug_gz)
+        servefile = locate_debug_gz()
 
     elif hacs.configuration.frontend_repo_url:
         logger.debug("Serving REMOTE DEVELOPMENT frontend")
@@ -40,7 +40,7 @@ async def async_serve_frontend():
         logger.debug("Serving LOCAL DEVELOPMENT frontend")
         servefile = f"{hacs.configuration.frontend_repo}/hacs_frontend/main.js"
     else:
-        servefile = await hacs.hass.async_add_executor_job(locate_gz)
+        servefile = locate_gz()
 
     if servefile is None or not await async_path_exsist(servefile):
         return web.Response(status=404)

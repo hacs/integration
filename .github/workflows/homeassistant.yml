@@ -11,25 +11,15 @@ on:
 jobs:
   ha_test:
     name: Home Assistant Check
+    container:
+      image: docker.pkg.github.com/hacs/container/python${{ matrix.python-version }}
     strategy:
       matrix:
-        python-version: [3.7, 3.8]
+        python-version: ["37", "38", "39"]
     runs-on: ubuntu-latest
     steps:
     - name: "Get the repository content"
       uses: actions/checkout@v2
-
-    - name: Enable version ${{ matrix.python-version }} of Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - uses: actions/cache@v2
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
 
     - name: Install dependencies
       run: |

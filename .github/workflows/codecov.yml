@@ -12,7 +12,9 @@ jobs:
   run:
     runs-on: ubuntu-latest
     container:
-      image: ludeeus/container:python
+      image: docker.pkg.github.com/hacs/container/python38
+      env:
+        PYTEST: true
     name: Codecov
     steps:
     - uses: actions/checkout@v2
@@ -21,11 +23,8 @@ jobs:
       run:  make init
 
     - name: Generate coverage report
-      env:
-        PYTEST: true
       run: |
-        pip install pytest
-        pip install pytest-cov
+        pip install pytest pytest-cov
         python3 -m pytest --cov=./ --cov-report=xml
 
     - name: Upload coverage to Codecov

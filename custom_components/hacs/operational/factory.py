@@ -1,6 +1,5 @@
 # pylint: disable=missing-docstring,invalid-name
 import asyncio
-import time
 from datetime import timedelta
 
 from aiogithubapi import AIOGitHubAPIException

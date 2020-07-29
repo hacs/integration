@@ -1,5 +1,4 @@
 """API Handler for hacs_settings"""
-import logging
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant.components import websocket_api

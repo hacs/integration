@@ -4,7 +4,7 @@ from homeassistant import config_entries
 from homeassistant.components.lovelace import system_health_info
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
-from homeassistant.exceptions import ConfigEntryNotReady, ServiceNotFound
+from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 

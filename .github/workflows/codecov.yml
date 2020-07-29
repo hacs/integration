@@ -10,21 +10,15 @@ on:
 
 jobs:
   run:
-    runs-on: ubuntu-latest
+    #runs-on: ubuntu-latest
+    container:
+      image: ludeeus/container:python
     name: Codecov
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
     - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y musl-dev musl-libc
-        make init
+      run:  make init
 
     - name: Generate coverage report
       env:

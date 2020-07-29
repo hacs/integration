@@ -1,5 +1,4 @@
 """Helpers to download repository content."""
-import asyncio
 import os
 import pathlib
 import tempfile

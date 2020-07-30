@@ -11,31 +11,18 @@ on:
 jobs:
   ha_test:
     name: Home Assistant Check
+    container:
+      image: hacscontainer/${{ matrix.version }}
     strategy:
       matrix:
-        python-version: [3.7, 3.8]
+        version: ["python37", "python38", "python39"]
     runs-on: ubuntu-latest
     steps:
     - name: "Get the repository content"
       uses: actions/checkout@v2
 
-    - name: Enable version ${{ matrix.python-version }} of Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - uses: actions/cache@v2
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-
     - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y python-dev pkg-config libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libswscale-dev libavresample-dev libavfilter-dev musl-dev
-        make init
+      run: make init
 
     - name: Install dependencies for custom_components
       run: |

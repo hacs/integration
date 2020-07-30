@@ -41,7 +41,7 @@ logger = getLogger("action")
 
 def error(error: str):
     logger.error(error)
-    exit()
+    exit(1)
 
 
 def get_event_data():
@@ -64,7 +64,7 @@ def chose_repository(category):
             new.remove(repo)
 
     if len(new) != 1:
-        error(f"{new} is not a single repo")
+        error(f"{new} is not a single repository")
 
     return new[0]
 

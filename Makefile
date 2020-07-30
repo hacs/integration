@@ -42,7 +42,7 @@ install-custom_components:
 
 homeassistant-install: ## Install the latest dev version of Home Assistant
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS);
-	python3 -m pip install -U homeassistant==0.112.5 --find-links $(WHEELS);
+	python3 -m pip --disable-pip-version-check install -U homeassistant==0.112.5 --find-links $(WHEELS);
 	#python3 -m pip --disable-pip-version-check \
 	#	install --upgrade git+git://github.com/home-assistant/home-assistant.git@dev;
 

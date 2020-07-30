@@ -10,31 +10,28 @@ on:
 
 jobs:
   run:
-    runs-on: ubuntu-latest
     name: Codecov
+    runs-on: ubuntu-latest
+    container:
+      image: hacscontainer/${{ matrix.version }}
+      env:
+        PYTEST: true
+    strategy:
+      matrix:
+        version: ["python37", "python38", "python39"]
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
     - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y musl-dev
-        make init
+      run:  make init
 
     - name: Generate coverage report
-      env:
-        PYTEST: true
       run: |
-        pip install pytest
-        pip install pytest-cov
+        python3 -m pip install pytest pytest-cov
         python3 -m pytest --cov=./ --cov-report=xml
 
     - name: Upload coverage to Codecov
+      if: ${{ matrix.version }} == "python38"
       uses: codecov/codecov-action@v1
       with:
         token: ${{secrets.CODECOV_TOKEN}}

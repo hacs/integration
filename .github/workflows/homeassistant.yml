@@ -22,11 +22,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y python-dev pkg-config libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libswscale-dev libavresample-dev libavfilter-dev musl-dev
-        ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2
-        make init
+      run: make init
 
     - name: Install dependencies for custom_components
       run: |

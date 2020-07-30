@@ -12,10 +12,10 @@ jobs:
   ha_test:
     name: Home Assistant Check
     container:
-      image: hacscontainer/python${{ matrix.python-version }}
+      image: hacscontainer/${{ matrix.version }}
     strategy:
       matrix:
-        python-version: ["37", "38", "39"]
+        version: ["python37", "python38", "python39"]
     runs-on: ubuntu-latest
     steps:
     - name: "Get the repository content"

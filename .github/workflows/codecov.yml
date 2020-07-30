@@ -10,12 +10,15 @@ on:
 
 jobs:
   run:
+    name: Codecov
     runs-on: ubuntu-latest
     container:
-      image: hacscontainer/python37
+      image: hacscontainer/${{ matrix.version }}
       env:
         PYTEST: true
-    name: Codecov
+    strategy:
+      matrix:
+        version: ["python37", "python38", "python39"]
     steps:
     - uses: actions/checkout@v2
 
@@ -28,6 +31,7 @@ jobs:
         python3 -m pytest --cov=./ --cov-report=xml
 
     - name: Upload coverage to Codecov
+      if: ${{ matrix.version }} == "python38"
       uses: codecov/codecov-action@v1
       with:
         token: ${{secrets.CODECOV_TOKEN}}

@@ -33,7 +33,7 @@ from custom_components.hacs.operational.setup_actions.websocket_api import (
 from custom_components.hacs.share import get_hacs
 
 
-def _common_setup(hass):
+async def _async_common_setup(hass):
     """Common setup stages."""
     hacs = get_hacs()
     hacs.hass = hass
@@ -50,7 +50,7 @@ async def async_setup_entry(hass, config_entry):
         hass.async_create_task(hass.config_entries.async_remove(config_entry.entry_id))
         return False
 
-    await hass.async_add_executor_job(_common_setup, hass)
+    await _async_common_setup(hass)
 
     hacs.configuration = Configuration.from_dict(
         config_entry.data, config_entry.options
@@ -69,7 +69,7 @@ async def async_setup(hass, config):
     if hacs.configuration and hacs.configuration.config_type == "flow":
         return True
 
-    await hass.async_add_executor_job(_common_setup, hass)
+    await _async_common_setup(hass)
 
     hass.data[DOMAIN] = config[DOMAIN]
     hacs.configuration = Configuration.from_dict(config[DOMAIN])

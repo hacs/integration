@@ -157,6 +157,8 @@ if UPDATERELEASE == "yes":
     RELEASE = REPO.get_release(VERSION)
     RELEASE.update_release(
         name=VERSION,
+        prerelease=RELEASE.prerelease,
+        draft=RELEASE.draft,
         message=BODY.format(
             version=VERSION,
             changes=CHANGES.format(

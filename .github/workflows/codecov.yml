@@ -31,7 +31,5 @@ jobs:
         python3 -m pytest --cov=./ --cov-report=xml
 
     - name: Upload coverage to Codecov
-      if: ${{ matrix.version }} == "python38"
-      uses: codecov/codecov-action@v1
-      with:
-        token: ${{secrets.CODECOV_TOKEN}}
+      if: matrix.version == "python38"
+      run: bash <(curl -s https://codecov.io/bash)

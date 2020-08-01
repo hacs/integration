@@ -8,7 +8,7 @@ help: ## Shows help message.
 	@awk 'BEGIN {FS = ":.*##";} /^[a-zA-Z_-]+:.*?##/ { printf " \033[36m make %-25s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST);
 	@echo
 
-init: requirements homeassistant-install install-custom_components
+init: requirements homeassistant-install
 
 requirements:
 ifdef HAS_APK
@@ -24,7 +24,7 @@ start: ## Start the HA with the integration
 	@bash manage/integration_start;
 
 test: ## Run pytest
-	python3 -m pytest --cov=./ --cov-report=xml;
+	python3 -m pytest -v --cov=./ --cov-report=xml;
 
 lint: ## Run linters
 	pre-commit install-hooks --config .github/pre-commit-config.yaml;
@@ -37,13 +37,10 @@ coverage:
 update: ## Pull main from hacs/integration
 	git pull upstream main;
 
-install-custom_components:
-	python3 setup.py develop
-
 homeassistant-install: ## Install the latest dev version of Home Assistant
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS);
 	python3 -m pip --disable-pip-version-check install -U homeassistant==0.112.5 --find-links $(WHEELS);
 	#python3 -m pip --disable-pip-version-check \
-	#	install --upgrade git+git://github.com/home-assistant/home-assistant.git@dev;
+	#	install --upgrade git+git://github.com/home-assistant/home-assistant.git@dev --find-links $(WHEELS);
 
 homeassistant-update: homeassistant-install ## Alias for 'homeassistant-install'

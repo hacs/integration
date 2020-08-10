@@ -155,7 +155,7 @@ async def download_zip_files(repository, validate):
 
         await queue.execute()
     except (Exception, BaseException) as exception:  # pylint: disable=broad-except
-        validate.errors.append(f"Download was not complete [{exception}]")
+        validate.errors.append(f"Download was not completed [{exception}]")
 
     return validate
 
@@ -180,11 +180,11 @@ async def async_download_zip_file(repository, content, validate):
         os.remove(f"{tempfile.gettempdir()}/{repository.data.filename}")
 
         if result:
-            repository.logger.info(f"download of {content.name} complete")
+            repository.logger.info(f"Download of {content.name} completed")
             return
         validate.errors.append(f"[{content.name}] was not downloaded.")
     except (Exception, BaseException) as exception:  # pylint: disable=broad-except
-        validate.errors.append(f"Download was not complete [{exception}]")
+        validate.errors.append(f"Download was not completed [{exception}]")
 
     return validate
 
@@ -240,6 +240,6 @@ async def dowload_repository_content(repository, content):
 
     result = await async_save_file(local_file_path, filecontent)
     if result:
-        repository.logger.info(f"download of {content.name} complete")
+        repository.logger.info(f"Download of {content.name} completed")
         return
     repository.validate.errors.append(f"[{content.name}] was not downloaded.")

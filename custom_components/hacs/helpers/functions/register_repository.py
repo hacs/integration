@@ -37,9 +37,9 @@ async def register_repository(full_name, category, check=True, ref=None):
                     raise HacsException(f"::error:: Validation for {full_name} failed.")
                 return repository.validate.errors
             if hacs.action:
-                repository.logger.info("Validation complete")
+                repository.logger.info("Validation completed")
             else:
-                repository.logger.info("Registration complete")
+                repository.logger.info("Registration completed")
         except AIOGitHubAPIException as exception:
             hacs.common.skip.append(repository.data.full_name)
             raise HacsException(f"Validation for {full_name} failed with {exception}.")

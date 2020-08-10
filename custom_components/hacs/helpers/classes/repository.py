@@ -271,7 +271,7 @@ class HacsRepository(RepositoryHelpers):
 
             await download_queue.execute()
         except (Exception, BaseException):
-            validate.errors.append(f"Download was not complete")
+            validate.errors.append(f"Download was not completed")
 
         return validate
 
@@ -293,11 +293,11 @@ class HacsRepository(RepositoryHelpers):
                 zip_file.extractall(self.content.path.local)
 
             if result:
-                self.logger.info(f"download of {content.name} complete")
+                self.logger.info(f"Download of {content.name} completed")
                 return
             validate.errors.append(f"[{content.name}] was not downloaded")
         except (Exception, BaseException):
-            validate.errors.append(f"Download was not complete")
+            validate.errors.append(f"Download was not completed")
 
         return validate
 

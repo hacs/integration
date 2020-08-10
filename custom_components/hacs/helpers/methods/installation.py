@@ -18,7 +18,7 @@ class RepositoryMethodPreInstall(ABC):
     async def _async_pre_install(self) -> None:
         self.logger.info("Running pre installation steps")
         await self.async_pre_install()
-        self.logger.info("Pre installation steps competed")
+        self.logger.info("Pre installation steps completed")
 
 
 class RepositoryMethodInstall(ABC):
@@ -26,7 +26,7 @@ class RepositoryMethodInstall(ABC):
         await self._async_pre_install()
         self.logger.info("Running installation steps")
         await async_install_repository(self)
-        self.logger.info("Installation steps competed")
+        self.logger.info("Installation steps completed")
         await self._async_post_install()
 
 
@@ -42,7 +42,7 @@ class RepositoryMethodPostInstall(ABC):
             "hacs/repository",
             {"id": 1337, "action": "install", "repository": self.data.full_name},
         )
-        self.logger.info("Post installation steps competed")
+        self.logger.info("Post installation steps completed")
 
 
 async def async_install_repository(repository):

@@ -8,8 +8,18 @@ from tests.common import (  # noqa: E402, isort:skip
     async_test_home_assistant,
     mock_storage as mock_storage,
     TOKEN,
+    dummy_repository_base,
 )
 from tests.async_mock import MagicMock, Mock, patch
+from custom_components.hacs.repositories import (
+    HacsAppdaemon,
+    HacsIntegration,
+    HacsNetdaemon,
+    HacsPlugin,
+    HacsPythonScript,
+    HacsTheme,
+)
+
 from custom_components.hacs.hacsbase.hacs import Hacs
 from custom_components.hacs.hacsbase.configuration import Configuration
 
@@ -64,3 +74,51 @@ def hacs():
     hacs_obj.configuration = Configuration()
     hacs_obj.configuration.token = TOKEN
     yield hacs_obj
+
+
+@pytest.fixture
+def repository(hass):
+    """Fixtrue for HACS repository object"""
+    yield dummy_repository_base(hass)
+
+
+@pytest.fixture
+def repository_integration(hass):
+    """Fixtrue for HACS integration repository object"""
+    repository_obj = HacsIntegration("test/test")
+    yield dummy_repository_base(hass, repository_obj)
+
+
+@pytest.fixture
+def repository_theme(hass):
+    """Fixtrue for HACS theme repository object"""
+    repository_obj = HacsTheme("test/test")
+    yield dummy_repository_base(hass, repository_obj)
+
+
+@pytest.fixture
+def repository_plugin(hass):
+    """Fixtrue for HACS plugin repository object"""
+    repository_obj = HacsPlugin("test/test")
+    yield dummy_repository_base(hass, repository_obj)
+
+
+@pytest.fixture
+def repository_python_script(hass):
+    """Fixtrue for HACS python_script repository object"""
+    repository_obj = HacsPythonScript("test/test")
+    yield dummy_repository_base(hass, repository_obj)
+
+
+@pytest.fixture
+def repository_appdaemon(hass):
+    """Fixtrue for HACS appdaemon repository object"""
+    repository_obj = HacsAppdaemon("test/test")
+    yield dummy_repository_base(hass, repository_obj)
+
+
+@pytest.fixture
+def repository_netdaemon(hass):
+    """Fixtrue for HACS netdaemon repository object"""
+    repository_obj = HacsNetdaemon("test/test")
+    yield dummy_repository_base(hass, repository_obj)

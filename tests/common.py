@@ -13,7 +13,12 @@ from homeassistant.auth import auth_store
 from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE
 from homeassistant.helpers import storage
 from homeassistant.util.unit_system import METRIC_SYSTEM
+from custom_components.hacs.helpers.functions.version_to_install import (
+    version_to_install,
+)
+from custom_components.hacs.helpers.functions.logger import getLogger
 
+from custom_components.hacs.helpers.classes.repository import HacsRepository
 from tests.async_mock import AsyncMock, Mock, patch
 
 _LOGGER = logging.getLogger(__name__)
@@ -23,11 +28,29 @@ INSTANCES = []
 
 def fixture(filename, asjson=True):
     """Load a fixture."""
-    path = os.path.join(os.path.dirname(__file__), "fixtures", filename)
+    path = os.path.join(os.path.dirname(__file__), "fixtures", f"{filename}.json")
     with open(path, encoding="utf-8") as fptr:
         if asjson:
             return json.loads(fptr.read())
         return fptr.read()
+
+
+def dummy_repository_base(hass, repository=None):
+    if repository is None:
+        repository = HacsRepository()
+    repository.hacs.hass = hass
+    repository.hacs.system.config_path = hass.config.path()
+    repository.logger = getLogger("test.test")
+    repository.data.full_name = "test/test"
+    repository.data.full_name_lower = "test/test"
+    repository.data.domain = "test"
+    repository.data.last_version = "3"
+    repository.data.selected_tag = "3"
+    repository.ref = version_to_install(repository)
+    repository.integration_manifest = {"config_flow": False, "domain": "test"}
+    repository.data.published_tags = ["1", "2", "3"]
+    repository.data.update_data(fixture("repository_data"))
+    return repository
 
 
 # pylint: disable=protected-access

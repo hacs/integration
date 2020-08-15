@@ -2,8 +2,6 @@
 # pylint: disable=missing-docstring
 import tempfile
 
-from homeassistant.core import HomeAssistant
-
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
@@ -55,14 +53,4 @@ def dummy_repository_plugin(hass):
 
 def dummy_repository_python_script(hass):
     repository = HacsPythonScript("test/test")
-    return dummy_repository_base(hass, repository)
-
-
-def dummy_repository_appdaemon(hass):
-    repository = HacsAppdaemon("test/test")
-    return dummy_repository_base(hass, repository)
-
-
-def dummy_repository_netdaemon(hass):
-    repository = HacsNetdaemon("test/test")
     return dummy_repository_base(hass, repository)

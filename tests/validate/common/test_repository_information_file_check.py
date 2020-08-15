@@ -8,24 +8,24 @@ from tests.dummy_repository import dummy_repository_base
 
 
 @pytest.mark.asyncio
-async def test_no_info_file():
-    repository = dummy_repository_base()
+async def test_no_info_file(hass):
+    repository = dummy_repository_base(hass)
     check = RepositoryInformationFile(repository)
     await check._async_run_check()
     assert check.failed
 
 
 @pytest.mark.asyncio
-async def test_no_readme_file():
-    repository = dummy_repository_base()
+async def test_no_readme_file(hass):
+    repository = dummy_repository_base(hass)
     check = RepositoryInformationFile(repository)
     await check._async_run_check()
     assert check.failed
 
 
 @pytest.mark.asyncio
-async def test_has_info_file():
-    repository = dummy_repository_base()
+async def test_has_info_file(hass):
+    repository = dummy_repository_base(hass)
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "info", "type": "file"}, "test/test", "main"
@@ -37,8 +37,8 @@ async def test_has_info_file():
 
 
 @pytest.mark.asyncio
-async def test_has_info_md_file():
-    repository = dummy_repository_base()
+async def test_has_info_md_file(hass):
+    repository = dummy_repository_base(hass)
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "info.md", "type": "file"}, "test/test", "main"
@@ -50,8 +50,8 @@ async def test_has_info_md_file():
 
 
 @pytest.mark.asyncio
-async def test_has_readme_file():
-    repository = dummy_repository_base()
+async def test_has_readme_file(hass):
+    repository = dummy_repository_base(hass)
     repository.data.render_readme = True
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
@@ -64,8 +64,8 @@ async def test_has_readme_file():
 
 
 @pytest.mark.asyncio
-async def test_has_readme_md_file():
-    repository = dummy_repository_base()
+async def test_has_readme_md_file(hass):
+    repository = dummy_repository_base(hass)
     repository.data.render_readme = True
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(

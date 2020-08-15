@@ -13,7 +13,7 @@ from tests.sample_data import response_rate_limit_header
 
 
 @pytest.mark.asyncio
-async def test_download_content(aresponses, tmp_path, event_loop):
+async def test_download_content(hass, aresponses, tmp_path, event_loop):
     aresponses.add(
         "raw.githubusercontent.com",
         "/test/test/main/test/path/file.file",
@@ -21,7 +21,7 @@ async def test_download_content(aresponses, tmp_path, event_loop):
         aresponses.Response(body="test", headers=response_rate_limit_header),
     )
 
-    repository = dummy_repository_base()
+    repository = dummy_repository_base(hass)
     repository.content.path.remote = ""
     repository.content.path.local = tmp_path
     repository.tree = [
@@ -38,7 +38,7 @@ async def test_download_content(aresponses, tmp_path, event_loop):
 
 
 @pytest.mark.asyncio
-async def test_download_content_integration(aresponses, tmp_path, event_loop):
+async def test_download_content_integration(hass, aresponses, tmp_path, event_loop):
     aresponses.add(
         "raw.githubusercontent.com",
         aresponses.ANY,
@@ -65,7 +65,7 @@ async def test_download_content_integration(aresponses, tmp_path, event_loop):
     )
     hacs = get_hacs()
     hacs.system.config_path = tmp_path
-    repository = dummy_repository_integration()
+    repository = dummy_repository_integration(hass)
     repository.data.domain = "test"
     repository.content.path.local = repository.localpath
     repository.content.path.remote = "custom_components/test"

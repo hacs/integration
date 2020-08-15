@@ -6,7 +6,6 @@ from datetime import timedelta
 
 from queueman import QueueManager
 from aiogithubapi import AIOGitHubAPIException
-from homeassistant.helpers.event import async_track_time_interval
 
 from custom_components.hacs.helpers import HacsHelpers
 from custom_components.hacs.helpers.functions.get_list_from_default import (
@@ -150,17 +149,17 @@ class Hacs(HacsHelpers):
         await self.clear_out_removed_repositories()
 
         self.recuring_tasks.append(
-            async_track_time_interval(
+            self.hass.helpers.event.async_track_time_interval(
                 self.hass, self.recurring_tasks_installed, timedelta(minutes=30)
             )
         )
         self.recuring_tasks.append(
-            async_track_time_interval(
+            self.hass.helpers.event.async_track_time_interval(
                 self.hass, self.recurring_tasks_all, timedelta(minutes=800)
             )
         )
         self.recuring_tasks.append(
-            async_track_time_interval(
+            self.hass.helpers.event.async_track_time_interval(
                 self.hass, self.prosess_queue, timedelta(minutes=10)
             )
         )
@@ -321,7 +320,7 @@ class Hacs(HacsHelpers):
                 if repository.data.installed and removed.removal_type != "critical":
                     self.logger.warning(
                         f"You have {repository.data.full_name} installed with HACS "
-                        + f"this repository has been removed, please consider removing it. "
+                        + "this repository has been removed, please consider removing it. "
                         + f"Removal reason ({removed.removal_type})"
                     )
                 else:

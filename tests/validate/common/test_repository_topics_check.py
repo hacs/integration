@@ -5,8 +5,8 @@ from tests.dummy_repository import dummy_repository_base
 
 
 @pytest.mark.asyncio
-async def test_repository_no_topics():
-    repository = dummy_repository_base()
+async def test_repository_no_topics(hass):
+    repository = dummy_repository_base(hass)
     repository.data.topics = []
     check = RepositoryTopics(repository)
     await check._async_run_check()
@@ -14,8 +14,8 @@ async def test_repository_no_topics():
 
 
 @pytest.mark.asyncio
-async def test_repository_hacs_topics():
-    repository = dummy_repository_base()
+async def test_repository_hacs_topics(hass):
+    repository = dummy_repository_base(hass)
     repository.data.topics = ["test"]
     check = RepositoryTopics(repository)
     await check._async_run_check()

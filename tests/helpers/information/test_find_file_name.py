@@ -11,8 +11,8 @@ from tests.dummy_repository import (
 )
 
 
-def test_find_file_name_base():
-    repository = dummy_repository_plugin()
+def test_find_file_name_base(hass):
+    repository = dummy_repository_plugin(hass)
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "test.js", "type": "blob"}, "test/test", "main"
@@ -23,8 +23,8 @@ def test_find_file_name_base():
     assert repository.content.path.remote == ""
 
 
-def test_find_file_name_root():
-    repository = dummy_repository_plugin()
+def test_find_file_name_root(hass):
+    repository = dummy_repository_plugin(hass)
     repository.data.content_in_root = True
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
@@ -36,8 +36,8 @@ def test_find_file_name_root():
     assert repository.content.path.remote == ""
 
 
-def test_find_file_name_dist():
-    repository = dummy_repository_plugin()
+def test_find_file_name_dist(hass):
+    repository = dummy_repository_plugin(hass)
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "dist/test.js", "type": "blob"}, "test/test", "main"
@@ -48,8 +48,8 @@ def test_find_file_name_dist():
     assert repository.content.path.remote == "dist"
 
 
-def test_find_file_name_different_name():
-    repository = dummy_repository_plugin()
+def test_find_file_name_different_name(hass):
+    repository = dummy_repository_plugin(hass)
     repository.data.filename = "card.js"
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
@@ -61,8 +61,8 @@ def test_find_file_name_different_name():
     assert repository.content.path.remote == ""
 
 
-def test_find_file_release():
-    repository = dummy_repository_plugin()
+def test_find_file_release(hass):
+    repository = dummy_repository_plugin(hass)
     repository.releases.objects = [
         AIOGitHubAPIRepositoryRelease(
             {"tag_name": "3", "assets": [{"name": "test.js"}]}
@@ -73,8 +73,8 @@ def test_find_file_release():
     assert repository.content.path.remote == "release"
 
 
-def test_find_file_release_no_asset():
-    repository = dummy_repository_plugin()
+def test_find_file_release_no_asset(hass):
+    repository = dummy_repository_plugin(hass)
     repository.releases.objects = [
         AIOGitHubAPIRepositoryRelease({"tag_name": "3", "assets": []})
     ]
@@ -88,8 +88,8 @@ def test_find_file_release_no_asset():
     assert repository.content.path.remote == ""
 
 
-def test_find_file_name_base_theme():
-    repository = dummy_repository_theme()
+def test_find_file_name_base_theme(hass):
+    repository = dummy_repository_theme(hass)
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "themes/test.yaml", "type": "blob"}, "test/test", "main"
@@ -100,8 +100,8 @@ def test_find_file_name_base_theme():
     assert repository.data.name == "test"
 
 
-def test_find_file_name_base_python_script():
-    repository = dummy_repository_python_script()
+def test_find_file_name_base_python_script(hass):
+    repository = dummy_repository_python_script(hass)
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "python_scripts/test.py", "type": "blob"}, "test/test", "main"

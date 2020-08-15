@@ -40,7 +40,10 @@ update: ## Pull main from hacs/integration
 homeassistant-install: ## Install the latest dev version of Home Assistant
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS);
 	python3 -m pip --disable-pip-version-check install -U homeassistant==0.112.5 --find-links $(WHEELS);
-	#python3 -m pip --disable-pip-version-check \
-	#	install --upgrade git+git://github.com/home-assistant/home-assistant.git@dev --find-links $(WHEELS);
+
+homeassistant-install-dev: ## Install the latest dev version of Home Assistant
+	python3 -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS);
+	python3 -m pip --disable-pip-version-check \
+		install --upgrade git+git://github.com/home-assistant/home-assistant.git@dev --find-links $(WHEELS);
 
 homeassistant-update: homeassistant-install ## Alias for 'homeassistant-install'

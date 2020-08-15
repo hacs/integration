@@ -17,9 +17,9 @@ async def test_async_initialize_rules():
 
 
 @pytest.mark.asyncio
-async def test_async_run_repository_checks():
+async def test_async_run_repository_checks(hass):
     hacs = get_hacs()
-    repository = dummy_repository_integration()
+    repository = dummy_repository_integration(hass)
     await async_run_repository_checks(repository)
 
     hacs.action = True

@@ -6,7 +6,7 @@ from tests.dummy_repository import dummy_repository_base
 
 
 @pytest.mark.asyncio
-async def test_hacs(tmpdir):
+async def test_hacs(hass, tmpdir):
     hacs = Hacs()
     hacs.hass = HomeAssistant()
     hacs.hass.config.config_dir = tmpdir
@@ -14,7 +14,7 @@ async def test_hacs(tmpdir):
     hacs.repositories = [None]
     assert hacs.get_by_id(None) is None
 
-    repo = dummy_repository_base()
+    repo = dummy_repository_base(hass)
     repo.data.id = "1337"
 
     hacs.repositories = [repo]

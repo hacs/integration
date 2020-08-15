@@ -8,8 +8,8 @@ class MockRelease:
     prerelease = True
 
 
-def test_render_template():
-    repository = dummy_repository_base()
+def test_render_template(hass):
+    repository = dummy_repository_base(hass)
     content = "ABC"
     render_template(content, repository)
     repository.releases.last_release_object = MockRelease()

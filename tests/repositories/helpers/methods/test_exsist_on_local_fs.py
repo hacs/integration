@@ -5,7 +5,7 @@ from tests.dummy_repository import dummy_repository_base
 
 
 @pytest.mark.asyncio
-async def test_exsist_on_local_fs(tmpdir):
-    repository = dummy_repository_base()
+async def test_exsist_on_local_fs(hass, tmpdir):
+    repository = dummy_repository_base(hass)
     repository.content.path.local = tmpdir
     assert await async_path_exsist(repository.content.path.local)

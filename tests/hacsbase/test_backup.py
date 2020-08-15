@@ -45,22 +45,18 @@ def test_muilti(tmpdir):
     backup.create()
 
 
-def test_netdaemon_backup():
-    repository = dummy_repository_netdaemon()
+def test_netdaemon_backup(hass):
+    repository = dummy_repository_netdaemon(hass)
     repository.content.path.local = repository.localpath
     os.makedirs(repository.content.path.local, exist_ok=True)
     backup = BackupNetDaemon(repository)
-
     with open(f"{repository.content.path.local}/dummy_file.yaml", "w") as dummy:
         dummy.write("test: test")
     with open(f"{repository.content.path.local}/dummy_file.yaml") as dummy:
         content = dummy.read()
         assert content == "test: test"
-
     assert not os.path.exists(backup.backup_path)
-
     os.makedirs(backup.backup_path, exist_ok=True)
-
     backup.create()
     assert os.path.exists(backup.backup_path)
     with open(f"{repository.content.path.local}/dummy_file.yaml", "w") as dummy:

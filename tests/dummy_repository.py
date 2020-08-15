@@ -20,11 +20,10 @@ from custom_components.hacs.helpers.classes.repository import HacsRepository
 from tests.sample_data import repository_data
 
 
-def dummy_repository_base(repository=None):
+def dummy_repository_base(hass, repository=None):
     if repository is None:
         repository = HacsRepository()
-    repository.hacs.hass = HomeAssistant()
-    repository.hacs.hass.data = {"custom_components": []}
+    repository.hacs.hass = hass
     repository.hacs.system.config_path = tempfile.gettempdir()
     repository.logger = getLogger("test.test")
     repository.data.full_name = "test/test"
@@ -39,31 +38,31 @@ def dummy_repository_base(repository=None):
     return repository
 
 
-def dummy_repository_integration():
+def dummy_repository_integration(hass):
     repository = HacsIntegration("test/test")
-    return dummy_repository_base(repository)
+    return dummy_repository_base(hass, repository)
 
 
-def dummy_repository_theme():
+def dummy_repository_theme(hass):
     repository = HacsTheme("test/test")
-    return dummy_repository_base(repository)
+    return dummy_repository_base(hass, repository)
 
 
-def dummy_repository_plugin():
+def dummy_repository_plugin(hass):
     repository = HacsPlugin("test/test")
-    return dummy_repository_base(repository)
+    return dummy_repository_base(hass, repository)
 
 
-def dummy_repository_python_script():
+def dummy_repository_python_script(hass):
     repository = HacsPythonScript("test/test")
-    return dummy_repository_base(repository)
+    return dummy_repository_base(hass, repository)
 
 
-def dummy_repository_appdaemon():
+def dummy_repository_appdaemon(hass):
     repository = HacsAppdaemon("test/test")
-    return dummy_repository_base(repository)
+    return dummy_repository_base(hass, repository)
 
 
-def dummy_repository_netdaemon():
+def dummy_repository_netdaemon(hass):
     repository = HacsNetdaemon("test/test")
-    return dummy_repository_base(repository)
+    return dummy_repository_base(hass, repository)

@@ -22,7 +22,7 @@ from tests.sample_data import (
 
 
 @pytest.mark.asyncio
-async def test_common_base(aresponses, event_loop):
+async def test_common_base(hass, aresponses, event_loop):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -83,13 +83,13 @@ async def test_common_base(aresponses, event_loop):
         hacs.session = session
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
-        repository = dummy_repository_base()
+        repository = dummy_repository_base(hass)
         repository.ref = None
         await common_validate(repository)
 
 
 @pytest.mark.asyncio
-async def test_get_releases_exception(aresponses, event_loop):
+async def test_get_releases_exception(hass, aresponses, event_loop):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -156,14 +156,14 @@ async def test_get_releases_exception(aresponses, event_loop):
         hacs.session = session
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
-        repository = dummy_repository_base()
+        repository = dummy_repository_base(hass)
         repository.ref = None
         await common_validate(repository)
         assert not repository.data.releases
 
 
 @pytest.mark.asyncio
-async def test_common_archived(aresponses, event_loop):
+async def test_common_archived(hass, aresponses, event_loop):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -184,14 +184,14 @@ async def test_common_archived(aresponses, event_loop):
         hacs.session = session
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
-        repository = dummy_repository_base()
+        repository = dummy_repository_base(hass)
         repository.data.archived = True
         with pytest.raises(HacsException):
             await common_validate(repository)
 
 
 @pytest.mark.asyncio
-async def test_common_blacklist(aresponses, event_loop):
+async def test_common_blacklist(hass, aresponses, event_loop):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -213,13 +213,13 @@ async def test_common_blacklist(aresponses, event_loop):
         hacs.configuration.token = TOKEN
         removed = get_removed("test/test")
         assert removed.repository == "test/test"
-        repository = dummy_repository_base()
+        repository = dummy_repository_base(hass)
         with pytest.raises(HacsException):
             await common_validate(repository)
 
 
 @pytest.mark.asyncio
-async def test_common_base_exception_does_not_exsist(aresponses, event_loop):
+async def test_common_base_exception_does_not_exsist(hass, aresponses, event_loop):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -243,13 +243,13 @@ async def test_common_base_exception_does_not_exsist(aresponses, event_loop):
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
         hacs.system.status.startup = False
-        repository = dummy_repository_base()
+        repository = dummy_repository_base(hass)
         with pytest.raises(HacsException):
             await common_validate(repository)
 
 
 @pytest.mark.asyncio
-async def test_common_base_exception_tree_issues(aresponses, event_loop):
+async def test_common_base_exception_tree_issues(hass, aresponses, event_loop):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -298,7 +298,7 @@ async def test_common_base_exception_tree_issues(aresponses, event_loop):
         hacs.session = session
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
-        repository = dummy_repository_base()
+        repository = dummy_repository_base(hass)
         hacs.system.status.startup = False
         with pytest.raises(HacsException):
             await common_validate(repository)

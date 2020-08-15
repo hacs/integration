@@ -14,8 +14,8 @@ from tests.dummy_repository import (
 )
 
 
-def test_gather_files_to_download():
-    repository = dummy_repository_base()
+def test_gather_files_to_download(hass):
+    repository = dummy_repository_base(hass)
     repository.content.path.remote = ""
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
@@ -26,8 +26,8 @@ def test_gather_files_to_download():
     assert "test/path/file.file" in files
 
 
-def test_gather_plugin_files_from_root():
-    repository = dummy_repository_plugin()
+def test_gather_plugin_files_from_root(hass):
+    repository = dummy_repository_plugin(hass)
     repository.content.path.remote = ""
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
@@ -51,8 +51,8 @@ def test_gather_plugin_files_from_root():
     assert "dist/test.js" not in files
 
 
-def test_gather_plugin_files_from_dist():
-    repository = dummy_repository_plugin()
+def test_gather_plugin_files_from_dist(hass):
+    repository = dummy_repository_plugin(hass)
     repository.content.path.remote = "dist"
     repository.data.file_name = "test.js"
     repository.tree = [
@@ -80,8 +80,8 @@ def test_gather_plugin_files_from_dist():
     assert "dist/test.js" in files
 
 
-def test_gather_plugin_multiple_plugin_files_from_dist():
-    repository = dummy_repository_plugin()
+def test_gather_plugin_multiple_plugin_files_from_dist(hass):
+    repository = dummy_repository_plugin(hass)
     repository.content.path.remote = "dist"
     repository.data.file_name = "test.js"
     repository.tree = [
@@ -101,8 +101,8 @@ def test_gather_plugin_multiple_plugin_files_from_dist():
     assert "dist/something_other.js" in files
 
 
-def test_gather_plugin_files_from_release():
-    repository = dummy_repository_plugin()
+def test_gather_plugin_files_from_release(hass):
+    repository = dummy_repository_plugin(hass)
     repository.data.file_name = "test.js"
     repository.data.releases = True
     release = AIOGitHubAPIRepositoryRelease(
@@ -113,8 +113,8 @@ def test_gather_plugin_files_from_release():
     assert "test.js" in files
 
 
-def test_gather_plugin_files_from_release_multiple():
-    repository = dummy_repository_plugin()
+def test_gather_plugin_files_from_release_multiple(hass):
+    repository = dummy_repository_plugin(hass)
     repository.data.file_name = "test.js"
     repository.data.releases = True
     repository.releases.objects = [
@@ -127,8 +127,8 @@ def test_gather_plugin_files_from_release_multiple():
     assert "test.png" in files
 
 
-def test_gather_zip_release():
-    repository = dummy_repository_plugin()
+def test_gather_zip_release(hass):
+    repository = dummy_repository_plugin(hass)
     repository.data.file_name = "test.zip"
     repository.data.zip_release = True
     repository.data.filename = "test.zip"
@@ -141,8 +141,8 @@ def test_gather_zip_release():
     assert "test.zip" in files
 
 
-def test_single_file_repo():
-    repository = dummy_repository_base()
+def test_single_file_repo(hass):
+    repository = dummy_repository_base(hass)
     repository.content.single = True
     repository.data.file_name = "test.file"
     repository.tree = [
@@ -165,8 +165,8 @@ def test_single_file_repo():
     assert "test.file" in files
 
 
-def test_gather_content_in_root_theme():
-    repository = dummy_repository_theme()
+def test_gather_content_in_root_theme(hass):
+    repository = dummy_repository_theme(hass)
     repository.data.content_in_root = True
     repository.content.path.remote = ""
     repository.data.file_name = "test.yaml"
@@ -186,8 +186,8 @@ def test_gather_content_in_root_theme():
     assert "test.yaml" in files
 
 
-def test_gather_netdaemon_files_base():
-    repository = dummy_repository_netdaemon()
+def test_gather_netdaemon_files_base(hass):
+    repository = dummy_repository_netdaemon(hass)
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "test.cs", "type": "blob"}, "test/test", "main"
@@ -209,8 +209,8 @@ def test_gather_netdaemon_files_base():
     assert "apps/test/test.yaml" in files
 
 
-def test_gather_appdaemon_files_base():
-    repository = dummy_repository_appdaemon()
+def test_gather_appdaemon_files_base(hass):
+    repository = dummy_repository_appdaemon(hass)
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "test.py", "type": "blob"}, "test/test", "main"
@@ -228,8 +228,8 @@ def test_gather_appdaemon_files_base():
     assert "apps/test/test.py" in files
 
 
-def test_gather_appdaemon_files_with_subdir():
-    repository = dummy_repository_appdaemon()
+def test_gather_appdaemon_files_with_subdir(hass):
+    repository = dummy_repository_appdaemon(hass)
     repository.data.file_name = "test.py"
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
@@ -260,8 +260,8 @@ def test_gather_appdaemon_files_with_subdir():
     assert "apps/test/core/test.py" in files
 
 
-def test_gather_plugin_multiple_files_in_root():
-    repository = dummy_repository_plugin()
+def test_gather_plugin_multiple_files_in_root(hass):
+    repository = dummy_repository_plugin(hass)
     repository.content.path.remote = ""
     repository.data.file_name = "test.js"
     repository.tree = [
@@ -289,8 +289,8 @@ def test_gather_plugin_multiple_files_in_root():
     assert "info.md" not in files
 
 
-def test_gather_plugin_different_card_name():
-    repository = dummy_repository_plugin()
+def test_gather_plugin_different_card_name(hass):
+    repository = dummy_repository_plugin(hass)
     repository.content.path.remote = ""
     repository.data.file_name = "card.js"
     repository.tree = [

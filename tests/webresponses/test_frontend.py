@@ -39,4 +39,3 @@ async def test_frontend_frontend_repo_url(hacs, aresponses):
     )
     hacs.configuration.frontend_repo_url = "http://127.0.0.1"
     await async_serve_frontend()
-

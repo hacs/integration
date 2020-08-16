@@ -26,4 +26,3 @@ async def test_extra_stores_theme(hacs):
     hacs.hass.services._services["frontend"] = {"reload_themes": "dummy"}
     await async_setup_extra_stores()
     assert "theme" in hacs.common.categories
-

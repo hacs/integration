@@ -12,7 +12,7 @@ init: requirements homeassistant-install
 
 requirements:
 ifdef HAS_APK
-	apk add libxml2-dev libxslt-dev
+	apk add libxml2-dev libxslt-dev bash curl
 endif
 ifdef HAS_APT
 	sudo apt update && sudo apt install libxml2-dev libxslt-dev bash curl

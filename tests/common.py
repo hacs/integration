@@ -28,18 +28,19 @@ INSTANCES = []
 
 def fixture(filename, asjson=True):
     """Load a fixture."""
-    path = os.path.join(os.path.dirname(__file__), "fixtures", f"{filename}.json")
+    path = os.path.join(os.path.dirname(__file__), "fixtures", filename)
     with open(path, encoding="utf-8") as fptr:
         if asjson:
             return json.loads(fptr.read())
         return fptr.read()
 
 
-def dummy_repository_base(hass, repository=None):
+def dummy_repository_base(hacs, repository=None):
     if repository is None:
         repository = HacsRepository()
-    repository.hacs.hass = hass
-    repository.hacs.system.config_path = hass.config.path()
+    repository.hacs = hacs
+    repository.hacs.hass = hacs.hass
+    repository.hacs.system.config_path = hacs.hass.config.path()
     repository.logger = getLogger("test.test")
     repository.data.full_name = "test/test"
     repository.data.full_name_lower = "test/test"
@@ -49,7 +50,12 @@ def dummy_repository_base(hass, repository=None):
     repository.ref = version_to_install(repository)
     repository.integration_manifest = {"config_flow": False, "domain": "test"}
     repository.data.published_tags = ["1", "2", "3"]
-    repository.data.update_data(fixture("repository_data"))
+    repository.data.update_data(fixture("repository_data.json"))
+
+    async def update_repository():
+        pass
+
+    repository.update_repository = update_repository
     return repository
 
 

@@ -12,7 +12,7 @@ from tests.common import fixture
 
 @pytest.mark.asyncio
 async def test_storage(hass):
-    data = fixture("stored_repositories")
+    data = fixture("stored_repositories.json")
     print(data)
     await async_save_to_store(hass, "repositories", data)
 

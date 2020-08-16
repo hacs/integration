@@ -10,6 +10,7 @@ from tests.common import (  # noqa: E402, isort:skip
     TOKEN,
     dummy_repository_base,
 )
+from custom_components.hacs.share import SHARE
 from tests.async_mock import MagicMock, Mock, patch
 from custom_components.hacs.repositories import (
     HacsAppdaemon,
@@ -67,58 +68,59 @@ def hass(event_loop, tmpdir):
 
 
 @pytest.fixture
-def hacs():
+def hacs(hass):
     """Fixture to provide a HACS object."""
     hacs_obj = Hacs()
     hacs_obj.hass = hass
     hacs_obj.configuration = Configuration()
     hacs_obj.configuration.token = TOKEN
+    SHARE["hacs"] = hacs_obj
     yield hacs_obj
 
 
 @pytest.fixture
-def repository(hass):
+def repository(hacs):
     """Fixtrue for HACS repository object"""
-    yield dummy_repository_base(hass)
+    yield dummy_repository_base(hacs)
 
 
 @pytest.fixture
-def repository_integration(hass):
+def repository_integration(hacs):
     """Fixtrue for HACS integration repository object"""
     repository_obj = HacsIntegration("test/test")
-    yield dummy_repository_base(hass, repository_obj)
+    yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
-def repository_theme(hass):
+def repository_theme(hacs):
     """Fixtrue for HACS theme repository object"""
     repository_obj = HacsTheme("test/test")
-    yield dummy_repository_base(hass, repository_obj)
+    yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
-def repository_plugin(hass):
+def repository_plugin(hacs):
     """Fixtrue for HACS plugin repository object"""
     repository_obj = HacsPlugin("test/test")
-    yield dummy_repository_base(hass, repository_obj)
+    yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
-def repository_python_script(hass):
+def repository_python_script(hacs):
     """Fixtrue for HACS python_script repository object"""
     repository_obj = HacsPythonScript("test/test")
-    yield dummy_repository_base(hass, repository_obj)
+    yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
-def repository_appdaemon(hass):
+def repository_appdaemon(hacs):
     """Fixtrue for HACS appdaemon repository object"""
     repository_obj = HacsAppdaemon("test/test")
-    yield dummy_repository_base(hass, repository_obj)
+    yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
-def repository_netdaemon(hass):
+def repository_netdaemon(hacs):
     """Fixtrue for HACS netdaemon repository object"""
     repository_obj = HacsNetdaemon("test/test")
-    yield dummy_repository_base(hass, repository_obj)
+    yield dummy_repository_base(hacs, repository_obj)

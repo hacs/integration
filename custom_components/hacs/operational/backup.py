@@ -1,4 +1,5 @@
 """Backup."""
+from custom_components.hacs.helpers.functions.is_safe_to_remove import is_safe_to_remove
 import os
 import shutil
 import tempfile
@@ -22,6 +23,8 @@ class Backup:
     def create(self):
         """Create a backup in /tmp"""
         if not os.path.exists(self.local_path):
+            return
+        if not is_safe_to_remove(self.local_path):
             return
         if os.path.exists(self.backup_path):
             shutil.rmtree(self.backup_path)
@@ -85,6 +88,8 @@ class BackupNetDaemon:
 
     def create(self):
         """Create a backup in /tmp"""
+        if not is_safe_to_remove(self.repository.content.path.local):
+            return
         if os.path.exists(self.backup_path):
             shutil.rmtree(self.backup_path)
             while os.path.exists(self.backup_path):

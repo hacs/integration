@@ -13,6 +13,8 @@ from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.helpers.classes.repositorydata import RepositoryData
 from custom_components.hacs.helpers.classes.validate import Validate
+from custom_components.hacs.helpers.functions.is_safe_to_remove import is_safe_to_remove
+
 from custom_components.hacs.helpers.functions.download import async_download_file
 from custom_components.hacs.helpers.functions.information import (
     get_info_md_content,
@@ -399,6 +401,8 @@ class HacsRepository(RepositoryHelpers):
                 local_path = self.content.path.local
 
             if os.path.exists(local_path):
+                if not is_safe_to_remove(local_path):
+                    return False
                 self.logger.debug(f"Removing {local_path}")
 
                 if self.data.category in ["python_script"]:

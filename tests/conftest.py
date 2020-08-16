@@ -87,6 +87,7 @@ def hacs(hass):
     hacs_obj.session = async_create_clientsession(hass)
     hacs_obj.configuration = Configuration()
     hacs_obj.configuration.token = TOKEN
+    hacs_obj.system.config_path = hass.config.path()
     SHARE["hacs"] = hacs_obj
     yield hacs_obj
 

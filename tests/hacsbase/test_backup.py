@@ -49,6 +49,7 @@ def test_netdaemon_backup(repository_netdaemon):
     repository.content.path.local = repository.localpath
     os.makedirs(repository.content.path.local, exist_ok=True)
     backup = BackupNetDaemon(repository)
+    backup.cleanup()
     with open(f"{repository.content.path.local}/dummy_file.yaml", "w") as dummy:
         dummy.write("test: test")
     with open(f"{repository.content.path.local}/dummy_file.yaml") as dummy:

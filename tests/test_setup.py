@@ -1,25 +1,11 @@
 """HACS Setup Test Suite."""
 # pylint: disable=missing-docstring
-import json
 import os
 
-import aiohttp
 import pytest
-from homeassistant.core import HomeAssistant
 
-from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.operational.setup_actions.clear_storage import (
     async_clear_storage,
-)
-from custom_components.hacs.operational.setup_actions.load_hacs_repository import (
-    async_load_hacs_repository,
-)
-from custom_components.hacs.share import get_hacs
-from tests.sample_data import (
-    release_data,
-    repository_data,
-    response_rate_limit_header,
-    tree_files_base_integration,
 )
 
 

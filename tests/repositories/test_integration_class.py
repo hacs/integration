@@ -1,9 +1,5 @@
 import pytest
-from homeassistant.core import HomeAssistant
-
 from custom_components.hacs.helpers.classes.exceptions import HacsException
-from custom_components.hacs.repositories import HacsIntegration
-from custom_components.hacs.share import get_hacs
 
 
 @pytest.mark.asyncio

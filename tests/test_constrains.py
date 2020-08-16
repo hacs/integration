@@ -7,7 +7,6 @@ from custom_components.hacs.helpers.functions.constrains import (
     constrain_custom_updater,
     constrain_version,
 )
-from custom_components.hacs.share import get_hacs
 
 HAVERSION = "9.99.9"
 

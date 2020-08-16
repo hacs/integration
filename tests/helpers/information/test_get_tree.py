@@ -16,7 +16,6 @@ from tests.sample_data import (
     response_rate_limit_header,
     response_rate_limit_header_with_limit,
     tree_files_base,
-    tree_files_base_integration,
 )
 
 

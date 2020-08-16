@@ -61,3 +61,16 @@ jobs:
 
     - name: Validation
       run: bellybutton lint
+
+  lint-json:
+    runs-on: ubuntu-latest
+    name: With JQ
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: make requirements
+
+    - name: Validation
+      run: jq -r -e -c . tests/fixtures/*.json

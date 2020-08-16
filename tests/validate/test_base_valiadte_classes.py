@@ -1,7 +1,4 @@
-from custom_components.hacs.validate.base import (
-    ActionValidationBase,
-    ValidationBase,
-)
+from custom_components.hacs.validate.base import ActionValidationBase, ValidationBase
 from tests.dummy_repository import dummy_repository_base
 
 

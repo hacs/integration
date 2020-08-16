@@ -13,12 +13,12 @@ from homeassistant.auth import auth_store
 from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE
 from homeassistant.helpers import storage
 from homeassistant.util.unit_system import METRIC_SYSTEM
+
+from custom_components.hacs.helpers.classes.repository import HacsRepository
+from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
 )
-from custom_components.hacs.helpers.functions.logger import getLogger
-
-from custom_components.hacs.helpers.classes.repository import HacsRepository
 from tests.async_mock import AsyncMock, Mock, patch
 
 _LOGGER = logging.getLogger(__name__)
@@ -119,7 +119,7 @@ async def async_test_home_assistant(loop, tmpdir):
     hass.config.time_zone = date_util.get_time_zone("US/Pacific")
     hass.config.units = METRIC_SYSTEM
     hass.config.skip_pip = True
-    hass.data = {"custom_components": []}
+    hass.data = {"custom_components": {}}
 
     hass.config_entries = config_entries.ConfigEntries(hass, {})
     hass.config_entries._entries = []

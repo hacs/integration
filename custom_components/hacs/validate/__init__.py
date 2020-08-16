@@ -1,8 +1,9 @@
 import asyncio
-import importlib
 import glob
+import importlib
 from os.path import dirname, join
-from custom_components.hacs.share import get_hacs, SHARE
+
+from custom_components.hacs.share import SHARE, get_hacs
 
 
 def _initialize_rules():

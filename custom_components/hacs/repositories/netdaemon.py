@@ -1,11 +1,10 @@
 """Class for netdaemon apps in HACS."""
 from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.helpers.classes.repository import HacsRepository
 from custom_components.hacs.helpers.functions.filters import (
     get_first_directory_in_directory,
 )
 from custom_components.hacs.helpers.functions.logger import getLogger
-
-from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 
 class HacsNetdaemon(HacsRepository):

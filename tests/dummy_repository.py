@@ -2,6 +2,7 @@
 # pylint: disable=missing-docstring
 import tempfile
 
+from custom_components.hacs.helpers.classes.repository import HacsRepository
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
@@ -14,7 +15,6 @@ from custom_components.hacs.repositories import (
     HacsPythonScript,
     HacsTheme,
 )
-from custom_components.hacs.helpers.classes.repository import HacsRepository
 from tests.sample_data import repository_data
 
 

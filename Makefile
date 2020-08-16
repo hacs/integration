@@ -8,7 +8,7 @@ help: ## Shows help message.
 	@awk 'BEGIN {FS = ":.*##";} /^[a-zA-Z_-]+:.*?##/ { printf " \033[36m make %-25s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST);
 	@echo
 
-init: requirements homeassistant-install
+init: requirements homeassistant-install ## Install requirements
 
 requirements:
 ifdef HAS_APK
@@ -24,14 +24,16 @@ start: ## Start the HA with the integration
 	@bash manage/integration_start;
 
 test: ## Run pytest
-	python3 -m pytest -v --cov=./ --cov-report=xml;
+	python3 -m pytest
 
 lint: ## Run linters
+	set -e
 	pre-commit install-hooks --config .github/pre-commit-config.yaml;
 	pre-commit run --hook-stage manual --all-files --config .github/pre-commit-config.yaml;
 	bellybutton lint
+	vulture . --min-confidence 75 --ignore-names policy
 
-coverage:
+coverage:  ## Display coverage report
 	coverage report --skip-covered
 
 update: ## Pull main from hacs/integration

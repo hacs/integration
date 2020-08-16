@@ -1,4 +1,5 @@
 import pytest
+
 from custom_components.hacs.operational.setup_actions.websocket_api import (
     async_setup_hacs_websockt_api,
 )

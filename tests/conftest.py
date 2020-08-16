@@ -1,17 +1,14 @@
 """Set up some common test helper things."""
-import logging
 import asyncio
+import logging
+
 import pytest
 from homeassistant.exceptions import ServiceNotFound
+from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.runner import HassEventLoopPolicy
-from tests.common import (  # noqa: E402, isort:skip
-    async_test_home_assistant,
-    mock_storage as mock_storage,
-    TOKEN,
-    dummy_repository_base,
-)
-from custom_components.hacs.share import SHARE
-from tests.async_mock import MagicMock, Mock, patch
+
+from custom_components.hacs.hacsbase.configuration import Configuration
+from custom_components.hacs.hacsbase.hacs import Hacs
 from custom_components.hacs.repositories import (
     HacsAppdaemon,
     HacsIntegration,
@@ -20,9 +17,16 @@ from custom_components.hacs.repositories import (
     HacsPythonScript,
     HacsTheme,
 )
+from custom_components.hacs.share import SHARE
+from tests.async_mock import MagicMock, Mock, patch
 
-from custom_components.hacs.hacsbase.hacs import Hacs
-from custom_components.hacs.hacsbase.configuration import Configuration
+from tests.common import (  # noqa: E402, isort:skip
+    async_test_home_assistant,
+    mock_storage as mock_storage,
+    TOKEN,
+    dummy_repository_base,
+)
+
 
 # Set default logger
 logging.basicConfig(level=logging.DEBUG)
@@ -33,6 +37,12 @@ pytestmark = pytest.mark.asyncio
 asyncio.set_event_loop_policy(HassEventLoopPolicy(False))
 # Disable fixtures overriding our beautiful policy
 asyncio.set_event_loop_policy = lambda policy: None
+
+
+@pytest.fixture()
+def connection():
+    """Mock fixture for connection."""
+    yield MagicMock()
 
 
 @pytest.fixture
@@ -58,11 +68,13 @@ def hass(event_loop, tmpdir):
     orig_exception_handler = event_loop.get_exception_handler()
     event_loop.set_exception_handler(exc_handle)
 
+    hass_obj.http = MagicMock()
+
     yield hass_obj
 
     event_loop.run_until_complete(hass_obj.async_stop(force=True))
     for ex in exceptions:
-        if isinstance(ex, ServiceNotFound):
+        if isinstance(ex, (ServiceNotFound, FileExistsError)):
             continue
         raise ex
 
@@ -72,6 +84,7 @@ def hacs(hass):
     """Fixture to provide a HACS object."""
     hacs_obj = Hacs()
     hacs_obj.hass = hass
+    hacs_obj.session = async_create_clientsession(hass)
     hacs_obj.configuration = Configuration()
     hacs_obj.configuration.token = TOKEN
     SHARE["hacs"] = hacs_obj

@@ -1,7 +1,7 @@
 import pytest
 from homeassistant.core import HomeAssistant
-from custom_components.hacs.hacsbase.hacs import Hacs
 
+from custom_components.hacs.hacsbase.hacs import Hacs
 from tests.dummy_repository import dummy_repository_base
 
 

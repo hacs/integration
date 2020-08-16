@@ -4,8 +4,8 @@ import json
 import uuid
 from datetime import timedelta
 
-from queueman import QueueManager
 from aiogithubapi import AIOGitHubAPIException
+from queueman import QueueManager
 
 from custom_components.hacs.helpers import HacsHelpers
 from custom_components.hacs.helpers.functions.get_list_from_default import (
@@ -250,7 +250,7 @@ class Hacs(HacsHelpers):
             self.logger.critical("Resarting Home Assistant")
             self.hass.async_create_task(self.hass.async_stop(100))
 
-    async def prosess_queue(self, notarealarg=None):
+    async def prosess_queue(self, _notarealarg=None):
         """Recurring tasks for installed repositories."""
         if not self.queue.has_pending_tasks:
             self.logger.debug("Nothing in the queue")
@@ -271,7 +271,7 @@ class Hacs(HacsHelpers):
             self.system.status.background_task = False
             self.hass.bus.async_fire("hacs/status", {})
 
-    async def recurring_tasks_installed(self, notarealarg=None):
+    async def recurring_tasks_installed(self, _notarealarg=None):
         """Recurring tasks for installed repositories."""
         self.logger.debug(
             "Starting recurring background task for installed repositories"
@@ -292,7 +292,7 @@ class Hacs(HacsHelpers):
         await self.data.async_write()
         self.logger.debug("Recurring background task for installed repositories done")
 
-    async def recurring_tasks_all(self, notarealarg=None):
+    async def recurring_tasks_all(self, _notarealarg=None):
         """Recurring tasks for all repositories."""
         self.logger.debug("Starting recurring background task for all repositories")
         await async_setup_extra_stores()

@@ -2,8 +2,8 @@
 # pylint: disable=missing-docstring
 import pytest
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.hacsbase.configuration import Configuration
+from custom_components.hacs.helpers.classes.exceptions import HacsException
 
 
 def test_configuration_and_option():

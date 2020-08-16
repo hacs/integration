@@ -7,7 +7,6 @@ from custom_components.hacs.helpers.functions.constrains import (
     constrain_custom_updater,
     constrain_version,
 )
-from custom_components.hacs.share import get_hacs
 
 HAVERSION = "9.99.9"
 
@@ -25,10 +24,9 @@ def temp_cleanup(tmpdir):
         os.remove(custom_updater2)
 
 
-def test_check_constrains(tmpdir):
-    hacs = get_hacs()
-    hacs.system.ha_version = HAVERSION
+def test_check_constrains(hacs, tmpdir):
     hacs.system.config_path = tmpdir.dirname
+    hacs.system.ha_version = HAVERSION
 
     assert check_constrains()
 
@@ -51,10 +49,8 @@ def test_check_constrains(tmpdir):
     temp_cleanup(tmpdir)
 
 
-def test_ha_version(tmpdir):
-    hacs = get_hacs()
+def test_ha_version(hacs, tmpdir):
     hacs.system.config_path = tmpdir.dirname
-
     hacs.system.ha_version = HAVERSION
     assert constrain_version()
 
@@ -67,8 +63,7 @@ def test_ha_version(tmpdir):
     temp_cleanup(tmpdir)
 
 
-def test_custom_updater(tmpdir):
-    hacs = get_hacs()
+def test_custom_updater(hacs, tmpdir):
     hacs.system.config_path = tmpdir.dirname
 
     assert constrain_custom_updater()

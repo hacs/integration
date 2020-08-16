@@ -4,25 +4,22 @@ from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeCo
 from custom_components.hacs.validate.integration.integration_manifest import (
     IntegrationManifest,
 )
-from tests.dummy_repository import dummy_repository_integration
 
 
 @pytest.mark.asyncio
-async def test_hacs_manifest_no_manifest():
-    repository = dummy_repository_integration()
-    check = IntegrationManifest(repository)
+async def test_hacs_manifest_no_manifest(repository_integration):
+    check = IntegrationManifest(repository_integration)
     await check._async_run_check()
     assert check.failed
 
 
 @pytest.mark.asyncio
-async def test_hacs_manifest_with_manifest():
-    repository = dummy_repository_integration()
-    repository.tree = [
+async def test_hacs_manifest_with_manifest(repository_integration):
+    repository_integration.tree = [
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "manifest.json", "type": "file"}, "test/test", "main"
         )
     ]
-    check = IntegrationManifest(repository)
+    check = IntegrationManifest(repository_integration)
     await check._async_run_check()
     assert not check.failed

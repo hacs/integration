@@ -1,34 +1,28 @@
-from homeassistant.core import HomeAssistant
 import pytest
-
-from custom_components.hacs.share import get_hacs, SHARE
+from custom_components.hacs.share import SHARE
 from custom_components.hacs.validate import (
-    async_run_repository_checks,
     async_initialize_rules,
+    async_run_repository_checks,
 )
-from tests.dummy_repository import dummy_repository_integration
 
 
 @pytest.mark.asyncio
-async def test_async_initialize_rules():
-    hacs = get_hacs()
-    hacs.hass = HomeAssistant()
+async def test_async_initialize_rules(hacs):
+
     await async_initialize_rules()
 
 
 @pytest.mark.asyncio
-async def test_async_run_repository_checks():
-    hacs = get_hacs()
-    repository = dummy_repository_integration()
-    await async_run_repository_checks(repository)
+async def test_async_run_repository_checks(hacs, repository_integration):
+    await async_run_repository_checks(repository_integration)
 
     hacs.action = True
     hacs.system.running = True
-    repository.tree = []
+    repository_integration.tree = []
     with pytest.raises(SystemExit):
-        await async_run_repository_checks(repository)
+        await async_run_repository_checks(repository_integration)
 
     hacs.action = False
     SHARE["rules"] = {}
-    await async_run_repository_checks(repository)
+    await async_run_repository_checks(repository_integration)
     hacs.system.running = False

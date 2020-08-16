@@ -6,7 +6,7 @@ from custom_components.hacs.const import DOMAIN, NAME_SHORT, VERSION
 from custom_components.hacs.share import get_hacs
 
 
-async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+async def async_setup_platform(hass, config, async_add_entities, _discovery_info=None):
     """Setup sensor platform."""
     async_add_entities([HACSSensor()])
 

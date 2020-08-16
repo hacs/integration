@@ -1,45 +1,23 @@
 import pytest
-
-from homeassistant.core import HomeAssistant
-
 from custom_components.hacs.helpers.classes.exceptions import HacsException
-from custom_components.hacs.share import get_hacs
-from custom_components.hacs.repositories import HacsTheme
 
 
 @pytest.mark.asyncio
-async def test_async_post_installation():
-    hacs = get_hacs()
-    hacs.hass = HomeAssistant()
-    repository = HacsTheme("test/test")
-    repository.hacs = hacs
-    await repository.async_post_installation()
+async def test_async_post_installation(repository_theme):
+    await repository_theme.async_post_installation()
 
 
 @pytest.mark.asyncio
-async def test_async_post_registration():
-    hacs = get_hacs()
-    hacs.hass = HomeAssistant()
-    repository = HacsTheme("test/test")
-    repository.hacs = hacs
-    await repository.async_post_registration()
+async def test_async_post_registration(repository_theme):
+    await repository_theme.async_post_registration()
 
 
 @pytest.mark.asyncio
-async def test_validate_repository():
-    hacs = get_hacs()
-    hacs.hass = HomeAssistant()
-    repository = HacsTheme("test/test")
-    repository.hacs = hacs
+async def test_validate_repository(repository_theme):
     with pytest.raises(HacsException):
-        await repository.validate_repository()
+        await repository_theme.validate_repository()
 
 
 @pytest.mark.asyncio
-async def test_update_repository():
-    hacs = get_hacs()
-    hacs.hass = HomeAssistant()
-    repository = HacsTheme("test/test")
-    repository.hacs = hacs
-    with pytest.raises(HacsException):
-        await repository.update_repository(True)
+async def test_update_repository(repository_theme):
+    await repository_theme.update_repository()

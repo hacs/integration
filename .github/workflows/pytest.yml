@@ -1,4 +1,4 @@
-name: Codecov
+name: Test
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   run:
-    name: Codecov
+    name: With pytest
     runs-on: ubuntu-latest
     container:
       image: hacscontainer/${{ matrix.version }}
@@ -28,8 +28,9 @@ jobs:
     - name: Generate coverage report
       run: |
         python3 -m pip install pytest pytest-cov
-        python3 -m pytest --cov=./ --cov-report=xml
+        python3 -m pytest
 
     - name: Upload coverage to Codecov
-      if: matrix.version == "python38"
-      run: bash <(curl -s https://codecov.io/bash)
+      if: ${{ matrix.version == 'python38' }}
+      run:
+        curl -sfSL https://codecov.io/bash | bash -

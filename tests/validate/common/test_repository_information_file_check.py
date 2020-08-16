@@ -4,28 +4,24 @@ from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeCo
 from custom_components.hacs.validate.common.repository_information_file import (
     RepositoryInformationFile,
 )
-from tests.dummy_repository import dummy_repository_base
 
 
 @pytest.mark.asyncio
-async def test_no_info_file():
-    repository = dummy_repository_base()
+async def test_no_info_file(repository):
     check = RepositoryInformationFile(repository)
     await check._async_run_check()
     assert check.failed
 
 
 @pytest.mark.asyncio
-async def test_no_readme_file():
-    repository = dummy_repository_base()
+async def test_no_readme_file(repository):
     check = RepositoryInformationFile(repository)
     await check._async_run_check()
     assert check.failed
 
 
 @pytest.mark.asyncio
-async def test_has_info_file():
-    repository = dummy_repository_base()
+async def test_has_info_file(repository):
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "info", "type": "file"}, "test/test", "main"
@@ -37,8 +33,7 @@ async def test_has_info_file():
 
 
 @pytest.mark.asyncio
-async def test_has_info_md_file():
-    repository = dummy_repository_base()
+async def test_has_info_md_file(repository):
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "info.md", "type": "file"}, "test/test", "main"
@@ -50,8 +45,7 @@ async def test_has_info_md_file():
 
 
 @pytest.mark.asyncio
-async def test_has_readme_file():
-    repository = dummy_repository_base()
+async def test_has_readme_file(repository):
     repository.data.render_readme = True
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
@@ -64,8 +58,7 @@ async def test_has_readme_file():
 
 
 @pytest.mark.asyncio
-async def test_has_readme_md_file():
-    repository = dummy_repository_base()
+async def test_has_readme_md_file(repository):
     repository.data.render_readme = True
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(

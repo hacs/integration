@@ -1,5 +1,8 @@
 """Data handler for HACS."""
+from queueman import QueueManager
+
 from custom_components.hacs.const import VERSION
+from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
@@ -8,9 +11,7 @@ from custom_components.hacs.helpers.functions.store import (
     async_load_from_store,
     async_save_to_store,
 )
-from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.share import get_hacs
-from queueman import QueueManager
 
 
 class HacsData:

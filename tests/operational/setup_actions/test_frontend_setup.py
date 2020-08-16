@@ -1,38 +1,16 @@
 import json
 import os
+
 import pytest
+
 from custom_components.hacs.operational.setup_actions.frontend import (
     async_setup_frontend,
 )
 
 
-from custom_components.hacs.share import get_hacs
-from homeassistant.core import HomeAssistant
-
-
-class MockHTTP:
-    def register_view(self, _):
-        pass
-
-
-class MockFrontend:
-    def async_register_built_in_panel(self, **kwargs):
-        pass
-
-
-class MockComponents:
-    @property
-    def frontend(self):
-        return MockFrontend()
-
-
 @pytest.mark.asyncio
-async def test_frontend_setup(tmpdir):
-    hacs = get_hacs()
+async def test_frontend_setup(hacs, tmpdir):
     hacs.system.config_path = tmpdir
-    hacs.hass = HomeAssistant()
-    hacs.hass.components = MockComponents()
-    hacs.hass.http = MockHTTP()
 
     content = {}
 
@@ -43,6 +21,3 @@ async def test_frontend_setup(tmpdir):
     ) as manifest:
         manifest.write(json.dumps(content))
     await async_setup_frontend()
-
-    # Reset
-    hacs.hass = HomeAssistant()

@@ -6,10 +6,10 @@ https://hacs.xyz/
 """
 import voluptuous as vol
 
+from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.helpers.functions.configuration_schema import (
     hacs_config_combined,
 )
-from custom_components.hacs.const import DOMAIN
 
 CONFIG_SCHEMA = vol.Schema({DOMAIN: hacs_config_combined()}, extra=vol.ALLOW_EXTRA)
 

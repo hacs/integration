@@ -5,7 +5,6 @@ import json
 import os
 
 from custom_components.hacs.helpers.functions.information import get_frontend_version
-from custom_components.hacs.share import get_hacs
 
 
 def temp_cleanup(tmpdir):
@@ -17,10 +16,9 @@ def temp_cleanup(tmpdir):
         os.removedirs(hacsdir)
 
 
-def test_get_frontend_version(tmpdir):
+def test_get_frontend_version(hacs, tmpdir):
     hacsdir = f"{tmpdir.dirname}/custom_components/hacs"
     manifestfile = f"{hacsdir}/manifest.json"
-    hacs = get_hacs()
     hacs.system.config_path = tmpdir.dirname
 
     data = {"requirements": ["hacs_frontend==999999999999"]}

@@ -1,18 +1,13 @@
 import os
+
 import pytest
-from homeassistant.core import HomeAssistant
 
 from custom_components.hacs.webresponses.category import async_serve_category_file
-from custom_components.hacs.hacsbase.configuration import Configuration
-
-from custom_components.hacs.share import get_hacs
 
 
 @pytest.mark.asyncio
-async def test_categpry(tmpdir):
-    hacs = get_hacs()
+async def test_categpry(hacs, tmpdir):
     hacs.system.config_path = tmpdir
-    hacs.hass = HomeAssistant()
     await async_serve_category_file("test")
     await async_serve_category_file("themes/test")
     await async_serve_category_file(None)

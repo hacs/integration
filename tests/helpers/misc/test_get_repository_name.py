@@ -1,16 +1,14 @@
 """Helpers: Misc: get_repository_name."""
 from custom_components.hacs.const import ELEMENT_TYPES
+from custom_components.hacs.helpers.classes.manifest import HacsManifest
 
 # pylint: disable=missing-docstring
 from custom_components.hacs.helpers.functions.misc import get_repository_name
-from custom_components.hacs.helpers.classes.manifest import HacsManifest
-from tests.dummy_repository import dummy_repository_base
 
 ELEMENT_TYPES = ELEMENT_TYPES + ["appdaemon", "python_script", "theme"]
 
 
-def test_everything():
-    repository = dummy_repository_base()
+def test_everything(repository):
     repository.data.full_name = "test/TEST-REPOSITORY-NAME"
     repository.data.full_name_lower = "test/TEST-REPOSITORY-NAME".lower()
     repository.repository_manifest = HacsManifest.from_dict(
@@ -24,8 +22,7 @@ def test_everything():
         assert name == "TEST-HACS_MANIFEST"
 
 
-def test_integration_manifest():
-    repository = dummy_repository_base()
+def test_integration_manifest(repository):
     repository.data.category = "integration"
     repository.data.full_name = "test/TEST-REPOSITORY-NAME"
     repository.data.full_name_lower = "test/TEST-REPOSITORY-NAME".lower()
@@ -36,8 +33,7 @@ def test_integration_manifest():
     assert name == "TEST-MANIFEST"
 
 
-def test_repository_name():
-    repository = dummy_repository_base()
+def test_repository_name(repository):
     repository.data.full_name = "test/TEST-REPOSITORY-NAME"
     repository.data.full_name_lower = "test/TEST-REPOSITORY-NAME".lower()
     repository.repository_manifest = HacsManifest.from_dict({})

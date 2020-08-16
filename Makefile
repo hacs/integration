@@ -15,7 +15,7 @@ ifdef HAS_APK
 	apk add libxml2-dev libxslt-dev
 endif
 ifdef HAS_APT
-	sudo apt update && sudo apt install libxml2-dev libxslt-dev
+	sudo apt update && sudo apt install libxml2-dev libxslt-dev bash curl
 endif
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS)
 	python3 -m pip --disable-pip-version-check install --ignore-installed -r requirements.txt --find-links $(WHEELS)

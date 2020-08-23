@@ -12,7 +12,7 @@ init: requirements homeassistant-install ## Install requirements
 
 requirements:
 ifdef HAS_APK
-	apk add libxml2-dev libxslt-dev bash curl jq
+	apk add libxml2-dev libxslt-dev bash curl jq gcc python3-dev jpeg-dev zlib-dev
 endif
 ifdef HAS_APT
 	sudo apt update && sudo apt install libxml2-dev libxslt-dev bash curl jq

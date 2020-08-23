@@ -21,13 +21,18 @@ async def async_serve_category_file(requested_file):
         if await async_path_exsist(servefile):
             logger.debug(f"Serving {requested_file} from {servefile}")
             response = web.FileResponse(servefile)
-            response.headers["Cache-Control"] = "no-store, max-age=0"
-            response.headers["Pragma"] = "no-store"
+            if requested_file.startswith("themes/"):
+                response.headers["Cache-Control"] = "public, max-age=2678400"
+            else:
+                response.headers["Cache-Control"] = "no-store, max-age=0"
+                response.headers["Pragma"] = "no-store"
             return response
         else:
             logger.error(f"Tried to serve up '{servefile}' but it does not exist")
 
-    except (Exception, BaseException) as error:
-        logger.debug(f"there was an issue trying to serve {requested_file} - {error}")
+    except (Exception, BaseException) as exception:
+        logger.debug(
+            f"there was an issue trying to serve {requested_file} - {exception}"
+        )
 
     return web.Response(status=404)

@@ -16,11 +16,11 @@ labels: "Feature Request"
 
 ## Checklist
 
-- [ ] This Feature Request only contain 1 request (if you have multiple open multiple feature requests).
+- [ ] This Feature Request only contains 1 request (if you have multiple open multiple feature requests).
 
 ## The idea
 
-<!-- To get a feel of what is expected have a look here  https://hacs.xyz/docs/issues -->
+<!-- To get a feel of what is expected have a look here https://hacs.xyz/docs/issues -->
 
 A good description of what you are suggesting.
 

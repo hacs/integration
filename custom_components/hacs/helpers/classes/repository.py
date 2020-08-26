@@ -402,6 +402,7 @@ class HacsRepository(RepositoryHelpers):
 
             if os.path.exists(local_path):
                 if not is_safe_to_remove(local_path):
+                    self.logger.error(f"{local_path} is not save to remove")
                     return False
                 self.logger.debug(f"Removing {local_path}")
 

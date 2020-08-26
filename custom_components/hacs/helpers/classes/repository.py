@@ -402,10 +402,9 @@ class HacsRepository(RepositoryHelpers):
 
             if os.path.exists(local_path):
                 if not is_safe_to_remove(local_path):
-                    self.logger.error(f"Path {local_path} is not save to remove")
+                    self.logger.error(f"Path {local_path} is blocked from removal")
                     return False
-                else:
-                    self.logger.debug(f"Removing {local_path}")
+                self.logger.debug(f"Removing {local_path}")
 
                 if self.data.category in ["python_script"]:
                     os.remove(local_path)

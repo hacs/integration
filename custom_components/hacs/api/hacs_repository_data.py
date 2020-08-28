@@ -41,6 +41,9 @@ async def hacs_repository_data(hass, connection, msg):
         if repo_id in hacs.common.skip:
             hacs.common.skip.remove(repo_id)
 
+        # Strip trailing slash character
+        repo_id = repo_id.rstrip("/")
+
         if not hacs.get_by_name(repo_id):
             try:
                 registration = await register_repository(repo_id, data.lower())

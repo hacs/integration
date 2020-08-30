@@ -1,5 +1,4 @@
 """Initialize the HACS base."""
-# pylint: disable=unused-argument, bad-continuation
 import json
 import uuid
 from datetime import timedelta
@@ -8,6 +7,8 @@ from aiogithubapi import AIOGitHubAPIException
 from queueman import QueueManager
 
 from custom_components.hacs.helpers import HacsHelpers
+
+from custom_components.hacs.helpers.const import HacsStage
 from custom_components.hacs.helpers.functions.get_list_from_default import (
     async_get_list_from_default,
 )
@@ -91,6 +92,7 @@ class Hacs(HacsHelpers):
     hass = None
     version = None
     session = None
+    stage = HacsStage.SETUP
     factory = get_factory()
     queue = get_queue()
     system = System()
@@ -139,6 +141,7 @@ class Hacs(HacsHelpers):
 
     async def startup_tasks(self):
         """Tasks that are started after startup."""
+        self.async_set_stage(HacsStage.STARTUP)
         self.system.status.background_task = True
         await async_setup_extra_stores()
         self.hass.bus.async_fire("hacs/status", {})
@@ -172,6 +175,7 @@ class Hacs(HacsHelpers):
         self.system.status.startup = False
         self.system.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
+        self.async_set_stage(HacsStage.RUNNING)
         await self.data.async_write()
 
     async def handle_critical_repositories_startup(self):
@@ -358,3 +362,8 @@ class Hacs(HacsHelpers):
                     continue
                 continue
             self.queue.add(self.factory.safe_register(repo, category))
+
+    async def async_set_stage(self, state: str) -> None:
+        """Set the state of HACS."""
+        self.stage = HacsStage(state)
+        self.hass.bus.async_fire("hacs/event/stage", {})

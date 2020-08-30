@@ -1,6 +1,7 @@
 """Class for themes in HACS."""
 from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.classes.repository import HacsRepository
+from custom_components.hacs.helpers.const import HacsCategory
 from custom_components.hacs.helpers.functions.information import find_file_name
 from custom_components.hacs.helpers.functions.logger import getLogger
 
@@ -13,7 +14,7 @@ class HacsTheme(HacsRepository):
         super().__init__()
         self.data.full_name = full_name
         self.data.full_name_lower = full_name.lower()
-        self.data.category = "theme"
+        self.data.category = HacsCategory.THEME
         self.content.path.remote = "themes"
         self.content.path.local = self.localpath
         self.content.single = False

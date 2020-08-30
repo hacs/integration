@@ -113,7 +113,7 @@ async def async_startup_wrapper_for_yaml():
     hacs.system.disabled = False
 
 
-async def _wait_for_startup(event):
+async def _wait_for_startup(_event):
     """Startup after the start event."""
     await get_hacs().startup_tasks()
 
@@ -129,11 +129,14 @@ async def async_hacs_startup():
     hacs.system.config_path = hacs.hass.config.path()
     hacs.system.ha_version = HAVERSION
 
-    # Clear old storage files
-    await async_clear_storage()
-
     # Setup websocket API
     await async_setup_hacs_websockt_api()
+
+    # Set up frontend
+    await async_setup_frontend()
+
+    # Clear old storage files
+    await async_clear_storage()
 
     hacs.system.lovelace_mode = lovelace_info.get("mode", "yaml")
     hacs.system.disabled = False
@@ -183,9 +186,6 @@ async def async_hacs_startup():
         hacs.common.categories.append("appdaemon")
     if hacs.configuration.netdaemon:
         hacs.common.categories.append("netdaemon")
-
-    # Set up frontend
-    await async_setup_frontend()
 
     # Setup startup tasks
     hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, _wait_for_startup)

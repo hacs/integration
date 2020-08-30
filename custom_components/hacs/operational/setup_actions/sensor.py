@@ -1,3 +1,4 @@
+""""Starting setup task: Sensor"."""
 from homeassistant.helpers import discovery
 
 from custom_components.hacs.const import DOMAIN
@@ -7,6 +8,7 @@ from custom_components.hacs.share import get_hacs
 def _add_sensor():
     """Add sensor."""
     hacs = get_hacs()
+    hacs.logger.debug("Starting setup task: Sensor")
 
     if hacs.configuration.config_type == "yaml":
         hacs.hass.async_create_task(

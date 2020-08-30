@@ -350,6 +350,7 @@ class Hacs(HacsHelpers):
         await self.queue.execute()
 
     async def async_get_category_repositories(self, category):
+        """Get repositories from category."""
         repositories = await async_get_list_from_default(category)
         for repo in repositories:
             if is_removed(repo):

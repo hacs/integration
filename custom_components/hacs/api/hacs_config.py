@@ -7,7 +7,7 @@ from custom_components.hacs.share import get_hacs
 
 @websocket_api.async_response
 @websocket_api.websocket_command({vol.Required("type"): "hacs/config"})
-async def hacs_config(hass, connection, msg):
+async def hacs_config(_hass, connection, msg):
     """Handle get media player cover command."""
     hacs = get_hacs()
     config = hacs.configuration

@@ -21,13 +21,14 @@ async def hacs_repository(hass, connection, msg):
     hacs = get_hacs()
     logger = getLogger("api.repository")
     data = {}
+    repository = None
+
+    repo_id = msg.get("repository")
+    action = msg.get("action")
+    if repo_id is None or action is None:
+        return
+
     try:
-        repo_id = msg.get("repository")
-        action = msg.get("action")
-
-        if repo_id is None or action is None:
-            return
-
         repository = hacs.get_by_id(repo_id)
         logger.debug(f"Running {action} for {repository.data.full_name}")
 
@@ -102,5 +103,6 @@ async def hacs_repository(hass, connection, msg):
         logger.error(message)
         hass.bus.async_fire("hacs/error", {"message": str(message)})
 
-    repository.state = None
-    connection.send_message(websocket_api.result_message(msg["id"], data))
+    if repository:
+        repository.state = None
+        connection.send_message(websocket_api.result_message(msg["id"], data))

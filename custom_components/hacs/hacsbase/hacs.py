@@ -353,4 +353,5 @@ class Hacs(HacsBase, HacsHelpers):
     async def async_set_stage(self, state: str) -> None:
         """Set the state of HACS."""
         self.stage = HacsStage(state)
+        self.log.info("Stage changed: %s", self.stage)
         self.hass.bus.async_fire("hacs/event/stage", {})

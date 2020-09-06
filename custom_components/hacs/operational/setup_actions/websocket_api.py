@@ -16,12 +16,14 @@ from custom_components.hacs.api.hacs_repository_data import hacs_repository_data
 from custom_components.hacs.api.hacs_settings import hacs_settings
 from custom_components.hacs.api.hacs_status import hacs_status
 from custom_components.hacs.share import get_hacs
+from ...enums import HacsSetupTask
+from ...decorator import announceSetup
 
 
+@announceSetup(HacsSetupTask.WEBSOCKET)
 async def async_setup_hacs_websockt_api():
     """Set up WS API handlers."""
     hacs = get_hacs()
-    hacs.log.debug("Starting setup task: WebSocket API")
     websocket_api.async_register_command(hacs.hass, hacs_settings)
     websocket_api.async_register_command(hacs.hass, hacs_config)
     websocket_api.async_register_command(hacs.hass, hacs_repositories)

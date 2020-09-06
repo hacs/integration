@@ -25,3 +25,12 @@ class HacsStage(str, Enum):
     STARTUP = "startup"
     RUNNING = "running"
     BACKGROUND = "background"
+
+
+class HacsSetupTask(str, Enum):
+    WEBSOCKET = "WebSocket API"
+    FRONTEND = "Frontend"
+    SENSOR = "Sensor"
+    HACS_REPO = "Hacs Repository"
+    CATEGORIES = "Additional categories"
+    CLEAR_STORAGE = "Clear storage"

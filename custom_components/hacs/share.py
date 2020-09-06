@@ -1,5 +1,4 @@
 """Shared HACS elements."""
-from functools import wraps
 import os
 
 from .models.base import Hacs

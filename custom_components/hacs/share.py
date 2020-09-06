@@ -20,7 +20,7 @@ def get_hacs() -> Hacs:
         _hacs = Legacy()
 
         if not "PYTEST" in os.environ and "GITHUB_ACTION" in os.environ:
-            _hacs.action = True
+            _hacs.system.action = True
 
         SHARE["hacs"] = _hacs
 

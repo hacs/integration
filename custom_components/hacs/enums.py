@@ -10,3 +10,18 @@ class HacsCategory(str, Enum):
     NETDAEMON = "netdaemon"
     PYTHON_SCRIPT = "python_script"
     THEME = "theme"
+
+
+class LovelaceMode(str, Enum):
+    """Lovelace Modes."""
+
+    STORAGE = "storage"
+    AUTO = "auto"
+    YAML = "yaml"
+
+
+class HacsStage(str, Enum):
+    SETUP = "setup"
+    STARTUP = "startup"
+    RUNNING = "running"
+    BACKGROUND = "background"

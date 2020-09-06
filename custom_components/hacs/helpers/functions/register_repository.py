@@ -33,10 +33,10 @@ async def register_repository(full_name, category, check=True, ref=None):
                 hacs.common.skip.append(repository.data.full_name)
                 if not hacs.status.startup:
                     hacs.log.error(f"Validation for {full_name} failed.")
-                if hacs.action:
+                if hacs.system.action:
                     raise HacsException(f"::error:: Validation for {full_name} failed.")
                 return repository.validate.errors
-            if hacs.action:
+            if hacs.system.action:
                 repository.logger.info("Validation completed")
             else:
                 repository.logger.info("Registration completed")

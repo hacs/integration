@@ -31,7 +31,7 @@ from custom_components.hacs.share import (
     list_removed_repositories,
 )
 
-from ..models.stage import HacsStage
+from ..enums import HacsStage
 from ..models.base import Hacs as HacsBase
 
 

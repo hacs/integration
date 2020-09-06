@@ -1,6 +1,6 @@
 """Starting setup task: extra stores."""
 from ...share import get_hacs
-from ...models.category import HacsCategory
+from ...enums import HacsCategory
 
 
 def _setup_extra_stores():

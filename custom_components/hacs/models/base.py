@@ -9,7 +9,7 @@ from homeassistant.core import HomeAssistant
 from .core import HacsCore
 from .frontend import HacsFrontend
 from .system import HacsSystem
-from .stage import HacsStage
+from ..enums import HacsStage
 
 
 @attr.s
@@ -21,7 +21,6 @@ class Hacs:
     hass: HomeAssistant = None
     repository: AIOGitHubAPIRepository = None
 
-    action: bool = False
     log: logging.Logger = logging.getLogger("custom_components.hacs")
 
     core: HacsCore = attr.ib(HacsCore)

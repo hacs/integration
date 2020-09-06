@@ -2,7 +2,7 @@
 from pathlib import Path
 import attr
 
-from .lovelace import LovelaceMode
+from ..enums import LovelaceMode
 
 
 @attr.s

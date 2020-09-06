@@ -3,7 +3,7 @@ from homeassistant.loader import async_get_custom_components
 
 from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.classes.repository import HacsRepository
-from custom_components.hacs.models.category import HacsCategory
+from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.helpers.functions.filters import (
     get_first_directory_in_directory,
 )
@@ -60,7 +60,7 @@ class HacsIntegration(HacsRepository):
         try:
             await get_integration_manifest(self)
         except HacsException as exception:
-            if self.hacs.action:
+            if self.hacs.system.action:
                 raise HacsException(f"::error:: {exception}")
             self.logger.error(exception)
 

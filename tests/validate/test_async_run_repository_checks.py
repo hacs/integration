@@ -16,13 +16,13 @@ async def test_async_initialize_rules(hacs):
 async def test_async_run_repository_checks(hacs, repository_integration):
     await async_run_repository_checks(repository_integration)
 
-    hacs.action = True
+    hacs.system.action = True
     hacs.system.running = True
     repository_integration.tree = []
     with pytest.raises(SystemExit):
         await async_run_repository_checks(repository_integration)
 
-    hacs.action = False
+    hacs.system.action = False
     SHARE["rules"] = {}
     await async_run_repository_checks(repository_integration)
     hacs.system.running = False

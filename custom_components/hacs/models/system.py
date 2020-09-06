@@ -1,6 +1,6 @@
 """HACS System info."""
 import attr
-from .stage import HacsStage
+from ..enums import HacsStage
 from ..const import VERSION
 
 
@@ -12,3 +12,4 @@ class HacsSystem:
     running: bool = False
     version: str = VERSION
     stage: HacsStage = attr.ib(HacsStage)
+    action: bool = False

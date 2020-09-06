@@ -8,7 +8,6 @@ from queueman import QueueManager
 
 from custom_components.hacs.helpers import HacsHelpers
 
-from custom_components.hacs.helpers.const import HacsStage
 from custom_components.hacs.helpers.functions.get_list_from_default import (
     async_get_list_from_default,
 )
@@ -33,6 +32,8 @@ from custom_components.hacs.share import (
     is_removed,
     list_removed_repositories,
 )
+
+from ..models.stage import HacsStage
 
 
 class HacsStatus:

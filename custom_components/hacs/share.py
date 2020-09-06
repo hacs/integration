@@ -1,4 +1,8 @@
+"""Shared HACS elements."""
+
 import os
+
+from .models.base import HacsBase
 
 SHARE = {
     "hacs": None,
@@ -9,7 +13,7 @@ SHARE = {
 }
 
 
-def get_hacs():
+def get_hacs() -> HacsBase:
     if SHARE["hacs"] is None:
         from custom_components.hacs.hacsbase.hacs import Hacs
 
@@ -63,3 +67,7 @@ def get_removed(repository):
 
 def list_removed_repositories():
     return SHARE["removed_repositories"]
+
+
+class HacsShare:
+    """Shared elements"""

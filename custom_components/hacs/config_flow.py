@@ -80,7 +80,7 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
         """Initialize HACS options flow."""
         self.config_entry = config_entry
 
-    async def async_step_init(self, user_input=None):
+    async def async_step_init(self, _user_input=None):
         """Manage the options."""
         return await self.async_step_user()
 

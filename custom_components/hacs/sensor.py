@@ -1,17 +1,17 @@
 """Sensor platform for HACS."""
-# pylint: disable=unused-argument
 from homeassistant.helpers.entity import Entity
-
 from custom_components.hacs.const import DOMAIN, NAME_SHORT, VERSION
 from custom_components.hacs.share import get_hacs
 
 
-async def async_setup_platform(hass, config, async_add_entities, _discovery_info=None):
+async def async_setup_platform(
+    _hass, _config, async_add_entities, _discovery_info=None
+):
     """Setup sensor platform."""
     async_add_entities([HACSSensor()])
 
 
-async def async_setup_entry(hass, config_entry, async_add_devices):
+async def async_setup_entry(_hass, _config_entry, async_add_devices):
     """Setup sensor platform."""
     async_add_devices([HACSSensor()])
 

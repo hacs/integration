@@ -1,6 +1,6 @@
 """Starting setup task: extra stores."""
-from custom_components.hacs.share import get_hacs
-from custom_components.hacs.helpers.const import HacsCategory
+from ...share import get_hacs
+from ...models.category import HacsCategory
 
 
 def _setup_extra_stores():

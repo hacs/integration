@@ -141,7 +141,7 @@ class Hacs(HacsHelpers):
 
     async def startup_tasks(self):
         """Tasks that are started after startup."""
-        self.async_set_stage(HacsStage.STARTUP)
+        await self.async_set_stage(HacsStage.STARTUP)
         self.system.status.background_task = True
         await async_setup_extra_stores()
         self.hass.bus.async_fire("hacs/status", {})
@@ -175,7 +175,7 @@ class Hacs(HacsHelpers):
         self.system.status.startup = False
         self.system.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
-        self.async_set_stage(HacsStage.RUNNING)
+        await self.async_set_stage(HacsStage.RUNNING)
         await self.data.async_write()
 
     async def handle_critical_repositories_startup(self):

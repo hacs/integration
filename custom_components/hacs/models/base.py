@@ -16,14 +16,15 @@ from .stage import HacsStage
 class Hacs:
     """Base HACS class."""
 
-    action: bool = False
-    core = attr.ib(HacsCore)
     default_repository: AIOGitHubAPIRepository = None
-    frontend = attr.ib(HacsFrontend)
-    hass: HomeAssistant = None
-    log: logging.Logger = logging.getLogger("custom_components.hacs")
-    repository: AIOGitHubAPIRepository = None
-    stage: HacsStage = HacsStage.SETUP
-    system = attr.ib(HacsSystem)
-    version = attr.ib(str)
     github: AIOGitHubAPI = None
+    hass: HomeAssistant = None
+    repository: AIOGitHubAPIRepository = None
+
+    action: bool = False
+    log: logging.Logger = logging.getLogger("custom_components.hacs")
+
+    core: HacsCore = attr.ib(HacsCore)
+    frontend: HacsFrontend = attr.ib(HacsFrontend)
+    stage: HacsStage = HacsStage.SETUP
+    system: HacsSystem = attr.ib(HacsSystem)

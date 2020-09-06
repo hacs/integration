@@ -1,6 +1,7 @@
 """HACS System info."""
 import attr
 from .stage import HacsStage
+from ..const import VERSION
 
 
 @attr.s
@@ -9,4 +10,5 @@ class HacsSystem:
 
     disabled: bool = False
     running: bool = False
-    stage = attr.ib(HacsStage)
+    version: str = VERSION
+    stage: HacsStage = attr.ib(HacsStage)

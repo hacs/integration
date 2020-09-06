@@ -29,7 +29,7 @@ def constrain_custom_updater():
             msg = CUSTOM_UPDATER_WARNING.format(
                 location.format(hacs.system.config_path)
             )
-            hacs.logger.critical(msg)
+            hacs.log.critical(msg)
             return False
     return True
 
@@ -38,7 +38,7 @@ def constrain_version():
     """Check if the version is valid."""
     hacs = get_hacs()
     if not version_left_higher_then_right(hacs.system.ha_version, MINIMUM_HA_VERSION):
-        hacs.logger.critical(
+        hacs.log.critical(
             f"You need HA version {MINIMUM_HA_VERSION} or newer to use this integration."
         )
         return False

@@ -43,7 +43,7 @@ class HACSSensor(HACSDevice):
     async def async_update(self):
         """Update the sensor."""
         hacs = get_hacs()
-        if hacs.system.status.background_task:
+        if hacs.status.background_task:
             return
 
         self.repositories = []

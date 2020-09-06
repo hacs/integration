@@ -8,7 +8,7 @@ from custom_components.hacs.share import get_hacs
 async def async_setup_frontend():
     """Configure the HACS frontend elements."""
     hacs = get_hacs()
-    hacs.logger.debug("Starting setup task: Frontend")
+    hacs.log.debug("Starting setup task: Frontend")
 
     # Custom view
     hacs.hass.http.register_view(HacsFrontend())

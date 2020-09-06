@@ -6,7 +6,7 @@ from ...models.category import HacsCategory
 def _setup_extra_stores():
     """Set up extra stores in HACS if enabled in Home Assistant."""
     hacs = get_hacs()
-    hacs.logger.debug("Starting setup task: Extra stores")
+    hacs.log.debug("Starting setup task: Extra stores")
     if HacsCategory.PYTHON_SCRIPT in hacs.hass.config.components:
         if HacsCategory.PYTHON_SCRIPT not in hacs.common.categories:
             hacs.common.categories.append(HacsCategory.PYTHON_SCRIPT)

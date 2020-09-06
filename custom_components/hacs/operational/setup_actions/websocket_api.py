@@ -21,7 +21,7 @@ from custom_components.hacs.share import get_hacs
 async def async_setup_hacs_websockt_api():
     """Set up WS API handlers."""
     hacs = get_hacs()
-    hacs.logger.debug("Starting setup task: WebSocket API")
+    hacs.log.debug("Starting setup task: WebSocket API")
     websocket_api.async_register_command(hacs.hass, hacs_settings)
     websocket_api.async_register_command(hacs.hass, hacs_config)
     websocket_api.async_register_command(hacs.hass, hacs_repositories)

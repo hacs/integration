@@ -107,7 +107,7 @@ async def async_startup_wrapper_for_yaml():
             .replace(" ", "_")
             .replace("-", "_")
         )
-        hacs.logger.info("Could not setup HACS, trying again in 15 min")
+        hacs.log.info("Could not setup HACS, trying again in 15 min")
         async_call_later(hacs.hass, 900, async_startup_wrapper_for_yaml())
         return
     hacs.system.disabled = False
@@ -123,9 +123,9 @@ async def async_hacs_startup():
     hacs = get_hacs()
 
     lovelace_info = await system_health_info(hacs.hass)
-    hacs.logger.debug(f"Configuration type: {hacs.configuration.config_type}")
+    hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")
     hacs.version = VERSION
-    hacs.logger.info(STARTUP)
+    hacs.log.info(STARTUP)
     hacs.system.config_path = hacs.hass.config.path()
     hacs.system.ha_version = HAVERSION
 
@@ -147,12 +147,12 @@ async def async_hacs_startup():
 
     can_update = await get_fetch_updates_for(hacs.github)
     if can_update is None:
-        hacs.logger.critical("Your GitHub token is not valid")
+        hacs.log.critical("Your GitHub token is not valid")
         return False
     elif can_update != 0:
-        hacs.logger.debug(f"Can update {can_update} repositories")
+        hacs.log.debug(f"Can update {can_update} repositories")
     else:
-        hacs.logger.info(
+        hacs.log.info(
             "HACS is ratelimited, repository updates will resume when the limit is cleared, this can take up to 1 hour"
         )
         return False

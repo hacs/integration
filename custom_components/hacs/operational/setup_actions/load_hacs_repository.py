@@ -11,7 +11,7 @@ from custom_components.hacs.share import get_hacs
 async def async_load_hacs_repository():
     """Load HACS repositroy."""
     hacs = get_hacs()
-    hacs.logger.debug("Starting setup task: Load HACS repository")
+    hacs.log.debug("Starting setup task: Load HACS repository")
 
     try:
         repository = hacs.get_by_name("hacs/integration")
@@ -29,8 +29,8 @@ async def async_load_hacs_repository():
         )
     except HacsException as exception:
         if "403" in f"{exception}":
-            hacs.logger.critical("GitHub API is ratelimited, or the token is wrong.")
+            hacs.log.critical("GitHub API is ratelimited, or the token is wrong.")
         else:
-            hacs.logger.critical(f"[{exception}] - Could not load HACS!")
+            hacs.log.critical(f"[{exception}] - Could not load HACS!")
         return False
     return True

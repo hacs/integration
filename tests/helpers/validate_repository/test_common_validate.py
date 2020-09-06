@@ -206,7 +206,7 @@ async def test_common_base_exception_does_not_exsist(hacs, repository, aresponse
             status=500,
         ),
     )
-    hacs.system.status.startup = False
+    hacs.status.startup = False
     with pytest.raises(HacsException):
         await common_validate(repository)
 
@@ -255,6 +255,6 @@ async def test_common_base_exception_tree_issues(repository, aresponses, hacs):
             body=json.dumps({"message": "X"}), headers=response_rate_limit_header
         ),
     )
-    hacs.system.status.startup = False
+    hacs.status.startup = False
     with pytest.raises(HacsException):
         await common_validate(repository)

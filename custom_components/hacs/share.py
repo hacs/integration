@@ -67,7 +67,3 @@ def get_removed(repository):
 
 def list_removed_repositories():
     return SHARE["removed_repositories"]
-
-
-class HacsShare:
-    """Shared elements"""

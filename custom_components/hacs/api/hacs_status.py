@@ -11,11 +11,11 @@ async def hacs_status(_hass, connection, msg):
     """Handle get media player cover command."""
     hacs = get_hacs()
     content = {
-        "startup": hacs.system.status.startup,
-        "background_task": hacs.system.status.background_task,
+        "startup": hacs.status.startup,
+        "background_task": hacs.status.background_task,
         "lovelace_mode": hacs.system.lovelace_mode,
-        "reloading_data": hacs.system.status.reloading_data,
-        "upgrading_all": hacs.system.status.upgrading_all,
+        "reloading_data": hacs.status.reloading_data,
+        "upgrading_all": hacs.status.upgrading_all,
         "disabled": hacs.system.disabled,
         "has_pending_tasks": hacs.queue.has_pending_tasks,
         "stage": hacs.stage,

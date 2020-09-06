@@ -1,8 +1,8 @@
 """Shared HACS elements."""
-
+from functools import wraps
 import os
 
-from .models.base import HacsBase
+from .models.base import Hacs
 
 SHARE = {
     "hacs": None,
@@ -13,11 +13,11 @@ SHARE = {
 }
 
 
-def get_hacs() -> HacsBase:
+def get_hacs() -> Hacs:
     if SHARE["hacs"] is None:
-        from custom_components.hacs.hacsbase.hacs import Hacs
+        from custom_components.hacs.hacsbase.hacs import Hacs as Legacy
 
-        _hacs = Hacs()
+        _hacs = Legacy()
 
         if not "PYTEST" in os.environ and "GITHUB_ACTION" in os.environ:
             _hacs.action = True

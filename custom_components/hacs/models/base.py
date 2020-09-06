@@ -13,7 +13,7 @@ from .stage import HacsStage
 
 
 @attr.s
-class HacsBase:
+class Hacs:
     """Base HACS class."""
 
     action: bool = False
@@ -21,7 +21,7 @@ class HacsBase:
     default_repository: AIOGitHubAPIRepository = None
     frontend = attr.ib(HacsFrontend)
     hass: HomeAssistant = None
-    log: logging.Logger = logging.getLogger(__name__)
+    log: logging.Logger = logging.getLogger("custom_components.hacs")
     repository: AIOGitHubAPIRepository = None
     stage: HacsStage = HacsStage.SETUP
     system = attr.ib(HacsSystem)

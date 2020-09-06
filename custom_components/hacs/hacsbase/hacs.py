@@ -32,7 +32,7 @@ from custom_components.hacs.share import (
 )
 
 from ..models.stage import HacsStage
-from ..models.base import HacsBase
+from ..models.base import Hacs as HacsBase
 
 
 class HacsStatus:

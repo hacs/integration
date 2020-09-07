@@ -402,6 +402,7 @@ class HacsRepository(RepositoryHelpers):
 
             if os.path.exists(local_path):
                 if not is_safe_to_remove(local_path):
+                    self.logger.error(f"Path {local_path} is blocked from removal")
                     return False
                 self.logger.debug(f"Removing {local_path}")
 
@@ -412,6 +413,10 @@ class HacsRepository(RepositoryHelpers):
 
                 while os.path.exists(local_path):
                     await sleep(1)
+            else:
+                self.logger.debug(
+                    f"Presumed local content path {local_path} does not exist"
+                )
 
         except (Exception, BaseException) as exception:
             self.logger.debug(f"Removing {local_path} failed with {exception}")

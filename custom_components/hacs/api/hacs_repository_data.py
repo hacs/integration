@@ -1,5 +1,4 @@
 """API Handler for hacs_repository_data"""
-import re
 import sys
 
 import homeassistant.helpers.config_validation as cv
@@ -9,6 +8,7 @@ from homeassistant.components import websocket_api
 
 from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.functions.logger import getLogger
+from custom_components.hacs.helpers.functions.misc import extract_repository_from_url
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
@@ -36,13 +36,9 @@ async def hacs_repository_data(hass, connection, msg):
         return
 
     if action == "add":
-        # Extract username/repo, stripping URL and trailing characters
-        pattern = r"(?:(?:.*github.com.)|^)([A-Za-z0-9-]+\/[\w.-]+?)(?:(?:\.git)?|(?:[^\w.-].*)?)$"
-        match = re.match(pattern, repo_id)
-
-        # Extract the repository ID from the first capture group if the match succeeded
-        if match:
-            repo_id = match.group(1)
+        repo_id = extract_repository_from_url(repo_id)
+        if repo_id is None:
+            return
 
         if repo_id in hacs.common.skip:
             hacs.common.skip.remove(repo_id)

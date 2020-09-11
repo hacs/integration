@@ -1,5 +1,10 @@
 """Helper functions: misc"""
+import re
 import semantic_version
+
+RE_REPOSITORY = re.compile(
+    r"(?:(?:.*github.com.)|^)([A-Za-z0-9-]+\/[\w.-]+?)(?:(?:\.git)?|(?:[^\w.-].*)?)$"
+)
 
 
 def get_repository_name(repository) -> str:
@@ -28,3 +33,11 @@ def version_left_higher_then_right(new: str, old: str) -> bool:
     if new == old:
         return True
     return semantic_version.Version.coerce(new) > semantic_version.Version.coerce(old)
+
+
+def extract_repository_from_url(url: str) -> str or None:
+    """Extract the owner/repo part form a URL."""
+    match = re.match(RE_REPOSITORY, url)
+    if not match:
+        return None
+    return match.group(1).lower()

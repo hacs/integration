@@ -9,7 +9,8 @@ def getLogger(name=None):
 
     if "GITHUB_ACTION" in os.environ:
         logging.basicConfig(
-            format="::%(levelname)s:: %(message)s", level="DEBUG",
+            format="::%(levelname)s:: %(message)s",
+            level="DEBUG",
         )
 
     return logging.getLogger(

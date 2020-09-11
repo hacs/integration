@@ -35,7 +35,10 @@ async def test_frontend_repo(hacs, tmpdir):
 @pytest.mark.asyncio
 async def test_frontend_frontend_repo_url(hacs, aresponses):
     aresponses.add(
-        "127.0.0.1", "/main.js", "get", "",
+        "127.0.0.1",
+        "/main.js",
+        "get",
+        "",
     )
     hacs.configuration.frontend_repo_url = "http://127.0.0.1"
     await async_serve_frontend()

@@ -7,7 +7,8 @@ from custom_components.hacs.helpers.properties import RepositoryHelperProperties
 
 
 class RepositoryHelpers(
-    RepositoryHelperMethods, RepositoryHelperProperties,
+    RepositoryHelperMethods,
+    RepositoryHelperProperties,
 ):
     """Helper class for repositories"""
 

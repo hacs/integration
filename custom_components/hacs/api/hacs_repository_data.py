@@ -1,4 +1,5 @@
 """API Handler for hacs_repository_data"""
+import re
 import sys
 
 import homeassistant.helpers.config_validation as cv
@@ -35,8 +36,13 @@ async def hacs_repository_data(hass, connection, msg):
         return
 
     if action == "add":
-        if "github." in repo_id:
-            repo_id = repo_id.split("github.com/")[1]
+        # Extract username/repo, stripping URL and trailing characters
+        pattern = r"(?:(?:.*github.com.)|^)([A-Za-z0-9-]+\/[\w.-]+?)(?:(?:\.git)?|(?:[^\w.-].*)?)$"
+        match = re.match(pattern, repo_id)
+
+        # Extract the repository ID from the first capture group if the match succeeded
+        if match:
+            repo_id = match.group(1)
 
         if repo_id in hacs.common.skip:
             hacs.common.skip.remove(repo_id)

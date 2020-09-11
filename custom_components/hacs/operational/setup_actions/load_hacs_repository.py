@@ -7,13 +7,12 @@ from custom_components.hacs.helpers.functions.register_repository import (
 )
 from custom_components.hacs.share import get_hacs
 from ...enums import HacsSetupTask
-from ...decorator import announceSetup
 
 
-@announceSetup(HacsSetupTask.HACS_REPO)
 async def async_load_hacs_repository():
     """Load HACS repositroy."""
     hacs = get_hacs()
+    hacs.log.info("Setup task %s", HacsSetupTask.HACS_REPO)
 
     try:
         repository = hacs.get_by_name("hacs/integration")

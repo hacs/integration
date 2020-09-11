@@ -1,4 +1,5 @@
 """Setup HACS."""
+from custom_components.hacs.enums import HacsStage
 from aiogithubapi import AIOGitHubAPIException, GitHub
 from homeassistant import config_entries
 from homeassistant.components.lovelace import system_health_info
@@ -149,7 +150,8 @@ async def async_hacs_startup():
     if can_update is None:
         hacs.log.critical("Your GitHub token is not valid")
         return False
-    elif can_update != 0:
+
+    if can_update != 0:
         hacs.log.debug(f"Can update {can_update} repositories")
     else:
         hacs.log.info(
@@ -194,4 +196,5 @@ async def async_hacs_startup():
     await async_add_sensor()
 
     # Mischief managed!
+    await hacs.async_set_stage(HacsStage.WAITING)
     return True

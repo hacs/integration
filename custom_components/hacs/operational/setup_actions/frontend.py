@@ -4,13 +4,12 @@ from custom_components.hacs.helpers.classes.frontend_view import HacsFrontend
 from custom_components.hacs.helpers.functions.information import get_frontend_version
 from custom_components.hacs.share import get_hacs
 from ...enums import HacsSetupTask
-from ...decorator import announceSetup
 
 
-@announceSetup(HacsSetupTask.FRONTEND)
 async def async_setup_frontend():
     """Configure the HACS frontend elements."""
     hacs = get_hacs()
+    hacs.log.info("Setup task %s", HacsSetupTask.FRONTEND)
 
     # Custom view
     hacs.hass.http.register_view(HacsFrontend())

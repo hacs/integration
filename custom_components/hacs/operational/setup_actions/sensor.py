@@ -4,7 +4,6 @@ from homeassistant.helpers import discovery
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.share import get_hacs
 from ...enums import HacsSetupTask
-from ...decorator import announceSetup
 
 
 def _add_sensor():
@@ -25,8 +24,8 @@ def _add_sensor():
         )
 
 
-@announceSetup(HacsSetupTask.SENSOR)
 async def async_add_sensor():
     """Async wrapper for add sensor"""
     hacs = get_hacs()
+    hacs.log.info("Setup task %s", HacsSetupTask.SENSOR)
     await hacs.hass.async_add_executor_job(_add_sensor)

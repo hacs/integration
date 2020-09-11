@@ -7,9 +7,11 @@ class HacsCategory(str, Enum):
     APPDAEMON = "appdaemon"
     INTEGRATION = "integration"
     LOVELACE = "lovelace"
+    PLUGIN = "plugin"  # Kept for legacy purposes
     NETDAEMON = "netdaemon"
     PYTHON_SCRIPT = "python_script"
     THEME = "theme"
+    REMOVED = "removed"
 
 
 class LovelaceMode(str, Enum):
@@ -23,6 +25,7 @@ class LovelaceMode(str, Enum):
 class HacsStage(str, Enum):
     SETUP = "setup"
     STARTUP = "startup"
+    WAITING = "waiting"
     RUNNING = "running"
     BACKGROUND = "background"
 

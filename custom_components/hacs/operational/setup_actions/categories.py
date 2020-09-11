@@ -1,7 +1,6 @@
 """Starting setup task: extra stores."""
 from ...share import get_hacs
 from ...enums import HacsCategory, HacsSetupTask
-from ...decorator import announceSetup
 
 
 def _setup_extra_stores():
@@ -20,8 +19,8 @@ def _setup_extra_stores():
             hacs.common.categories.append(HacsCategory.THEME)
 
 
-@announceSetup(HacsSetupTask.CATEGORIES)
 async def async_setup_extra_stores():
     """Async wrapper for setup_extra_stores"""
     hacs = get_hacs()
+    hacs.log.info("setup task %s", HacsSetupTask.CATEGORIES)
     await hacs.hass.async_add_executor_job(_setup_extra_stores)

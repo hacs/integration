@@ -31,7 +31,7 @@ from custom_components.hacs.share import (
     list_removed_repositories,
 )
 
-from ..enums import HacsStage
+from ..enums import HacsCategory, HacsStage
 from ..models.base import Hacs as HacsBase
 
 
@@ -324,18 +324,18 @@ class Hacs(HacsBase, HacsHelpers):
         """Load known repositories."""
         self.log.info("Loading known repositories")
 
-        for item in await async_get_list_from_default("removed"):
+        for item in await async_get_list_from_default(HacsCategory.REMOVED):
             removed = get_removed(item["repository"])
             removed.reason = item.get("reason")
             removed.link = item.get("link")
             removed.removal_type = item.get("removal_type")
 
         for category in self.common.categories or []:
-            self.queue.add(self.async_get_category_repositories(category))
+            self.queue.add(self.async_get_category_repositories(HacsCategory(category)))
 
         await self.queue.execute()
 
-    async def async_get_category_repositories(self, category):
+    async def async_get_category_repositories(self, category: HacsCategory):
         """Get repositories from category."""
         repositories = await async_get_list_from_default(category)
         for repo in repositories:
@@ -350,8 +350,8 @@ class Hacs(HacsBase, HacsHelpers):
                 continue
             self.queue.add(self.factory.safe_register(repo, category))
 
-    async def async_set_stage(self, state: str) -> None:
-        """Set the state of HACS."""
-        self.stage = HacsStage(state)
+    async def async_set_stage(self, stage: str) -> None:
+        """Set the stage of HACS."""
+        self.stage = HacsStage(stage)
         self.log.info("Stage changed: %s", self.stage)
-        self.hass.bus.async_fire("hacs/event/stage", {})
+        self.hass.bus.async_fire("hacs/stage", {"stage": self.stage})

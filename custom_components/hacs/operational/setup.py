@@ -182,13 +182,6 @@ async def async_hacs_startup():
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
         return False
 
-    # Add additional categories
-    hacs.common.categories = ELEMENT_TYPES
-    if hacs.configuration.appdaemon:
-        hacs.common.categories.append("appdaemon")
-    if hacs.configuration.netdaemon:
-        hacs.common.categories.append("netdaemon")
-
     # Setup startup tasks
     hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, _wait_for_startup)
 
@@ -197,4 +190,7 @@ async def async_hacs_startup():
 
     # Mischief managed!
     await hacs.async_set_stage(HacsStage.WAITING)
+    hacs.log.info(
+        "Setup complete, waiting for Home Assistant before startup tasks starts"
+    )
     return True

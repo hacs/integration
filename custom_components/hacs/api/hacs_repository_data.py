@@ -37,7 +37,7 @@ async def hacs_repository_data(hass, connection, msg):
 
     if action == "add":
         # Extract username/repo, stripping URL and trailing characters
-        pattern = r"(?:(?:.*github.com.)|^)([A-Za-z0-9-]+\/[A-Za-z0-9_.-]+)"
+        pattern = r"(?:(?:.*github.com.)|^)([A-Za-z0-9-]+\/[\w.-]+?)(?:(?:\.git)?|(?:[^\w.-].*)?)$"
         match = re.match(pattern, repo_id)
 
         # Extract the repository ID from the first capture group if the match succeeded

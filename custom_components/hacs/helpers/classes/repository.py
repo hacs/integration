@@ -332,7 +332,7 @@ class HacsRepository(RepositoryHelpers):
             if self.hacs.system.action:
                 raise HacsException(
                     f"::error:: hacs.json file is not valid ({exception})."
-                )
+                ) from None
         if self.hacs.system.action:
             self.logger.info("hacs.json is valid")
 

@@ -71,7 +71,7 @@ async def test_common_base(repository, aresponses):
         "api.github.com",
         "/repos/test/test/contents/hacs.json",
         "get",
-        aresponses.Response(body=json.dumps({}), headers=response_rate_limit_header),
+        aresponses.Response(body=b"{}", headers=response_rate_limit_header),
     )
     repository.ref = None
     await common_validate(repository)

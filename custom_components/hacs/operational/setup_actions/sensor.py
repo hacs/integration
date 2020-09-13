@@ -6,10 +6,10 @@ from custom_components.hacs.share import get_hacs
 from ...enums import HacsSetupTask
 
 
-def _add_sensor():
-    """Add sensor."""
+async def async_add_sensor():
+    """Async wrapper for add sensor"""
     hacs = get_hacs()
-
+    hacs.log.info("Setup task %s", HacsSetupTask.SENSOR)
     if hacs.configuration.config_type == "yaml":
         hacs.hass.async_create_task(
             discovery.async_load_platform(
@@ -22,10 +22,3 @@ def _add_sensor():
                 hacs.configuration.config_entry, "sensor"
             )
         )
-
-
-async def async_add_sensor():
-    """Async wrapper for add sensor"""
-    hacs = get_hacs()
-    hacs.log.info("Setup task %s", HacsSetupTask.SENSOR)
-    await hacs.hass.async_add_executor_job(_add_sensor)

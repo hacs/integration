@@ -1,6 +1,6 @@
 # pylint: disable=missing-module-docstring, missing-function-docstring
 import pytest
-from custom_components.hacs.models.stage import HacsStage
+from custom_components.hacs.enums import HacsStage
 
 
 @pytest.mark.asyncio

@@ -42,7 +42,9 @@ async def register_repository(full_name, category, check=True, ref=None):
                 repository.logger.info("Registration completed")
         except AIOGitHubAPIException as exception:
             hacs.common.skip.append(repository.data.full_name)
-            raise HacsException(f"Validation for {full_name} failed with {exception}.")
+            raise HacsException(
+                f"Validation for {full_name} failed with {exception}."
+            ) from None
 
     exists = (
         False
@@ -61,7 +63,6 @@ async def register_repository(full_name, category, check=True, ref=None):
             hacs.hass.bus.async_fire(
                 "hacs/repository",
                 {
-                    "id": 1337,
                     "action": "registration",
                     "repository": repository.data.full_name,
                     "repository_id": repository.data.id,

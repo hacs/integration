@@ -4,6 +4,7 @@ from datetime import timedelta
 
 from aiogithubapi import AIOGitHubAPIException
 from queueman import QueueManager
+from queueman.exceptions import QueueManagerExecutionStillInProgress
 
 from custom_components.hacs.helpers import HacsHelpers
 
@@ -222,7 +223,8 @@ class Hacs(HacsBase, HacsHelpers):
             if repository["repository"] not in instored:
                 if repo is not None and repo.installed:
                     self.log.critical(
-                        f"Removing repository {repository['repository']}, it is marked as critical"
+                        "Removing repository %s, it is marked as critical",
+                        repository["repository"],
                     )
                     was_installed = True
                     stored["acknowledged"] = False
@@ -259,7 +261,10 @@ class Hacs(HacsBase, HacsHelpers):
         else:
             self.status.background_task = True
             self.hass.bus.async_fire("hacs/status", {})
-            await self.queue.execute(can_update)
+            try:
+                await self.queue.execute(can_update)
+            except QueueManagerExecutionStillInProgress:
+                pass
             self.status.background_task = False
             self.hass.bus.async_fire("hacs/status", {})
 
@@ -333,7 +338,7 @@ class Hacs(HacsBase, HacsHelpers):
         for category in self.common.categories or []:
             self.queue.add(self.async_get_category_repositories(HacsCategory(category)))
 
-        await self.queue.execute()
+        await self.prosess_queue()
 
     async def async_get_category_repositories(self, category: HacsCategory):
         """Get repositories from category."""

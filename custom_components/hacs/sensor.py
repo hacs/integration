@@ -28,7 +28,7 @@ class HACSDevice(Entity):
             "manufacturer": "hacs.xyz",
             "model": "",
             "sw_version": VERSION,
-            "type": "service",
+            "entry_type": "service",
         }
 
 

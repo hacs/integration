@@ -18,7 +18,7 @@ from tests.sample_data import (
 
 
 @pytest.mark.asyncio
-async def test_common_base(repository, aresponses):
+async def test_common_base(hacs, repository, aresponses):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -71,9 +71,13 @@ async def test_common_base(repository, aresponses):
         "api.github.com",
         "/repos/test/test/contents/hacs.json",
         "get",
-        aresponses.Response(body=b"{}", headers=response_rate_limit_header),
+        aresponses.Response(
+            body=json.dumps({"name": "test"}), headers=response_rate_limit_header
+        ),
     )
     repository.ref = None
+    repository.hacs = hacs
+
     await common_validate(repository)
 
 

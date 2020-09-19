@@ -48,6 +48,7 @@ async def hacs_repository(hass, connection, msg):
 
         elif action == "uninstall":
             repository.data.new = False
+            await repository.update_repository(True)
             await repository.uninstall()
 
         elif action == "hide":

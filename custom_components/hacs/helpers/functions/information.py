@@ -33,7 +33,7 @@ async def get_info_md_content(repository):
         info = info.content.replace("<svg", "<disabled").replace("</svg", "</disabled")
         return render_template(info, repository)
     except (AIOGitHubAPIException, Exception):  # pylint: disable=broad-except
-        if repository.hacs.action:
+        if repository.hacs.system.action:
             raise HacsException("::error:: No info file found")
     return ""
 
@@ -111,7 +111,7 @@ async def get_integration_manifest(repository):
         repository.data.manifest_name = manifest["name"]
         repository.data.config_flow = manifest.get("config_flow", False)
 
-        if repository.hacs.action:
+        if repository.hacs.system.action:
             if manifest.get("documentation") is None:
                 raise HacsException("::error:: manifest.json is missing documentation")
             if manifest.get("homeassistant") is not None:
@@ -141,7 +141,7 @@ def find_file_name(repository):
     elif repository.data.category == "python_script":
         get_file_name_python_script(repository)
 
-    if repository.hacs.action:
+    if repository.hacs.system.action:
         repository.logger.info(f"filename {repository.data.file_name}")
         repository.logger.info(f"location {repository.content.path.remote}")
 

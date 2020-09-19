@@ -3,6 +3,7 @@ from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.classes.repository import HacsRepository
+from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.helpers.functions.logger import getLogger
 
 
@@ -14,7 +15,7 @@ class HacsAppdaemon(HacsRepository):
         super().__init__()
         self.data.full_name = full_name
         self.data.full_name_lower = full_name.lower()
-        self.data.category = "appdaemon"
+        self.data.category = HacsCategory.APPDAEMON
         self.content.path.local = self.localpath
         self.content.path.remote = "apps"
         self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
@@ -34,7 +35,7 @@ class HacsAppdaemon(HacsRepository):
         except AIOGitHubAPIException:
             raise HacsException(
                 f"Repostitory structure for {self.ref.replace('tags/','')} is not compliant"
-            )
+            ) from None
 
         if not isinstance(addir, list):
             self.validate.errors.append("Repostitory structure not compliant")
@@ -47,7 +48,7 @@ class HacsAppdaemon(HacsRepository):
         # Handle potential errors
         if self.validate.errors:
             for error in self.validate.errors:
-                if not self.hacs.system.status.startup:
+                if not self.hacs.status.startup:
                     self.logger.error(error)
         return self.validate.success
 

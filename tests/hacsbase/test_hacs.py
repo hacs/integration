@@ -1,4 +1,6 @@
+# pylint: disable=missing-module-docstring, missing-function-docstring
 import pytest
+from custom_components.hacs.enums import HacsStage
 
 
 @pytest.mark.asyncio
@@ -24,3 +26,10 @@ async def test_hacs(hacs, repository, tmpdir):
 
     await hacs.prosess_queue()
     await hacs.clear_out_removed_repositories()
+
+
+@pytest.mark.asyncio
+async def test_set_stage(hacs):
+    assert hacs.stage == HacsStage.SETUP
+    await hacs.async_set_stage(HacsStage.RUNNING)
+    assert hacs.stage == HacsStage.RUNNING

@@ -21,13 +21,14 @@ async def hacs_repository(hass, connection, msg):
     hacs = get_hacs()
     logger = getLogger("api.repository")
     data = {}
+    repository = None
+
+    repo_id = msg.get("repository")
+    action = msg.get("action")
+    if repo_id is None or action is None:
+        return
+
     try:
-        repo_id = msg.get("repository")
-        action = msg.get("action")
-
-        if repo_id is None or action is None:
-            return
-
         repository = hacs.get_by_id(repo_id)
         logger.debug(f"Running {action} for {repository.data.full_name}")
 
@@ -47,6 +48,7 @@ async def hacs_repository(hass, connection, msg):
 
         elif action == "uninstall":
             repository.data.new = False
+            await repository.update_repository(True)
             await repository.uninstall()
 
         elif action == "hide":
@@ -73,7 +75,11 @@ async def hacs_repository(hass, connection, msg):
 
         elif action == "release_notes":
             data = [
-                {"tag": x.attributes["tag_name"], "body": x.attributes["body"]}
+                {
+                    "name": x.attributes["name"],
+                    "body": x.attributes["body"],
+                    "tag": x.attributes["tag_name"],
+                }
                 for x in repository.releases.objects
             ]
 
@@ -102,5 +108,6 @@ async def hacs_repository(hass, connection, msg):
         logger.error(message)
         hass.bus.async_fire("hacs/error", {"message": str(message)})
 
-    repository.state = None
-    connection.send_message(websocket_api.result_message(msg["id"], data))
+    if repository:
+        repository.state = None
+        connection.send_message(websocket_api.result_message(msg["id"], data))

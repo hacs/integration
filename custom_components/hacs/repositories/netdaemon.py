@@ -1,6 +1,7 @@
 """Class for netdaemon apps in HACS."""
 from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.classes.repository import HacsRepository
+from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.helpers.functions.filters import (
     get_first_directory_in_directory,
 )
@@ -15,7 +16,7 @@ class HacsNetdaemon(HacsRepository):
         super().__init__()
         self.data.full_name = full_name
         self.data.full_name_lower = full_name.lower()
-        self.data.category = "netdaemon"
+        self.data.category = HacsCategory.NETDAEMON
         self.content.path.local = self.localpath
         self.content.path.remote = "apps"
         self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
@@ -55,7 +56,7 @@ class HacsNetdaemon(HacsRepository):
         # Handle potential errors
         if self.validate.errors:
             for error in self.validate.errors:
-                if not self.hacs.system.status.startup:
+                if not self.hacs.status.startup:
                     self.logger.error(error)
         return self.validate.success
 

@@ -18,7 +18,7 @@ from tests.sample_data import (
 
 
 @pytest.mark.asyncio
-async def test_common_base(repository, aresponses):
+async def test_common_base(hacs, repository, aresponses):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -71,9 +71,13 @@ async def test_common_base(repository, aresponses):
         "api.github.com",
         "/repos/test/test/contents/hacs.json",
         "get",
-        aresponses.Response(body=json.dumps({}), headers=response_rate_limit_header),
+        aresponses.Response(
+            body=json.dumps({"name": "test"}), headers=response_rate_limit_header
+        ),
     )
     repository.ref = None
+    repository.hacs = hacs
+
     await common_validate(repository)
 
 
@@ -206,7 +210,7 @@ async def test_common_base_exception_does_not_exsist(hacs, repository, aresponse
             status=500,
         ),
     )
-    hacs.system.status.startup = False
+    hacs.status.startup = False
     with pytest.raises(HacsException):
         await common_validate(repository)
 
@@ -255,6 +259,6 @@ async def test_common_base_exception_tree_issues(repository, aresponses, hacs):
             body=json.dumps({"message": "X"}), headers=response_rate_limit_header
         ),
     )
-    hacs.system.status.startup = False
+    hacs.status.startup = False
     with pytest.raises(HacsException):
         await common_validate(repository)

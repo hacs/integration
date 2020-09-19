@@ -9,6 +9,10 @@ from homeassistant.runner import HassEventLoopPolicy
 
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.hacs import Hacs
+from custom_components.hacs.helpers.classes.repository import HacsRepository
+from custom_components.hacs.helpers.functions.version_to_install import (
+    version_to_install,
+)
 from custom_components.hacs.repositories import (
     HacsAppdaemon,
     HacsIntegration,
@@ -18,10 +22,11 @@ from custom_components.hacs.repositories import (
     HacsTheme,
 )
 from custom_components.hacs.share import SHARE
-from tests.async_mock import MagicMock, Mock, patch
+from tests.async_mock import MagicMock
 
 from tests.common import (  # noqa: E402, isort:skip
     async_test_home_assistant,
+    fixture,
     mock_storage as mock_storage,
     TOKEN,
     dummy_repository_base,
@@ -88,6 +93,7 @@ def hacs(hass):
     hacs_obj.configuration = Configuration()
     hacs_obj.configuration.token = TOKEN
     hacs_obj.system.config_path = hass.config.path()
+    hacs_obj.system.action = False
     SHARE["hacs"] = hacs_obj
     yield hacs_obj
 
@@ -95,7 +101,26 @@ def hacs(hass):
 @pytest.fixture
 def repository(hacs):
     """Fixtrue for HACS repository object"""
-    yield dummy_repository_base(hacs)
+    repository_obj = HacsRepository()
+    repository_obj.hacs = hacs
+    repository_obj.hass = hacs.hass
+    repository_obj.hacs.system.config_path = hacs.hass.config.path()
+    repository_obj.logger = logging.getLogger("test")
+    repository_obj.data.full_name = "test/test"
+    repository_obj.data.full_name_lower = "test/test"
+    repository_obj.data.domain = "test"
+    repository_obj.data.last_version = "3"
+    repository_obj.data.selected_tag = "3"
+    repository_obj.ref = version_to_install(repository_obj)
+    repository_obj.integration_manifest = {"config_flow": False, "domain": "test"}
+    repository_obj.data.published_tags = ["1", "2", "3"]
+    repository_obj.data.update_data(fixture("repository_data.json"))
+
+    async def update_repository():
+        pass
+
+    repository_obj.update_repository = update_repository
+    yield repository_obj
 
 
 @pytest.fixture

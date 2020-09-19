@@ -1,14 +1,11 @@
 """Test globals."""
 # pylint: disable=missing-docstring
-from custom_components.hacs.share import get_hacs, get_removed, is_removed
+from custom_components.hacs.share import get_removed, is_removed
 
 
-def test_global_hacs():
-    hacs = get_hacs()
-    assert hacs.system.lovelace_mode == "storage"
-    hacs.system.lovelace_mode = "yaml"
-    hacs = get_hacs()
-    assert hacs.system.lovelace_mode == "yaml"
+def test_global_hacs(hacs):
+    assert hacs.core.lovelace_mode == "storage"
+    hacs.core.lovelace_mode = "yaml"
 
 
 def test_is_removed():

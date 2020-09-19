@@ -26,7 +26,7 @@ class HacsData:
 
     async def async_write(self):
         """Write content to the store files."""
-        if self.hacs.system.status.background_task or self.hacs.system.disabled:
+        if self.hacs.status.background_task or self.hacs.system.disabled:
             return
 
         self.logger.debug("Saving data")
@@ -94,10 +94,10 @@ class HacsData:
         try:
             if not hacs and not repositories:
                 # Assume new install
-                self.hacs.system.status.new = True
+                self.hacs.status.new = True
                 return True
             self.logger.info("Restore started")
-            self.hacs.system.status.new = False
+            self.hacs.status.new = False
 
             # Hacs
             self.hacs.configuration.frontend_mode = hacs.get("view", "Grid")

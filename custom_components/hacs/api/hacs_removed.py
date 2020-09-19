@@ -7,7 +7,7 @@ from custom_components.hacs.share import list_removed_repositories
 
 @websocket_api.async_response
 @websocket_api.websocket_command({vol.Required("type"): "hacs/removed"})
-async def hacs_removed(hass, connection, msg):
+async def hacs_removed(_hass, connection, msg):
     """Get information about removed repositories."""
     content = []
     for repo in list_removed_repositories():

@@ -8,7 +8,13 @@ from custom_components.hacs.operational.setup_actions.sensor import async_add_se
 async def test_async_add_sensor_ui(hacs, hass):
     hacs.hass.config_entries = ConfigEntries(hass, {})
     hacs.configuration.config_entry = ConfigEntry(
-        1, "hacs", "hacs", {}, "user", "local_push", {},
+        1,
+        "hacs",
+        "hacs",
+        {},
+        "user",
+        "local_push",
+        {},
     )
     hacs.configuration.config = {"key": "value"}
     await async_add_sensor()

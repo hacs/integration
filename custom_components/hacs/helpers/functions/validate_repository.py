@@ -36,10 +36,10 @@ async def common_update_data(repository, ignore_issues=False):
         repository.repository_object = repository_object
         repository.data.update_data(repository_object.attributes)
     except (AIOGitHubAPIException, HacsException) as exception:
-        if not hacs.system.status.startup:
+        if not hacs.status.startup:
             repository.logger.error(exception)
         repository.validate.errors.append("Repository does not exist.")
-        raise HacsException(exception)
+        raise HacsException(exception) from None
 
     # Make sure the repository is not archived.
     if repository.data.archived and not ignore_issues:
@@ -91,6 +91,6 @@ async def common_update_data(repository, ignore_issues=False):
         for treefile in repository.tree:
             repository.treefiles.append(treefile.full_path)
     except (AIOGitHubAPIException, HacsException) as exception:
-        if not hacs.system.status.startup:
+        if not hacs.status.startup:
             repository.logger.error(exception)
-        raise HacsException(exception)
+        raise HacsException(exception) from None

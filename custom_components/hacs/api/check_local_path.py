@@ -10,7 +10,7 @@ from custom_components.hacs.helpers.functions.path_exsist import async_path_exsi
 @websocket_api.websocket_command(
     {vol.Required("type"): "hacs/check_path", vol.Optional("path"): cv.string}
 )
-async def check_local_path(hass, connection, msg):
+async def check_local_path(_hass, connection, msg):
     """Handle get media player cover command."""
     path = msg.get("path")
     exist = {"exist": False}

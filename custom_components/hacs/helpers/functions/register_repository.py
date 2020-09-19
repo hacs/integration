@@ -27,22 +27,24 @@ async def register_repository(full_name, category, check=True, ref=None):
     if check:
         try:
             await repository.async_registration(ref)
-            if hacs.system.status.new:
+            if hacs.status.new:
                 repository.data.new = False
             if repository.validate.errors:
                 hacs.common.skip.append(repository.data.full_name)
-                if not hacs.system.status.startup:
-                    hacs.logger.error(f"Validation for {full_name} failed.")
-                if hacs.action:
+                if not hacs.status.startup:
+                    hacs.log.error(f"Validation for {full_name} failed.")
+                if hacs.system.action:
                     raise HacsException(f"::error:: Validation for {full_name} failed.")
                 return repository.validate.errors
-            if hacs.action:
+            if hacs.system.action:
                 repository.logger.info("Validation completed")
             else:
                 repository.logger.info("Registration completed")
         except AIOGitHubAPIException as exception:
             hacs.common.skip.append(repository.data.full_name)
-            raise HacsException(f"Validation for {full_name} failed with {exception}.")
+            raise HacsException(
+                f"Validation for {full_name} failed with {exception}."
+            ) from None
 
     exists = (
         False
@@ -56,12 +58,11 @@ async def register_repository(full_name, category, check=True, ref=None):
 
     else:
         if hacs.hass is not None and (
-            (check and repository.data.new) or hacs.system.status.new
+            (check and repository.data.new) or hacs.status.new
         ):
             hacs.hass.bus.async_fire(
                 "hacs/repository",
                 {
-                    "id": 1337,
                     "action": "registration",
                     "repository": repository.data.full_name,
                     "repository_id": repository.data.id,

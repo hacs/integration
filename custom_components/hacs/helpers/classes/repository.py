@@ -229,7 +229,7 @@ class HacsRepository(RepositoryHelpers):
         # Set description
         self.data.description = self.data.description
 
-        if self.hacs.action:
+        if self.hacs.system.action:
             if self.data.description is None or len(self.data.description) == 0:
                 raise HacsException("::error:: Missing repository description")
 
@@ -312,12 +312,12 @@ class HacsRepository(RepositoryHelpers):
     async def get_repository_manifest_content(self):
         """Get the content of the hacs.json file."""
         if not "hacs.json" in [x.filename for x in self.tree]:
-            if self.hacs.action:
+            if self.hacs.system.action:
                 raise HacsException(
                     "::error:: No hacs.json file in the root of the repository."
                 )
             return
-        if self.hacs.action:
+        if self.hacs.system.action:
             self.logger.info("Found hacs.json")
 
         self.ref = version_to_install(self)
@@ -329,11 +329,11 @@ class HacsRepository(RepositoryHelpers):
             )
             self.data.update_data(json.loads(manifest.content))
         except (AIOGitHubAPIException, Exception) as exception:  # Gotta Catch 'Em All
-            if self.hacs.action:
+            if self.hacs.system.action:
                 raise HacsException(
                     f"::error:: hacs.json file is not valid ({exception})."
-                )
-        if self.hacs.action:
+                ) from None
+        if self.hacs.system.action:
             self.logger.info("hacs.json is valid")
 
     def remove(self):

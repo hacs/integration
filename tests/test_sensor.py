@@ -3,7 +3,6 @@
 import pytest
 from homeassistant.core import HomeAssistant as hass
 
-from custom_components.hacs.hacsbase.hacs import Hacs as hacs
 from custom_components.hacs.repositories import HacsIntegration
 from custom_components.hacs.sensor import (
     HACSSensor,
@@ -30,7 +29,7 @@ def test_sensor_data():
 
 
 @pytest.mark.asyncio
-async def test_sensor_update():
+async def test_sensor_update(hacs):
     sensor = HACSSensor()
     repository = HacsIntegration("test/test")
     repository.data.installed = True
@@ -49,7 +48,7 @@ async def test_sensor_update():
     await sensor.async_update()
     assert sensor.state == 1
 
-    hacs().system.status.background_task = True
+    hacs.status.background_task = True
     sensor._state = dummy_state  # pylint: disable=protected-access
     assert sensor.state == dummy_state
     await sensor.async_update()

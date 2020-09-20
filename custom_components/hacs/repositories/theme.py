@@ -23,7 +23,7 @@ class HacsTheme(HacsRepository):
     @property
     def localpath(self):
         """Return localpath."""
-        return f"{self.hacs.system.config_path}/themes/{self.data.file_name.replace('.yaml', '')}"
+        return f"{self.hacs.core.config_path}/themes/{self.data.file_name.replace('.yaml', '')}"
 
     async def async_post_installation(self):
         """Run post installation steps."""

@@ -10,14 +10,14 @@ from custom_components.hacs.operational.setup_actions.frontend import (
 
 @pytest.mark.asyncio
 async def test_frontend_setup(hacs, tmpdir):
-    hacs.system.config_path = tmpdir
+    hacs.core.config_path = tmpdir
 
     content = {}
 
-    os.makedirs(f"{hacs.system.config_path}/custom_components/hacs", exist_ok=True)
+    os.makedirs(f"{hacs.core.config_path}/custom_components/hacs", exist_ok=True)
 
     with open(
-        f"{hacs.system.config_path}/custom_components/hacs/manifest.json", "w"
+        f"{hacs.core.config_path}/custom_components/hacs/manifest.json", "w"
     ) as manifest:
         manifest.write(json.dumps(content))
     await async_setup_frontend()

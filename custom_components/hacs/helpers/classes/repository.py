@@ -386,10 +386,10 @@ class HacsRepository(RepositoryHelpers):
                 local_path = f"{self.content.path.local}/{self.data.name}.py"
             elif self.data.category == "theme":
                 if os.path.exists(
-                    f"{self.hacs.system.config_path}/{self.hacs.configuration.theme_path}/{self.data.name}.yaml"
+                    f"{self.hacs.core.config_path}/{self.hacs.configuration.theme_path}/{self.data.name}.yaml"
                 ):
                     os.remove(
-                        f"{self.hacs.system.config_path}/{self.hacs.configuration.theme_path}/{self.data.name}.yaml"
+                        f"{self.hacs.core.config_path}/{self.hacs.configuration.theme_path}/{self.data.name}.yaml"
                     )
                 local_path = self.content.path.local
             elif self.data.category == "integration":

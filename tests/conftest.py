@@ -92,7 +92,7 @@ def hacs(hass):
     hacs_obj.session = async_create_clientsession(hass)
     hacs_obj.configuration = Configuration()
     hacs_obj.configuration.token = TOKEN
-    hacs_obj.system.config_path = hass.config.path()
+    hacs_obj.core.config_path = hass.config.path()
     hacs_obj.system.action = False
     SHARE["hacs"] = hacs_obj
     yield hacs_obj
@@ -104,7 +104,7 @@ def repository(hacs):
     repository_obj = HacsRepository()
     repository_obj.hacs = hacs
     repository_obj.hass = hacs.hass
-    repository_obj.hacs.system.config_path = hacs.hass.config.path()
+    repository_obj.hacs.core.config_path = hacs.hass.config.path()
     repository_obj.logger = logging.getLogger("test")
     repository_obj.data.full_name = "test/test"
     repository_obj.data.full_name_lower = "test/test"

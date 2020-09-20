@@ -29,7 +29,7 @@ class HacsIntegration(HacsRepository):
     @property
     def localpath(self):
         """Return localpath."""
-        return f"{self.hacs.system.config_path}/custom_components/{self.data.domain}"
+        return f"{self.hacs.core.config_path}/custom_components/{self.data.domain}"
 
     async def async_post_installation(self):
         """Run post installation steps."""

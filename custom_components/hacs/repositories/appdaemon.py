@@ -23,7 +23,7 @@ class HacsAppdaemon(HacsRepository):
     @property
     def localpath(self):
         """Return localpath."""
-        return f"{self.hacs.system.config_path}/appdaemon/apps/{self.data.name}"
+        return f"{self.hacs.core.config_path}/appdaemon/apps/{self.data.name}"
 
     async def validate_repository(self):
         """Validate."""

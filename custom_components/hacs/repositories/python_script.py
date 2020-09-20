@@ -25,7 +25,7 @@ class HacsPythonScript(HacsRepository):
     @property
     def localpath(self):
         """Return localpath."""
-        return f"{self.hacs.system.config_path}/python_scripts"
+        return f"{self.hacs.core.config_path}/python_scripts"
 
     async def validate_repository(self):
         """Validate."""

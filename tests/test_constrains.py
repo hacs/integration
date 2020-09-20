@@ -25,12 +25,12 @@ def temp_cleanup(tmpdir):
 
 
 def test_check_constrains(hacs, tmpdir):
-    hacs.system.config_path = tmpdir.dirname
+    hacs.core.config_path = tmpdir.dirname
     hacs.system.ha_version = HAVERSION
 
     assert check_constrains()
 
-    custom_updater_dir = f"{hacs.system.config_path}/custom_components/custom_updater"
+    custom_updater_dir = f"{hacs.core.config_path}/custom_components/custom_updater"
     os.makedirs(custom_updater_dir, exist_ok=True)
     with open(f"{custom_updater_dir}/__init__.py", "w") as cufile:
         cufile.write("")
@@ -50,7 +50,7 @@ def test_check_constrains(hacs, tmpdir):
 
 
 def test_ha_version(hacs, tmpdir):
-    hacs.system.config_path = tmpdir.dirname
+    hacs.core.config_path = tmpdir.dirname
     hacs.system.ha_version = HAVERSION
     assert constrain_version()
 
@@ -64,17 +64,17 @@ def test_ha_version(hacs, tmpdir):
 
 
 def test_custom_updater(hacs, tmpdir):
-    hacs.system.config_path = tmpdir.dirname
+    hacs.core.config_path = tmpdir.dirname
 
     assert constrain_custom_updater()
 
-    custom_updater_dir = f"{hacs.system.config_path}/custom_components/custom_updater"
+    custom_updater_dir = f"{hacs.core.config_path}/custom_components/custom_updater"
     os.makedirs(custom_updater_dir, exist_ok=True)
     with open(f"{custom_updater_dir}/__init__.py", "w") as cufile:
         cufile.write("")
     assert not constrain_custom_updater()
 
-    custom_updater_dir = f"{hacs.system.config_path}/custom_components"
+    custom_updater_dir = f"{hacs.core.config_path}/custom_components"
     os.makedirs(custom_updater_dir, exist_ok=True)
     with open(f"{custom_updater_dir}/custom_updater.py", "w") as cufile:
         cufile.write("")

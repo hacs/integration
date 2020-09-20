@@ -131,6 +131,7 @@ async def validate_repository(repository, category, ref=None):
         hacs.session = session
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
+        hacs.core.config_path = None
         hacs.github = GitHub(hacs.configuration.token, hacs.session)
         try:
             await register_repository(repository, category, ref=ref)

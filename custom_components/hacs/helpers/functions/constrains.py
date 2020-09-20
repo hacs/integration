@@ -25,10 +25,8 @@ def constrain_custom_updater():
     """Check if custom_updater exist."""
     hacs = get_hacs()
     for location in CUSTOM_UPDATER_LOCATIONS:
-        if os.path.exists(location.format(hacs.system.config_path)):
-            msg = CUSTOM_UPDATER_WARNING.format(
-                location.format(hacs.system.config_path)
-            )
+        if os.path.exists(location.format(hacs.core.config_path)):
+            msg = CUSTOM_UPDATER_WARNING.format(location.format(hacs.core.config_path))
             hacs.log.critical(msg)
             return False
     return True

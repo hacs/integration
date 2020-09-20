@@ -24,7 +24,7 @@ class HacsPlugin(HacsRepository):
     @property
     def localpath(self):
         """Return localpath."""
-        return f"{self.hacs.system.config_path}/www/community/{self.data.full_name.split('/')[-1]}"
+        return f"{self.hacs.core.config_path}/www/community/{self.data.full_name.split('/')[-1]}"
 
     async def validate_repository(self):
         """Validate."""

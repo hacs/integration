@@ -19,7 +19,7 @@ def temp_cleanup(tmpdir):
 def test_read_hacs_manifest(hacs, tmpdir):
     hacsdir = f"{tmpdir.dirname}/custom_components/hacs"
     manifestfile = f"{hacsdir}/manifest.json"
-    hacs.system.config_path = tmpdir.dirname
+    hacs.core.config_path = tmpdir.dirname
 
     data = {"test": "test"}
 

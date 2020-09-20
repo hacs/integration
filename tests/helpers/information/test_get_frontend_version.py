@@ -19,7 +19,7 @@ def temp_cleanup(tmpdir):
 def test_get_frontend_version(hacs, tmpdir):
     hacsdir = f"{tmpdir.dirname}/custom_components/hacs"
     manifestfile = f"{hacsdir}/manifest.json"
-    hacs.system.config_path = tmpdir.dirname
+    hacs.core.config_path = tmpdir.dirname
 
     data = {"requirements": ["hacs_frontend==999999999999"]}
 

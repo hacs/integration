@@ -75,4 +75,4 @@ async def test_download_content_integration(repository_integration, aresponses, 
         )
     await download_content(repository_integration)
     for path in repository_integration.tree:
-        assert os.path.exists(f"{hacs.system.config_path}/{path.full_path}")
+        assert os.path.exists(f"{hacs.core.config_path}/{path.full_path}")

@@ -10,9 +10,9 @@ async def async_serve_category_file(requested_file):
     logger = getLogger("web.category")
     try:
         if requested_file.startswith("themes/"):
-            servefile = f"{hacs.system.config_path}/{requested_file}"
+            servefile = f"{hacs.core.config_path}/{requested_file}"
         else:
-            servefile = f"{hacs.system.config_path}/www/community/{requested_file}"
+            servefile = f"{hacs.core.config_path}/www/community/{requested_file}"
 
         # Serve .gz if it exist
         if await async_path_exsist(f"{servefile}.gz"):

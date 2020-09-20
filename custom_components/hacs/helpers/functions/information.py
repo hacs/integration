@@ -82,7 +82,7 @@ def read_hacs_manifest():
     hacs = get_hacs()
     content = {}
     with open(
-        f"{hacs.system.config_path}/custom_components/hacs/manifest.json"
+        f"{hacs.core.config_path}/custom_components/hacs/manifest.json"
     ) as manifest:
         content = json.loads(manifest.read())
     return content

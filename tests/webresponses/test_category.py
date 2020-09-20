@@ -7,7 +7,7 @@ from custom_components.hacs.webresponses.category import async_serve_category_fi
 
 @pytest.mark.asyncio
 async def test_categpry(hacs, tmpdir):
-    hacs.system.config_path = tmpdir
+    hacs.core.config_path = tmpdir
     await async_serve_category_file("test")
     await async_serve_category_file("themes/test")
     await async_serve_category_file(None)

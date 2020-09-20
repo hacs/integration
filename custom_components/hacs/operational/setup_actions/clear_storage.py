@@ -17,7 +17,7 @@ def _clear_storage():
     hacs = get_hacs()
     storagefiles = ["hacs"]
     for s_f in storagefiles:
-        path = f"{hacs.system.config_path}/.storage/{s_f}"
+        path = f"{hacs.core.config_path}/.storage/{s_f}"
         if os.path.isfile(path):
             hacs.log.info(f"Cleaning up old storage file {path}")
             os.remove(path)

@@ -1,44 +1,383 @@
 {
     "config": {
-        "abort": {
-            "single_instance_allowed": "Only a single configuration of HACS is allowed."
-        },
-        "error": {
-            "auth": "Personal Access Token is not correct",
-            "acc": "You need to acknowledge all the statements before continuing"
-        },
+        "title": "HACS (Home Assistant Community Store)",
         "step": {
             "user": {
+                "title": "HACS",
+                "description": "Before you can setup HACS you need to acknowledge the following",
                 "data": {
+                    "token": "GitHub Personal Access Token",
+                    "sidepanel_title": "Side panel title",
+                    "sidepanel_icon": "Side panel icon",
+                    "appdaemon": "Enable AppDaemon apps discovery & tracking",
+                    "python_script": "Enable python_scripts discovery & tracking",
+                    "theme": "Enable Themes discovery & tracking",
+                    "netdaemon": "Enable NetDaemon apps discovery & tracking",
                     "acc_logs": "I know how to access Home Assistant logs",
                     "acc_addons": "I know that there are no add-ons in HACS",
                     "acc_untested": "I know that everything inside HACS is custom and untested by Home Assistant",
                     "acc_disable": "I know that if I get issues with Home Assistant I should disable all my custom_components"
-                },
-                "description": "Before you can setup HACS you need to acknowledge the following",
-                "title": "HACS"
+                }
             },
             "device": {
                 "title": "HACS",
                 "description": "Open {url} and paste this key `{code}` to authorize HACS, when you have done that click 'submit'"
             }
+        },
+        "error": {
+            "auth": "Personal Access Token is not correct",
+            "acc": "You need to acknowledge all the statements before continuing"
+        },
+        "abort": {
+            "single_instance_allowed": "Only a single configuration of HACS is allowed."
         }
     },
     "options": {
         "step": {
             "user": {
                 "data": {
-                    "not_in_use": "Not in use with YAML",
                     "country": "Filter with country code.",
-                    "experimental": "Enable experimental features",
                     "release_limit": "Number of releases to show.",
+                    "experimental": "Enable experimental features",
                     "debug": "Enable debug.",
                     "appdaemon": "Enable AppDaemon apps discovery & tracking",
-                    "netdaemon": "Enable NetDaemon apps discovery & tracking",
                     "sidepanel_icon": "Side panel icon",
-                    "sidepanel_title": "Side panel title"
+                    "sidepanel_title": "Side panel title",
+                    "not_in_use": "Not in use with YAML",
+                    "netdaemon": "Enable NetDaemon apps discovery & tracking"
                 }
             }
+        }
+    },
+    "common": {
+        "version": "Version",
+        "background_task": "Background task running, this page will reload when it's done.",
+        "installed": "installed",
+        "integration": "Integration",
+        "integrations": "Integrations",
+        "plugin": "Lovelace",
+        "plugins": "Lovelace elements",
+        "appdaemon": "AppDaemon",
+        "appdaemon_apps": "AppDaemon Apps",
+        "theme": "Theme",
+        "themes": "Themes",
+        "python_script": "Python Script",
+        "python_scripts": "Python Scripts",
+        "settings": "settings",
+        "repositories": "Repositories",
+        "continue": "Continue",
+        "documentation": "Documentation",
+        "about": "About",
+        "check_log_file": "Check your log file for more details.",
+        "disabled": "Disabled",
+        "hacs_is_disabled": "HACS is disabled",
+        "manage": "manage",
+        "netdaemon_apps": "NetDaemon Apps",
+        "netdaemon": "NetDaemon",
+        "element": "element",
+        "lovelace": "Lovelace",
+        "lovelace_element": "Lovelace element",
+        "lovelace_elements": "Lovelace elements",
+        "appdaemon_plural": "AppDaemon Apps",
+        "netdaemon_plural": "NetDaemon Apps",
+        "integration_plural": "Integrations",
+        "plugin_plural": "Lovelace elements",
+        "python_script_plural": "Python Scripts",
+        "theme_plural": "Themes",
+        "add": "add",
+        "install": "Install",
+        "repository": "Repository",
+        "update": "Update",
+        "uninstall": "Uninstall",
+        "ignore": "Ignore",
+        "cancel": "Cancel",
+        "reload": "Reload"
+    },
+    "settings": {
+        "display": "Display",
+        "grid": "Grid",
+        "table": "Table",
+        "reload_data": "Reload data",
+        "upgrade_all": "Upgrade all",
+        "hacs_repo": "HACS repo",
+        "delete": "Delete",
+        "save": "Save",
+        "custom_repositories": "CUSTOM REPOSITORIES",
+        "add_custom_repository": "ADD CUSTOM REPOSITORY",
+        "category": "Category",
+        "hidden_repositories": "hidden repositories",
+        "unhide": "unhide",
+        "compact_mode": "Compact mode",
+        "table_view": "Table view",
+        "missing_category": "You need to select a category",
+        "bg_task_custom": "Custom repositories are hidden while background tasks is running.",
+        "adding_new_repo": "Adding new repository '{repo}'",
+        "adding_new_repo_category": "With category '{category}'.",
+        "open_repository": "Open repository",
+        "repository_configuration": "Repository configuration",
+        "reload_window": "Reload window"
+    },
+    "store": {
+        "placeholder_search": "Please enter a search term...",
+        "clear_new": "Clear all new repositories",
+        "new_repositories": "New Repositories",
+        "sort": "sort",
+        "name": "Name",
+        "status": "Status",
+        "pending_upgrades": "Pending upgrades",
+        "stars": "Stars",
+        "ascending": "ascending",
+        "descending": "descending",
+        "last_updated": "Last updated",
+        "no_repositories": "No repositories",
+        "no_repositories_desc1": "It seems like you don't have any repositories installed in this section yet.",
+        "no_repositories_desc2": "Click on the + in the bottom corner to add your first!",
+        "new_repositories_note": "You have over 10 new repositories showing here, if you want to clear them all click the 3 dots in the top right corner and dismiss all of them.",
+        "no_repositories_found_desc1": "No installed repositories matching \"{searchInput}\" found in this section.",
+        "no_repositories_found_desc2": "Try searching for something else!"
+    },
+    "repository": {
+        "back_to": "Back to",
+        "installed": "Installed",
+        "available": "Available",
+        "update_information": "Update information",
+        "hide": "Hide",
+        "hide_beta": "Hide beta",
+        "show_beta": "Show beta",
+        "open_issue": "Open issue",
+        "flag_this": "Flag this",
+        "install": "Install",
+        "reinstall": "Reinstall",
+        "upgrade": "Update",
+        "changelog": "Change log",
+        "repository": "Repository",
+        "open_plugin": "Open element",
+        "uninstall": "Uninstall",
+        "newest": "newest",
+        "lovelace_copy_example": "Copy the example to your clipboard",
+        "lovelace_instruction": "When you add this to your lovelace configuration use this",
+        "lovelace_no_js_type": "Could not determine the type of this element, check the repository.",
+        "note_installed": "When installed, this will be located in",
+        "note_appdaemon": "you still need to add it to your 'apps.yaml' file",
+        "note_integration": "you still need to add it to your 'configuration.yaml' file",
+        "note_plugin": "you still need to add it to your lovelace configuration ('ui-lovelace.yaml' or the raw UI config editor)",
+        "authors": "Authors",
+        "add_to_lovelace": "Add to Lovelace",
+        "downloads": "Downloads",
+        "frontend_version": "Frontend version",
+        "github_stars": "GitHub stars",
+        "restart_home_assistant": "Restart Home Assistant",
+        "goto_integrations": "Go to integrations",
+        "note_plugin_post_107": "you still need to add it to your lovelace configuration ('configuration.yaml' or the resource editor '\/config\/lovelace\/resources')"
+    },
+    "confirm": {
+        "delete": "Are you sure you want to delete '{item}'?",
+        "uninstall": "Are you sure you want to uninstall '{item}'?",
+        "overwrite": "Doing this will overwrite it.",
+        "continue": "Are you sure you want to continue?",
+        "add_to_lovelace": "Are you sure you want to add this to your Lovelace resources?",
+        "generic": "Are you sure?",
+        "ok": "OK",
+        "yes": "Yes",
+        "no": "No",
+        "cancel": "Cancel",
+        "upgrade_all": "This will upgrade all of these repositories, make sure that you have read the release notes for all of them before proceeding.",
+        "no_upgrades": "No upgrades pending",
+        "bg_task": "Action is disabled while background tasks is running.",
+        "exist": "{item} already exists",
+        "delete_installed": "'{item}' is installed, you need to uninstall it before you can delete it.",
+        "reload_data": "This reloads the data of all repositories HACS knows about, this will take some time to finish.",
+        "home_assistant_is_restarting": "Hold on, Home Assistant is now restarting.",
+        "restart_home_assistant": "Are you sure you want to restart Home Assistant?",
+        "home_assistant_version_not_correct": "You are running Home Assistant version '{haversion}', but this repository requires minimum version '{minversion}' to be installed."
+    },
+    "repository_banner": {
+        "not_loaded": "Not loaded",
+        "integration_not_loaded": "This integration is not loaded in Home Assistant.",
+        "plugin_not_loaded": "This element is not added to your Lovelace resources.",
+        "restart": "You need to restart Home Assistant.",
+        "restart_pending": "Restart pending",
+        "config_flow": "This integration supports config_flow, that means that you now can go to the integration section of your UI to configure it.",
+        "no_restart_required": "No restart required",
+        "config_flow_title": "UI Configuration supported"
+    },
+    "time": {
+        "ago": "ago",
+        "day": "day",
+        "days": "days",
+        "hour": "hour",
+        "hours": "hours",
+        "minute": "minute",
+        "minutes": "minutes",
+        "month": "month",
+        "months": "months",
+        "second": "second",
+        "seconds": "seconds",
+        "year": "year",
+        "years": "years",
+        "one": "One",
+        "one_day_ago": "one day ago",
+        "one_hour_ago": "one hour ago",
+        "one_minute_ago": "one minute ago",
+        "one_month_ago": "one month ago",
+        "one_second_ago": "one second ago",
+        "one_year_ago": "one year ago",
+        "x_days_ago": "{x} days ago",
+        "x_hours_ago": "{x} hours ago",
+        "x_minutes_ago": "{x} minutes ago",
+        "x_months_ago": "{x} months ago",
+        "x_seconds_ago": "{x} seconds ago",
+        "x_years_ago": "{x} years ago"
+    },
+    "sections": {
+        "integrations": {
+            "title": "Integrations",
+            "description": "This is where you find custom integrations (custom_components)"
+        },
+        "frontend": {
+            "title": "Frontend",
+            "description": "This is where you find themes, custom cards and other elements for lovelace"
+        },
+        "automation": {
+            "title": "Automation",
+            "description": "This is where you find python_scripts, AppDaemon apps and NetDaemon apps"
+        },
+        "about": {
+            "title": "About",
+            "description": "Show information about HACS"
+        },
+        "pending_repository_upgrade": "You are running version {installed}, version {available} is available",
+        "addon": {
+            "title": "Add-ons",
+            "description": "There are no addons in HACS, but you can click here to get to the supervisor"
+        }
+    },
+    "dialog_about": {
+        "integration_version": "Integration version",
+        "frontend_version": "Frontend version",
+        "installed_repositories": "Installed repositories",
+        "useful_links": "Useful links"
+    },
+    "dialog_add_repo": {
+        "title": "Add repository",
+        "no_match": "No repositories found matching your filter",
+        "limit": "Only the first 100 repositories are shown, use the search to filter what you need",
+        "sort_by": "Sort by"
+    },
+    "dialog_custom_repositories": {
+        "title": "Custom repositories",
+        "url_placeholder": "Add custom repository URL",
+        "category": "Category",
+        "no_repository": "Missing repository",
+        "no_category": "Missing category"
+    },
+    "dialog_install": {
+        "type": "Type",
+        "url": "URL",
+        "select_version": "Select version",
+        "show_beta": "Show beta versions",
+        "restart": "Remember that you need to restart Home Assistant before changes to integrations (custom_components) are applied."
+    },
+    "dialog_info": {
+        "version_installed": "Version installed",
+        "open_issues": "Open issues",
+        "stars": "Stars",
+        "downloads": "Downloads",
+        "author": "Author",
+        "no_info": "The developer has not provided any more information for this repository",
+        "loading": "Loading information...",
+        "open_repo": "Open repository",
+        "install": "Install this repository in HACS"
+    },
+    "dialog_update": {
+        "title": "Update pending",
+        "installed_version": "Installed version",
+        "available_version": "Available version",
+        "changelog": "Changelog",
+        "releasenotes": "Release notes for {release}"
+    },
+    "repository_card": {
+        "pending_update": "Pending update",
+        "new_repository": "New repository",
+        "hide": "Hide",
+        "open_source": "Open source",
+        "open_issue": "Open issue",
+        "reinstall": "Reinstall",
+        "report": "Report for removal",
+        "information": "Information",
+        "update_information": "Update information",
+        "dismiss": "dismiss",
+        "pending_restart": "Pending restart",
+        "not_loaded": "Not loaded"
+    },
+    "search": {
+        "placeholder": "Search for repository",
+        "installed": "Search for installed repositories",
+        "installed_new": "Search for installed or new repositories"
+    },
+    "menu": {
+        "about": "About HACS",
+        "custom_repositories": "Custom repositories",
+        "open_issue": "Open issue",
+        "clear": "Clear all new",
+        "reload": "Reload window",
+        "documentation": "Documentation",
+        "dismiss": "Dismiss all new repositories"
+    },
+    "entry": {
+        "messages": {
+            "startup": {
+                "title": "HACS is starting up",
+                "content": "HACS is starting up, during this time some information might be missing or incorrect"
+            },
+            "has_pending_tasks": {
+                "title": "Background tasks pending",
+                "content": "Some repositories might not show until this is completed"
+            },
+            "disabled": {
+                "title": "HACS is disabled",
+                "content": "Check your log file for more details"
+            },
+            "wrong_frontend_loaded": {
+                "title": "Unexpected frontend version",
+                "content": "You are running version {running} of the HACS frontend, but version {expected} was expected, you should clear your browser cache."
+            },
+            "wrong_frontend_installed": {
+                "title": "Unexpected frontend version",
+                "content": "You have {running} of the HACS frontend installed, but version {expected} was expected, if this you see this message Home Assistant was not able to install the new version, try restarting Home Assistant."
+            },
+            "resources": {
+                "title": "Not loaded in Lovelace",
+                "content": "You have {number} Lovelace elements that are not loaded properly in Lovelace."
+            },
+            "restart": {
+                "title": "Pending restart",
+                "content": "You have {number} integrations that requires a restart of Home Assistant, you can do that from the 'Server Controls' section under the configuration part of Home Assistant UI."
+            },
+            "removed": "Removed repository '{repository}'",
+            "setup": {
+                "title": "HACS is setting up",
+                "content": "HACS is setting up, during this time some information might be missing or incorrect"
+            },
+            "waiting": {
+                "title": "HACS is waiting",
+                "content": "HACS is waiting for Home Assistant to finish startup before starting startup tasks"
+            }
+        },
+        "intro": "Updates and important messages will show here if there are any",
+        "information": "Information",
+        "pending_updates": "Pending updates"
+    },
+    "dialog_removed": {
+        "name": "Repository name",
+        "type": "Removal type",
+        "reason": "Removal reason",
+        "link": "External link to more information"
+    },
+    "dialog": {
+        "reload": {
+            "description": "You need to clear your browser cache when changing Lovelace resources.",
+            "confirm": "Do you want to do that now?"
         }
     }
 }

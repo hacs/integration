@@ -36,13 +36,16 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_device(self, user_input):
         """Handle device steps"""
         ## Vaiting for token
-        activation = await self.device.async_device_activation()
-
-        if activation:
-            if await self._test_token(activation.access_token):
-                return self.async_create_entry(
-                    title="", data={"token": activation.access_token}
-                )
+        try:
+            activation = await self.device.async_device_activation()
+            return self.async_create_entry(
+                title="", data={"token": activation.access_token}
+            )
+        except (
+            AIOGitHubAPIException,
+            AIOGitHubAPIAuthenticationException,
+        ) as exception:
+            _LOGGER.error(exception)
             self._errors["base"] = "auth"
             return await self._show_config_form(user_input)
 
@@ -112,19 +115,6 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     @callback
     def async_get_options_flow(config_entry):
         return HacsOptionsFlowHandler(config_entry)
-
-    async def _test_token(self, token):
-        """Return true if token is valid."""
-        try:
-            session = aiohttp_client.async_get_clientsession(self.hass)
-            await get_repository(session, token, "hacs/org")
-            return True
-        except (
-            AIOGitHubAPIException,
-            AIOGitHubAPIAuthenticationException,
-        ) as exception:
-            _LOGGER.error(exception)
-        return False
 
 
 class HacsOptionsFlowHandler(config_entries.OptionsFlow):

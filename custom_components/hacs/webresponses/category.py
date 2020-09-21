@@ -5,7 +5,7 @@ from custom_components.hacs.helpers.functions.path_exsist import async_path_exsi
 from custom_components.hacs.share import get_hacs
 
 
-async def async_serve_category_file(requested_file):
+async def async_serve_category_file(request, requested_file):
     hacs = get_hacs()
     logger = getLogger("web.category")
     try:
@@ -28,7 +28,9 @@ async def async_serve_category_file(requested_file):
                 response.headers["Pragma"] = "no-store"
             return response
         else:
-            logger.error(f"Tried to serve up '{servefile}' but it does not exist")
+            logger.error(
+                f"{request.remote} tried to request '{servefile}' but the file does not exist"
+            )
 
     except (Exception, BaseException) as exception:
         logger.debug(

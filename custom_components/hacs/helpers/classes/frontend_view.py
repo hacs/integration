@@ -19,10 +19,10 @@ class HacsFrontend(HomeAssistantView):
 
     async def get(self, request, requested_file):  # pylint: disable=unused-argument
         """Handle HACS Web requests."""
-        return await get_file_response(requested_file)
+        return await get_file_response(request, requested_file)
 
 
-async def get_file_response(requested_file):
+async def get_file_response(request, requested_file):
     """Get file."""
     logger = getLogger("web")
 
@@ -36,4 +36,4 @@ async def get_file_response(requested_file):
     elif requested_file == "iconset.js":
         return serve_iconset()
 
-    return await async_serve_category_file(requested_file)
+    return await async_serve_category_file(request, requested_file)

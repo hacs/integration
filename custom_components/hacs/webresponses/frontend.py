@@ -1,5 +1,5 @@
 from aiohttp import web
-from hacs_frontend import locate_debug_gz, locate_gz
+from hacs_frontend import locate_dir
 
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.path_exsist import async_path_exsist
@@ -8,8 +8,9 @@ from custom_components.hacs.share import get_hacs
 logger = getLogger("web.frontend")
 
 
-async def async_serve_frontend():
+async def async_serve_frontend(requested_file):
     hacs = get_hacs()
+    requested = requested_file.split("/")[-1]
     servefile = None
     dev = False
 
@@ -20,17 +21,18 @@ async def async_serve_frontend():
 
     if hacs.configuration.debug:
         logger.debug("Serving DEBUG frontend")
-        servefile = locate_debug_gz()
+        servefile = f"{locate_dir()}/{requested}"
 
     elif hacs.configuration.frontend_repo_url:
         logger.debug("Serving REMOTE DEVELOPMENT frontend")
         try:
             request = await hacs.session.get(
-                f"{hacs.configuration.frontend_repo_url}/main.js"
+                f"{hacs.configuration.frontend_repo_url}/{requested}"
             )
             if request.status == 200:
                 result = await request.read()
                 response = web.Response(body=result)
+                response.headers["Content-Type"] = "application/javascript"
 
                 return response
         except (Exception, BaseException) as exception:
@@ -38,14 +40,15 @@ async def async_serve_frontend():
 
     elif hacs.configuration.frontend_repo:
         logger.debug("Serving LOCAL DEVELOPMENT frontend")
-        servefile = f"{hacs.configuration.frontend_repo}/hacs_frontend/main.js"
+        servefile = f"{hacs.configuration.frontend_repo}/hacs_frontend/{requested}"
     else:
-        servefile = locate_gz()
+        servefile = f"{locate_dir()}/{requested}.gz"
 
     if servefile is None or not await async_path_exsist(servefile):
         return web.Response(status=404)
 
     response = web.FileResponse(servefile)
+    response.headers["Content-Type"] = "application/javascript"
 
     if dev:
         response.headers["Cache-Control"] = "no-store, max-age=0"

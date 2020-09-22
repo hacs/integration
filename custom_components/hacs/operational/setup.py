@@ -179,7 +179,10 @@ async def async_hacs_startup():
         return False
 
     # Setup startup tasks
-    hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks)
+    if hacs.status.new:
+        async_call_later(hacs.hass, 5, hacs.startup_tasks())
+    else:
+        hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks)
 
     # Set up sensor
     await async_add_sensor()

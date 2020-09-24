@@ -130,7 +130,7 @@ class Hacs(HacsBase, HacsHelpers):
         """Register a repository."""
         await register_repository(full_name, category, check=check)
 
-    async def startup_tasks(self, _event):
+    async def startup_tasks(self, _event=None):
         """Tasks that are started after startup."""
         await self.async_set_stage(HacsStage.STARTUP)
         self.status.background_task = True

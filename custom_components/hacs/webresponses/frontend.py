@@ -14,12 +14,10 @@ async def async_serve_frontend(requested_file):
     servefile = None
     dev = False
 
-    if hacs.configuration.frontend_repo_url:
-        dev = True
-    elif hacs.configuration.frontend_repo:
+    if hacs.configuration.frontend_repo_url or hacs.configuration.frontend_repo:
         dev = True
 
-    elif hacs.configuration.frontend_repo_url:
+    if hacs.configuration.frontend_repo_url:
         logger.debug("Serving REMOTE DEVELOPMENT frontend")
         try:
             request = await hacs.session.get(

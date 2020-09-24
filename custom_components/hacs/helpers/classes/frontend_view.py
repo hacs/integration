@@ -30,8 +30,8 @@ async def get_file_response(request, requested_file):
         logger.debug(f"Ignoring request for {requested_file}")
         return web.Response(status=200)
 
-    if requested_file.startswith("frontend-"):
-        return await async_serve_frontend()
+    if requested_file.startswith("frontend/"):
+        return await async_serve_frontend(requested_file)
 
     elif requested_file == "iconset.js":
         return serve_iconset()

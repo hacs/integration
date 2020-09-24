@@ -29,7 +29,7 @@ async def async_setup_frontend():
         "name": "hacs-frontend",
         "embed_iframe": True,
         "trust_external": False,
-        "js_url": f"/hacsfiles/frontend-{hacs.frontend.version_running}.js",
+        "js_url": "/hacsfiles/frontend/entrypoint.js",
     }
 
     config = {}

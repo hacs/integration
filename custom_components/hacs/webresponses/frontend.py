@@ -36,15 +36,17 @@ async def async_serve_frontend(requested_file):
         logger.debug("Serving LOCAL DEVELOPMENT frontend")
         servefile = f"{hacs.configuration.frontend_repo}/hacs_frontend/{requested}"
     else:
-        servefile = f"{locate_dir()}/{requested}.gz"
+        servefile = f"{locate_dir()}/{requested}"
+        if await async_path_exsist(f"{servefile}.gz"):
+            servefile += ".gz"
 
     if servefile is None or not await async_path_exsist(servefile):
         return web.Response(status=404)
 
     response = web.FileResponse(servefile)
-    response.headers["Content-Type"] = "application/javascript"
 
     if dev:
+        response.headers["Content-Type"] = "application/javascript"
         response.headers["Cache-Control"] = "no-store, max-age=0"
         response.headers["Pragma"] = "no-store"
     return response

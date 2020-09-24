@@ -19,10 +19,6 @@ async def async_serve_frontend(requested_file):
     elif hacs.configuration.frontend_repo:
         dev = True
 
-    if hacs.configuration.debug:
-        logger.debug("Serving DEBUG frontend")
-        servefile = f"{locate_dir()}/{requested}"
-
     elif hacs.configuration.frontend_repo_url:
         logger.debug("Serving REMOTE DEVELOPMENT frontend")
         try:

@@ -45,7 +45,7 @@ def error(error: str):
 
 
 def get_event_data():
-    if GITHUB_EVENT_PATH is None:
+    if GITHUB_EVENT_PATH is None or not os.path.exists(GITHUB_EVENT_PATH):
         return {}
     with open(GITHUB_EVENT_PATH) as ev:
         return json.loads(ev.read())

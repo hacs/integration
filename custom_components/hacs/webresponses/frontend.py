@@ -37,8 +37,6 @@ async def async_serve_frontend(requested_file):
         servefile = f"{hacs.configuration.frontend_repo}/hacs_frontend/{requested}"
     else:
         servefile = f"{locate_dir()}/{requested}"
-        if await async_path_exsist(f"{servefile}.gz"):
-            servefile += ".gz"
 
     if servefile is None or not await async_path_exsist(servefile):
         return web.Response(status=404)

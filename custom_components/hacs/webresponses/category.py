@@ -14,10 +14,6 @@ async def async_serve_category_file(request, requested_file):
         else:
             servefile = f"{hacs.core.config_path}/www/community/{requested_file}"
 
-        # Serve .gz if it exist
-        if await async_path_exsist(f"{servefile}.gz"):
-            servefile += ".gz"
-
         if await async_path_exsist(servefile):
             logger.debug(f"Serving {requested_file} from {servefile}")
             response = web.FileResponse(servefile)

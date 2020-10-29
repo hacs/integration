@@ -167,7 +167,6 @@ class Hacs(HacsBase, HacsHelpers):
         self.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
         await self.async_set_stage(HacsStage.RUNNING)
-        await self.data.async_write()
 
     async def handle_critical_repositories_startup(self):
         """Handled critical repositories during startup."""

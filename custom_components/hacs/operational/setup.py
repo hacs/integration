@@ -115,9 +115,9 @@ async def async_startup_wrapper_for_yaml():
         )
         hacs.log.info("Could not setup HACS, trying again in 15 min")
         if int(hacs.system.ha_version.split(".")[1]) >= 117:
-            async_call_later(hacs.hass, 900, async_startup_wrapper_for_yaml())
-        else:
             async_call_later(hacs.hass, 900, async_startup_wrapper_for_yaml)
+        else:
+            async_call_later(hacs.hass, 900, async_startup_wrapper_for_yaml())
         return
     hacs.system.disabled = False
 

@@ -126,7 +126,11 @@ async def async_hacs_startup():
     """HACS startup tasks."""
     hacs = get_hacs()
 
-    lovelace_info = await system_health_info(hacs.hass)
+    try:
+        lovelace_info = await system_health_info(hacs.hass)
+    except TypeError:
+        # If this happens, the users YAML is not valid, we assume YAML mode
+        lovelace_info = {"mode": "yaml"}
     hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")
     hacs.version = VERSION
     hacs.log.info(STARTUP)

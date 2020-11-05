@@ -16,7 +16,7 @@ def test_repository_helpers_properties_custom():
     assert repository.custom
 
     repository.data.id = 1337
-    repository.hacs.common.default.append(repository.data.id)
+    repository.hacs.common.default.append(str(repository.data.id))
     assert not repository.custom
 
     repository.hacs.common.default = []

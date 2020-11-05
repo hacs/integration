@@ -31,3 +31,15 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CATEGORY: "integration"
+
+  validate-hacs-beta:
+    runs-on: ubuntu-latest
+    name: With HACS beta action
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: HACS validation
+      uses: hacs/action@main
+      with:
+        category: integration

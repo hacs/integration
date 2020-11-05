@@ -14,7 +14,7 @@ from custom_components.hacs.helpers.functions.constrains import check_constrains
 from custom_components.hacs.helpers.functions.remaining_github_calls import (
     get_fetch_updates_for,
 )
-from custom_components.hacs.operational.relaod import async_reload_entry
+from custom_components.hacs.operational.reload import async_reload_entry
 from custom_components.hacs.operational.remove import async_remove_entry
 from custom_components.hacs.operational.setup_actions.clear_storage import (
     async_clear_storage,

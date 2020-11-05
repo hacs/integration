@@ -25,21 +25,22 @@ async def async_setup_frontend():
     )
 
     # Add to sidepanel
-    custom_panel_config = {
-        "name": "hacs-frontend",
-        "embed_iframe": True,
-        "trust_external": False,
-        "js_url": "/hacsfiles/frontend/entrypoint.js",
-    }
+    if "hacs" not in hacs.hass.data.get("frontend_panels", {}):
+        custom_panel_config = {
+            "name": "hacs-frontend",
+            "embed_iframe": True,
+            "trust_external": False,
+            "js_url": "/hacsfiles/frontend/entrypoint.js",
+        }
 
-    config = {}
-    config["_panel_custom"] = custom_panel_config
+        config = {}
+        config["_panel_custom"] = custom_panel_config
 
-    hacs.hass.components.frontend.async_register_built_in_panel(
-        component_name="custom",
-        sidebar_title=hacs.configuration.sidepanel_title,
-        sidebar_icon=hacs.configuration.sidepanel_icon,
-        frontend_url_path="hacs",
-        config=config,
-        require_admin=True,
-    )
+        hacs.hass.components.frontend.async_register_built_in_panel(
+            component_name="custom",
+            sidebar_title=hacs.configuration.sidepanel_title,
+            sidebar_icon=hacs.configuration.sidepanel_icon,
+            frontend_url_path="hacs",
+            config=config,
+            require_admin=True,
+        )

@@ -49,7 +49,12 @@ class HacsData:
         for repository in self.hacs.repositories or []:
             self.queue.add(self.async_store_repository_data(repository))
 
-        await self.queue.execute()
+        if not self.queue.has_pending_tasks:
+            self.logger.debug("Nothing in the queue")
+        elif self.queue.running:
+            self.logger.debug("Queue is already running")
+        else:
+            await self.queue.execute()
         await async_save_to_store(self.hacs.hass, "repositories", self.content)
         self.hacs.hass.bus.async_fire("hacs/repository", {})
         self.hacs.hass.bus.fire("hacs/config", {})

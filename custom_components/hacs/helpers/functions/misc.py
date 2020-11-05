@@ -27,7 +27,7 @@ def get_repository_name(repository) -> str:
     )
 
 
-@lru_cache
+@lru_cache(maxsize=1024)
 def version_left_higher_then_right(new: str, old: str) -> bool:
     """Return a bool if source is newer than target, will also be true if identical."""
     if not isinstance(new, str) or not isinstance(old, str):

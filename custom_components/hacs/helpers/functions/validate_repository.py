@@ -38,8 +38,9 @@ async def common_update_data(repository, ignore_issues=False):
     except (AIOGitHubAPIException, HacsException) as exception:
         if not hacs.status.startup:
             repository.logger.error(exception)
-        repository.validate.errors.append("Repository does not exist.")
-        raise HacsException(exception) from None
+        if not ignore_issues:
+            repository.validate.errors.append("Repository does not exist.")
+            raise HacsException(exception) from None
 
     # Make sure the repository is not archived.
     if repository.data.archived and not ignore_issues:
@@ -93,4 +94,5 @@ async def common_update_data(repository, ignore_issues=False):
     except (AIOGitHubAPIException, HacsException) as exception:
         if not hacs.status.startup:
             repository.logger.error(exception)
-        raise HacsException(exception) from None
+        if not ignore_issues:
+            raise HacsException(exception) from None

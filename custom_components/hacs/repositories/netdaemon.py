@@ -56,7 +56,7 @@ class HacsNetdaemon(HacsRepository):
         if self.validate.errors:
             for error in self.validate.errors:
                 if not self.hacs.status.startup:
-                    self.logger.error(error)
+                    self.logger.error("%s %s", self, error)
         return self.validate.success
 
     async def update_repository(self, ignore_issues=False):

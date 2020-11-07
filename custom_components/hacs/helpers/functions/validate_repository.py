@@ -18,7 +18,7 @@ async def common_validate(repository, ignore_issues=False):
     repository.validate.errors = []
 
     # Make sure the repository exist.
-    repository.logger.debug("Checking repository.")
+    repository.logger.debug("%s Checking repository.", repository)
     await common_update_data(repository, ignore_issues)
 
     # Step 6: Get the content of hacs.json
@@ -37,7 +37,7 @@ async def common_update_data(repository, ignore_issues=False):
         repository.data.update_data(repository_object.attributes)
     except (AIOGitHubAPIException, HacsException) as exception:
         if not hacs.status.startup:
-            repository.logger.error(exception)
+            repository.logger.error("%s %s", repository, exception)
         if not ignore_issues:
             repository.validate.errors.append("Repository does not exist.")
             raise HacsException(exception) from None
@@ -81,7 +81,7 @@ async def common_update_data(repository, ignore_issues=False):
                     repository.data.downloads = downloads
 
     repository.logger.debug(
-        f"Running checks against {repository.ref.replace('tags/', '')}"
+        "%s Running checks against %s", repository, repository.ref.replace("tags/", "")
     )
 
     try:
@@ -93,6 +93,6 @@ async def common_update_data(repository, ignore_issues=False):
             repository.treefiles.append(treefile.full_path)
     except (AIOGitHubAPIException, HacsException) as exception:
         if not hacs.status.startup:
-            repository.logger.error(exception)
+            repository.logger.error("%s %s", repository, exception)
         if not ignore_issues:
             raise HacsException(exception) from None

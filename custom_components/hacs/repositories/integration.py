@@ -60,14 +60,14 @@ class HacsIntegration(HacsRepository):
             await get_integration_manifest(self)
         except HacsException as exception:
             if self.hacs.system.action:
-                raise HacsException(f"::error:: {exception}")
-            self.logger.error(exception)
+                raise HacsException(f"::error:: {exception}") from exception
+            self.logger.error("%s %s", self, exception)
 
         # Handle potential errors
         if self.validate.errors:
             for error in self.validate.errors:
                 if not self.hacs.status.startup:
-                    self.logger.error(error)
+                    self.logger.error("%s %s", self, error)
         return self.validate.success
 
     async def update_repository(self, ignore_issues=False):
@@ -84,7 +84,7 @@ class HacsIntegration(HacsRepository):
         try:
             await get_integration_manifest(self)
         except HacsException as exception:
-            self.logger.error(exception)
+            self.logger.error("%s %s", self, exception)
 
         # Set local path
         self.content.path.local = self.localpath

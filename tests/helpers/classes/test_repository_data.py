@@ -7,3 +7,8 @@ def test_guarded():
 
     data.update_data({"name": "new"})
     assert data.name != "new"
+
+    test = data.to_json()
+    test["name"] = "new"
+
+    assert data.name != "new"

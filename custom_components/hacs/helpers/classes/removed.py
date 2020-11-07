@@ -18,4 +18,4 @@ class RemovedRepository:
 
     def to_json(self):
         """Return a JSON representation of the data."""
-        return self.__dict__
+        return attr.asdict(self)

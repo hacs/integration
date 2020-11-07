@@ -65,7 +65,7 @@ class RepositoryData:
 
     def to_json(self):
         """Export to json."""
-        return self.__dict__
+        return attr.asdict(self)
 
     @staticmethod
     def create_from_dict(source: dict):

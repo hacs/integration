@@ -2,6 +2,16 @@
 import logging
 import os
 
+_HACSLogger = logging.getLogger("custom_components.hacs")
+
+
+class HACSLoggerAdapter(logging.LoggerAdapter):
+    """Augment log messages with a name."""
+
+    def process(self, msg, kwargs):
+        """Augment log messages with a name."""
+        return f'[{self.extra["name"]}] {msg}', kwargs
+
 
 def getLogger(name=None):
     if name is not None:
@@ -13,6 +23,7 @@ def getLogger(name=None):
             level="DEBUG",
         )
 
-    return logging.getLogger(
-        f"custom_components.hacs{'.' + name if name is not None else ''}"
-    )
+    if name is None:
+        return _HACSLogger
+
+    return HACSLoggerAdapter(_HACSLogger, {"name": name})

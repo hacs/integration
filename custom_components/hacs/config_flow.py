@@ -19,6 +19,8 @@ from custom_components.hacs.helpers.functions.information import get_repository
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.share import get_hacs
 
+from .base import HacsBase
+
 _LOGGER = getLogger(__name__)
 
 
@@ -130,7 +132,7 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
 
     async def async_step_user(self, user_input=None):
         """Handle a flow initialized by the user."""
-        hacs = get_hacs()
+        hacs: HacsBase = get_hacs()
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)
 

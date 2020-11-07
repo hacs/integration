@@ -1,7 +1,7 @@
 """Shared HACS elements."""
 import os
 
-from .models.base import Hacs
+from .base import HacsBase
 
 SHARE = {
     "hacs": None,
@@ -12,7 +12,7 @@ SHARE = {
 }
 
 
-def get_hacs() -> Hacs:
+def get_hacs() -> HacsBase:
     if SHARE["hacs"] is None:
         from custom_components.hacs.hacsbase.hacs import Hacs as Legacy
 

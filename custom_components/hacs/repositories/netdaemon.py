@@ -19,7 +19,6 @@ class HacsNetdaemon(HacsRepository):
         self.data.category = HacsCategory.NETDAEMON
         self.content.path.local = self.localpath
         self.content.path.remote = "apps"
-        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):

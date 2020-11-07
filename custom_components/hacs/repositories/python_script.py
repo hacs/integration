@@ -20,7 +20,6 @@ class HacsPythonScript(HacsRepository):
         self.content.path.remote = "python_scripts"
         self.content.path.local = self.localpath
         self.content.single = True
-        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):

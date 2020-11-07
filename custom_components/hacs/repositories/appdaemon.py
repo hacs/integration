@@ -4,7 +4,6 @@ from aiogithubapi import AIOGitHubAPIException
 from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.classes.repository import HacsRepository
 from custom_components.hacs.enums import HacsCategory
-from custom_components.hacs.helpers.functions.logger import getLogger
 
 
 class HacsAppdaemon(HacsRepository):
@@ -18,7 +17,6 @@ class HacsAppdaemon(HacsRepository):
         self.data.category = HacsCategory.APPDAEMON
         self.content.path.local = self.localpath
         self.content.path.remote = "apps"
-        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):

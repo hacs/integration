@@ -24,7 +24,6 @@ class HacsIntegration(HacsRepository):
         self.data.category = HacsCategory.INTEGRATION
         self.content.path.remote = "custom_components"
         self.content.path.local = self.localpath
-        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):

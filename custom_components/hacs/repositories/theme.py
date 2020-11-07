@@ -18,7 +18,6 @@ class HacsTheme(HacsRepository):
         self.content.path.remote = "themes"
         self.content.path.local = self.localpath
         self.content.single = False
-        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):

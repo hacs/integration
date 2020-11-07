@@ -19,7 +19,6 @@ class HacsPlugin(HacsRepository):
         self.data.category = "plugin"
         self.information.javascript_type = None
         self.content.path.local = self.localpath
-        self.logger = getLogger(f"repository.{self.data.category}.{full_name}")
 
     @property
     def localpath(self):

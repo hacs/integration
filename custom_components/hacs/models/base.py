@@ -1,6 +1,4 @@
 """Base HACS class."""
-import logging
-
 import attr
 from aiogithubapi.github import AIOGitHubAPI
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
@@ -10,6 +8,8 @@ from .core import HacsCore
 from .frontend import HacsFrontend
 from .system import HacsSystem
 from ..enums import HacsStage
+
+from ..helpers.functions.logger import getLogger, HACSLoggerAdapter
 
 
 @attr.s
@@ -21,7 +21,7 @@ class Hacs:
     hass: HomeAssistant = None
     repository: AIOGitHubAPIRepository = None
 
-    log: logging.Logger = logging.getLogger("custom_components.hacs")
+    log: HACSLoggerAdapter = getLogger()
 
     core: HacsCore = attr.ib(HacsCore)
     frontend: HacsFrontend = attr.ib(HacsFrontend)

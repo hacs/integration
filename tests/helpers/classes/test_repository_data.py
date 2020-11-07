@@ -6,4 +6,4 @@ def test_guarded():
     assert data.name == "test"
 
     data.update_data({"name": "new"})
-    assert data.name == "test"
+    assert data.name != "new"

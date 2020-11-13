@@ -19,9 +19,9 @@ async def remaining(github):
 
 async def get_fetch_updates_for(github):
     """Helper to calculate the number of repositories we can fetch data for."""
-    margin = 100
+    margin = 1000
     limit = await remaining(github)
-    pr_repo = 10
+    pr_repo = 15
 
     if limit is None:
         return None

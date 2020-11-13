@@ -1,4 +1,7 @@
 """Setup HACS."""
+from custom_components.hacs.gql.repository_information import (
+    gql_query_repository_information,
+)
 from custom_components.hacs.enums import HacsStage
 from aiogithubapi import AIOGitHubAPIException, GitHub
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
@@ -152,6 +155,16 @@ async def async_hacs_startup():
         hacs.configuration.token, async_create_clientsession(hacs.hass)
     )
     hacs.data = HacsData()
+
+    test = await hacs.github.client.post(
+        "/graphql",
+        True,
+        data=gql_query_repository_information(
+            **{"owner": "hacs", "name": "integration", "branch": "main"}
+        ),
+        jsondata=True,
+    )
+    hacs.log.critical(test["data"])
 
     can_update = await get_fetch_updates_for(hacs.github)
     if can_update is None:

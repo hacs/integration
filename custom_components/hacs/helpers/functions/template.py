@@ -4,7 +4,7 @@ from jinja2 import Template
 
 from custom_components.hacs.helpers.functions.logger import getLogger
 
-logger = getLogger("template")
+_LOGGER = getLogger()
 
 
 def render_template(content, context):
@@ -28,5 +28,5 @@ def render_template(content, context):
         )
         return render
     except (Exception, BaseException) as exception:
-        logger.debug(exception)
+        _LOGGER.debug(exception)
         return content

@@ -19,7 +19,7 @@ from custom_components.hacs.share import get_hacs
 async def hacs_repository(hass, connection, msg):
     """Handle get media player cover command."""
     hacs = get_hacs()
-    logger = getLogger("api.repository")
+    logger = getLogger()
     data = {}
     repository = None
 

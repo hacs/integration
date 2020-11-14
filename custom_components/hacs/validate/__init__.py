@@ -44,8 +44,8 @@ async def async_run_repository_checks(repository):
     failed = len([x for x in checks if x.failed])
 
     if failed != 0:
-        repository.logger.error(f"{failed}/{total} checks failed")
+        repository.logger.error("%s %s/%s checks failed", repository, failed, total)
         if hacs.system.action:
             exit(1)
     else:
-        repository.logger.debug(f"All ({total}) checks passed")
+        repository.logger.debug("%s All (%s) checks passed", repository, total)

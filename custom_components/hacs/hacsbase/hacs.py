@@ -33,7 +33,7 @@ from custom_components.hacs.share import (
 )
 
 from ..enums import HacsCategory, HacsStage
-from ..models.base import Hacs as HacsBase
+from ..base import HacsBase
 
 
 class HacsStatus:

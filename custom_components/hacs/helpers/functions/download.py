@@ -16,6 +16,8 @@ from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.save import async_save_file
 from custom_components.hacs.share import get_hacs
 
+_LOGGER = getLogger()
+
 
 class FileInformation:
     def __init__(self, url, path, name):
@@ -28,14 +30,13 @@ class FileInformation:
 async def async_download_file(url):
     """Download files, and return the content."""
     hacs = get_hacs()
-    logger = getLogger("async_download_file")
     if url is None:
         return
 
     if "tags/" in url:
         url = url.replace("tags/", "")
 
-    logger.debug(f"Downloading {url}")
+    _LOGGER.debug("Downloading %s", url)
 
     result = None
 

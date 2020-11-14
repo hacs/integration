@@ -43,7 +43,7 @@ async def hacs_settings(hass, connection, msg):
         for repo in hacs.repositories:
             if repo.data.new and repo.data.category in msg.get("categories", []):
                 _LOGGER.debug(
-                    "Clearing new flag from ''",
+                    "Clearing new flag from '%s'",
                     repo.data.full_name,
                 )
                 repo.data.new = False

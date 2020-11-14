@@ -2,6 +2,7 @@
 from homeassistant.helpers.entity import Entity
 from custom_components.hacs.const import DOMAIN, NAME_SHORT, VERSION
 from custom_components.hacs.share import get_hacs
+from homeassistant.core import callback
 
 
 async def async_setup_platform(
@@ -40,7 +41,23 @@ class HACSSensor(HACSDevice):
         self._state = None
         self.repositories = []
 
+    @property
+    def should_poll(self):
+        """No polling needed."""
+        return False
+
     async def async_update(self):
+        """Manual updates of the sensor."""
+        self._update()
+
+    @callback
+    def _update_and_write_state(self, *_):
+        """Update the sensor and write state."""
+        self._update()
+        self.async_write_ha_state()
+
+    @callback
+    def _update(self):
         """Update the sensor."""
         hacs = get_hacs()
         if hacs.status.background_task:
@@ -97,3 +114,9 @@ class HACSSensor(HACSDevice):
                 }
             )
         return {"repositories": repositories}
+
+    async def async_added_to_hass(self) -> None:
+        """Register for status events."""
+        self.async_on_remove(
+            self.hass.bus.async_listen("hacs/status", self._update_and_write_state)
+        )

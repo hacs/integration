@@ -14,6 +14,8 @@ DOMAIN_DATA = f"{NAME_SHORT.lower()}_data"
 
 ELEMENT_TYPES = ["integration", "plugin"]
 
+PACKAGE_NAME = "custom_components.hacs"
+
 IFRAME = {
     "title": "HACS",
     "icon": "hacs:hacs",

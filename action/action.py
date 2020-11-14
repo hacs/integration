@@ -36,7 +36,7 @@ CATEGORIES = [
     "theme",
 ]
 
-logger = getLogger("action")
+logger = getLogger()
 
 
 def error(error: str):

@@ -11,7 +11,7 @@ from custom_components.hacs.helpers.functions.register_repository import (
 max_concurrent_tasks = asyncio.Semaphore(15)
 sleeper = 5
 
-logger = getLogger("factory")
+_LOGGER = getLogger()
 
 
 class HacsTaskFactory:
@@ -24,7 +24,7 @@ class HacsTaskFactory:
             try:
                 await repository.common_update()
             except (AIOGitHubAPIException, HacsException) as exception:
-                logger.error("%s - %s", repository.data.full_name, exception)
+                _LOGGER.error("%s - %s", repository.data.full_name, exception)
 
             # Due to GitHub ratelimits we need to sleep a bit
             await asyncio.sleep(sleeper)
@@ -34,7 +34,7 @@ class HacsTaskFactory:
             try:
                 await repository.update_repository()
             except (AIOGitHubAPIException, HacsException) as exception:
-                logger.error("%s - %s", repository.data.full_name, exception)
+                _LOGGER.error("%s - %s", repository.data.full_name, exception)
 
             # Due to GitHub ratelimits we need to sleep a bit
             await asyncio.sleep(sleeper)
@@ -44,7 +44,7 @@ class HacsTaskFactory:
             try:
                 await register_repository(repo, category)
             except (AIOGitHubAPIException, HacsException) as exception:
-                logger.error("%s - %s", repo, exception)
+                _LOGGER.error("%s - %s", repo, exception)
 
             # Due to GitHub ratelimits we need to sleep a bit
             await asyncio.sleep(sleeper)

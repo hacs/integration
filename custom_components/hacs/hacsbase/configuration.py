@@ -4,6 +4,8 @@ import attr
 from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.functions.logger import getLogger
 
+_LOGGER = getLogger()
+
 
 @attr.s(auto_attribs=True)
 class Configuration:
@@ -45,12 +47,11 @@ class Configuration:
 
     def print(self) -> None:
         """Print the current configuration to the log."""
-        logger = getLogger("configuration")
         config = self.to_json()
         for key in config:
             if key in ["config", "config_entry", "options", "token"]:
                 continue
-            logger.debug(f"{key}: {config[key]}")
+            _LOGGER.debug("%s: %s", key, config[key])
 
     @staticmethod
     def from_dict(configuration: dict, options: dict = None) -> None:

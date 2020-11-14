@@ -1,4 +1,5 @@
 """Base HACS class."""
+import logging
 from typing import List, Optional
 import attr
 
@@ -7,7 +8,7 @@ from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from homeassistant.core import HomeAssistant
 
 from .enums import HacsStage
-from .helpers.functions.logger import getLogger, HACSLoggerAdapter
+from .helpers.functions.logger import getLogger
 from .models.core import HacsCore
 from .models.frontend import HacsFrontend
 from .models.system import HacsSystem
@@ -47,7 +48,7 @@ class HacsBaseAttributes:
     common: HacsCommon = attr.ib(HacsCommon)
     status: HacsStatus = attr.ib(HacsStatus)
     frontend: HacsFrontend = attr.ib(HacsFrontend)
-    log: HACSLoggerAdapter = getLogger()
+    log: logging.Logger = getLogger()
     system: HacsSystem = attr.ib(HacsSystem)
     repositories: List = []
 

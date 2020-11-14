@@ -5,7 +5,7 @@ from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.path_exsist import async_path_exsist
 from custom_components.hacs.share import get_hacs
 
-logger = getLogger("web.frontend")
+_LOGGER = getLogger()
 
 
 async def async_serve_frontend(requested_file):
@@ -18,7 +18,7 @@ async def async_serve_frontend(requested_file):
         dev = True
 
     if hacs.configuration.frontend_repo_url:
-        logger.debug("Serving REMOTE DEVELOPMENT frontend")
+        _LOGGER.debug("Serving REMOTE DEVELOPMENT frontend")
         try:
             request = await hacs.session.get(
                 f"{hacs.configuration.frontend_repo_url}/{requested}"
@@ -30,10 +30,10 @@ async def async_serve_frontend(requested_file):
 
                 return response
         except (Exception, BaseException) as exception:
-            logger.error(exception)
+            _LOGGER.error(exception)
 
     elif hacs.configuration.frontend_repo:
-        logger.debug("Serving LOCAL DEVELOPMENT frontend")
+        _LOGGER.debug("Serving LOCAL DEVELOPMENT frontend")
         servefile = f"{hacs.configuration.frontend_repo}/hacs_frontend/{requested}"
     else:
         servefile = f"{locate_dir()}/{requested}"

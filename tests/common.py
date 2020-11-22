@@ -2,7 +2,6 @@
 import asyncio
 import functools as ft
 import json
-import logging
 import os
 from contextlib import contextmanager
 
@@ -21,7 +20,7 @@ from custom_components.hacs.helpers.functions.version_to_install import (
 )
 from tests.async_mock import AsyncMock, Mock, patch
 
-_LOGGER = logging.getLogger(__name__)
+_LOGGER = getLogger(__name__)
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 INSTANCES = []
 

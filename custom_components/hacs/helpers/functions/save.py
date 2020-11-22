@@ -7,11 +7,12 @@ import aiofiles
 
 from custom_components.hacs.helpers.functions.logger import getLogger
 
+_LOGGER = getLogger()
+
 
 async def async_save_file(location, content):
     """Save files."""
-    logger = getLogger("download.save")
-    logger.debug(f"Saving {location}")
+    _LOGGER.debug("Saving %s", location)
     mode = "w"
     encoding = "utf-8"
     errors = "ignore"
@@ -41,12 +42,11 @@ async def async_save_file(location, content):
             base = location.split("/themes/")[0]
             combined = f"{base}/themes/{filename}"
             if os.path.exists(combined):
-                logger.info(f"Removing old theme file {combined}")
+                _LOGGER.info("Removing old theme file %s", combined)
                 os.remove(combined)
 
     except (Exception, BaseException) as error:  # pylint: disable=broad-except
-        msg = f"Could not write data to {location} - {error}"
-        logger.error(msg)
+        _LOGGER.error("Could not write data to %s - %s", location, error)
         return False
 
     return os.path.exists(location)

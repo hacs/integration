@@ -6,6 +6,8 @@ from homeassistant.components import websocket_api
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.share import get_hacs
 
+_LOGGER = getLogger()
+
 
 @websocket_api.async_response
 @websocket_api.websocket_command(
@@ -18,10 +20,9 @@ from custom_components.hacs.share import get_hacs
 async def hacs_settings(hass, connection, msg):
     """Handle get media player cover command."""
     hacs = get_hacs()
-    logger = getLogger("api.settings")
 
     action = msg["action"]
-    logger.debug(f"WS action '{action}'")
+    _LOGGER.debug("WS action '%s'", action)
 
     if action == "set_fe_grid":
         hacs.configuration.frontend_mode = "Grid"
@@ -41,10 +42,13 @@ async def hacs_settings(hass, connection, msg):
     elif action == "clear_new":
         for repo in hacs.repositories:
             if repo.data.new and repo.data.category in msg.get("categories", []):
-                logger.debug(f"Clearing new flag from '{repo.data.full_name}'")
+                _LOGGER.debug(
+                    "Clearing new flag from '%s'",
+                    repo.data.full_name,
+                )
                 repo.data.new = False
     else:
-        logger.error(f"WS action '{action}' is not valid")
+        _LOGGER.error("WS action '%s' is not valid", action)
     hass.bus.async_fire("hacs/config", {})
     await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"], {}))

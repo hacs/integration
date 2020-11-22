@@ -21,7 +21,7 @@ class HacsData:
 
     def __init__(self):
         """Initialize."""
-        self.logger = getLogger("data")
+        self.logger = getLogger()
         self.hacs = get_hacs()
         self.queue = QueueManager()
         self.content = {}

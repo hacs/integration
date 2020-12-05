@@ -61,11 +61,11 @@ async def common_update_data(repository, ignore_issues=False):
         )
         if releases:
             repository.data.releases = True
-            repository.releases.objects = releases
+            repository.releases.objects = [x for x in releases if not x.draft]
             repository.data.published_tags = [
-                x.tag_name for x in releases if not x.draft
+                x.tag_name for x in repository.releases.objects
             ]
-            repository.data.last_version = next(iter(releases)).tag_name
+            repository.data.last_version = next(iter(repository.data.published_tags))
 
     except (AIOGitHubAPIException, HacsException):
         repository.data.releases = False
@@ -73,7 +73,7 @@ async def common_update_data(repository, ignore_issues=False):
     if not repository.force_branch:
         repository.ref = version_to_install(repository)
     if repository.data.releases:
-        for release in releases or []:
+        for release in repository.releases.objects or []:
             if release.tag_name == repository.ref:
                 assets = release.assets
                 if assets:

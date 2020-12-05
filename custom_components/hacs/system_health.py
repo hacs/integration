@@ -3,7 +3,8 @@ from homeassistant.components import system_health
 from homeassistant.core import HomeAssistant, callback
 from aiogithubapi.common.const import BASE_API_URL
 
-from .const import DOMAIN, NAME_LONG
+from .const import DOMAIN
+from .base import HacsBase
 
 GITHUB_STATUS = "https://www.githubstatus.com/"
 
@@ -19,15 +20,18 @@ def async_register(
 
 async def system_health_info(hass):
     """Get info for the info page."""
-    client = hass.data[DOMAIN]
+    client: HacsBase = hass.data[DOMAIN]
+    rate_limit = await client.github.get_rate_limit()
 
     return {
         "GitHub API": system_health.async_check_can_reach_url(
             hass, BASE_API_URL, GITHUB_STATUS
         ),
-        "Installed version": client.version,
-        "Available repositories": len(client.repositories),
-        "Installed repositories": len(
+        "Github API Calls Remaining": rate_limit.get("remaining", "0"),
+        "Installed Version": client.version,
+        "Stage": client.stage,
+        "Available Repositories": len(client.repositories),
+        "Installed Repositories": len(
             [repo for repo in client.repositories if repo.data.installed]
         ),
     }

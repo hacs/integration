@@ -1,0 +1,52 @@
+name-template: '$RESOLVED_VERSION'
+tag-template: '$RESOLVED_VERSION'
+categories:
+  - title: ':boom: Breaking changes'
+    label: 'Breaking Change'
+
+  - title: ':sparkles: New features'
+    label: 'pr: new-feature'
+
+  - title: ':zap: Enhancements'
+    label: 'pr: enhancement'
+
+  - title: ':bug: Bug Fixes'
+    label: 'pr: bugfix'
+
+  - title: ':arrow_up: Dependency Updates'
+    labels:
+      - 'pr: dependency-update'
+      - 'dependencies'
+
+include-labels:
+  - 'Breaking Change'
+  - 'pr: enhancement'
+  - 'pr: dependency-update'
+  - 'pr: new-feature'
+  - 'pr: bugfix'
+
+version-resolver:
+  major:
+    labels:
+      - 'Breaking Change'
+  minor:
+    labels:
+      - 'pr: enhancement'
+      - 'pr: dependency-update'
+      - 'pr: new-feature'
+  patch:
+    labels:
+      - 'pr: bugfix'
+  default: minor
+
+template: |
+  [![Downloads for this release](https://img.shields.io/github/downloads/hacs/integration/$RESOLVED_VERSION/total.svg)](https://github.com/hacs/integration/releases/$RESOLVED_VERSION)
+  $CHANGES
+
+  ## Links
+
+  - [Discord server for HACS](https://discord.gg/apgchf8)
+  - [HACS Documentation](https://hacs.xyz/)
+  - [How to submit bugs/feature requests](https://hacs.xyz/docs/issues)
+  - [If you like what I (@ludeeus) do please consider sponsoring me on GitHub](https://github.com/sponsors/ludeeus)
+  - [Or buy me a ☕️ / 🍺](https://www.buymeacoffee.com/ludeeus)

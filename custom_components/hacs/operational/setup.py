@@ -191,7 +191,8 @@ async def async_hacs_startup():
 
     # Setup startup tasks
     if hacs.status.new:
-        if int(hacs.system.ha_version.split(".")[1]) >= 117:
+        ha_versions = hacs.system.ha_version.split(".")
+        if int(ha_versions[0]) != 0 or int(ha_versions[1]) >= 117:
             async_call_later(hacs.hass, 5, hacs.startup_tasks)
         else:
             async_call_later(hacs.hass, 5, hacs.startup_tasks())

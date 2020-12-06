@@ -12,28 +12,6 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v1
 
-      # Get updated translations
-      - name: Download Lokalise CLI
-        run: |
-          curl -sfL https://raw.githubusercontent.com/lokalise/lokalise-cli-2-go/master/install.sh | sh
-      - name: Downloading translations
-        run: |
-          ./bin/lokalise2 \
-            --token "${{ secrets.lokalise_token }}"\
-            --project-id "854515055f679055040b37.42677693" \
-            file download \
-            --format json \
-            --unzip-to /tmp/lokalise \
-            --export-empty-as skip \
-            --export-sort a_z \
-            --original-filenames=false  \
-            --bundle-structure %LANG_ISO%.%FORMAT%
-
-      - name: Move new  translations
-        run: |
-          mkdir -p /home/runner/work/integration/integration/custom_components/hacs/translations/
-          cp /tmp/lokalise/* /home/runner/work/integration/integration/custom_components/hacs/translations/
-
       - name: "Set version numbmer"
         run: |
           sed -i '/VERSION = /c\VERSION = "${{ github.ref }}"' /home/runner/work/integration/integration/custom_components/hacs/const.py

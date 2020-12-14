@@ -114,11 +114,7 @@ async def async_startup_wrapper_for_yaml():
             .replace("-", "_")
         )
         hacs.log.info("Could not setup HACS, trying again in 15 min")
-        ha_versions = hacs.system.ha_version.split(".")
-        if int(ha_versions[0]) != 0 or int(ha_versions[1]) >= 117:
-            async_call_later(hacs.hass, 900, async_startup_wrapper_for_yaml)
-        else:
-            async_call_later(hacs.hass, 900, async_startup_wrapper_for_yaml())
+        async_call_later(hacs.hass, 900, async_startup_wrapper_for_yaml)
         return
     hacs.system.disabled = False
 
@@ -192,11 +188,7 @@ async def async_hacs_startup():
 
     # Setup startup tasks
     if hacs.status.new:
-        ha_versions = hacs.system.ha_version.split(".")
-        if int(ha_versions[0]) != 0 or int(ha_versions[1]) >= 117:
-            async_call_later(hacs.hass, 5, hacs.startup_tasks)
-        else:
-            async_call_later(hacs.hass, 5, hacs.startup_tasks())
+        async_call_later(hacs.hass, 5, hacs.startup_tasks)
     else:
         hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks)
 

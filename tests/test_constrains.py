@@ -8,7 +8,7 @@ from custom_components.hacs.helpers.functions.constrains import (
     constrain_version,
 )
 
-HAVERSION = "9.99.9"
+HAVERSION = "9999.99.9"
 
 
 def temp_cleanup(tmpdir):
@@ -54,7 +54,7 @@ def test_ha_version(hacs, tmpdir):
     hacs.system.ha_version = HAVERSION
     assert constrain_version()
 
-    hacs.system.ha_version = "1.0.0"
+    hacs.system.ha_version = "9999.0.0"
     assert constrain_version()
 
     hacs.system.ha_version = "0.97.0"

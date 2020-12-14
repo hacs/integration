@@ -21,12 +21,14 @@ def test_requirement_versions():
 
     with open(MANIFEST_FILE) as manifest_file:
         for line in json.loads(manifest_file.read())["requirements"]:
-            package = line.split(">")[0].split("=")[0]
+            if ">" in line or "<" in line:
+                continue
+            package = line.split("=")[0]
             version = line.split("=")[-1]
             if package in requirements:
                 if version != requirements[package]:
                     warnings.warn(
-                        "Package has different version from HA, this might casuse problems"
+                        f"Package '{package}' has different version from HA, this might casuse problems ({version}/{requirements[package]})"
                     )
 
 

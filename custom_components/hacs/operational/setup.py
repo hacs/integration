@@ -77,7 +77,6 @@ async def async_setup(hass, config):
 
     await _async_common_setup(hass)
 
-    hass.data[DOMAIN] = config[DOMAIN]
     hacs.configuration = Configuration.from_dict(config[DOMAIN])
     hacs.configuration.config_type = "yaml"
     await async_startup_wrapper_for_yaml()
@@ -122,6 +121,7 @@ async def async_startup_wrapper_for_yaml():
 async def async_hacs_startup():
     """HACS startup tasks."""
     hacs = get_hacs()
+    hacs.hass.data[DOMAIN] = hacs
 
     try:
         lovelace_info = await system_health_info(hacs.hass)

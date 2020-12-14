@@ -9,7 +9,7 @@ from custom_components.hacs.const import (
 from custom_components.hacs.helpers.functions.misc import version_left_higher_then_right
 from custom_components.hacs.share import get_hacs
 
-MINIMUM_HA_VERSION = "0.110.0"
+MINIMUM_HA_VERSION = "2020.12.0"
 
 
 def check_constrains():

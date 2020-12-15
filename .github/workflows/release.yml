@@ -32,23 +32,3 @@ jobs:
           asset_name: hacs.zip
           tag: ${{ github.ref }}
           overwrite: true
-
-  releasenotes:
-    name: Prepare releasenotes
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v1
-
-      - name: Enable version 3.8 of Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8
-
-      - name: Install requirements
-        run: |
-          python3 -m pip install setuptools wheel
-          python3 -m pip install -r /home/runner/work/integration/integration/requirements.txt
-
-      - name: Update release notes
-        run: python3 /home/runner/work/integration/integration/manage/generate_releasenotes.py --token ${{ secrets.GITHUB_TOKEN }} --release yes --tag ${{ github.ref }}

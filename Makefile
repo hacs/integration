@@ -17,6 +17,7 @@ endif
 ifdef HAS_APT
 	sudo apt update && sudo apt install libxml2-dev libxslt-dev bash curl jq
 endif
+	python3 -m pip --disable-pip-version-check install -U "pip>=8.0.3,<20.3" --find-links $(WHEELS)
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS)
 	python3 -m pip --disable-pip-version-check install --ignore-installed -r requirements.txt --find-links $(WHEELS)
 
@@ -41,6 +42,7 @@ update: ## Pull main from hacs/integration
 	git pull upstream main;
 
 homeassistant-install: ## Install the latest dev version of Home Assistant
+	python3 -m pip --disable-pip-version-check install -U "pip>=8.0.3,<20.3" --find-links $(WHEELS)
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS);
 	python3 -m pip --disable-pip-version-check \
 		install --upgrade git+git://github.com/home-assistant/home-assistant.git@dev --find-links $(WHEELS);

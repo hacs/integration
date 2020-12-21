@@ -1,4 +1,5 @@
 """Tests for etag."""
+import asyncio
 import os
 import time
 
@@ -50,7 +51,10 @@ async def test_etag_with_web_response(tmpdir, hacs):
     assert req3.status == 200
 
     start_time = time.time()
-    for _ in range(0, 1000):
+
+    async def test_304():
         assert (await async_serve_category_file(request, "test.gz")).status == 304
+
+    await asyncio.gather(*[test_304() for _ in range(0, 1000)])
     print("--- %s seconds ---" % (time.time() - start_time))
     assert (time.time() - start_time) < 1

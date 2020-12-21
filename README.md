@@ -35,4 +35,4 @@ HACS is a integration that gives the user a powerful UI to handle downloads of c
 
 ~~If~~ When you experience issues/bugs with this the best way to report them is to open an issue in **this** repo.
 
-[Issue link](https://hacs.xyz/issues/)
+[Issue link](https://hacs.xyz/docs/issues)

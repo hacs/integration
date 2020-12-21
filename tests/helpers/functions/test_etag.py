@@ -1,9 +1,10 @@
 """Tests for etag."""
-from custom_components.hacs.webresponses.category import async_serve_category_file
-import pytest
 import os
-from custom_components.hacs.helpers.functions.file_etag import async_get_etag
 import time
+
+import pytest
+from custom_components.hacs.helpers.functions.file_etag import async_get_etag
+from custom_components.hacs.webresponses.category import async_serve_category_file
 
 
 class MockRequest:

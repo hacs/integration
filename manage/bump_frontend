@@ -1,0 +1,20 @@
+ #!/bin/bash
+
+version=$(curl -sSL -f https://pypi.org/pypi/hacs-frontend/json | jq -r .info.version)
+raw=$(\
+    curl -sSL -f "https://github.com/hacs/frontend/releases/tag/$version" \
+    | grep "<li>" \
+    | grep "</a></li>" \
+    | grep "user" \
+    )
+
+user=$(echo "$raw" | cut -d">" -f 5 | cut -d"<" -f 1)
+change=$(echo "$raw" | cut -d">" -f 2 | cut -d"(" -f 1)
+
+git checkout -b "frontend/$version"
+sed -i "/hacs_frontend/c\hacs_frontend==$version" requirements.txt
+python3 ./manage/update_requirements.py
+git add requirements.txt
+git add custom_components/hacs/manifest.json
+git commit -m "$change $user"
+git push --set-upstream origin "frontend/$version"

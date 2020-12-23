@@ -41,6 +41,9 @@ coverage:  ## Display coverage report
 update: ## Pull main from hacs/integration
 	git pull upstream main;
 
+bump-frontend: ## Bump the HACS frontend
+	@bash manage/bump_frontend;
+
 homeassistant-install: ## Install the latest dev version of Home Assistant
 	python3 -m pip --disable-pip-version-check install -U "pip>=8.0.3,<20.3" --find-links $(WHEELS)
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel --find-links $(WHEELS);

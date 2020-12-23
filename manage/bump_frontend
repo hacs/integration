@@ -1,6 +1,6 @@
  #!/bin/bash
 
-version=$(curl -sSL -f https://pypi.org/pypi/hacs-frontend/json | jq -r .info.version)
+version=$(curl -sSL -f "https://github.com/hacs/frontend/releases/latest" | grep "<title>" | awk -F" " '{print $2}')
 raw=$(\
     curl -sSL -f "https://github.com/hacs/frontend/releases/tag/$version" \
     | grep "<li>" \

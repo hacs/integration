@@ -30,14 +30,6 @@ def test_check_constrains(hacs, tmpdir):
 
     assert check_constrains()
 
-    custom_updater_dir = f"{hacs.core.config_path}/custom_components/custom_updater"
-    os.makedirs(custom_updater_dir, exist_ok=True)
-    with open(f"{custom_updater_dir}/__init__.py", "w") as cufile:
-        cufile.write("")
-
-    assert not check_constrains()
-    temp_cleanup(tmpdir)
-
     hacs.system.ha_version = "0.97.0"
     assert not check_constrains()
 

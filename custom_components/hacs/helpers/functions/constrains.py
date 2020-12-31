@@ -5,11 +5,10 @@ import os
 from custom_components.hacs.const import (
     CUSTOM_UPDATER_LOCATIONS,
     CUSTOM_UPDATER_WARNING,
+    MINIMUM_HA_VERSION,
 )
 from custom_components.hacs.helpers.functions.misc import version_left_higher_then_right
 from custom_components.hacs.share import get_hacs
-
-MINIMUM_HA_VERSION = "2020.12.0"
 
 
 def check_constrains():

@@ -6,11 +6,13 @@ from aiogithubapi import (
     GitHubDevice,
 )
 from aiogithubapi.common.const import OAUTH_USER_LOGIN
+from awesomeversion import AwesomeVersion
 from homeassistant import config_entries
 from homeassistant.core import callback
+from homeassistant.const import __version__ as HAVERSION
 from homeassistant.helpers import aiohttp_client
 
-from custom_components.hacs.const import DOMAIN
+from custom_components.hacs.const import CLIENT_ID, DOMAIN, MINIMUM_HA_VERSION
 from custom_components.hacs.helpers.functions.configuration_schema import (
     hacs_config_option_schema,
 )
@@ -72,7 +74,7 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     async def _show_device_form(self):
         """Device flow"""
         self.device = GitHubDevice(
-            "395a8e669c5de9f7c6e8",
+            CLIENT_ID,
             session=aiohttp_client.async_get_clientsession(self.hass),
         )
         device_data = await self.device.async_register_device()
@@ -90,6 +92,11 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Show the configuration form to edit location data."""
         if not user_input:
             user_input = {}
+        if AwesomeVersion(HAVERSION) < MINIMUM_HA_VERSION:
+            return self.async_abort(
+                reason="min_ha_version",
+                description_placeholders={"version": MINIMUM_HA_VERSION},
+            )
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema(

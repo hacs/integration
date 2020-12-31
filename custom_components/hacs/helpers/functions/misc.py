@@ -30,13 +30,7 @@ def get_repository_name(repository) -> str:
 @lru_cache(maxsize=1024)
 def version_left_higher_then_right(left: str, right: str) -> bool:
     """Return a bool if source is newer than target, will also be true if identical."""
-    left_version = AwesomeVersion(left)
-    right_version = AwesomeVersion(right)
-
-    if left_version == right_version:
-        return True
-
-    return left_version > right_version
+    return AwesomeVersion(left) >= AwesomeVersion(right)
 
 
 def extract_repository_from_url(url: str) -> str or None:

@@ -1,6 +1,7 @@
 """Setup HACS."""
 from custom_components.hacs.enums import HacsStage
 from aiogithubapi import AIOGitHubAPIException, GitHub
+from awesomeversion import AwesomeVersion
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.exceptions import ConfigEntryNotReady
@@ -132,7 +133,7 @@ async def async_hacs_startup():
     hacs.version = VERSION
     hacs.log.info(STARTUP)
     hacs.core.config_path = hacs.hass.config.path()
-    hacs.system.ha_version = HAVERSION
+    hacs.system.ha_version = AwesomeVersion(HAVERSION)
 
     # Setup websocket API
     await async_setup_hacs_websockt_api()

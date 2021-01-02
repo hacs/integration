@@ -2,7 +2,7 @@
 import asyncio
 from aiogithubapi import AIOGitHubAPIException
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.helpers.classes.exceptions import HacsException, HacsRepositoryArchivedException
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
@@ -34,10 +34,9 @@ class HacsTaskFactory:
             try:
                 await repository.update_repository()
             except (AIOGitHubAPIException, HacsException) as exception:
-                if str(exception) == "Repository is archived.":
-                    _LOGGER.warning("%s - %s", repository.data.full_name, exception)
-                else:
-                    _LOGGER.error("%s - %s", repository.data.full_name, exception)
+                _LOGGER.error("%s - %s", repository.data.full_name, exception)
+            except HacsRepositoryArchivedException as exception:
+                _LOGGER.warning("%s - %s", repository.data.full_name, exception)
 
             # Due to GitHub ratelimits we need to sleep a bit
             await asyncio.sleep(sleeper)

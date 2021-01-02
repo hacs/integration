@@ -6,7 +6,7 @@ class HacsException(Exception):
 
 
 class HacsRepositoryArchivedException(HacsException):
-    """For repos that are archived (so they raise warnings instead of errors)."""
+    """For repositories that are archived."""
 
 
 class HacsExpectedException(HacsException):

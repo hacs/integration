@@ -5,7 +5,7 @@ class HacsException(Exception):
     """Super basic."""
 
 
-class HacsRepositoryArchivedException(HacsException):
+class HacsRepositoryArchivedException(Exception):
     """For repositories that are archived."""
 
 

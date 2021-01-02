@@ -2,7 +2,10 @@
 import asyncio
 from aiogithubapi import AIOGitHubAPIException
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException, HacsRepositoryArchivedException
+from custom_components.hacs.helpers.classes.exceptions import (
+    HacsException,
+    HacsRepositoryArchivedException,
+)
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,

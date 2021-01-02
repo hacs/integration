@@ -133,7 +133,7 @@ async def async_hacs_startup():
     hacs.version = INTEGRATION_VERSION
     hacs.log.info(STARTUP)
     hacs.core.config_path = hacs.hass.config.path()
-    hacs.system.ha_version = AwesomeVersion(HAVERSION)
+    hacs.system.ha_version = HAVERSION
 
     # Setup websocket API
     await async_setup_hacs_websockt_api()

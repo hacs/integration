@@ -1,7 +1,7 @@
 """HACS System info."""
 import attr
 from ..enums import HacsStage
-from ..const import VERSION
+from ..const import INTEGRATION_VERSION
 
 
 @attr.s
@@ -10,6 +10,6 @@ class HacsSystem:
 
     disabled: bool = False
     running: bool = False
-    version: str = VERSION
+    version: str = INTEGRATION_VERSION
     stage: HacsStage = attr.ib(HacsStage)
     action: bool = False

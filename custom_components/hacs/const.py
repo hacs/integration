@@ -1,7 +1,7 @@
 """Constants for HACS"""
 NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
-VERSION = "main"
+INTEGRATION_VERSION = "main"
 DOMAIN = "hacs"
 CLIENT_ID = "395a8e669c5de9f7c6e8"
 MINIMUM_HA_VERSION = "2020.12.0"
@@ -41,7 +41,7 @@ STARTUP = f"""
 -------------------------------------------------------------------
 HACS (Home Assistant Community Store)
 
-Version: {VERSION}
+Version: {INTEGRATION_VERSION}
 This is a custom integration
 If you have any issues with this you need to open an issue here:
 https://github.com/hacs/integration/issues

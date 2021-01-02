@@ -25,6 +25,5 @@ def test_wierd_stuff():
     assert version_left_higher_then_right("1.0.0", "1.0.0a0")
     assert version_left_higher_then_right("1.0.0", "1.0.0b0")
     assert version_left_higher_then_right("1.0.0", "1.0.0rc0")
-    assert not version_left_higher_then_right(None, "1.0.0rc0")
     assert not version_left_higher_then_right(1.0, "1.0.0rc0")
     assert not version_left_higher_then_right("0", "1.0.0rc0")

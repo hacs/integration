@@ -10,27 +10,32 @@ on:
 
 jobs:
   run:
-    name: With pytest
+    name: With pytest for Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
-    container:
-      image: hacscontainer/${{ matrix.version }}
-      env:
-        PYTEST: true
     strategy:
       matrix:
-        version: ["python37", "python38", "python39"]
+        python-version: [3.8, 3.9]
     steps:
-    - uses: actions/checkout@v2
+      - name: 📥 Checkout the repository
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run:  make init
+      - name: 🛠️ Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Generate coverage report
-      run: |
-        python3 -m pip install pytest pytest-cov
-        python3 -m pytest
+      - name: 📦 Install dependencies
+        run:  make init
 
-    - name: Upload coverage to Codecov
-      if: ${{ matrix.version == 'python38' }}
-      run:
-        curl -sfSL https://codecov.io/bash | bash -
+      - name: 🏃 Run tests
+        env:
+          PYTEST: true
+        run: |
+          python3 -m pip install pytest pytest-cov
+          python3 -m pytest
+
+      - name: 📤 Upload coverage to Codecov
+        if: ${{ matrix.python-version == '3.8' }}
+        run: |
+          make coverage
+          curl -sfSL https://codecov.io/bash | bash -

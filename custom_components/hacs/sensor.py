@@ -1,6 +1,6 @@
 """Sensor platform for HACS."""
 from homeassistant.helpers.entity import Entity
-from custom_components.hacs.const import DOMAIN, NAME_SHORT, VERSION
+from custom_components.hacs.const import DOMAIN, NAME_SHORT, INTEGRATION_VERSION
 from custom_components.hacs.share import get_hacs
 from homeassistant.core import callback
 
@@ -28,7 +28,7 @@ class HACSDevice(Entity):
             "name": NAME_SHORT,
             "manufacturer": "hacs.xyz",
             "model": "",
-            "sw_version": VERSION,
+            "sw_version": INTEGRATION_VERSION,
             "entry_type": "service",
         }
 

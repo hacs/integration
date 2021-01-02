@@ -36,7 +36,8 @@ def constrain_version():
     hacs = get_hacs()
     if not version_left_higher_then_right(hacs.system.ha_version, MINIMUM_HA_VERSION):
         hacs.log.critical(
-            f"You need HA version {MINIMUM_HA_VERSION} or newer to use this integration."
+            "You need HA version %s or newer to use this integration.",
+            MINIMUM_HA_VERSION,
         )
         return False
     return True

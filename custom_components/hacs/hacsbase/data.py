@@ -2,7 +2,7 @@
 import os
 from queueman import QueueManager
 
-from custom_components.hacs.const import VERSION
+from custom_components.hacs.const import INTEGRATION_VERSION
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.register_repository import (
@@ -189,7 +189,7 @@ class HacsData:
             repository.status.first_install = False
 
         if repository_data["full_name"] == "hacs/integration":
-            repository.data.installed_version = VERSION
+            repository.data.installed_version = INTEGRATION_VERSION
             repository.data.installed = True
 
         restored = store_exists and await store.async_load() or {}

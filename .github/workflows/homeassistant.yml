@@ -11,33 +11,41 @@ on:
 jobs:
   ha_test:
     name: Home Assistant Check
-    container:
-      image: hacscontainer/${{ matrix.version }}
     strategy:
       matrix:
-        version: ["python37", "python38", "python39"]
+        python-version: [3.8, 3.9]
+
     runs-on: ubuntu-latest
     steps:
-    - name: "Get the repository content"
-      uses: actions/checkout@v2
+      - name: 📥 Checkout the repository
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: make init
+      - name: 🛠️ Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies for custom_components
-      run: |
-        for file in $(find custom_components/ -name "manifest.json"); do
-          cat "$file" | for req in $(jq .requirements[]);
-            do pip install $(echo "$req" | jq -r .);
-            done;
-          done
+      - name: 📦 Install dependencies
+        run: |
+          make init
 
-    - name: 'Copy sample configuration for Home Assistant'
-      run: cp -f .devcontainer/sample_configuration.yaml ./configuration.yaml
 
-    - name: Home Assistant configuration check
-      run: |
-        echo "Testing with this configuration:"
-        cat configuration.yaml
-        echo ""
-        hass --script check_config --config .
+      - name: 📦 Install dependencies for custom_components
+        run: |
+          for file in $(find custom_components/ -name "manifest.json"); do
+            cat "$file" | for req in $(jq .requirements[]);
+              do pip install $(echo "$req" | jq -r .);
+              done;
+            done
+
+      - name: 📋 Copy sample configuration for Home Assistant
+        run: |
+          cp -f .devcontainer/sample_configuration.yaml ./configuration.yaml
+          sed -i 's/#//g' ./configuration.yaml
+
+      - name: 🏃 Run Home Assistant configuration check
+        run: |
+          echo "Testing with this configuration:"
+          cat configuration.yaml
+          echo ""
+          hass --script check_config --config .

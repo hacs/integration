@@ -33,10 +33,10 @@ class HacsTaskFactory:
         async with max_concurrent_tasks:
             try:
                 await repository.update_repository()
-            except (AIOGitHubAPIException, HacsException) as exception:
-                _LOGGER.error("%s - %s", repository.data.full_name, exception)
             except HacsRepositoryArchivedException as exception:
                 _LOGGER.warning("%s - %s", repository.data.full_name, exception)
+            except (AIOGitHubAPIException, HacsException) as exception:
+                _LOGGER.error("%s - %s", repository.data.full_name, exception)
 
             # Due to GitHub ratelimits we need to sleep a bit
             await asyncio.sleep(sleeper)

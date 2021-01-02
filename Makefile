@@ -18,7 +18,7 @@ ifdef HAS_APT
 endif
 	python3 -m pip --disable-pip-version-check install -U "pip>=8.0.3,<20.3"
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel
-	python3 -m pip --disable-pip-version-check install --ignore-installed
+	python3 -m pip --disable-pip-version-check install --ignore-installed -r requirements.txt
 
 start: ## Start the HA with the integration
 	@bash manage/integration_start;

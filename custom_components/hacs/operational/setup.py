@@ -108,11 +108,6 @@ async def async_startup_wrapper_for_yaml():
         startup_result = False
     if not startup_result:
         hacs.system.disabled = True
-        hacs.hass.components.frontend.async_remove_panel(
-            hacs.configuration.sidepanel_title.lower()
-            .replace(" ", "_")
-            .replace("-", "_")
-        )
         hacs.log.info("Could not setup HACS, trying again in 15 min")
         async_call_later(hacs.hass, 900, async_startup_wrapper_for_yaml)
         return

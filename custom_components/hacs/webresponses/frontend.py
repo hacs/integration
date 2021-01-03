@@ -42,9 +42,9 @@ async def async_serve_frontend(requested_file):
         return web.Response(status=404)
 
     response = web.FileResponse(servefile)
+    response.headers["Content-Type"] = "application/javascript"
 
     if dev:
-        response.headers["Content-Type"] = "application/javascript"
         response.headers["Cache-Control"] = "no-store, max-age=0"
         response.headers["Pragma"] = "no-store"
     return response

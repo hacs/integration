@@ -1,6 +1,7 @@
 """Helper functions: misc"""
 import re
 from functools import lru_cache
+
 from awesomeversion import AwesomeVersion
 
 RE_REPOSITORY = re.compile(

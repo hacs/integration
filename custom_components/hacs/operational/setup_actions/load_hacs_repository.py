@@ -6,6 +6,7 @@ from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
 from custom_components.hacs.share import get_hacs
+
 from ...enums import HacsSetupTask
 
 

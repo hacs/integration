@@ -1,5 +1,6 @@
 """Data handler for HACS."""
 import os
+
 from queueman import QueueManager
 
 from custom_components.hacs.const import INTEGRATION_VERSION

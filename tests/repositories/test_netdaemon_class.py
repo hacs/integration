@@ -1,4 +1,5 @@
 import pytest
+
 from custom_components.hacs.helpers.classes.exceptions import HacsException
 
 

@@ -1,6 +1,6 @@
-from custom_components.hacs.enums import HacsCategory
 import pytest
 
+from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.operational.setup_actions.categories import (
     async_setup_extra_stores,
 )

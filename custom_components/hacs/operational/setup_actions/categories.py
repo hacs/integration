@@ -1,7 +1,8 @@
 """Starting setup task: extra stores."""
 from custom_components.hacs.const import ELEMENT_TYPES
-from ...share import get_hacs
+
 from ...enums import HacsCategory, HacsSetupTask
+from ...share import get_hacs
 
 
 def _setup_extra_stores():

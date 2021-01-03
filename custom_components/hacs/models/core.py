@@ -1,5 +1,6 @@
 """HACS Core info."""
 from pathlib import Path
+
 import attr
 
 from ..enums import LovelaceMode

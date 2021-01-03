@@ -3,6 +3,7 @@ from homeassistant.helpers import discovery
 
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.share import get_hacs
+
 from ...enums import HacsSetupTask
 
 

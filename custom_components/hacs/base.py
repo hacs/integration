@@ -1,8 +1,8 @@
 """Base HACS class."""
 import logging
 from typing import List, Optional
-import attr
 
+import attr
 from aiogithubapi.github import AIOGitHubAPI
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from homeassistant.core import HomeAssistant

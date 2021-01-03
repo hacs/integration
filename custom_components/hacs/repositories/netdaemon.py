@@ -1,7 +1,7 @@
 """Class for netdaemon apps in HACS."""
+from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.classes.repository import HacsRepository
-from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.helpers.functions.filters import (
     get_first_directory_in_directory,
 )

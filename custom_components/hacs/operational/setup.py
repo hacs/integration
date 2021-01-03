@@ -1,7 +1,6 @@
 """Setup HACS."""
 from custom_components.hacs.enums import HacsStage
 from aiogithubapi import AIOGitHubAPIException, GitHub
-from awesomeversion import AwesomeVersion
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.exceptions import ConfigEntryNotReady
@@ -99,7 +98,7 @@ async def async_startup_wrapper_for_config_entry():
     return startup_result
 
 
-async def async_startup_wrapper_for_yaml():
+async def async_startup_wrapper_for_yaml(_=None):
     """Startup wrapper for yaml config."""
     hacs = get_hacs()
     try:

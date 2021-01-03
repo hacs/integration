@@ -7,13 +7,9 @@ https://hacs.xyz/
 import voluptuous as vol
 
 from .const import DOMAIN
-from .helpers.functions.configuration_schema import (
-    hacs_config_combined,
-)
-from .operational.setup import (
-    async_setup as hacs_yaml_setup,
-    async_setup_entry as hacs_ui_setup,
-)
+from .helpers.functions.configuration_schema import hacs_config_combined
+from .operational.setup import async_setup as hacs_yaml_setup
+from .operational.setup import async_setup_entry as hacs_ui_setup
 
 CONFIG_SCHEMA = vol.Schema({DOMAIN: hacs_config_combined()}, extra=vol.ALLOW_EXTRA)
 

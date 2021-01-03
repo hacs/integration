@@ -1,7 +1,8 @@
 """HACS System info."""
 import attr
-from ..enums import HacsStage
+
 from ..const import INTEGRATION_VERSION
+from ..enums import HacsStage
 
 
 @attr.s

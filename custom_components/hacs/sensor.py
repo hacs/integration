@@ -1,8 +1,9 @@
 """Sensor platform for HACS."""
-from homeassistant.helpers.entity import Entity
-from custom_components.hacs.const import DOMAIN, NAME_SHORT, INTEGRATION_VERSION
-from custom_components.hacs.share import get_hacs
 from homeassistant.core import callback
+from homeassistant.helpers.entity import Entity
+
+from custom_components.hacs.const import DOMAIN, INTEGRATION_VERSION, NAME_SHORT
+from custom_components.hacs.share import get_hacs
 
 
 async def async_setup_platform(

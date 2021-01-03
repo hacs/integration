@@ -7,7 +7,6 @@ from queueman import QueueManager
 from queueman.exceptions import QueueManagerExecutionStillInProgress
 
 from custom_components.hacs.helpers import HacsHelpers
-
 from custom_components.hacs.helpers.functions.get_list_from_default import (
     async_get_list_from_default,
 )
@@ -32,8 +31,8 @@ from custom_components.hacs.share import (
     list_removed_repositories,
 )
 
-from ..enums import HacsCategory, HacsStage
 from ..base import HacsBase
+from ..enums import HacsCategory, HacsStage
 
 
 class HacsStatus:

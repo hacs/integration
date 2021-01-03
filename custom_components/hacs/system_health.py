@@ -1,10 +1,10 @@
 """Provide info to system health."""
+from aiogithubapi.common.const import BASE_API_URL
 from homeassistant.components import system_health
 from homeassistant.core import HomeAssistant, callback
-from aiogithubapi.common.const import BASE_API_URL
 
-from .const import DOMAIN
 from .base import HacsBase
+from .const import DOMAIN
 
 GITHUB_STATUS = "https://www.githubstatus.com/"
 

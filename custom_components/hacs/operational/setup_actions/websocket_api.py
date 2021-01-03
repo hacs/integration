@@ -16,6 +16,7 @@ from custom_components.hacs.api.hacs_repository_data import hacs_repository_data
 from custom_components.hacs.api.hacs_settings import hacs_settings
 from custom_components.hacs.api.hacs_status import hacs_status
 from custom_components.hacs.share import get_hacs
+
 from ...enums import HacsSetupTask
 
 

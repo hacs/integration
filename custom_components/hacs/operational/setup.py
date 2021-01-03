@@ -1,5 +1,4 @@
 """Setup HACS."""
-from custom_components.hacs.enums import HacsStage
 from aiogithubapi import AIOGitHubAPIException, GitHub
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
@@ -7,7 +6,8 @@ from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 
-from custom_components.hacs.const import DOMAIN, STARTUP, INTEGRATION_VERSION
+from custom_components.hacs.const import DOMAIN, INTEGRATION_VERSION, STARTUP
+from custom_components.hacs.enums import HacsStage
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.helpers.functions.constrains import check_constrains
@@ -182,7 +182,7 @@ async def async_hacs_startup():
         return False
 
     # Setup startup tasks
-    if hacs.status.new:
+    if hacs.status.new or hacs.configuration.config_type == "flow":
         async_call_later(hacs.hass, 5, hacs.startup_tasks)
     else:
         hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks)

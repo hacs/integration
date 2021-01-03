@@ -1,5 +1,6 @@
 # pylint: disable=missing-docstring,invalid-name
 import asyncio
+
 from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.helpers.classes.exceptions import (

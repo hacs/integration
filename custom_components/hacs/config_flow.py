@@ -1,16 +1,13 @@
 """Adds config flow for HACS."""
 import voluptuous as vol
-from aiogithubapi import (
-    AIOGitHubAPIAuthenticationException,
-    AIOGitHubAPIException,
-    GitHubDevice,
-)
+from aiogithubapi import AIOGitHubAPIException, GitHubDevice
 from aiogithubapi.common.const import OAUTH_USER_LOGIN
 from awesomeversion import AwesomeVersion
 from homeassistant import config_entries
-from homeassistant.core import callback
 from homeassistant.const import __version__ as HAVERSION
+from homeassistant.core import callback
 from homeassistant.helpers import aiohttp_client
+from homeassistant.helpers.event import async_call_later
 
 from custom_components.hacs.const import CLIENT_ID, DOMAIN, MINIMUM_HA_VERSION
 from custom_components.hacs.helpers.functions.configuration_schema import (
@@ -34,22 +31,8 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Initialize."""
         self._errors = {}
         self.device = None
-
-    async def async_step_device(self, user_input):
-        """Handle device steps"""
-        ## Vaiting for token
-        try:
-            activation = await self.device.async_device_activation()
-            return self.async_create_entry(
-                title="", data={"token": activation.access_token}
-            )
-        except (
-            AIOGitHubAPIException,
-            AIOGitHubAPIAuthenticationException,
-        ) as exception:
-            _LOGGER.error(exception)
-            self._errors["base"] = "auth"
-            return await self._show_config_form(user_input)
+        self.activation = None
+        self._progress_task = None
 
     async def async_step_user(self, user_input):
         """Handle a flow initialized by the user."""
@@ -64,29 +47,42 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 self._errors["base"] = "acc"
                 return await self._show_config_form(user_input)
 
-            ## Get device key
-            if not self.device:
-                return await self._show_device_form()
+            return await self.async_step_device(user_input)
 
         ## Initial form
         return await self._show_config_form(user_input)
 
-    async def _show_device_form(self):
-        """Device flow"""
-        self.device = GitHubDevice(
-            CLIENT_ID,
-            session=aiohttp_client.async_get_clientsession(self.hass),
-        )
-        device_data = await self.device.async_register_device()
+    async def async_step_device(self, _user_input):
+        """Handle device steps"""
 
-        return self.async_show_form(
-            step_id="device",
-            errors=self._errors,
-            description_placeholders={
-                "url": OAUTH_USER_LOGIN,
-                "code": device_data.user_code,
-            },
-        )
+        async def _wait_for_activation(_=None):
+            self.activation = await self.device.async_device_activation()
+            self.hass.async_create_task(
+                self.hass.config_entries.flow.async_configure(flow_id=self.flow_id)
+            )
+
+        if not self.activation:
+            if not self.device:
+                self.device = GitHubDevice(
+                    CLIENT_ID,
+                    session=aiohttp_client.async_get_clientsession(self.hass),
+                )
+            async_call_later(self.hass, 1, _wait_for_activation)
+            try:
+                device_data = await self.device.async_register_device()
+                return self.async_show_progress(
+                    step_id="device",
+                    progress_action="wait_for_device",
+                    description_placeholders={
+                        "url": OAUTH_USER_LOGIN,
+                        "code": device_data.user_code,
+                    },
+                )
+            except AIOGitHubAPIException as exception:
+                _LOGGER.error(exception)
+                return self.async_abort(reason="github")
+
+        return self.async_show_progress_done(next_step_id="device_done")
 
     async def _show_config_form(self, user_input):
         """Show the configuration form to edit location data."""
@@ -116,6 +112,12 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 }
             ),
             errors=self._errors,
+        )
+
+    async def async_step_device_done(self, _user_input):
+        """Handle device steps"""
+        return self.async_create_entry(
+            title="", data={"token": self.activation.access_token}
         )
 
     @staticmethod

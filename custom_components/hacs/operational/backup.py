@@ -1,10 +1,10 @@
 """Backup."""
-from custom_components.hacs.helpers.functions.is_safe_to_remove import is_safe_to_remove
 import os
 import shutil
 import tempfile
 from time import sleep
 
+from custom_components.hacs.helpers.functions.is_safe_to_remove import is_safe_to_remove
 from custom_components.hacs.helpers.functions.logger import getLogger
 
 BACKUP_PATH = tempfile.gettempdir() + "/hacs_backup/"

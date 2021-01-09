@@ -18,14 +18,10 @@ class HacsRepository:
         self.hacs: HacsBase = hacs
         self.identifier = RepositoryInterface(repository)
         self.category: HacsCategory = HacsCategory(category)
-        self.information = RepositoryBaseInformation({})
+        self.information: RepositoryBaseInformation = RepositoryBaseInformation({})
         self.tree: List[AIOGitHubAPIRepositoryTreeContent] = []
 
     @property
-    def string(self) -> str:
+    def representation(self) -> str:
         """Return a string representation of the repository."""
         return f"<{self.category.title()} {self.identifier}>"
-
-    def __repr__(self) -> str:
-        """Return a string representation of the repository."""
-        return self.string

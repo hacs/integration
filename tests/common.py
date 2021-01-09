@@ -27,6 +27,8 @@ INSTANCES = []
 
 def fixture(filename, asjson=True):
     """Load a fixture."""
+    if asjson:
+        filename = f"{filename}.json"
     path = os.path.join(os.path.dirname(__file__), "fixtures", filename)
     with open(path, encoding="utf-8") as fptr:
         if asjson:
@@ -49,7 +51,7 @@ def dummy_repository_base(hacs, repository=None):
     repository.ref = version_to_install(repository)
     repository.integration_manifest = {"config_flow": False, "domain": "test"}
     repository.data.published_tags = ["1", "2", "3"]
-    repository.data.update_data(fixture("repository_data.json"))
+    repository.data.update_data(fixture("repository_data"))
 
     async def update_repository():
         pass

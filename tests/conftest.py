@@ -114,7 +114,7 @@ def repository(hacs):
     repository_obj.ref = version_to_install(repository_obj)
     repository_obj.integration_manifest = {"config_flow": False, "domain": "test"}
     repository_obj.data.published_tags = ["1", "2", "3"]
-    repository_obj.data.update_data(fixture("repository_data.json"))
+    repository_obj.data.update_data(fixture("repository_data"))
 
     async def update_repository():
         pass

@@ -3,7 +3,9 @@ from aiogithubapi import GitHub
 from ..dataclass import RepositoryInterface
 
 
-async def repository_releases(github: GitHub, identifier: RepositoryInterface):
+async def repository_releases(
+    github: GitHub, identifier: RepositoryInterface, pre_release: bool = False
+):
     """Generate query to get repository releases."""
     query = {
         "variables": {
@@ -34,11 +36,14 @@ async def repository_releases(github: GitHub, identifier: RepositoryInterface):
         data=query,
         jsondata=True,
     )
-    return [
+    releases = [
         release
         for release in data.get("data", {})
         .get("repository", {})
         .get("releases", {})
         .get("nodes", [])
-        if release and not release["isDraft"]
+        if release and not release.get("isDraft", False)
     ]
+    if pre_release:
+        return releases
+    return [release for release in releases if not release.get("isPrerelease", False)]

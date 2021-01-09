@@ -7,12 +7,7 @@ async def repository_base(
     github: GitHub, identifier: RepositoryInterface, pre_release: bool = False
 ):
     """Generate query to get repository information."""
-    query = {
-        "variables": {
-            "owner": identifier.owner,
-            "repo": identifier.repository,
-        },
-        "query": """
+    query = """
           query($owner: String!, $repo: String!) {
             repository(owner: $owner, name: $repo) {
               description
@@ -55,15 +50,15 @@ async def repository_base(
               databaseId
             }
           }
-          """,
-    }
-    data = await github.client.post(
-        "/graphql",
-        True,
-        data=query,
-        jsondata=True,
+          """
+    data = await github.graphql(
+        query=query,
+        variables={
+            "owner": identifier.owner,
+            "repo": identifier.repository,
+        },
     )
-    return RepositoryBaseInformation(data["data"], pre_release)
+    return RepositoryBaseInformation(data, pre_release)
 
 
 class RepositoryBaseInformation:

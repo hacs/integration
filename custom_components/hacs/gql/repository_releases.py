@@ -7,12 +7,7 @@ async def repository_releases(
     github: GitHub, identifier: RepositoryInterface, pre_release: bool = False
 ):
     """Generate query to get repository releases."""
-    query = {
-        "variables": {
-            "owner": identifier.owner,
-            "repo": identifier.repository,
-        },
-        "query": """
+    query = """
           query($owner: String!, $repo: String!) {
             repository(owner: $owner, name: $repo) {
               releases(last: 30) {
@@ -28,20 +23,17 @@ async def repository_releases(
               }
             }
           }
-          """,
-    }
-    data = await github.client.post(
-        "/graphql",
-        True,
-        data=query,
-        jsondata=True,
+          """
+    data = await github.graphql(
+        query=query,
+        variables={
+            "owner": identifier.owner,
+            "repo": identifier.repository,
+        },
     )
     releases = [
         release
-        for release in data.get("data", {})
-        .get("repository", {})
-        .get("releases", {})
-        .get("nodes", [])
+        for release in data.get("repository", {}).get("releases", {}).get("nodes", [])
         if release and not release.get("isDraft", False)
     ]
     if pre_release:

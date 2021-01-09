@@ -1,6 +1,6 @@
 """GraphQL Query to get repository base information."""
-from custom_components.hacs.dataclass import RepositoryInterface
 from aiogithubapi import GitHub
+from ..dataclass import RepositoryInterface
 
 
 async def repository_base(github: GitHub, identifier: RepositoryInterface):
@@ -38,17 +38,13 @@ async def repository_base(github: GitHub, identifier: RepositoryInterface):
               }
               releases(last: 30) {
                 nodes {
-                  name
                   tagName
-                  description
                   isDraft
-                  url
                   isPrerelease
                   publishedAt
                   releaseAssets(first: 5) {
                     nodes {
                       downloadCount
-                      downloadUrl
                       name
                     }
                   }

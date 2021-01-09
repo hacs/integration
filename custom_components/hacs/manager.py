@@ -16,12 +16,6 @@ class HacsRepositoryManager:
         self.hacs = hacs
         self._repositories: Dict[str, HacsRepository] = {}
 
-    async def get(self, category: HacsCategory, repository: str) -> HacsRepository:
-        """Get a HacsRepository, if it's unknown it will be created."""
-        if repository in self._repositories:
-            return self._repositories[repository]
-        return await self._add_repository(category, repository)
-
     async def _add_repository(
         self, category: HacsCategory, repository: str
     ) -> HacsRepository:
@@ -29,6 +23,14 @@ class HacsRepositoryManager:
         repo = HacsRepository(self.hacs, category, repository)
         self._repositories[repository] = repo
         return repo
+
+    async def get_repository(
+        self, category: HacsCategory, repository: str
+    ) -> HacsRepository:
+        """Get a HacsRepository, if it's unknown it will be created."""
+        if repository in self._repositories:
+            return self._repositories[repository]
+        return await self._add_repository(category, repository)
 
     async def reload_repository(self, repository: HacsRepository) -> None:
         """Reload information about the repository from gitHub."""

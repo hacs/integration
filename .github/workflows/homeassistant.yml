@@ -23,6 +23,7 @@ jobs:
         run: |
           mkdir ./test_configuration
           cp -f .devcontainer/sample_configuration.yaml ./test_configuration/configuration.yaml
+          cp -r ./custom_components ./test_configuration
           sed -i 's/#//g' ./test_configuration/configuration.yaml
 
       - name: 👷 Setup Home Assistant

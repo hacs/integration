@@ -14,23 +14,27 @@ class HacsRepositoryManager:
     def __init__(self, hacs: HacsBase) -> None:
         """Initialise the HacsRepositoryManager class."""
         self.hacs = hacs
-        self._repositories: Dict[str, HacsRepository] = {}
+        self._repositories: Dict[str, Dict[str, HacsRepository]] = {}
 
-    async def _add_repository(
+    def get_repository(
+        self, name: str = None, database_id: str = None
+    ) -> HacsRepository:
+        """Get a HacsRepository."""
+        if database_id is not None:
+            return self._repositories["ids"].get(database_id)
+        if name is not None:
+            return self._repositories["ids"].get(name)
+        return None
+
+    async def register_repository(
         self, category: HacsCategory, repository: str
     ) -> HacsRepository:
-        """Private method to add a repository"""
+        """Register a HacsRepository."""
         repo = HacsRepository(self.hacs, category, repository)
-        self._repositories[repository] = repo
+        await self.reload_repository(repo)
+        self._repositories["ids"][repo.identifier] = repo
+        self._repositories["names"][repo.information.databaseId] = repo
         return repo
-
-    async def get_repository(
-        self, category: HacsCategory, repository: str
-    ) -> HacsRepository:
-        """Get a HacsRepository, if it's unknown it will be created."""
-        if repository in self._repositories:
-            return self._repositories[repository]
-        return await self._add_repository(category, repository)
 
     async def reload_repository(self, repository: HacsRepository) -> None:
         """Reload information about the repository from gitHub."""

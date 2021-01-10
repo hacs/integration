@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class RepositoryInterface:
+class RepositoryIdentifier:
     full_name: str
 
     @property
@@ -14,7 +14,7 @@ class RepositoryInterface:
         return self.full_name.split("/")[1]
 
     def __repr__(self) -> str:
-        return self.full_name
+        return self.full_name.lower()
 
     def __str__(self) -> str:
-        return self.full_name
+        return self.full_name.lower()

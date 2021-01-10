@@ -1,10 +1,10 @@
 """GraphQL Query to get repository base information."""
 from aiogithubapi import GitHub
-from ..dataclass import RepositoryInterface
+from ..dataclass import RepositoryIdentifier
 
 
 async def repository_base(
-    github: GitHub, identifier: RepositoryInterface, pre_release: bool = False
+    github: GitHub, identifier: RepositoryIdentifier, pre_release: bool = False
 ):
     """Generate query to get repository information."""
     query = """

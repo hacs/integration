@@ -8,7 +8,7 @@ from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 
 from custom_components.hacs.const import DOMAIN, INTEGRATION_VERSION, STARTUP
-from custom_components.hacs.enums import HacsStage
+from custom_components.hacs.enums import HacsDisabledReason, HacsStage
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.helpers.functions.constrains import check_constrains
@@ -90,9 +90,8 @@ async def async_startup_wrapper_for_config_entry():
     except AIOGitHubAPIException:
         startup_result = False
     if not startup_result:
-        hacs.system.disabled = True
         raise ConfigEntryNotReady
-    hacs.system.disabled = False
+    hacs.enable()
     return startup_result
 
 
@@ -103,12 +102,12 @@ async def async_startup_wrapper_for_yaml(_=None):
         startup_result = await async_hacs_startup()
     except AIOGitHubAPIException:
         startup_result = False
+
     if not startup_result:
-        hacs.system.disabled = True
         hacs.log.info("Could not setup HACS, trying again in 15 min")
         async_call_later(hacs.hass, 900, async_startup_wrapper_for_yaml)
         return
-    hacs.system.disabled = False
+    hacs.enable()
 
 
 async def async_hacs_startup():
@@ -137,7 +136,7 @@ async def async_hacs_startup():
     await async_clear_storage()
 
     hacs.system.lovelace_mode = lovelace_info.get("mode", "yaml")
-    hacs.system.disabled = False
+    hacs.enable()
     hacs.github = GitHub(
         hacs.configuration.token, async_create_clientsession(hacs.hass)
     )
@@ -147,6 +146,7 @@ async def async_hacs_startup():
     can_update = await get_fetch_updates_for(hacs.github)
     if can_update is None:
         hacs.log.critical("Your GitHub token is not valid")
+        hacs.disable(HacsDisabledReason.TOKEN)
         return False
 
     if can_update != 0:
@@ -155,6 +155,7 @@ async def async_hacs_startup():
         hacs.log.info(
             "HACS is ratelimited, repository updates will resume when the limit is cleared, this can take up to 1 hour"
         )
+        hacs.disable(HacsDisabledReason.RATE_LIMIT)
         return False
 
     # Check HACS Constrains
@@ -162,6 +163,7 @@ async def async_hacs_startup():
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
+        hacs.disable(HacsDisabledReason.CONSTRAINS)
         return False
 
     # Load HACS
@@ -169,6 +171,7 @@ async def async_hacs_startup():
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
+        hacs.disable(HacsDisabledReason.CONSTRAINS)
         return False
 
     # Restore from storefiles
@@ -178,6 +181,7 @@ async def async_hacs_startup():
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
+        hacs.disable(HacsDisabledReason.RESTORE)
         return False
 
     # Setup startup tasks

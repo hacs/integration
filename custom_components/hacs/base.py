@@ -7,7 +7,7 @@ from aiogithubapi.github import AIOGitHubAPI
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from homeassistant.core import HomeAssistant
 
-from .enums import HacsStage
+from .enums import HacsDisabledReason, HacsStage
 from .helpers.functions.logger import getLogger
 from .models.core import HacsCore
 from .models.frontend import HacsFrontend
@@ -120,3 +120,18 @@ class HacsBase(HacsBaseAttributes):
     def hass(self, value: HomeAssistant) -> None:
         """Set the value for the default property."""
         self._hass = value
+
+    def disable(self, reason: HacsDisabledReason) -> None:
+        """Disable HACS."""
+        self.system.disabled = True
+        self.system.disabled_reason = reason
+        self.hass.bus.fire("hacs/system", self.system.dict)
+        self.log.info("HACS is now disabled")
+
+    def enable(self) -> None:
+        """Enable HACS."""
+        if self.system.disabled:
+            self.system.disabled = False
+            self.system.disabled_reason = None
+            self.hass.bus.fire("hacs/system", self.system.dict)
+            self.log.info("HACS is now enabled")

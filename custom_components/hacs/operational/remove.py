@@ -1,4 +1,5 @@
 """Remove HACS."""
+from custom_components.hacs.enums import HacsDisabledReason
 from custom_components.hacs.share import get_hacs
 
 
@@ -20,5 +21,4 @@ async def async_remove_entry(hass, config_entry):
         hass.components.frontend.async_remove_panel("hacs")
     except AttributeError:
         pass
-    hacs.system.disabled = True
-    hacs.log.info("HACS is now disabled")
+    hacs.disable(HacsDisabledReason.REMOVED)

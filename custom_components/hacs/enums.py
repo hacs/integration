@@ -30,6 +30,16 @@ class HacsStage(str, Enum):
     BACKGROUND = "background"
 
 
+class HacsDisabledReason(str, Enum):
+    """Disabled reason for HACS."""
+
+    RATE_LIMIT = "ratelimit"
+    TOKEN = "token"
+    REMOVED = "removed"
+    CONSTRAINS = "constrains"
+    RESTORE = "restore"
+
+
 class HacsSetupTask(str, Enum):
     WEBSOCKET = "WebSocket API"
     FRONTEND = "Frontend"

@@ -17,7 +17,7 @@ async def test_hacs_data_async_write1(hacs, repository):
 async def test_hacs_data_async_write2(hacs):
     data = HacsData()
     hacs.status.background_task = False
-    hacs.system.disabled = False
+    hacs.enable()
     hacs.repositories = []
     await data.async_write()
 

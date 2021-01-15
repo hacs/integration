@@ -1,6 +1,7 @@
 """HACS http endpoints."""
 from aiohttp import web
 from homeassistant.components.http import HomeAssistantView
+from homeassistant.util import sanitize_path
 
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.webresponses.category import async_serve_category_file
@@ -21,7 +22,7 @@ class HacsFrontend(HomeAssistantView):
 
     async def get(self, request, requested_file):  # pylint: disable=unused-argument
         """Handle HACS Web requests."""
-        return await get_file_response(request, requested_file)
+        return await get_file_response(request, sanitize_path(requested_file))
 
 
 async def get_file_response(request, requested_file):

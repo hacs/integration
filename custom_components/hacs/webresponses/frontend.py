@@ -1,20 +1,14 @@
 from aiohttp import web
 
+from homeassistant.components.http import HomeAssistantView
 from custom_components.hacs.share import get_hacs
 
 
-from aiohttp import web
-from homeassistant.components.http import HomeAssistantView
-
-
-IGNORE = []
-
-
 class HacsFrontendDev(HomeAssistantView):
-    """Base View Class for HACS."""
+    """Dev View Class for HACS."""
 
     requires_auth = False
-    name = "hacs_files"
+    name = "hacs_files:frontend"
     url = r"/hacsfiles/frontend/{requested_file:.+}"
 
     async def get(self, request, requested_file):  # pylint: disable=unused-argument

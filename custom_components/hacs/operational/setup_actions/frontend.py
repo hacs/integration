@@ -40,7 +40,9 @@ async def async_setup_frontend():
     hass.data["frontend_extra_module_url"].add("/hacsfiles/iconset.js")
 
     # Register www/community for all other files
-    hass.http.register_static_path(URL_BASE, hass.config.path("www/community"))
+    hass.http.register_static_path(
+        URL_BASE, hass.config.path("www/community"), cache_headers=False
+    )
 
     hacs.frontend.version_running = FE_VERSION
     hacs.frontend.version_expected = await hass.async_add_executor_job(

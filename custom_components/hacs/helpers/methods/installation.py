@@ -67,7 +67,9 @@ async def async_install_repository(repository):
         repository.ref = f"tags/{version}"
 
     if repository.data.installed and repository.data.category == "netdaemon":
-        persistent_directory = BackupNetDaemon(repository)
+        persistent_directory = await hacs.hass.async_add_executor_job(
+            BackupNetDaemon, repository
+        )
         await hacs.hass.async_add_executor_job(persistent_directory.create)
 
     elif repository.data.persistent_directory:

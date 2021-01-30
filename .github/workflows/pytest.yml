@@ -24,18 +24,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-
-      - name: Get version
-        id: version
-        uses: home-assistant/actions/helpers/version@master
-
-      - name: "Set version numbmer"
-        run: |
-          sed -i '/INTEGRATION_VERSION = /c\INTEGRATION_VERSION = "${{ steps.version.outputs.version }}"' ${{ github.workspace }}/custom_components/hacs/const.py
-          python3 ${{ github.workspace }}/manage/update_manifest.py --version ${{ steps.version.outputs.version }}
-          cat ${{ github.workspace }}/custom_components/hacs/const.py
-          cat ${{ github.workspace }}/custom_components/hacs/manifest.json
-
       - name: 📦 Install dependencies
         run:  make init
 

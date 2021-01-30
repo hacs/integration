@@ -32,9 +32,9 @@ jobs:
       - name: "Set version numbmer"
         run: |
           sed -i '/INTEGRATION_VERSION = /c\INTEGRATION_VERSION = "${{ steps.version.outputs.version }}"' ${{ github.workspace }}/custom_components/hacs/const.py
-          sed -i '/"version" /c"version": "${{ steps.version.outputs.version }}",' ${{ github.workspace }}/custom_components/hacs/manifest.json
-          cat ${{ github.workspace }}/custom_components/hacs/manifest.json
+          python3 ${{ github.workspace }}/manage/update_manifest.py --version ${{ steps.version.outputs.version }}
           cat ${{ github.workspace }}/custom_components/hacs/const.py
+          cat ${{ github.workspace }}/custom_components/hacs/manifest.json
 
       - name: 📦 Install dependencies
         run:  make init

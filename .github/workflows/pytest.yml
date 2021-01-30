@@ -32,7 +32,7 @@ jobs:
       - name: "Set version numbmer"
         run: |
           sed -i '/INTEGRATION_VERSION = /c\INTEGRATION_VERSION = "${{ steps.version.outputs.version }}"' ${{ github.workspace }}/custom_components/hacs/const.py
-          sed -i '/"version" /c\"version": "${{ steps.version.outputs.version }}",' ${{ github.workspace }}/custom_components/hacs/manifest.json
+          sed -i '/"version" /c"version": "${{ steps.version.outputs.version }}",' ${{ github.workspace }}/custom_components/hacs/manifest.json
           cat ${{ github.workspace }}/custom_components/hacs/manifest.json
           cat ${{ github.workspace }}/custom_components/hacs/const.py
 

@@ -10,25 +10,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Get version
+        id: version
+        uses: home-assistant/actions/helpers/version@master
 
       - name: "Set version numbmer"
         run: |
-          sed -i '/INTEGRATION_VERSION = /c\INTEGRATION_VERSION = "${{ github.ref }}"' /home/runner/work/integration/integration/custom_components/hacs/const.py
-          sed -i 's|refs/heads/||' /home/runner/work/integration/integration/custom_components/hacs/const.py
-          sed -i 's|refs/tags/||' /home/runner/work/integration/integration/custom_components/hacs/const.py
+          sed -i '/INTEGRATION_VERSION = /c\INTEGRATION_VERSION = "${{ steps.version.outputs.version }}"' ${{ github.workspace }}/custom_components/hacs/const.py
+          python3 ${{ github.workspace }}/manage/update_manifest.py --version ${{ steps.version.outputs.version }}
 
       # Pack the HACS dir as a zip and upload to the release
       - name: ZIP HACS Dir
         run: |
-          cd /home/runner/work/integration/integration/custom_components/hacs
+          cd ${{ github.workspace }}/custom_components/hacs
           zip hacs.zip -r ./
       - name: Upload zip to release
         uses: svenstaro/upload-release-action@v1-release
 
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /home/runner/work/integration/integration/custom_components/hacs/hacs.zip
+          file: ${{ github.workspace }}/custom_components/hacs/hacs.zip
           asset_name: hacs.zip
           tag: ${{ github.ref }}
           overwrite: true

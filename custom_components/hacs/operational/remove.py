@@ -1,6 +1,8 @@
 """Remove HACS."""
 from custom_components.hacs.share import get_hacs
 
+from ..const import DOMAIN
+
 
 async def async_remove_entry(hass, config_entry):
     """Handle removal of an entry."""
@@ -21,4 +23,6 @@ async def async_remove_entry(hass, config_entry):
     except AttributeError:
         pass
     hacs.system.disabled = True
+    if DOMAIN in hass.data:
+        del hass.data[DOMAIN]
     hacs.log.info("HACS is now disabled")

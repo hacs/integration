@@ -37,3 +37,12 @@ class HacsSetupTask(str, Enum):
     HACS_REPO = "Hacs Repository"
     CATEGORIES = "Additional categories"
     CLEAR_STORAGE = "Clear storage"
+
+
+class HacsDisabledReason(str, Enum):
+    RATE_LIMIT = "rate_limit"
+    REMOVED = "removed"
+    INVALID_TOKEN = "invalid_token"
+    CONSTRAINS = "constrains"
+    LOAD_HACS = "load_hacs"
+    RESTORE = "restore"

@@ -154,7 +154,7 @@ async def async_hacs_startup():
     if can_update != 0:
         hacs.log.debug(f"Can update {can_update} repositories")
     else:
-        hacs.log.info(
+        hacs.log.error(
             "HACS is ratelimited, repository updates will resume when the limit is cleared, this can take up to 1 hour"
         )
         hacs.disable(HacsDisabledReason.RATE_LIMIT)

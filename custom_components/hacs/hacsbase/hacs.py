@@ -254,6 +254,11 @@ class Hacs(HacsBase, HacsHelpers):
             return
 
         can_update = await get_fetch_updates_for(self.github)
+        self.log.debug(
+            "Can update %s repositories, items in queue %s",
+            can_update,
+            self.queue.pending_tasks,
+        )
         if can_update == 0:
             self.log.info("HACS is ratelimited, repository updates will resume later.")
         else:

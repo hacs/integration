@@ -21,7 +21,7 @@ jobs:
         id: version
         uses: home-assistant/actions/helpers/version@master
 
-      - name: "Set version numbmer"
+      - name: "Set version number"
         run: |
           sed -i '/INTEGRATION_VERSION = /c\INTEGRATION_VERSION = "${{ steps.version.outputs.version }}"' ${{ github.workspace }}/custom_components/hacs/const.py
           python3 ${{ github.workspace }}/manage/update_manifest.py --version ${{ steps.version.outputs.version }}

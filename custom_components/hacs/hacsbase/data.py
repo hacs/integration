@@ -68,6 +68,7 @@ class HacsData:
             "description": repository.data.description,
             "domain": repository.data.domain,
             "downloads": repository.data.downloads,
+            "etag_repository": repository.data.etag_repository,
             "full_name": repository.data.full_name,
             "first_install": repository.status.first_install,
             "installed_commit": repository.data.installed_commit,
@@ -168,6 +169,7 @@ class HacsData:
             "downloads"
         )
         repository.data.last_updated = repository_data.get("last_updated")
+        repository.data.etag_repository = repository_data.get("etag_repository")
         repository.data.topics = repository_data.get("topics", [])
         repository.data.domain = repository_data.get("domain", None)
         repository.data.stargazers_count = repository_data.get("stars", 0)

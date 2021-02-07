@@ -17,6 +17,7 @@ async def hacs_status(_hass, connection, msg):
         "reloading_data": hacs.status.reloading_data,
         "upgrading_all": hacs.status.upgrading_all,
         "disabled": hacs.system.disabled,
+        "disabled_reason": hacs.system.disabled_reason,
         "has_pending_tasks": hacs.queue.has_pending_tasks,
         "stage": hacs.stage,
     }

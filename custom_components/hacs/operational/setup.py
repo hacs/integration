@@ -195,7 +195,12 @@ async def async_hacs_startup():
     if hacs.status.new or hacs.configuration.config_type == "flow":
         async_call_later(hacs.hass, 5, hacs.startup_tasks)
     else:
-        hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks)
+        if hacs.hass.state == "RUNNING":
+            async_call_later(hacs.hass, 5, hacs.startup_tasks)
+        else:
+            hacs.hass.bus.async_listen_once(
+                EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks
+            )
 
     # Set up sensor
     await async_add_sensor()

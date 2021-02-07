@@ -9,7 +9,10 @@ from aiogithubapi import AIOGitHubAPIException
 from queueman import QueueManager
 
 from custom_components.hacs.helpers import RepositoryHelpers
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.helpers.classes.exceptions import (
+    HacsException,
+    HacsNotModifiedException,
+)
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.helpers.classes.repositorydata import RepositoryData
 from custom_components.hacs.helpers.classes.validate import Validate
@@ -220,10 +223,20 @@ class HacsRepository(RepositoryHelpers):
         """Common registration steps of the repository."""
         # Attach repository
         if self.repository_object is None:
-            self.repository_object = await get_repository(
-                self.hacs.session, self.hacs.configuration.token, self.data.full_name
-            )
-            self.data.update_data(self.repository_object.attributes)
+            try:
+                self.repository_object, etag = await get_repository(
+                    self.hacs.session,
+                    self.hacs.configuration.token,
+                    self.data.full_name,
+                    self.data.etag_repository,
+                )
+                self.data.update_data(self.repository_object.attributes)
+                self.data.etag_repository = etag
+            except HacsNotModifiedException:
+                self.logger.debug(
+                    "Did not update %s, content was not modified", self.data.full_name
+                )
+                return
 
         # Set topics
         self.data.topics = self.data.topics
@@ -238,12 +251,18 @@ class HacsRepository(RepositoryHelpers):
             if self.data.description is None or len(self.data.description) == 0:
                 raise HacsException("::error:: Missing repository description")
 
-    async def common_update(self, ignore_issues=False):
+    async def common_update(self, ignore_issues=False, force=False):
         """Common information update steps of the repository."""
         self.logger.debug("%s Getting repository information", self)
 
         # Attach repository
-        await common_update_data(self, ignore_issues)
+        current_etag = self.data.etag_repository
+        await common_update_data(self, ignore_issues, force)
+        if (current_etag == self.data.etag_repository) and not force:
+            self.logger.debug(
+                "Did not update %s, content was not modified", self.data.full_name
+            )
+            return False
 
         # Update last updaeted
         self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)
@@ -257,6 +276,8 @@ class HacsRepository(RepositoryHelpers):
 
         # Update "info.md"
         self.information.additional_info = await get_info_md_content(self)
+
+        return True
 
     async def download_zip_files(self, validate):
         """Download ZIP archive from repository release."""

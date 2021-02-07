@@ -20,6 +20,7 @@ class RepositoryData:
     domain: str = ""
     domains: List[str] = []
     downloads: int = 0
+    etag_repository: str = None
     file_name: str = ""
     filename: str = ""
     first_install: bool = False

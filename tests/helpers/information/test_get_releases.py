@@ -51,7 +51,7 @@ async def test_get_releases(aresponses, event_loop):
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository = await get_repository(session, TOKEN, "test/test")
+        repository, _ = await get_repository(session, TOKEN, "test/test")
         tree = await get_releases(repository)
         assert "3" in [x.tag_name for x in tree]
 
@@ -91,6 +91,6 @@ async def test_get_releases_exception(aresponses, event_loop):
         ),
     )
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository = await get_repository(session, TOKEN, "test/test")
+        repository, _ = await get_repository(session, TOKEN, "test/test")
         with pytest.raises(HacsException):
             await get_releases(repository)

@@ -33,7 +33,7 @@ async def test_get_repository(aresponses, event_loop):
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository = await get_repository(session, TOKEN, "test/test")
+        repository, _ = await get_repository(session, TOKEN, "test/test")
         assert repository.attributes["full_name"] == "test/test"
 
 

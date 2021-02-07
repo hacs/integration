@@ -117,7 +117,7 @@ class HacsBase(HacsBaseAttributes):
         """Disable HACS."""
         self.system.disabled = True
         self.system.disabled_reason = reason
-        self.log.info("HACS is disabled - %s", reason)
+        self.log.error("HACS is disabled - %s", reason)
 
     def enable(self) -> None:
         """Enable HACS."""

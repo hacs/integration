@@ -228,7 +228,7 @@ class HacsRepository(RepositoryHelpers):
                     self.hacs.session,
                     self.hacs.configuration.token,
                     self.data.full_name,
-                    self.data.etag_repository,
+                    None if self.data.installed else self.data.etag_repository,
                 )
                 self.data.update_data(self.repository_object.attributes)
                 self.data.etag_repository = etag

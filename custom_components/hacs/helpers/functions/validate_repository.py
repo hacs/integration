@@ -38,7 +38,9 @@ async def common_update_data(repository, ignore_issues=False, force=False):
             hacs.session,
             hacs.configuration.token,
             repository.data.full_name,
-            etag=None if force else repository.data.etag_repository,
+            etag=None
+            if force or repository.data.installed
+            else repository.data.etag_repository,
         )
         repository.repository_object = repository_object
         repository.data.update_data(repository_object.attributes)

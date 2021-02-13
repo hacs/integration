@@ -12,6 +12,7 @@ from homeassistant.auth import auth_store
 from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE
 from homeassistant.helpers import storage
 from homeassistant.helpers.device_registry import DeviceRegistry
+from homeassistant.helpers.entity_registry import EntityRegistry
 from homeassistant.util.unit_system import METRIC_SYSTEM
 
 from custom_components.hacs.helpers.classes.repository import HacsRepository
@@ -119,7 +120,11 @@ async def async_test_home_assistant(loop, tmpdir):
     hass.config.time_zone = date_util.get_time_zone("US/Pacific")
     hass.config.units = METRIC_SYSTEM
     hass.config.skip_pip = True
-    hass.data = {"custom_components": {}, "device_registry": DeviceRegistry(hass)}
+    hass.data = {
+        "custom_components": {},
+        "device_registry": DeviceRegistry(hass),
+        "entity_registry": EntityRegistry(hass),
+    }
 
     hass.config_entries = config_entries.ConfigEntries(hass, {})
     hass.config_entries._entries = []

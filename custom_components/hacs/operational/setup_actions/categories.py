@@ -14,8 +14,7 @@ def _setup_extra_stores():
         enable_category(hacs, HacsCategory(category))
 
     if HacsCategory.PYTHON_SCRIPT in hacs.hass.config.components:
-        if hacs.configuration.python_script:
-            enable_category(hacs, HacsCategory.PYTHON_SCRIPT)
+        enable_category(hacs, HacsCategory.PYTHON_SCRIPT)
 
     if (
         hacs.hass.services._services.get("frontend", {}).get("reload_themes")

@@ -7,15 +7,16 @@ labels: "issue:backend"
 <!-- Learn how to submit an issue here https://hacs.xyz/docs/issues -->
 <!-- Before you open a new issue, search through the existing issues to see if others have had the same problem.-->
 
-## Installation details
+## System Health details
 
-<!-- In the table below you are expected to add information under the "Value" part -->
+<!--
+In the table below you are expected to add information under the "Value" part
 
-| Description                | Value |
-| -------------------------- | ----- |
-| HACS version               |
-| Home Assistant version     |
-| Installation method for HA |
+Paste the data from the System Health card in Home Assistant
+https://www.home-assistant.io//more-info/system-health#github-issues
+-->
+
+
 
 ## Checklist
 

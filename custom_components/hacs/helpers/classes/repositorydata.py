@@ -1,6 +1,6 @@
 """Repository data."""
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 import attr
 
@@ -51,6 +51,7 @@ class RepositoryData:
     stargazers_count: int = 0
     topics: List[str] = []
     zip_release: bool = False
+    last_export: Optional[dict] = None
 
     @property
     def stars(self):
@@ -67,6 +68,15 @@ class RepositoryData:
     def to_json(self):
         """Export to json."""
         return attr.asdict(self)
+
+    def export(self) -> Optional[dict]:
+        """Export to json if the data has changed."""
+        export = self.to_json()
+        if self.last_export == export:
+            # Export is up to date
+            return None
+        self.last_export = export
+        return export
 
     @staticmethod
     def create_from_dict(source: dict):

@@ -127,7 +127,7 @@ async def async_test_home_assistant(loop, tmpdir):
     }
 
     hass.config_entries = config_entries.ConfigEntries(hass, {})
-    hass.config_entries._entries = []
+    hass.config_entries._entries = {}
     hass.config_entries._store._async_ensure_stop_listener = lambda: None
 
     hass.state = ha.CoreState.running

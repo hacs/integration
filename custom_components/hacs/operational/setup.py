@@ -157,7 +157,7 @@ async def async_hacs_startup():
     else:
         reset = datetime.fromtimestamp(int(hacs.github.client.ratelimits.reset))
         hacs.log.error(
-            "HACS is ratelimited, HACS will resume setup when the limit is cleared (%s:%s:%s)",
+            "HACS is ratelimited, HACS will resume setup when the limit is cleared (%02d:%02d:%02d)",
             reset.hour,
             reset.minute,
             reset.second,

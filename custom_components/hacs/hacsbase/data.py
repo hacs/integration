@@ -58,7 +58,7 @@ class HacsData:
             await self.queue.execute()
         await async_save_to_store(self.hacs.hass, "repositories", self.content)
         self.hacs.hass.bus.async_fire("hacs/repository", {})
-        self.hacs.hass.bus.fire("hacs/config", {})
+        self.hacs.hass.bus.async_fire("hacs/config", {})
 
     async def async_store_repository_data(self, repository):
         repository_manifest = repository.repository_manifest.manifest

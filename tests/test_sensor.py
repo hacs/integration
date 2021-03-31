@@ -1,7 +1,6 @@
 """HACS Sensor Test Suite."""
 # pylint: disable=missing-docstring
 import pytest
-from homeassistant.core import HomeAssistant as hass
 
 from custom_components.hacs.repositories import HacsIntegration
 from custom_components.hacs.sensor import (
@@ -56,10 +55,10 @@ async def test_sensor_update(hacs):
 
 
 @pytest.mark.asyncio
-async def test_setup_platform():
+async def test_setup_platform(hass):
     await async_setup_platform(hass, {}, mock_setup)
 
 
 @pytest.mark.asyncio
-async def test_setup_entry():
+async def test_setup_entry(hass):
     await async_setup_entry(hass, {}, mock_setup)

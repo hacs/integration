@@ -3,6 +3,7 @@ from datetime import datetime
 from aiogithubapi import AIOGitHubAPIException, GitHub
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
+from homeassistant.core import CoreState
 from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
@@ -192,15 +193,10 @@ async def async_hacs_startup():
         return False
 
     # Setup startup tasks
-    if hacs.status.new or hacs.configuration.config_type == "flow":
+    if hacs.hass.state == CoreState.running:
         async_call_later(hacs.hass, 5, hacs.startup_tasks)
     else:
-        if hacs.hass.state == "RUNNING":
-            async_call_later(hacs.hass, 5, hacs.startup_tasks)
-        else:
-            hacs.hass.bus.async_listen_once(
-                EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks
-            )
+        hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks)
 
     # Set up sensor
     await async_add_sensor()

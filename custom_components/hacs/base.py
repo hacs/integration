@@ -136,8 +136,6 @@ class HacsBase(HacsBaseAttributes):
 
     def enable(self) -> None:
         """Enable HACS."""
-        if self.system.disabled:
-            self.system.disabled = False
-            self.system.disabled_reason = None
-            self.hass.bus.fire("hacs/system", self.system.dict)
-            self.log.info("HACS is now enabled")
+        self.system.disabled = False
+        self.system.disabled_reason = None
+        self.log.info("HACS is enabled")

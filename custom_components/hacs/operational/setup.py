@@ -1,9 +1,10 @@
 """Setup HACS."""
+from datetime import datetime
 from aiogithubapi import AIOGitHubAPIException, GitHub
 from homeassistant.components.lovelace.system_health import system_health_info
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
-from homeassistant.exceptions import ConfigEntryNotReady
+from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 
@@ -117,7 +118,7 @@ async def async_hacs_startup():
 
     try:
         lovelace_info = await system_health_info(hacs.hass)
-    except TypeError:
+    except (TypeError, HomeAssistantError):
         # If this happens, the users YAML is not valid, we assume YAML mode
         lovelace_info = {"mode": "yaml"}
     hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")
@@ -146,14 +147,18 @@ async def async_hacs_startup():
     can_update = await get_fetch_updates_for(hacs.github)
     if can_update is None:
         hacs.log.critical("Your GitHub token is not valid")
-        hacs.disable(HacsDisabledReason.TOKEN)
+        hacs.disable(HacsDisabledReason.INVALID_TOKEN)
         return False
 
     if can_update != 0:
         hacs.log.debug(f"Can update {can_update} repositories")
     else:
-        hacs.log.info(
-            "HACS is ratelimited, repository updates will resume when the limit is cleared, this can take up to 1 hour"
+        reset = datetime.fromtimestamp(int(hacs.github.client.ratelimits.reset))
+        hacs.log.error(
+            "HACS is ratelimited, HACS will resume setup when the limit is cleared (%02d:%02d:%02d)",
+            reset.hour,
+            reset.minute,
+            reset.second,
         )
         hacs.disable(HacsDisabledReason.RATE_LIMIT)
         return False
@@ -171,7 +176,7 @@ async def async_hacs_startup():
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
-        hacs.disable(HacsDisabledReason.CONSTRAINS)
+        hacs.disable(HacsDisabledReason.LOAD_HACS)
         return False
 
     # Restore from storefiles
@@ -188,7 +193,12 @@ async def async_hacs_startup():
     if hacs.status.new or hacs.configuration.config_type == "flow":
         async_call_later(hacs.hass, 5, hacs.startup_tasks)
     else:
-        hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks)
+        if hacs.hass.state == "RUNNING":
+            async_call_later(hacs.hass, 5, hacs.startup_tasks)
+        else:
+            hacs.hass.bus.async_listen_once(
+                EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks
+            )
 
     # Set up sensor
     await async_add_sensor()

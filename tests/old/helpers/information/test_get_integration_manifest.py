@@ -54,8 +54,8 @@ async def test_get_integration_manifest(repository_integration, aresponses, even
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository_integration.repository_object = await get_repository(
-            session, TOKEN, "test/test"
+        repository_integration.repository_object, _ = await get_repository(
+            session, TOKEN, "test/test", None
         )
         repository_integration.content.path.remote = "custom_components/test"
         repository_integration.tree = [
@@ -89,8 +89,8 @@ async def test_get_integration_manifest_no_file(
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository_integration.repository_object = await get_repository(
-            session, TOKEN, "test/test"
+        repository_integration.repository_object, _ = await get_repository(
+            session, TOKEN, "test/test", None
         )
         repository_integration.content.path.remote = "custom_components/test"
         with pytest.raises(HacsException):
@@ -132,7 +132,7 @@ async def test_get_integration_manifest_format_issue(
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository_integration.repository_object = await get_repository(
+        repository_integration.repository_object, _ = await get_repository(
             session, TOKEN, "test/test"
         )
         repository_integration.content.path.remote = "custom_components/test"
@@ -184,7 +184,7 @@ async def test_get_integration_manifest_missing_required_key(
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository_integration.repository_object = await get_repository(
+        repository_integration.repository_object, _ = await get_repository(
             session, TOKEN, "test/test"
         )
         repository_integration.content.path.remote = "custom_components/test"

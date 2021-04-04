@@ -1,6 +1,7 @@
 """Remove HACS."""
-from custom_components.hacs.enums import HacsDisabledReason
-from custom_components.hacs.share import get_hacs
+from ..const import DOMAIN
+from ..enums import HacsDisabledReason
+from ..share import get_hacs
 
 
 async def async_remove_entry(hass, config_entry):
@@ -16,9 +17,12 @@ async def async_remove_entry(hass, config_entry):
             await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")
         except ValueError:
             pass
-    hacs.log.info("Removing sidepanel")
     try:
-        hass.components.frontend.async_remove_panel("hacs")
+        if "hacs" in hass.data.get("frontend_panels", {}):
+            hacs.log.info("Removing sidepanel")
+            hass.components.frontend.async_remove_panel("hacs")
     except AttributeError:
         pass
+    if DOMAIN in hass.data:
+        del hass.data[DOMAIN]
     hacs.disable(HacsDisabledReason.REMOVED)

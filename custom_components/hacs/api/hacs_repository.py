@@ -33,7 +33,7 @@ async def hacs_repository(hass, connection, msg):
         logger.debug(f"Running {action} for {repository.data.full_name}")
 
         if action == "update":
-            await repository.update_repository(True)
+            await repository.update_repository(ignore_issues=True, force=True)
             repository.status.updated_info = True
 
         elif action == "install":

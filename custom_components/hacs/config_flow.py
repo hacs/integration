@@ -143,6 +143,9 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)
 
+        if hacs.configuration is None:
+            return self.async_abort(reason="not_setup")
+
         if hacs.configuration.config_type == "yaml":
             schema = {vol.Optional("not_in_use", default=""): str}
         else:

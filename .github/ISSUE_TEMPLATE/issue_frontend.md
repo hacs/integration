@@ -13,11 +13,19 @@ labels: "issue:frontend"
 
 | Description                | Value |
 | -------------------------- | ----- |
-| HACS version               |
-| Home Assistant version     |
-| Installation method for HA |
-| Web browser                |
-| Web browser version        |
+| Web browser                | xxx   |
+| Web browser version        | xxx   |
+
+
+## System Health details
+
+<!--
+In the table below you are expected to add information under the "Value" part
+
+Paste the data from the System Health card in Home Assistant
+https://www.home-assistant.io//more-info/system-health#github-issues
+-->
+
 
 ## Checklist
 

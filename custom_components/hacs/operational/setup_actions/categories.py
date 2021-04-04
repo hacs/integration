@@ -14,15 +14,13 @@ def _setup_extra_stores():
         enable_category(hacs, HacsCategory(category))
 
     if HacsCategory.PYTHON_SCRIPT in hacs.hass.config.components:
-        if HacsCategory.PYTHON_SCRIPT not in hacs.common.categories:
-            enable_category(hacs, HacsCategory.PYTHON_SCRIPT)
+        enable_category(hacs, HacsCategory.PYTHON_SCRIPT)
 
     if (
         hacs.hass.services._services.get("frontend", {}).get("reload_themes")
         is not None
     ):
-        if HacsCategory.THEME not in hacs.common.categories:
-            enable_category(hacs, HacsCategory.THEME)
+        enable_category(hacs, HacsCategory.THEME)
 
     if hacs.configuration.appdaemon:
         enable_category(hacs, HacsCategory.APPDAEMON)
@@ -39,5 +37,6 @@ async def async_setup_extra_stores():
 
 def enable_category(hacs, category: HacsCategory):
     """Add category."""
-    hacs.log.debug("Enable category: %s", category)
-    hacs.common.categories.add(category)
+    if category not in hacs.common.categories:
+        hacs.log.info("Enable category: %s", category)
+        hacs.common.categories.add(category)

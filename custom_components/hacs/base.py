@@ -1,6 +1,7 @@
 """Base HACS class."""
 import logging
 from typing import List, Optional, TYPE_CHECKING
+import pathlib
 
 import attr
 from aiogithubapi.github import AIOGitHubAPI
@@ -121,12 +122,17 @@ class HacsBase(HacsBaseAttributes):
         """Set the value for the default property."""
         self._hass = value
 
+    @property
+    def integration_dir(self) -> pathlib.Path:
+        """Return the HACS integration dir."""
+        return pathlib.Path(__file__).parent
+
     def disable(self, reason: HacsDisabledReason) -> None:
         """Disable HACS."""
         self.system.disabled = True
         self.system.disabled_reason = reason
         self.hass.bus.fire("hacs/system", self.system.dict)
-        self.log.info("HACS is now disabled")
+        self.log.error("HACS is disabled - %s", reason)
 
     def enable(self) -> None:
         """Enable HACS."""

@@ -59,9 +59,10 @@ class HacsNetdaemon(HacsRepository):
                     self.logger.error("%s %s", self, error)
         return self.validate.success
 
-    async def update_repository(self, ignore_issues=False):
+    async def update_repository(self, ignore_issues=False, force=False):
         """Update."""
-        await self.common_update(ignore_issues)
+        if not await self.common_update(ignore_issues, force):
+            return
 
         # Get appdaemon objects.
         if self.repository_manifest:

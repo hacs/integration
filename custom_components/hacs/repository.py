@@ -7,7 +7,7 @@ from aiogithubapi.objects.repository.content import (
 from .base import HacsBase
 from .dataclass import RepositoryIdentifier
 from .enums import HacsCategory
-from .gql.repository_base import RepositoryBaseInformation
+from .gql.repository_base import RepositoryBaseInformation, repository_base
 
 
 class HacsRepository:
@@ -24,4 +24,22 @@ class HacsRepository:
     @property
     def representation(self) -> str:
         """Return a string representation of the repository."""
-        return f"<{self.category.title()} {self.identifier}>"
+        return f"<{self.category} {self.identifier}>"
+
+    async def async_reload_repository(self):
+        """Reload information about the repository from gitHub."""
+        self.information = await repository_base(self.hacs.github, self.identifier)
+
+        _raw_tree = await self.hacs.github.client.get(
+            endpoint=(
+                f"/repos/{self.identifier}/git/trees/",
+                self.information.defaultBranchRef,
+            ),
+            params={"recursive": "1"},
+        )
+        self.tree = [
+            AIOGitHubAPIRepositoryTreeContent(
+                x, self.identifier, self.information.defaultBranchRef
+            )
+            for x in _raw_tree.get("tree", [])
+        ]

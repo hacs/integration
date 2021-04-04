@@ -62,7 +62,7 @@ async def repository_base(
 
 
 class RepositoryBaseInformation:
-    def __init__(self, data: dict, pre_release):
+    def __init__(self, data: dict, pre_release: bool = False):
         self._data = data
         self._pre_release = pre_release
 

@@ -27,16 +27,15 @@ class HacsRepositoryManager:
             return self._repositories["name"].get(name)
         return None
 
-    async def register_repository(
+    async def async_register_repository(
         self, category: HacsCategory, repository: str
     ) -> HacsRepository:
         """Register a HacsRepository."""
         repo = HacsRepository(self.hacs, category, repository)
-        await self.async_reload_repository(repo)
-        self._repositories["id"][repo.identifier] = repo
-        self._repositories["name"][repo.information.databaseId] = repo
+        try:
+            await repo.async_reload_repository()
+        except SystemError:
+            return None
+        self._repositories["id"][str(repo.information.databaseId)] = repo
+        self._repositories["name"][str(repo.identifier)] = repo
         return repo
-
-    async def async_reload_repository(self, repository: HacsRepository) -> None:
-        """Reload information about the repository from gitHub."""
-        await repository.async_reload_repository()

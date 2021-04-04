@@ -9,7 +9,7 @@ from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 
 from custom_components.hacs.const import DOMAIN, INTEGRATION_VERSION, STARTUP
-from custom_components.hacs.enums import HacsDisabledReason, HacsStage
+from custom_components.hacs.enums import HacsCategory, HacsDisabledReason, HacsStage
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.helpers.functions.constrains import check_constrains
@@ -143,6 +143,10 @@ async def async_hacs_startup():
     )
     hacs.data = HacsData()
     hacs.manager = HacsRepositoryManager(hacs)
+
+    await hacs.manager.async_register_repository(
+        HacsCategory.INTEGRATION, "hacs/integration"
+    )
 
     can_update = await get_fetch_updates_for(hacs.github)
     if can_update is None:

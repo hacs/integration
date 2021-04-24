@@ -32,8 +32,9 @@ async def test_get_repository(aresponses, event_loop):
         ),
     )
 
-    repository, _ = await get_repository("test/test")
-    assert repository.attributes["full_name"] == "test/test"
+    async with aiohttp.ClientSession(loop=event_loop) as session:
+        repository, _ = await get_repository(session, TOKEN, "test/test")
+        assert repository.attributes["full_name"] == "test/test"
 
 
 @pytest.mark.asyncio
@@ -56,5 +57,6 @@ async def test_get_repository_exception(aresponses, event_loop):
             status=403,
         ),
     )
-    with pytest.raises(HacsException):
-        await get_repository("test/test")
+    async with aiohttp.ClientSession(loop=event_loop) as session:
+        with pytest.raises(HacsException):
+            await get_repository(session, TOKEN, "test/test")

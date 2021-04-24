@@ -16,7 +16,9 @@ async def async_get_list_from_default(default: HacsCategory) -> List:
     repositories = []
 
     try:
-        repo, _ = await get_repository("hacs/default", None)
+        repo, _ = await get_repository(
+            hacs.session, hacs.configuration.token, "hacs/default", None
+        )
         content = await repo.get_contents(default, repo.default_branch)
         repositories = json.loads(content.content)
 

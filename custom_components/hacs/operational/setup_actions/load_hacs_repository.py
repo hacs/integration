@@ -26,7 +26,9 @@ async def async_load_hacs_repository():
         repository.data.installed_version = INTEGRATION_VERSION
         repository.data.new = False
         hacs.repo = repository.repository_object
-        hacs.data_repo, _ = await get_repository("hacs/default", None)
+        hacs.data_repo, _ = await get_repository(
+            hacs.session, hacs.configuration.token, "hacs/default", None
+        )
     except HacsException as exception:
         if "403" in f"{exception}":
             hacs.log.critical("GitHub API is ratelimited, or the token is wrong.")

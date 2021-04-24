@@ -50,12 +50,13 @@ async def test_base(aresponses, event_loop):
         ),
     )
 
-    repository, _ = await get_repository("test/test")
-    tree = await get_tree(repository, repository.default_branch)
-    filestocheck = [
-        "custom_components/test/__init__.py",
-        "custom_components/test/translations/en.json",
-        "custom_components/test/manifest.json",
-    ]
-    for check in filestocheck:
-        assert check in [x.full_path for x in tree]
+    async with aiohttp.ClientSession(loop=event_loop) as session:
+        repository, _ = await get_repository(session, TOKEN, "test/test")
+        tree = await get_tree(repository, repository.default_branch)
+        filestocheck = [
+            "custom_components/test/__init__.py",
+            "custom_components/test/translations/en.json",
+            "custom_components/test/manifest.json",
+        ]
+        for check in filestocheck:
+            assert check in [x.full_path for x in tree]

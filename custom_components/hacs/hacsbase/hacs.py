@@ -143,12 +143,13 @@ class Hacs(HacsBase, HacsHelpers):
 
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
-                self.recurring_tasks_installed, timedelta(minutes=30)
+                self.recurring_tasks_installed, timedelta(hours=2)
             )
         )
+
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
-                self.recurring_tasks_all, timedelta(minutes=800)
+                self.recurring_tasks_all, timedelta(hours=25)
             )
         )
         self.recuring_tasks.append(

@@ -226,8 +226,6 @@ class HacsRepository(RepositoryHelpers):
         if self.repository_object is None:
             try:
                 self.repository_object, etag = await get_repository(
-                    self.hacs.session,
-                    self.hacs.configuration.token,
                     self.data.full_name,
                     None if self.data.installed else self.data.etag_repository,
                 )
@@ -257,7 +255,7 @@ class HacsRepository(RepositoryHelpers):
         self.logger.debug("%s Getting repository information", self)
 
         # Attach repository
-        current_etag = self.data.etag_repository
+        current_etag = str(self.data.etag_repository)
         await common_update_data(self, ignore_issues, force)
         if (
             not self.data.installed

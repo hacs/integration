@@ -35,8 +35,6 @@ async def common_update_data(repository, ignore_issues=False, force=False):
     releases = []
     try:
         repository_object, etag = await get_repository(
-            hacs.session,
-            hacs.configuration.token,
             repository.data.full_name,
             etag=None
             if force or repository.data.installed

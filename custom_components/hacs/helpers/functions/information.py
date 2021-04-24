@@ -1,7 +1,7 @@
 """Return repository information if any."""
 import json
 
-from aiogithubapi import AIOGitHubAPIException, GitHub, AIOGitHubAPINotModifiedException
+from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPINotModifiedException
 
 from custom_components.hacs.helpers.classes.exceptions import (
     HacsException,
@@ -45,12 +45,12 @@ async def get_info_md_content(repository):
     return ""
 
 
-async def get_repository(session, token, repository_full_name, etag=None):
+async def get_repository(repository_full_name: str, etag=None):
     """Return a repository object or None."""
+    hacs = get_hacs()
     try:
-        github = GitHub(token, session)
-        repository = await github.get_repo(repository_full_name, etag)
-        return repository, github.client.last_response.etag
+        repository = await hacs.github.get_repo(repository_full_name, etag)
+        return repository, hacs.github.client.last_response.etag
     except AIOGitHubAPINotModifiedException as exception:
         raise HacsNotModifiedException(exception) from exception
     except (ValueError, AIOGitHubAPIException, Exception) as exception:

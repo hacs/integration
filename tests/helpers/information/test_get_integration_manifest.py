@@ -53,20 +53,19 @@ async def test_get_integration_manifest(repository_integration, aresponses, even
         ),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository_integration.repository_object, _ = await get_repository(
-            session, TOKEN, "test/test", None
+    repository_integration.repository_object, _ = await get_repository(
+        "test/test", None
+    )
+    repository_integration.content.path.remote = "custom_components/test"
+    repository_integration.tree = [
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "custom_components/test/manifest.json", "type": "blob"},
+            "test/test",
+            "main",
         )
-        repository_integration.content.path.remote = "custom_components/test"
-        repository_integration.tree = [
-            AIOGitHubAPIRepositoryTreeContent(
-                {"path": "custom_components/test/manifest.json", "type": "blob"},
-                "test/test",
-                "main",
-            )
-        ]
-        await get_integration_manifest(repository_integration)
-        assert repository_integration.data.domain == integration_manifest["domain"]
+    ]
+    await get_integration_manifest(repository_integration)
+    assert repository_integration.data.domain == integration_manifest["domain"]
 
 
 @pytest.mark.asyncio
@@ -88,13 +87,12 @@ async def test_get_integration_manifest_no_file(
         ),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository_integration.repository_object, _ = await get_repository(
-            session, TOKEN, "test/test", None
-        )
-        repository_integration.content.path.remote = "custom_components/test"
-        with pytest.raises(HacsException):
-            await get_integration_manifest(repository_integration)
+    repository_integration.repository_object, _ = await get_repository(
+        "test/test", None
+    )
+    repository_integration.content.path.remote = "custom_components/test"
+    with pytest.raises(HacsException):
+        await get_integration_manifest(repository_integration)
 
 
 @pytest.mark.asyncio
@@ -131,20 +129,17 @@ async def test_get_integration_manifest_format_issue(
         ),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository_integration.repository_object, _ = await get_repository(
-            session, TOKEN, "test/test"
+    repository_integration.repository_object, _ = await get_repository("test/test")
+    repository_integration.content.path.remote = "custom_components/test"
+    repository_integration.tree = [
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "custom_components/test/manifest.json", "type": "blob"},
+            "test/test",
+            "main",
         )
-        repository_integration.content.path.remote = "custom_components/test"
-        repository_integration.tree = [
-            AIOGitHubAPIRepositoryTreeContent(
-                {"path": "custom_components/test/manifest.json", "type": "blob"},
-                "test/test",
-                "main",
-            )
-        ]
-        with pytest.raises(HacsException):
-            await get_integration_manifest(repository_integration)
+    ]
+    with pytest.raises(HacsException):
+        await get_integration_manifest(repository_integration)
 
 
 @pytest.mark.asyncio
@@ -183,17 +178,14 @@ async def test_get_integration_manifest_missing_required_key(
         ),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository_integration.repository_object, _ = await get_repository(
-            session, TOKEN, "test/test"
+    repository_integration.repository_object, _ = await get_repository("test/test")
+    repository_integration.content.path.remote = "custom_components/test"
+    repository_integration.tree = [
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "custom_components/test/manifest.json", "type": "blob"},
+            "test/test",
+            "main",
         )
-        repository_integration.content.path.remote = "custom_components/test"
-        repository_integration.tree = [
-            AIOGitHubAPIRepositoryTreeContent(
-                {"path": "custom_components/test/manifest.json", "type": "blob"},
-                "test/test",
-                "main",
-            )
-        ]
-        with pytest.raises(HacsException):
-            await get_integration_manifest(repository_integration)
+    ]
+    with pytest.raises(HacsException):
+        await get_integration_manifest(repository_integration)

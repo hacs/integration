@@ -6,7 +6,6 @@ from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.helpers.classes.exceptions import HacsException
-from custom_components.hacs.helpers.functions.information import get_repository
 from custom_components.hacs.share import get_hacs
 
 
@@ -16,10 +15,9 @@ async def async_get_list_from_default(default: HacsCategory) -> List:
     repositories = []
 
     try:
-        repo, _ = await get_repository(
-            hacs.session, hacs.configuration.token, "hacs/default", None
+        content = await hacs.data_repo.get_contents(
+            default, hacs.data_repo.default_branch
         )
-        content = await repo.get_contents(default, repo.default_branch)
         repositories = json.loads(content.content)
 
     except (AIOGitHubAPIException, HacsException) as exception:

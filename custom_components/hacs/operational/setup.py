@@ -8,7 +8,12 @@ from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 
-from custom_components.hacs.const import DOMAIN, INTEGRATION_VERSION, STARTUP
+from custom_components.hacs.const import (
+    DOMAIN,
+    HACS_GITHUB_API_HEADERS,
+    INTEGRATION_VERSION,
+    STARTUP,
+)
 from custom_components.hacs.enums import HacsDisabledReason, HacsStage
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
@@ -143,7 +148,9 @@ async def async_hacs_startup():
     hacs.system.lovelace_mode = lovelace_info.get("mode", "yaml")
     hacs.enable()
     hacs.github = GitHub(
-        hacs.configuration.token, async_create_clientsession(hacs.hass)
+        hacs.configuration.token,
+        async_create_clientsession(hacs.hass),
+        headers=HACS_GITHUB_API_HEADERS,
     )
     hacs.data = HacsData()
 

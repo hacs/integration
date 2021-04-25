@@ -269,11 +269,14 @@ class HacsRepository(RepositoryHelpers):
             )
             return False
 
-        # Update last updaeted
+        # Update last updated
         self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)
 
         # Update last available commit
         await self.repository_object.set_last_commit()
+        if self.data.last_commit == self.repository_object.last_commit:
+            return True
+
         self.data.last_commit = self.repository_object.last_commit
 
         # Get the content of hacs.json

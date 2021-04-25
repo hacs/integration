@@ -1,4 +1,6 @@
 """Constants for HACS"""
+from aiogithubapi.common.const import ACCEPT_HEADERS
+
 NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
 INTEGRATION_VERSION = "main"
@@ -17,6 +19,16 @@ DOMAIN_DATA = f"{NAME_SHORT.lower()}_data"
 ELEMENT_TYPES = ["integration", "plugin"]
 
 PACKAGE_NAME = "custom_components.hacs"
+
+HACS_GITHUB_API_HEADERS = {
+    "User-Agent": f"HACS/{INTEGRATION_VERSION}",
+    "Accept": ACCEPT_HEADERS["preview"],
+}
+
+HACS_ACTION_GITHUB_API_HEADERS = {
+    "User-Agent": "HACS/action",
+    "Accept": ACCEPT_HEADERS["preview"],
+}
 
 IFRAME = {
     "title": "HACS",

@@ -137,18 +137,18 @@ class Hacs(HacsBase, HacsHelpers):
         self.hass.bus.async_fire("hacs/status", {})
 
         await self.handle_critical_repositories_startup()
-        await self.handle_critical_repositories()
         await self.async_load_default_repositories()
         await self.clear_out_removed_repositories()
 
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
-                self.recurring_tasks_installed, timedelta(minutes=30)
+                self.recurring_tasks_installed, timedelta(hours=2)
             )
         )
+
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
-                self.recurring_tasks_all, timedelta(minutes=800)
+                self.recurring_tasks_all, timedelta(hours=25)
             )
         )
         self.recuring_tasks.append(
@@ -278,6 +278,8 @@ class Hacs(HacsBase, HacsHelpers):
         self.hass.bus.async_fire("hacs/status", {})
 
         for repository in self.repositories:
+            if self.status.startup and repository.data.full_name == "hacs/integration":
+                continue
             if (
                 repository.data.installed
                 and repository.data.category in self.common.categories

@@ -137,7 +137,6 @@ class Hacs(HacsBase, HacsHelpers):
         self.hass.bus.async_fire("hacs/status", {})
 
         await self.handle_critical_repositories_startup()
-        await self.handle_critical_repositories()
         await self.async_load_default_repositories()
         await self.clear_out_removed_repositories()
 

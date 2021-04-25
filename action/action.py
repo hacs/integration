@@ -7,6 +7,7 @@ import aiohttp
 from aiogithubapi import GitHub
 from homeassistant.core import HomeAssistant
 
+from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.functions.logger import getLogger
@@ -114,7 +115,8 @@ async def preflight():
         error("No category found, use env CATEGORY to set this.")
 
     async with aiohttp.ClientSession() as session:
-        github = GitHub(TOKEN, session)
+
+        github = GitHub(TOKEN, session, headers=HACS_ACTION_GITHUB_API_HEADERS)
         repo = await github.get_repo(repository)
         if not pr and repo.description is None:
             error("Repository is missing description")
@@ -135,7 +137,11 @@ async def validate_repository(repository, category, ref=None):
         hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
         hacs.core.config_path = None
-        hacs.github = GitHub(hacs.configuration.token, hacs.session)
+        hacs.github = GitHub(
+            hacs.configuration.token,
+            hacs.session,
+            headers=HACS_ACTION_GITHUB_API_HEADERS,
+        )
         try:
             await register_repository(repository, category, ref=ref)
         except HacsException as exception:

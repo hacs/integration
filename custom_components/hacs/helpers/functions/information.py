@@ -9,6 +9,7 @@ from custom_components.hacs.helpers.classes.exceptions import (
 )
 from custom_components.hacs.helpers.functions.template import render_template
 from custom_components.hacs.share import get_hacs
+from custom_components.hacs.const import HACS_GITHUB_API_HEADERS
 
 
 def info_file(repository):
@@ -48,7 +49,11 @@ async def get_info_md_content(repository):
 async def get_repository(session, token, repository_full_name, etag=None):
     """Return a repository object or None."""
     try:
-        github = GitHub(token, session)
+        github = GitHub(
+            token,
+            session,
+            headers=HACS_GITHUB_API_HEADERS,
+        )
         repository = await github.get_repo(repository_full_name, etag)
         return repository, github.client.last_response.etag
     except AIOGitHubAPINotModifiedException as exception:

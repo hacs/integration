@@ -1,6 +1,6 @@
 """Base HACS class."""
 import logging
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING
 import pathlib
 
 import attr
@@ -13,6 +13,9 @@ from .helpers.functions.logger import getLogger
 from .models.core import HacsCore
 from .models.frontend import HacsFrontend
 from .models.system import HacsSystem
+
+if TYPE_CHECKING:
+    from .helpers.classes.repository import HacsRepository
 
 
 class HacsCommon:
@@ -51,7 +54,7 @@ class HacsBaseAttributes:
     frontend: HacsFrontend = attr.ib(HacsFrontend)
     log: logging.Logger = getLogger()
     system: HacsSystem = attr.ib(HacsSystem)
-    repositories: List = []
+    repositories: List["HacsRepository"] = []
 
 
 @attr.s

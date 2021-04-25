@@ -278,6 +278,8 @@ class Hacs(HacsBase, HacsHelpers):
         self.hass.bus.async_fire("hacs/status", {})
 
         for repository in self.repositories:
+            if self.status.startup and repository.data.full_name == "hacs/integration":
+                continue
             if (
                 repository.data.installed
                 and repository.data.category in self.common.categories

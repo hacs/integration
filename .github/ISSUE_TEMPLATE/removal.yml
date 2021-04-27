@@ -1,0 +1,37 @@
+---
+name: Request for repository removal
+description: Flagging of repository that should be removed from HACS
+labels: flag
+assignees: ludeeus
+body:
+- type: input
+  attributes:
+    label: Repository URL
+    description: The URL to the repository
+  validations:
+    required: true
+- type: checkboxes
+  attributes:
+    label: Verification
+    description: Verification
+    options:
+      - label: I understand that this form should only be used for repositories that needs to be removed from HACS
+        required: true
+      - label: I understand that a bug is not reason enough to have a repository removed
+        required: true
+      - label: The repository is currently shipped as a default repository in HACS
+        required: true
+      - label: I have tried to get the authors attention to the reason for removal
+        required: true
+- type: textarea
+  attributes:
+    label: Why should this be removed?
+    placeholder: "Describe why the repository should be removed"
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: Link to issue
+    description: The URL to the issue that shows an attempt to contact the author has been made
+  validations:
+    required: true

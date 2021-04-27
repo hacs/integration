@@ -1,5 +1,5 @@
 ---
-name: Flag for removal
+name: Request for repository removal (old)
 about: Flagging of repository that should be removed from HACS
 title: ''
 labels: flag

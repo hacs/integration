@@ -7,6 +7,8 @@ assignees: ludeeus
 
 ---
 
+<!-- Hi there! please use https://github.com/hacs/integration/issues/new?assignees=ludeeus&labels=flag&template=removal.yml instead-->
+
 <!-- If you are flagging a repository for removal without a good reason/description, it will be closed -->
 ## Describe why you are flagging this
 

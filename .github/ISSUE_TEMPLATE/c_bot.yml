@@ -3,9 +3,26 @@ name: "hacs-bot"
 description: You use this when hacs-bot did something wrong.
 labels: "issue:bot"
 body:
+- type: markdown
+  attributes:
+    value: |
+      Learn how to submit an issue here https://hacs.xyz/docs/issues
+      Before you open a new issue, search through the existing issues to see if others have had the same problem.
 - type: textarea
   attributes:
     label: Describe the issue
     placeholder: "A clear and concise description of what the issue is."
   validations:
     required: true
+- type: checkboxes
+  attributes:
+    label: Checklist
+    options:
+      - label: I have filled out the issue template to the best of my ability.
+        required: true
+      - label: I have read <https://hacs.xyz/docs/issues>
+        required: true
+      - label:  This issue is related to the HACS bot.
+        required: true
+      - label: This issue only contains 1 issue (if you have multiple issues, open one issue for each issue).
+        required: true

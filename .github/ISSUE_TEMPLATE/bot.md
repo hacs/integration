@@ -1,5 +1,5 @@
 ---
-name: "Issue: BOT"
+name: "hacs-bot"
 about: You use this when hacs-bot did something wrong.
 labels: "issue:bot"
 

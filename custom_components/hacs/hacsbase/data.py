@@ -62,7 +62,7 @@ class HacsData:
 
         # Repositories
         self.content = {}
-        for repository in self.hacs.repositories or []:
+        for repository in self.hacs.repositories:
             self.queue.add(self.async_store_repository_data(repository))
 
         if not self.queue.has_pending_tasks:
@@ -122,7 +122,7 @@ class HacsData:
     async def restore(self):
         """Restore saved data."""
         hacs = await async_load_from_store(self.hacs.hass, "hacs")
-        repositories = await async_load_from_store(self.hacs.hass, "repositories") or []
+        repositories = await async_load_from_store(self.hacs.hass, "repositories") or {}
         try:
             if not hacs and not repositories:
                 # Assume new install

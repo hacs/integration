@@ -4,10 +4,6 @@ from typing import List, Optional
 
 import attr
 
-from custom_components.hacs.helpers.functions.logger import getLogger
-
-_LOGGER = getLogger()
-
 
 @attr.s(auto_attribs=True)
 class RepositoryData:

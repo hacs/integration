@@ -108,10 +108,10 @@ class Hacs(HacsBase, HacsHelpers):
 
     def async_set_repository_id(self, repository, repo_id):
         """Update a repository id."""
-        repo_id = str(repository.data.id)
-        if repo_id != "0":
+        existing_repo_id = str(repository.data.id)
+        if existing_repo_id != "0":
             raise ValueError(
-                f"The repo id for {repository.data.full_name_lower} is already set to {repo_id}"
+                f"The repo id for {repository.data.full_name_lower} is already set to {existing_repo_id}"
             )
         repository.data.id = repo_id
         self._repositories_by_id[repo_id] = repository

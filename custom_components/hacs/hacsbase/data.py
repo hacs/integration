@@ -60,8 +60,8 @@ class HacsData:
         # Repositories
         self.content = {}
         # Not run concurrently since this is bound by disk I/O
-        for repository in self.hacs.repositories:
-            await self.async_store_repository_data(repository)
+        for repository in self.hacs.repositories:  # bb: ignore
+            await self.async_store_repository_data(repository)  # bb: ignore
 
         await async_save_to_store(self.hacs.hass, "repositories", self.content)
         self.hacs.hass.bus.async_fire("hacs/repository", {})

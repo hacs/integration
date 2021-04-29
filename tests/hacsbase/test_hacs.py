@@ -22,11 +22,29 @@ async def test_hacs(hacs, repository, tmpdir):
 
     hacs.async_set_repositories([repository])
     assert hacs.get_by_name("test/test").data.id == "1337"
-
     assert hacs.is_known("1337")
 
     await hacs.prosess_queue()
     await hacs.clear_out_removed_repositories()
+
+
+@pytest.mark.asyncio
+async def test_add_remove_repository(hacs, repository, tmpdir):
+    hacs.hass.config.config_dir = tmpdir
+
+    repository.data.id = "0"
+    hacs.async_add_repository(repository)
+
+    with pytest.raises(ValueError):
+        hacs.async_add_repository(repository)
+
+    hacs.async_set_repository_id(repository, "42")
+    assert hacs.get_by_name("test/test") is repository
+    assert hacs.get_by_id("42") is repository
+
+    hacs.async_remove_repository(repository)
+    assert hacs.get_by_name("test/test") is None
+    assert hacs.get_by_id("42") is None
 
 
 @pytest.mark.asyncio

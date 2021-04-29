@@ -13,7 +13,6 @@ async def test_async_add_sensor_ui(hacs, hass):
         "hacs",
         {},
         "user",
-        "local_push",
         {},
     )
     hacs.configuration.config = {"key": "value"}

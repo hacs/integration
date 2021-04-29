@@ -1,5 +1,6 @@
 """Data handler for HACS."""
 import os
+import asyncio
 
 from queueman import QueueManager
 
@@ -16,6 +17,20 @@ from custom_components.hacs.helpers.functions.store import (
     get_store_for_key,
 )
 from custom_components.hacs.share import get_hacs
+
+from homeassistant.core import callback
+
+
+@callback
+def async_update_repository_from_storage(repository, storage_data):
+    """Merge in data from storage into the repo data."""
+    repository.data.memorize_storage(storage_data)
+    repository.data.update_data(storage_data)
+    if repository.data.installed:
+        return
+
+    repository.logger.debug("Should be installed but is not... Fixing that!")
+    repository.data.installed = True
 
 
 class HacsData:
@@ -108,7 +123,7 @@ class HacsData:
     async def restore(self):
         """Restore saved data."""
         hacs = await async_load_from_store(self.hacs.hass, "hacs")
-        repositories = await async_load_from_store(self.hacs.hass, "repositories")
+        repositories = await async_load_from_store(self.hacs.hass, "repositories") or []
         try:
             if not hacs and not repositories:
                 # Assume new install
@@ -123,27 +138,45 @@ class HacsData:
             self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
 
             # Repositories
-            stores = {}
-            for entry in repositories or []:
-                stores[entry] = get_store_for_key(self.hacs.hass, f"hacs/{entry}.hacs")
 
-            stores_exist = {}
-
-            def _populate_stores():
-                for entry in repositories or []:
-                    stores_exist[entry] = os.path.exists(stores[entry].path)
-
-            await self.hacs.hass.async_add_executor_job(_populate_stores)
-
-            # Repositories
-            for entry in repositories or []:
-                self.queue.add(
+            hacs_repos_by_id = {
+                str(repo.data.id): repo for repo in self.hacs.repositories
+            }
+            tasks = []
+            for entry in repositories:
+                if entry not in hacs_repos_by_id:
+                    self.logger.error(
+                        f"Did not find {repositories[entry]['full_name']} ({entry})"
+                    )
+                    continue
+                tasks.append(
                     self.async_restore_repository(
-                        entry, repositories[entry], stores[entry], stores_exist[entry]
+                        entry, repositories[entry], hacs_repos_by_id[entry]
                     )
                 )
 
-            await self.queue.execute()
+            # Repositories
+            await asyncio.gather(*tasks)
+
+            entries_from_storage = {}
+
+            def _load_from_storage():
+                for entry in repositories:
+                    if entry not in hacs_repos_by_id:
+                        continue
+                    store = get_store_for_key(self.hacs.hass, f"hacs/{entry}.hacs")
+                    if not os.path.exists(store.path):
+                        continue
+                    data = store.load()
+                    if data:
+                        entries_from_storage[entry] = data
+
+            await self.hacs.hass.async_add_executor_job(_load_from_storage)
+
+            for entry in entries_from_storage:
+                async_update_repository_from_storage(
+                    hacs_repos_by_id[entry], entries_from_storage[entry]
+                )
 
             self.logger.info("Restore done")
         except (Exception, BaseException) as exception:  # pylint: disable=broad-except
@@ -151,19 +184,12 @@ class HacsData:
             return False
         return True
 
-    async def async_restore_repository(
-        self, entry, repository_data, store, store_exists
-    ):
+    async def async_restore_repository(self, entry, repository_data, repository):
         if not self.hacs.is_known(entry):
             await register_repository(
                 repository_data["full_name"], repository_data["category"], False
             )
-        repository = [
-            x
-            for x in self.hacs.repositories
-            if str(x.data.id) == str(entry)
-            or x.data.full_name == repository_data["full_name"]
-        ]
+
         if not repository:
             self.logger.error(f"Did not find {repository_data['full_name']} ({entry})")
             return
@@ -203,14 +229,3 @@ class HacsData:
         if repository_data["full_name"] == "hacs/integration":
             repository.data.installed_version = INTEGRATION_VERSION
             repository.data.installed = True
-
-        restored = store_exists and await store.async_load() or {}
-
-        if restored:
-            repository.data.memorize_storage(restored)
-            repository.data.update_data(restored)
-            if not repository.data.installed:
-                repository.logger.debug(
-                    "Should be installed but is not... Fixing that!"
-                )
-                repository.data.installed = True

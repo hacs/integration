@@ -2,10 +2,24 @@
 # pylint: disable=import-outside-toplevel
 from homeassistant.helpers.json import JSONEncoder
 
+from homeassistant.helpers.storage import Store
+from homeassistant.util import json as json_util
+
 from custom_components.hacs.const import VERSION_STORAGE
 from .logger import getLogger
 
 _LOGGER = getLogger()
+
+
+class HACSStore(Store):
+    """A subclass of Store that allows multiple loads in the executor."""
+
+    def load(self):
+        """Load the data from disk if version matches."""
+        data = json_util.load_json(self.path)
+        if data == {} or data["version"] != self.version:
+            return None
+        return data["data"]
 
 
 def get_store_key(key):
@@ -15,9 +29,7 @@ def get_store_key(key):
 
 def _get_store_for_key(hass, key, encoder):
     """Create a Store object for the key."""
-    from homeassistant.helpers.storage import Store
-
-    return Store(hass, VERSION_STORAGE, get_store_key(key), encoder=encoder)
+    return HACSStore(hass, VERSION_STORAGE, get_store_key(key), encoder=encoder)
 
 
 def get_store_for_key(hass, key):

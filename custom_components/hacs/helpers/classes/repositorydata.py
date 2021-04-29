@@ -71,7 +71,12 @@ class RepositoryData:
 
     def to_json(self):
         """Export to json."""
-        return attr.asdict(self, filter=lambda attr, _: attr.name != "_storage_data")
+        return {
+            k: v.isoformat() if isinstance(v, datetime) else v
+            for k, v in attr.asdict(
+                self, filter=lambda attr, _: attr.name != "_storage_data"
+            ).items()
+        }
 
     def memorize_storage(self, data) -> None:
         """Memorize the storage data."""

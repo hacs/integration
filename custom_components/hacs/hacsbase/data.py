@@ -175,7 +175,7 @@ class HacsData:
             self.logger.error(f"Did not find {full_name} ({entry})")
             return False
         # Restore repository attributes
-        repository.data.id = entry
+        self.hacs.async_set_repository_id(repository, entry)
         repository.data.authors = repository_data.get("authors", [])
         repository.data.description = repository_data.get("description")
         repository.releases.last_release_object_downloads = repository_data.get(

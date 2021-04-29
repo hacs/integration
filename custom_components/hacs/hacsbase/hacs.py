@@ -106,19 +106,32 @@ class Hacs(HacsBase, HacsHelpers):
         for repositories in repositories:
             self.async_add_repository(repositories)
 
+    def async_set_repository_id(self, repository, repo_id):
+        """Update a repository id."""
+        repo_id = str(repository.data.id)
+        if repo_id != "0":
+            raise ValueError(
+                f"The repo id for {repository.data.full_name_lower} is already set to {repo_id}"
+            )
+        repository.data.id = repo_id
+        self._repositories_by_id[repo_id] = repository
+
     def async_add_repository(self, repository):
         """Add a repository to the list."""
         self._repositories.append(repository)
-        self._repositories_by_id[str(repository.data.id)] = repository
+        repo_id = str(repository.data.id)
+        if repo_id != "0":
+            self._repositories_by_id[repo_id] = repository
         self._repositories_by_full_name[repository.data.full_name_lower] = repository
 
     def async_remove_repository(self, repository):
         """Remove a repository from the list."""
-        repo_id = str(repository.data.id)
-        if repo_id not in self._repositories_by_id:
+        if repository.data.full_name_lower not in self._repositories_by_full_name:
             return
         self._repositories.remove(repository)
-        del self._repositories_by_id[repo_id]
+        repo_id = str(repository.data.id)
+        if repo_id in self._repositories_by_id:
+            del self._repositories_by_id[repo_id]
         del self._repositories_by_full_name[repository.data.full_name_lower]
 
     def get_by_id(self, repository_id):

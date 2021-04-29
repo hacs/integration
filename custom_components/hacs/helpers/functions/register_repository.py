@@ -48,7 +48,7 @@ async def register_repository(full_name, category, check=True, ref=None):
     if str(repository.data.id) != "0" and (
         exists := hacs.get_by_id(repository.data.id)
     ):
-        hacs.repositories.async_remove(exists)
+        hacs.async_remove_repository(exists)
 
     else:
         if hacs.hass is not None and (
@@ -62,4 +62,4 @@ async def register_repository(full_name, category, check=True, ref=None):
                     "repository_id": repository.data.id,
                 },
             )
-    hacs.repositories.async_add(repository)
+    hacs.async_add_repository(repository)

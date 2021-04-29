@@ -97,7 +97,7 @@ class Hacs(HacsBase, HacsHelpers):
         """Return the full repositories list."""
         return self._repositories
 
-    def async_set(self, repositories):
+    def async_set_repositories(self, repositories):
         """Set the list of repositories."""
         self._repositories = []
         self._repositories_by_id = {}
@@ -106,13 +106,13 @@ class Hacs(HacsBase, HacsHelpers):
         for repositories in repositories:
             self.async_add(repositories)
 
-    def async_add(self, repository):
+    def async_add_repository(self, repository):
         """Add a repository to the list."""
         self._repositories.append(repository)
         self._repositories_by_id[str(repository.data.id)] = repository
         self._repositories_by_full_name[repository.data.full_name_lower] = repository
 
-    def async_remove(self, repository):
+    def async_remove_repository(self, repository):
         """Remove a repository from the list."""
         repo_id = str(repository.data.id)
         if repo_id not in self._repositories_by_id:

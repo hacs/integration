@@ -80,15 +80,15 @@ class RepositoryData:
 
     def memorize_storage(self, data) -> None:
         """Memorize the storage data."""
-        self.storage_data = data
+        self._storage_data = data
 
     def export_data(self) -> Optional[dict]:
         """Export to json if the data has changed."""
         export = self.to_json()
         _LOGGER.warning(
-            "Export data: on_disk=[%s] export=[%s]", self.storage_data, export
+            "Export data: on_disk=[%s] export=[%s]", self._storage_data, export
         )
-        return None if self.storage_data == export else export
+        return None if self._storage_data == export else export
 
     @staticmethod
     def create_from_dict(source: dict):

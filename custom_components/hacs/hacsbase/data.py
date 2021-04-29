@@ -85,9 +85,6 @@ class HacsData:
             "topics": repository.data.topics,
             "version_installed": repository.data.installed_version,
         }
-        if not data:
-            return
-
         self.content[str(repository.data.id)] = data
 
         if repository.data.installed and (

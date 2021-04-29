@@ -2,8 +2,6 @@
 import os
 import asyncio
 
-from queueman import QueueManager
-
 from custom_components.hacs.const import INTEGRATION_VERSION
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.helpers.functions.logger import getLogger
@@ -39,7 +37,6 @@ class HacsData:
         """Initialize."""
         self.logger = getLogger()
         self.hacs = get_hacs()
-        self.queue = QueueManager()
         self.content = {}
 
     async def async_write(self):
@@ -62,15 +59,10 @@ class HacsData:
 
         # Repositories
         self.content = {}
+        # Not run concurrently since this is bound by disk I/O
         for repository in self.hacs.repositories:
-            self.queue.add(self.async_store_repository_data(repository))
+            await self.async_store_repository_data(repository)
 
-        if not self.queue.has_pending_tasks:
-            self.logger.debug("Nothing in the queue")
-        elif self.queue.running:
-            self.logger.debug("Queue is already running")
-        else:
-            await self.queue.execute()
         await async_save_to_store(self.hacs.hass, "repositories", self.content)
         self.hacs.hass.bus.async_fire("hacs/repository", {})
         self.hacs.hass.bus.async_fire("hacs/config", {})

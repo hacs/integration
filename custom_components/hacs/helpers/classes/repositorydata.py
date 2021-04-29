@@ -3,6 +3,9 @@ from datetime import datetime
 from typing import List, Optional
 
 import attr
+import json
+
+from homeassistant.helpers.json import JSONEncoder
 
 
 @attr.s(auto_attribs=True)
@@ -67,20 +70,21 @@ class RepositoryData:
 
     def to_json(self):
         """Export to json."""
-        return {
-            k: v.isoformat() if isinstance(v, datetime) else v
-            for k, v in attr.asdict(
-                self, filter=lambda attr, _: attr.name != "_storage_data"
-            ).items()
-        }
+        return attr.asdict(self, filter=lambda attr, _: attr.name != "_storage_data")
 
     def memorize_storage(self, data) -> None:
         """Memorize the storage data."""
         self._storage_data = data
 
     def export_data(self) -> Optional[dict]:
-        """Export to json if the data has changed."""
-        export = self.to_json()
+        """Export to json if the data has changed.
+
+        Returns the data to export if the data needs
+        to be written.
+
+        Returns None if the data has not changed.
+        """
+        export = json.loads(json.dumps(self.to_json(), cls=JSONEncoder))
         return None if self._storage_data == export else export
 
     @staticmethod

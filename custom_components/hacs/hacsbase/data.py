@@ -11,6 +11,7 @@ from custom_components.hacs.helpers.functions.register_repository import (
 )
 from custom_components.hacs.helpers.functions.store import (
     async_load_from_store,
+    async_save_to_store_default_encoder,
     async_save_to_store,
     get_store_for_key,
 )
@@ -92,7 +93,12 @@ class HacsData:
             and (repository.data.installed_commit or repository.data.installed_version)
             and (export := repository.data.export_data())
         ):
-            await async_save_to_store(
+            # export_data will return `None` if the memorized
+            # data is already up to date which allows us to avoid
+            # writing data that is already up to date or generating
+            # executor jobs to check the data on disk to see
+            # if a write is needed.
+            await async_save_to_store_default_encoder(
                 self.hacs.hass,
                 f"hacs/{repository.data.id}.hacs",
                 export,

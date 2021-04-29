@@ -44,6 +44,9 @@ async def test_add_remove_repository(hacs, repository, tmpdir):
     with pytest.raises(ValueError):
         hacs.async_set_repository_id(repository, "30")
 
+    # Safe to set it again
+    hacs.async_set_repository_id(repository, "42")
+
     assert hacs.get_by_name("test/test") is repository
     assert hacs.get_by_id("42") is repository
 

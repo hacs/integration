@@ -138,15 +138,10 @@ class HacsData:
             self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
 
             # Repositories
-            hacs_repos_by_id = {
-                str(repo.data.id): repo for repo in self.hacs.repositories
-            }
-            self.logger.error("hacs_repos_by_id: %s", hacs_repos_by_id)
-
             tasks = []
             stores_by_entry = {}
             for entry, repo_data in repositories.items():
-                if not (repo := hacs_repos_by_id.get(entry)):
+                if not (repo := self.hacs.get_by_id(entry)):
                     self.logger.error(
                         f"Did not find {repo_data['full_name']} ({entry})"
                     )
@@ -169,7 +164,7 @@ class HacsData:
             await self.hacs.hass.async_add_executor_job(_load_from_storage)
 
             for entry, data in entries_from_storage.items():
-                async_update_repository_from_storage(hacs_repos_by_id[entry], data)
+                async_update_repository_from_storage(self.hacs.get_by_id(entry), data)
 
             self.logger.info("Restore done")
         except (Exception, BaseException) as exception:  # pylint: disable=broad-except

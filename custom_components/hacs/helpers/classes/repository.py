@@ -384,7 +384,7 @@ class HacsRepository(RepositoryHelpers):
             self.hacs.common.installed.remove(self.data.id)
         for repository in self.hacs.repositories:
             if repository.data.id == self.data.id:
-                self.hacs.repositories.remove(repository)
+                self.hacs.repositories.async_remove(repository)
 
     async def uninstall(self):
         """Run uninstall tasks."""

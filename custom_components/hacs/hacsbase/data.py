@@ -20,7 +20,7 @@ from homeassistant.core import callback
 
 
 def update_repository_from_storage(repository, storage_data):
-    """Merge in data from storage into the repo data."""   
+    """Merge in data from storage into the repo data."""
     repository.data.memorize_storage(storage_data)
     repository.data.update_data(storage_data)
     if repository.data.installed:

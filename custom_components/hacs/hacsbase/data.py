@@ -90,7 +90,7 @@ class HacsData:
         if (
             repository.data.installed
             and (repository.data.installed_commit or repository.data.installed_version)
-            and (export := repository.data.export())
+            and (export := repository.data.export_data())
         ):
             # If the last export is the same, we avoid
             # writing to disk
@@ -202,7 +202,7 @@ class HacsData:
         restored = store_exists and await store.async_load() or {}
 
         if restored:
-            repository.data.update_data(restored)
+            repository.data.import_data(restored)
             if not repository.data.installed:
                 repository.logger.debug(
                     "Should be installed but is not... Fixing that!"

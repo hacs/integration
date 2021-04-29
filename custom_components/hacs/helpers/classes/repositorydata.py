@@ -51,7 +51,7 @@ class RepositoryData:
     stargazers_count: int = 0
     topics: List[str] = []
     zip_release: bool = False
-    last_export: Optional[dict] = None
+    storage_data: Optional[dict] = None
 
     @property
     def stars(self):
@@ -69,13 +69,18 @@ class RepositoryData:
         """Export to json."""
         return attr.asdict(self)
 
-    def export(self) -> Optional[dict]:
+    def import_data(self, data) -> None:
+        """Import data from storage."""
+        self.storage_data = data
+        self.update_data(data)
+
+    def export_data(self) -> Optional[dict]:
         """Export to json if the data has changed."""
         export = self.to_json()
-        if self.last_export == export:
+        if self.storage_data == export:
             # Export is up to date
             return None
-        self.last_export = export
+        self.storage_data = export
         return export
 
     @staticmethod

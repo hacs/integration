@@ -44,42 +44,8 @@ async def test_hacs_data_restore_write_not_new(hacs):
         if key == "repositories":
             return {
                 "172733314": {
-                    "authors": ["@ludeeus"],
                     "category": "integration",
-                    "description": "HACS gives you a powerful UI to handle downloads of all your custom needs.",
-                    "domain": "hacs",
-                    "downloads": 2161,
-                    "etag_repository": 'W/"35bbcc68e17782aa6a824fd976a6457e8a942f8781e351f41823fe591d13321b"',
                     "full_name": "hacs/integration",
-                    "first_install": True,
-                    "installed_commit": "7ef48bf",
-                    "installed": True,
-                    "last_commit": "cc36b54",
-                    "last_release_tag": "1.12.3",
-                    "last_updated": "2021-04-29T07:12:14Z",
-                    "name": "hacs",
-                    "new": False,
-                    "repository_manifest": {
-                        "name": "HACS",
-                        "zip_release": True,
-                        "hide_default_branch": True,
-                        "homeassistant": "2020.12.0",
-                        "hacs": "0.19.0",
-                        "filename": "hacs.zip",
-                    },
-                    "selected_tag": None,
-                    "show_beta": False,
-                    "stars": 1660,
-                    "topics": [
-                        "community",
-                        "hacktoberfest",
-                        "hacs",
-                        "home-assistant",
-                        "integration",
-                        "package-manager",
-                        "python",
-                    ],
-                    "version_installed": "1.12.1",
                 }
             }
         elif key == "hacs":

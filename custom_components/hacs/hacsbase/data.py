@@ -92,13 +92,12 @@ class HacsData:
             and (repository.data.installed_commit or repository.data.installed_version)
             and (export := repository.data.export_data())
         ):
-            # If the last export is the same, we avoid
-            # writing to disk
             await async_save_to_store(
                 self.hacs.hass,
                 f"hacs/{repository.data.id}.hacs",
                 export,
             )
+            repository.data.memorize_storage(export)
 
     async def restore(self):
         """Restore saved data."""
@@ -202,7 +201,8 @@ class HacsData:
         restored = store_exists and await store.async_load() or {}
 
         if restored:
-            repository.data.import_data(restored)
+            repository.data.memorize_storage(restored)
+            repository.data.update_data(restored)
             if not repository.data.installed:
                 repository.logger.debug(
                     "Should be installed but is not... Fixing that!"

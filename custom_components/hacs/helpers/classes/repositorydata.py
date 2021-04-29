@@ -4,6 +4,10 @@ from typing import List, Optional
 
 import attr
 
+from custom_components.hacs.helpers.functions.logger import getLogger
+
+_LOGGER = getLogger()
+
 
 @attr.s(auto_attribs=True)
 class RepositoryData:
@@ -69,19 +73,17 @@ class RepositoryData:
         """Export to json."""
         return attr.asdict(self)
 
-    def import_data(self, data) -> None:
-        """Import data from storage."""
+    def memorize_storage(self, data) -> None:
+        """Memorize the storage data."""
         self.storage_data = data
-        self.update_data(data)
 
     def export_data(self) -> Optional[dict]:
         """Export to json if the data has changed."""
         export = self.to_json()
-        if self.storage_data == export:
-            # Export is up to date
-            return None
-        self.storage_data = export
-        return export
+        _LOGGER.warning(
+            "Export data: on_disk=[%s] export=[%s]", self.storage_data, export
+        )
+        return None if self.storage_data == export else export
 
     @staticmethod
     def create_from_dict(source: dict):

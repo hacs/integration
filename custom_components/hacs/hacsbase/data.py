@@ -179,8 +179,7 @@ class HacsData:
     @callback
     def async_restore_repository(self, entry, repository_data):
         full_name = repository_data["full_name"]
-        repository = self.hacs.get_by_full_name(full_name)
-        if not repository:
+        if not (repository := self.hacs.get_by_full_name(full_name)):
             self.logger.error(f"Did not find {full_name} ({entry})")
             return
         # Restore repository attributes

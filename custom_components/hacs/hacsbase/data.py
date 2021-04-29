@@ -143,8 +143,8 @@ class HacsData:
             await self.register_unknown_repositories(repositories)
 
             for entry, repo_data in repositories.items():
-                self.async_restore_repository(entry, repo_data)
-                stores[entry] = get_store_for_key(hass, f"hacs/{entry}.hacs")
+                if self.async_restore_repository(entry, repo_data):
+                    stores[entry] = get_store_for_key(hass, f"hacs/{entry}.hacs")
 
             def _load_from_storage():
                 for entry, store in stores.items():
@@ -173,7 +173,7 @@ class HacsData:
         full_name = repository_data["full_name"]
         if not (repository := self.hacs.get_by_name(full_name)):
             self.logger.error(f"Did not find {full_name} ({entry})")
-            return
+            return False
         # Restore repository attributes
         repository.data.id = entry
         repository.data.authors = repository_data.get("authors", [])
@@ -207,3 +207,5 @@ class HacsData:
         if repository_data["full_name"] == "hacs/integration":
             repository.data.installed_version = INTEGRATION_VERSION
             repository.data.installed = True
+
+        return True

@@ -33,7 +33,7 @@ async def test_hacs_data_restore_write_new(hacs):
     ) as mock_async_save_to_store_default_encoder:
         await data.async_write()
     assert mock_async_save_to_store.called
-    assert mock_async_save_to_store_default_encoder.called
+    assert not mock_async_save_to_store_default_encoder.called
 
 
 @pytest.mark.asyncio
@@ -46,7 +46,13 @@ async def test_hacs_data_restore_write_not_new(hacs):
                 "172733314": {
                     "category": "integration",
                     "full_name": "hacs/integration",
-                }
+                    "installed": True,
+                },
+                "202226247": {
+                    "category": "integration",
+                    "full_name": "shbatm/hacs-isy994",
+                    "installed": False,
+                },
             }
         elif key == "hacs":
             return {"view": "Grid", "compact": False, "onboarding_done": True}
@@ -56,7 +62,6 @@ async def test_hacs_data_restore_write_not_new(hacs):
     def _mocked_load(*_):
         return {
             "category": "integration",
-            "full_name": "hacs/integration",
             "show_beta": True,
         }
 
@@ -69,9 +74,17 @@ async def test_hacs_data_restore_write_not_new(hacs):
     ):
         await data.restore()
 
+    assert hacs.get_by_id("202226247")
+    assert hacs.get_by_name("shbatm/hacs-isy994")
+
     assert hacs.get_by_id("172733314")
     assert hacs.get_by_name("hacs/integration")
+
     assert hacs.get_by_id("172733314").data.show_beta is True
+    assert hacs.get_by_id("172733314").data.installed is True
+
+    assert hacs.get_by_id("202226247").data.show_beta is True
+    assert hacs.get_by_id("202226247").data.installed is True
 
     with patch(
         "custom_components.hacs.hacsbase.data.async_save_to_store"

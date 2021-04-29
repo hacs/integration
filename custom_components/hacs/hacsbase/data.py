@@ -56,16 +56,19 @@ class HacsData:
                 "onboarding_done": self.hacs.configuration.onboarding_done,
             },
         )
+        await self._async_store_content_and_repos()
+        for event in ("hacs/repository", "hacs/config"):
+            self.hacs.hass.bus.async_fire(event, {})
 
+    async def _async_store_content_and_repos(self):  # bb: ignore
+        """Store the main repos file and each repo that is out of date."""
         # Repositories
         self.content = {}
         # Not run concurrently since this is bound by disk I/O
-        for repository in self.hacs.repositories:  # bb: ignore
-            await self.async_store_repository_data(repository)  # bb: ignore
+        for repository in self.hacs.repositories:
+            await self.async_store_repository_data(repository)
 
         await async_save_to_store(self.hacs.hass, "repositories", self.content)
-        self.hacs.hass.bus.async_fire("hacs/repository", {})
-        self.hacs.hass.bus.async_fire("hacs/config", {})
 
     async def async_store_repository_data(self, repository):
         repository_manifest = repository.repository_manifest.manifest

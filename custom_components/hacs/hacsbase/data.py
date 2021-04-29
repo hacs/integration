@@ -182,13 +182,6 @@ class HacsData:
             await register_repository(
                 repository_data["full_name"], repository_data["category"], False
             )
-
-        if not repository:
-            self.logger.error(f"Did not find {repository_data['full_name']} ({entry})")
-            return
-
-        repository = repository[0]
-
         # Restore repository attributes
         repository.data.id = entry
         repository.data.authors = repository_data.get("authors", [])

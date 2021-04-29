@@ -8,19 +8,19 @@ from custom_components.hacs.enums import HacsStage
 async def test_hacs(hacs, repository, tmpdir):
     hacs.hass.config.config_dir = tmpdir
 
-    hacs.repositories = [None]
+    hacs.async_set_repositories([])
     assert hacs.get_by_id(None) is None
 
     repository.data.id = "1337"
 
-    hacs.repositories = [repository]
+    hacs.async_set_repositories([repository])
     assert hacs.get_by_id("1337").data.full_name == "test/test"
     assert hacs.get_by_id("1337").data.full_name_lower == "test/test"
 
-    hacs.repositories = [None]
+    hacs.async_set_repositories([])
     assert hacs.get_by_name(None) is None
 
-    hacs.repositories = [repository]
+    hacs.async_set_repositories([repository])
     assert hacs.get_by_name("test/test").data.id == "1337"
 
     assert hacs.is_known("1337")

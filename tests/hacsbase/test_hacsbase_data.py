@@ -30,10 +30,9 @@ async def test_hacs_data_restore_write_new(hacs):
         "custom_components.hacs.hacsbase.data.async_save_to_store"
     ) as mock_async_save_to_store, patch(
         "custom_components.hacs.hacsbase.data.async_save_to_store_default_encoder"
-    ) as mock_async_save_to_store_default_encoder:
+    ):
         await data.async_write()
     assert mock_async_save_to_store.called
-    assert not mock_async_save_to_store_default_encoder.called
 
 
 @pytest.mark.asyncio

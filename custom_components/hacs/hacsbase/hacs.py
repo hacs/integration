@@ -127,6 +127,8 @@ class Hacs(HacsBase, HacsHelpers):
 
     def get_by_name(self, repository_full_name):
         """Get repository by full_name."""
+        if repository_full_name is None:
+            return None
         return self._repositories_by_full_name.get(repository_full_name.lower())
 
     def is_known(self, repository_id):

@@ -138,22 +138,17 @@ class HacsData:
             self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
 
             # Repositories
-
             hacs_repos_by_id = {
                 str(repo.data.id): repo for repo in self.hacs.repositories
             }
+
             tasks = []
-            for entry in repositories:
-                if entry not in hacs_repos_by_id:
-                    self.logger.error(
-                        f"Did not find {repositories[entry]['full_name']} ({entry})"
-                    )
+            for entry, repo_data in repositories.items():
+                full_name = repo_data["full_name"]
+                if not (repo := hacs_repos_by_id.get(entry)):
+                    self.logger.error(f"Did not find {full_name} ({entry})")
                     continue
-                tasks.append(
-                    self.async_restore_repository(
-                        entry, repositories[entry], hacs_repos_by_id[entry]
-                    )
-                )
+                tasks.append(self.async_restore_repository(entry, repo_data, repo))
 
             # Repositories
             await asyncio.gather(*tasks)
@@ -162,8 +157,6 @@ class HacsData:
 
             def _load_from_storage():
                 for entry in repositories:
-                    if entry not in hacs_repos_by_id:
-                        continue
                     store = get_store_for_key(self.hacs.hass, f"hacs/{entry}.hacs")
                     if not os.path.exists(store.path):
                         continue
@@ -180,7 +173,7 @@ class HacsData:
 
             self.logger.info("Restore done")
         except (Exception, BaseException) as exception:  # pylint: disable=broad-except
-            self.logger.critical(f"[{exception}] Restore Failed!")
+            self.logger.critical(f"[{exception}] Restore Failed!", exc_info=exception)
             return False
         return True
 

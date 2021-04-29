@@ -53,14 +53,27 @@ async def test_hacs_data_restore_write_not_new(hacs):
         else:
             raise ValueError(f"No mock for {key}")
 
-    with patch(
+    def _mocked_load(*_):
+        return {
+            "category": "integration",
+            "full_name": "hacs/integration",
+            "stars": 1000000,
+            "show_beta": True,
+        }
+
+    with patch("os.path.exists", return_value=True), patch(
         "custom_components.hacs.hacsbase.data.async_load_from_store",
         side_effect=_mocked_loads,
+    ), patch(
+        "custom_components.hacs.helpers.functions.store.HACSStore.load",
+        side_effect=_mocked_load,
     ):
         await data.restore()
 
     assert hacs.get_by_id("172733314")
     assert hacs.get_by_name("hacs/integration")
+    assert hacs.get_by_id("172733314").data.stars == 1000000
+    assert hacs.get_by_id("172733314").data.show_beta is True
 
     with patch(
         "custom_components.hacs.hacsbase.data.async_save_to_store"

@@ -141,6 +141,7 @@ class HacsData:
             hacs_repos_by_id = {
                 str(repo.data.id): repo for repo in self.hacs.repositories
             }
+            self.logger.error("hacs_repos_by_id: %s", hacs_repos_by_id)
 
             tasks = []
             stores_by_entry = {}

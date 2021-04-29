@@ -145,9 +145,10 @@ class HacsData:
             tasks = []
             stores_by_entry = {}
             for entry, repo_data in repositories.items():
-                full_name = repo_data["full_name"]
                 if not (repo := hacs_repos_by_id.get(entry)):
-                    self.logger.error(f"Did not find {full_name} ({entry})")
+                    self.logger.error(
+                        f"Did not find {repo_data['full_name']} ({entry})"
+                    )
                     continue
                 tasks.append(self.async_restore_repository(entry, repo_data, repo))
                 stores_by_entry[entry] = get_store_for_key(
@@ -161,10 +162,7 @@ class HacsData:
 
             def _load_from_storage():
                 for entry, store in stores_by_entry.items():
-                    if not os.path.exists(store.path):
-                        continue
-                    data = store.load()
-                    if data:
+                    if os.path.exists(store.path) and (data := store.load()):
                         entries_from_storage[entry] = data
 
             await self.hacs.hass.async_add_executor_job(_load_from_storage)

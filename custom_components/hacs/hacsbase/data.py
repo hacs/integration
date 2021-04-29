@@ -21,8 +21,7 @@ from custom_components.hacs.share import get_hacs
 from homeassistant.core import callback
 
 
-@callback
-def async_update_repository_from_storage(repository, storage_data):
+def update_repository_from_storage(repository, storage_data):
     """Merge in data from storage into the repo data."""
     repository.data.memorize_storage(storage_data)
     repository.data.update_data(storage_data)
@@ -147,17 +146,12 @@ class HacsData:
                 self.async_restore_repository(entry, repo_data)
                 stores[entry] = get_store_for_key(hass, f"hacs/{entry}.hacs")
 
-            entries_from_storage = {}
-
             def _load_from_storage():
                 for entry, store in stores.items():
                     if os.path.exists(store.path) and (data := store.load()):
-                        entries_from_storage[entry] = data
+                        update_repository_from_storage(self.hacs.get_by_id(entry), data)
 
             await hass.async_add_executor_job(_load_from_storage)
-            for entry, data in entries_from_storage.items():
-                async_update_repository_from_storage(self.hacs.get_by_id(entry), data)
-
             self.logger.info("Restore done")
         except (Exception, BaseException) as exception:  # pylint: disable=broad-except
             self.logger.critical(f"[{exception}] Restore Failed!", exc_info=exception)

@@ -39,12 +39,20 @@ async def test_add_remove_repository(hacs, repository, tmpdir):
         hacs.async_add_repository(repository)
 
     hacs.async_set_repository_id(repository, "42")
+
+    # Once its set, it should never change
+    with pytest.raises(ValueError):
+        hacs.async_set_repository_id(repository, "30")
+
     assert hacs.get_by_name("test/test") is repository
     assert hacs.get_by_id("42") is repository
 
     hacs.async_remove_repository(repository)
     assert hacs.get_by_name("test/test") is None
     assert hacs.get_by_id("42") is None
+
+    # Verify second removal does not raise
+    hacs.async_remove_repository(repository)
 
 
 @pytest.mark.asyncio

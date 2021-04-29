@@ -57,7 +57,6 @@ async def test_hacs_data_restore_write_not_new(hacs):
         return {
             "category": "integration",
             "full_name": "hacs/integration",
-            "stars": 1000000,
             "show_beta": True,
         }
 
@@ -72,7 +71,6 @@ async def test_hacs_data_restore_write_not_new(hacs):
 
     assert hacs.get_by_id("172733314")
     assert hacs.get_by_name("hacs/integration")
-    assert hacs.get_by_id("172733314").data.stars == 1000000
     assert hacs.get_by_id("172733314").data.show_beta is True
 
     with patch(

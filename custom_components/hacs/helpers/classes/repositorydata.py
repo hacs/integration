@@ -91,8 +91,6 @@ class RepositoryData:
     def create_from_dict(source: dict):
         """Set attributes from dicts."""
         data = RepositoryData()
-        if "stars" in source:
-            data.stargazers_count = source["stars"]
         for key in source:
             if key not in data.__dict__:
                 continue
@@ -124,8 +122,6 @@ class RepositoryData:
 
     def update_data(self, data: dict):
         """Update data of the repository."""
-        if "stars" in data:
-            self.stargazers_count = data["stars"]
         for key in data:
             if key not in self.__dict__:
                 continue

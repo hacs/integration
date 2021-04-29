@@ -55,7 +55,7 @@ class RepositoryData:
     stargazers_count: int = 0
     topics: List[str] = []
     zip_release: bool = False
-    storage_data: Optional[dict] = None
+    _storage_data: Optional[dict] = None
 
     @property
     def stars(self):
@@ -71,7 +71,7 @@ class RepositoryData:
 
     def to_json(self):
         """Export to json."""
-        return attr.asdict(self)
+        return attr.asdict(self, filter=lambda attr, _: attr.name != "_storage_data")
 
     def memorize_storage(self, data) -> None:
         """Memorize the storage data."""

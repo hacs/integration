@@ -138,30 +138,24 @@ class HacsData:
             self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
 
             # Repositories
-            tasks = []
-            stores_by_entry = {}
+            hass = self.hacs.hass
+            stores = {}
+
+            await self.register_unknown_repositories(repositories)
+
             for entry, repo_data in repositories.items():
-                if not (repo := self.hacs.get_by_id(entry)):
-                    self.logger.error(
-                        f"Did not find {repo_data['full_name']} ({entry})"
-                    )
-                    continue
-                tasks.append(self.async_restore_repository(entry, repo_data, repo))
-                stores_by_entry[entry] = get_store_for_key(
-                    self.hacs.hass, f"hacs/{entry}.hacs"
-                )
+                self.async_restore_repository(entry, repo_data)
+                stores[entry] = get_store_for_key(hass, f"hacs/{entry}.hacs")
 
             # Repositories
-            await asyncio.gather(*tasks)
-
             entries_from_storage = {}
 
             def _load_from_storage():
-                for entry, store in stores_by_entry.items():
+                for entry, store in stores.items():
                     if os.path.exists(store.path) and (data := store.load()):
                         entries_from_storage[entry] = data
 
-            await self.hacs.hass.async_add_executor_job(_load_from_storage)
+            await hass.async_add_executor_job(_load_from_storage)
 
             for entry, data in entries_from_storage.items():
                 async_update_repository_from_storage(self.hacs.get_by_id(entry), data)
@@ -172,11 +166,23 @@ class HacsData:
             return False
         return True
 
-    async def async_restore_repository(self, entry, repository_data, repository):
-        if not self.hacs.is_known(entry):
-            await register_repository(
-                repository_data["full_name"], repository_data["category"], False
-            )
+    async def register_unknown_repositories(self, repositories):
+        """Registry any unknown repositories."""
+        register_tasks = [
+            register_repository(repo_data["full_name"], repo_data["category"], False)
+            for entry, repo_data in repositories.items()
+            if not self.hacs.is_known(entry)
+        ]
+        if register_tasks:
+            await asyncio.gather(*register_tasks)
+
+    @callback
+    def async_restore_repository(self, entry, repository_data):
+        full_name = repository_data["full_name"]
+        repository = self.hacs.get_by_full_name(full_name)
+        if not repository:
+            self.logger.error(f"Did not find {full_name} ({entry})")
+            return
         # Restore repository attributes
         repository.data.id = entry
         repository.data.authors = repository_data.get("authors", [])

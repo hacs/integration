@@ -87,18 +87,18 @@ class HacsData:
         }
         self.content[str(repository.data.id)] = data
 
-        if repository.data.installed and (
-            repository.data.installed_commit or repository.data.installed_version
+        if (
+            repository.data.installed
+            and (repository.data.installed_commit or repository.data.installed_version)
+            and (export := repository.data.export())
         ):
-            export = repository.data.export()
-            if export:
-                # If the last export is the same, we avoid
-                # writing to disk
-                await async_save_to_store(
-                    self.hacs.hass,
-                    f"hacs/{repository.data.id}.hacs",
-                    export,
-                )
+            # If the last export is the same, we avoid
+            # writing to disk
+            await async_save_to_store(
+                self.hacs.hass,
+                f"hacs/{repository.data.id}.hacs",
+                export,
+            )
 
     async def restore(self):
         """Restore saved data."""

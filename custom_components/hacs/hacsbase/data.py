@@ -160,8 +160,7 @@ class HacsData:
             entries_from_storage = {}
 
             def _load_from_storage():
-                for entry in repositories:
-                    store = stores_by_entry[entry]
+                for entry, store in stores_by_entry.items():
                     if not os.path.exists(store.path):
                         continue
                     data = store.load()
@@ -170,10 +169,8 @@ class HacsData:
 
             await self.hacs.hass.async_add_executor_job(_load_from_storage)
 
-            for entry in entries_from_storage:
-                async_update_repository_from_storage(
-                    hacs_repos_by_id[entry], entries_from_storage[entry]
-                )
+            for entry, data in entries_from_storage.items():
+                async_update_repository_from_storage(hacs_repos_by_id[entry], data)
 
             self.logger.info("Restore done")
         except (Exception, BaseException) as exception:  # pylint: disable=broad-except

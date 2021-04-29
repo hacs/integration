@@ -104,7 +104,7 @@ class Hacs(HacsBase, HacsHelpers):
         self._repositories_by_full_name = {}
 
         for repositories in repositories:
-            self.async_add(repositories)
+            self.async_add_repository(repositories)
 
     def async_add_repository(self, repository):
         """Add a repository to the list."""

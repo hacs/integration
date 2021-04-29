@@ -118,23 +118,24 @@ class HacsData:
         """Restore saved data."""
         hacs = await async_load_from_store(self.hacs.hass, "hacs")
         repositories = await async_load_from_store(self.hacs.hass, "repositories") or {}
+
+        if not hacs and not repositories:
+            # Assume new install
+            self.hacs.status.new = True
+            return True
+        self.logger.info("Restore started")
+        self.hacs.status.new = False
+
+        # Hacs
+        self.hacs.configuration.frontend_mode = hacs.get("view", "Grid")
+        self.hacs.configuration.frontend_compact = hacs.get("compact", False)
+        self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
+
+        # Repositories
+        hass = self.hacs.hass
+        stores = {}
+
         try:
-            if not hacs and not repositories:
-                # Assume new install
-                self.hacs.status.new = True
-                return True
-            self.logger.info("Restore started")
-            self.hacs.status.new = False
-
-            # Hacs
-            self.hacs.configuration.frontend_mode = hacs.get("view", "Grid")
-            self.hacs.configuration.frontend_compact = hacs.get("compact", False)
-            self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
-
-            # Repositories
-            hass = self.hacs.hass
-            stores = {}
-
             await self.register_unknown_repositories(repositories)
 
             for entry, repo_data in repositories.items():

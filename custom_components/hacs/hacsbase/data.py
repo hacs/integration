@@ -147,7 +147,6 @@ class HacsData:
                 self.async_restore_repository(entry, repo_data)
                 stores[entry] = get_store_for_key(hass, f"hacs/{entry}.hacs")
 
-            # Repositories
             entries_from_storage = {}
 
             def _load_from_storage():
@@ -156,7 +155,6 @@ class HacsData:
                         entries_from_storage[entry] = data
 
             await hass.async_add_executor_job(_load_from_storage)
-
             for entry, data in entries_from_storage.items():
                 async_update_repository_from_storage(self.hacs.get_by_id(entry), data)
 

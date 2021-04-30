@@ -12,3 +12,8 @@ def test_guarded():
     test["name"] = "new"
 
     assert data.name != "new"
+
+    export = data.export_data()
+    assert isinstance(export, dict)
+    data.memorize_storage(export)
+    assert data.export_data() is None

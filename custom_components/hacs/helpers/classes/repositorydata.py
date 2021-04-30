@@ -92,57 +92,58 @@ class RepositoryData:
         """Set attributes from dicts."""
         data = RepositoryData()
         for key in source:
-            print(key)
-            if key in data.__dict__:
-                if key == "pushed_at":
-                    if source[key] == "":
-                        continue
-                    if "Z" in source[key]:
-                        setattr(
-                            data,
-                            key,
-                            datetime.strptime(source[key], "%Y-%m-%dT%H:%M:%SZ"),
-                        )
-                    else:
-                        setattr(
-                            data,
-                            key,
-                            datetime.strptime(source[key], "%Y-%m-%dT%H:%M:%S"),
-                        )
-                elif key == "id":
-                    setattr(data, key, str(source[key]))
-                elif key == "country":
-                    if isinstance(source[key], str):
-                        setattr(data, key, [source[key]])
-                    else:
-                        setattr(data, key, source[key])
+            if key not in data.__dict__:
+                continue
+            if key == "pushed_at":
+                if source[key] == "":
+                    continue
+                if "Z" in source[key]:
+                    setattr(
+                        data,
+                        key,
+                        datetime.strptime(source[key], "%Y-%m-%dT%H:%M:%SZ"),
+                    )
+                else:
+                    setattr(
+                        data,
+                        key,
+                        datetime.strptime(source[key], "%Y-%m-%dT%H:%M:%S"),
+                    )
+            elif key == "id":
+                setattr(data, key, str(source[key]))
+            elif key == "country":
+                if isinstance(source[key], str):
+                    setattr(data, key, [source[key]])
                 else:
                     setattr(data, key, source[key])
+            else:
+                setattr(data, key, source[key])
         return data
 
     def update_data(self, data: dict):
         """Update data of the repository."""
         for key in data:
-            if key in self.__dict__:
-                if key == "pushed_at":
-                    if data[key] == "":
-                        continue
-                    if "Z" in data[key]:
-                        setattr(
-                            self,
-                            key,
-                            datetime.strptime(data[key], "%Y-%m-%dT%H:%M:%SZ"),
-                        )
-                    else:
-                        setattr(
-                            self, key, datetime.strptime(data[key], "%Y-%m-%dT%H:%M:%S")
-                        )
-                elif key == "id":
-                    setattr(self, key, str(data[key]))
-                elif key == "country":
-                    if isinstance(data[key], str):
-                        setattr(self, key, [data[key]])
-                    else:
-                        setattr(self, key, data[key])
+            if key not in self.__dict__:
+                continue
+            if key == "pushed_at":
+                if data[key] == "":
+                    continue
+                if "Z" in data[key]:
+                    setattr(
+                        self,
+                        key,
+                        datetime.strptime(data[key], "%Y-%m-%dT%H:%M:%SZ"),
+                    )
+                else:
+                    setattr(
+                        self, key, datetime.strptime(data[key], "%Y-%m-%dT%H:%M:%S")
+                    )
+            elif key == "id":
+                setattr(self, key, str(data[key]))
+            elif key == "country":
+                if isinstance(data[key], str):
+                    setattr(self, key, [data[key]])
                 else:
                     setattr(self, key, data[key])
+            else:
+                setattr(self, key, data[key])

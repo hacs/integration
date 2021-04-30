@@ -17,7 +17,7 @@ async def async_remove_entry(hass: "HomeAssistant", config_entry: "ConfigEntry")
     for task in hacs.recuring_tasks:
         task()
 
-    if str(config_entry.state) in ["EntryState.LOADED", "loaded"]:
+    if str(config_entry.state) in ["ConfigEntryState.LOADED", "loaded"]:
         hacs.log.info("Removing sensor")
         try:
             await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")

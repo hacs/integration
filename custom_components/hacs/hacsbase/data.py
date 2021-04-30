@@ -97,22 +97,27 @@ class HacsData:
         }
         self.content[str(repository.data.id)] = data
 
-        if (
-            repository.data.installed
-            and (repository.data.installed_commit or repository.data.installed_version)
-            and (export := repository.data.export_data())
+        if not repository.data.installed or (
+            not repository.data.installed_commit
+            and not repository.data.installed_version
         ):
-            # export_data will return `None` if the memorized
-            # data is already up to date which allows us to avoid
-            # writing data that is already up to date or generating
-            # executor jobs to check the data on disk to see
-            # if a write is needed.
-            await async_save_to_store_default_encoder(
-                self.hacs.hass,
-                f"hacs/{repository.data.id}.hacs",
-                export,
-            )
-            repository.data.memorize_storage(export)
+            return
+
+        export = repository.data.export_data()
+        if not export:
+            return
+
+        # export_data will return `None` if the memorized
+        # data is already up to date which allows us to avoid
+        # writing data that is already up to date or generating
+        # executor jobs to check the data on disk to see
+        # if a write is needed.
+        await async_save_to_store_default_encoder(
+            self.hacs.hass,
+            f"hacs/{repository.data.id}.hacs",
+            export,
+        )
+        repository.data.memorize_storage(export)
 
     async def restore(self):
         """Restore saved data."""
@@ -144,7 +149,10 @@ class HacsData:
 
             def _load_from_storage():
                 for entry, store in stores.items():
-                    if os.path.exists(store.path) and (data := store.load()):
+                    if not os.path.exists(store.path):
+                        continue
+                    data = store.load()
+                    if data:
                         update_repository_from_storage(self.hacs.get_by_id(entry), data)
 
             await hass.async_add_executor_job(_load_from_storage)
@@ -167,7 +175,8 @@ class HacsData:
     @callback
     def async_restore_repository(self, entry, repository_data):
         full_name = repository_data["full_name"]
-        if not (repository := self.hacs.get_by_name(full_name)):
+        repository = self.hacs.get_by_name(full_name)
+        if not repository:
             self.logger.error(f"Did not find {full_name} ({entry})")
             return False
         # Restore repository attributes

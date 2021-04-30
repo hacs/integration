@@ -26,7 +26,9 @@ def update_repository_from_storage(repository, storage_data):
     if repository.data.installed:
         return
 
-    repository.logger.debug("%s Should be installed but is not... Fixing that!", repository)
+    repository.logger.debug(
+        "%s Should be installed but is not... Fixing that!", repository
+    )
     repository.data.installed = True
 
 

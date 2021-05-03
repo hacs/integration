@@ -1,4 +1,5 @@
 """Data handler for HACS."""
+import json
 import os
 
 from queueman import QueueManager
@@ -98,15 +99,18 @@ class HacsData:
 
     async def restore(self):
         """Restore saved data."""
-        hacs = await async_load_from_store(self.hacs.hass, "hacs")
+        hacs = await async_load_from_store(self.hacs.hass, "hacs") or {}
         repositories = await async_load_from_store(self.hacs.hass, "repositories")
         try:
-            if not hacs and not repositories:
+            if not repositories:
                 # Assume new install
+                repositories = await self.hacs.hass.async_add_executor_job(
+                    _load_base_file
+                )
                 self.hacs.status.new = True
-                return True
+            else:
+                self.hacs.status.new = False
             self.logger.info("Restore started")
-            self.hacs.status.new = False
 
             # Hacs
             self.hacs.configuration.frontend_mode = hacs.get("view", "Grid")
@@ -204,3 +208,13 @@ class HacsData:
                     "Should be installed but is not... Fixing that!"
                 )
                 repository.data.installed = True
+
+
+def _load_base_file():
+    """Return the value of the base repositories file."""
+    hacs = get_hacs()
+    hacs.log.info("Using base repositories file")
+    with open(
+        hacs.hass.config.path("custom_components/hacs/helpers/base.json")
+    ) as basefile:
+        return json.loads(basefile.read())

@@ -1,17 +1,23 @@
 """Remove HACS."""
+from typing import TYPE_CHECKING
 from ..const import DOMAIN
 from ..enums import HacsDisabledReason
 from ..share import get_hacs
 
+if TYPE_CHECKING:
+    from homeassistant.core import HomeAssistant
+    from homeassistant.config_entries import ConfigEntry
 
-async def async_remove_entry(hass, config_entry):
+
+async def async_remove_entry(hass: "HomeAssistant", config_entry: "ConfigEntry"):
     """Handle removal of an entry."""
     hacs = get_hacs()
     hacs.log.info("Disabling HACS")
     hacs.log.info("Removing recurring tasks")
     for task in hacs.recuring_tasks:
         task()
-    if config_entry.state == "loaded":
+
+    if str(config_entry.state) in ["ConfigEntryState.LOADED", "loaded"]:
         hacs.log.info("Removing sensor")
         try:
             await hass.config_entries.async_forward_entry_unload(config_entry, "sensor")

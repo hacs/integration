@@ -45,15 +45,10 @@ async def register_repository(full_name, category, check=True, ref=None):
                 f"Validation for {full_name} failed with {exception}."
             ) from None
 
-    exists = (
-        False
-        if str(repository.data.id) == "0"
-        else [x for x in hacs.repositories if str(x.data.id) == str(repository.data.id)]
-    )
-
-    if exists:
-        if exists[0] in hacs.repositories:
-            hacs.repositories.remove(exists[0])
+    if str(repository.data.id) != "0" and (
+        exists := hacs.get_by_id(repository.data.id)
+    ):
+        hacs.async_remove_repository(exists)
 
     else:
         if hacs.hass is not None and (
@@ -67,4 +62,4 @@ async def register_repository(full_name, category, check=True, ref=None):
                     "repository_id": repository.data.id,
                 },
             )
-    hacs.repositories.append(repository)
+    hacs.async_add_repository(repository)

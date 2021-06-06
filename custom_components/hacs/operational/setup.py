@@ -127,7 +127,7 @@ async def async_hacs_startup():
 
     try:
         lovelace_info = await system_health_info(hacs.hass)
-    except (TypeError, HomeAssistantError):
+    except (TypeError, KeyError, HomeAssistantError):
         # If this happens, the users YAML is not valid, we assume YAML mode
         lovelace_info = {"mode": "yaml"}
     hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")

@@ -6,7 +6,7 @@ NAME_SHORT = "HACS"
 INTEGRATION_VERSION = "main"
 DOMAIN = "hacs"
 CLIENT_ID = "395a8e669c5de9f7c6e8"
-MINIMUM_HA_VERSION = "2020.12.0"
+MINIMUM_HA_VERSION = "2021.2.0"
 PROJECT_URL = "https://github.com/hacs/integration/"
 CUSTOM_UPDATER_LOCATIONS = [
     "{}/custom_components/custom_updater.py",

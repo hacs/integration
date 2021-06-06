@@ -36,9 +36,6 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v2
 
-    - name: fail
-      run: exit 1
-
     - name: HACS validation
       uses: hacs/action@main
       with:
@@ -46,7 +43,7 @@ jobs:
         comment: false
 
     - name: Discord notification
-      if: ${{ github.event_name == 'push' && failure() }}
+      if: ${{ github.event_name == 'schedule' && failure() }}
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
       uses: Ilshidur/action-discord@0.3.0

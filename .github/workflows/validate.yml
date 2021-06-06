@@ -49,3 +49,35 @@ jobs:
       uses: Ilshidur/action-discord@0.3.0
       with:
         args: "[Scheduled action failed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"
+
+  validate-homeassistant:
+    name: With Home Assistant
+    strategy:
+      matrix:
+        channel: [stable, beta, dev]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: 📋 Copy sample configuration for Home Assistant
+        run: |
+          mkdir ./test_configuration
+          cp -f .devcontainer/sample_configuration.yaml ./test_configuration/configuration.yaml
+          cp -r ./custom_components ./test_configuration
+          sed -i 's/#//g' ./test_configuration/configuration.yaml
+
+      - name: 👷 Setup Home Assistant
+        id: homeassistant
+        uses: ludeeus/setup-homeassistant@main
+        with:
+          tag: ${{ matrix.channel }}
+          config-dir: test_configuration
+
+      - name: Discord notification
+        if: ${{ github.event_name == 'schedule' && failure() }}
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
+        uses: Ilshidur/action-discord@0.3.0
+        with:
+          args: "[Scheduled action failed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"

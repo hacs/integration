@@ -22,7 +22,7 @@ jobs:
       uses: "home-assistant/actions/hassfest@master"
 
     - name: Discord notification
-      if: ${{ github.event_name == 'schedule' }} && ${{ failure() }}
+      if: ${{ github.event_name == 'schedule' && failure() }}
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
       uses: Ilshidur/action-discord@0.3.0
@@ -43,7 +43,7 @@ jobs:
         comment: false
 
     - name: Discord notification
-      if: ${{ github.event_name == 'schedule' }} && ${{ failure() }}
+      if: ${{ github.event_name == 'schedule' && failure() }}
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
       uses: Ilshidur/action-discord@0.3.0

@@ -11,6 +11,7 @@ from homeassistant.helpers.event import async_call_later
 
 from custom_components.hacs.const import CLIENT_ID, DOMAIN, MINIMUM_HA_VERSION
 from custom_components.hacs.helpers.functions.configuration_schema import (
+    RELEASE_LIMIT,
     hacs_config_option_schema,
 )
 from custom_components.hacs.helpers.functions.logger import getLogger
@@ -141,6 +142,9 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
         """Handle a flow initialized by the user."""
         hacs: HacsBase = get_hacs()
         if user_input is not None:
+            limit = int(user_input.get(RELEASE_LIMIT, 5))
+            if limit <= 0 or limit > 100:
+                return self.async_abort(reason="release_limit_value")
             return self.async_create_entry(title="", data=user_input)
 
         if hacs.configuration is None:

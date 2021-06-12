@@ -71,7 +71,7 @@ class System:
     ha_version = None
     disabled = False
     running = False
-    lovelace_mode = "storage"
+    lovelace_mode = "yaml"
 
 
 class Hacs(HacsBase, HacsHelpers):

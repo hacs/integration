@@ -10,6 +10,7 @@ from homeassistant.core import HomeAssistant
 
 from .enums import HacsDisabledReason, HacsStage
 from .helpers.functions.logger import getLogger
+from .hacsbase.configuration import Configuration
 from .models.core import HacsCore
 from .models.frontend import HacsFrontend
 from .models.system import HacsSystem
@@ -44,6 +45,7 @@ class HacsBaseAttributes:
     _default: Optional[AIOGitHubAPIRepository]
     _github: Optional[AIOGitHubAPI]
     _hass: Optional[HomeAssistant]
+    _configuration: Optional[Configuration]
     _repository: Optional[AIOGitHubAPIRepository]
     _stage: HacsStage = HacsStage.SETUP
     _common: Optional[HacsCommon]
@@ -110,6 +112,16 @@ class HacsBase(HacsBaseAttributes):
     def hass(self, value: HomeAssistant) -> None:
         """Set the value for the default property."""
         self._hass = value
+
+    @property
+    def configuration(self) -> Optional[Configuration]:
+        """Returns a Configuration object."""
+        return self._configuration
+
+    @configuration.setter
+    def configuration(self, value: Configuration) -> None:
+        """Set the value for the default property."""
+        self._configuration = value
 
     @property
     def integration_dir(self) -> pathlib.Path:

@@ -14,7 +14,7 @@ from custom_components.hacs.const import (
     INTEGRATION_VERSION,
     STARTUP,
 )
-from custom_components.hacs.enums import HacsDisabledReason, HacsStage
+from custom_components.hacs.enums import HacsDisabledReason, HacsStage, LovelaceMode
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.helpers.functions.constrains import check_constrains
@@ -136,6 +136,9 @@ async def async_hacs_startup():
     hacs.core.config_path = hacs.hass.config.path()
     hacs.system.ha_version = HAVERSION
 
+    hacs.system.lovelace_mode = lovelace_info.get("mode", "yaml")
+    hacs.core.lovelace_mode = LovelaceMode(lovelace_info.get("mode", "yaml"))
+
     # Setup websocket API
     await async_setup_hacs_websockt_api()
 
@@ -145,7 +148,6 @@ async def async_hacs_startup():
     # Clear old storage files
     await async_clear_storage()
 
-    hacs.system.lovelace_mode = lovelace_info.get("mode", "yaml")
     hacs.enable()
     hacs.github = GitHub(
         hacs.configuration.token,

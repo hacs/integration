@@ -71,7 +71,7 @@ class System:
     ha_version = None
     disabled = False
     running = False
-    lovelace_mode = "storage"
+    lovelace_mode = "yaml"
 
 
 class Hacs(HacsBase, HacsHelpers):
@@ -103,8 +103,8 @@ class Hacs(HacsBase, HacsHelpers):
         self._repositories_by_id = {}
         self._repositories_by_full_name = {}
 
-        for repositories in repositories:
-            self.async_add_repository(repositories)
+        for repository in repositories:
+            self.async_add_repository(repository)
 
     def async_set_repository_id(self, repository, repo_id):
         """Update a repository id."""

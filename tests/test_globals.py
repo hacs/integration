@@ -4,8 +4,9 @@ from custom_components.hacs.share import get_removed, is_removed
 
 
 def test_global_hacs(hacs):
+    assert hacs.core.lovelace_mode == "yaml"
+    hacs.core.lovelace_mode = "storage"
     assert hacs.core.lovelace_mode == "storage"
-    hacs.core.lovelace_mode = "yaml"
 
 
 def test_is_removed():

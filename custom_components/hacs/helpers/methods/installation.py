@@ -87,7 +87,7 @@ async def async_install_repository(repository):
         await hacs.hass.async_add_executor_job(backup.create)
 
     if repository.data.zip_release and version != repository.data.default_branch:
-        await repository.download_zip_files(repository)
+        await repository.download_zip_files(repository.validate)
     else:
         await download_content(repository)
 

@@ -19,6 +19,7 @@ class LovelaceMode(str, Enum):
 
     STORAGE = "storage"
     AUTO = "auto"
+    AUTO_GEN = "auto-gen"
     YAML = "yaml"
 
 

@@ -418,7 +418,6 @@ class HacsRepository(RepositoryHelpers):
 
     async def remove_local_directory(self):
         """Check the local directory."""
-        import shutil
         from asyncio import sleep
 
         try:

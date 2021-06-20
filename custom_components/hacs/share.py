@@ -1,7 +1,6 @@
 """Shared HACS elements."""
 import os
 from typing import TYPE_CHECKING
-from queueman import QueueManager
 
 if TYPE_CHECKING:
     from .base import HacsBase
@@ -27,22 +26,6 @@ def get_hacs() -> "HacsBase":
         SHARE["hacs"] = _hacs
 
     return SHARE["hacs"]
-
-
-def get_factory():
-    if SHARE["factory"] is None:
-        from .operational.factory import HacsTaskFactory
-
-        SHARE["factory"] = HacsTaskFactory()
-
-    return SHARE["factory"]
-
-
-def get_queue():
-    if SHARE["queue"] is None:
-        SHARE["queue"] = QueueManager()
-
-    return SHARE["queue"]
 
 
 def is_removed(repository):

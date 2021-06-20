@@ -328,4 +328,4 @@ class Hacs(HacsBase, HacsHelpers):
                 else:
                     continue
                 continue
-            self.queue.add(self.factory.safe_register(self, repo, category))
+            self.queue.add(self.factory.safe_register(repo, category))

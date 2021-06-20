@@ -1,4 +1,9 @@
 """Setup HACS."""
+from custom_components.hacs.share import get_hacs
+from queueman.manager import QueueManager
+from custom_components.hacs.hacsbase.hacs import Hacs, HacsFrontend
+from custom_components.hacs.operational.factory import HacsTaskFactory
+from custom_components.hacs.models.core import HacsCore
 from datetime import datetime
 
 from aiogithubapi import AIOGitHubAPIException, GitHub
@@ -7,6 +12,7 @@ from custom_components.hacs.enums import HacsDisabledReason, HacsStage, Lovelace
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.helpers.functions.constrains import check_constrains
+from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.remaining_github_calls import (
     get_fetch_updates_for,
 )
@@ -25,7 +31,6 @@ from custom_components.hacs.operational.setup_actions.sensor import async_add_se
 from custom_components.hacs.operational.setup_actions.websocket_api import (
     async_setup_hacs_websockt_api,
 )
-from custom_components.hacs.share import get_hacs
 from homeassistant.components.lovelace.system_health import system_health_info
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
@@ -35,26 +40,30 @@ from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 
 
-async def _async_common_setup(hass):
+async def _initialize_hacs(hass) -> Hacs:
     """Common setup stages."""
     hacs = get_hacs()
     hacs.hass = hass
-    hacs.system.running = True
     hacs.session = async_create_clientsession(hass)
+    hacs.log = getLogger()
+    hacs.configuration = Configuration()
+    hacs.factory = HacsTaskFactory(hacs)
+    hacs.frontend = HacsFrontend()
+    hacs.queue = QueueManager()
+    hacs.core = HacsCore()
+    hacs.data = HacsData()
+    hacs.system.running = True
+    return hacs
 
 
 async def async_setup_entry(hass, config_entry):
     """Set up this integration using UI."""
-    from homeassistant import config_entries
-
-    hacs = get_hacs()
+    hacs = await _initialize_hacs(hass)
     if hass.data.get(DOMAIN) is not None:
         return False
-    if config_entry.source == config_entries.SOURCE_IMPORT:
+    if config_entry.source == "import":
         hass.async_create_task(hass.config_entries.async_remove(config_entry.entry_id))
         return False
-
-    await _async_common_setup(hass)
 
     hacs.configuration = Configuration.from_dict(
         config_entry.data, config_entry.options
@@ -67,13 +76,11 @@ async def async_setup_entry(hass, config_entry):
 
 async def async_setup(hass, config):
     """Set up this integration using yaml."""
-    hacs = get_hacs()
+    hacs = await _initialize_hacs(hass)
     if DOMAIN not in config:
         return True
     if hacs.configuration and hacs.configuration.config_type == "flow":
         return True
-
-    await _async_common_setup(hass)
 
     hacs.configuration = Configuration.from_dict(config[DOMAIN])
     hacs.configuration.config_type = "yaml"

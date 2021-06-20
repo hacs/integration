@@ -1,5 +1,10 @@
 """Set up some common test helper things."""
 import asyncio
+from custom_components.hacs.models.core import HacsCore
+from custom_components.hacs.hacsbase.data import HacsData
+
+from queueman.manager import QueueManager
+from custom_components.hacs.operational.factory import HacsTaskFactory
 import logging
 
 import pytest
@@ -8,7 +13,7 @@ from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.runner import HassEventLoopPolicy
 
 from custom_components.hacs.hacsbase.configuration import Configuration
-from custom_components.hacs.hacsbase.hacs import Hacs
+from custom_components.hacs.hacsbase.hacs import Hacs, HacsFrontend
 from custom_components.hacs.helpers.classes.repository import HacsRepository
 from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
@@ -92,8 +97,15 @@ def hacs(hass):
     hacs_obj.session = async_create_clientsession(hass)
     hacs_obj.configuration = Configuration()
     hacs_obj.configuration.token = TOKEN
+    hacs_obj.core = HacsCore()
     hacs_obj.core.config_path = hass.config.path()
+    hacs_obj.data = HacsData()
+    hacs_obj.factory = HacsTaskFactory(hacs)
+    hacs_obj.frontend = HacsFrontend()
+    hacs_obj.log = logging.getLogger()
+    hacs_obj.queue = QueueManager()
     hacs_obj.system.action = False
+
     SHARE["hacs"] = hacs_obj
     yield hacs_obj
 

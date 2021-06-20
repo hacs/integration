@@ -20,9 +20,10 @@ if TYPE_CHECKING:
 
 
 class HacsTaskFactory:
-    def __init__(self):
+    def __init__(self, hacs: "HacsBase"):
         self.tasks = []
         self.running = False
+        self.hacs = hacs
 
     async def safe_common_update(self, repository):
         async with max_concurrent_tasks:
@@ -50,10 +51,10 @@ class HacsTaskFactory:
             # Due to GitHub ratelimits we need to sleep a bit
             await asyncio.sleep(sleeper)
 
-    async def safe_register(self, hacs: "HacsBase", repo: str, category: str) -> None:
+    async def safe_register(self, repo: str, category: str) -> None:
         async with max_concurrent_tasks:
             try:
-                await hacs.async_register_repository(repo, category)
+                await self.hacs.async_register_repository(repo, category)
             except (AIOGitHubAPIException, HacsException) as exception:
                 _LOGGER.error("%s - %s", repo, exception)
 

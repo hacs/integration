@@ -1,5 +1,6 @@
 """Base HACS class."""
 from __future__ import annotations
+
 import logging
 import pathlib
 from typing import TYPE_CHECKING, List, Optional
@@ -13,18 +14,16 @@ from queueman.manager import QueueManager
 
 from .const import INTEGRATION_VERSION
 from .enums import HacsDisabledReason, HacsStage
-from .hacsbase.configuration import Configuration
-from .helpers.functions.logger import getLogger
-from .models.core import HacsCore
-from .models.frontend import HacsFrontend
-from .models.system import HacsSystem
 from .exceptions import HacsException, HacsExpectedException
 from .repositories import RERPOSITORY_CLASSES
-from .share import get_factory, get_queue
 
 if TYPE_CHECKING:
+    from .hacsbase.configuration import Configuration
     from .hacsbase.data import HacsData
     from .helpers.classes.repository import HacsRepository
+    from .models.core import HacsCore
+    from .models.frontend import HacsFrontend
+    from .operational.factory import HacsTaskFactory
 
 
 @attr.dataclass
@@ -48,31 +47,45 @@ class HacsStatus:
     upgrading_all: bool = False
 
 
+@attr.dataclass
+class HacsSystem:
+    """HACS System info."""
+
+    disabled: bool = False
+    disabled_reason: str | None = None
+    running: bool = False
+    version: str = INTEGRATION_VERSION
+    stage = HacsStage.SETUP
+    action: bool = False
+
+
 @attr.s
 class HacsBase:  # pylint: disable=too-many-instance-attributes
     """HACS Base class."""
 
-    _data: Optional["HacsData"] = None
-    _default: Optional[AIOGitHubAPIRepository] = None
-    _github: Optional[AIOGitHubAPI] = None
-    _hass: Optional[HomeAssistant] = None
+    _configuration: "Configuration" | None = None
+    _core: "HacsCore" | None = None
+    _data: "HacsData" | None = None
+    _default: AIOGitHubAPIRepository | None = None
+    _factory: "HacsTaskFactory" | None = None
+    _frontend: "HacsFrontend" | None = None
+    _github: AIOGitHubAPI | None = None
+    _hass: HomeAssistant | None = None
+    _log: logging.Logger | None = None
+    _queue: QueueManager | None = None
+    _repository: AIOGitHubAPIRepository | None = None
+    _session: ClientSession | None = None
+    _stage: HacsStage = HacsStage.SETUP
+    _system: "HacsSystem" | None = None
+
     _repositories_by_full_name: dict[str, "HacsRepository"] = {}
     _repositories_by_id: dict[str, "HacsRepository"] = {}
     _repositories: List["HacsRepository"] = []
-    _repository: Optional[AIOGitHubAPIRepository] = None
-    _session: Optional[ClientSession] = None
-    _stage: HacsStage = HacsStage.SETUP
 
-    common = HacsCommon()
-    configuration = Configuration()
-    core = HacsCore()
-    factory = get_factory()
-    frontend = HacsFrontend()
-    log: logging.Logger = getLogger()
-    queue: QueueManager = get_queue()
-    recuring_tasks = []
-    status: HacsStatus = HacsStatus()
+    status = HacsStatus()
     system = HacsSystem()
+    common = HacsCommon()
+    recuring_tasks = []
 
     @property
     def repositories(self) -> List["HacsRepository"]:
@@ -93,6 +106,56 @@ class HacsBase:  # pylint: disable=too-many-instance-attributes
     def stage(self, value: "HacsStage") -> None:
         """Set the value for the stage property."""
         self._stage = value
+
+    @property
+    def factory(self) -> "HacsTaskFactory ":
+        """Returns a HacsTaskFactory object."""
+        return self._factory
+
+    @factory.setter
+    def factory(self, value: "HacsTaskFactory ") -> None:
+        """Set the value for the factory property."""
+        self._factory = value
+
+    @property
+    def queue(self) -> QueueManager:
+        """Returns a QueueManager object."""
+        return self._queue
+
+    @queue.setter
+    def queue(self, value: QueueManager) -> None:
+        """Set the value for the queue property."""
+        self._queue = value
+
+    @property
+    def core(self) -> "HacsCore":
+        """Returns a HacsCore object."""
+        return self._core
+
+    @core.setter
+    def core(self, value: "HacsCore") -> None:
+        """Set the value for the core property."""
+        self._core = value
+
+    @property
+    def configuration(self) -> "Configuration":
+        """Returns a Configuration object."""
+        return self._configuration
+
+    @configuration.setter
+    def configuration(self, value: "Configuration") -> None:
+        """Set the value for the configuration property."""
+        self._configuration = value
+
+    @property
+    def frontend(self) -> "HacsFrontend":
+        """Returns a HacsFrontend object."""
+        return self._frontend
+
+    @frontend.setter
+    def frontend(self, value: "HacsFrontend") -> None:
+        """Set the value for the frontend property."""
+        self._frontend = value
 
     @property
     def session(self) -> ClientSession:
@@ -153,6 +216,16 @@ class HacsBase:  # pylint: disable=too-many-instance-attributes
     def data(self, value: "HacsData") -> None:
         """Set the HacsData object."""
         self._data = value
+
+    @property
+    def log(self) -> Optional[logging.Logger]:
+        """Returns a Logger object."""
+        return self._log
+
+    @log.setter
+    def log(self, value: logging.Logger) -> None:
+        """Set the Logger object."""
+        self._log = value
 
     @property
     def integration_dir(self) -> pathlib.Path:

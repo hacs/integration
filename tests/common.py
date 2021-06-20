@@ -218,3 +218,17 @@ def mock_storage(data=None):
         autospec=True,
     ):
         yield data
+
+
+class BaseMockResponse:
+    def __init__(self, status=200, path="/") -> None:
+        self.status = status
+        self.path = path
+
+    async def read(self):
+        return ""
+
+
+class BaseDummySession:
+    async def get(self, path):
+        return BaseMockResponse(path=path)

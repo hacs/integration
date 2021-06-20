@@ -71,7 +71,7 @@ async def async_setup_frontend():
                     "name": "hacs-frontend",
                     "embed_iframe": True,
                     "trust_external": False,
-                    "js_url": "/hacsfiles/frontend/entrypoint.js",
+                    "js_url": f"/hacsfiles/frontend/entrypoint.js?hacstag={FE_VERSION}",
                 }
             },
             require_admin=True,

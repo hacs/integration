@@ -273,11 +273,8 @@ class HacsBase:  # pylint: disable=too-many-instance-attributes
 
     def add_repository(self, repository: "HacsRepository") -> None:
         """Add a new repository to the list."""
-        if repository.data.full_name_lower in self._repositories_by_full_name:
-            raise ValueError(
-                f"The repo {repository.data.full_name_lower} is already added"
-            )
-        self._repositories.append(repository)
+        if repository.data.full_name_lower not in self._repositories:
+            self._repositories.append(repository)
         repo_id = str(repository.data.id)
         if repo_id != "0":
             self._repositories_by_id[repo_id] = repository
@@ -313,21 +310,15 @@ class HacsBase:  # pylint: disable=too-many-instance-attributes
             if errors := await repository.async_check_repository(ref):
                 return errors
 
-        if str(repository.data.id) != "0" and (
-            exists := self.get_repository(repository_id=repository.data.id)
+        if self.hass is not None and (
+            (check and repository.data.new) or self.status.new
         ):
-            self.remove_repository(exists)
-
-        else:
-            if self.hass is not None and (
-                (check and repository.data.new) or self.status.new
-            ):
-                self.hass.bus.async_fire(
-                    "hacs/repository",
-                    {
-                        "action": "registration",
-                        "repository": repository.data.full_name,
-                        "repository_id": repository.data.id,
-                    },
-                )
+            self.hass.bus.async_fire(
+                "hacs/repository",
+                {
+                    "action": "registration",
+                    "repository": repository.data.full_name,
+                    "repository_id": repository.data.id,
+                },
+            )
         self.add_repository(repository)

@@ -45,3 +45,11 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
+
+    - name: Discord notification
+      if: ${{ github.event_name == 'schedule' && failure() }}
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
+      uses: Ilshidur/action-discord@0.3.0
+      with:
+        args: "[Scheduled action failed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"

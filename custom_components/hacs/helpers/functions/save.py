@@ -3,16 +3,13 @@ import gzip
 import os
 import shutil
 
-import aiofiles
-
-from custom_components.hacs.helpers.functions.logger import getLogger
-
-_LOGGER = getLogger()
+from ...share import get_hacs
 
 
 async def async_save_file(location, content):
     """Save files."""
-    _LOGGER.debug("Saving %s", location)
+    hacs = get_hacs()
+    hacs.log.debug("Saving %s", location)
     mode = "w"
     encoding = "utf-8"
     errors = "ignore"
@@ -22,12 +19,13 @@ async def async_save_file(location, content):
         encoding = None
         errors = None
 
+    def write_file():
+        """Wrapper to write file."""
+        with open(location, mode=mode, encoding=encoding, errors=errors) as outfile:
+            outfile.write(content)
+
     try:
-        async with aiofiles.open(
-            location, mode=mode, encoding=encoding, errors=errors
-        ) as outfile:
-            await outfile.write(content)
-            outfile.close()
+        await hacs.hass.async_add_executor_job(write_file)
 
         # Create gz for .js files
         if os.path.isfile(location):
@@ -42,11 +40,11 @@ async def async_save_file(location, content):
             base = location.split("/themes/")[0]
             combined = f"{base}/themes/{filename}"
             if os.path.exists(combined):
-                _LOGGER.info("Removing old theme file %s", combined)
+                hacs.log.info("Removing old theme file %s", combined)
                 os.remove(combined)
 
     except (Exception, BaseException) as error:  # pylint: disable=broad-except
-        _LOGGER.error("Could not write data to %s - %s", location, error)
+        hacs.log.error("Could not write data to %s - %s", location, error)
         return False
 
     return os.path.exists(location)

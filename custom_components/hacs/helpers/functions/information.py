@@ -3,13 +3,13 @@ import json
 
 from aiogithubapi import AIOGitHubAPIException, GitHub, AIOGitHubAPINotModifiedException
 
-from custom_components.hacs.helpers.classes.exceptions import (
+from ...exceptions import (
     HacsException,
     HacsNotModifiedException,
 )
-from custom_components.hacs.helpers.functions.template import render_template
-from custom_components.hacs.share import get_hacs
-from custom_components.hacs.const import HACS_GITHUB_API_HEADERS
+from .template import render_template
+from ...share import get_hacs
+from ...const import HACS_GITHUB_API_HEADERS
 
 
 def info_file(repository):
@@ -78,17 +78,6 @@ async def get_releases(repository, prerelease=False, returnlimit=5):
         return releases
     except (ValueError, AIOGitHubAPIException) as exception:
         raise HacsException(exception)
-
-
-def get_frontend_version():
-    """get the frontend version from the manifest."""
-    manifest = read_hacs_manifest()
-    frontend = 0
-    for requirement in manifest.get("requirements", []):
-        if requirement.startswith("hacs_frontend"):
-            frontend = requirement.split("==")[1]
-            break
-    return frontend
 
 
 def read_hacs_manifest():

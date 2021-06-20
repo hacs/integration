@@ -1,9 +1,9 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
-from custom_components.hacs.helpers.methods import (
+from .methods import (
     HacsHelperMethods,
     RepositoryHelperMethods,
 )
-from custom_components.hacs.helpers.properties import RepositoryHelperProperties
+from .properties import RepositoryHelperProperties
 
 
 class RepositoryHelpers(

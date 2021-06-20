@@ -7,7 +7,7 @@ from typing import List
 
 import attr
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from ...exceptions import HacsException
 
 
 @attr.s(auto_attribs=True)

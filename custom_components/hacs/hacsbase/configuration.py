@@ -1,10 +1,7 @@
 """HACS Configuration."""
 import attr
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException
-from custom_components.hacs.helpers.functions.logger import getLogger
-
-_LOGGER = getLogger()
+from ..exceptions import HacsException
 
 
 @attr.s(auto_attribs=True)
@@ -44,14 +41,6 @@ class Configuration:
     def to_json(self) -> dict:
         """Return a dict representation of the configuration."""
         return self.__dict__
-
-    def print(self) -> None:
-        """Print the current configuration to the log."""
-        config = self.to_json()
-        for key in config:
-            if key in ["config", "config_entry", "options", "token"]:
-                continue
-            _LOGGER.debug("%s: %s", key, config[key])
 
     @staticmethod
     def from_dict(configuration: dict, options: dict = None) -> None:

@@ -1,10 +1,7 @@
 """Starting setup task: load HACS repository."""
 from custom_components.hacs.const import INTEGRATION_VERSION
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.information import get_repository
-from custom_components.hacs.helpers.functions.register_repository import (
-    register_repository,
-)
 from custom_components.hacs.share import get_hacs
 
 from ...enums import HacsSetupTask
@@ -16,17 +13,17 @@ async def async_load_hacs_repository():
     hacs.log.info("Setup task %s", HacsSetupTask.HACS_REPO)
 
     try:
-        repository = hacs.get_by_name("hacs/integration")
+        repository = hacs.get_repository(repository_name="hacs/integration")
         if repository is None:
-            await register_repository("hacs/integration", "integration")
-            repository = hacs.get_by_name("hacs/integration")
+            await hacs.async_register_repository("hacs/integration", "integration")
+            repository = hacs.get_repository(repository_name="hacs/integration")
         if repository is None:
             raise HacsException("Unknown error")
         repository.data.installed = True
         repository.data.installed_version = INTEGRATION_VERSION
         repository.data.new = False
-        hacs.repo = repository.repository_object
-        hacs.data_repo, _ = await get_repository(
+        hacs.repository = repository.repository_object
+        hacs.default, _ = await get_repository(
             hacs.session, hacs.configuration.token, "hacs/default", None
         )
     except HacsException as exception:

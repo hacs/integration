@@ -3,14 +3,13 @@
 import pytest
 
 from custom_components.hacs.hacsbase.configuration import Configuration
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 
 
 def test_configuration_and_option():
     config = Configuration.from_dict({"token": "xxxxxxxxxx"}, {})
 
     assert isinstance(config.to_json(), dict)
-    config.print()
 
     assert isinstance(config.options, dict)
     assert isinstance(config.config, dict)

@@ -2,21 +2,18 @@
 import os
 import asyncio
 
-from custom_components.hacs.const import INTEGRATION_VERSION
-from custom_components.hacs.helpers.classes.manifest import HacsManifest
-from custom_components.hacs.helpers.functions.logger import getLogger
-from custom_components.hacs.helpers.functions.register_repository import (
-    register_repository,
-)
-from custom_components.hacs.helpers.functions.store import (
+from homeassistant.core import callback
+
+from ..const import INTEGRATION_VERSION
+from ..helpers.classes.manifest import HacsManifest
+
+from ..helpers.functions.store import (
     async_load_from_store,
     async_save_to_store_default_encoder,
     async_save_to_store,
     get_store_for_key,
 )
-from custom_components.hacs.share import get_hacs
-
-from homeassistant.core import callback
+from ..share import get_hacs
 
 
 def update_repository_from_storage(repository, storage_data):
@@ -37,7 +34,6 @@ class HacsData:
 
     def __init__(self):
         """Initialize."""
-        self.logger = getLogger()
         self.hacs = get_hacs()
         self.content = {}
 
@@ -46,7 +42,7 @@ class HacsData:
         if self.hacs.status.background_task or self.hacs.system.disabled:
             return
 
-        self.logger.debug("Saving data")
+        self.hacs.log.debug("Saving data")
 
         # Hacs
         await async_save_to_store(
@@ -125,7 +121,7 @@ class HacsData:
             # Assume new install
             self.hacs.status.new = True
             return True
-        self.logger.info("Restore started")
+        self.hacs.log.info("Restore started")
         self.hacs.status.new = False
 
         # Hacs
@@ -147,19 +143,23 @@ class HacsData:
             def _load_from_storage():
                 for entry, store in stores.items():
                     if os.path.exists(store.path) and (data := store.load()):
-                        update_repository_from_storage(self.hacs.get_by_id(entry), data)
+                        update_repository_from_storage(
+                            self.hacs.get_repository(repository_id=entry), data
+                        )
 
             await hass.async_add_executor_job(_load_from_storage)
-            self.logger.info("Restore done")
+            self.hacs.log.info("Restore done")
         except (Exception, BaseException) as exception:  # pylint: disable=broad-except
-            self.logger.critical(f"[{exception}] Restore Failed!", exc_info=exception)
+            self.hacs.log.critical(f"[{exception}] Restore Failed!", exc_info=exception)
             return False
         return True
 
     async def register_unknown_repositories(self, repositories):
         """Registry any unknown repositories."""
         register_tasks = [
-            register_repository(repo_data["full_name"], repo_data["category"], False)
+            self.hacs.async_register_repository(
+                repo_data["full_name"], repo_data["category"], False
+            )
             for entry, repo_data in repositories.items()
             if not self.hacs.is_known(entry)
         ]
@@ -169,8 +169,8 @@ class HacsData:
     @callback
     def async_restore_repository(self, entry, repository_data):
         full_name = repository_data["full_name"]
-        if not (repository := self.hacs.get_by_name(full_name)):
-            self.logger.error(f"Did not find {full_name} ({entry})")
+        if not (repository := self.hacs.get_repository(repository_name=full_name)):
+            self.hacs.log.error(f"Did not find {full_name} ({entry})")
             return False
         # Restore repository attributes
         self.hacs.async_set_repository_id(repository, entry)

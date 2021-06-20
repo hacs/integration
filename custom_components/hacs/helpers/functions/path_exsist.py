@@ -1,7 +1,7 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
 import os
 
-from custom_components.hacs.share import get_hacs
+from ...share import get_hacs
 
 
 def path_exsist(path) -> bool:

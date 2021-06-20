@@ -1,7 +1,7 @@
 """Helper to check if path is safe to remove."""
 from pathlib import Path
 
-from custom_components.hacs.share import get_hacs
+from ...share import get_hacs
 
 
 def is_safe_to_remove(path: str) -> bool:

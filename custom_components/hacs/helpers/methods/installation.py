@@ -3,13 +3,13 @@ import os
 import tempfile
 from abc import ABC
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException
-from custom_components.hacs.helpers.functions.download import download_content
-from custom_components.hacs.helpers.functions.version_to_install import (
+from ...exceptions import HacsException
+from ..functions.download import download_content
+from ..functions.version_to_install import (
     version_to_install,
 )
-from custom_components.hacs.operational.backup import Backup, BackupNetDaemon
-from custom_components.hacs.share import get_hacs
+from ...operational.backup import Backup, BackupNetDaemon
+from ...share import get_hacs
 
 
 class RepositoryMethodPreInstall(ABC):

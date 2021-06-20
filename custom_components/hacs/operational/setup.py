@@ -1,19 +1,8 @@
 """Setup HACS."""
 from datetime import datetime
-from aiogithubapi import AIOGitHubAPIException, GitHub
-from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
-from homeassistant.const import __version__ as HAVERSION
-from homeassistant.core import CoreState
-from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
-from homeassistant.helpers.aiohttp_client import async_create_clientsession
-from homeassistant.helpers.event import async_call_later
 
-from custom_components.hacs.const import (
-    DOMAIN,
-    HACS_GITHUB_API_HEADERS,
-    INTEGRATION_VERSION,
-    STARTUP,
-)
+from aiogithubapi import AIOGitHubAPIException, GitHub
+from custom_components.hacs.const import DOMAIN, HACS_GITHUB_API_HEADERS, STARTUP
 from custom_components.hacs.enums import HacsDisabledReason, HacsStage, LovelaceMode
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
@@ -37,11 +26,13 @@ from custom_components.hacs.operational.setup_actions.websocket_api import (
     async_setup_hacs_websockt_api,
 )
 from custom_components.hacs.share import get_hacs
-
-try:
-    from homeassistant.components.lovelace import system_health_info
-except ImportError:
-    from homeassistant.components.lovelace.system_health import system_health_info
+from homeassistant.components.lovelace.system_health import system_health_info
+from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
+from homeassistant.const import __version__ as HAVERSION
+from homeassistant.core import CoreState
+from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
+from homeassistant.helpers.aiohttp_client import async_create_clientsession
+from homeassistant.helpers.event import async_call_later
 
 
 async def _async_common_setup(hass):
@@ -131,7 +122,6 @@ async def async_hacs_startup():
         # If this happens, the users YAML is not valid, we assume YAML mode
         lovelace_info = {"mode": "yaml"}
     hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")
-    hacs.version = INTEGRATION_VERSION
     hacs.log.info(STARTUP)
     hacs.core.config_path = hacs.hass.config.path()
     hacs.system.ha_version = HAVERSION
@@ -193,7 +183,7 @@ async def async_hacs_startup():
 
     # Restore from storefiles
     if not await hacs.data.restore():
-        hacs_repo = hacs.get_by_name("hacs/integration")
+        hacs_repo = hacs.get_repository(repository_name="hacs/integration")
         hacs_repo.pending_restart = True
         if hacs.configuration.config_type == "flow":
             if hacs.configuration.config_entry is not None:
@@ -211,7 +201,7 @@ async def async_hacs_startup():
     await async_add_sensor()
 
     # Mischief managed!
-    await hacs.async_set_stage(HacsStage.WAITING)
+    hacs.set_stage(HacsStage.WAITING)
     hacs.log.info(
         "Setup complete, waiting for Home Assistant before startup tasks starts"
     )

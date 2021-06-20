@@ -3,6 +3,7 @@
 import json
 import os
 import tempfile
+from typing import List, Optional
 import zipfile
 import shutil
 
@@ -10,7 +11,7 @@ from aiogithubapi import AIOGitHubAPIException
 from queueman import QueueManager
 
 from custom_components.hacs.helpers import RepositoryHelpers
-from custom_components.hacs.helpers.classes.exceptions import (
+from custom_components.hacs.exceptions import (
     HacsException,
     HacsNotModifiedException,
 )
@@ -384,7 +385,7 @@ class HacsRepository(RepositoryHelpers):
             self.hacs.common.installed.remove(self.data.id)
         for repository in self.hacs.repositories:
             if repository.data.id == self.data.id:
-                self.hacs.async_remove_repository(repository)
+                self.hacs.remove_repository(repository)
 
     async def uninstall(self):
         """Run uninstall tasks."""
@@ -465,3 +466,33 @@ class HacsRepository(RepositoryHelpers):
             )
             return False
         return True
+
+    async def async_check_repository(
+        self, ref: Optional[str] = None
+    ) -> Optional[List[str]]:
+        """Check the repository."""
+        try:
+            await self.async_registration(ref)
+            if self.hacs.status.new:
+                self.data.new = False
+            if self.validate.errors:
+                self.hacs.common.skip.append(self.data.full_name)
+                if not self.hacs.status.startup:
+                    self.hacs.log.error(
+                        "Validation for %s failed.", self.data.full_name
+                    )
+                if self.hacs.system.action:
+                    raise HacsException(
+                        f"::error:: Validation for {self.data.full_name} failed."
+                    )
+                return self.validate.errors
+            self.logger.info(
+                "%s %s completed",
+                "Validation" if self.hacs.system.action else "Registration",
+                self,
+            )
+        except AIOGitHubAPIException as exception:
+            self.hacs.common.skip.append(self.data.full_name)
+            raise HacsException(
+                f"Validation for {self.data.full_name} failed with {exception}."
+            ) from None

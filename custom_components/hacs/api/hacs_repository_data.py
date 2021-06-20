@@ -6,12 +6,10 @@ import voluptuous as vol
 from aiogithubapi import AIOGitHubAPIException
 from homeassistant.components import websocket_api
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.misc import extract_repository_from_url
-from custom_components.hacs.helpers.functions.register_repository import (
-    register_repository,
-)
+
 from custom_components.hacs.share import get_hacs
 
 _LOGGER = getLogger()
@@ -44,9 +42,11 @@ async def hacs_repository_data(hass, connection, msg):
         if repo_id in hacs.common.skip:
             hacs.common.skip.remove(repo_id)
 
-        if not hacs.get_by_name(repo_id):
+        if not hacs.get_repository(repository_name=repo_id):
             try:
-                registration = await register_repository(repo_id, data.lower())
+                registration = await hacs.async_register_repository(
+                    repo_id, data.lower()
+                )
                 if registration is not None:
                     raise HacsException(registration)
             except (
@@ -70,9 +70,9 @@ async def hacs_repository_data(hass, connection, msg):
                 },
             )
 
-        repository = hacs.get_by_name(repo_id)
+        repository = hacs.get_repository(repository_name=repo_id)
     else:
-        repository = hacs.get_by_id(repo_id)
+        repository = hacs.get_repository(repository_id=repo_id)
 
     if repository is None:
         hass.bus.async_fire("hacs/repository", {})

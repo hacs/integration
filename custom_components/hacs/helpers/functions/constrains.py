@@ -1,14 +1,13 @@
 """HACS Startup constrains."""
-# pylint: disable=bad-continuation
 import os
 
-from custom_components.hacs.const import (
+from ...const import (
     CUSTOM_UPDATER_LOCATIONS,
     CUSTOM_UPDATER_WARNING,
     MINIMUM_HA_VERSION,
 )
-from custom_components.hacs.helpers.functions.misc import version_left_higher_then_right
-from custom_components.hacs.share import get_hacs
+from .misc import version_left_higher_then_right
+from ...share import get_hacs
 
 
 def check_constrains():

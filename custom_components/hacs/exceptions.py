@@ -1,4 +1,4 @@
-"""Custom Exceptions."""
+"""Custom Exceptions for HACS."""
 
 
 class HacsException(Exception):

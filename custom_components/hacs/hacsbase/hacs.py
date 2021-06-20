@@ -10,9 +10,7 @@ from custom_components.hacs.helpers import HacsHelpers
 from custom_components.hacs.helpers.functions.get_list_from_default import (
     async_get_list_from_default,
 )
-from custom_components.hacs.helpers.functions.register_repository import (
-    register_repository,
-)
+
 from custom_components.hacs.helpers.functions.remaining_github_calls import (
     get_fetch_updates_for,
 )
@@ -24,8 +22,6 @@ from custom_components.hacs.operational.setup_actions.categories import (
     async_setup_extra_stores,
 )
 from custom_components.hacs.share import (
-    get_factory,
-    get_queue,
     get_removed,
     is_removed,
     list_removed_repositories,
@@ -77,35 +73,6 @@ class System:
 class Hacs(HacsBase, HacsHelpers):
     """The base class of HACS, nested throughout the project."""
 
-    _repositories = []
-    _repositories_by_id = {}
-    _repositories_by_full_name = {}
-    repo = None
-    data_repo = None
-    data = None
-    status = HacsStatus()
-    configuration = None
-    version = None
-    session = None
-    factory = get_factory()
-    queue = get_queue()
-    recuring_tasks = []
-    common = HacsCommon()
-
-    @property
-    def repositories(self):
-        """Return the full repositories list."""
-        return self._repositories
-
-    def async_set_repositories(self, repositories):
-        """Set the list of repositories."""
-        self._repositories = []
-        self._repositories_by_id = {}
-        self._repositories_by_full_name = {}
-
-        for repository in repositories:
-            self.async_add_repository(repository)
-
     def async_set_repository_id(self, repository, repo_id):
         """Update a repository id."""
         existing_repo_id = str(repository.data.id)
@@ -117,38 +84,6 @@ class Hacs(HacsBase, HacsHelpers):
             )
         repository.data.id = repo_id
         self._repositories_by_id[repo_id] = repository
-
-    def async_add_repository(self, repository):
-        """Add a repository to the list."""
-        if repository.data.full_name_lower in self._repositories_by_full_name:
-            raise ValueError(
-                f"The repo {repository.data.full_name_lower} is already added"
-            )
-        self._repositories.append(repository)
-        repo_id = str(repository.data.id)
-        if repo_id != "0":
-            self._repositories_by_id[repo_id] = repository
-        self._repositories_by_full_name[repository.data.full_name_lower] = repository
-
-    def async_remove_repository(self, repository):
-        """Remove a repository from the list."""
-        if repository.data.full_name_lower not in self._repositories_by_full_name:
-            return
-        self._repositories.remove(repository)
-        repo_id = str(repository.data.id)
-        if repo_id in self._repositories_by_id:
-            del self._repositories_by_id[repo_id]
-        del self._repositories_by_full_name[repository.data.full_name_lower]
-
-    def get_by_id(self, repository_id):
-        """Get repository by ID."""
-        return self._repositories_by_id.get(str(repository_id))
-
-    def get_by_name(self, repository_full_name):
-        """Get repository by full_name."""
-        if repository_full_name is None:
-            return None
-        return self._repositories_by_full_name.get(repository_full_name.lower())
 
     def is_known(self, repository_id):
         """Return a bool if the repository is known."""
@@ -164,13 +99,9 @@ class Hacs(HacsBase, HacsHelpers):
         """Return a sorted(by repository_name) list of repository objects."""
         return sorted(self.repositories, key=lambda x: x.data.full_name)
 
-    async def register_repository(self, full_name, category, check=True):
-        """Register a repository."""
-        await register_repository(full_name, category, check=check)
-
     async def startup_tasks(self, _event=None):
         """Tasks that are started after startup."""
-        await self.async_set_stage(HacsStage.STARTUP)
+        self.set_stage(HacsStage.STARTUP)
         self.status.background_task = True
         await async_setup_extra_stores()
         self.hass.bus.async_fire("hacs/status", {})
@@ -204,7 +135,7 @@ class Hacs(HacsBase, HacsHelpers):
         self.status.startup = False
         self.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
-        await self.async_set_stage(HacsStage.RUNNING)
+        self.set_stage(HacsStage.RUNNING)
 
     async def handle_critical_repositories_startup(self):
         """Handled critical repositories during startup."""
@@ -230,7 +161,7 @@ class Hacs(HacsBase, HacsHelpers):
         was_installed = False
 
         try:
-            critical = await self.data_repo.get_contents("critical")
+            critical = await self.default.get_contents("critical")
             critical = json.loads(critical.content)
         except AIOGitHubAPIException:
             pass
@@ -249,7 +180,7 @@ class Hacs(HacsBase, HacsHelpers):
         for repository in critical:
             removed_repo = get_removed(repository["repository"])
             removed_repo.removal_type = "critical"
-            repo = self.get_by_name(repository["repository"])
+            repo = self.get_repository(repository_name=repository["repository"])
 
             stored = {
                 "repository": repository["repository"],
@@ -354,7 +285,7 @@ class Hacs(HacsBase, HacsHelpers):
         """Clear out blaclisted repositories."""
         need_to_save = False
         for removed in list_removed_repositories():
-            repository = self.get_by_name(removed.repository)
+            repository = self.get_repository(repository_name=removed.repository)
             if repository is not None:
                 if repository.data.installed and removed.removal_type != "critical":
                     self.log.warning(
@@ -390,17 +321,11 @@ class Hacs(HacsBase, HacsHelpers):
         for repo in repositories:
             if is_removed(repo):
                 continue
-            repository = self.get_by_name(repo)
+            repository = self.get_repository(repository_name=repo)
             if repository is not None:
                 if str(repository.data.id) not in self.common.default:
                     self.common.default.append(str(repository.data.id))
                 else:
                     continue
                 continue
-            self.queue.add(self.factory.safe_register(repo, category))
-
-    async def async_set_stage(self, stage: str) -> None:
-        """Set the stage of HACS."""
-        self.stage = HacsStage(stage)
-        self.log.info("Stage changed: %s", self.stage)
-        self.hass.bus.async_fire("hacs/stage", {"stage": self.stage})
+            self.queue.add(self.factory.safe_register(self, repo, category))

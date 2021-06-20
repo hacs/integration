@@ -1,13 +1,12 @@
-from hacs_frontend.version import VERSION as FE_VERSION
-from hacs_frontend import locate_dir
-
-from custom_components.hacs.helpers.functions.logger import getLogger
-from custom_components.hacs.webresponses.frontend import HacsFrontendDev
-from custom_components.hacs.helpers.functions.information import get_frontend_version
-from custom_components.hacs.share import get_hacs
+"""Setup HACS frontend"""
+from hacs_frontend import (
+    locate_dir,
+    VERSION as FE_VERSION,
+)
 
 from ...enums import HacsSetupTask
-
+from ...share import get_hacs
+from ...webresponses.frontend import HacsFrontendDev
 
 URL_BASE = "/hacsfiles"
 
@@ -23,12 +22,10 @@ async def async_setup_frontend():
 
     # Register frontend
     if hacs.configuration.frontend_repo_url:
-        getLogger().warning(
-            "Frontend development mode enabled. Do not run in production."
-        )
+        hacs.log.warning("Frontend development mode enabled. Do not run in production.")
         hass.http.register_view(HacsFrontendDev())
     else:
-        #
+        # Production frontend
         hass.http.register_static_path(
             f"{URL_BASE}/frontend", locate_dir(), cache_headers=False
         )
@@ -54,10 +51,7 @@ async def async_setup_frontend():
         cache_headers=use_cache,
     )
 
-    hacs.frontend.version_running = FE_VERSION
-    hacs.frontend.version_expected = await hass.async_add_executor_job(
-        get_frontend_version
-    )
+    hacs.frontend.version_running = hacs.frontend.version_expected = FE_VERSION
 
     # Add to sidepanel
     if "hacs" not in hass.data.get("frontend_panels", {}):

@@ -1,17 +1,16 @@
 """Helper to calculate the remaining calls to github."""
 import math
 
-from custom_components.hacs.helpers.functions.logger import getLogger
-
-_LOGGER = getLogger()
+from ...share import get_hacs
 
 
 async def remaining(github):
     """Helper to calculate the remaining calls to github."""
+    hacs = get_hacs()
     try:
         ratelimits = await github.get_rate_limit()
     except (BaseException, Exception) as exception:  # pylint: disable=broad-except
-        _LOGGER.error(exception)
+        hacs.log.error(exception)
         return None
     if ratelimits.get("remaining") is not None:
         return int(ratelimits["remaining"])

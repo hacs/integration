@@ -29,7 +29,7 @@ async def hacs_repository(hass, connection, msg):
         return
 
     try:
-        repository = hacs.get_by_id(repo_id)
+        repository = hacs.get_repository(repository_id=repo_id)
         logger.debug(f"Running {action} for {repository.data.full_name}")
 
         if action == "update":

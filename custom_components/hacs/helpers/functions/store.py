@@ -5,7 +5,7 @@ from homeassistant.helpers.json import JSONEncoder
 from homeassistant.helpers.storage import Store
 from homeassistant.util import json as json_util
 
-from custom_components.hacs.const import VERSION_STORAGE
+from ...const import VERSION_STORAGE
 from .logger import getLogger
 
 _LOGGER = getLogger()

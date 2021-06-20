@@ -1,7 +1,7 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
 from abc import ABC
 
-from custom_components.hacs.helpers.functions.misc import version_left_higher_then_right
+from ..functions.misc import version_left_higher_then_right
 
 
 class RepositoryPropertyCanBeInstalled(ABC):

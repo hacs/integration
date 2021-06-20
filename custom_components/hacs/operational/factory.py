@@ -1,22 +1,22 @@
 # pylint: disable=missing-docstring,invalid-name
 import asyncio
-
+from typing import TYPE_CHECKING
 from aiogithubapi import AIOGitHubAPIException
 
-from custom_components.hacs.helpers.classes.exceptions import (
+from ..exceptions import (
     HacsException,
     HacsNotModifiedException,
     HacsRepositoryArchivedException,
 )
-from custom_components.hacs.helpers.functions.logger import getLogger
-from custom_components.hacs.helpers.functions.register_repository import (
-    register_repository,
-)
+from ..helpers.functions.logger import getLogger
 
 max_concurrent_tasks = asyncio.Semaphore(15)
 sleeper = 5
 
 _LOGGER = getLogger()
+
+if TYPE_CHECKING:
+    from ..base import HacsBase
 
 
 class HacsTaskFactory:
@@ -50,10 +50,10 @@ class HacsTaskFactory:
             # Due to GitHub ratelimits we need to sleep a bit
             await asyncio.sleep(sleeper)
 
-    async def safe_register(self, repo, category):
+    async def safe_register(self, hacs: "HacsBase", repo: str, category: str) -> None:
         async with max_concurrent_tasks:
             try:
-                await register_repository(repo, category)
+                await hacs.async_register_repository(repo, category)
             except (AIOGitHubAPIException, HacsException) as exception:
                 _LOGGER.error("%s - %s", repo, exception)
 

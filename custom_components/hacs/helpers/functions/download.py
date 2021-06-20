@@ -8,15 +8,12 @@ import async_timeout
 import backoff
 from queueman import QueueManager, concurrent
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException
-from custom_components.hacs.helpers.functions.filters import (
+from ...exceptions import HacsException
+from .filters import (
     filter_content_return_one_of_type,
 )
-from custom_components.hacs.helpers.functions.logger import getLogger
-from custom_components.hacs.helpers.functions.save import async_save_file
-from custom_components.hacs.share import get_hacs
-
-_LOGGER = getLogger()
+from .save import async_save_file
+from ...share import get_hacs
 
 
 class FileInformation:
@@ -36,7 +33,7 @@ async def async_download_file(url):
     if "tags/" in url:
         url = url.replace("tags/", "")
 
-    _LOGGER.debug("Downloading %s", url)
+    hacs.log.debug("Downloading %s", url)
 
     result = None
 

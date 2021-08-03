@@ -7,7 +7,7 @@ from custom_components.hacs.helpers.functions.filters import (
 )
 
 
-class HacsNetdaemon(HacsRepository):
+class HacsNetdaemonRepository(HacsRepository):
     """Netdaemon apps in HACS."""
 
     def __init__(self, full_name):

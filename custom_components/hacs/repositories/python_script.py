@@ -5,7 +5,7 @@ from custom_components.hacs.helpers.classes.repository import HacsRepository
 from custom_components.hacs.helpers.functions.information import find_file_name
 
 
-class HacsPythonScript(HacsRepository):
+class HacsPythonScriptRepository(HacsRepository):
     """python_scripts in HACS."""
 
     category = "python_script"

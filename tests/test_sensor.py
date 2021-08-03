@@ -2,7 +2,7 @@
 # pylint: disable=missing-docstring
 import pytest
 
-from custom_components.hacs.repositories import HacsIntegration
+from custom_components.hacs.repositories import HacsIntegrationRepository
 from custom_components.hacs.sensor import (
     HACSSensor,
     async_setup_entry,
@@ -17,7 +17,7 @@ def mock_setup(entities):  # pylint: disable=unused-argument
 
 def test_sensor_data():
     sensor = HACSSensor()
-    repository = HacsIntegration("test/test")
+    repository = HacsIntegrationRepository("test/test")
     sensor.repositories = [repository]
     assert sensor.name == "hacs"
     assert sensor.device_state_attributes
@@ -30,12 +30,12 @@ def test_sensor_data():
 @pytest.mark.asyncio
 async def test_sensor_update(hacs):
     sensor = HACSSensor()
-    repository = HacsIntegration("test/one")
+    repository = HacsIntegrationRepository("test/one")
     repository.data.installed = True
     repository.data.installed_version = "1"
     repository.data.last_version = "2"
     hacs.async_add_repository(repository)
-    repository = HacsIntegration("test/two")
+    repository = HacsIntegrationRepository("test/two")
     repository.data.installed = True
     repository.data.installed_version = "1"
     repository.data.last_version = "1"

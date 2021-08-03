@@ -14,12 +14,12 @@ from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
 )
 from custom_components.hacs.repositories import (
-    HacsAppdaemon,
-    HacsIntegration,
-    HacsNetdaemon,
-    HacsPlugin,
-    HacsPythonScript,
-    HacsTheme,
+    HacsAppdaemonRepository,
+    HacsIntegrationRepository,
+    HacsNetdaemonRepository,
+    HacsPluginRepository,
+    HacsPythonScriptRepository,
+    HacsThemeRepository,
 )
 from custom_components.hacs.share import SHARE
 from tests.async_mock import MagicMock
@@ -126,40 +126,40 @@ def repository(hacs):
 @pytest.fixture
 def repository_integration(hacs):
     """Fixtrue for HACS integration repository object"""
-    repository_obj = HacsIntegration("test/test")
+    repository_obj = HacsIntegrationRepository("test/test")
     yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
 def repository_theme(hacs):
     """Fixtrue for HACS theme repository object"""
-    repository_obj = HacsTheme("test/test")
+    repository_obj = HacsThemeRepository("test/test")
     yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
 def repository_plugin(hacs):
     """Fixtrue for HACS plugin repository object"""
-    repository_obj = HacsPlugin("test/test")
+    repository_obj = HacsPluginRepository("test/test")
     yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
 def repository_python_script(hacs):
     """Fixtrue for HACS python_script repository object"""
-    repository_obj = HacsPythonScript("test/test")
+    repository_obj = HacsPythonScriptRepository("test/test")
     yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
 def repository_appdaemon(hacs):
     """Fixtrue for HACS appdaemon repository object"""
-    repository_obj = HacsAppdaemon("test/test")
+    repository_obj = HacsAppdaemonRepository("test/test")
     yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
 def repository_netdaemon(hacs):
     """Fixtrue for HACS netdaemon repository object"""
-    repository_obj = HacsNetdaemon("test/test")
+    repository_obj = HacsNetdaemonRepository("test/test")
     yield dummy_repository_base(hacs, repository_obj)

@@ -12,7 +12,7 @@ from custom_components.hacs.helpers.functions.information import (
 )
 
 
-class HacsIntegration(HacsRepository):
+class HacsIntegrationRepository(HacsRepository):
     """Integrations in HACS."""
 
     def __init__(self, full_name):

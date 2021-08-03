@@ -6,7 +6,7 @@ from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 
-class HacsAppdaemon(HacsRepository):
+class HacsAppdaemonRepository(HacsRepository):
     """Appdaemon apps in HACS."""
 
     def __init__(self, full_name):

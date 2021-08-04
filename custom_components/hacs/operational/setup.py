@@ -254,9 +254,9 @@ async def async_setup_sensor(hacs: HacsBase):
                 hacs.hass, "sensor", DOMAIN, {}, hacs.configuration.config
             )
         )
-    else:
-        hacs.hass.async_add_job(
-            hacs.hass.config_entries.async_forward_entry_setup(
-                hacs.configuration.config_entry, "sensor"
-            )
+        return
+    hacs.hass.async_add_job(
+        hacs.hass.config_entries.async_forward_entry_setup(
+            hacs.configuration.config_entry, "sensor"
         )
+    )

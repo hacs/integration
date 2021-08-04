@@ -8,7 +8,6 @@ from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 from homeassistant.helpers import discovery
-from homeassistant.util.decorator import Registry
 
 from custom_components.hacs.const import (
     DOMAIN,
@@ -46,12 +45,7 @@ from custom_components.hacs.operational.setup_actions.websocket_api import (
 )
 from custom_components.hacs.share import get_hacs
 
-try:
-    from homeassistant.components.lovelace import system_health_info
-except ImportError:
-    from homeassistant.components.lovelace.system_health import system_health_info
-
-SETUP_TASKS = Registry()
+from homeassistant.components.lovelace.system_health import system_health_info
 
 
 async def _async_common_setup(hass):

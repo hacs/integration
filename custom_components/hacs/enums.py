@@ -3,6 +3,11 @@
 from enum import Enum
 
 
+class ConfigurationMode(str, Enum):
+    YAML = "yaml"
+    UI = "flow"
+
+
 class HacsCategory(str, Enum):
     APPDAEMON = "appdaemon"
     INTEGRATION = "integration"
@@ -35,6 +40,8 @@ class HacsSetupTask(str, Enum):
     WEBSOCKET = "WebSocket API"
     FRONTEND = "Frontend"
     SENSOR = "Sensor"
+    RESTORE = "Restore"
+    SCHEDULE = "Scheduled startup tasks"
     HACS_REPO = "Hacs Repository"
     CATEGORIES = "Additional categories"
     CLEAR_STORAGE = "Clear storage"

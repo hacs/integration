@@ -7,6 +7,8 @@ from homeassistant.core import CoreState
 from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
+from homeassistant.helpers import discovery
+from homeassistant.util.decorator import Registry
 
 from custom_components.hacs.const import (
     DOMAIN,
@@ -14,7 +16,14 @@ from custom_components.hacs.const import (
     INTEGRATION_VERSION,
     STARTUP,
 )
-from custom_components.hacs.enums import HacsDisabledReason, HacsStage, LovelaceMode
+from custom_components.hacs.enums import (
+    HacsDisabledReason,
+    HacsSetupTask,
+    HacsStage,
+    LovelaceMode,
+    ConfigurationMode,
+)
+from custom_components.hacs.base import HacsBase
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.helpers.functions.constrains import check_constrains
@@ -32,7 +41,6 @@ from custom_components.hacs.operational.setup_actions.frontend import (
 from custom_components.hacs.operational.setup_actions.load_hacs_repository import (
     async_load_hacs_repository,
 )
-from custom_components.hacs.operational.setup_actions.sensor import async_add_sensor
 from custom_components.hacs.operational.setup_actions.websocket_api import (
     async_setup_hacs_websockt_api,
 )
@@ -42,6 +50,8 @@ try:
     from homeassistant.components.lovelace import system_health_info
 except ImportError:
     from homeassistant.components.lovelace.system_health import system_health_info
+
+SETUP_TASKS = Registry()
 
 
 async def _async_common_setup(hass):
@@ -68,7 +78,7 @@ async def async_setup_entry(hass, config_entry):
     hacs.configuration = Configuration.from_dict(
         config_entry.data, config_entry.options
     )
-    hacs.configuration.config_type = "flow"
+    hacs.configuration.config_type = ConfigurationMode.UI
     hacs.configuration.config_entry = config_entry
 
     return await async_startup_wrapper_for_config_entry()
@@ -79,13 +89,13 @@ async def async_setup(hass, config):
     hacs = get_hacs()
     if DOMAIN not in config:
         return True
-    if hacs.configuration and hacs.configuration.config_type == "flow":
+    if hacs.configuration and hacs.configuration.config_type == ConfigurationMode.UI:
         return True
 
     await _async_common_setup(hass)
 
     hacs.configuration = Configuration.from_dict(config[DOMAIN])
-    hacs.configuration.config_type = "yaml"
+    hacs.configuration.config_type = ConfigurationMode.YAML
     await async_startup_wrapper_for_yaml()
     return True
 
@@ -129,15 +139,17 @@ async def async_hacs_startup():
         lovelace_info = await system_health_info(hacs.hass)
     except (TypeError, KeyError, HomeAssistantError):
         # If this happens, the users YAML is not valid, we assume YAML mode
-        lovelace_info = {"mode": "yaml"}
+        lovelace_info = {"mode": LovelaceMode.YAML}
     hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")
     hacs.version = INTEGRATION_VERSION
     hacs.log.info(STARTUP)
     hacs.core.config_path = hacs.hass.config.path()
     hacs.system.ha_version = HAVERSION
 
-    hacs.system.lovelace_mode = lovelace_info.get("mode", "yaml")
-    hacs.core.lovelace_mode = LovelaceMode(lovelace_info.get("mode", "yaml"))
+    hacs.system.lovelace_mode = LovelaceMode(
+        lovelace_info.get("mode", LovelaceMode.YAML)
+    )
+    hacs.core.lovelace_mode = LovelaceMode(lovelace_info.get("mode", LovelaceMode.YAML))
 
     # Setup websocket API
     await async_setup_hacs_websockt_api()
@@ -177,38 +189,30 @@ async def async_hacs_startup():
 
     # Check HACS Constrains
     if not await hacs.hass.async_add_executor_job(check_constrains):
-        if hacs.configuration.config_type == "flow":
+        if hacs.configuration.config_type == ConfigurationMode.UI:
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
         hacs.disable(HacsDisabledReason.CONSTRAINS)
         return False
 
-    # Load HACS
-    if not await async_load_hacs_repository():
-        if hacs.configuration.config_type == "flow":
-            if hacs.configuration.config_entry is not None:
-                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
-        hacs.disable(HacsDisabledReason.LOAD_HACS)
-        return False
-
-    # Restore from storefiles
-    if not await hacs.data.restore():
-        hacs_repo = hacs.get_by_name("hacs/integration")
-        hacs_repo.pending_restart = True
-        if hacs.configuration.config_type == "flow":
-            if hacs.configuration.config_entry is not None:
-                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
-        hacs.disable(HacsDisabledReason.RESTORE)
-        return False
-
-    # Setup startup tasks
-    if hacs.hass.state == CoreState.running:
-        async_call_later(hacs.hass, 5, hacs.startup_tasks)
-    else:
-        hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks)
-
-    # Set up sensor
-    await async_add_sensor()
+    for task, name in (
+        (async_load_hacs, HacsSetupTask.HACS_REPO),
+        (async_storrage_restore, HacsSetupTask.RESTORE),
+        (async_schedule_startup_tasks, HacsSetupTask.SCHEDULE),
+        (async_setup_sensor, HacsSetupTask.SENSOR),
+    ):
+        hacs.log.info("Setup task '%s' started", name)
+        start_time = datetime.now()
+        result = await task(hacs)
+        time_elapsed = datetime.now() - start_time
+        hacs.log.debug(
+            "Setup task '%s' completed with result '%s' in '%f' seconds",
+            name,
+            result,
+            time_elapsed.total_seconds(),
+        )
+        if result is False:
+            return False
 
     # Mischief managed!
     await hacs.async_set_stage(HacsStage.WAITING)
@@ -216,3 +220,49 @@ async def async_hacs_startup():
         "Setup complete, waiting for Home Assistant before startup tasks starts"
     )
     return True
+
+
+async def async_schedule_startup_tasks(hacs: HacsBase):
+    """Schedule startup tasks."""
+    if hacs.hass.state == CoreState.running:
+        async_call_later(hacs.hass, 5, hacs.startup_tasks)
+    else:
+        hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks)
+
+
+async def async_load_hacs(hacs: HacsBase):
+    """Load HACS."""
+    if not await async_load_hacs_repository():
+        if hacs.configuration.config_type == ConfigurationMode.UI:
+            if hacs.configuration.config_entry is not None:
+                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
+        hacs.disable(HacsDisabledReason.LOAD_HACS)
+        return False
+
+
+async def async_storrage_restore(hacs: HacsBase):
+    """Setup storrage restore."""
+    if not await hacs.data.restore():
+        hacs_repo = hacs.get_by_name("hacs/integration")
+        hacs_repo.pending_restart = True
+        if hacs.configuration.config_type == ConfigurationMode.UI:
+            if hacs.configuration.config_entry is not None:
+                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
+        hacs.disable(HacsDisabledReason.RESTORE)
+        return False
+
+
+async def async_setup_sensor(hacs: HacsBase):
+    """Setup HACS sensor."""
+    if hacs.configuration.config_type == ConfigurationMode.YAML:
+        hacs.hass.async_create_task(
+            discovery.async_load_platform(
+                hacs.hass, "sensor", DOMAIN, {}, hacs.configuration.config
+            )
+        )
+    else:
+        hacs.hass.async_add_job(
+            hacs.hass.config_entries.async_forward_entry_setup(
+                hacs.configuration.config_entry, "sensor"
+            )
+        )

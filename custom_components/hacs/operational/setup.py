@@ -22,7 +22,7 @@ from custom_components.hacs.enums import (
     LovelaceMode,
     ConfigurationMode,
 )
-from custom_components.hacs.base import HacsBase
+from custom_components.hacs.base import HacsBase, HacsManagers
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.helpers.functions.constrains import check_constrains
@@ -45,6 +45,8 @@ from custom_components.hacs.operational.setup_actions.websocket_api import (
 )
 from custom_components.hacs.share import get_hacs
 
+from ..setup.manager import HacsSetupManager
+
 from homeassistant.components.lovelace.system_health import system_health_info
 
 
@@ -54,6 +56,13 @@ async def _async_common_setup(hass):
     hacs.hass = hass
     hacs.system.running = True
     hacs.session = async_create_clientsession(hass)
+    hacs.manager = HacsManagers()
+
+    # Define all managers
+    hacs.manager.setup = HacsSetupManager()
+
+    # Load all managers
+    hacs.manager.setup.async_load()
 
 
 async def async_setup_entry(hass, config_entry):

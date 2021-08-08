@@ -1,7 +1,11 @@
 """Base HACS class."""
+from __future__ import annotations
+from dataclasses import dataclass
+import asyncio
 import logging
-from typing import List, Optional, TYPE_CHECKING
+from typing import Any, List, Optional, TYPE_CHECKING
 import pathlib
+from importlib import import_module
 
 import attr
 from aiogithubapi.github import AIOGitHubAPI
@@ -14,9 +18,11 @@ from .hacsbase.configuration import Configuration
 from .models.core import HacsCore
 from .models.frontend import HacsFrontend
 from .models.system import HacsSystem
+from .utils.modules import get_modules
 
 if TYPE_CHECKING:
     from .helpers.classes.repository import HacsRepository
+    from .setup.manager import HacsSetupManager
 
 
 class HacsCommon:
@@ -38,6 +44,13 @@ class HacsStatus:
     upgrading_all: bool = False
 
 
+@dataclass
+class HacsManagers:
+    """HacsManagers."""
+
+    setup: HacsSetupManager | None
+
+
 @attr.s
 class HacsBaseAttributes:
     """Base HACS class."""
@@ -57,6 +70,8 @@ class HacsBaseAttributes:
     log: logging.Logger = getLogger()
     system: HacsSystem = attr.ib(HacsSystem)
     repositories: List["HacsRepository"] = []
+
+    manager: HacsManagers | None = None
 
 
 @attr.s
@@ -139,3 +154,50 @@ class HacsBase(HacsBaseAttributes):
         self.system.disabled = False
         self.system.disabled_reason = None
         self.log.info("HACS is enabled")
+
+
+class HacsCommonManager(HacsBase):
+    """Hacs common manager."""
+
+    def __init__(self) -> None:
+        """Initialize the setup manager class."""
+        self._entries: dict[str, Any] = {}
+
+    @property
+    def all_entries(self) -> list[Any]:
+        """Return all list of all checks."""
+        return list(self._entries.values())
+
+    async def async_load(self):
+        """Load all tasks."""
+        package = f"{__package__}.tasks"
+        modules = get_modules(__file__)
+
+        async def _load_module(module: str):
+            entry_module = import_module(f"{package}.{module}")
+            if entry := await entry_module.async_setup():
+                self._entries[entry.slug] = entry
+
+        await asyncio.gather(*[_load_module(module) for module in modules])
+        self.log.info(
+            "Loaded %s setup entries (%s)", len(self.all_entries), self.all_entries
+        )
+
+    def get(self, slug: str) -> Any | None:
+        """Return a element from the entries."""
+        return self._entries.get(slug)
+
+    @property
+    def stages(self) -> tuple[HacsStage]:
+        """Return all valid stages for the entry."""
+        return ()
+
+    async def async_execute(self) -> None:
+        """Execute the the execute methods of each entry if the stage matches."""
+        await asyncio.gather(
+            *[
+                module.execute()
+                for module in self.all_entries
+                if self.system.stage in module.stages or not module.stages
+            ]
+        )

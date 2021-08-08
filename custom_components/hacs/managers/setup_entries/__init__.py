@@ -1,1 +1,0 @@
-"""HACS setup module."""

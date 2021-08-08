@@ -2,5 +2,5 @@
 from custom_components.hacs.base import HacsBase
 
 
-class HacsSetuptTaskBase(HacsBase):
-    """"Hacs base setup task."""
+class HacsTaskBase(HacsBase):
+    """"Hacs task base."""

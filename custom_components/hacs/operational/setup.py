@@ -45,7 +45,7 @@ from custom_components.hacs.operational.setup_actions.websocket_api import (
 )
 from custom_components.hacs.share import get_hacs
 
-from ..setup.manager import HacsSetupManager
+from ..managers.setup import HacsSetupManager
 
 from homeassistant.components.lovelace.system_health import system_health_info
 

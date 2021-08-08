@@ -22,7 +22,7 @@ from .utils.modules import get_modules
 
 if TYPE_CHECKING:
     from .helpers.classes.repository import HacsRepository
-    from .setup.manager import HacsSetupManager
+    from .managers.setup import HacsSetupManager
 
 
 class HacsCommon:
@@ -159,6 +159,8 @@ class HacsBase(HacsBaseAttributes):
 class HacsCommonManager(HacsBase):
     """Hacs common manager."""
 
+    entries_loaction: str = ""
+
     def __init__(self) -> None:
         """Initialize the setup manager class."""
         self._entries: dict[str, Any] = {}
@@ -170,8 +172,8 @@ class HacsCommonManager(HacsBase):
 
     async def async_load(self):
         """Load all tasks."""
-        package = f"{__package__}.tasks"
-        modules = get_modules(__file__)
+        package = f"{__package__}.{self.entries_loaction}"
+        modules = get_modules(__file__, self.entries_loaction)
 
         async def _load_module(module: str):
             entry_module = import_module(f"{package}.{module}")

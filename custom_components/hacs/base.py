@@ -1,6 +1,6 @@
 """Base HACS class."""
 from __future__ import annotations
-
+from dataclasses import dataclass, field
 import logging
 from typing import List, Optional, TYPE_CHECKING
 import pathlib
@@ -22,15 +22,17 @@ if TYPE_CHECKING:
     from .task.manager import HacsTaskManager
 
 
+@dataclass
 class HacsCommon:
     """Common for HACS."""
 
-    categories: List = []
-    default: List = []
-    installed: List = []
-    skip: List = []
+    categories: list[str] = field(default_factory=list)
+    default: list[str] = field(default_factory=list)
+    installed: list[str] = field(default_factory=list)
+    skip: list[str] = field(default_factory=list)
 
 
+@dataclass
 class HacsStatus:
     """HacsStatus."""
 
@@ -59,14 +61,32 @@ class HacsBaseAttributes:
     frontend: HacsFrontend = attr.ib(HacsFrontend)
     log: logging.Logger = getLogger()
     system: HacsSystem = attr.ib(HacsSystem)
-    repositories: List["HacsRepository"] = []
+    repositories: list[HacsRepository] = []
 
     task: HacsTaskManager | None = None
 
 
-@attr.s
-class HacsBase(HacsBaseAttributes):
+class HacsBase:
     """Base HACS class."""
+
+    def __init__(self) -> None:
+        self._default: Optional[AIOGitHubAPIRepository]
+        self._github: Optional[AIOGitHubAPI]
+        self._hass: Optional[HomeAssistant]
+        self._configuration: Optional[Configuration]
+        self._repository: Optional[AIOGitHubAPIRepository]
+        self._stage: HacsStage = HacsStage.SETUP
+        self._common: Optional[HacsCommon]
+
+        self.core: HacsCore = attr.ib(HacsCore)
+        self.common: HacsCommon = attr.ib(HacsCommon)
+        self.status: HacsStatus = attr.ib(HacsStatus)
+        self.frontend: HacsFrontend = attr.ib(HacsFrontend)
+        self.log: logging.Logger = getLogger()
+        self.system: HacsSystem = attr.ib(HacsSystem)
+        self.repositories: list[HacsRepository] = []
+
+        self.task: HacsTaskManager | None = None
 
     @property
     def stage(self) -> HacsStage:

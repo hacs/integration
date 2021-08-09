@@ -8,8 +8,10 @@ from datetime import timedelta
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.enums import HacsStage
 from custom_components.hacs.task.const import HacsTaskType
+from custom_components.hacs.utils.bind_hacs import bind_hacs
 
 
+@bind_hacs
 class HacsTaskBase(HacsBase):
     """"Hacs task base."""
 

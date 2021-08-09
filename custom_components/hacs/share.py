@@ -1,7 +1,24 @@
 """Shared HACS elements."""
-import os
+from __future__ import annotations
 
-from .base import HacsBase
+from dataclasses import dataclass
+
+import os
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .base import HacsBase
+    from .hacsbase.hacs import Hacs
+    from .operational.factory import HacsTaskFactory
+
+
+@dataclass
+class HacsShare:
+    """HacsShare"""
+
+    hacs: Hacs | None = None
+    factory: HacsTaskFactory | None = None
+
 
 SHARE = {
     "hacs": None,
@@ -13,26 +30,32 @@ SHARE = {
 
 
 def get_hacs() -> HacsBase:
-    if SHARE["hacs"] is None:
-        from custom_components.hacs.hacsbase.hacs import Hacs as Legacy
+    """Return a HACS object."""
+    if (hacs := HacsShare.hacs) is not None:
+        return hacs
 
-        _hacs = Legacy()
+    from .hacsbase.hacs import Hacs  # pylint: disable=import-outside-toplevel
 
-        if not "PYTEST" in os.environ and "GITHUB_ACTION" in os.environ:
-            _hacs.system.action = True
+    SHARE["hacs"] = HacsShare.hacs = hacs = Hacs()
 
-        SHARE["hacs"] = _hacs
+    if not "PYTEST" in os.environ and "GITHUB_ACTION" in os.environ:
+        hacs.system.action = True
 
-    return SHARE["hacs"]
+    return hacs
 
 
 def get_factory():
-    if SHARE["factory"] is None:
-        from custom_components.hacs.operational.factory import HacsTaskFactory
+    """Return a HacsTaskFactory object."""
+    if (factory := HacsShare.factory) is not None:
+        return factory
 
-        SHARE["factory"] = HacsTaskFactory()
+    from .operational.factory import (  # pylint: disable=import-outside-toplevel
+        HacsTaskFactory,
+    )
 
-    return SHARE["factory"]
+    SHARE["factory"] = HacsShare.factory = factory = HacsTaskFactory()
+
+    return factory
 
 
 def get_queue():

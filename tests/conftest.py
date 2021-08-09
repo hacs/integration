@@ -94,7 +94,6 @@ def hacs(hass):
     hacs_obj.configuration.token = TOKEN
     hacs_obj.core.config_path = hass.config.path()
     hacs_obj.system.action = False
-    SHARE["hacs"] = hacs_obj
     yield hacs_obj
 
 

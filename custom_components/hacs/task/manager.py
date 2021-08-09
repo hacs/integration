@@ -1,30 +1,30 @@
 """Hacs task manager."""
 from __future__ import annotations
-import asyncio
-from pathlib import Path
-from importlib import import_module
 
-from custom_components.hacs.task.tasks.base import HacsTaskBase
+import asyncio
+from importlib import import_module
+from pathlib import Path
+
 from custom_components.hacs.base import HacsBase
+from custom_components.hacs.task.const import HacsTaskType
+from custom_components.hacs.task.tasks.base import HacsTaskBase
 
 
 class HacsTaskManager(HacsBase):
     """Hacs task manager."""
-
-    entries_loaction: str = ""
 
     def __init__(self) -> None:
         """Initialize the setup manager class."""
         self.__tasks: dict[str, HacsTaskBase] = {}
 
     @property
-    def all_tasks(self) -> list[HacsTaskBase]:
-        """Return all list of all checks."""
+    def tasks(self) -> list[HacsTaskBase]:
+        """Return all list of all tasks."""
         return list(self.__tasks.values())
 
     async def async_load(self):
         """Load all tasks."""
-        package = f"{__package__}.{self.entries_loaction}"
+        package = f"{__package__}.tasks"
         task_files = Path(__file__).parent.joinpath("tasks")
         task_modules = (
             module.stem
@@ -38,18 +38,20 @@ class HacsTaskManager(HacsBase):
                 self.__tasks[task.slug] = task
 
         await asyncio.gather(*[_load_module(task) for task in task_modules])
-        self.log.info("Loaded %s tasks", len(self.all_tasks))
+        self.log.info("Loaded %s tasks", len(self.tasks))
 
     def get(self, slug: str) -> HacsTaskBase | None:
         """Return a task."""
         return self.__tasks.get(slug)
 
-    async def async_execute(self) -> None:
-        """Execute the the execute methods of each task if the stage matches."""
+    async def async_execute_runtume_tasks(self) -> None:
+        """Execute the the execute methods of each runtime task if the stage matches."""
         await asyncio.gather(
             *[
                 task.execute()
-                for task in self.all_tasks
-                if self.system.stage in task.stages or not task.stages
+                for task in self.tasks
+                if task.type == HacsTaskType.RUNTIME
+                and self.system.stage in task.stages
+                or not task.stages
             ]
         )

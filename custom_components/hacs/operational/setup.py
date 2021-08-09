@@ -57,6 +57,11 @@ async def _async_common_setup(hass):
     hacs.session = async_create_clientsession(hass)
     hacs.tasks = HacsTaskManager()
 
+    await hacs.tasks.async_load()
+
+    test = hacs.tasks.get("hello_world")
+    await test.execute()
+
 
 async def async_setup_entry(hass, config_entry):
     """Set up this integration using UI."""

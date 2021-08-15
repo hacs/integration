@@ -1,10 +1,14 @@
 """Helper to do common validation for repositories."""
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
 from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.helpers.classes.exceptions import (
     HacsException,
     HacsNotModifiedException,
     HacsRepositoryArchivedException,
+    HacsRepositoryExistException,
 )
 from custom_components.hacs.helpers.functions.information import (
     get_releases,
@@ -15,6 +19,9 @@ from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
 )
 from custom_components.hacs.share import get_hacs, is_removed
+
+if TYPE_CHECKING:
+    from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 
 async def common_validate(repository, ignore_issues=False):
@@ -29,7 +36,9 @@ async def common_validate(repository, ignore_issues=False):
     await repository.get_repository_manifest_content()
 
 
-async def common_update_data(repository, ignore_issues=False, force=False):
+async def common_update_data(
+    repository: HacsRepository, ignore_issues=False, force=False
+):
     """Common update data."""
     hacs = get_hacs()
     releases = []
@@ -43,10 +52,19 @@ async def common_update_data(repository, ignore_issues=False, force=False):
             else repository.data.etag_repository,
         )
         repository.repository_object = repository_object
+        if repository.data.full_name != repository_object.full_name:
+            hacs.common.renamed_repositories[
+                repository.data.full_name
+            ] = repository_object.full_name
+            if str(repository_object.id) not in hacs.common.default:
+                hacs.common.default.append(str(repository_object.id))
+            raise HacsRepositoryExistException
         repository.data.update_data(repository_object.attributes)
         repository.data.etag_repository = etag
     except HacsNotModifiedException:
         return
+    except HacsRepositoryExistException:
+        raise HacsRepositoryExistException from None
     except (AIOGitHubAPIException, HacsException) as exception:
         if not hacs.status.startup:
             repository.logger.error("%s %s", repository, exception)

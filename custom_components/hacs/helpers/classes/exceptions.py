@@ -15,3 +15,7 @@ class HacsNotModifiedException(HacsException):
 
 class HacsExpectedException(HacsException):
     """For stuff that are expected."""
+
+
+class HacsRepositoryExistException(HacsException):
+    """For repositories that are already exist."""

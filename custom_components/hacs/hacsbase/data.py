@@ -48,6 +48,13 @@ class HacsData:
 
         self.logger.debug("Saving data")
 
+        # Renamed repositories
+        await async_save_to_store(
+            self.hacs.hass,
+            "renamed_repositories",
+            self.hacs.common.renamed_repositories,
+        )
+
         # Hacs
         await async_save_to_store(
             self.hacs.hass,
@@ -120,6 +127,9 @@ class HacsData:
         """Restore saved data."""
         hacs = await async_load_from_store(self.hacs.hass, "hacs")
         repositories = await async_load_from_store(self.hacs.hass, "repositories") or {}
+        self.hacs.common.renamed_repositories = (
+            await async_load_from_store(self.hacs.hass, "renamed_repositories") or {}
+        )
 
         if not hacs and not repositories:
             # Assume new install

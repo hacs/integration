@@ -2,7 +2,7 @@
 import attr
 
 from custom_components.hacs.helpers.classes.exceptions import HacsException
-from custom_components.hacs.helpers.functions.logger import getLogger
+from custom_components.hacs.utils.logger import getLogger
 
 _LOGGER = getLogger()
 

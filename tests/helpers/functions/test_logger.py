@@ -1,6 +1,6 @@
 import os
 
-from custom_components.hacs.helpers.functions.logger import getLogger
+from custom_components.hacs.utils.logger import getLogger
 
 
 def test_logger():

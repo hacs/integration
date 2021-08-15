@@ -8,10 +8,10 @@ from custom_components.hacs.helpers.classes.exceptions import (
     HacsNotModifiedException,
     HacsRepositoryArchivedException,
 )
-from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
+from custom_components.hacs.utils.logger import getLogger
 
 max_concurrent_tasks = asyncio.Semaphore(15)
 sleeper = 5

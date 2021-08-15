@@ -1,15 +1,15 @@
 """Return repository information if any."""
 import json
 
-from aiogithubapi import AIOGitHubAPIException, GitHub, AIOGitHubAPINotModifiedException
+from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPINotModifiedException, GitHub
 
+from custom_components.hacs.const import HACS_GITHUB_API_HEADERS
 from custom_components.hacs.helpers.classes.exceptions import (
     HacsException,
     HacsNotModifiedException,
 )
 from custom_components.hacs.helpers.functions.template import render_template
 from custom_components.hacs.share import get_hacs
-from custom_components.hacs.const import HACS_GITHUB_API_HEADERS
 
 
 def info_file(repository):

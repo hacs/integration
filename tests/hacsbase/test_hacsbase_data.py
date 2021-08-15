@@ -1,7 +1,8 @@
 """Data Test Suite."""
 import pytest
-from tests.async_mock import patch
+
 from custom_components.hacs.hacsbase.data import HacsData
+from tests.async_mock import patch
 
 
 @pytest.mark.asyncio

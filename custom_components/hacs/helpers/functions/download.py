@@ -12,9 +12,9 @@ from custom_components.hacs.helpers.classes.exceptions import HacsException
 from custom_components.hacs.helpers.functions.filters import (
     filter_content_return_one_of_type,
 )
-from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.save import async_save_file
 from custom_components.hacs.share import get_hacs
+from custom_components.hacs.utils.logger import getLogger
 
 _LOGGER = getLogger()
 

@@ -1,5 +1,6 @@
 """Helper to do common validation for repositories."""
 from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 from aiogithubapi import AIOGitHubAPIException

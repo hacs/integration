@@ -1,10 +1,9 @@
 """Repository data."""
+import json
 from datetime import datetime
 from typing import List, Optional
 
 import attr
-import json
-
 from homeassistant.helpers.json import JSONEncoder
 
 

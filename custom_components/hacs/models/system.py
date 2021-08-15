@@ -1,5 +1,6 @@
 """HACS System info."""
 from typing import Optional
+
 import attr
 
 from ..const import INTEGRATION_VERSION

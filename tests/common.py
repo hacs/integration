@@ -16,10 +16,10 @@ from homeassistant.helpers.entity_registry import EntityRegistry
 from homeassistant.util.unit_system import METRIC_SYSTEM
 
 from custom_components.hacs.helpers.classes.repository import HacsRepository
-from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
 )
+from custom_components.hacs.utils.logger import getLogger
 from tests.async_mock import AsyncMock, Mock, patch
 
 _LOGGER = getLogger(__name__)

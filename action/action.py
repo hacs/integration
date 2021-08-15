@@ -10,11 +10,11 @@ from homeassistant.core import HomeAssistant
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.helpers.classes.exceptions import HacsException
-from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
 from custom_components.hacs.share import get_hacs
+from custom_components.hacs.utils.logger import getLogger
 
 TOKEN = os.getenv("INPUT_GITHUB_TOKEN")
 GITHUB_WORKSPACE = os.getenv("GITHUB_WORKSPACE")

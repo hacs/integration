@@ -3,7 +3,7 @@
 import logging
 import os
 
-from ...const import PACKAGE_NAME
+from ..const import PACKAGE_NAME
 
 _HACSLogger: logging.Logger = logging.getLogger(PACKAGE_NAME)
 

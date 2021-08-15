@@ -2,9 +2,9 @@
 # pylint: disable=broad-except, no-member
 import json
 import os
+import shutil
 import tempfile
 import zipfile
-import shutil
 
 from aiogithubapi import AIOGitHubAPIException
 from queueman import QueueManager
@@ -23,7 +23,6 @@ from custom_components.hacs.helpers.functions.information import (
     get_repository,
 )
 from custom_components.hacs.helpers.functions.is_safe_to_remove import is_safe_to_remove
-from custom_components.hacs.helpers.functions.logger import getLogger
 from custom_components.hacs.helpers.functions.misc import get_repository_name
 from custom_components.hacs.helpers.functions.save import async_save_file
 from custom_components.hacs.helpers.functions.store import async_remove_store
@@ -35,6 +34,7 @@ from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
 )
 from custom_components.hacs.share import get_hacs
+from custom_components.hacs.utils.logger import getLogger
 
 
 class RepositoryVersions:

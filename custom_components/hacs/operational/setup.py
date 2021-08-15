@@ -1,5 +1,6 @@
 """Setup HACS."""
 from datetime import datetime
+
 from aiogithubapi import AIOGitHubAPIException, GitHub
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION

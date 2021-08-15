@@ -1,12 +1,13 @@
 """Remove HACS."""
 from typing import TYPE_CHECKING
+
 from ..const import DOMAIN
 from ..enums import HacsDisabledReason
 from ..share import get_hacs
 
 if TYPE_CHECKING:
-    from homeassistant.core import HomeAssistant
     from homeassistant.config_entries import ConfigEntry
+    from homeassistant.core import HomeAssistant
 
 
 async def async_remove_entry(hass: "HomeAssistant", config_entry: "ConfigEntry"):

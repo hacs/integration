@@ -1,6 +1,8 @@
 """Register a repository."""
 from __future__ import annotations
+
 from typing import TYPE_CHECKING
+
 from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.helpers.classes.exceptions import (

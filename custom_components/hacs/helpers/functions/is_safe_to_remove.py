@@ -1,5 +1,6 @@
 """Helper to check if path is safe to remove."""
 from custom_components.hacs.share import get_hacs
+
 from ...utils.path import is_safe
 
 

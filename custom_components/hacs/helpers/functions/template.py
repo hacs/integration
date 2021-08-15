@@ -2,7 +2,7 @@
 # pylint: disable=broad-except
 from jinja2 import Template
 
-from custom_components.hacs.helpers.functions.logger import getLogger
+from custom_components.hacs.utils.logger import getLogger
 
 _LOGGER = getLogger()
 

@@ -14,15 +14,10 @@ from custom_components.hacs.helpers.functions.configuration_schema import (
     RELEASE_LIMIT,
     hacs_config_option_schema,
 )
-from custom_components.hacs.helpers.functions.logger import getLogger
-from custom_components.hacs.share import get_hacs
-
-from .base import HacsBase
-
-_LOGGER = getLogger()
+from custom_components.hacs.mixin import HacsMixin
 
 
-class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+class HacsFlowHandler(HacsMixin, config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for HACS."""
 
     VERSION = 1
@@ -84,7 +79,7 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     },
                 )
             except AIOGitHubAPIException as exception:
-                _LOGGER.error(exception)
+                self.hacs.log.error(exception)
                 return self.async_abort(reason="github")
 
         return self.async_show_progress_done(next_step_id="device_done")
@@ -131,7 +126,7 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return HacsOptionsFlowHandler(config_entry)
 
 
-class HacsOptionsFlowHandler(config_entries.OptionsFlow):
+class HacsOptionsFlowHandler(HacsMixin, config_entries.OptionsFlow):
     """HACS config flow options handler."""
 
     def __init__(self, config_entry):
@@ -144,17 +139,16 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
 
     async def async_step_user(self, user_input=None):
         """Handle a flow initialized by the user."""
-        hacs: HacsBase = get_hacs()
         if user_input is not None:
             limit = int(user_input.get(RELEASE_LIMIT, 5))
             if limit <= 0 or limit > 100:
                 return self.async_abort(reason="release_limit_value")
             return self.async_create_entry(title="", data=user_input)
 
-        if hacs.configuration is None:
+        if self.hacs.configuration is None:
             return self.async_abort(reason="not_setup")
 
-        if hacs.configuration.config_type == "yaml":
+        if self.hacs.configuration.config_type == "yaml":
             schema = {vol.Optional("not_in_use", default=""): str}
         else:
             schema = hacs_config_option_schema(self.config_entry.options)

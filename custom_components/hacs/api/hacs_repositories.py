@@ -13,7 +13,10 @@ async def hacs_repositories(_hass, connection, msg):
     repositories = hacs.repositories
     content = []
     for repo in repositories:
-        if repo.data.category in hacs.common.categories:
+        if (
+            repo.data.category in hacs.common.categories
+            and not repo.ignored_by_country_configuration
+        ):
             data = {
                 "additional_info": repo.information.additional_info,
                 "authors": repo.data.authors,

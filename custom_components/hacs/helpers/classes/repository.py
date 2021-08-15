@@ -145,6 +145,19 @@ class HacsRepository(RepositoryHelpers):
         return get_repository_name(self)
 
     @property
+    def ignored_by_country_configuration(self) -> bool:
+        """Return True if hidden by country."""
+        if self.data.installed:
+            return False
+        configuration = self.hacs.configuration.country.lower()
+        manifest = [entry.lower() for entry in self.repository_manifest.country or []]
+        if configuration == "all":
+            return False
+        if not manifest:
+            return False
+        return configuration not in manifest
+
+    @property
     def display_status(self):
         """Return display_status."""
         if self.data.new:

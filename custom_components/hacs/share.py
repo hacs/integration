@@ -29,6 +29,26 @@ SHARE = {
 }
 
 
+class HacsBaseclass(Hacs):
+    """Hacs Baseclass"""
+
+    _hacs: get_hacs()
+
+    common: HacsCommon = __hacs.common
+    configuration: Configuration = Configuration()
+    core: HacsCore = HacsCore()
+    default: AIOGitHubAPIRepository | None = None
+    frontend: HacsFrontend = __hacs.frontend
+    github: AIOGitHubAPI | None = __hacs.github
+    hass: HomeAssistant | None = __hacs.hass
+    integration_dir = pathlib.Path(__file__).parent
+    log: logging.Logger = __hacs.log
+    repository: AIOGitHubAPIRepository = __hacs.repository
+    stage: HacsStage = __hacs.stage
+    status: HacsStatus = HacsStatus()
+    system: HacsSystem = HacsSystem()
+
+
 def get_hacs() -> HacsBase:
     """Return a HACS object."""
     if (hacs := HacsShare.hacs) is not None:
@@ -89,3 +109,23 @@ def get_removed(repository):
 
 def list_removed_repositories():
     return SHARE["removed_repositories"]
+
+
+class HacsBaseClass(Hacs):
+    """Hacs Baseclass"""
+
+    _hacs: get_hacs()
+
+    common: HacsCommon = _hacs.common
+    configuration: Configuration = Configuration()
+    core: HacsCore = HacsCore()
+    default: AIOGitHubAPIRepository | None = None
+    frontend: HacsFrontend = __hacs.frontend
+    github: AIOGitHubAPI | None = __hacs.github
+    hass: HomeAssistant | None = __hacs.hass
+    integration_dir = pathlib.Path(__file__).parent
+    log: logging.Logger = __hacs.log
+    repository: AIOGitHubAPIRepository = __hacs.repository
+    stage: HacsStage = __hacs.stage
+    status: HacsStatus = HacsStatus()
+    system: HacsSystem = HacsSystem()

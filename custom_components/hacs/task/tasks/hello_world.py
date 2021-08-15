@@ -14,4 +14,4 @@ class HacsTaskHelloWorld(HacsTaskManualBase):
 
     async def execute(self):
         self.log.error("Hello World!")
-        self.log.error(self.__hacs)
+        self.log.error(self.hass)

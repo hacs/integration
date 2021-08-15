@@ -25,6 +25,7 @@ class HacsCommon:
     categories: List = []
     default: List = []
     installed: List = []
+    renamed_repositories = {}
     skip: List = []
 
 

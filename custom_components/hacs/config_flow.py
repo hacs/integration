@@ -34,6 +34,7 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self.device = None
         self.activation = None
         self._progress_task = None
+        self._login_device = None
 
     async def async_step_user(self, user_input):
         """Handle a flow initialized by the user."""
@@ -57,6 +58,9 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Handle device steps"""
 
         async def _wait_for_activation(_=None):
+            if self._login_device is None or self._login_device.expires_in is None:
+                async_call_later(self.hass, 1, _wait_for_activation)
+                return
             self.activation = await self.device.async_device_activation()
             self.hass.async_create_task(
                 self.hass.config_entries.flow.async_configure(flow_id=self.flow_id)
@@ -70,13 +74,13 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 )
             async_call_later(self.hass, 1, _wait_for_activation)
             try:
-                device_data = await self.device.async_register_device()
+                self._login_device = await self.device.async_register_device()
                 return self.async_show_progress(
                     step_id="device",
                     progress_action="wait_for_device",
                     description_placeholders={
                         "url": OAUTH_USER_LOGIN,
-                        "code": device_data.user_code,
+                        "code": self._login_device.user_code,
                     },
                 )
             except AIOGitHubAPIException as exception:

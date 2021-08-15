@@ -18,6 +18,6 @@ class HacsMixin:
 
 
 class LogMixin:
-    """Mixin to provice 'self.log' to classes."""
+    """Mixin to provide 'self.log' to classes."""
 
     log: Logger = getLogger()

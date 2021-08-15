@@ -38,6 +38,10 @@ class HacsManifest:
 
         manifest_data.manifest = manifest
 
+        if country := manifest.get("country"):
+            if isinstance(country, str):
+                manifest["country"] = [country]
+
         for key in manifest:
             setattr(manifest_data, key, manifest[key])
         return manifest_data

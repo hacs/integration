@@ -55,6 +55,8 @@ async def test_hacs_data_restore_write_not_new(hacs):
             }
         elif key == "hacs":
             return {"view": "Grid", "compact": False, "onboarding_done": True}
+        elif key == "renamed_repositories":
+            return {}
         else:
             raise ValueError(f"No mock for {key}")
 

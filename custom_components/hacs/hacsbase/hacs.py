@@ -60,6 +60,7 @@ class HacsCommon:
     categories = []
     default = []
     installed = []
+    renamed_repositories = {}
     skip = []
 
 
@@ -388,6 +389,8 @@ class Hacs(HacsBase, HacsHelpers):
         """Get repositories from category."""
         repositories = await async_get_list_from_default(category)
         for repo in repositories:
+            if self.common.renamed_repositories.get(repo):
+                repo = self.common.renamed_repositories[repo]
             if is_removed(repo):
                 continue
             repository = self.get_by_name(repo)

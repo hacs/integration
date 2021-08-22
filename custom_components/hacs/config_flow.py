@@ -9,7 +9,12 @@ from homeassistant.core import callback
 from homeassistant.helpers import aiohttp_client
 from homeassistant.helpers.event import async_call_later
 
-from custom_components.hacs.const import CLIENT_ID, DOMAIN, MINIMUM_HA_VERSION
+from custom_components.hacs.const import (
+    CLIENT_ID,
+    DOMAIN,
+    INTEGRATION_VERSION,
+    MINIMUM_HA_VERSION,
+)
 from custom_components.hacs.helpers.functions.configuration_schema import (
     RELEASE_LIMIT,
     hacs_config_option_schema,
@@ -70,6 +75,7 @@ class HacsFlowHandler(HacsMixin, config_entries.ConfigFlow, domain=DOMAIN):
                 self.device = GitHubDeviceAPI(
                     client_id=CLIENT_ID,
                     session=aiohttp_client.async_get_clientsession(self.hass),
+                    **{"client_name": f"HACS/{INTEGRATION_VERSION}"},
                 )
             async_call_later(self.hass, 1, _wait_for_activation)
             try:

@@ -48,13 +48,6 @@ class HacsData:
 
         self.logger.debug("Saving data")
 
-        # Renamed repositories
-        await async_save_to_store(
-            self.hacs.hass,
-            "renamed_repositories",
-            self.hacs.common.renamed_repositories,
-        )
-
         # Hacs
         await async_save_to_store(
             self.hacs.hass,
@@ -63,6 +56,8 @@ class HacsData:
                 "view": self.hacs.configuration.frontend_mode,
                 "compact": self.hacs.configuration.frontend_compact,
                 "onboarding_done": self.hacs.configuration.onboarding_done,
+                "archived_repositories": self.hacs.common.archived_repositories,
+                "renamed_repositories": self.hacs.common.renamed_repositories,
             },
         )
         await self._async_store_content_and_repos()
@@ -127,9 +122,6 @@ class HacsData:
         """Restore saved data."""
         hacs = await async_load_from_store(self.hacs.hass, "hacs")
         repositories = await async_load_from_store(self.hacs.hass, "repositories") or {}
-        self.hacs.common.renamed_repositories = (
-            await async_load_from_store(self.hacs.hass, "renamed_repositories") or {}
-        )
 
         if not hacs and not repositories:
             # Assume new install
@@ -142,6 +134,8 @@ class HacsData:
         self.hacs.configuration.frontend_mode = hacs.get("view", "Grid")
         self.hacs.configuration.frontend_compact = hacs.get("compact", False)
         self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
+        self.hacs.common.archived_repositories = hacs.get("archived_repositories", [])
+        self.hacs.common.renamed_repositories = hacs.get("renamed_repositories", {})
 
         # Repositories
         hass = self.hacs.hass

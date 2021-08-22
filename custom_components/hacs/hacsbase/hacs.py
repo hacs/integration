@@ -61,6 +61,7 @@ class HacsCommon:
     default = []
     installed = []
     renamed_repositories = {}
+    archived_repositories = []
     skip = []
 
 
@@ -392,6 +393,8 @@ class Hacs(HacsBase, HacsHelpers):
             if self.common.renamed_repositories.get(repo):
                 repo = self.common.renamed_repositories[repo]
             if is_removed(repo):
+                continue
+            if repo in self.common.archived_repositories:
                 continue
             repository = self.get_by_name(repo)
             if repository is not None:

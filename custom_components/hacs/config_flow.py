@@ -1,6 +1,6 @@
 """Adds config flow for HACS."""
 import voluptuous as vol
-from aiogithubapi import AIOGitHubAPIException, GitHubDevice
+from aiogithubapi import GitHubException, GitHubDeviceAPI
 from aiogithubapi.common.const import OAUTH_USER_LOGIN
 from awesomeversion import AwesomeVersion
 from homeassistant import config_entries
@@ -56,20 +56,25 @@ class HacsFlowHandler(HacsMixin, config_entries.ConfigFlow, domain=DOMAIN):
             if self._login_device is None or self._login_device.expires_in is None:
                 async_call_later(self.hass, 1, _wait_for_activation)
                 return
-            self.activation = await self.device.async_device_activation()
+
+            response = await self.device.activation(
+                device_code=self._login_device.device_code
+            )
+            self.activation = response.data
             self.hass.async_create_task(
                 self.hass.config_entries.flow.async_configure(flow_id=self.flow_id)
             )
 
         if not self.activation:
             if not self.device:
-                self.device = GitHubDevice(
-                    CLIENT_ID,
+                self.device = GitHubDeviceAPI(
+                    client_id=CLIENT_ID,
                     session=aiohttp_client.async_get_clientsession(self.hass),
                 )
             async_call_later(self.hass, 1, _wait_for_activation)
             try:
-                self._login_device = await self.device.async_register_device()
+                response = await self.device.register()
+                self._login_device = response.data
                 return self.async_show_progress(
                     step_id="device",
                     progress_action="wait_for_device",
@@ -78,7 +83,7 @@ class HacsFlowHandler(HacsMixin, config_entries.ConfigFlow, domain=DOMAIN):
                         "code": self._login_device.user_code,
                     },
                 )
-            except AIOGitHubAPIException as exception:
+            except GitHubException as exception:
                 self.hacs.log.error(exception)
                 return self.async_abort(reason="github")
 

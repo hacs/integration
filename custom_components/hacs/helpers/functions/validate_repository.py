@@ -53,7 +53,7 @@ async def common_update_data(
             else repository.data.etag_repository,
         )
         repository.repository_object = repository_object
-        if repository.data.full_name != repository_object.full_name:
+        if repository.data.full_name.lower() != repository_object.full_name.lower():
             hacs.common.renamed_repositories[
                 repository.data.full_name
             ] = repository_object.full_name

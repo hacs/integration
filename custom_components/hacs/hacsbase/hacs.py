@@ -294,7 +294,7 @@ class Hacs(HacsBase, HacsHelpers):
             self.log.debug("Queue is already running")
             return
 
-        can_update = await get_fetch_updates_for(self.github)
+        can_update = await get_fetch_updates_for(self.githubapi)
         self.log.debug(
             "Can update %s repositories, items in queue %s",
             can_update,

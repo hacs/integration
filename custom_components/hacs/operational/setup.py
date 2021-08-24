@@ -1,6 +1,4 @@
 """Setup HACS."""
-from datetime import datetime
-
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
@@ -179,12 +177,8 @@ async def async_hacs_startup():
     if can_update != 0:
         hacs.log.debug(f"Can update {can_update} repositories")
     else:
-        reset = datetime.fromtimestamp(int(hacs.github.client.ratelimits.reset))
         hacs.log.error(
-            "HACS is ratelimited, HACS will resume setup when the limit is cleared (%02d:%02d:%02d)",
-            reset.hour,
-            reset.minute,
-            reset.second,
+            "Your GitHub account has been ratelimited, HACS will resume when the limit is cleared"
         )
         hacs.disable(HacsDisabledReason.RATE_LIMIT)
         return False

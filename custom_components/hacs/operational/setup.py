@@ -1,7 +1,7 @@
 """Setup HACS."""
 from datetime import datetime
 
-from aiogithubapi import AIOGitHubAPIException, GitHub
+from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.core import CoreState
@@ -149,15 +149,28 @@ async def async_hacs_startup():
     # Clear old storage files
     await async_clear_storage()
 
-    hacs.enable()
+    # Setup GitHub API clients
+    session = async_create_clientsession(hacs.hass)
+
+    ## Legacy client
     hacs.github = GitHub(
         hacs.configuration.token,
-        async_create_clientsession(hacs.hass),
+        session,
         headers=HACS_GITHUB_API_HEADERS,
     )
+
+    ## New GitHub client
+    hacs.githubapi = GitHubAPI(
+        token=hacs.configuration.token,
+        session=session,
+        **{"client_name": f"HACS/{INTEGRATION_VERSION}"},
+    )
+
     hacs.data = HacsData()
 
-    can_update = await get_fetch_updates_for(hacs.github)
+    hacs.enable()
+
+    can_update = await get_fetch_updates_for(hacs.githubapi)
     if can_update is None:
         hacs.log.critical("Your GitHub token is not valid")
         hacs.disable(HacsDisabledReason.INVALID_TOKEN)

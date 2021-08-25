@@ -1,8 +1,10 @@
 """Setup HACS."""
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
+from awesomeversion import AwesomeVersion
+from homeassistant.config_entries import SOURCE_IMPORT
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
-from homeassistant.core import CoreState
+from homeassistant.core import Config, CoreState
 from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
@@ -13,8 +15,12 @@ from custom_components.hacs.const import (
     INTEGRATION_VERSION,
     STARTUP,
 )
-from custom_components.hacs.enums import HacsDisabledReason, HacsStage, LovelaceMode
-from custom_components.hacs.hacsbase.configuration import Configuration
+from custom_components.hacs.enums import (
+    ConfigurationType,
+    HacsDisabledReason,
+    HacsStage,
+    LovelaceMode,
+)
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.helpers.functions.constrains import check_constrains
 from custom_components.hacs.helpers.functions.remaining_github_calls import (
@@ -53,22 +59,24 @@ async def _async_common_setup(hass):
 
 async def async_setup_entry(hass, config_entry):
     """Set up this integration using UI."""
-    from homeassistant import config_entries
-
     hacs = get_hacs()
-    if hass.data.get(DOMAIN) is not None:
-        return False
-    if config_entry.source == config_entries.SOURCE_IMPORT:
+
+    if config_entry.source == SOURCE_IMPORT:
         hass.async_create_task(hass.config_entries.async_remove(config_entry.entry_id))
+        return False
+    if hass.data.get(DOMAIN) is not None:
         return False
 
     await _async_common_setup(hass)
 
-    hacs.configuration = Configuration.from_dict(
-        config_entry.data, config_entry.options
+    hacs.configuration.update_from_dict(
+        {
+            "config_entry": config_entry,
+            "config_type": ConfigurationType.CONFIG_ENTRY,
+            **config_entry.data,
+            **config_entry.options,
+        }
     )
-    hacs.configuration.config_type = "flow"
-    hacs.configuration.config_entry = config_entry
 
     return await async_startup_wrapper_for_config_entry()
 
@@ -78,13 +86,18 @@ async def async_setup(hass, config):
     hacs = get_hacs()
     if DOMAIN not in config:
         return True
-    if hacs.configuration and hacs.configuration.config_type == "flow":
+    if hacs.configuration.config_type == ConfigurationType.CONFIG_ENTRY:
         return True
 
     await _async_common_setup(hass)
 
-    hacs.configuration = Configuration.from_dict(config[DOMAIN])
-    hacs.configuration.config_type = "yaml"
+    hacs.configuration.update_from_dict(
+        {
+            "config_type": ConfigurationType.YAML,
+            **config[DOMAIN],
+            "config": config[DOMAIN],
+        }
+    )
     await async_startup_wrapper_for_yaml()
     return True
 
@@ -100,7 +113,7 @@ async def async_startup_wrapper_for_config_entry():
     if not startup_result:
         hacs.system.disabled = True
         raise ConfigEntryNotReady
-    hacs.enable()
+    hacs.enable_hacs()
     return startup_result
 
 
@@ -116,7 +129,7 @@ async def async_startup_wrapper_for_yaml(_=None):
         hacs.log.info("Could not setup HACS, trying again in 15 min")
         async_call_later(hacs.hass, 900, async_startup_wrapper_for_yaml)
         return
-    hacs.enable()
+    hacs.enable_hacs()
 
 
 async def async_hacs_startup():
@@ -133,9 +146,9 @@ async def async_hacs_startup():
     hacs.version = INTEGRATION_VERSION
     hacs.log.info(STARTUP)
     hacs.core.config_path = hacs.hass.config.path()
-    hacs.system.ha_version = HAVERSION
+    hacs.core.ha_version = HAVERSION
 
-    hacs.system.lovelace_mode = lovelace_info.get("mode", "yaml")
+    hacs.core.lovelace_mode = lovelace_info.get("mode", "yaml")
     hacs.core.lovelace_mode = LovelaceMode(lovelace_info.get("mode", "yaml"))
 
     # Setup websocket API
@@ -166,12 +179,12 @@ async def async_hacs_startup():
 
     hacs.data = HacsData()
 
-    hacs.enable()
+    hacs.enable_hacs()
 
     can_update = await get_fetch_updates_for(hacs.githubapi)
     if can_update is None:
         hacs.log.critical("Your GitHub token is not valid")
-        hacs.disable(HacsDisabledReason.INVALID_TOKEN)
+        hacs.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
         return False
 
     if can_update != 0:
@@ -180,33 +193,33 @@ async def async_hacs_startup():
         hacs.log.error(
             "Your GitHub account has been ratelimited, HACS will resume when the limit is cleared"
         )
-        hacs.disable(HacsDisabledReason.RATE_LIMIT)
+        hacs.disable_hacs(HacsDisabledReason.RATE_LIMIT)
         return False
 
     # Check HACS Constrains
     if not await hacs.hass.async_add_executor_job(check_constrains):
-        if hacs.configuration.config_type == "flow":
+        if hacs.configuration.config_type == ConfigurationType.CONFIG_ENTRY:
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
-        hacs.disable(HacsDisabledReason.CONSTRAINS)
+        hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
         return False
 
     # Load HACS
     if not await async_load_hacs_repository():
-        if hacs.configuration.config_type == "flow":
+        if hacs.configuration.config_type == ConfigurationType.CONFIG_ENTRY:
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
-        hacs.disable(HacsDisabledReason.LOAD_HACS)
+        hacs.disable_hacs(HacsDisabledReason.LOAD_HACS)
         return False
 
     # Restore from storefiles
     if not await hacs.data.restore():
         hacs_repo = hacs.get_by_name("hacs/integration")
         hacs_repo.pending_restart = True
-        if hacs.configuration.config_type == "flow":
+        if hacs.configuration.config_type == ConfigurationType.CONFIG_ENTRY:
             if hacs.configuration.config_entry is not None:
                 await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
-        hacs.disable(HacsDisabledReason.RESTORE)
+        hacs.disable_hacs(HacsDisabledReason.RESTORE)
         return False
 
     # Setup startup tasks

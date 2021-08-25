@@ -26,14 +26,14 @@ def temp_cleanup(tmpdir):
 
 def test_check_constrains(hacs, tmpdir):
     hacs.core.config_path = tmpdir.dirname
-    hacs.system.ha_version = HAVERSION
+    hacs.core.ha_version = HAVERSION
 
     assert check_constrains()
 
-    hacs.system.ha_version = "0.97.0"
+    hacs.core.ha_version = "0.97.0"
     assert not check_constrains()
 
-    hacs.system.ha_version = HAVERSION
+    hacs.core.ha_version = HAVERSION
 
     assert constrain_version()
     assert check_constrains()
@@ -43,13 +43,13 @@ def test_check_constrains(hacs, tmpdir):
 
 def test_ha_version(hacs, tmpdir):
     hacs.core.config_path = tmpdir.dirname
-    hacs.system.ha_version = HAVERSION
+    hacs.core.ha_version = HAVERSION
     assert constrain_version()
 
-    hacs.system.ha_version = "9999.0.0"
+    hacs.core.ha_version = "9999.0.0"
     assert constrain_version()
 
-    hacs.system.ha_version = "0.97.0"
+    hacs.core.ha_version = "0.97.0"
     assert not constrain_version()
 
     temp_cleanup(tmpdir)

@@ -9,11 +9,8 @@ import zipfile
 from aiogithubapi import AIOGitHubAPIException
 from queueman import QueueManager
 
+from custom_components.hacs.exceptions import HacsException, HacsNotModifiedException
 from custom_components.hacs.helpers import RepositoryHelpers
-from custom_components.hacs.helpers.classes.exceptions import (
-    HacsException,
-    HacsNotModifiedException,
-)
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.helpers.classes.repositorydata import RepositoryData
 from custom_components.hacs.helpers.classes.validate import Validate

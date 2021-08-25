@@ -1,6 +1,6 @@
 """Adds config flow for HACS."""
 import voluptuous as vol
-from aiogithubapi import GitHubException, GitHubDeviceAPI
+from aiogithubapi import GitHubDeviceAPI, GitHubException
 from aiogithubapi.common.const import OAUTH_USER_LOGIN
 from awesomeversion import AwesomeVersion
 from homeassistant import config_entries
@@ -15,6 +15,7 @@ from custom_components.hacs.const import (
     INTEGRATION_VERSION,
     MINIMUM_HA_VERSION,
 )
+from custom_components.hacs.enums import ConfigurationType
 from custom_components.hacs.helpers.functions.configuration_schema import (
     RELEASE_LIMIT,
     hacs_config_option_schema,
@@ -159,7 +160,7 @@ class HacsOptionsFlowHandler(HacsMixin, config_entries.OptionsFlow):
         if self.hacs.configuration is None:
             return self.async_abort(reason="not_setup")
 
-        if self.hacs.configuration.config_type == "yaml":
+        if self.hacs.configuration.config_type == ConfigurationType.YAML:
             schema = {vol.Optional("not_in_use", default=""): str}
         else:
             schema = hacs_config_option_schema(self.config_entry.options)

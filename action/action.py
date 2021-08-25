@@ -8,8 +8,7 @@ from aiogithubapi import GitHub
 from homeassistant.core import HomeAssistant
 
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
-from custom_components.hacs.hacsbase.configuration import Configuration
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
@@ -134,7 +133,6 @@ async def validate_repository(repository, category, ref=None):
         hacs = get_hacs()
         hacs.hass = HomeAssistant()
         hacs.session = session
-        hacs.configuration = Configuration()
         hacs.configuration.token = TOKEN
         hacs.core.config_path = None
         hacs.github = GitHub(

@@ -2,7 +2,7 @@
 from aiogithubapi import AIOGitHubAPIException
 
 from custom_components.hacs.enums import HacsCategory
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 

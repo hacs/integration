@@ -32,4 +32,4 @@ async def async_remove_entry(hass: "HomeAssistant", config_entry: "ConfigEntry")
         pass
     if DOMAIN in hass.data:
         del hass.data[DOMAIN]
-    hacs.disable(HacsDisabledReason.REMOVED)
+    hacs.disable_hacs(HacsDisabledReason.REMOVED)

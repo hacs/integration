@@ -1,5 +1,6 @@
 """Helper to calculate the remaining calls to github."""
 import math
+
 from aiogithubapi import GitHubAPI, GitHubAuthenticationException
 
 from custom_components.hacs.utils.logger import getLogger

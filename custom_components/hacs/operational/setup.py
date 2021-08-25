@@ -69,6 +69,8 @@ async def _async_common_setup(hass):
     await hacs.tasks.async_load()
     hass.data[DOMAIN] = hacs
 
+    await hacs.async_set_stage(HacsStage.SETUP)
+
 
 async def async_setup_entry(hass, config_entry):
     """Set up this integration using UI."""
@@ -119,7 +121,7 @@ async def async_startup_wrapper_for_config_entry():
     hacs = get_hacs()
     hacs.configuration.config_entry.add_update_listener(async_reload_entry)
     try:
-        startup_result = await async_hacs_setup()
+        startup_result = await async_hacs_startup()
     except AIOGitHubAPIException:
         startup_result = False
     if not startup_result:
@@ -133,7 +135,7 @@ async def async_startup_wrapper_for_yaml(_=None):
     """Startup wrapper for yaml config."""
     hacs = get_hacs()
     try:
-        startup_result = await async_hacs_setup()
+        startup_result = await async_hacs_startup()
     except AIOGitHubAPIException:
         startup_result = False
     if not startup_result:
@@ -144,10 +146,10 @@ async def async_startup_wrapper_for_yaml(_=None):
     hacs.enable_hacs()
 
 
-async def async_hacs_setup():
+async def async_hacs_startup():
     """HACS startup tasks."""
     hacs = get_hacs()
-    await hacs.async_set_stage(HacsStage.SETUP)
+    await hacs.async_set_stage(HacsStage.STARTUP)
 
     if hacs.system.disabled:
         return False

@@ -25,9 +25,7 @@ from custom_components.hacs.helpers.functions.remaining_github_calls import (
 from custom_components.hacs.operational.reload import async_reload_entry
 from custom_components.hacs.operational.remove import async_remove_entry
 
-from custom_components.hacs.operational.setup_actions.load_hacs_repository import (
-    async_load_hacs_repository,
-)
+
 from custom_components.hacs.operational.setup_actions.websocket_api import (
     async_setup_hacs_websockt_api,
 )
@@ -43,19 +41,33 @@ except ImportError:
 async def _async_common_setup(hass):
     """Common setup stages."""
     integration = await async_get_integration(hass, DOMAIN)
-
     hacs = get_hacs()
+    hacs.enable_hacs()
+    await hacs.async_set_stage(None)
     hacs.log.info(STARTUP.format(version=integration.version))
 
     hacs.integration = integration
     hacs.version = integration.version
     hacs.hass = hass
+    hacs.data = HacsData()
     hacs.system.running = True
     hacs.session = async_create_clientsession(hass)
     hacs.tasks = HacsTaskManager()
 
+    try:
+        lovelace_info = await system_health_info(hacs.hass)
+    except (TypeError, KeyError, HomeAssistantError):
+        # If this happens, the users YAML is not valid, we assume YAML mode
+        lovelace_info = {"mode": "yaml"}
+    hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")
+    hacs.core.config_path = hacs.hass.config.path()
+    hacs.core.ha_version = HAVERSION
+
+    hacs.core.lovelace_mode = lovelace_info.get("mode", "yaml")
+    hacs.core.lovelace_mode = LovelaceMode(lovelace_info.get("mode", "yaml"))
+
     await hacs.tasks.async_load()
-    await hacs.async_set_stage(HacsStage.SETUP)
+    hass.data[DOMAIN] = hacs
 
 
 async def async_setup_entry(hass, config_entry):
@@ -107,7 +119,7 @@ async def async_startup_wrapper_for_config_entry():
     hacs = get_hacs()
     hacs.configuration.config_entry.add_update_listener(async_reload_entry)
     try:
-        startup_result = await async_hacs_startup()
+        startup_result = await async_hacs_setup()
     except AIOGitHubAPIException:
         startup_result = False
     if not startup_result:
@@ -121,7 +133,7 @@ async def async_startup_wrapper_for_yaml(_=None):
     """Startup wrapper for yaml config."""
     hacs = get_hacs()
     try:
-        startup_result = await async_hacs_startup()
+        startup_result = await async_hacs_setup()
     except AIOGitHubAPIException:
         startup_result = False
     if not startup_result:
@@ -132,22 +144,13 @@ async def async_startup_wrapper_for_yaml(_=None):
     hacs.enable_hacs()
 
 
-async def async_hacs_startup():
+async def async_hacs_setup():
     """HACS startup tasks."""
     hacs = get_hacs()
-    hacs.hass.data[DOMAIN] = hacs
+    await hacs.async_set_stage(HacsStage.SETUP)
 
-    try:
-        lovelace_info = await system_health_info(hacs.hass)
-    except (TypeError, KeyError, HomeAssistantError):
-        # If this happens, the users YAML is not valid, we assume YAML mode
-        lovelace_info = {"mode": "yaml"}
-    hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")
-    hacs.core.config_path = hacs.hass.config.path()
-    hacs.core.ha_version = HAVERSION
-
-    hacs.core.lovelace_mode = lovelace_info.get("mode", "yaml")
-    hacs.core.lovelace_mode = LovelaceMode(lovelace_info.get("mode", "yaml"))
+    if hacs.system.disabled:
+        return False
 
     # Setup websocket API
     await async_setup_hacs_websockt_api()
@@ -172,10 +175,6 @@ async def async_hacs_startup():
         **{"client_name": f"HACS/{hacs.version}"},
     )
 
-    hacs.data = HacsData()
-
-    hacs.enable_hacs()
-
     can_update = await get_fetch_updates_for(hacs.githubapi)
     if can_update is None:
         hacs.log.critical("Your GitHub token is not valid")
@@ -199,14 +198,6 @@ async def async_hacs_startup():
         hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
         return False
 
-    # Load HACS
-    if not await async_load_hacs_repository():
-        if hacs.configuration.config_type == ConfigurationType.CONFIG_ENTRY:
-            if hacs.configuration.config_entry is not None:
-                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
-        hacs.disable_hacs(HacsDisabledReason.LOAD_HACS)
-        return False
-
     # Restore from storefiles
     if not await hacs.data.restore():
         hacs_repo = hacs.get_by_name("hacs/integration")
@@ -228,4 +219,5 @@ async def async_hacs_startup():
     hacs.log.info(
         "Setup complete, waiting for Home Assistant before startup tasks starts"
     )
-    return True
+
+    return not hacs.system.disabled

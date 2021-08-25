@@ -25,6 +25,7 @@ from .exceptions import HacsException
 from .utils.logger import getLogger
 
 if TYPE_CHECKING:
+    from .hacsbase.data import HacsData
     from .helpers.classes.repository import HacsRepository
     from .operational.factory import HacsTaskFactory
     from .tasks.manager import HacsTaskManager
@@ -136,7 +137,7 @@ class HacsBase:
     common = HacsCommon()
     configuration = HacsConfiguration()
     core = HacsCore()
-    data = None
+    data: HacsData | None = None
     data_repo: AIOGitHubAPIRepository | None = None
     factory: HacsTaskFactory | None = None
     frontend = HacsFrontend()
@@ -161,15 +162,16 @@ class HacsBase:
         """Return the HACS integration dir."""
         return self.integration.file_path
 
-    async def async_set_stage(self, stage: HacsStage) -> None:
+    async def async_set_stage(self, stage: HacsStage | None) -> None:
         """Set HACS stage."""
-        if self.stage == stage:
+        if stage and self.stage == stage:
             return
 
         self.stage = stage
-        self.log.info("Stage changed: %s", self.stage)
-        self.hass.bus.async_fire("hacs/stage", {"stage": self.stage})
-        await self.tasks.async_execute_runtume_tasks()
+        if stage is not None:
+            self.log.info("Stage changed: %s", self.stage)
+            self.hass.bus.async_fire("hacs/stage", {"stage": self.stage})
+            await self.tasks.async_execute_runtume_tasks()
 
     def disable_hacs(self, reason: HacsDisabledReason) -> None:
         """Disable HACS."""

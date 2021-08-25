@@ -34,6 +34,13 @@ class HacsTaskBase(HacsMixin, LogMixin):
 
     async def execute_task(self) -> None:
         """This should only be executed by the manager."""
+        if self.hacs.system.disabled:
+            self.log.warning(
+                "Skipping task %s, HACS is disabled - %s",
+                self.slug,
+                self.hacs.system.disabled_reason,
+            )
+            return
         self.log.info("Executing task: %s", self.slug)
         start_time = timer()
         await self.execute()

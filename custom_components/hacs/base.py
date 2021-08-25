@@ -13,12 +13,19 @@ from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
 
 from .const import INTEGRATION_VERSION
-from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
+from .enums import (
+    ConfigurationType,
+    HacsCategory,
+    HacsDisabledReason,
+    HacsStage,
+    LovelaceMode,
+)
 from .exceptions import HacsException
 from .utils.logger import getLogger
 
 if TYPE_CHECKING:
     from .helpers.classes.repository import HacsRepository
+    from .tasks.manager import HacsTaskManager
 
 
 @dataclass
@@ -87,7 +94,7 @@ class HacsCore:
 class HacsCommon:
     """Common for HACS."""
 
-    categories: list[str] = field(default_factory=list)
+    categories: set[str] = field(default_factory=set)
     default: list[str] = field(default_factory=list)
     installed: list[str] = field(default_factory=list)
     renamed_repositories: dict[str, str] = field(default_factory=dict)
@@ -137,8 +144,9 @@ class HacsBase:
     recuring_tasks = []
     repositories: list[HacsRepository] = []
     repository: AIOGitHubAPIRepository | None = None
+    tasks: HacsTaskManager | None = None
     session: ClientSession | None = None
-    stage = HacsStage.SETUP
+    stage: HacsStage | None = None
     status = HacsStatus()
     system = HacsSystem()
     version: AwesomeVersion | None = None
@@ -147,6 +155,16 @@ class HacsBase:
     def integration_dir(self) -> pathlib.Path:
         """Return the HACS integration dir."""
         return pathlib.Path(__file__).parent
+
+    async def async_set_stage(self, stage: HacsStage) -> None:
+        """Set HACS stage."""
+        if self.stage == stage:
+            return
+
+        self.stage = stage
+        self.log.info("Stage changed: %s", self.stage)
+        self.hass.bus.async_fire("hacs/stage", {"stage": self.stage})
+        await self.tasks.async_execute_runtume_tasks()
 
     def disable_hacs(self, reason: HacsDisabledReason) -> None:
         """Disable HACS."""
@@ -160,3 +178,15 @@ class HacsBase:
         self.system.disabled = False
         self.system.disabled_reason = None
         self.log.info("HACS is enabled")
+
+    def enable_hacs_category(self, category: HacsCategory):
+        """Enable HACS category."""
+        if category not in self.common.categories:
+            self.log.info("Enable category: %s", category)
+            self.common.categories.add(category)
+
+    def disable_hacs_category(self, category: HacsCategory):
+        """Disable HACS category."""
+        if category in self.common.categories:
+            self.log.info("Disabling category: %s", category)
+            self.common.categories.pop(category)

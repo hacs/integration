@@ -16,8 +16,6 @@ CUSTOM_UPDATER_LOCATIONS = [
 ISSUE_URL = f"{PROJECT_URL}issues"
 DOMAIN_DATA = f"{NAME_SHORT.lower()}_data"
 
-ELEMENT_TYPES = ["integration", "plugin"]
-
 PACKAGE_NAME = "custom_components.hacs"
 
 HACS_GITHUB_API_HEADERS = {

@@ -1,6 +1,6 @@
 """Setup HACS."""
+from custom_components.hacs.tasks.manager import HacsTaskManager
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
-from awesomeversion import AwesomeVersion
 from homeassistant.config_entries import SOURCE_IMPORT
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
@@ -28,9 +28,7 @@ from custom_components.hacs.helpers.functions.remaining_github_calls import (
 )
 from custom_components.hacs.operational.reload import async_reload_entry
 from custom_components.hacs.operational.remove import async_remove_entry
-from custom_components.hacs.operational.setup_actions.clear_storage import (
-    async_clear_storage,
-)
+
 from custom_components.hacs.operational.setup_actions.frontend import (
     async_setup_frontend,
 )
@@ -52,9 +50,13 @@ except ImportError:
 async def _async_common_setup(hass):
     """Common setup stages."""
     hacs = get_hacs()
+    hacs.log.info(STARTUP)
     hacs.hass = hass
     hacs.system.running = True
     hacs.session = async_create_clientsession(hass)
+    hacs.tasks = HacsTaskManager()
+    await hacs.tasks.async_load()
+    await hacs.async_set_stage(HacsStage.SETUP)
 
 
 async def async_setup_entry(hass, config_entry):
@@ -144,7 +146,6 @@ async def async_hacs_startup():
         lovelace_info = {"mode": "yaml"}
     hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")
     hacs.version = INTEGRATION_VERSION
-    hacs.log.info(STARTUP)
     hacs.core.config_path = hacs.hass.config.path()
     hacs.core.ha_version = HAVERSION
 
@@ -156,9 +157,6 @@ async def async_hacs_startup():
 
     # Set up frontend
     await async_setup_frontend()
-
-    # Clear old storage files
-    await async_clear_storage()
 
     # Setup GitHub API clients
     session = async_create_clientsession(hacs.hass)

@@ -1,5 +1,7 @@
 """Set up some common test helper things."""
 import asyncio
+from unittest.mock import AsyncMock
+from custom_components.hacs.tasks.manager import HacsTaskManager
 import logging
 
 import pytest
@@ -88,6 +90,7 @@ def hacs(hass):
     """Fixture to provide a HACS object."""
     hacs_obj = Hacs()
     hacs_obj.hass = hass
+    hacs_obj.tasks = AsyncMock()
     hacs_obj.session = async_create_clientsession(hass)
     hacs_obj.configuration.token = TOKEN
     hacs_obj.core.config_path = hass.config.path()

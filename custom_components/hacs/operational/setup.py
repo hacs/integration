@@ -19,16 +19,10 @@ from custom_components.hacs.enums import (
 )
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.helpers.functions.constrains import check_constrains
-from custom_components.hacs.helpers.functions.remaining_github_calls import (
-    get_fetch_updates_for,
-)
+
 from custom_components.hacs.operational.reload import async_reload_entry
 from custom_components.hacs.operational.remove import async_remove_entry
 
-
-from custom_components.hacs.operational.setup_actions.websocket_api import (
-    async_setup_hacs_websockt_api,
-)
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.tasks.manager import HacsTaskManager
 
@@ -41,9 +35,12 @@ except ImportError:
 async def _async_common_setup(hass):
     """Common setup stages."""
     integration = await async_get_integration(hass, DOMAIN)
+
     hacs = get_hacs()
+
     hacs.enable_hacs()
     await hacs.async_set_stage(None)
+
     hacs.log.info(STARTUP.format(version=integration.version))
 
     hacs.integration = integration
@@ -67,9 +64,28 @@ async def _async_common_setup(hass):
     hacs.core.lovelace_mode = LovelaceMode(lovelace_info.get("mode", "yaml"))
 
     await hacs.tasks.async_load()
-    hass.data[DOMAIN] = hacs
 
-    await hacs.async_set_stage(HacsStage.SETUP)
+    # Setup session for API clients
+    session = async_create_clientsession(hacs.hass)
+
+    ## Legacy GitHub client
+    hacs.github = GitHub(
+        hacs.configuration.token,
+        session,
+        headers={
+            "User-Agent": f"HACS/{hacs.version}",
+            "Accept": ACCEPT_HEADERS["preview"],
+        },
+    )
+
+    ## New GitHub client
+    hacs.githubapi = GitHubAPI(
+        token=hacs.configuration.token,
+        session=session,
+        **{"client_name": f"HACS/{hacs.version}"},
+    )
+
+    hass.data[DOMAIN] = hacs
 
 
 async def async_setup_entry(hass, config_entry):
@@ -149,47 +165,13 @@ async def async_startup_wrapper_for_yaml(_=None):
 async def async_hacs_startup():
     """HACS startup tasks."""
     hacs = get_hacs()
-    await hacs.async_set_stage(HacsStage.STARTUP)
 
+    await hacs.async_set_stage(HacsStage.SETUP)
     if hacs.system.disabled:
         return False
 
-    # Setup websocket API
-    await async_setup_hacs_websockt_api()
-
-    # Setup GitHub API clients
-    session = async_create_clientsession(hacs.hass)
-
-    ## Legacy client
-    hacs.github = GitHub(
-        hacs.configuration.token,
-        session,
-        headers={
-            "User-Agent": f"HACS/{hacs.version}",
-            "Accept": ACCEPT_HEADERS["preview"],
-        },
-    )
-
-    ## New GitHub client
-    hacs.githubapi = GitHubAPI(
-        token=hacs.configuration.token,
-        session=session,
-        **{"client_name": f"HACS/{hacs.version}"},
-    )
-
-    can_update = await get_fetch_updates_for(hacs.githubapi)
-    if can_update is None:
-        hacs.log.critical("Your GitHub token is not valid")
-        hacs.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
-        return False
-
-    if can_update != 0:
-        hacs.log.debug(f"Can update {can_update} repositories")
-    else:
-        hacs.log.error(
-            "Your GitHub account has been ratelimited, HACS will resume when the limit is cleared"
-        )
-        hacs.disable_hacs(HacsDisabledReason.RATE_LIMIT)
+    await hacs.async_set_stage(HacsStage.STARTUP)
+    if hacs.system.disabled:
         return False
 
     # Check HACS Constrains

@@ -13,9 +13,7 @@ from custom_components.hacs.helpers.functions.get_list_from_default import (
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
-from custom_components.hacs.helpers.functions.remaining_github_calls import (
-    get_fetch_updates_for,
-)
+
 from custom_components.hacs.helpers.functions.store import (
     async_load_from_store,
     async_save_to_store,
@@ -236,15 +234,13 @@ class Hacs(HacsBase, HacsHelpers):
             self.log.debug("Queue is already running")
             return
 
-        can_update = await get_fetch_updates_for(self.githubapi)
+        can_update = await self.async_can_update()
         self.log.debug(
             "Can update %s repositories, items in queue %s",
             can_update,
             self.queue.pending_tasks,
         )
-        if can_update == 0:
-            self.log.info("HACS is ratelimited, repository updates will resume later.")
-        else:
+        if can_update != 0:
             self.status.background_task = True
             self.hass.bus.async_fire("hacs/status", {})
             try:

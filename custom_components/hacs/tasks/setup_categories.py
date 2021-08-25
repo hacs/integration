@@ -15,11 +15,7 @@ class Task(HacsTaskRuntimeBase):
 
     async def execute(self) -> None:
         self.hacs.common.categories = set()
-        for category in (
-            HacsCategory.INTEGRATION,
-            HacsCategory.LOVELACE,
-            HacsCategory.PLUGIN,
-        ):
+        for category in (HacsCategory.INTEGRATION, HacsCategory.PLUGIN):
             self.hacs.enable_hacs_category(HacsCategory(category))
 
         if HacsCategory.PYTHON_SCRIPT in self.hacs.hass.config.components:

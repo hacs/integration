@@ -2,11 +2,17 @@
 from __future__ import annotations
 
 import logging
+import math
 import pathlib
 from dataclasses import asdict, dataclass, field
 from typing import TYPE_CHECKING, Any
 
-from aiogithubapi import GitHub, GitHubAPI
+from aiogithubapi import (
+    GitHub,
+    GitHubAPI,
+    GitHubAuthenticationException,
+    GitHubRatelimitException,
+)
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
 from awesomeversion import AwesomeVersion
@@ -197,3 +203,20 @@ class HacsBase:
         if category in self.common.categories:
             self.log.info("Disabling category: %s", category)
             self.common.categories.pop(category)
+
+    async def async_can_update(self) -> int:
+        """Helper to calculate the number of repositories we can fetch data for."""
+        try:
+            result = await self.githubapi.rate_limit()
+            if ((limit := result.data.resources.core.remaining or 0) - 1000) >= 15:
+                return math.floor((limit - 1000) / 15)
+        except GitHubAuthenticationException as exception:
+            self.log.error("GitHub authentication failed - %s", exception)
+            self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
+        except GitHubRatelimitException as exception:
+            self.log.error("GitHub API ratelimited - %s", exception)
+            self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
+        except BaseException as exception:  # pylint: disable=broad-except
+            self.log.exception(exception)
+
+        return 0

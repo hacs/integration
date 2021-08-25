@@ -29,7 +29,7 @@ def test_repository_helpers_properties_custom():
 
 def test_repository_helpers_properties_pending_update():
     repository = HacsRepository()
-    repository.hacs.system.ha_version = "0.109.0"
+    repository.hacs.core.ha_version = "0.109.0"
     repository.data.homeassistant = "0.110.0"
     repository.data.releases = True
     assert not repository.pending_update

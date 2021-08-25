@@ -8,7 +8,7 @@ import async_timeout
 import backoff
 from queueman import QueueManager, concurrent
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.filters import (
     filter_content_return_one_of_type,
 )

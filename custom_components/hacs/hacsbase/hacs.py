@@ -35,64 +35,11 @@ from ..base import HacsBase
 from ..enums import HacsCategory, HacsStage
 
 
-class HacsStatus:
-    """HacsStatus."""
-
-    startup = True
-    new = False
-    background_task = False
-    reloading_data = False
-    upgrading_all = False
-
-
-class HacsFrontend:
-    """HacsFrontend."""
-
-    version_running = None
-    version_available = None
-    version_expected = None
-    update_pending = False
-
-
-class HacsCommon:
-    """Common for HACS."""
-
-    categories = []
-    default = []
-    installed = []
-    renamed_repositories = {}
-    archived_repositories = []
-    skip = []
-
-
-class System:
-    """System info."""
-
-    status = HacsStatus()
-    config_path = None
-    ha_version = None
-    disabled = False
-    running = False
-    lovelace_mode = "yaml"
-
-
 class Hacs(HacsBase, HacsHelpers):
     """The base class of HACS, nested throughout the project."""
 
-    _repositories = []
-    _repositories_by_id = {}
-    _repositories_by_full_name = {}
-    repo = None
-    data_repo = None
-    data = None
-    status = HacsStatus()
-    configuration = None
-    version = None
-    session = None
     factory = get_factory()
     queue = get_queue()
-    recuring_tasks = []
-    common = HacsCommon()
 
     @property
     def repositories(self):

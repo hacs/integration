@@ -5,7 +5,7 @@ import json
 import aiohttp
 import pytest
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.information import get_repository
 from tests.common import TOKEN
 from tests.sample_data import (

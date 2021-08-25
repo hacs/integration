@@ -3,7 +3,7 @@ import os
 import tempfile
 from abc import ABC
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.download import download_content
 from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,

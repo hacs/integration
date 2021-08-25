@@ -1,3 +1,4 @@
+from custom_components.hacs.enums import ConfigurationType
 import pytest
 from homeassistant.config_entries import ConfigEntries, ConfigEntry
 
@@ -24,5 +25,5 @@ async def test_async_add_sensor_ui(hacs, hass):
 async def test_async_add_sensor_yaml(hacs):
     hacs.configuration.config = {"key": "value"}
 
-    hacs.configuration.config_type = "yaml"
+    hacs.configuration.config_type = ConfigurationType.YAML
     await async_add_sensor()

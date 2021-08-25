@@ -14,6 +14,11 @@ class HacsCategory(str, Enum):
     REMOVED = "removed"
 
 
+class ConfigurationType(str, Enum):
+    YAML = "yaml"
+    CONFIG_ENTRY = "config_entry"
+
+
 class LovelaceMode(str, Enum):
     """Lovelace Modes."""
 

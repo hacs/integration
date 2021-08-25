@@ -6,7 +6,7 @@ import voluptuous as vol
 from aiogithubapi import AIOGitHubAPIException
 from homeassistant.components import websocket_api
 
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.misc import extract_repository_from_url
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,

@@ -1,6 +1,6 @@
 """Starting setup task: load HACS repository."""
 from custom_components.hacs.const import INTEGRATION_VERSION
-from custom_components.hacs.helpers.classes.exceptions import HacsException
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.information import get_repository
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
@@ -25,7 +25,7 @@ async def async_load_hacs_repository():
         repository.data.installed = True
         repository.data.installed_version = INTEGRATION_VERSION
         repository.data.new = False
-        hacs.repo = repository.repository_object
+        hacs.repository = repository.repository_object
         hacs.data_repo, _ = await get_repository(
             hacs.session, hacs.configuration.token, "hacs/default", None
         )

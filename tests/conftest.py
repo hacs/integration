@@ -7,7 +7,6 @@ from homeassistant.exceptions import ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.runner import HassEventLoopPolicy
 
-from custom_components.hacs.hacsbase.configuration import Configuration
 from custom_components.hacs.hacsbase.hacs import Hacs
 from custom_components.hacs.helpers.classes.repository import HacsRepository
 from custom_components.hacs.helpers.functions.version_to_install import (
@@ -90,7 +89,6 @@ def hacs(hass):
     hacs_obj = Hacs()
     hacs_obj.hass = hass
     hacs_obj.session = async_create_clientsession(hass)
-    hacs_obj.configuration = Configuration()
     hacs_obj.configuration.token = TOKEN
     hacs_obj.core.config_path = hass.config.path()
     hacs_obj.system.action = False

@@ -4,14 +4,14 @@ from homeassistant.helpers import discovery
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.share import get_hacs
 
-from ...enums import HacsSetupTask
+from ...enums import ConfigurationType, HacsSetupTask
 
 
 async def async_add_sensor():
     """Async wrapper for add sensor"""
     hacs = get_hacs()
     hacs.log.info("Setup task %s", HacsSetupTask.SENSOR)
-    if hacs.configuration.config_type == "yaml":
+    if hacs.configuration.config_type == ConfigurationType.YAML:
         hacs.hass.async_create_task(
             discovery.async_load_platform(
                 hacs.hass, "sensor", DOMAIN, {}, hacs.configuration.config

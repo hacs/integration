@@ -18,7 +18,6 @@ from custom_components.hacs.enums import (
     LovelaceMode,
 )
 from custom_components.hacs.hacsbase.data import HacsData
-from custom_components.hacs.helpers.functions.constrains import check_constrains
 
 from custom_components.hacs.operational.reload import async_reload_entry
 from custom_components.hacs.operational.remove import async_remove_entry
@@ -172,24 +171,6 @@ async def async_hacs_startup():
 
     await hacs.async_set_stage(HacsStage.STARTUP)
     if hacs.system.disabled:
-        return False
-
-    # Check HACS Constrains
-    if not await hacs.hass.async_add_executor_job(check_constrains):
-        if hacs.configuration.config_type == ConfigurationType.CONFIG_ENTRY:
-            if hacs.configuration.config_entry is not None:
-                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
-        hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
-        return False
-
-    # Restore from storefiles
-    if not await hacs.data.restore():
-        hacs_repo = hacs.get_by_name("hacs/integration")
-        hacs_repo.pending_restart = True
-        if hacs.configuration.config_type == ConfigurationType.CONFIG_ENTRY:
-            if hacs.configuration.config_entry is not None:
-                await async_remove_entry(hacs.hass, hacs.configuration.config_entry)
-        hacs.disable_hacs(HacsDisabledReason.RESTORE)
         return False
 
     # Setup startup tasks

@@ -7,10 +7,7 @@ DOMAIN = "hacs"
 CLIENT_ID = "395a8e669c5de9f7c6e8"
 MINIMUM_HA_VERSION = "2021.2.0"
 PROJECT_URL = "https://github.com/hacs/integration/"
-CUSTOM_UPDATER_LOCATIONS = [
-    "{}/custom_components/custom_updater.py",
-    "{}/custom_components/custom_updater/__init__.py",
-]
+
 
 ISSUE_URL = f"{PROJECT_URL}issues"
 DOMAIN_DATA = f"{NAME_SHORT.lower()}_data"
@@ -35,11 +32,6 @@ STORENAME = "hacs"
 
 # Messages
 NO_ELEMENTS = "No elements to show, open the store to install some awesome stuff."
-
-CUSTOM_UPDATER_WARNING = """
-This cannot be used with custom_updater.
-To use this you need to remove custom_updater form {}
-"""
 
 STARTUP = """
 -------------------------------------------------------------------

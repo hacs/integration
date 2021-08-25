@@ -20,10 +20,7 @@ from custom_components.hacs.helpers.functions.store import (
     async_load_from_store,
     async_save_to_store,
 )
-
 from custom_components.hacs.share import (
-    get_factory,
-    get_queue,
     get_removed,
     is_removed,
     list_removed_repositories,
@@ -31,6 +28,7 @@ from custom_components.hacs.share import (
 
 from ..base import HacsBase
 from ..enums import HacsCategory, HacsStage
+from ..share import get_factory, get_queue
 
 
 class Hacs(HacsBase, HacsHelpers):

@@ -4,7 +4,6 @@ import os
 
 from homeassistant.core import callback
 
-from custom_components.hacs.const import INTEGRATION_VERSION
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
@@ -207,7 +206,7 @@ class HacsData:
             repository.status.first_install = False
 
         if repository_data["full_name"] == "hacs/integration":
-            repository.data.installed_version = INTEGRATION_VERSION
+            repository.data.installed_version = self.hacs.version
             repository.data.installed = True
 
         return True

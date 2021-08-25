@@ -1,5 +1,4 @@
 """Starting setup task: load HACS repository."""
-from custom_components.hacs.const import INTEGRATION_VERSION
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.information import get_repository
 from custom_components.hacs.helpers.functions.register_repository import (
@@ -23,7 +22,7 @@ async def async_load_hacs_repository():
         if repository is None:
             raise HacsException("Unknown error")
         repository.data.installed = True
-        repository.data.installed_version = INTEGRATION_VERSION
+        repository.data.installed_version = hacs.integration.version
         repository.data.new = False
         hacs.repository = repository.repository_object
         hacs.data_repo, _ = await get_repository(

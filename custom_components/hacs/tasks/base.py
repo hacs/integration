@@ -1,10 +1,12 @@
 """"Hacs base setup task."""
 # pylint: disable=abstract-method
 from __future__ import annotations
-from timeit import default_timer as timer
 
 from abc import abstractmethod
 from datetime import timedelta
+from timeit import default_timer as timer
+
+from homeassistant.core import HomeAssistant
 
 from ..enums import HacsStage, HacsTaskType
 from ..mixin import HacsMixin, LogMixin
@@ -13,7 +15,12 @@ from ..mixin import HacsMixin, LogMixin
 class HacsTaskBase(HacsMixin, LogMixin):
     """"Hacs task base."""
 
+    hass: HomeAssistant
+
     type = HacsTaskType.BASE
+
+    def __init__(self) -> None:
+        self.hass = self.hacs.hass
 
     @property
     def slug(self) -> str:

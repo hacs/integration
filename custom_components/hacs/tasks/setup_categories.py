@@ -5,10 +5,10 @@ from .base import HacsTaskRuntimeBase
 
 async def async_setup() -> None:
     """Set up this task."""
-    return HacsTaskSetupCategories()
+    return Task()
 
 
-class HacsTaskSetupCategories(HacsTaskRuntimeBase):
+class Task(HacsTaskRuntimeBase):
     """Set up extra stores in HACS if enabled in Home Assistant."""
 
     stages = [HacsStage.SETUP, HacsStage.RUNNING]

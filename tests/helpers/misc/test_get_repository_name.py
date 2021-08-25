@@ -1,6 +1,6 @@
 """Helpers: Misc: get_repository_name."""
-from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.enums import HacsCategory
+from custom_components.hacs.helpers.classes.manifest import HacsManifest
 
 # pylint: disable=missing-docstring
 from custom_components.hacs.helpers.functions.misc import get_repository_name

@@ -2,7 +2,7 @@
 from homeassistant.core import callback
 from homeassistant.helpers.entity import Entity
 
-from custom_components.hacs.const import DOMAIN, INTEGRATION_VERSION, NAME_SHORT
+from custom_components.hacs.const import DOMAIN, NAME_SHORT
 from custom_components.hacs.mixin import HacsMixin
 
 
@@ -29,7 +29,7 @@ class HACSDevice(HacsMixin, Entity):
             "name": NAME_SHORT,
             "manufacturer": "hacs.xyz",
             "model": "",
-            "sw_version": INTEGRATION_VERSION,
+            "sw_version": self.hacs.version,
             "entry_type": "service",
         }
 

@@ -6,8 +6,8 @@ from importlib import import_module
 from pathlib import Path
 
 from ..enums import HacsTaskType
-from .base import HacsTaskBase
 from ..mixin import HacsMixin, LogMixin
+from .base import HacsTaskBase
 
 
 class HacsTaskManager(HacsMixin, LogMixin):

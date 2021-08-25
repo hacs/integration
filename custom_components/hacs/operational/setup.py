@@ -1,20 +1,16 @@
 """Setup HACS."""
-from custom_components.hacs.tasks.manager import HacsTaskManager
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
+from aiogithubapi.const import ACCEPT_HEADERS
 from homeassistant.config_entries import SOURCE_IMPORT
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
-from homeassistant.core import Config, CoreState
+from homeassistant.core import CoreState
 from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
+from homeassistant.loader import async_get_integration
 
-from custom_components.hacs.const import (
-    DOMAIN,
-    HACS_GITHUB_API_HEADERS,
-    INTEGRATION_VERSION,
-    STARTUP,
-)
+from custom_components.hacs.const import DOMAIN, STARTUP
 from custom_components.hacs.enums import (
     ConfigurationType,
     HacsDisabledReason,
@@ -29,17 +25,14 @@ from custom_components.hacs.helpers.functions.remaining_github_calls import (
 from custom_components.hacs.operational.reload import async_reload_entry
 from custom_components.hacs.operational.remove import async_remove_entry
 
-from custom_components.hacs.operational.setup_actions.frontend import (
-    async_setup_frontend,
-)
 from custom_components.hacs.operational.setup_actions.load_hacs_repository import (
     async_load_hacs_repository,
 )
-from custom_components.hacs.operational.setup_actions.sensor import async_add_sensor
 from custom_components.hacs.operational.setup_actions.websocket_api import (
     async_setup_hacs_websockt_api,
 )
 from custom_components.hacs.share import get_hacs
+from custom_components.hacs.tasks.manager import HacsTaskManager
 
 try:
     from homeassistant.components.lovelace import system_health_info
@@ -49,12 +42,18 @@ except ImportError:
 
 async def _async_common_setup(hass):
     """Common setup stages."""
+    integration = await async_get_integration(hass, DOMAIN)
+
     hacs = get_hacs()
-    hacs.log.info(STARTUP)
+    hacs.log.info(STARTUP.format(version=integration.version))
+
+    hacs.integration = integration
+    hacs.version = integration.version
     hacs.hass = hass
     hacs.system.running = True
     hacs.session = async_create_clientsession(hass)
     hacs.tasks = HacsTaskManager()
+
     await hacs.tasks.async_load()
     await hacs.async_set_stage(HacsStage.SETUP)
 
@@ -69,8 +68,6 @@ async def async_setup_entry(hass, config_entry):
     if hass.data.get(DOMAIN) is not None:
         return False
 
-    await _async_common_setup(hass)
-
     hacs.configuration.update_from_dict(
         {
             "config_entry": config_entry,
@@ -80,6 +77,7 @@ async def async_setup_entry(hass, config_entry):
         }
     )
 
+    await _async_common_setup(hass)
     return await async_startup_wrapper_for_config_entry()
 
 
@@ -91,8 +89,6 @@ async def async_setup(hass, config):
     if hacs.configuration.config_type == ConfigurationType.CONFIG_ENTRY:
         return True
 
-    await _async_common_setup(hass)
-
     hacs.configuration.update_from_dict(
         {
             "config_type": ConfigurationType.YAML,
@@ -100,6 +96,8 @@ async def async_setup(hass, config):
             "config": config[DOMAIN],
         }
     )
+
+    await _async_common_setup(hass)
     await async_startup_wrapper_for_yaml()
     return True
 
@@ -145,7 +143,6 @@ async def async_hacs_startup():
         # If this happens, the users YAML is not valid, we assume YAML mode
         lovelace_info = {"mode": "yaml"}
     hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")
-    hacs.version = INTEGRATION_VERSION
     hacs.core.config_path = hacs.hass.config.path()
     hacs.core.ha_version = HAVERSION
 
@@ -155,9 +152,6 @@ async def async_hacs_startup():
     # Setup websocket API
     await async_setup_hacs_websockt_api()
 
-    # Set up frontend
-    await async_setup_frontend()
-
     # Setup GitHub API clients
     session = async_create_clientsession(hacs.hass)
 
@@ -165,14 +159,17 @@ async def async_hacs_startup():
     hacs.github = GitHub(
         hacs.configuration.token,
         session,
-        headers=HACS_GITHUB_API_HEADERS,
+        headers={
+            "User-Agent": f"HACS/{hacs.version}",
+            "Accept": ACCEPT_HEADERS["preview"],
+        },
     )
 
     ## New GitHub client
     hacs.githubapi = GitHubAPI(
         token=hacs.configuration.token,
         session=session,
-        **{"client_name": f"HACS/{INTEGRATION_VERSION}"},
+        **{"client_name": f"HACS/{hacs.version}"},
     )
 
     hacs.data = HacsData()
@@ -225,9 +222,6 @@ async def async_hacs_startup():
         async_call_later(hacs.hass, 5, hacs.startup_tasks)
     else:
         hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks)
-
-    # Set up sensor
-    await async_add_sensor()
 
     # Mischief managed!
     await hacs.async_set_stage(HacsStage.WAITING)

@@ -1,15 +1,16 @@
 """Starting setup task: clear storage."""
 import os
+
 from ..enums import HacsStage
 from .base import HacsTaskRuntimeBase
 
 
 async def async_setup() -> None:
     """Set up this task."""
-    return HacsTaskSetupClearStorage()
+    return Task()
 
 
-class HacsTaskSetupClearStorage(HacsTaskRuntimeBase):
+class Task(HacsTaskRuntimeBase):
     """Clear old files from storage."""
 
     stages = [HacsStage.SETUP]

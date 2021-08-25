@@ -11,8 +11,9 @@ from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
 from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
+from homeassistant.loader import Integration
+from queueman.manager import QueueManager
 
-from .const import INTEGRATION_VERSION
 from .enums import (
     ConfigurationType,
     HacsCategory,
@@ -25,6 +26,7 @@ from .utils.logger import getLogger
 
 if TYPE_CHECKING:
     from .helpers.classes.repository import HacsRepository
+    from .operational.factory import HacsTaskFactory
     from .tasks.manager import HacsTaskManager
 
 
@@ -120,7 +122,6 @@ class HacsSystem:
     disabled: bool = False
     disabled_reason: str | None = None
     running: bool = False
-    version = AwesomeVersion(INTEGRATION_VERSION)
     stage = HacsStage.SETUP
     action: bool = False
 
@@ -131,30 +132,34 @@ class HacsBase:
     _repositories = []
     _repositories_by_full_name = {}
     _repositories_by_id = {}
+
     common = HacsCommon()
     configuration = HacsConfiguration()
     core = HacsCore()
     data = None
     data_repo: AIOGitHubAPIRepository | None = None
+    factory: HacsTaskFactory | None = None
     frontend = HacsFrontend()
     github: GitHub | None = None
     githubapi: GitHubAPI | None = None
     hass: HomeAssistant | None = None
+    integration: Integration | None = None
     log: logging.Logger = getLogger()
+    queue: QueueManager | None = None
     recuring_tasks = []
     repositories: list[HacsRepository] = []
     repository: AIOGitHubAPIRepository | None = None
-    tasks: HacsTaskManager | None = None
     session: ClientSession | None = None
     stage: HacsStage | None = None
     status = HacsStatus()
     system = HacsSystem()
-    version: AwesomeVersion | None = None
+    tasks: HacsTaskManager | None = None
+    version: str | None = None
 
     @property
     def integration_dir(self) -> pathlib.Path:
         """Return the HACS integration dir."""
-        return pathlib.Path(__file__).parent
+        return self.integration.file_path
 
     async def async_set_stage(self, stage: HacsStage) -> None:
         """Set HACS stage."""

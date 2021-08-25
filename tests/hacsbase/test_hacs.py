@@ -60,6 +60,6 @@ async def test_add_remove_repository(hacs, repository, tmpdir):
 
 @pytest.mark.asyncio
 async def test_set_stage(hacs):
-    assert hacs.stage == HacsStage.SETUP
+    assert hacs.stage == None
     await hacs.async_set_stage(HacsStage.RUNNING)
     assert hacs.stage == HacsStage.RUNNING

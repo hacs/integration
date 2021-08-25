@@ -1,11 +1,15 @@
 """Helpers: Misc: get_repository_name."""
-from custom_components.hacs.const import ELEMENT_TYPES
+from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 
 # pylint: disable=missing-docstring
 from custom_components.hacs.helpers.functions.misc import get_repository_name
 
-ELEMENT_TYPES = ELEMENT_TYPES + ["appdaemon", "python_script", "theme"]
+ELEMENT_TYPES = (
+    HacsCategory.INTEGRATION,
+    HacsCategory.LOVELACE,
+    HacsCategory.PLUGIN,
+) + (HacsCategory.APPDAEMON, HacsCategory.PYTHON_SCRIPT, HacsCategory.THEME)
 
 
 def test_everything(repository):

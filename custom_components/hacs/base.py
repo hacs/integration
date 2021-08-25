@@ -2,23 +2,39 @@
 from __future__ import annotations
 
 import logging
+import math
 import pathlib
 from dataclasses import asdict, dataclass, field
 from typing import TYPE_CHECKING, Any
 
-from aiogithubapi import GitHub, GitHubAPI
+from aiogithubapi import (
+    GitHub,
+    GitHubAPI,
+    GitHubAuthenticationException,
+    GitHubRatelimitException,
+)
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
 from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
+from homeassistant.loader import Integration
+from queueman.manager import QueueManager
 
-from .const import INTEGRATION_VERSION
-from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
+from .enums import (
+    ConfigurationType,
+    HacsCategory,
+    HacsDisabledReason,
+    HacsStage,
+    LovelaceMode,
+)
 from .exceptions import HacsException
 from .utils.logger import getLogger
 
 if TYPE_CHECKING:
+    from .hacsbase.data import HacsData
     from .helpers.classes.repository import HacsRepository
+    from .operational.factory import HacsTaskFactory
+    from .tasks.manager import HacsTaskManager
 
 
 @dataclass
@@ -87,7 +103,7 @@ class HacsCore:
 class HacsCommon:
     """Common for HACS."""
 
-    categories: list[str] = field(default_factory=list)
+    categories: set[str] = field(default_factory=set)
     default: list[str] = field(default_factory=list)
     installed: list[str] = field(default_factory=list)
     renamed_repositories: dict[str, str] = field(default_factory=dict)
@@ -113,7 +129,6 @@ class HacsSystem:
     disabled: bool = False
     disabled_reason: str | None = None
     running: bool = False
-    version = AwesomeVersion(INTEGRATION_VERSION)
     stage = HacsStage.SETUP
     action: bool = False
 
@@ -124,29 +139,45 @@ class HacsBase:
     _repositories = []
     _repositories_by_full_name = {}
     _repositories_by_id = {}
+
     common = HacsCommon()
     configuration = HacsConfiguration()
     core = HacsCore()
-    data = None
+    data: HacsData | None = None
     data_repo: AIOGitHubAPIRepository | None = None
+    factory: HacsTaskFactory | None = None
     frontend = HacsFrontend()
     github: GitHub | None = None
     githubapi: GitHubAPI | None = None
     hass: HomeAssistant | None = None
+    integration: Integration | None = None
     log: logging.Logger = getLogger()
+    queue: QueueManager | None = None
     recuring_tasks = []
     repositories: list[HacsRepository] = []
     repository: AIOGitHubAPIRepository | None = None
     session: ClientSession | None = None
-    stage = HacsStage.SETUP
+    stage: HacsStage | None = None
     status = HacsStatus()
     system = HacsSystem()
-    version: AwesomeVersion | None = None
+    tasks: HacsTaskManager | None = None
+    version: str | None = None
 
     @property
     def integration_dir(self) -> pathlib.Path:
         """Return the HACS integration dir."""
-        return pathlib.Path(__file__).parent
+        return self.integration.file_path
+
+    async def async_set_stage(self, stage: HacsStage | None) -> None:
+        """Set HACS stage."""
+        if stage and self.stage == stage:
+            return
+
+        self.stage = stage
+        if stage is not None:
+            self.log.info("Stage changed: %s", self.stage)
+            self.hass.bus.async_fire("hacs/stage", {"stage": self.stage})
+            await self.tasks.async_execute_runtume_tasks()
 
     def disable_hacs(self, reason: HacsDisabledReason) -> None:
         """Disable HACS."""
@@ -160,3 +191,32 @@ class HacsBase:
         self.system.disabled = False
         self.system.disabled_reason = None
         self.log.info("HACS is enabled")
+
+    def enable_hacs_category(self, category: HacsCategory):
+        """Enable HACS category."""
+        if category not in self.common.categories:
+            self.log.info("Enable category: %s", category)
+            self.common.categories.add(category)
+
+    def disable_hacs_category(self, category: HacsCategory):
+        """Disable HACS category."""
+        if category in self.common.categories:
+            self.log.info("Disabling category: %s", category)
+            self.common.categories.pop(category)
+
+    async def async_can_update(self) -> int:
+        """Helper to calculate the number of repositories we can fetch data for."""
+        try:
+            result = await self.githubapi.rate_limit()
+            if ((limit := result.data.resources.core.remaining or 0) - 1000) >= 15:
+                return math.floor((limit - 1000) / 15)
+        except GitHubAuthenticationException as exception:
+            self.log.error("GitHub authentication failed - %s", exception)
+            self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
+        except GitHubRatelimitException as exception:
+            self.log.error("GitHub API ratelimited - %s", exception)
+            self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
+        except BaseException as exception:  # pylint: disable=broad-except
+            self.log.exception(exception)
+
+        return 0

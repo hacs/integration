@@ -1,12 +1,16 @@
 """Set up some common test helper things."""
 import asyncio
 import logging
+from pathlib import Path
+from unittest.mock import AsyncMock
 
 import pytest
 from homeassistant.exceptions import ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
+from homeassistant.loader import Integration
 from homeassistant.runner import HassEventLoopPolicy
 
+from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.hacsbase.hacs import Hacs
 from custom_components.hacs.helpers.classes.repository import HacsRepository
 from custom_components.hacs.helpers.functions.version_to_install import (
@@ -21,6 +25,7 @@ from custom_components.hacs.repositories import (
     HacsThemeRepository,
 )
 from custom_components.hacs.share import SHARE
+from custom_components.hacs.tasks.manager import HacsTaskManager
 from tests.async_mock import MagicMock
 
 from tests.common import (  # noqa: E402, isort:skip
@@ -88,7 +93,15 @@ def hacs(hass):
     """Fixture to provide a HACS object."""
     hacs_obj = Hacs()
     hacs_obj.hass = hass
+    hacs_obj.tasks = AsyncMock()
     hacs_obj.session = async_create_clientsession(hass)
+    hacs_obj.integration = Integration(
+        hass=hass,
+        pkg_path="custom_components.hacs",
+        file_path=Path(hass.config.path("custom_components/hacs")),
+        manifest={"domain": DOMAIN, "version": "0.0.0"},
+    )
+    hacs_obj.version = hacs_obj.integration.version
     hacs_obj.configuration.token = TOKEN
     hacs_obj.core.config_path = hass.config.path()
     hacs_obj.system.action = False

@@ -2,8 +2,8 @@
 import json
 
 from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPINotModifiedException, GitHub
+from aiogithubapi.const import ACCEPT_HEADERS
 
-from custom_components.hacs.const import HACS_GITHUB_API_HEADERS
 from custom_components.hacs.exceptions import HacsException, HacsNotModifiedException
 from custom_components.hacs.helpers.functions.template import render_template
 from custom_components.hacs.share import get_hacs
@@ -45,11 +45,15 @@ async def get_info_md_content(repository):
 
 async def get_repository(session, token, repository_full_name, etag=None):
     """Return a repository object or None."""
+    hacs = get_hacs()
     try:
         github = GitHub(
             token,
             session,
-            headers=HACS_GITHUB_API_HEADERS,
+            headers={
+                "User-Agent": f"HACS/{hacs.version}",
+                "Accept": ACCEPT_HEADERS["preview"],
+            },
         )
         repository = await github.get_repo(repository_full_name, etag)
         return repository, github.client.last_response.etag

@@ -13,19 +13,12 @@ from custom_components.hacs.helpers.functions.get_list_from_default import (
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
-from custom_components.hacs.helpers.functions.remaining_github_calls import (
-    get_fetch_updates_for,
-)
+
 from custom_components.hacs.helpers.functions.store import (
     async_load_from_store,
     async_save_to_store,
 )
-from custom_components.hacs.operational.setup_actions.categories import (
-    async_setup_extra_stores,
-)
 from custom_components.hacs.share import (
-    get_factory,
-    get_queue,
     get_removed,
     is_removed,
     list_removed_repositories,
@@ -33,6 +26,7 @@ from custom_components.hacs.share import (
 
 from ..base import HacsBase
 from ..enums import HacsCategory, HacsStage
+from ..share import get_factory, get_queue
 
 
 class Hacs(HacsBase, HacsHelpers):
@@ -121,7 +115,6 @@ class Hacs(HacsBase, HacsHelpers):
         """Tasks that are started after startup."""
         await self.async_set_stage(HacsStage.STARTUP)
         self.status.background_task = True
-        await async_setup_extra_stores()
         self.hass.bus.async_fire("hacs/status", {})
 
         await self.handle_critical_repositories_startup()
@@ -241,15 +234,13 @@ class Hacs(HacsBase, HacsHelpers):
             self.log.debug("Queue is already running")
             return
 
-        can_update = await get_fetch_updates_for(self.githubapi)
+        can_update = await self.async_can_update()
         self.log.debug(
             "Can update %s repositories, items in queue %s",
             can_update,
             self.queue.pending_tasks,
         )
-        if can_update == 0:
-            self.log.info("HACS is ratelimited, repository updates will resume later.")
-        else:
+        if can_update != 0:
             self.status.background_task = True
             self.hass.bus.async_fire("hacs/status", {})
             try:
@@ -283,7 +274,6 @@ class Hacs(HacsBase, HacsHelpers):
     async def recurring_tasks_all(self, _notarealarg=None):
         """Recurring tasks for all repositories."""
         self.log.debug("Starting recurring background task for all repositories")
-        await async_setup_extra_stores()
         self.status.background_task = True
         self.hass.bus.async_fire("hacs/status", {})
 
@@ -351,9 +341,3 @@ class Hacs(HacsBase, HacsHelpers):
                     continue
                 continue
             self.queue.add(self.factory.safe_register(repo, category))
-
-    async def async_set_stage(self, stage: str) -> None:
-        """Set the stage of HACS."""
-        self.stage = HacsStage(stage)
-        self.log.info("Stage changed: %s", self.stage)
-        self.hass.bus.async_fire("hacs/stage", {"stage": self.stage})

@@ -14,6 +14,8 @@ DOMAIN_DATA = f"{NAME_SHORT.lower()}_data"
 
 PACKAGE_NAME = "custom_components.hacs"
 
+PLATFORMS = ["sensor"]
+
 HACS_ACTION_GITHUB_API_HEADERS = {
     "User-Agent": "HACS/action",
     "Accept": ACCEPT_HEADERS["preview"],

@@ -13,7 +13,7 @@ class Task(HacsTaskRuntimeBase):
 
     stages = [HacsStage.SETUP, HacsStage.RUNNING]
 
-    async def execute(self) -> None:
+    def execute(self) -> None:
         self.hacs.common.categories = set()
         for category in (HacsCategory.INTEGRATION, HacsCategory.PLUGIN):
             self.hacs.enable_hacs_category(HacsCategory(category))

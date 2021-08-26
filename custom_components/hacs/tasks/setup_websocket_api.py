@@ -25,7 +25,7 @@ class Task(HacsTaskRuntimeBase):
 
     stages = [HacsStage.SETUP]
 
-    async def execute(self) -> None:
+    async def async_execute(self) -> None:
         async_register_command(self.hass, hacs_settings)
         async_register_command(self.hass, hacs_config)
         async_register_command(self.hass, hacs_repositories)

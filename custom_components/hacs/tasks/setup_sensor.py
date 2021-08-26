@@ -17,7 +17,7 @@ class Task(HacsTaskRuntimeBase):
 
     stages = [HacsStage.SETUP]
 
-    async def execute(self) -> None:
+    async def async_execute(self) -> None:
         if self.hacs.configuration.config_type == ConfigurationType.YAML:
             self.hass.async_create_task(
                 async_load_platform(

@@ -18,10 +18,8 @@ from custom_components.hacs.enums import (
     LovelaceMode,
 )
 from custom_components.hacs.hacsbase.data import HacsData
-
 from custom_components.hacs.operational.reload import async_reload_entry
 from custom_components.hacs.operational.remove import async_remove_entry
-
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.tasks.manager import HacsTaskManager
 

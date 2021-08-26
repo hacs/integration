@@ -27,13 +27,8 @@ class HacsTaskBase(HacsMixin, LogMixin):
         """Return the check slug."""
         return self.__class__.__module__.rsplit(".", maxsplit=1)[-1]
 
-    @abstractmethod
-    async def execute(self) -> None:
-        """Execute the task."""
-        raise NotImplementedError
-
     async def execute_task(self) -> None:
-        """This should only be executed by the manager."""
+        """Execute the task defined in subclass."""
         if self.hacs.system.disabled:
             self.log.warning(
                 "Skipping task %s, HACS is disabled - %s",
@@ -43,10 +38,25 @@ class HacsTaskBase(HacsMixin, LogMixin):
             return
         self.log.info("Executing task: %s", self.slug)
         start_time = timer()
-        await self.execute()
-        self.log.debug(
-            "Task %s took " "%.2f seconds to complete", self.slug, timer() - start_time
-        )
+
+        try:
+            if task := getattr(self, "execute", None):
+                await self.hass.async_add_executor_job(task)
+            elif task := getattr(self, "async_execute", None):
+                await task()  # pylint: disable=not-callable
+            else:
+                raise NotImplementedError(
+                    f"{self.slug} does not have a execute method defined."
+                )
+        except BaseException as exception:  # pylint: disable=broad-except
+            self.log.error("Task %s failed: %s", self.slug, exception)
+
+        else:
+            self.log.debug(
+                "Task %s took " "%.2f seconds to complete",
+                self.slug,
+                timer() - start_time,
+            )
 
 
 class HacsTaskEventBase(HacsTaskBase):

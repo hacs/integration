@@ -2,7 +2,7 @@
 
 from homeassistant.helpers.discovery import async_load_platform
 
-from ..const import DOMAIN
+from ..const import DOMAIN, PLATFORMS
 from ..enums import ConfigurationType, HacsStage
 from .base import HacsTaskRuntimeBase
 
@@ -25,8 +25,6 @@ class Task(HacsTaskRuntimeBase):
                 )
             )
         else:
-            self.hass.async_add_job(
-                self.hass.config_entries.async_forward_entry_setup(
-                    self.hacs.configuration.config_entry, "sensor"
-                )
+            self.hass.config_entries.async_setup_platforms(
+                self.hacs.configuration.config_entry, PLATFORMS
             )

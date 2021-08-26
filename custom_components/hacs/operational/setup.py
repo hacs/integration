@@ -1,25 +1,18 @@
 """Setup HACS."""
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
-from homeassistant.config_entries import SOURCE_IMPORT
+from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.const import __version__ as HAVERSION
-from homeassistant.core import CoreState
+from homeassistant.core import CoreState, HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
 
 from custom_components.hacs.const import DOMAIN, STARTUP
-from custom_components.hacs.enums import (
-    ConfigurationType,
-    HacsDisabledReason,
-    HacsStage,
-    LovelaceMode,
-)
+from custom_components.hacs.enums import ConfigurationType, HacsStage, LovelaceMode
 from custom_components.hacs.hacsbase.data import HacsData
-from custom_components.hacs.operational.reload import async_reload_entry
-from custom_components.hacs.operational.remove import async_remove_entry
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.tasks.manager import HacsTaskManager
 
@@ -85,7 +78,7 @@ async def _async_common_setup(hass):
     hass.data[DOMAIN] = hacs
 
 
-async def async_setup_entry(hass, config_entry):
+async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Set up this integration using UI."""
     hacs = get_hacs()
 
@@ -132,7 +125,7 @@ async def async_setup(hass, config):
 async def async_startup_wrapper_for_config_entry():
     """Startup wrapper for ui config."""
     hacs = get_hacs()
-    hacs.configuration.config_entry.add_update_listener(async_reload_entry)
+
     try:
         startup_result = await async_hacs_startup()
     except AIOGitHubAPIException:

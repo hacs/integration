@@ -29,7 +29,7 @@ class HACSDevice(HacsMixin, Entity):
             "name": NAME_SHORT,
             "manufacturer": "hacs.xyz",
             "model": "",
-            "sw_version": self.hacs.version,
+            "sw_version": str(self.hacs.version),
             "entry_type": "service",
         }
 

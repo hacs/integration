@@ -10,5 +10,5 @@ async def async_setup() -> None:
 class Task(HacsTaskManualBase):
     """"Hacs task base."""
 
-    async def execute(self) -> None:
+    def execute(self) -> None:
         self.log.debug("Hello World!")

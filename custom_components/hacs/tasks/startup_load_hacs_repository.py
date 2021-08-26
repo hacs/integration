@@ -16,7 +16,7 @@ class Task(HacsTaskRuntimeBase):
 
     stages = [HacsStage.STARTUP]
 
-    async def execute(self) -> None:
+    async def async_execute(self) -> None:
         try:
             repository = self.hacs.get_by_name("hacs/integration")
             if repository is None:

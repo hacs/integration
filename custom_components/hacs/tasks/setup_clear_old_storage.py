@@ -15,11 +15,7 @@ class Task(HacsTaskRuntimeBase):
 
     stages = [HacsStage.SETUP]
 
-    async def execute(self) -> None:
-        await self.hacs.hass.async_add_executor_job(self._clear_storage)
-
-    def _clear_storage(self) -> None:
-        """Clear old files from storage."""
+    def execute(self) -> None:
         for storage_file in ("hacs",):
             path = f"{self.hacs.core.config_path}/.storage/{storage_file}"
             if os.path.isfile(path):

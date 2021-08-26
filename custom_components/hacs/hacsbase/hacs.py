@@ -13,7 +13,6 @@ from custom_components.hacs.helpers.functions.get_list_from_default import (
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
-
 from custom_components.hacs.helpers.functions.store import (
     async_load_from_store,
     async_save_to_store,

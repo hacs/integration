@@ -13,6 +13,6 @@ class Task(HacsTaskRuntimeBase):
 
     stages = [HacsStage.SETUP]
 
-    async def execute(self) -> None:
+    async def async_execute(self) -> None:
         if not await self.hacs.data.restore():
             self.hacs.disable_hacs(HacsDisabledReason.RESTORE)

@@ -1,4 +1,6 @@
 """Adds config flow for HACS."""
+from __future__ import annotations
+from typing import Any
 import voluptuous as vol
 from aiogithubapi import GitHubDeviceAPI, GitHubException
 from aiogithubapi.common.const import OAUTH_USER_LOGIN
@@ -33,9 +35,15 @@ class HacsFlowHandler(HacsMixin, config_entries.ConfigFlow, domain=DOMAIN):
         self._progress_task = None
         self._login_device = None
 
-    async def async_step_user(self, user_input):
+    async def async_step_zeroconf(self, discovery_info: dict[str, Any] | None = None):
+        """Handle zeroconf discovery."""
+        return await self.async_step_user(None)
+
+    async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Handle a flow initialized by the user."""
         self._errors = {}
+        if await self.async_set_unique_id(DOMAIN):
+            return self.async_abort(reason="single_instance_allowed")
         if self._async_current_entries():
             return self.async_abort(reason="single_instance_allowed")
         if self.hass.data.get(DOMAIN):

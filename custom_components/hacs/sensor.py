@@ -29,7 +29,7 @@ class HACSDevice(HacsMixin, Entity):
             "name": NAME_SHORT,
             "manufacturer": "hacs.xyz",
             "model": "",
-            "sw_version": self.hacs.version,
+            "sw_version": str(self.hacs.version),
             "entry_type": "service",
         }
 
@@ -109,8 +109,8 @@ class HACSSensor(HACSDevice):
                 {
                     "name": repository.data.full_name,
                     "display_name": repository.display_name,
-                    "installed_version": repository.display_installed_version,
-                    "available_version": repository.display_available_version,
+                    "installed_version": str(repository.display_installed_version),
+                    "available_version": str(repository.display_available_version),
                 }
             )
         return {"repositories": repositories}

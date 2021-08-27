@@ -1,6 +1,6 @@
 """Repository data."""
-import json
 from datetime import datetime
+import json
 from typing import List, Optional
 
 import attr
@@ -134,9 +134,7 @@ class RepositoryData:
                         datetime.strptime(data[key], "%Y-%m-%dT%H:%M:%SZ"),
                     )
                 else:
-                    setattr(
-                        self, key, datetime.strptime(data[key], "%Y-%m-%dT%H:%M:%S")
-                    )
+                    setattr(self, key, datetime.strptime(data[key], "%Y-%m-%dT%H:%M:%S"))
             elif key == "id":
                 setattr(self, key, str(data[key]))
             elif key == "country":

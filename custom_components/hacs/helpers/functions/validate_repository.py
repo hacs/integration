@@ -37,9 +37,7 @@ async def common_validate(repository, ignore_issues=False):
     await repository.get_repository_manifest_content()
 
 
-async def common_update_data(
-    repository: HacsRepository, ignore_issues=False, force=False
-):
+async def common_update_data(repository: HacsRepository, ignore_issues=False, force=False):
     """Common update data."""
     hacs = get_hacs()
     releases = []
@@ -48,9 +46,7 @@ async def common_update_data(
             hacs.session,
             hacs.configuration.token,
             repository.data.full_name,
-            etag=None
-            if force or repository.data.installed
-            else repository.data.etag_repository,
+            etag=None if force or repository.data.installed else repository.data.etag_repository,
         )
         repository.repository_object = repository_object
         if repository.data.full_name.lower() != repository_object.full_name.lower():
@@ -94,9 +90,7 @@ async def common_update_data(
         if releases:
             repository.data.releases = True
             repository.releases.objects = [x for x in releases if not x.draft]
-            repository.data.published_tags = [
-                x.tag_name for x in repository.releases.objects
-            ]
+            repository.data.published_tags = [x.tag_name for x in repository.releases.objects]
             repository.data.last_version = next(iter(repository.data.published_tags))
 
     except (AIOGitHubAPIException, HacsException):

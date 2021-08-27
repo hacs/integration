@@ -1,10 +1,10 @@
 """Base HACS class."""
 from __future__ import annotations
 
+from dataclasses import asdict, dataclass, field
 import logging
 import math
 import pathlib
-from dataclasses import asdict, dataclass, field
 from typing import TYPE_CHECKING, Any
 
 from aiogithubapi import (

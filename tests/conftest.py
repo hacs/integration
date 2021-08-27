@@ -4,11 +4,11 @@ import logging
 from pathlib import Path
 from unittest.mock import AsyncMock
 
-import pytest
 from homeassistant.exceptions import ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.loader import Integration
 from homeassistant.runner import HassEventLoopPolicy
+import pytest
 
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.hacsbase.hacs import Hacs
@@ -26,6 +26,7 @@ from custom_components.hacs.repositories import (
 )
 from custom_components.hacs.share import SHARE
 from custom_components.hacs.tasks.manager import HacsTaskManager
+
 from tests.async_mock import MagicMock
 
 from tests.common import (  # noqa: E402, isort:skip
@@ -71,9 +72,7 @@ def hass(event_loop, tmpdir):
         orig_exception_handler(loop, context)
 
     exceptions = []
-    hass_obj = event_loop.run_until_complete(
-        async_test_home_assistant(event_loop, tmpdir)
-    )
+    hass_obj = event_loop.run_until_complete(async_test_home_assistant(event_loop, tmpdir))
     orig_exception_handler = event_loop.get_exception_handler()
     event_loop.set_exception_handler(exc_handle)
 

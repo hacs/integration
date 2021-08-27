@@ -1,7 +1,7 @@
 """API Handler for check_local_path"""
+from homeassistant.components import websocket_api
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
-from homeassistant.components import websocket_api
 
 from custom_components.hacs.helpers.functions.path_exsist import async_path_exsist
 

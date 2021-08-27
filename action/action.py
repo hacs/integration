@@ -3,8 +3,8 @@ import asyncio
 import json
 import os
 
-import aiohttp
 from aiogithubapi import GitHub
+import aiohttp
 from homeassistant.core import HomeAssistant
 
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
@@ -77,9 +77,7 @@ def chose_category():
 
 async def preflight():
     """Preflight checks."""
-    logger.warning(
-        "This action is deprecated. Use https://github.com/hacs/action instead"
-    )
+    logger.warning("This action is deprecated. Use https://github.com/hacs/action instead")
     event_data = get_event_data()
     ref = None
     if REPOSITORY and CATEGORY:

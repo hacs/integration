@@ -2,10 +2,11 @@
 # pylint: disable=missing-docstring
 import os
 
-import pytest
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
+import pytest
 
 from custom_components.hacs.helpers.functions.download import download_content
+
 from tests.sample_data import response_rate_limit_header
 
 

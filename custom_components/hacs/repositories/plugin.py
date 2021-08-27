@@ -66,9 +66,7 @@ class HacsPluginRepository(HacsRepository):
     async def get_package_content(self):
         """Get package content."""
         try:
-            package = await self.repository_object.get_contents(
-                "package.json", self.ref
-            )
+            package = await self.repository_object.get_contents("package.json", self.ref)
             package = json.loads(package.content)
 
             if package:

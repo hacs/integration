@@ -6,9 +6,7 @@ from custom_components.hacs.const import DOMAIN, NAME_SHORT
 from custom_components.hacs.mixin import HacsMixin
 
 
-async def async_setup_platform(
-    _hass, _config, async_add_entities, _discovery_info=None
-):
+async def async_setup_platform(_hass, _config, async_add_entities, _discovery_info=None):
     """Setup sensor platform."""
     async_add_entities([HACSSensor()])
 
@@ -76,9 +74,7 @@ class HACSSensor(HACSDevice):
     @property
     def unique_id(self):
         """Return a unique ID to use for this sensor."""
-        return (
-            "0717a0cd-745c-48fd-9b16-c8534c9704f9-bc944b0f-fd42-4a58-a072-ade38d1444cd"
-        )
+        return "0717a0cd-745c-48fd-9b16-c8534c9704f9-bc944b0f-fd42-4a58-a072-ade38d1444cd"
 
     @property
     def name(self):

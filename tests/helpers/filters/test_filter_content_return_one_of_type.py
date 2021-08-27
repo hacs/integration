@@ -20,8 +20,7 @@ def test_valid_objects():
         ),
     ]
     files = [
-        x.filename
-        for x in filter_content_return_one_of_type(tree, "test", "file", "full_path")
+        x.filename for x in filter_content_return_one_of_type(tree, "test", "file", "full_path")
     ]
     assert "file.file" in files
     assert "newfile.file" not in files

@@ -13,7 +13,7 @@ from ..mixin import HacsMixin, LogMixin
 
 
 class HacsTaskBase(HacsMixin, LogMixin):
-    """"Hacs task base."""
+    """ "Hacs task base."""
 
     hass: HomeAssistant
 
@@ -45,9 +45,7 @@ class HacsTaskBase(HacsMixin, LogMixin):
             elif task := getattr(self, "async_execute", None):
                 await task()  # pylint: disable=not-callable
             else:
-                raise NotImplementedError(
-                    f"{self.slug} does not have a execute method defined."
-                )
+                raise NotImplementedError(f"{self.slug} does not have a execute method defined.")
         except BaseException as exception:  # pylint: disable=broad-except
             self.log.error("Task %s failed: %s", self.slug, exception)
 
@@ -60,7 +58,7 @@ class HacsTaskBase(HacsMixin, LogMixin):
 
 
 class HacsTaskEventBase(HacsTaskBase):
-    """"HacsTaskEventBase."""
+    """ "HacsTaskEventBase."""
 
     type = HacsTaskType.EVENT
 
@@ -72,7 +70,7 @@ class HacsTaskEventBase(HacsTaskBase):
 
 
 class HacsTaskScheduleBase(HacsTaskBase):
-    """"HacsTaskScheduleBase."""
+    """ "HacsTaskScheduleBase."""
 
     type = HacsTaskType.SCHEDULE
 
@@ -84,13 +82,13 @@ class HacsTaskScheduleBase(HacsTaskBase):
 
 
 class HacsTaskManualBase(HacsTaskBase):
-    """"HacsTaskManualBase."""
+    """ "HacsTaskManualBase."""
 
     type = HacsTaskType.MANUAL
 
 
 class HacsTaskRuntimeBase(HacsTaskBase):
-    """"HacsTaskRuntimeBase."""
+    """ "HacsTaskRuntimeBase."""
 
     type = HacsTaskType.RUNTIME
     stages = list(HacsStage)

@@ -56,9 +56,7 @@ def get_removed(repository):
         removed_repo.repository = repository
         SHARE["removed_repositories"].append(removed_repo)
     filter_repos = [
-        x
-        for x in SHARE["removed_repositories"]
-        if x.repository.lower() == repository.lower()
+        x for x in SHARE["removed_repositories"] if x.repository.lower() == repository.lower()
     ]
 
     return filter_repos.pop() or None

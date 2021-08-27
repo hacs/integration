@@ -23,9 +23,7 @@ async def async_save_file(location, content):
         errors = None
 
     try:
-        async with aiofiles.open(
-            location, mode=mode, encoding=encoding, errors=errors
-        ) as outfile:
+        async with aiofiles.open(location, mode=mode, encoding=encoding, errors=errors) as outfile:
             await outfile.write(content)
             outfile.close()
 

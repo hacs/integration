@@ -34,16 +34,12 @@ class HacsNetdaemonRepository(HacsRepository):
                 self.content.path.remote = ""
 
         if self.content.path.remote == "apps":
-            self.data.domain = get_first_directory_in_directory(
-                self.tree, self.content.path.remote
-            )
+            self.data.domain = get_first_directory_in_directory(self.tree, self.content.path.remote)
             self.content.path.remote = f"apps/{self.data.name}"
 
         compliant = False
         for treefile in self.treefiles:
-            if treefile.startswith(f"{self.content.path.remote}") and treefile.endswith(
-                ".cs"
-            ):
+            if treefile.startswith(f"{self.content.path.remote}") and treefile.endswith(".cs"):
                 compliant = True
                 break
         if not compliant:
@@ -69,9 +65,7 @@ class HacsNetdaemonRepository(HacsRepository):
                 self.content.path.remote = ""
 
         if self.content.path.remote == "apps":
-            self.data.domain = get_first_directory_in_directory(
-                self.tree, self.content.path.remote
-            )
+            self.data.domain = get_first_directory_in_directory(self.tree, self.content.path.remote)
             self.content.path.remote = f"apps/{self.data.name}"
 
         # Set local path

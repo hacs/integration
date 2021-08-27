@@ -1,7 +1,7 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
+from abc import ABC
 import os
 import tempfile
-from abc import ABC
 
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.download import download_content
@@ -56,9 +56,7 @@ async def async_install_repository(repository):
     repository.validate.errors = []
 
     if not repository.can_install:
-        raise HacsException(
-            "The version of Home Assistant is not compatible with this version"
-        )
+        raise HacsException("The version of Home Assistant is not compatible with this version")
 
     version = version_to_install(repository)
     if version == repository.data.default_branch:
@@ -67,9 +65,7 @@ async def async_install_repository(repository):
         repository.ref = f"tags/{version}"
 
     if repository.data.installed and repository.data.category == "netdaemon":
-        persistent_directory = await hacs.hass.async_add_executor_job(
-            BackupNetDaemon, repository
-        )
+        persistent_directory = await hacs.hass.async_add_executor_job(BackupNetDaemon, repository)
         await hacs.hass.async_add_executor_job(persistent_directory.create)
 
     elif repository.data.persistent_directory:

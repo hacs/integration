@@ -9,6 +9,7 @@ from custom_components.hacs.helpers.functions.information import (
     get_repository,
     get_tree,
 )
+
 from tests.sample_data import (
     repository_data,
     response_rate_limit_header,
@@ -30,9 +31,7 @@ async def test_base(aresponses, event_loop):
         "api.github.com",
         "/repos/test/test",
         "get",
-        aresponses.Response(
-            body=json.dumps(repository_data), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(repository_data), headers=response_rate_limit_header),
     )
     aresponses.add(
         "api.github.com",

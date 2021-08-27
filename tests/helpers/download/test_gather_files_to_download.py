@@ -21,15 +21,9 @@ def test_gather_files_to_download(repository):
 def test_gather_plugin_files_from_root(repository_plugin):
     repository_plugin.content.path.remote = ""
     repository_plugin.tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.js", "type": "blob"}, "test/test", "main"
-        ),
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "dir", "type": "tree"}, "test/test", "main"
-        ),
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "aaaa.js", "type": "blob"}, "test/test", "main"
-        ),
+        AIOGitHubAPIRepositoryTreeContent({"path": "test.js", "type": "blob"}, "test/test", "main"),
+        AIOGitHubAPIRepositoryTreeContent({"path": "dir", "type": "tree"}, "test/test", "main"),
+        AIOGitHubAPIRepositoryTreeContent({"path": "aaaa.js", "type": "blob"}, "test/test", "main"),
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "dist/test.js", "type": "blob"}, "test/test", "main"
         ),
@@ -47,9 +41,7 @@ def test_gather_plugin_files_from_dist(repository_plugin):
     repository.content.path.remote = "dist"
     repository.data.file_name = "test.js"
     repository.tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.js", "type": "blob"}, "test/test", "main"
-        ),
+        AIOGitHubAPIRepositoryTreeContent({"path": "test.js", "type": "blob"}, "test/test", "main"),
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "dist/image.png", "type": "blob"}, "test/test", "main"
         ),
@@ -76,9 +68,7 @@ def test_gather_plugin_multiple_plugin_files_from_dist(repository_plugin):
     repository.content.path.remote = "dist"
     repository.data.file_name = "test.js"
     repository.tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.js", "type": "blob"}, "test/test", "main"
-        ),
+        AIOGitHubAPIRepositoryTreeContent({"path": "test.js", "type": "blob"}, "test/test", "main"),
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "dist/test.js", "type": "blob"}, "test/test", "main"
         ),
@@ -96,9 +86,7 @@ def test_gather_plugin_files_from_release(repository_plugin):
     repository = repository_plugin
     repository.data.file_name = "test.js"
     repository.data.releases = True
-    release = AIOGitHubAPIRepositoryRelease(
-        {"tag_name": "3", "assets": [{"name": "test.js"}]}
-    )
+    release = AIOGitHubAPIRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.js"}]})
     repository.releases.objects = [release]
     files = [x.name for x in gather_files_to_download(repository)]
     assert "test.js" in files
@@ -124,9 +112,7 @@ def test_gather_zip_release(repository_plugin):
     repository.data.zip_release = True
     repository.data.filename = "test.zip"
     repository.releases.objects = [
-        AIOGitHubAPIRepositoryRelease(
-            {"tag_name": "3", "assets": [{"name": "test.zip"}]}
-        )
+        AIOGitHubAPIRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.zip"}]})
     ]
     files = [x.name for x in gather_files_to_download(repository)]
     assert "test.zip" in files
@@ -139,9 +125,7 @@ def test_single_file_repo(repository):
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "test.file", "type": "blob"}, "test/test", "main"
         ),
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "dir", "type": "tree"}, "test/test", "main"
-        ),
+        AIOGitHubAPIRepositoryTreeContent({"path": "dir", "type": "tree"}, "test/test", "main"),
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "test.yaml", "type": "blob"}, "test/test", "main"
         ),
@@ -164,9 +148,7 @@ def test_gather_content_in_root_theme(repository_theme):
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "test.yaml", "type": "blob"}, "test/test", "main"
         ),
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "dir", "type": "tree"}, "test/test", "main"
-        ),
+        AIOGitHubAPIRepositoryTreeContent({"path": "dir", "type": "tree"}, "test/test", "main"),
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "test2.yaml", "type": "blob"}, "test/test", "main"
         ),
@@ -179,9 +161,7 @@ def test_gather_content_in_root_theme(repository_theme):
 def test_gather_netdaemon_files_base(repository_netdaemon):
     repository = repository_netdaemon
     repository.tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.cs", "type": "blob"}, "test/test", "main"
-        ),
+        AIOGitHubAPIRepositoryTreeContent({"path": "test.cs", "type": "blob"}, "test/test", "main"),
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "apps/test/test.cs", "type": "blob"}, "test/test", "main"
         ),
@@ -202,9 +182,7 @@ def test_gather_netdaemon_files_base(repository_netdaemon):
 def test_gather_appdaemon_files_base(repository_appdaemon):
     repository = repository_appdaemon
     repository.tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.py", "type": "blob"}, "test/test", "main"
-        ),
+        AIOGitHubAPIRepositoryTreeContent({"path": "test.py", "type": "blob"}, "test/test", "main"),
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "apps/test/test.py", "type": "blob"}, "test/test", "main"
         ),
@@ -222,9 +200,7 @@ def test_gather_appdaemon_files_with_subdir(repository_appdaemon):
     repository = repository_appdaemon
     repository.data.file_name = "test.py"
     repository.tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.py", "type": "blob"}, "test/test", "main"
-        ),
+        AIOGitHubAPIRepositoryTreeContent({"path": "test.py", "type": "blob"}, "test/test", "main"),
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "apps/test/test.py", "type": "blob"}, "test/test", "main"
         ),
@@ -255,21 +231,11 @@ def test_gather_plugin_multiple_files_in_root(repository_plugin):
     repository.content.path.remote = ""
     repository.data.file_name = "test.js"
     repository.tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.js", "type": "blob"}, "test/test", "main"
-        ),
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "dep1.js", "type": "blob"}, "test/test", "main"
-        ),
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "dep2.js", "type": "blob"}, "test/test", "main"
-        ),
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "dep3.js", "type": "blob"}, "test/test", "main"
-        ),
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "info.md", "type": "blob"}, "test/test", "main"
-        ),
+        AIOGitHubAPIRepositoryTreeContent({"path": "test.js", "type": "blob"}, "test/test", "main"),
+        AIOGitHubAPIRepositoryTreeContent({"path": "dep1.js", "type": "blob"}, "test/test", "main"),
+        AIOGitHubAPIRepositoryTreeContent({"path": "dep2.js", "type": "blob"}, "test/test", "main"),
+        AIOGitHubAPIRepositoryTreeContent({"path": "dep3.js", "type": "blob"}, "test/test", "main"),
+        AIOGitHubAPIRepositoryTreeContent({"path": "info.md", "type": "blob"}, "test/test", "main"),
     ]
     files = [x.path for x in gather_files_to_download(repository)]
     assert "test.js" in files
@@ -284,12 +250,8 @@ def test_gather_plugin_different_card_name(repository_plugin):
     repository.content.path.remote = ""
     repository.data.file_name = "card.js"
     repository.tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "card.js", "type": "blob"}, "test/test", "main"
-        ),
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "info.md", "type": "blob"}, "test/test", "main"
-        ),
+        AIOGitHubAPIRepositoryTreeContent({"path": "card.js", "type": "blob"}, "test/test", "main"),
+        AIOGitHubAPIRepositoryTreeContent({"path": "info.md", "type": "blob"}, "test/test", "main"),
     ]
     find_file_name(repository)
     files = [x.path for x in gather_files_to_download(repository)]

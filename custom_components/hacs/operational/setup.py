@@ -2,8 +2,7 @@
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
-from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
-from homeassistant.const import __version__ as HAVERSION
+from homeassistant.const import EVENT_HOMEASSISTANT_STARTED, __version__ as HAVERSION
 from homeassistant.core import CoreState, HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
@@ -172,8 +171,6 @@ async def async_hacs_startup():
 
     # Mischief managed!
     await hacs.async_set_stage(HacsStage.WAITING)
-    hacs.log.info(
-        "Setup complete, waiting for Home Assistant before startup tasks starts"
-    )
+    hacs.log.info("Setup complete, waiting for Home Assistant before startup tasks starts")
 
     return not hacs.system.disabled

@@ -1,18 +1,17 @@
 # pylint: disable=missing-docstring,invalid-name
 import asyncio
+from contextlib import contextmanager
 import functools as ft
 import json
 import os
-from contextlib import contextmanager
 
-import homeassistant.util.dt as date_util
-from homeassistant import auth, config_entries
-from homeassistant import core as ha
+from homeassistant import auth, config_entries, core as ha
 from homeassistant.auth import auth_store
 from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE
 from homeassistant.helpers import storage
 from homeassistant.helpers.device_registry import DeviceRegistry
 from homeassistant.helpers.entity_registry import EntityRegistry
+import homeassistant.util.dt as date_util
 from homeassistant.util.unit_system import METRIC_SYSTEM
 
 from custom_components.hacs.helpers.classes.repository import HacsRepository
@@ -20,6 +19,7 @@ from custom_components.hacs.helpers.functions.version_to_install import (
     version_to_install,
 )
 from custom_components.hacs.utils.logger import getLogger
+
 from tests.async_mock import AsyncMock, Mock, patch
 
 _LOGGER = getLogger(__name__)

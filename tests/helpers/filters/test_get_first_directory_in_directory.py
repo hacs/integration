@@ -9,9 +9,7 @@ from custom_components.hacs.helpers.functions.filters import (
 
 def test_valid():
     tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test", "type": "tree"}, "test/test", "main"
-        ),
+        AIOGitHubAPIRepositoryTreeContent({"path": "test", "type": "tree"}, "test/test", "main"),
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "test/path", "type": "tree"}, "test/test", "main"
         ),

@@ -61,9 +61,7 @@ class HacsAppdaemonRepository(HacsRepository):
                 self.content.path.remote = ""
 
         if self.content.path.remote == "apps":
-            addir = await self.repository_object.get_contents(
-                self.content.path.remote, self.ref
-            )
+            addir = await self.repository_object.get_contents(self.content.path.remote, self.ref)
             self.content.path.remote = addir[0].path
         self.content.objects = await self.repository_object.get_contents(
             self.content.path.remote, self.ref

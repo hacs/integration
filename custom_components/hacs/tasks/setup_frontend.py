@@ -24,15 +24,11 @@ class Task(HacsTaskRuntimeBase):
     def execute(self) -> None:
 
         # Register themes
-        self.hass.http.register_static_path(
-            f"{URL_BASE}/themes", self.hass.config.path("themes")
-        )
+        self.hass.http.register_static_path(f"{URL_BASE}/themes", self.hass.config.path("themes"))
 
         # Register frontend
         if self.hacs.configuration.frontend_repo_url:
-            self.log.warning(
-                "Frontend development mode enabled. Do not run in production!"
-            )
+            self.log.warning("Frontend development mode enabled. Do not run in production!")
             self.hass.http.register_view(HacsFrontendDev())
         else:
             #

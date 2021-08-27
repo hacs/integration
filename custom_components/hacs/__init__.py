@@ -8,15 +8,17 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-import voluptuous as vol
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+import voluptuous as vol
 
 from .const import DOMAIN, PLATFORMS
 from .enums import HacsDisabledReason
 from .helpers.functions.configuration_schema import hacs_config_combined
-from .operational.setup import async_setup as hacs_yaml_setup
-from .operational.setup import async_setup_entry as hacs_ui_setup
+from .operational.setup import (
+    async_setup as hacs_yaml_setup,
+    async_setup_entry as hacs_ui_setup,
+)
 
 if TYPE_CHECKING:
     from .base import HacsBase
@@ -52,9 +54,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     except AttributeError:
         pass
 
-    unload_ok = await hass.config_entries.async_unload_platforms(
-        config_entry, PLATFORMS
-    )
+    unload_ok = await hass.config_entries.async_unload_platforms(config_entry, PLATFORMS)
 
     hacs.disable_hacs(HacsDisabledReason.REMOVED)
     hass.data.pop(DOMAIN, None)

@@ -27,7 +27,7 @@ class HacsTaskBase(HacsMixin, LogMixin):
         """Return the check slug."""
         return self.__class__.__module__.rsplit(".", maxsplit=1)[-1]
 
-    async def execute_task(self) -> None:
+    async def execute_task(self, *_, **__) -> None:
         """Execute the task defined in subclass."""
         if self.hacs.system.disabled:
             self.log.warning(
@@ -45,9 +45,7 @@ class HacsTaskBase(HacsMixin, LogMixin):
             elif task := getattr(self, "async_execute", None):
                 await task()  # pylint: disable=not-callable
             else:
-                raise NotImplementedError(
-                    f"{self.slug} does not have a execute method defined."
-                )
+                raise NotImplementedError(f"{self.slug} does not have a execute method defined.")
         except BaseException as exception:  # pylint: disable=broad-except
             self.log.error("Task %s failed: %s", self.slug, exception)
 
@@ -63,12 +61,7 @@ class HacsTaskEventBase(HacsTaskBase):
     """HacsTaskEventBase."""
 
     type = HacsTaskType.EVENT
-
-    @property
-    @abstractmethod
-    def event(self) -> str:
-        """Return the event to listen to."""
-        raise NotImplementedError
+    events: list[str] = []
 
 
 class HacsTaskScheduleBase(HacsTaskBase):

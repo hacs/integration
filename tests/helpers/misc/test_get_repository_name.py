@@ -15,9 +15,7 @@ ELEMENT_TYPES = (
 def test_everything(repository):
     repository.data.full_name = "test/TEST-REPOSITORY-NAME"
     repository.data.full_name_lower = "test/TEST-REPOSITORY-NAME".lower()
-    repository.repository_manifest = HacsManifest.from_dict(
-        {"name": "TEST-HACS_MANIFEST"}
-    )
+    repository.repository_manifest = HacsManifest.from_dict({"name": "TEST-HACS_MANIFEST"})
     repository.integration_manifest = {"name": "TEST-MANIFEST"}
 
     for category in ELEMENT_TYPES:

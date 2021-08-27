@@ -15,9 +15,7 @@ class HacsFrontendDev(HomeAssistantView):
         """Handle HACS Web requests."""
         hacs = get_hacs()
         requested = requested_file.split("/")[-1]
-        request = await hacs.session.get(
-            f"{hacs.configuration.frontend_repo_url}/{requested}"
-        )
+        request = await hacs.session.get(f"{hacs.configuration.frontend_repo_url}/{requested}")
         if request.status == 200:
             result = await request.read()
             response = web.Response(body=result)

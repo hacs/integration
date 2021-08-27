@@ -30,9 +30,7 @@ class Task(HacsTaskRuntimeBase):
                 )
                 self.hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
 
-        if not version_left_higher_then_right(
-            self.hacs.core.ha_version, MINIMUM_HA_VERSION
-        ):
+        if not version_left_higher_then_right(self.hacs.core.ha_version, MINIMUM_HA_VERSION):
             self.log.critical(
                 "You need HA version %s or newer to use this integration.",
                 MINIMUM_HA_VERSION,

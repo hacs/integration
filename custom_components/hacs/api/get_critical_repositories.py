@@ -1,6 +1,6 @@
 """API Handler for get_critical_repositories"""
-import voluptuous as vol
 from homeassistant.components import websocket_api
+import voluptuous as vol
 
 from custom_components.hacs.helpers.functions.store import async_load_from_store
 

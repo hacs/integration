@@ -50,19 +50,13 @@ async def register_repository(full_name, category, check=True, ref=None):
             return
         except AIOGitHubAPIException as exception:
             hacs.common.skip.append(repository.data.full_name)
-            raise HacsException(
-                f"Validation for {full_name} failed with {exception}."
-            ) from None
+            raise HacsException(f"Validation for {full_name} failed with {exception}.") from None
 
-    if str(repository.data.id) != "0" and (
-        exists := hacs.get_by_id(repository.data.id)
-    ):
+    if str(repository.data.id) != "0" and (exists := hacs.get_by_id(repository.data.id)):
         hacs.async_remove_repository(exists)
 
     else:
-        if hacs.hass is not None and (
-            (check and repository.data.new) or hacs.status.new
-        ):
+        if hacs.hass is not None and ((check and repository.data.new) or hacs.status.new):
             hacs.hass.bus.async_fire(
                 "hacs/repository",
                 {

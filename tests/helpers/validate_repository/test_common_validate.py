@@ -7,6 +7,7 @@ import pytest
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.validate_repository import common_validate
 from custom_components.hacs.share import get_removed
+
 from tests.sample_data import (
     release_data,
     repository_data,
@@ -29,9 +30,7 @@ async def test_common_base(hacs, repository, aresponses):
         "api.github.com",
         "/repos/test/test",
         "get",
-        aresponses.Response(
-            body=json.dumps(repository_data), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(repository_data), headers=response_rate_limit_header),
     )
     aresponses.add(
         "api.github.com",
@@ -43,9 +42,7 @@ async def test_common_base(hacs, repository, aresponses):
         "api.github.com",
         "/repos/test/test/releases",
         "get",
-        aresponses.Response(
-            body=json.dumps(release_data), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(release_data), headers=response_rate_limit_header),
     )
     aresponses.add(
         "api.github.com",
@@ -57,9 +54,7 @@ async def test_common_base(hacs, repository, aresponses):
         "api.github.com",
         "/repos/test/test/git/trees/3",
         "get",
-        aresponses.Response(
-            body=json.dumps(tree_files_base), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(tree_files_base), headers=response_rate_limit_header),
     )
     aresponses.add(
         "api.github.com",
@@ -71,9 +66,7 @@ async def test_common_base(hacs, repository, aresponses):
         "api.github.com",
         "/repos/test/test/contents/hacs.json",
         "get",
-        aresponses.Response(
-            body=json.dumps({"name": "test"}), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps({"name": "test"}), headers=response_rate_limit_header),
     )
     repository.ref = None
     repository.hacs = hacs
@@ -93,9 +86,7 @@ async def test_get_releases_exception(repository, aresponses):
         "api.github.com",
         "/repos/test/test",
         "get",
-        aresponses.Response(
-            body=json.dumps(repository_data), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(repository_data), headers=response_rate_limit_header),
     )
     aresponses.add(
         "api.github.com",
@@ -117,9 +108,7 @@ async def test_get_releases_exception(repository, aresponses):
         "api.github.com",
         "/repos/test/test/git/trees/3",
         "get",
-        aresponses.Response(
-            body=json.dumps(tree_files_base), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(tree_files_base), headers=response_rate_limit_header),
     )
     aresponses.add(
         "api.github.com",
@@ -182,9 +171,7 @@ async def test_common_blacklist(repository, aresponses):
         "api.github.com",
         "/repos/test/test",
         "get",
-        aresponses.Response(
-            body=json.dumps(repository_data), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(repository_data), headers=response_rate_limit_header),
     )
     removed = get_removed("test/test")
     assert removed.repository == "test/test"
@@ -227,9 +214,7 @@ async def test_common_base_exception_tree_issues(repository, aresponses, hacs):
         "api.github.com",
         "/repos/test/test",
         "get",
-        aresponses.Response(
-            body=json.dumps(repository_data), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(repository_data), headers=response_rate_limit_header),
     )
     aresponses.add(
         "api.github.com",
@@ -241,9 +226,7 @@ async def test_common_base_exception_tree_issues(repository, aresponses, hacs):
         "api.github.com",
         "/repos/test/test/releases",
         "get",
-        aresponses.Response(
-            body=json.dumps(release_data), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(release_data), headers=response_rate_limit_header),
     )
     aresponses.add(
         "api.github.com",
@@ -255,9 +238,7 @@ async def test_common_base_exception_tree_issues(repository, aresponses, hacs):
         "api.github.com",
         "/repos/test/test/git/trees/3",
         "get",
-        aresponses.Response(
-            body=json.dumps({"message": "X"}), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps({"message": "X"}), headers=response_rate_limit_header),
     )
     hacs.status.startup = False
     with pytest.raises(HacsException):

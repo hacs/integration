@@ -65,9 +65,7 @@ class Backup:
                 while os.path.exists(self.local_path):
                     sleep(0.1)
             shutil.copytree(self.backup_path_full, self.local_path)
-        _LOGGER.debug(
-            "Restored %s, from backup %s", self.local_path, self.backup_path_full
-        )
+        _LOGGER.debug("Restored %s, from backup %s", self.local_path, self.backup_path_full)
 
     def cleanup(self):
         """Cleanup backup files."""
@@ -110,9 +108,7 @@ class BackupNetDaemon:
             for filename in os.listdir(self.backup_path):
                 if filename.endswith(".yaml"):
                     source_file_name = f"{self.backup_path}/{filename}"
-                    target_file_name = (
-                        f"{self.repository.content.path.local}/{filename}"
-                    )
+                    target_file_name = f"{self.repository.content.path.local}/{filename}"
                     shutil.copyfile(source_file_name, target_file_name)
 
     def cleanup(self):

@@ -8,9 +8,7 @@ from custom_components.hacs.helpers.functions.information import find_file_name
 
 def test_find_file_name_base(repository_plugin):
     repository_plugin.tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.js", "type": "blob"}, "test/test", "main"
-        )
+        AIOGitHubAPIRepositoryTreeContent({"path": "test.js", "type": "blob"}, "test/test", "main")
     ]
     find_file_name(repository_plugin)
     assert repository_plugin.data.file_name == "test.js"
@@ -20,9 +18,7 @@ def test_find_file_name_base(repository_plugin):
 def test_find_file_name_root(repository_plugin):
     repository_plugin.data.content_in_root = True
     repository_plugin.tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.js", "type": "blob"}, "test/test", "main"
-        )
+        AIOGitHubAPIRepositoryTreeContent({"path": "test.js", "type": "blob"}, "test/test", "main")
     ]
     find_file_name(repository_plugin)
     assert repository_plugin.data.file_name == "test.js"
@@ -43,9 +39,7 @@ def test_find_file_name_dist(repository_plugin):
 def test_find_file_name_different_name(repository_plugin):
     repository_plugin.data.filename = "card.js"
     repository_plugin.tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "card.js", "type": "blob"}, "test/test", "main"
-        )
+        AIOGitHubAPIRepositoryTreeContent({"path": "card.js", "type": "blob"}, "test/test", "main")
     ]
     find_file_name(repository_plugin)
     assert repository_plugin.data.file_name == "card.js"
@@ -54,9 +48,7 @@ def test_find_file_name_different_name(repository_plugin):
 
 def test_find_file_release(repository_plugin):
     repository_plugin.releases.objects = [
-        AIOGitHubAPIRepositoryRelease(
-            {"tag_name": "3", "assets": [{"name": "test.js"}]}
-        )
+        AIOGitHubAPIRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.js"}]})
     ]
     find_file_name(repository_plugin)
     assert repository_plugin.data.file_name == "test.js"
@@ -68,9 +60,7 @@ def test_find_file_release_no_asset(repository_plugin):
         AIOGitHubAPIRepositoryRelease({"tag_name": "3", "assets": []})
     ]
     repository_plugin.tree = [
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test.js", "type": "blob"}, "test/test", "main"
-        )
+        AIOGitHubAPIRepositoryTreeContent({"path": "test.js", "type": "blob"}, "test/test", "main")
     ]
     find_file_name(repository_plugin)
     assert repository_plugin.data.file_name == "test.js"

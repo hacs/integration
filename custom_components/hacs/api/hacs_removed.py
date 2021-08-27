@@ -1,6 +1,6 @@
 """API Handler for hacs_removed"""
-import voluptuous as vol
 from homeassistant.components import websocket_api
+import voluptuous as vol
 
 from custom_components.hacs.share import list_removed_repositories
 

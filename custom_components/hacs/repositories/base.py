@@ -46,7 +46,7 @@ class HacsManifest:
 
 
 @dataclass
-class HacsRepository(HacsMixin, LogMixin):
+class HacsRepository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-attributes
     """Base class for repositories."""
 
     full_name: str
@@ -59,7 +59,7 @@ class HacsRepository(HacsMixin, LogMixin):
     stargazers_count: int | None = None
     topics: list[str] | None = None
 
-    repository_tree: GitHubGitTreeModel | None = None
+    repository_tree: tuple[str] | None = None
     hacs_manifest: HacsManifest | None = None
 
     etag_repository: str | None = None
@@ -71,14 +71,14 @@ class HacsRepository(HacsMixin, LogMixin):
         """Boolean to indicate that the repository uses releases."""
         return False
 
-    def repository_tree_contains(self, path: str) -> bool:
+    def repository_tree_contains(self, path: str) -> str | None:
         """Check if the tree contains a file."""
         if self.repository_tree is None:
-            return False
-        for tree in self.repository_tree.tree or []:
-            if tree.path == path:
-                return True
-        return False
+            return None
+        for tree in self.repository_tree:
+            if tree.split("/")[-1] == path:
+                return tree
+        return None
 
     async def async_github_update_information(self) -> None:
         """Update repository information from github."""
@@ -110,7 +110,7 @@ class HacsRepository(HacsMixin, LogMixin):
         if hacs_manifest := await self.async_github_get_hacs_manifest():
             self.hacs_manifest = hacs_manifest
 
-    async def async_github_get_tree(self, tree_sha: str) -> GitHubGitTreeModel | None:
+    async def async_github_get_tree(self, tree_sha: str) -> set[str] | None:
         """Get the tree from GitHub."""
         try:
             response = await self.hacs.githubapi.repos.git.get_tree(
@@ -122,7 +122,7 @@ class HacsRepository(HacsMixin, LogMixin):
         except GitHubNotModifiedException:
             return None
 
-        return response.data
+        return tuple(tree.path for tree in response.data.tree or [])
 
     async def async_github_get_hacs_manifest(
         self,

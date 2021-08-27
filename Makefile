@@ -22,6 +22,7 @@ test: ## Run pytest
 
 lint: ## Run linters
 	set -e
+	isort .
 	jq -r -e -c . tests/fixtures/*.json
 	pre-commit install-hooks --config .github/pre-commit-config.yaml;
 	pre-commit run --hook-stage manual --all-files --config .github/pre-commit-config.yaml;

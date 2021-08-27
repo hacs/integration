@@ -13,7 +13,7 @@ from ..mixin import HacsMixin, LogMixin
 
 
 class HacsTaskBase(HacsMixin, LogMixin):
-    """"Hacs task base."""
+    """Hacs task base."""
 
     hass: HomeAssistant
 
@@ -27,7 +27,7 @@ class HacsTaskBase(HacsMixin, LogMixin):
         """Return the check slug."""
         return self.__class__.__module__.rsplit(".", maxsplit=1)[-1]
 
-    async def execute_task(self) -> None:
+    async def execute_task(self, *_, **__) -> None:
         """Execute the task defined in subclass."""
         if self.hacs.system.disabled:
             self.log.warning(
@@ -60,19 +60,14 @@ class HacsTaskBase(HacsMixin, LogMixin):
 
 
 class HacsTaskEventBase(HacsTaskBase):
-    """"HacsTaskEventBase."""
+    """HacsTaskEventBase."""
 
     type = HacsTaskType.EVENT
-
-    @property
-    @abstractmethod
-    def event(self) -> str:
-        """Return the event to listen to."""
-        raise NotImplementedError
+    events: list[str] = []
 
 
 class HacsTaskScheduleBase(HacsTaskBase):
-    """"HacsTaskScheduleBase."""
+    """HacsTaskScheduleBase."""
 
     type = HacsTaskType.SCHEDULE
 
@@ -84,13 +79,13 @@ class HacsTaskScheduleBase(HacsTaskBase):
 
 
 class HacsTaskManualBase(HacsTaskBase):
-    """"HacsTaskManualBase."""
+    """HacsTaskManualBase."""
 
     type = HacsTaskType.MANUAL
 
 
 class HacsTaskRuntimeBase(HacsTaskBase):
-    """"HacsTaskRuntimeBase."""
+    """HacsTaskRuntimeBase."""
 
     type = HacsTaskType.RUNTIME
     stages = list(HacsStage)

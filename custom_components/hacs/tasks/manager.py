@@ -39,6 +39,11 @@ class HacsTaskManager(HacsMixin, LogMixin):
         await asyncio.gather(*[_load_module(task) for task in task_modules])
         self.log.info("Loaded %s tasks", len(self.tasks))
 
+        for task in self.tasks:
+            if task.type == HacsTaskType.EVENT:
+                for event in task.events:
+                    self.hacs.hass.bus.async_listen_once(event, task.execute_task)
+
     def get(self, slug: str) -> HacsTaskBase | None:
         """Return a task."""
         return self.__tasks.get(slug)

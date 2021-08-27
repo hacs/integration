@@ -1,5 +1,6 @@
 """"Store HACS data."""
 from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE
+
 from .base import HacsTaskEventBase
 
 

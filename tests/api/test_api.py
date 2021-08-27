@@ -1,7 +1,7 @@
 import os
 
-import pytest
 from homeassistant.core import HomeAssistant
+import pytest
 
 from custom_components.hacs.api.acknowledge_critical_repository import (
     acknowledge_critical_repository,
@@ -34,6 +34,4 @@ async def test_check_local_path(hacs, connection, tmpdir):
     hacs_settings(hacs.hass, connection, {"id": 1})
     hacs_status(hacs.hass, connection, {"id": 1})
 
-    acknowledge_critical_repository(
-        hacs.hass, connection, {"repository": "test/test", "id": 1}
-    )
+    acknowledge_critical_repository(hacs.hass, connection, {"repository": "test/test", "id": 1})

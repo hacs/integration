@@ -1,7 +1,7 @@
 """API Handler for acknowledge_critical_repository"""
+from homeassistant.components import websocket_api
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
-from homeassistant.components import websocket_api
 
 from custom_components.hacs.helpers.functions.store import (
     async_load_from_store,

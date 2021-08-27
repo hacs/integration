@@ -2,6 +2,7 @@
 import pytest
 
 from custom_components.hacs.hacsbase.data import HacsData
+
 from tests.async_mock import patch
 
 

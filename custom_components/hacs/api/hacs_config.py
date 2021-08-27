@@ -1,6 +1,6 @@
 """API Handler for hacs_config"""
-import voluptuous as vol
 from homeassistant.components import websocket_api
+import voluptuous as vol
 
 from custom_components.hacs.share import get_hacs
 

@@ -25,9 +25,7 @@ def update_repository_from_storage(repository, storage_data):
     if repository.data.installed:
         return
 
-    repository.logger.debug(
-        "%s Should be installed but is not... Fixing that!", repository
-    )
+    repository.logger.debug("%s Should be installed but is not... Fixing that!", repository)
     repository.data.installed = True
 
 
@@ -179,9 +177,7 @@ class HacsData:
         self.hacs.async_set_repository_id(repository, entry)
         repository.data.authors = repository_data.get("authors", [])
         repository.data.description = repository_data.get("description")
-        repository.releases.last_release_object_downloads = repository_data.get(
-            "downloads"
-        )
+        repository.releases.last_release_object_downloads = repository_data.get("downloads")
         repository.data.last_updated = repository_data.get("last_updated")
         repository.data.etag_repository = repository_data.get("etag_repository")
         repository.data.topics = repository_data.get("topics", [])

@@ -15,9 +15,7 @@ async def async_get_list_from_default(default: HacsCategory) -> List:
     repositories = []
 
     try:
-        content = await hacs.data_repo.get_contents(
-            default, hacs.data_repo.default_branch
-        )
+        content = await hacs.data_repo.get_contents(default, hacs.data_repo.default_branch)
         repositories = json.loads(content.content)
 
     except (AIOGitHubAPIException, HacsException) as exception:

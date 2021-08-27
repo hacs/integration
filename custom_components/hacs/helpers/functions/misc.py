@@ -19,12 +19,7 @@ def get_repository_name(repository) -> str:
             if "name" in repository.integration_manifest:
                 return repository.integration_manifest["name"]
 
-    return (
-        repository.data.full_name.split("/")[-1]
-        .replace("-", " ")
-        .replace("_", " ")
-        .title()
-    )
+    return repository.data.full_name.split("/")[-1].replace("-", " ").replace("_", " ").title()
 
 
 def version_left_higher_then_right(left: str, right: str) -> bool:

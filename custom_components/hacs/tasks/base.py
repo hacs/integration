@@ -45,9 +45,7 @@ class HacsTaskBase(HacsMixin, LogMixin):
             elif task := getattr(self, "async_execute", None):
                 await task()  # pylint: disable=not-callable
             else:
-                raise NotImplementedError(
-                    f"{self.slug} does not have a execute method defined."
-                )
+                raise NotImplementedError(f"{self.slug} does not have a execute method defined.")
         except BaseException as exception:  # pylint: disable=broad-except
             self.log.error("Task %s failed: %s", self.slug, exception)
 

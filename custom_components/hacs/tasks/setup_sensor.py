@@ -20,9 +20,7 @@ class Task(HacsTaskRuntimeBase):
     async def async_execute(self) -> None:
         if self.hacs.configuration.config_type == ConfigurationType.YAML:
             self.hass.async_create_task(
-                async_load_platform(
-                    self.hass, "sensor", DOMAIN, {}, self.hacs.configuration.config
-                )
+                async_load_platform(self.hass, "sensor", DOMAIN, {}, self.hacs.configuration.config)
             )
         else:
             self.hass.config_entries.async_setup_platforms(

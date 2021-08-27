@@ -3,15 +3,16 @@
 import base64
 import json
 
+from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 import aiohttp
 import pytest
-from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.information import (
     get_integration_manifest,
     get_repository,
 )
+
 from tests.common import TOKEN
 from tests.sample_data import (
     integration_manifest,
@@ -32,9 +33,7 @@ async def test_get_integration_manifest(repository_integration, aresponses, even
         "api.github.com",
         "/repos/test/test",
         "get",
-        aresponses.Response(
-            body=json.dumps(repository_data), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(repository_data), headers=response_rate_limit_header),
     )
     aresponses.add(
         "api.github.com",
@@ -70,9 +69,7 @@ async def test_get_integration_manifest(repository_integration, aresponses, even
 
 
 @pytest.mark.asyncio
-async def test_get_integration_manifest_no_file(
-    repository_integration, aresponses, event_loop
-):
+async def test_get_integration_manifest_no_file(repository_integration, aresponses, event_loop):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -83,9 +80,7 @@ async def test_get_integration_manifest_no_file(
         "api.github.com",
         "/repos/test/test",
         "get",
-        aresponses.Response(
-            body=json.dumps(repository_data), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(repository_data), headers=response_rate_limit_header),
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as session:
@@ -111,9 +106,7 @@ async def test_get_integration_manifest_format_issue(
         "api.github.com",
         "/repos/test/test",
         "get",
-        aresponses.Response(
-            body=json.dumps(repository_data), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(repository_data), headers=response_rate_limit_header),
     )
     aresponses.add(
         "api.github.com",
@@ -161,9 +154,7 @@ async def test_get_integration_manifest_missing_required_key(
         "api.github.com",
         "/repos/test/test",
         "get",
-        aresponses.Response(
-            body=json.dumps(repository_data), headers=response_rate_limit_header
-        ),
+        aresponses.Response(body=json.dumps(repository_data), headers=response_rate_limit_header),
     )
     aresponses.add(
         "api.github.com",

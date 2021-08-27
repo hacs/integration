@@ -73,15 +73,9 @@ def repository_data_archived():
 
 def tree_files_base_integration():
     integrationtree = tree_files_base
-    integrationtree["tree"].append(
-        {"path": "custom_components/test/manifest.json", "type": "blob"}
-    )
-    integrationtree["tree"].append(
-        {"path": "custom_components/test/__init__.py", "type": "blob"}
-    )
-    integrationtree["tree"].append(
-        {"path": "custom_components/test/sensor.py", "type": "blob"}
-    )
+    integrationtree["tree"].append({"path": "custom_components/test/manifest.json", "type": "blob"})
+    integrationtree["tree"].append({"path": "custom_components/test/__init__.py", "type": "blob"})
+    integrationtree["tree"].append({"path": "custom_components/test/sensor.py", "type": "blob"})
     integrationtree["tree"].append(
         {"path": "custom_components/test/translations/en.json", "type": "blob"}
     )

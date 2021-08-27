@@ -47,11 +47,7 @@ async def async_download_file(url):
         if request.status == 200:
             result = await request.read()
         else:
-            raise HacsException(
-                "Got status code {} when trying to download {}".format(
-                    request.status, url
-                )
-            )
+            raise HacsException(f"Got status code {request.status} when trying to download {url}")
 
     return result
 
@@ -92,18 +88,14 @@ def gather_files_to_download(repository):
         for treefile in tree:
             if treefile.filename == repository.data.file_name:
                 files.append(
-                    FileInformation(
-                        treefile.download_url, treefile.full_path, treefile.filename
-                    )
+                    FileInformation(treefile.download_url, treefile.full_path, treefile.filename)
                 )
         return files
 
     if category == "plugin":
         for treefile in tree:
             if treefile.path in ["", "dist"]:
-                if remotelocation == "dist" and not treefile.filename.startswith(
-                    "dist"
-                ):
+                if remotelocation == "dist" and not treefile.filename.startswith("dist"):
                     continue
                 if not remotelocation:
                     if not treefile.filename.endswith(".js"):
@@ -122,17 +114,13 @@ def gather_files_to_download(repository):
     if repository.data.content_in_root:
         if not repository.data.filename:
             if category == "theme":
-                tree = filter_content_return_one_of_type(
-                    repository.tree, "", "yaml", "full_path"
-                )
+                tree = filter_content_return_one_of_type(repository.tree, "", "yaml", "full_path")
 
     for path in tree:
         if path.is_directory:
             continue
         if path.full_path.startswith(repository.content.path.remote):
-            files.append(
-                FileInformation(path.download_url, path.full_path, path.filename)
-            )
+            files.append(FileInformation(path.download_url, path.full_path, path.filename))
     return files
 
 
@@ -142,9 +130,7 @@ async def download_zip_files(repository, validate):
     queue = QueueManager()
     try:
         for release in repository.releases.objects:
-            repository.logger.info(
-                f"ref: {repository.ref}  ---  tag: {release.tag_name}"
-            )
+            repository.logger.info(f"ref: {repository.ref}  ---  tag: {release.tag_name}")
             if release.tag_name == repository.ref.split("/")[1]:
                 contents = release.assets
 
@@ -226,9 +212,7 @@ async def dowload_repository_content(repository, content):
         else:
             _content_path = content.path
             if not repository.data.content_in_root:
-                _content_path = _content_path.replace(
-                    f"{repository.content.path.remote}", ""
-                )
+                _content_path = _content_path.replace(f"{repository.content.path.remote}", "")
 
             local_directory = f"{repository.content.path.local}/{_content_path}"
             local_directory = local_directory.split("/")

@@ -1,5 +1,4 @@
 """Adds config flow for HACS."""
-import voluptuous as vol
 from aiogithubapi import GitHubDeviceAPI, GitHubException
 from aiogithubapi.common.const import OAUTH_USER_LOGIN
 from awesomeversion import AwesomeVersion
@@ -9,6 +8,7 @@ from homeassistant.core import callback
 from homeassistant.helpers import aiohttp_client
 from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
+import voluptuous as vol
 
 from custom_components.hacs.const import CLIENT_ID, DOMAIN, MINIMUM_HA_VERSION
 from custom_components.hacs.enums import ConfigurationType
@@ -59,9 +59,7 @@ class HacsFlowHandler(HacsMixin, config_entries.ConfigFlow, domain=DOMAIN):
                 async_call_later(self.hass, 1, _wait_for_activation)
                 return
 
-            response = await self.device.activation(
-                device_code=self._login_device.device_code
-            )
+            response = await self.device.activation(device_code=self._login_device.device_code)
             self.activation = response.data
             self.hass.async_create_task(
                 self.hass.config_entries.flow.async_configure(flow_id=self.flow_id)
@@ -106,18 +104,12 @@ class HacsFlowHandler(HacsMixin, config_entries.ConfigFlow, domain=DOMAIN):
             step_id="user",
             data_schema=vol.Schema(
                 {
-                    vol.Required(
-                        "acc_logs", default=user_input.get("acc_logs", False)
-                    ): bool,
-                    vol.Required(
-                        "acc_addons", default=user_input.get("acc_addons", False)
-                    ): bool,
+                    vol.Required("acc_logs", default=user_input.get("acc_logs", False)): bool,
+                    vol.Required("acc_addons", default=user_input.get("acc_addons", False)): bool,
                     vol.Required(
                         "acc_untested", default=user_input.get("acc_untested", False)
                     ): bool,
-                    vol.Required(
-                        "acc_disable", default=user_input.get("acc_disable", False)
-                    ): bool,
+                    vol.Required("acc_disable", default=user_input.get("acc_disable", False)): bool,
                 }
             ),
             errors=self._errors,
@@ -125,9 +117,7 @@ class HacsFlowHandler(HacsMixin, config_entries.ConfigFlow, domain=DOMAIN):
 
     async def async_step_device_done(self, _user_input):
         """Handle device steps"""
-        return self.async_create_entry(
-            title="", data={"token": self.activation.access_token}
-        )
+        return self.async_create_entry(title="", data={"token": self.activation.access_token})
 
     @staticmethod
     @callback

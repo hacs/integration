@@ -1,8 +1,8 @@
 """Base class for repositories."""
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass
+import json
 from typing import Any
 
 from aiogithubapi import GitHubGitTreeModel, GitHubNotModifiedException
@@ -41,9 +41,7 @@ class HacsManifest:
                 cls.country = [cls.country]
 
         cls.hacs = AwesomeVersion(cls.hacs) if cls.hacs else None
-        cls.homeassistant = (
-            AwesomeVersion(cls.homeassistant) if cls.homeassistant else None
-        )
+        cls.homeassistant = AwesomeVersion(cls.homeassistant) if cls.homeassistant else None
         return cls
 
 
@@ -106,9 +104,7 @@ class HacsRepository(HacsMixin, LogMixin):
         self.stargazers_count = response.data.stargazers_count
         self.topics = response.data.topics
 
-        if repository_tree := await self.async_github_get_tree(
-            tree_sha=self.default_branch
-        ):
+        if repository_tree := await self.async_github_get_tree(tree_sha=self.default_branch):
             self.repository_tree = repository_tree
 
         if hacs_manifest := await self.async_github_get_hacs_manifest():

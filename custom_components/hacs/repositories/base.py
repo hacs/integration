@@ -1,7 +1,6 @@
 """Base class for repositories."""
 from __future__ import annotations
 from dataclasses import dataclass
-import base64
 import json
 from typing import Any
 
@@ -10,6 +9,7 @@ from aiogithubapi import GitHubNotModifiedException
 
 from ..enums import HacsCategory
 from ..mixin import HacsMixin, LogMixin
+from ..utils.decode import decode_content
 
 
 @dataclass
@@ -114,8 +114,4 @@ class HacsRepository(HacsMixin, LogMixin):
         except GitHubNotModifiedException:
             return None
 
-        return HacsManifest.from_dict(
-            json.loads(
-                base64.b64decode(bytearray(response.data.content, "utf-8")).decode()
-            )
-        )
+        return HacsManifest.from_dict(json.loads(decode_content(response.data.content)))

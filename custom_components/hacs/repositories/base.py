@@ -1,11 +1,12 @@
 """Base class for repositories."""
 from __future__ import annotations
-from dataclasses import dataclass
+
 import json
+from dataclasses import dataclass
 from typing import Any
 
+from aiogithubapi import GitHubGitTreeModel, GitHubNotModifiedException
 from awesomeversion import AwesomeVersion
-from aiogithubapi import GitHubNotModifiedException
 
 from ..enums import HacsCategory
 from ..mixin import HacsMixin, LogMixin
@@ -60,9 +61,11 @@ class HacsRepository(HacsMixin, LogMixin):
     stargazers_count: int | None = None
     topics: list[str] | None = None
 
+    repository_tree: GitHubGitTreeModel | None = None
     hacs_manifest: HacsManifest | None = None
 
     etag_repository: str | None = None
+    etag_repository_tree: str | None = None
     etag_hacs_manifest: str | None = None
 
     @property
@@ -70,11 +73,21 @@ class HacsRepository(HacsMixin, LogMixin):
         """Boolean to indicate that the repository uses releases."""
         return False
 
+    def repository_tree_contains(self, path: str) -> bool:
+        """Check if the tree contains a file."""
+        if self.repository_tree is None:
+            return False
+        for tree in self.repository_tree.tree or []:
+            if tree.path == path:
+                return True
+        return False
+
     async def async_github_update_information(self) -> None:
         """Update repository information from github."""
         try:
             response = await self.hacs.githubapi.repos.get(
-                self.full_name, **{"etag": self.etag_repository}
+                repository=self.full_name,
+                **{"etag": self.etag_repository},
             )
             self.etag_repository = response.etag
         except GitHubNotModifiedException:
@@ -93,18 +106,40 @@ class HacsRepository(HacsMixin, LogMixin):
         self.stargazers_count = response.data.stargazers_count
         self.topics = response.data.topics
 
+        if repository_tree := await self.async_github_get_tree(
+            tree_sha=self.default_branch
+        ):
+            self.repository_tree = repository_tree
+
         if hacs_manifest := await self.async_github_get_hacs_manifest():
             self.hacs_manifest = hacs_manifest
+
+    async def async_github_get_tree(self, tree_sha: str) -> GitHubGitTreeModel | None:
+        """Get the tree from GitHub."""
+        try:
+            response = await self.hacs.githubapi.repos.git.get_tree(
+                repository=self.full_name,
+                tree_sha=tree_sha,
+                **{"etag": self.etag_repository_tree},
+            )
+            self.etag_repository_tree = response.etag
+        except GitHubNotModifiedException:
+            return None
+
+        return response.data
 
     async def async_github_get_hacs_manifest(
         self,
         ref: str | None = None,
-    ) -> HacsManifest:
+    ) -> HacsManifest | None:
         """Get the HACS manifest from GitHub."""
+        if not self.repository_tree_contains("hacs.json"):
+            return
+
         try:
             response = await self.hacs.githubapi.repos.contents.get(
-                self.full_name,
-                "hacs.json",
+                repository=self.full_name,
+                path="hacs.json",
                 **{
                     "query": {"ref": ref} if ref else {},
                     "etag": self.etag_hacs_manifest,

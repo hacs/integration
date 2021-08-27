@@ -13,7 +13,7 @@ from ..mixin import HacsMixin, LogMixin
 
 
 class HacsTaskBase(HacsMixin, LogMixin):
-    """"Hacs task base."""
+    """Hacs task base."""
 
     hass: HomeAssistant
 
@@ -60,7 +60,7 @@ class HacsTaskBase(HacsMixin, LogMixin):
 
 
 class HacsTaskEventBase(HacsTaskBase):
-    """"HacsTaskEventBase."""
+    """HacsTaskEventBase."""
 
     type = HacsTaskType.EVENT
 
@@ -72,7 +72,7 @@ class HacsTaskEventBase(HacsTaskBase):
 
 
 class HacsTaskScheduleBase(HacsTaskBase):
-    """"HacsTaskScheduleBase."""
+    """HacsTaskScheduleBase."""
 
     type = HacsTaskType.SCHEDULE
 
@@ -84,13 +84,13 @@ class HacsTaskScheduleBase(HacsTaskBase):
 
 
 class HacsTaskManualBase(HacsTaskBase):
-    """"HacsTaskManualBase."""
+    """HacsTaskManualBase."""
 
     type = HacsTaskType.MANUAL
 
 
 class HacsTaskRuntimeBase(HacsTaskBase):
-    """"HacsTaskRuntimeBase."""
+    """HacsTaskRuntimeBase."""
 
     type = HacsTaskType.RUNTIME
     stages = list(HacsStage)

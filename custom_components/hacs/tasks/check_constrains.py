@@ -4,7 +4,7 @@ import os
 from ..const import MINIMUM_HA_VERSION
 from ..enums import HacsDisabledReason, HacsStage
 from ..utils.version import version_left_higher_then_right
-from .base import HacsTaskRuntimeBase
+from .base import HacsTask
 
 
 async def async_setup() -> None:
@@ -12,7 +12,7 @@ async def async_setup() -> None:
     return Task()
 
 
-class Task(HacsTaskRuntimeBase):
+class Task(HacsTask):
     """Check env Constrains."""
 
     stages = [HacsStage.SETUP]

@@ -1,6 +1,6 @@
 """"Starting setup task: Verify API"."""
 from ..enums import HacsStage
-from .base import HacsTaskRuntimeBase
+from .base import HacsTask
 
 
 async def async_setup() -> None:
@@ -8,7 +8,7 @@ async def async_setup() -> None:
     return Task()
 
 
-class Task(HacsTaskRuntimeBase):
+class Task(HacsTask):
     """Verify the connection to the GitHub API."""
 
     stages = [HacsStage.SETUP]

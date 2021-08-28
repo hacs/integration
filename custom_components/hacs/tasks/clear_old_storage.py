@@ -2,7 +2,7 @@
 import os
 
 from ..enums import HacsStage
-from .base import HacsTaskRuntimeBase
+from .base import HacsTask
 
 
 async def async_setup() -> None:
@@ -10,7 +10,7 @@ async def async_setup() -> None:
     return Task()
 
 
-class Task(HacsTaskRuntimeBase):
+class Task(HacsTask):
     """Clear old files from storage."""
 
     stages = [HacsStage.SETUP]

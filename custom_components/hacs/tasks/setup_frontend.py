@@ -6,7 +6,7 @@ from hacs_frontend.version import VERSION as FE_VERSION
 from ..const import DOMAIN
 from ..enums import HacsStage
 from ..webresponses.frontend import HacsFrontendDev
-from .base import HacsTaskRuntimeBase
+from .base import HacsTask
 
 URL_BASE = "/hacsfiles"
 
@@ -16,7 +16,7 @@ async def async_setup() -> None:
     return Task()
 
 
-class Task(HacsTaskRuntimeBase):
+class Task(HacsTask):
     """Setup the HACS frontend."""
 
     stages = [HacsStage.SETUP]

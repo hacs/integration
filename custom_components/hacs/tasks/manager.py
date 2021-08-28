@@ -5,9 +5,8 @@ import asyncio
 from importlib import import_module
 from pathlib import Path
 
-from ..enums import HacsTaskType
 from ..mixin import HacsMixin, LogMixin
-from .base import HacsTaskBase
+from .base import HacsTask
 
 
 class HacsTaskManager(HacsMixin, LogMixin):
@@ -15,10 +14,10 @@ class HacsTaskManager(HacsMixin, LogMixin):
 
     def __init__(self) -> None:
         """Initialize the setup manager class."""
-        self.__tasks: dict[str, HacsTaskBase] = {}
+        self.__tasks: dict[str, HacsTask] = {}
 
     @property
-    def tasks(self) -> list[HacsTaskBase]:
+    def tasks(self) -> list[HacsTask]:
         """Return all list of all tasks."""
         return list(self.__tasks.values())
 
@@ -40,11 +39,11 @@ class HacsTaskManager(HacsMixin, LogMixin):
         self.log.info("Loaded %s tasks", len(self.tasks))
 
         for task in self.tasks:
-            if task.type == HacsTaskType.EVENT:
+            if task.events is not None:
                 for event in task.events:
                     self.hacs.hass.bus.async_listen_once(event, task.execute_task)
 
-    def get(self, slug: str) -> HacsTaskBase | None:
+    def get(self, slug: str) -> HacsTask | None:
         """Return a task."""
         return self.__tasks.get(slug)
 
@@ -54,6 +53,6 @@ class HacsTaskManager(HacsMixin, LogMixin):
             *(
                 task.execute_task()
                 for task in self.tasks
-                if task.type == HacsTaskType.RUNTIME and self.hacs.stage in task.stages
+                if task.stages is not None and self.hacs.stage in task.stages
             )
         )

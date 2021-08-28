@@ -28,16 +28,6 @@ class LovelaceMode(str, Enum):
     YAML = "yaml"
 
 
-class HacsTaskType(str, Enum):
-    """HacsTaskType"""
-
-    RUNTIME = "runtime"
-    EVENT = "event"
-    SCHEDULE = "schedule"
-    MANUAL = "manual"
-    BASE = "base"
-
-
 class HacsStage(str, Enum):
     SETUP = "setup"
     STARTUP = "startup"

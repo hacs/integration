@@ -1,6 +1,6 @@
 """"Starting setup task: Restore"."""
 from ..enums import HacsDisabledReason, HacsStage
-from .base import HacsTaskRuntimeBase
+from .base import HacsTask
 
 
 async def async_setup() -> None:
@@ -8,7 +8,7 @@ async def async_setup() -> None:
     return Task()
 
 
-class Task(HacsTaskRuntimeBase):
+class Task(HacsTask):
     """Restore HACS data."""
 
     stages = [HacsStage.SETUP]

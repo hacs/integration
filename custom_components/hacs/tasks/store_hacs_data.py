@@ -1,7 +1,7 @@
 """"Store HACS data."""
 from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE
 
-from .base import HacsTaskEventBase
+from .base import HacsTask
 
 
 async def async_setup() -> None:
@@ -9,7 +9,7 @@ async def async_setup() -> None:
     return Task()
 
 
-class Task(HacsTaskEventBase):
+class Task(HacsTask):
     """ "Hacs task base."""
 
     events = [EVENT_HOMEASSISTANT_FINAL_WRITE]

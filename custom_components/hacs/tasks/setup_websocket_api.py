@@ -12,7 +12,7 @@ from ..api.hacs_repository_data import hacs_repository_data
 from ..api.hacs_settings import hacs_settings
 from ..api.hacs_status import hacs_status
 from ..enums import HacsStage
-from .base import HacsTaskRuntimeBase
+from .base import HacsTask
 
 
 async def async_setup() -> None:
@@ -20,7 +20,7 @@ async def async_setup() -> None:
     return Task()
 
 
-class Task(HacsTaskRuntimeBase):
+class Task(HacsTask):
     """Setup the HACS websocket API."""
 
     stages = [HacsStage.SETUP]

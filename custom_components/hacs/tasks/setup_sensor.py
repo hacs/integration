@@ -4,7 +4,7 @@ from homeassistant.helpers.discovery import async_load_platform
 
 from ..const import DOMAIN, PLATFORMS
 from ..enums import ConfigurationType, HacsStage
-from .base import HacsTaskRuntimeBase
+from .base import HacsTask
 
 
 async def async_setup() -> None:
@@ -12,7 +12,7 @@ async def async_setup() -> None:
     return Task()
 
 
-class Task(HacsTaskRuntimeBase):
+class Task(HacsTask):
     """Setup the HACS sensor platform."""
 
     stages = [HacsStage.SETUP]

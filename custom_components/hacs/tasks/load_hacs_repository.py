@@ -3,7 +3,7 @@ from ..enums import HacsDisabledReason, HacsStage
 from ..exceptions import HacsException
 from ..helpers.functions.information import get_repository
 from ..helpers.functions.register_repository import register_repository
-from .base import HacsTaskRuntimeBase
+from .base import HacsTask
 
 
 async def async_setup() -> None:
@@ -11,7 +11,7 @@ async def async_setup() -> None:
     return Task()
 
 
-class Task(HacsTaskRuntimeBase):
+class Task(HacsTask):
     """Load HACS repositroy."""
 
     stages = [HacsStage.STARTUP]

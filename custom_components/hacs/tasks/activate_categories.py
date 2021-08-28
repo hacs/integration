@@ -1,6 +1,6 @@
 """Starting setup task: extra stores."""
 from ..enums import HacsCategory, HacsStage
-from .base import HacsTaskRuntimeBase
+from .base import HacsTask
 
 
 async def async_setup() -> None:
@@ -8,10 +8,10 @@ async def async_setup() -> None:
     return Task()
 
 
-class Task(HacsTaskRuntimeBase):
+class Task(HacsTask):
     """Set up extra stores in HACS if enabled in Home Assistant."""
 
-    stages = [HacsStage.SETUP, HacsStage.RUNNING]
+    stages = [HacsStage.SETUP]
 
     def execute(self) -> None:
         self.hacs.common.categories = set()

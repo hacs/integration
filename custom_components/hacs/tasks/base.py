@@ -2,22 +2,23 @@
 # pylint: disable=abstract-method
 from __future__ import annotations
 
-from abc import abstractmethod
 from datetime import timedelta
 from timeit import default_timer as timer
 
 from homeassistant.core import HomeAssistant
 
-from ..enums import HacsStage, HacsTaskType
+from ..enums import HacsStage
 from ..mixin import HacsMixin, LogMixin
 
 
-class HacsTaskBase(HacsMixin, LogMixin):
+class HacsTask(HacsMixin, LogMixin):
     """Hacs task base."""
 
     hass: HomeAssistant
 
-    type = HacsTaskType.BASE
+    events: list[str] | None = None
+    schedule: timedelta | None = None
+    stages: list[HacsStage] | None = None
 
     def __init__(self) -> None:
         self.hass = self.hacs.hass
@@ -55,35 +56,3 @@ class HacsTaskBase(HacsMixin, LogMixin):
                 self.slug,
                 timer() - start_time,
             )
-
-
-class HacsTaskEventBase(HacsTaskBase):
-    """HacsTaskEventBase."""
-
-    type = HacsTaskType.EVENT
-    events: list[str] = []
-
-
-class HacsTaskScheduleBase(HacsTaskBase):
-    """HacsTaskScheduleBase."""
-
-    type = HacsTaskType.SCHEDULE
-
-    @property
-    @abstractmethod
-    def schedule(self) -> timedelta:
-        """Return the schedule."""
-        raise NotImplementedError
-
-
-class HacsTaskManualBase(HacsTaskBase):
-    """HacsTaskManualBase."""
-
-    type = HacsTaskType.MANUAL
-
-
-class HacsTaskRuntimeBase(HacsTaskBase):
-    """HacsTaskRuntimeBase."""
-
-    type = HacsTaskType.RUNTIME
-    stages = list(HacsStage)

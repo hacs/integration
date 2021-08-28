@@ -1,5 +1,5 @@
 """"Hacs base setup task."""
-from .base import HacsTaskManualBase
+from .base import HacsTask
 
 
 async def async_setup() -> None:
@@ -7,7 +7,7 @@ async def async_setup() -> None:
     return Task()
 
 
-class Task(HacsTaskManualBase):
+class Task(HacsTask):
     """ "Hacs task base."""
 
     def execute(self) -> None:

@@ -21,6 +21,9 @@ HACS_ACTION_GITHUB_API_HEADERS = {
     "Accept": ACCEPT_HEADERS["preview"],
 }
 
+REPOSITORY_HACS_DEFAULT = "hacs/default"
+REPOSITORY_HACS_INTEGRATION = "hacs/integration"
+
 IFRAME = {
     "title": "HACS",
     "icon": "hacs:hacs",

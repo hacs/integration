@@ -114,7 +114,6 @@ class Hacs(HacsBase, HacsHelpers):
         self.status.background_task = True
         self.hass.bus.async_fire("hacs/status", {})
 
-        await self.handle_critical_repositories_startup()
         await self.async_load_default_repositories()
         await self.clear_out_removed_repositories()
 
@@ -144,83 +143,6 @@ class Hacs(HacsBase, HacsHelpers):
         self.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
         await self.async_set_stage(HacsStage.RUNNING)
-
-    async def handle_critical_repositories_startup(self):
-        """Handled critical repositories during startup."""
-        alert = False
-        critical = await async_load_from_store(self.hass, "critical")
-        if not critical:
-            return
-        for repo in critical:
-            if not repo["acknowledged"]:
-                alert = True
-        if alert:
-            self.log.critical("URGENT!: Check the HACS panel!")
-            self.hass.components.persistent_notification.create(
-                title="URGENT!", message="**Check the HACS panel!**"
-            )
-
-    async def handle_critical_repositories(self):
-        """Handled critical repositories during runtime."""
-        # Get critical repositories
-        critical_queue = QueueManager()
-        instored = []
-        critical = []
-        was_installed = False
-
-        try:
-            critical = await self.data_repo.get_contents("critical")
-            critical = json.loads(critical.content)
-        except AIOGitHubAPIException:
-            pass
-
-        if not critical:
-            self.log.debug("No critical repositories")
-            return
-
-        stored_critical = await async_load_from_store(self.hass, "critical")
-
-        for stored in stored_critical or []:
-            instored.append(stored["repository"])
-
-        stored_critical = []
-
-        for repository in critical:
-            removed_repo = get_removed(repository["repository"])
-            removed_repo.removal_type = "critical"
-            repo = self.get_by_name(repository["repository"])
-
-            stored = {
-                "repository": repository["repository"],
-                "reason": repository["reason"],
-                "link": repository["link"],
-                "acknowledged": True,
-            }
-            if repository["repository"] not in instored:
-                if repo is not None and repo.installed:
-                    self.log.critical(
-                        "Removing repository %s, it is marked as critical",
-                        repository["repository"],
-                    )
-                    was_installed = True
-                    stored["acknowledged"] = False
-                    # Remove from HACS
-                    critical_queue.add(repository.uninstall())
-                    repo.remove()
-
-            stored_critical.append(stored)
-            removed_repo.update_data(stored)
-
-        # Uninstall
-        await critical_queue.execute()
-
-        # Save to FS
-        await async_save_to_store(self.hass, "critical", stored_critical)
-
-        # Restart HASS
-        if was_installed:
-            self.log.critical("Resarting Home Assistant")
-            self.hass.async_create_task(self.hass.async_stop(100))
 
     async def prosess_queue(self, _notarealarg=None):
         """Recurring tasks for installed repositories."""
@@ -259,7 +181,6 @@ class Hacs(HacsBase, HacsHelpers):
             if repository.data.installed and repository.data.category in self.common.categories:
                 self.queue.add(self.factory.safe_update(repository))
 
-        await self.handle_critical_repositories()
         self.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
         await self.data.async_write()

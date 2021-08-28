@@ -14,7 +14,7 @@ async def async_setup() -> None:
 class Task(HacsTask):
     """Load HACS repositroy."""
 
-    stages = [HacsStage.STARTUP]
+    stages = [HacsStage.SETUP]
 
     async def async_execute(self) -> None:
         try:

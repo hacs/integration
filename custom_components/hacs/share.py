@@ -1,7 +1,13 @@
 """Shared HACS elements."""
+from __future__ import annotations
+
 import os
+from typing import TYPE_CHECKING
 
 from .base import HacsBase
+
+if TYPE_CHECKING:
+    from .helpers.classes.removed import RemovedRepository
 
 SHARE = {
     "hacs": None,
@@ -48,7 +54,7 @@ def is_removed(repository):
     return repository in [x.repository for x in SHARE["removed_repositories"]]
 
 
-def get_removed(repository):
+def get_removed(repository) -> RemovedRepository:
     if not is_removed(repository):
         from custom_components.hacs.helpers.classes.removed import RemovedRepository
 
@@ -59,7 +65,7 @@ def get_removed(repository):
         x for x in SHARE["removed_repositories"] if x.repository.lower() == repository.lower()
     ]
 
-    return filter_repos.pop() or None
+    return filter_repos.pop() or RemovedRepository()
 
 
 def list_removed_repositories():

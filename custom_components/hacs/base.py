@@ -183,8 +183,6 @@ class HacsBase:
         """Disable HACS."""
         self.system.disabled = True
         self.system.disabled_reason = reason
-        for task in self.recuring_tasks:
-            task()
         if reason != HacsDisabledReason.REMOVED:
             self.log.error("HACS is disabled - %s", reason)
 
@@ -192,8 +190,6 @@ class HacsBase:
         """Enable HACS."""
         self.system.disabled = False
         self.system.disabled_reason = None
-        if self.tasks:
-            self.tasks.register_scheduled_handlers()
         self.log.info("HACS is enabled")
 
     def enable_hacs_category(self, category: HacsCategory):

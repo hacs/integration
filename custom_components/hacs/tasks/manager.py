@@ -37,22 +37,16 @@ class HacsTaskManager(HacsMixin, LogMixin):
 
         await asyncio.gather(*[_load_module(task) for task in task_modules])
         self.log.info("Loaded %s tasks", len(self.tasks))
-        self.register_event_handlers()
-        self.register_scheduled_handlers()
 
-    def register_event_handlers(self) -> None:
-        """Register event handlers."""
+        schedule_tasks = len(self.hacs.recuring_tasks) == 0
+
         for task in self.tasks:
             if task.events is not None:
                 for event in task.events:
                     self.hacs.hass.bus.async_listen_once(event, task.execute_task)
 
-    def register_scheduled_handlers(self) -> None:
-        """Register event handlers."""
-        for task in self.hacs.recuring_tasks:
-            task()
-        for task in self.tasks:
-            if task.schedule is not None:
+            if task.schedule is not None and schedule_tasks:
+                self.log.debug("Scheduling the %s task to run every %s", task.slug, task.schedule)
                 self.hacs.recuring_tasks.append(
                     self.hacs.hass.helpers.event.async_track_time_interval(
                         task.execute_task, task.schedule

@@ -104,7 +104,7 @@ def hacs(hass):
         hass=hass,
         pkg_path="custom_components.hacs",
         file_path=Path(hass.config.path("custom_components/hacs")),
-        manifest={"domain": DOMAIN, "version": "0.0.0"},
+        manifest={"domain": DOMAIN, "version": "0.0.0", "requirements": ["hacs_frontend==1"]},
     )
     hacs_obj.common = HacsCommon()
     hacs_obj.githubapi = AsyncMock()

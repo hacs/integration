@@ -23,7 +23,9 @@ jobs:
 
       - name: "Set version number"
         run: |
+          sed -i "/MINIMUM_HA_VERSION = /c\MINIMUM_HA_VERSION = \"$(jq .homeassistant -r ${{ github.workspace }}/hacs.json)\"" ${{ github.workspace }}/custom_components/hacs/const.py
           python3 ${{ github.workspace }}/manage/update_manifest.py --version ${{ steps.version.outputs.version }}
+
 
       # Pack the HACS dir as a zip and upload to the release
       - name: ZIP HACS Dir

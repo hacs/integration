@@ -1,8 +1,8 @@
 """Initialize the HACS base."""
 from datetime import timedelta
-import json
 
-from aiogithubapi import AIOGitHubAPIException
+from aiogithubapi import GitHubException
+from aiogithubapi.exceptions import GitHubNotModifiedException
 from queueman import QueueManager
 from queueman.exceptions import QueueManagerExecutionStillInProgress
 
@@ -169,9 +169,10 @@ class Hacs(HacsBase, HacsHelpers):
         was_installed = False
 
         try:
-            critical = await self.data_repo.get_contents("critical")
-            critical = json.loads(critical.content)
-        except AIOGitHubAPIException:
+            critical = await self.async_github_get_hacs_default_file("critical")
+        except GitHubNotModifiedException:
+            return
+        except GitHubException:
             pass
 
         if not critical:

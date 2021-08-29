@@ -107,6 +107,7 @@ def hacs(hass):
         manifest={"domain": DOMAIN, "version": "0.0.0"},
     )
     hacs_obj.common = HacsCommon()
+    hacs_obj.githubapi = AsyncMock()
     hacs_obj.data = AsyncMock()
     hacs_obj.core = HacsCore()
     hacs_obj.system = HacsSystem()

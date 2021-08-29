@@ -13,6 +13,9 @@ class HacsCategory(str, Enum):
     THEME = "theme"
     REMOVED = "removed"
 
+    def __str__(self):
+        return str(self.value)
+
 
 class ConfigurationType(str, Enum):
     YAML = "yaml"

@@ -19,7 +19,7 @@ async def async_get_list_from_default(default: HacsCategory) -> List:
 
     try:
         repositories = await hacs.async_github_get_hacs_default_file(default)
-
+        hacs.log.debug("Got %s elements for %s", len(repositories), default)
     except GitHubNotModifiedException:
         hacs.log.debug("Content did not change for %s/%s", REPOSITORY_HACS_DEFAULT, default)
 
@@ -33,7 +33,5 @@ async def async_get_list_from_default(default: HacsCategory) -> List:
 
     except BaseException as exception:  # pylint: disable=broad-except
         hacs.log.error(exception)
-
-    hacs.log.debug("Got %s elements for %s", len(repositories), default)
 
     return repositories

@@ -1,5 +1,6 @@
 """Set up some common test helper things."""
 import asyncio
+from custom_components.hacs.base import HacsCore, HacsSystem
 import logging
 from pathlib import Path
 from unittest.mock import AsyncMock
@@ -8,6 +9,7 @@ from homeassistant.exceptions import ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.loader import Integration
 from homeassistant.runner import HassEventLoopPolicy
+from homeassistant.const import __version__ as HAVERSION
 import pytest
 
 from custom_components.hacs.const import DOMAIN
@@ -94,16 +96,22 @@ def hacs(hass):
     hacs_obj.hass = hass
     hacs_obj.tasks = HacsTaskManager(hacs=hacs_obj, hass=hass)
     hacs_obj.session = async_create_clientsession(hass)
+
     hacs_obj.integration = Integration(
         hass=hass,
         pkg_path="custom_components.hacs",
         file_path=Path(hass.config.path("custom_components/hacs")),
         manifest={"domain": DOMAIN, "version": "0.0.0"},
     )
+    hacs_obj.data = AsyncMock()
+    hacs_obj.core = HacsCore()
+    hacs_obj.system = HacsSystem()
+
+    hacs_obj.core.config_path = hass.config.path()
+    hacs_obj.core.ha_version = HAVERSION
     hacs_obj.version = hacs_obj.integration.version
     hacs_obj.configuration.token = TOKEN
-    hacs_obj.core.config_path = hass.config.path()
-    hacs_obj.system.action = False
+
     SHARE["hacs"] = hacs_obj
     yield hacs_obj
 

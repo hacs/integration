@@ -23,7 +23,7 @@ class Task(HacsTask):
     def execute(self) -> None:
         for location in (
             self.hass.config.path("custom_components/custom_updater.py"),
-            self.hass.config.path("custom_components/custom_updater.py"),
+            self.hass.config.path("custom_components/custom_updater/__init__.py"),
         ):
             if os.path.exists(location):
                 self.log.critical(

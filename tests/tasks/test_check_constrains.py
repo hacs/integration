@@ -39,7 +39,7 @@ async def test_check_constrains_version(hacs: HacsBase, caplog: pytest.LogCaptur
         await task.execute_task()
         assert not hacs.system.disabled
 
-    hacs.core.ha_version = "1"
+    hacs.core.ha_version = "0"
     with patch("os.path.exists", return_value=False):
         await task.execute_task()
         assert hacs.system.disabled

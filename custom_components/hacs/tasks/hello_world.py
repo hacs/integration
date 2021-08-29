@@ -1,5 +1,6 @@
 """"Hacs base setup task."""
 from __future__ import annotations
+from datetime import timedelta
 
 from homeassistant.core import HomeAssistant
 
@@ -14,6 +15,8 @@ async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
 
 class Task(HacsTask):
     """ "Hacs task base."""
+
+    schedule = timedelta(weeks=52)
 
     def execute(self) -> None:
         self.log.debug("Hello World!")

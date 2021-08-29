@@ -1,4 +1,5 @@
 """Starting setup task: load HACS repository."""
+from __future__ import annotations
 from homeassistant.core import HomeAssistant
 
 from ..base import HacsBase
@@ -8,7 +9,7 @@ from ..helpers.functions.register_repository import register_repository
 from .base import HacsTask
 
 
-async def async_setup(hacs: HacsBase, hass: HomeAssistant) -> None:
+async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
     """Set up this task."""
     return Task(hacs=hacs, hass=hass)
 

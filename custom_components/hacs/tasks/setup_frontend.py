@@ -1,5 +1,5 @@
 """"Starting setup task: Frontend"."""
-
+from __future__ import annotations
 from hacs_frontend import locate_dir
 from hacs_frontend.version import VERSION as FE_VERSION
 
@@ -16,7 +16,7 @@ from homeassistant.core import HomeAssistant
 from ..base import HacsBase
 
 
-async def async_setup(hacs: HacsBase, hass: HomeAssistant) -> None:
+async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
     """Set up this task."""
     return Task(hacs=hacs, hass=hass)
 

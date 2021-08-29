@@ -37,7 +37,7 @@ class HacsTaskManager(LogMixin):
 
         async def _load_module(module: str):
             task_module = import_module(f"{__package__}.{module}")
-            if task := await task_module.async_setup(hacs=self.hacs, hass=self.hass):
+            if task := await task_module.async_setup_task(hacs=self.hacs, hass=self.hass):
                 self.__tasks[task.slug] = task
 
         await asyncio.gather(*[_load_module(task) for task in task_modules])

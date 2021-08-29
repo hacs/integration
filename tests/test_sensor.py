@@ -30,6 +30,7 @@ def test_sensor_data():
 @pytest.mark.asyncio
 async def test_sensor_update(hacs):
     sensor = HACSSensor()
+    sensor.hacs = hacs
     repository = HacsIntegrationRepository("test/one")
     repository.data.installed = True
     repository.data.installed_version = "1"

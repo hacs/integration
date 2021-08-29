@@ -1,6 +1,6 @@
 """Set up some common test helper things."""
 import asyncio
-from custom_components.hacs.base import HacsCore, HacsSystem
+from custom_components.hacs.base import HacsCommon, HacsCore, HacsSystem
 import logging
 from pathlib import Path
 from unittest.mock import AsyncMock
@@ -103,6 +103,7 @@ def hacs(hass):
         file_path=Path(hass.config.path("custom_components/hacs")),
         manifest={"domain": DOMAIN, "version": "0.0.0"},
     )
+    hacs_obj.common = HacsCommon()
     hacs_obj.data = AsyncMock()
     hacs_obj.core = HacsCore()
     hacs_obj.system = HacsSystem()

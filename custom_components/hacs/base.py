@@ -209,8 +209,8 @@ class HacsBase:
     async def async_can_update(self) -> int:
         """Helper to calculate the number of repositories we can fetch data for."""
         try:
-            result = await self.githubapi.rate_limit()
-            if ((limit := result.data.resources.core.remaining or 0) - 1000) >= 15:
+            response = await self.githubapi.rate_limit()
+            if ((limit := response.data.resources.core.remaining or 0) - 1000) >= 15:
                 return math.floor((limit - 1000) / 15)
         except GitHubAuthenticationException as exception:
             self.log.error("GitHub authentication failed - %s", exception)

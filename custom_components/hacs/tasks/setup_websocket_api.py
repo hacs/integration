@@ -1,5 +1,6 @@
 """Register WS API endpoints for HACS."""
 from __future__ import annotations
+
 from homeassistant.components.websocket_api import async_register_command
 from homeassistant.core import HomeAssistant
 

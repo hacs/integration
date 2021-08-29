@@ -1,5 +1,6 @@
 """Starting setup task: load HACS repository."""
 from __future__ import annotations
+
 from homeassistant.core import HomeAssistant
 
 from ..base import HacsBase

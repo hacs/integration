@@ -1,5 +1,6 @@
 """"Starting setup task: Verify API"."""
 from __future__ import annotations
+
 from homeassistant.core import HomeAssistant
 
 from ..base import HacsBase

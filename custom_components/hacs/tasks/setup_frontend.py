@@ -1,5 +1,6 @@
 """"Starting setup task: Frontend"."""
 from __future__ import annotations
+
 from hacs_frontend import locate_dir
 from hacs_frontend.version import VERSION as FE_VERSION
 

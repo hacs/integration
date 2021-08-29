@@ -1,5 +1,6 @@
 """Starting setup task: clear storage."""
 from __future__ import annotations
+
 import os
 
 from homeassistant.core import HomeAssistant

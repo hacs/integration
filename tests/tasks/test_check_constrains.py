@@ -1,10 +1,11 @@
 # pylint: disable=missing-function-docstring,missing-module-docstring, protected-access
-from custom_components.hacs.const import MINIMUM_HA_VERSION
-from custom_components.hacs.enums import HacsDisabledReason
+from unittest.mock import patch
+
 import pytest
 
-from unittest.mock import patch
 from custom_components.hacs.base import HacsBase
+from custom_components.hacs.const import MINIMUM_HA_VERSION
+from custom_components.hacs.enums import HacsDisabledReason
 
 
 @pytest.mark.asyncio

@@ -1,7 +1,6 @@
 """Starting setup task: load HACS repository."""
 from ..enums import HacsDisabledReason, HacsStage
 from ..exceptions import HacsException
-from ..helpers.functions.information import get_repository
 from ..helpers.functions.register_repository import register_repository
 from .base import HacsTask
 
@@ -28,9 +27,6 @@ class Task(HacsTask):
             repository.data.installed_version = self.hacs.integration.version
             repository.data.new = False
             self.hacs.repository = repository.repository_object
-            self.hacs.data_repo, _ = await get_repository(
-                self.hacs.session, self.hacs.configuration.token, "hacs/default", None
-            )
         except HacsException as exception:
             if "403" in f"{exception}":
                 self.log.critical("GitHub API is ratelimited, or the token is wrong.")

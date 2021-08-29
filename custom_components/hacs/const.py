@@ -14,6 +14,9 @@ DOMAIN_DATA = f"{NAME_SHORT.lower()}_data"
 
 PACKAGE_NAME = "custom_components.hacs"
 
+REPOSITORY_HACS_DEFAULT = "hacs/default"
+REPOSITORY_HACS_INTEGRATION = "hacs/integration"
+
 PLATFORMS = ["sensor"]
 
 HACS_ACTION_GITHUB_API_HEADERS = {

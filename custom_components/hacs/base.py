@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+import json
 import logging
 import math
 import pathlib
@@ -20,6 +21,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 from queueman.manager import QueueManager
 
+from .const import REPOSITORY_HACS_DEFAULT
 from .enums import (
     ConfigurationType,
     HacsCategory,
@@ -28,6 +30,7 @@ from .enums import (
     LovelaceMode,
 )
 from .exceptions import HacsException
+from .utils.decode import decode_content
 from .utils.logger import getLogger
 
 if TYPE_CHECKING:
@@ -136,6 +139,7 @@ class HacsSystem:
 class HacsBase:
     """Base HACS class."""
 
+    _etag_hacs_default = {}
     _repositories = []
     _repositories_by_full_name = {}
     _repositories_by_id = {}
@@ -144,7 +148,6 @@ class HacsBase:
     configuration = HacsConfiguration()
     core = HacsCore()
     data: HacsData | None = None
-    data_repo: AIOGitHubAPIRepository | None = None
     factory: HacsTaskFactory | None = None
     frontend = HacsFrontend()
     github: GitHub | None = None
@@ -220,3 +223,13 @@ class HacsBase:
             self.log.exception(exception)
 
         return 0
+
+    async def async_github_get_hacs_default_file(self, filename: str) -> dict[str, Any]:
+        """Get the content of a default file."""
+        response = await self.githubapi.repos.contents.get(
+            repository=REPOSITORY_HACS_DEFAULT,
+            path=filename,
+            **{"etag": self._etag_hacs_default.get(filename)},
+        )
+        self._etag_hacs_default[filename] = response.etag
+        return json.loads(decode_content(response.data.content))

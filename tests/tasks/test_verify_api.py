@@ -1,15 +1,16 @@
 # pylint: disable=missing-function-docstring,missing-module-docstring, protected-access
-from custom_components.hacs.enums import HacsDisabledReason
 from unittest.mock import MagicMock
+
 from aiogithubapi import (
-    GitHubResponseModel,
-    GitHubRateLimitModel,
-    GitHubRatelimitException,
     GitHubAuthenticationException,
+    GitHubRatelimitException,
+    GitHubRateLimitModel,
+    GitHubResponseModel,
 )
 import pytest
 
 from custom_components.hacs.base import HacsBase
+from custom_components.hacs.enums import HacsDisabledReason
 
 
 @pytest.mark.asyncio

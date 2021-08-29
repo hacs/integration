@@ -1,5 +1,6 @@
 # pylint: disable=missing-function-docstring,missing-module-docstring, protected-access
 from unittest.mock import AsyncMock
+
 import pytest
 
 from custom_components.hacs.base import HacsBase

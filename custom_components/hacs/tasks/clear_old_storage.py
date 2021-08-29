@@ -1,13 +1,18 @@
 """Starting setup task: clear storage."""
+from __future__ import annotations
+
 import os
 
+from homeassistant.core import HomeAssistant
+
+from ..base import HacsBase
 from ..enums import HacsStage
 from .base import HacsTask
 
 
-async def async_setup() -> None:
+async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
     """Set up this task."""
-    return Task()
+    return Task(hacs=hacs, hass=hass)
 
 
 class Task(HacsTask):

@@ -1,15 +1,18 @@
 """"Starting setup task: Sensor"."""
+from __future__ import annotations
 
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers.discovery import async_load_platform
 
+from ..base import HacsBase
 from ..const import DOMAIN, PLATFORMS
 from ..enums import ConfigurationType, HacsStage
 from .base import HacsTask
 
 
-async def async_setup() -> None:
+async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
     """Set up this task."""
-    return Task()
+    return Task(hacs=hacs, hass=hass)
 
 
 class Task(HacsTask):

@@ -7,11 +7,12 @@ from timeit import default_timer as timer
 
 from homeassistant.core import HomeAssistant
 
+from ..base import HacsBase
 from ..enums import HacsStage
-from ..mixin import HacsMixin, LogMixin
+from ..mixin import LogMixin
 
 
-class HacsTask(HacsMixin, LogMixin):
+class HacsTask(LogMixin):
     """Hacs task base."""
 
     hass: HomeAssistant
@@ -20,8 +21,9 @@ class HacsTask(HacsMixin, LogMixin):
     schedule: timedelta | None = None
     stages: list[HacsStage] | None = None
 
-    def __init__(self) -> None:
-        self.hass = self.hacs.hass
+    def __init__(self, hacs: HacsBase, hass: HomeAssistant) -> None:
+        self.hacs = hacs
+        self.hass = hass
 
     @property
     def slug(self) -> str:
@@ -45,8 +47,6 @@ class HacsTask(HacsMixin, LogMixin):
                 await self.hass.async_add_executor_job(task)
             elif task := getattr(self, "async_execute", None):
                 await task()  # pylint: disable=not-callable
-            else:
-                raise NotImplementedError(f"{self.slug} does not have a execute method defined.")
         except BaseException as exception:  # pylint: disable=broad-except
             self.log.error("Task %s failed: %s", self.slug, exception)
 

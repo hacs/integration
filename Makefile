@@ -18,7 +18,7 @@ start: ## Start the HA with the integration
 	@bash manage/integration_start;
 
 test: ## Run pytest
-	python3 -m pytest
+	@python3 -m pytest tests -rxf -x -v -l --cov=./ --cov-report=xml
 
 lint: ## Run linters
 	set -e
@@ -29,8 +29,9 @@ lint: ## Run linters
 	bellybutton lint
 	vulture . --min-confidence 75 --ignore-names policy
 
-coverage:  ## Display coverage report
-	coverage report --skip-covered
+coverage: ## Display coverage report
+	@python3 -m pytest tests -rxf -x -v -l --cov=./ --cov-report=xml > /dev/null
+	@coverage report --skip-covered
 
 update: ## Pull main from hacs/integration
 	git pull upstream main;

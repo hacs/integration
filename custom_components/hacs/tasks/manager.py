@@ -5,15 +5,20 @@ import asyncio
 from importlib import import_module
 from pathlib import Path
 
-from ..mixin import HacsMixin, LogMixin
+from homeassistant.core import HomeAssistant
+
+from ..base import HacsBase
+from ..mixin import LogMixin
 from .base import HacsTask
 
 
-class HacsTaskManager(HacsMixin, LogMixin):
+class HacsTaskManager(LogMixin):
     """Hacs task manager."""
 
-    def __init__(self) -> None:
+    def __init__(self, hacs: HacsBase, hass: HomeAssistant) -> None:
         """Initialize the setup manager class."""
+        self.hacs = hacs
+        self.hass = hass
         self.__tasks: dict[str, HacsTask] = {}
 
     @property
@@ -32,7 +37,7 @@ class HacsTaskManager(HacsMixin, LogMixin):
 
         async def _load_module(module: str):
             task_module = import_module(f"{__package__}.{module}")
-            if task := await task_module.async_setup():
+            if task := await task_module.async_setup_task(hacs=self.hacs, hass=self.hass):
                 self.__tasks[task.slug] = task
 
         await asyncio.gather(*[_load_module(task) for task in task_modules])
@@ -43,7 +48,7 @@ class HacsTaskManager(HacsMixin, LogMixin):
         for task in self.tasks:
             if task.events is not None:
                 for event in task.events:
-                    self.hacs.hass.bus.async_listen_once(event, task.execute_task)
+                    self.hass.bus.async_listen_once(event, task.execute_task)
 
             if task.schedule is not None and schedule_tasks:
                 self.log.debug("Scheduling the %s task to run every %s", task.slug, task.schedule)

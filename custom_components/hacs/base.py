@@ -16,7 +16,6 @@ from aiogithubapi import (
 )
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
-from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 from queueman.manager import QueueManager
@@ -98,7 +97,7 @@ class HacsCore:
     """HACS Core info."""
 
     config_path: pathlib.Path | None = None
-    ha_version: AwesomeVersion | None = None
+    ha_version: str | None = None
     lovelace_mode = LovelaceMode("yaml")
 
 
@@ -210,9 +209,13 @@ class HacsBase:
     async def async_can_update(self) -> int:
         """Helper to calculate the number of repositories we can fetch data for."""
         try:
-            result = await self.githubapi.rate_limit()
-            if ((limit := result.data.resources.core.remaining or 0) - 1000) >= 15:
+            response = await self.githubapi.rate_limit()
+            if ((limit := response.data.resources.core.remaining or 0) - 1000) >= 15:
                 return math.floor((limit - 1000) / 15)
+            self.log.error(
+                "GitHub API ratelimited - %s remaining", response.data.resources.core.remaining
+            )
+            self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
         except GitHubAuthenticationException as exception:
             self.log.error("GitHub authentication failed - %s", exception)
             self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)

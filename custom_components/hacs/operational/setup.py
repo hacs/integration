@@ -21,7 +21,7 @@ except ImportError:
     from homeassistant.components.lovelace.system_health import system_health_info
 
 
-async def _async_common_setup(hass):
+async def _async_common_setup(hass: HomeAssistant):
     """Common setup stages."""
     integration = await async_get_integration(hass, DOMAIN)
 
@@ -38,7 +38,7 @@ async def _async_common_setup(hass):
     hacs.data = HacsData()
     hacs.system.running = True
     hacs.session = async_create_clientsession(hass)
-    hacs.tasks = HacsTaskManager()
+    hacs.tasks = HacsTaskManager(hacs=hacs, hass=hass)
 
     try:
         lovelace_info = await system_health_info(hacs.hass)

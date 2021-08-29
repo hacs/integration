@@ -1,5 +1,8 @@
 """Register WS API endpoints for HACS."""
+from __future__ import annotations
+
 from homeassistant.components.websocket_api import async_register_command
+from homeassistant.core import HomeAssistant
 
 from ..api.acknowledge_critical_repository import acknowledge_critical_repository
 from ..api.check_local_path import check_local_path
@@ -11,13 +14,14 @@ from ..api.hacs_repository import hacs_repository
 from ..api.hacs_repository_data import hacs_repository_data
 from ..api.hacs_settings import hacs_settings
 from ..api.hacs_status import hacs_status
+from ..base import HacsBase
 from ..enums import HacsStage
 from .base import HacsTask
 
 
-async def async_setup() -> None:
+async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
     """Set up this task."""
-    return Task()
+    return Task(hacs=hacs, hass=hass)
 
 
 class Task(HacsTask):

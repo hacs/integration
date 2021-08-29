@@ -1,15 +1,18 @@
 """"Starting setup task: Constrains"."""
 import os
 
+from homeassistant.core import HomeAssistant
+
+from ..base import HacsBase
 from ..const import MINIMUM_HA_VERSION
 from ..enums import HacsDisabledReason, HacsStage
 from ..utils.version import version_left_higher_then_right
 from .base import HacsTask
 
 
-async def async_setup() -> None:
+async def async_setup(hacs: HacsBase, hass: HomeAssistant) -> None:
     """Set up this task."""
-    return Task()
+    return Task(hacs=hacs, hass=hass)
 
 
 class Task(HacsTask):

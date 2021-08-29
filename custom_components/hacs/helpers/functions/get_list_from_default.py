@@ -7,9 +7,9 @@ from aiogithubapi import (
     GitHubRatelimitException,
 )
 
+from custom_components.hacs.const import REPOSITORY_HACS_DEFAULT
 from custom_components.hacs.enums import HacsCategory, HacsDisabledReason
 from custom_components.hacs.share import get_hacs
-from custom_components.hacs.const import REPOSITORY_HACS_DEFAULT
 
 
 async def async_get_list_from_default(default: HacsCategory) -> List:

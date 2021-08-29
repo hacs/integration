@@ -11,9 +11,14 @@ from .base import HacsTask
 URL_BASE = "/hacsfiles"
 
 
-async def async_setup() -> None:
+from homeassistant.core import HomeAssistant
+
+from ..base import HacsBase
+
+
+async def async_setup(hacs: HacsBase, hass: HomeAssistant) -> None:
     """Set up this task."""
-    return Task()
+    return Task(hacs=hacs, hass=hass)
 
 
 class Task(HacsTask):

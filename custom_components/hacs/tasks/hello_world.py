@@ -1,10 +1,13 @@
 """"Hacs base setup task."""
+from homeassistant.core import HomeAssistant
+
+from ..base import HacsBase
 from .base import HacsTask
 
 
-async def async_setup() -> None:
+async def async_setup(hacs: HacsBase, hass: HomeAssistant) -> None:
     """Set up this task."""
-    return Task()
+    return Task(hacs=hacs, hass=hass)
 
 
 class Task(HacsTask):

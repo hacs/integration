@@ -92,7 +92,7 @@ def hacs(hass):
     """Fixture to provide a HACS object."""
     hacs_obj = Hacs()
     hacs_obj.hass = hass
-    hacs_obj.tasks = AsyncMock()
+    hacs_obj.tasks = HacsTaskManager(hacs=hacs_obj, hass=hass)
     hacs_obj.session = async_create_clientsession(hass)
     hacs_obj.integration = Integration(
         hass=hass,

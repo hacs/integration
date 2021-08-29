@@ -40,7 +40,7 @@ async def test_sensor_update(hacs):
     repository.data.installed_version = "1"
     repository.data.last_version = "1"
     hacs.async_add_repository(repository)
-    hacs.common.categories = ["integration"]
+    hacs.common.categories = {"integration"}
     dummy_state = "DUMMY"
     sensor._state = dummy_state  # pylint: disable=protected-access
     assert sensor.state == dummy_state

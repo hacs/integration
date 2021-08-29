@@ -1,6 +1,8 @@
 # pylint: disable=missing-function-docstring,missing-module-docstring, protected-access
-import pytest
 from unittest.mock import MagicMock
+
+import pytest
+
 from custom_components.hacs.base import HacsBase
 
 

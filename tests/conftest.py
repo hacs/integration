@@ -92,7 +92,6 @@ def hass(event_loop, tmpdir):
 def hacs(hass):
     """Fixture to provide a HACS object."""
     hacs_obj = Hacs()
-    hacs_obj._etag_hacs_default = {}
     hacs_obj._repositories = []
     hacs_obj._repositories_by_full_name = {}
     hacs_obj._repositories_by_id = {}

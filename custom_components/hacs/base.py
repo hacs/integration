@@ -138,7 +138,6 @@ class HacsSystem:
 class HacsBase:
     """Base HACS class."""
 
-    _etag_hacs_default = {}
     _repositories = []
     _repositories_by_full_name = {}
     _repositories_by_id = {}
@@ -230,9 +229,6 @@ class HacsBase:
     async def async_github_get_hacs_default_file(self, filename: str) -> dict[str, Any]:
         """Get the content of a default file."""
         response = await self.githubapi.repos.contents.get(
-            repository=REPOSITORY_HACS_DEFAULT,
-            path=filename,
-            **{"etag": self._etag_hacs_default.get(filename)},
+            repository=REPOSITORY_HACS_DEFAULT, path=filename
         )
-        self._etag_hacs_default[filename] = response.etag
         return json.loads(decode_content(response.data.content))

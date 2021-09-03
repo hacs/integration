@@ -55,7 +55,6 @@ class HacsData:
                 "onboarding_done": self.hacs.configuration.onboarding_done,
                 "archived_repositories": self.hacs.common.archived_repositories,
                 "renamed_repositories": self.hacs.common.renamed_repositories,
-                "etag_hacs_default": self.hacs._etag_hacs_default,  # pylint: disable=protected-access
             },
         )
         await self._async_store_content_and_repos()
@@ -134,9 +133,6 @@ class HacsData:
         self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
         self.hacs.common.archived_repositories = hacs.get("archived_repositories", [])
         self.hacs.common.renamed_repositories = hacs.get("renamed_repositories", {})
-        self.hacs._etag_hacs_default = hacs.get(  # pylint: disable=protected-access
-            "etag_hacs_default", {}
-        )
 
         # Repositories
         hass = self.hacs.hass

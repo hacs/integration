@@ -9,24 +9,54 @@ import attr
 
 from custom_components.hacs.exceptions import HacsException
 
+MANIFEST_DATA_KEYS = {
+    "name",
+    "content_in_root",
+    "zip_release",
+    "filename",
+    "manifest",
+    "hacs",
+    "hide_default_branch",
+    "domains",
+    "country",
+    "homeassistant",
+    "persistent_directory",
+    "iot_class",
+    "render_readme",
+    "description",
+    "version",
+    "codeowners",
+    "documentation",
+    "issue_tracker",
+    "config_flow",
+    "domain",
+}
 
-@attr.s(auto_attribs=True)
+
+@attr.s(slots=True)
 class HacsManifest:
     """HacsManifest class."""
 
-    name: str = None
-    content_in_root: bool = False
-    zip_release: bool = False
-    filename: str = None
-    manifest: dict = {}
-    hacs: str = None
-    hide_default_branch: bool = False
-    domains: List[str] = []
-    country: List[str] = []
-    homeassistant: str = None
-    persistent_directory: str = None
-    iot_class: str = None
-    render_readme: bool = False
+    name: str = attr.ib(default=None)
+    content_in_root: bool = attr.ib(default=False)
+    zip_release: bool = attr.ib(default=False)
+    filename: str = attr.ib(default=None)
+    manifest: dict = attr.ib(default={})
+    hacs: str = attr.ib(default=None)
+    hide_default_branch: bool = attr.ib(default=False)
+    domains: List[str] = attr.ib(default=[])
+    country: List[str] = attr.ib(default=[])
+    homeassistant: str = attr.ib(default=None)
+    persistent_directory: str = attr.ib(default=None)
+    iot_class: str = attr.ib(default=None)
+    render_readme: bool = attr.ib(default=False)
+    description: str = attr.ib(default=None)
+    version: str = attr.ib(default=None)
+    codeowners: List[str] = attr.ib(default=[])
+    documentation: str = attr.ib(default=None)
+    issue_tracker: str = attr.ib(default=None)
+    config_flow: bool = attr.ib(default=False)
+    domain: str = attr.ib(default=None)
 
     @staticmethod
     def from_dict(manifest: dict):
@@ -34,7 +64,9 @@ class HacsManifest:
         if manifest is None:
             raise HacsException("Missing manifest data")
 
-        manifest_data = HacsManifest()
+        manifest_data = HacsManifest(
+            **{k: v for k, v in manifest.items() if k in MANIFEST_DATA_KEYS}
+        )
 
         manifest_data.manifest = manifest
 
@@ -42,6 +74,4 @@ class HacsManifest:
             if isinstance(country, str):
                 manifest["country"] = [country]
 
-        for key in manifest:
-            setattr(manifest_data, key, manifest[key])
         return manifest_data

@@ -1,5 +1,6 @@
 """Repository."""
 # pylint: disable=broad-except, no-member
+import attr
 import json
 import os
 import shutil
@@ -34,88 +35,104 @@ from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.logger import getLogger
 
 
-class RepositoryVersions:
-    """Versions."""
-
-    available = None
-    available_commit = None
-    installed = None
-    installed_commit = None
-
-
+@attr.s(slots=True)
 class RepositoryStatus:
     """Repository status."""
 
-    hide = False
-    installed = False
-    last_updated = None
-    new = True
-    selected_tag = None
-    show_beta = False
-    track = True
-    updated_info = False
-    first_install = True
+    hide: bool = attr.ib(default=False)
+    installed: bool = attr.ib(default=False)
+    last_updated: str = attr.ib(default=None)
+    new: bool = attr.ib(default=True)
+    selected_tag: str = attr.ib(default=None)
+    show_beta: bool = attr.ib(default=False)
+    track: bool = attr.ib(default=True)
+    updated_info: bool = attr.ib(default=False)
+    first_install: bool = attr.ib(default=True)
 
 
+@attr.s(slots=True)
 class RepositoryInformation:
     """RepositoryInformation."""
 
-    additional_info = None
-    authors = []
-    category = None
-    default_branch = None
-    description = ""
-    state = None
-    full_name = None
-    full_name_lower = None
-    file_name = None
-    javascript_type = None
-    homeassistant_version = None
-    last_updated = None
-    uid = None
-    stars = 0
-    info = None
-    name = None
-    topics = []
+    additional_info: str = attr.ib(default=None)
+    authors: list = attr.ib(default=[])
+    category: str = attr.ib(default=None)
+    default_branch: str = attr.ib(default=None)
+    description: str = attr.ib(default="")
+    state: str = attr.ib(default=None)
+    full_name: str = attr.ib(default=None)
+    full_name_lower: str = attr.ib(default=None)
+    file_name: str = attr.ib(default=None)
+    javascript_type: str = attr.ib(default=None)
+    homeassistant_version: str = attr.ib(default=None)
+    last_updated: str = attr.ib(default=None)
+    uid: str = attr.ib(default=None)
+    stars: int = attr.ib(default=0)
+    info: str = attr.ib(default=None)
+    name: str = attr.ib(default=None)
+    topics: list = attr.ib(default=[])
 
 
+@attr.s(slots=True)
 class RepositoryReleases:
-    """RepositoyReleases."""
+    """RepositoryReleases."""
 
-    last_release = None
-    last_release_object = None
-    last_release_object_downloads = None
-    published_tags = []
-    objects = []
-    releases = False
-    downloads = None
+    last_release: str = attr.ib(default=None)
+    last_release_object: str = attr.ib(default=None)
+    last_release_object_downloads: str = attr.ib(default=None)
+    published_tags: list = attr.ib(default=[])
+    objects: list = attr.ib(default=[])
+    releases: bool = attr.ib(default=False)
+    downloads: str = attr.ib(default=None)
 
 
+@attr.s(slots=True)
 class RepositoryPath:
     """RepositoryPath."""
 
-    local = None
-    remote = None
+    local: str = attr.ib(default=None)
+    remote: str = attr.ib(default=None)
 
 
+@attr.s(slots=True)
 class RepositoryContent:
     """RepositoryContent."""
 
-    path = None
-    files = []
-    objects = []
-    single = False
+    path: str = attr.ib(default=None)
+    files: list = attr.ib(default=[])
+    objects: list = attr.ib(default=[])
+    single: bool = attr.ib(default=False)
 
 
 class HacsRepository(RepositoryHelpers):
     """HacsRepository."""
 
+    __slots__ = (
+        "hacs",
+        "data",
+        "content",
+        "information",
+        "repository_object",
+        "status",
+        "state",
+        "force_branch",
+        "integration_manifest",
+        "repository_manifest",
+        "validate",
+        "releases",
+        "versions",
+        "pending_restart",
+        "tree",
+        "treefiles",
+        "ref",
+        "logger",
+    )
+
     def __init__(self):
         """Set up HacsRepository."""
         self.hacs = get_hacs()
         self.data = RepositoryData()
-        self.content = RepositoryContent()
-        self.content.path = RepositoryPath()
+        self.content = RepositoryContent(path=RepositoryPath())
         self.information = RepositoryInformation()
         self.repository_object = None
         self.status = RepositoryStatus()
@@ -125,7 +142,6 @@ class HacsRepository(RepositoryHelpers):
         self.repository_manifest = HacsManifest.from_dict({})
         self.validate = Validate()
         self.releases = RepositoryReleases()
-        self.versions = RepositoryVersions()
         self.pending_restart = False
         self.tree = []
         self.treefiles = []

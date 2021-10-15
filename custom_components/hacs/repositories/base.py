@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import timedelta
+from datetime import timedelta, datetime
 import json
 from typing import Any
 
@@ -53,7 +53,7 @@ class HacsManifest:
 
 
 @dataclass
-class HacsRepository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-attributes
+class Repository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-attributes
     """Base class for repositories."""
 
     full_name: str
@@ -67,6 +67,7 @@ class HacsRepository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-
     archived: bool | None = None
     stargazers_count: int | None = None
     topics: list[str] | None = None
+    updated_at: str | None = None
 
     repository_tree: tuple[str] | None = None
     hacs_manifest: HacsManifest | None = None
@@ -83,8 +84,15 @@ class HacsRepository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-
     @property
     def update_strategy(self) -> timedelta:
         """Return the update strategy."""
-        if self.installed:
+        if self.installed or self.updated_at is None:
             return timedelta(hours=2)
+
+        updated = datetime.strptime(self.updated_at, "%Y-%m-%dT%H:%M:%SZ")
+        now = datetime.now()
+
+        if updated > (now - timedelta(days=30)):
+            return timedelta(hours=25)
+
         return timedelta(days=7)
 
     def repository_tree_contains(

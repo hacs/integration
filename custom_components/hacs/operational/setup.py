@@ -17,7 +17,6 @@ from custom_components.hacs.enums import (
     LovelaceMode,
 )
 from custom_components.hacs.hacsbase.data import HacsData
-from custom_components.hacs.repositories.base import HacsRepository
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.tasks.manager import HacsTaskManager
 
@@ -73,9 +72,6 @@ async def _async_common_setup(hass: HomeAssistant):
         session=session,
         **{"client_name": f"HACS/{hacs.version}"},
     )
-
-    test = HacsRepository(full_name="hacs/integration", category="integration")
-    hacs.log.error(await test.async_github_get_file_contents("hacs.json"))
 
     hass.data[DOMAIN] = hacs
 

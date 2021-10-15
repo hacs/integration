@@ -1,11 +1,14 @@
 """Helper to get default repositories."""
-import json
 from typing import List
 
-from aiogithubapi import AIOGitHubAPIException
+from aiogithubapi import (
+    GitHubAuthenticationException,
+    GitHubNotModifiedException,
+    GitHubRatelimitException,
+)
 
-from custom_components.hacs.enums import HacsCategory
-from custom_components.hacs.exceptions import HacsException
+from custom_components.hacs.const import REPOSITORY_HACS_DEFAULT
+from custom_components.hacs.enums import HacsCategory, HacsDisabledReason
 from custom_components.hacs.share import get_hacs
 
 
@@ -15,15 +18,20 @@ async def async_get_list_from_default(default: HacsCategory) -> List:
     repositories = []
 
     try:
-        content = await hacs.data_repo.get_contents(default, hacs.data_repo.default_branch)
-        repositories = json.loads(content.content)
+        repositories = await hacs.async_github_get_hacs_default_file(default)
+        hacs.log.debug("Got %s elements for %s", len(repositories), default)
+    except GitHubNotModifiedException:
+        hacs.log.debug("Content did not change for %s/%s", REPOSITORY_HACS_DEFAULT, default)
 
-    except (AIOGitHubAPIException, HacsException) as exception:
+    except GitHubRatelimitException as exception:
         hacs.log.error(exception)
+        hacs.disable_hacs(HacsDisabledReason.RATE_LIMIT)
 
-    except (Exception, BaseException) as exception:
+    except GitHubAuthenticationException as exception:
         hacs.log.error(exception)
+        hacs.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
 
-    hacs.log.debug("Got %s elements for %s", len(repositories), default)
+    except BaseException as exception:  # pylint: disable=broad-except
+        hacs.log.error(exception)
 
     return repositories

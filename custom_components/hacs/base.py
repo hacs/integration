@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+import json
 import logging
 import math
 import pathlib
@@ -15,11 +16,11 @@ from aiogithubapi import (
 )
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
-from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 from queueman.manager import QueueManager
 
+from .const import REPOSITORY_HACS_DEFAULT
 from .enums import (
     ConfigurationType,
     HacsCategory,
@@ -28,6 +29,7 @@ from .enums import (
     LovelaceMode,
 )
 from .exceptions import HacsException
+from .utils.decode import decode_content
 from .utils.logger import getLogger
 
 if TYPE_CHECKING:
@@ -95,7 +97,7 @@ class HacsCore:
     """HACS Core info."""
 
     config_path: pathlib.Path | None = None
-    ha_version: AwesomeVersion | None = None
+    ha_version: str | None = None
     lovelace_mode = LovelaceMode("yaml")
 
 
@@ -126,11 +128,15 @@ class HacsStatus:
 class HacsSystem:
     """HACS System info."""
 
-    disabled: bool = False
-    disabled_reason: str | None = None
+    disabled_reason: HacsDisabledReason | None = None
     running: bool = False
     stage = HacsStage.SETUP
     action: bool = False
+
+    @property
+    def disabled(self) -> bool:
+        """Return if HACS is disabled."""
+        return self.disabled_reason is not None
 
 
 class HacsBase:
@@ -144,7 +150,6 @@ class HacsBase:
     configuration = HacsConfiguration()
     core = HacsCore()
     data: HacsData | None = None
-    data_repo: AIOGitHubAPIRepository | None = None
     factory: HacsTaskFactory | None = None
     frontend = HacsFrontend()
     github: GitHub | None = None
@@ -181,14 +186,12 @@ class HacsBase:
 
     def disable_hacs(self, reason: HacsDisabledReason) -> None:
         """Disable HACS."""
-        self.system.disabled = True
         self.system.disabled_reason = reason
         if reason != HacsDisabledReason.REMOVED:
             self.log.error("HACS is disabled - %s", reason)
 
     def enable_hacs(self) -> None:
         """Enable HACS."""
-        self.system.disabled = False
         self.system.disabled_reason = None
         self.log.info("HACS is enabled")
 
@@ -207,9 +210,13 @@ class HacsBase:
     async def async_can_update(self) -> int:
         """Helper to calculate the number of repositories we can fetch data for."""
         try:
-            result = await self.githubapi.rate_limit()
-            if ((limit := result.data.resources.core.remaining or 0) - 1000) >= 15:
+            response = await self.githubapi.rate_limit()
+            if ((limit := response.data.resources.core.remaining or 0) - 1000) >= 15:
                 return math.floor((limit - 1000) / 15)
+            self.log.error(
+                "GitHub API ratelimited - %s remaining", response.data.resources.core.remaining
+            )
+            self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
         except GitHubAuthenticationException as exception:
             self.log.error("GitHub authentication failed - %s", exception)
             self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
@@ -220,3 +227,10 @@ class HacsBase:
             self.log.exception(exception)
 
         return 0
+
+    async def async_github_get_hacs_default_file(self, filename: str) -> dict[str, Any]:
+        """Get the content of a default file."""
+        response = await self.githubapi.repos.contents.get(
+            repository=REPOSITORY_HACS_DEFAULT, path=filename
+        )
+        return json.loads(decode_content(response.data.content))

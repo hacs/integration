@@ -13,6 +13,9 @@ class HacsCategory(str, Enum):
     THEME = "theme"
     REMOVED = "removed"
 
+    def __str__(self):
+        return str(self.value)
+
 
 class ConfigurationType(str, Enum):
     YAML = "yaml"
@@ -26,16 +29,6 @@ class LovelaceMode(str, Enum):
     AUTO = "auto"
     AUTO_GEN = "auto-gen"
     YAML = "yaml"
-
-
-class HacsTaskType(str, Enum):
-    """HacsTaskType"""
-
-    RUNTIME = "runtime"
-    EVENT = "event"
-    SCHEDULE = "schedule"
-    MANUAL = "manual"
-    BASE = "base"
 
 
 class HacsStage(str, Enum):

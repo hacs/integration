@@ -5,20 +5,24 @@ import asyncio
 from importlib import import_module
 from pathlib import Path
 
-from ..enums import HacsTaskType
-from ..mixin import HacsMixin, LogMixin
-from .base import HacsTaskBase
+from homeassistant.core import HomeAssistant
+
+from ..base import HacsBase
+from ..mixin import LogMixin
+from .base import HacsTask
 
 
-class HacsTaskManager(HacsMixin, LogMixin):
+class HacsTaskManager(LogMixin):
     """Hacs task manager."""
 
-    def __init__(self) -> None:
+    def __init__(self, hacs: HacsBase, hass: HomeAssistant) -> None:
         """Initialize the setup manager class."""
-        self.__tasks: dict[str, HacsTaskBase] = {}
+        self.hacs = hacs
+        self.hass = hass
+        self.__tasks: dict[str, HacsTask] = {}
 
     @property
-    def tasks(self) -> list[HacsTaskBase]:
+    def tasks(self) -> list[HacsTask]:
         """Return all list of all tasks."""
         return list(self.__tasks.values())
 
@@ -33,27 +37,39 @@ class HacsTaskManager(HacsMixin, LogMixin):
 
         async def _load_module(module: str):
             task_module = import_module(f"{__package__}.{module}")
-            if task := await task_module.async_setup():
+            if task := await task_module.async_setup_task(hacs=self.hacs, hass=self.hass):
                 self.__tasks[task.slug] = task
 
         await asyncio.gather(*[_load_module(task) for task in task_modules])
         self.log.info("Loaded %s tasks", len(self.tasks))
 
-        for task in self.tasks:
-            if task.type == HacsTaskType.EVENT:
-                for event in task.events:
-                    self.hacs.hass.bus.async_listen_once(event, task.execute_task)
+        schedule_tasks = len(self.hacs.recuring_tasks) == 0
 
-    def get(self, slug: str) -> HacsTaskBase | None:
+        for task in self.tasks:
+            if task.events is not None:
+                for event in task.events:
+                    self.hass.bus.async_listen_once(event, task.execute_task)
+
+            if task.schedule is not None and schedule_tasks:
+                self.log.debug("Scheduling the %s task to run every %s", task.slug, task.schedule)
+                self.hacs.recuring_tasks.append(
+                    self.hacs.hass.helpers.event.async_track_time_interval(
+                        task.execute_task, task.schedule
+                    )
+                )
+
+    def get(self, slug: str) -> HacsTask | None:
         """Return a task."""
         return self.__tasks.get(slug)
 
     async def async_execute_runtume_tasks(self) -> None:
         """Execute the the execute methods of each runtime task if the stage matches."""
+        self.hacs.status.background_task = True
         await asyncio.gather(
             *(
                 task.execute_task()
                 for task in self.tasks
-                if task.type == HacsTaskType.RUNTIME and self.hacs.stage in task.stages
+                if task.stages is not None and self.hacs.stage in task.stages
             )
         )
+        self.hacs.status.background_task = False

@@ -1,27 +1,27 @@
 """Setup HACS."""
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
+from homeassistant.components.lovelace.system_health import system_health_info
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED, __version__ as HAVERSION
 from homeassistant.core import CoreState, HomeAssistant
-from homeassistant.exceptions import ConfigEntryNotReady, HomeAssistantError
+from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
 
 from custom_components.hacs.const import DOMAIN, STARTUP
-from custom_components.hacs.enums import ConfigurationType, HacsStage, LovelaceMode
+from custom_components.hacs.enums import (
+    ConfigurationType,
+    HacsStage,
+    LovelaceMode,
+)
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.tasks.manager import HacsTaskManager
 
-try:
-    from homeassistant.components.lovelace import system_health_info
-except ImportError:
-    from homeassistant.components.lovelace.system_health import system_health_info
 
-
-async def _async_common_setup(hass):
+async def _async_common_setup(hass: HomeAssistant):
     """Common setup stages."""
     integration = await async_get_integration(hass, DOMAIN)
 
@@ -38,19 +38,18 @@ async def _async_common_setup(hass):
     hacs.data = HacsData()
     hacs.system.running = True
     hacs.session = async_create_clientsession(hass)
-    hacs.tasks = HacsTaskManager()
+    hacs.tasks = HacsTaskManager(hacs=hacs, hass=hass)
 
+    hacs.core.lovelace_mode = LovelaceMode.YAML
     try:
         lovelace_info = await system_health_info(hacs.hass)
-    except (TypeError, KeyError, HomeAssistantError):
+        hacs.core.lovelace_mode = LovelaceMode(lovelace_info.get("mode", "yaml"))
+    except Exception:  # pylint: disable=broad-except
         # If this happens, the users YAML is not valid, we assume YAML mode
-        lovelace_info = {"mode": "yaml"}
+        pass
     hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")
     hacs.core.config_path = hacs.hass.config.path()
     hacs.core.ha_version = HAVERSION
-
-    hacs.core.lovelace_mode = lovelace_info.get("mode", "yaml")
-    hacs.core.lovelace_mode = LovelaceMode(lovelace_info.get("mode", "yaml"))
 
     await hacs.tasks.async_load()
 
@@ -130,8 +129,7 @@ async def async_startup_wrapper_for_config_entry():
     except AIOGitHubAPIException:
         startup_result = False
     if not startup_result:
-        hacs.system.disabled = True
-        raise ConfigEntryNotReady
+        raise ConfigEntryNotReady(hacs.system.disabled_reason)
     hacs.enable_hacs()
     return startup_result
 
@@ -144,7 +142,6 @@ async def async_startup_wrapper_for_yaml(_=None):
     except AIOGitHubAPIException:
         startup_result = False
     if not startup_result:
-        hacs.system.disabled = True
         hacs.log.info("Could not setup HACS, trying again in 15 min")
         async_call_later(hacs.hass, 900, async_startup_wrapper_for_yaml)
         return

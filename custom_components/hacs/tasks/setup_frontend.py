@@ -1,4 +1,5 @@
 """"Starting setup task: Frontend"."""
+from __future__ import annotations
 
 from hacs_frontend import locate_dir
 from hacs_frontend.version import VERSION as FE_VERSION
@@ -6,17 +7,22 @@ from hacs_frontend.version import VERSION as FE_VERSION
 from ..const import DOMAIN
 from ..enums import HacsStage
 from ..webresponses.frontend import HacsFrontendDev
-from .base import HacsTaskRuntimeBase
+from .base import HacsTask
 
 URL_BASE = "/hacsfiles"
 
 
-async def async_setup() -> None:
+from homeassistant.core import HomeAssistant
+
+from ..base import HacsBase
+
+
+async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
     """Set up this task."""
-    return Task()
+    return Task(hacs=hacs, hass=hass)
 
 
-class Task(HacsTaskRuntimeBase):
+class Task(HacsTask):
     """Setup the HACS frontend."""
 
     stages = [HacsStage.SETUP]

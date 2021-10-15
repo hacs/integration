@@ -55,3 +55,7 @@ class HacsDisabledReason(str, Enum):
     CONSTRAINS = "constrains"
     LOAD_HACS = "load_hacs"
     RESTORE = "restore"
+
+
+class RepositoryFile(str, Enum):
+    HACS_JSON = "hacs.json"

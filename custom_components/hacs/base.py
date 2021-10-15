@@ -6,7 +6,7 @@ import json
 import logging
 import math
 import pathlib
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Coroutine
 
 from aiogithubapi import (
     GitHub,
@@ -14,9 +14,10 @@ from aiogithubapi import (
     GitHubAuthenticationException,
     GitHubRatelimitException,
 )
+from aiogithubapi.exceptions import GitHubException
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
-from homeassistant.core import HomeAssistant
+from homeassistant.core import T, HomeAssistant
 from homeassistant.loader import Integration
 from queueman.manager import QueueManager
 
@@ -234,3 +235,11 @@ class HacsBase:
             repository=REPOSITORY_HACS_DEFAULT, path=filename
         )
         return json.loads(decode_content(response.data.content))
+
+    async def async_github_api_wrapper(self, coroutine: T) -> T:
+        """Wrap GitHub API calls."""
+        try:
+            response = await coroutine
+            return response
+        except GitHubException as exception:
+            raise HacsException(f"GitHub API error - {exception}") from exception

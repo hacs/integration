@@ -2,13 +2,20 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import timedelta
 import json
 from typing import Any
 
-from aiogithubapi import GitHubGitTreeModel, GitHubNotModifiedException
+from aiogithubapi import GitHubNotModifiedException
+from aiogithubapi.exceptions import GitHubException
+from aiogithubapi.models.contents import GitHubContentsModel
 from awesomeversion import AwesomeVersion
 
-from ..enums import HacsCategory
+from custom_components.hacs.exceptions import HacsException
+
+from ..utils.decorator import GitHubAPI
+
+from ..enums import HacsCategory, RepositoryFile
 from ..mixin import HacsMixin, LogMixin
 from ..utils.decode import decode_content
 
@@ -52,7 +59,9 @@ class HacsRepository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-
     full_name: str
     category: HacsCategory
 
-    id: int | None = None  # pylint: disable=invalid-name
+    installed: bool = False
+
+    id: str | None = None  # pylint: disable=invalid-name
     description: str | None = None
     default_branch: str | None = None
     archived: bool | None = None
@@ -71,7 +80,17 @@ class HacsRepository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-
         """Boolean to indicate that the repository uses releases."""
         return False
 
-    def repository_tree_contains(self, path: str) -> str | None:
+    @property
+    def update_strategy(self) -> timedelta:
+        """Return the update strategy."""
+        if self.installed:
+            return timedelta(hours=2)
+        return timedelta(days=7)
+
+    def repository_tree_contains(
+        self,
+        path: str,
+    ) -> str | None:
         """Check if the tree contains a file."""
         if self.repository_tree is None:
             return None
@@ -80,6 +99,7 @@ class HacsRepository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-
                 return tree
         return None
 
+    @GitHubAPI
     async def async_github_update_information(self) -> None:
         """Update repository information from github."""
         try:
@@ -89,6 +109,9 @@ class HacsRepository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-
             )
             self.etag_repository = response.etag
         except GitHubNotModifiedException:
+            return None
+        except HacsException as exception:
+            self.log.error(exception)
             return None
 
         if self.full_name != response.data.full_name:
@@ -107,10 +130,16 @@ class HacsRepository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-
         if repository_tree := await self.async_github_get_tree(tree_sha=self.default_branch):
             self.repository_tree = repository_tree
 
-        if hacs_manifest := await self.async_github_get_hacs_manifest():
-            self.hacs_manifest = hacs_manifest
+        if hacs_manifest := await self.async_github_get_file_contents(
+            file_path=RepositoryFile.HACS_JSON
+        ):
+            self.hacs_manifest = HacsManifest.from_dict(json.loads(hacs_manifest))
 
-    async def async_github_get_tree(self, tree_sha: str) -> set[str] | None:
+    @GitHubAPI
+    async def async_github_get_tree(
+        self,
+        tree_sha: str,
+    ) -> set[str] | None:
         """Get the tree from GitHub."""
         try:
             response = await self.hacs.githubapi.repos.git.get_tree(
@@ -121,21 +150,26 @@ class HacsRepository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-
             self.etag_repository_tree = response.etag
         except GitHubNotModifiedException:
             return None
+        except HacsException as exception:
+            self.log.error(exception)
+            return None
 
         return tuple(tree.path for tree in response.data.tree or [])
 
-    async def async_github_get_hacs_manifest(
+    @GitHubAPI
+    async def async_github_get_file_contents(
         self,
+        file_path: str,
         ref: str | None = None,
-    ) -> HacsManifest | None:
+    ) -> GitHubContentsModel | None:
         """Get the HACS manifest from GitHub."""
-        if not self.repository_tree_contains("hacs.json"):
+        if not self.repository_tree_contains(file_path):
             return
 
         try:
             response = await self.hacs.githubapi.repos.contents.get(
                 repository=self.full_name,
-                path="hacs.json",
+                path=file_path,
                 **{
                     "query": {"ref": ref} if ref else {},
                     "etag": self.etag_hacs_manifest,
@@ -144,5 +178,8 @@ class HacsRepository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-
             self.etag_hacs_manifest = response.etag
         except GitHubNotModifiedException:
             return None
+        except HacsException as exception:
+            self.log.error(exception)
+            return None
 
-        return HacsManifest.from_dict(json.loads(decode_content(response.data.content)))
+        return decode_content(response.data.content)

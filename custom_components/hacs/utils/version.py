@@ -3,7 +3,7 @@
 
 from functools import lru_cache
 
-from awesomeversion import AwesomeVersionException, AwesomeVersion
+from awesomeversion import AwesomeVersion, AwesomeVersionException
 
 
 @lru_cache(maxsize=1024)

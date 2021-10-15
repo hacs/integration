@@ -10,7 +10,11 @@ from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
 
 from custom_components.hacs.const import DOMAIN, STARTUP
-from custom_components.hacs.enums import ConfigurationType, HacsStage, LovelaceMode
+from custom_components.hacs.enums import (
+    ConfigurationType,
+    HacsStage,
+    LovelaceMode,
+)
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.tasks.manager import HacsTaskManager
@@ -130,8 +134,7 @@ async def async_startup_wrapper_for_config_entry():
     except AIOGitHubAPIException:
         startup_result = False
     if not startup_result:
-        hacs.system.disabled = True
-        raise ConfigEntryNotReady
+        raise ConfigEntryNotReady(hacs.system.disabled_reason)
     hacs.enable_hacs()
     return startup_result
 
@@ -144,7 +147,6 @@ async def async_startup_wrapper_for_yaml(_=None):
     except AIOGitHubAPIException:
         startup_result = False
     if not startup_result:
-        hacs.system.disabled = True
         hacs.log.info("Could not setup HACS, trying again in 15 min")
         async_call_later(hacs.hass, 900, async_startup_wrapper_for_yaml)
         return

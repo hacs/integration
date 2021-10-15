@@ -128,11 +128,15 @@ class HacsStatus:
 class HacsSystem:
     """HACS System info."""
 
-    disabled: bool = False
-    disabled_reason: str | None = None
+    disabled_reason: HacsDisabledReason | None = None
     running: bool = False
     stage = HacsStage.SETUP
     action: bool = False
+
+    @property
+    def disabled(self) -> bool:
+        """Return if HACS is disabled."""
+        return self.disabled_reason is not None
 
 
 class HacsBase:
@@ -182,14 +186,12 @@ class HacsBase:
 
     def disable_hacs(self, reason: HacsDisabledReason) -> None:
         """Disable HACS."""
-        self.system.disabled = True
         self.system.disabled_reason = reason
         if reason != HacsDisabledReason.REMOVED:
             self.log.error("HACS is disabled - %s", reason)
 
     def enable_hacs(self) -> None:
         """Enable HACS."""
-        self.system.disabled = False
         self.system.disabled_reason = None
         self.log.info("HACS is enabled")
 

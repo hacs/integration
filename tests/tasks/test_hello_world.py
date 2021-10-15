@@ -38,7 +38,6 @@ async def test_hello_world_disabled(hacs: HacsBase, caplog: pytest.LogCaptureFix
 
     assert task
 
-    hacs.system.disabled = True
     hacs.system.disabled_reason = "lorem_ipsum"
 
     await task.execute_task()

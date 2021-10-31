@@ -27,7 +27,7 @@ class Task(HacsTask):
 
     stages = [HacsStage.SETUP]
 
-    def execute(self) -> None:
+    async def async_execute(self) -> None:
 
         # Register themes
         self.hass.http.register_static_path(f"{URL_BASE}/themes", self.hass.config.path("themes"))

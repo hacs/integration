@@ -18,7 +18,7 @@ class Task(HacsTask):
 
     stages = [HacsStage.SETUP]
 
-    def execute(self) -> None:
+    async def async_execute(self) -> None:
         self.hacs.common.categories = set()
         for category in (HacsCategory.INTEGRATION, HacsCategory.PLUGIN):
             self.hacs.enable_hacs_category(HacsCategory(category))

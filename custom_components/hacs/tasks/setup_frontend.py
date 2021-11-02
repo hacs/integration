@@ -48,7 +48,7 @@ class Task(HacsTask):
         )
         if "frontend_extra_module_url" not in self.hass.data:
             self.hass.data["frontend_extra_module_url"] = set()
-        self.hass.data["frontend_extra_module_url"].add("/hacsfiles/iconset.js")
+        self.hass.data["frontend_extra_module_url"].add(f"{URL_BASE}/iconset.js")
 
         # Register www/community for all other files
         use_cache = self.hacs.core.lovelace_mode == "storage"

@@ -40,7 +40,7 @@ async def async_download_file(url):
 
     result = None
 
-    with async_timeout.timeout(60, loop=hacs.hass.loop):
+    with async_timeout.timeout(60):
         request = await hacs.session.get(url)
 
         # Make sure that we got a valid result

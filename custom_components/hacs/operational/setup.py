@@ -37,7 +37,7 @@ async def _async_common_setup(hass: HomeAssistant):
     hacs.hass = hass
     hacs.data = HacsData()
     hacs.system.running = True
-    hacs.session = async_create_clientsession(hass)
+    hacs.session = async_create_clientsession(hass, trust_env=True)
     hacs.tasks = HacsTaskManager(hacs=hacs, hass=hass)
 
     hacs.core.lovelace_mode = LovelaceMode.YAML
@@ -54,7 +54,7 @@ async def _async_common_setup(hass: HomeAssistant):
     await hacs.tasks.async_load()
 
     # Setup session for API clients
-    session = async_create_clientsession(hacs.hass)
+    session = async_create_clientsession(hacs.hass, trust_env=True)
 
     ## Legacy GitHub client
     hacs.github = GitHub(

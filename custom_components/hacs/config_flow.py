@@ -70,7 +70,7 @@ class HacsFlowHandler(HacsMixin, config_entries.ConfigFlow, domain=DOMAIN):
             if not self.device:
                 self.device = GitHubDeviceAPI(
                     client_id=CLIENT_ID,
-                    session=aiohttp_client.async_get_clientsession(self.hass),
+                    session=aiohttp_client.async_get_clientsession(self.hass, trust_env=True),
                     **{"client_name": f"HACS/{integration.version}"},
                 )
             async_call_later(self.hass, 1, _wait_for_activation)

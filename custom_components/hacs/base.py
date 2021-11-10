@@ -2,10 +2,13 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+import gzip
 import json
 import logging
 import math
+import os
 import pathlib
+import shutil
 from typing import TYPE_CHECKING, Any
 
 from aiogithubapi import (
@@ -206,6 +209,42 @@ class HacsBase:
         if category in self.common.categories:
             self.log.info("Disabling category: %s", category)
             self.common.categories.pop(category)
+
+    async def async_save_file(self, file_path: str, content: Any) -> bool:
+        """Save a file."""
+
+        def _write_file():
+            with open(
+                file_path,
+                mode="w" if isinstance(content, str) else "wb",
+                encoding="utf-8" if isinstance(content, str) else None,
+                errors="ignore" if isinstance(content, str) else None,
+            ) as file_handler:
+                file_handler.write(content)
+
+            # Create gz for .js files
+            if os.path.isfile(file_path):
+                if file_path.endswith(".js"):
+                    with open(file_path, "rb") as f_in:
+                        with gzip.open(file_path + ".gz", "wb") as f_out:
+                            shutil.copyfileobj(f_in, f_out)
+
+            # LEGACY! Remove with 2.0
+            if "themes" in file_path and file_path.endswith(".yaml"):
+                filename = file_path.split("/")[-1]
+                base = file_path.split("/themes/")[0]
+                combined = f"{base}/themes/{filename}"
+                if os.path.exists(combined):
+                    self.log.info("Removing old theme file %s", combined)
+                    os.remove(combined)
+
+        try:
+            await self.hass.async_add_executor_job(_write_file)
+        except BaseException as error:  # pylint: disable=broad-except
+            self.log.error("Could not write data to %s - %s", file_path, error)
+            return False
+
+        return os.path.exists(file_path)
 
     async def async_can_update(self) -> int:
         """Helper to calculate the number of repositories we can fetch data for."""

@@ -12,7 +12,6 @@ from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.filters import (
     filter_content_return_one_of_type,
 )
-from custom_components.hacs.helpers.functions.save import async_save_file
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.logger import getLogger
 
@@ -156,7 +155,7 @@ async def async_download_zip_file(repository, content, validate):
             validate.errors.append(f"[{content.name}] was not downloaded.")
             return
 
-        result = await async_save_file(
+        result = await repository.hacs.async_save_file(
             f"{tempfile.gettempdir()}/{repository.data.filename}", filecontent
         )
         with zipfile.ZipFile(
@@ -224,7 +223,7 @@ async def dowload_repository_content(repository, content):
 
         local_file_path = (f"{local_directory}/{content.name}").replace("//", "/")
 
-        result = await async_save_file(local_file_path, filecontent)
+        result = await repository.hacs.async_save_file(local_file_path, filecontent)
         if result:
             repository.logger.info(f"Download of {content.name} completed")
             return

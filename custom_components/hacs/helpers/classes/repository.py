@@ -21,7 +21,6 @@ from custom_components.hacs.helpers.functions.information import (
 )
 from custom_components.hacs.helpers.functions.is_safe_to_remove import is_safe_to_remove
 from custom_components.hacs.helpers.functions.misc import get_repository_name
-from custom_components.hacs.helpers.functions.save import async_save_file
 from custom_components.hacs.helpers.functions.store import async_remove_store
 from custom_components.hacs.helpers.functions.validate_repository import (
     common_update_data,
@@ -323,7 +322,7 @@ class HacsRepository(RepositoryHelpers):
             temp_dir = await self.hacs.hass.async_add_executor_job(tempfile.mkdtemp)
             temp_file = f"{temp_dir}/{self.data.filename}"
 
-            result = await async_save_file(temp_file, filecontent)
+            result = await self.hacs.async_save_file(temp_file, filecontent)
             with zipfile.ZipFile(temp_file, "r") as zip_file:
                 zip_file.extractall(self.content.path.local)
 

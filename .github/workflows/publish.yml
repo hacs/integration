@@ -8,7 +8,7 @@ on:
 
 jobs:
   release_zip_file:
-    name: Publish HACS zup file asset
+    name: Publish HACS zip file asset
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -39,14 +39,14 @@ jobs:
 
       - name: Upload zip to action
         uses: actions/upload-artifact@v2
-        if: ${{ github.event.event == 'push' }}
+        if: ${{ github.event_name == 'push' }}
         with:
           name: my-artifact
           path: path/to/artifact/world.txt
 
       - name: Upload zip to release
         uses: svenstaro/upload-release-action@v1-release
-        if: ${{ github.event.event == 'release' }}
+        if: ${{ github.event_name == 'release' }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ github.workspace }}/custom_components/hacs/hacs.zip

@@ -21,7 +21,7 @@ window.customIcons["hacs"] = {
     )
 };
 
-// For Home Assistant < 2021.11
+// LEGACY For Home Assistant < 2021.11
 window.customIconsets["hacs"] = async () => {
   return {
     path: hacsIcons.hacs.path

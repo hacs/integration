@@ -41,8 +41,8 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ github.event_name == 'push' }}
         with:
-          name: my-artifact
-          path: path/to/artifact/world.txt
+          name: hacs.zip
+          path: ${{ github.workspace }}/custom_components/hacs/hacs.zip
 
       - name: Upload zip to release
         uses: svenstaro/upload-release-action@v1-release

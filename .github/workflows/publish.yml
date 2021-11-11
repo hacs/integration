@@ -31,18 +31,19 @@ jobs:
       - name: Add download HACS frontend
         run: ${{ github.workspace }}/manage/install_frontend
 
-      # Pack the HACS dir as a zip and upload to the release
-      - name: ZIP HACS Dir
-        run: |
-          cd ${{ github.workspace }}/custom_components/hacs
-          zip hacs.zip -r ./
-
       - name: Upload zip to action
         uses: actions/upload-artifact@v2
         if: ${{ github.event_name == 'push' }}
         with:
           name: hacs
-          path: ${{ github.workspace }}/custom_components/hacs/hacs.zip
+          path: ${{ github.workspace }}/custom_components/hacs
+
+      # Pack the HACS dir as a zip and upload to the release
+      - name: ZIP HACS Dir
+        if: ${{ github.event_name == 'release' }}
+        run: |
+          cd ${{ github.workspace }}/custom_components/hacs
+          zip hacs.zip -r ./
 
       - name: Upload zip to release
         uses: svenstaro/upload-release-action@v1-release

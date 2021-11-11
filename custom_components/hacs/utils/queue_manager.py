@@ -68,5 +68,5 @@ class QueueManager:
             end,
         )
         if self.has_pending_tasks:
-            _LOGGER.debug("%s taks remaining in the queue", len(self.queue))
+            _LOGGER.debug("%s tasks remaining in the queue", len(self.queue))
         self.running = False

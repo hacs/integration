@@ -1,12 +1,14 @@
-name: Release
+name: Publish
 
 on:
   release:
     types: [published]
+  push:
+    branches: [main]
 
 jobs:
   release_zip_file:
-    name: Prepare release asset
+    name: Publish HACS zup file asset
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -34,9 +36,17 @@ jobs:
         run: |
           cd ${{ github.workspace }}/custom_components/hacs
           zip hacs.zip -r ./
+
+      - name: Upload zip to action
+        uses: actions/upload-artifact@v2
+        if: ${{ github.event.event == 'push' }}
+        with:
+          name: my-artifact
+          path: path/to/artifact/world.txt
+
       - name: Upload zip to release
         uses: svenstaro/upload-release-action@v1-release
-
+        if: ${{ github.event.event == 'release' }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ github.workspace }}/custom_components/hacs/hacs.zip

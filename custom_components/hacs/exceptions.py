@@ -19,3 +19,7 @@ class HacsExpectedException(HacsException):
 
 class HacsRepositoryExistException(HacsException):
     """For repositories that are already exist."""
+
+
+class HacsExecutionStillInProgress(HacsException):
+    """Exception to raise if execution is still in progress."""

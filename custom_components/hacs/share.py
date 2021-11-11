@@ -2,6 +2,7 @@
 import os
 
 from .base import HacsBase
+from .utils.queue_manager import QueueManager
 
 SHARE = {
     "hacs": None,
@@ -37,10 +38,7 @@ def get_factory():
 
 def get_queue():
     if SHARE["queue"] is None:
-        from queueman import QueueManager
-
         SHARE["queue"] = QueueManager()
-
     return SHARE["queue"]
 
 

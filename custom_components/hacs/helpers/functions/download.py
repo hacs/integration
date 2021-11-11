@@ -6,14 +6,15 @@ import zipfile
 
 import async_timeout
 import backoff
-from queueman import QueueManager, concurrent
 
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.filters import (
     filter_content_return_one_of_type,
 )
 from custom_components.hacs.share import get_hacs
+from custom_components.hacs.utils.decorator import concurrent
 from custom_components.hacs.utils.logger import getLogger
+from custom_components.hacs.utils.queue_manager import QueueManager
 
 _LOGGER = getLogger()
 

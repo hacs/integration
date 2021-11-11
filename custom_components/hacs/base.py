@@ -21,7 +21,6 @@ from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
-from queueman.manager import QueueManager
 
 from .const import REPOSITORY_HACS_DEFAULT
 from .enums import (
@@ -34,6 +33,7 @@ from .enums import (
 from .exceptions import HacsException
 from .utils.decode import decode_content
 from .utils.logger import getLogger
+from .utils.queue_manager import QueueManager
 
 if TYPE_CHECKING:
     from .hacsbase.data import HacsData

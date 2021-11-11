@@ -11,11 +11,7 @@ from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
 
 from custom_components.hacs.const import DOMAIN, STARTUP
-from custom_components.hacs.enums import (
-    ConfigurationType,
-    HacsStage,
-    LovelaceMode,
-)
+from custom_components.hacs.enums import ConfigurationType, HacsStage, LovelaceMode
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.tasks.manager import HacsTaskManager

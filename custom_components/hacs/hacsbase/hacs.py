@@ -3,8 +3,6 @@ from datetime import timedelta
 
 from aiogithubapi import GitHubException
 from aiogithubapi.exceptions import GitHubNotModifiedException
-from queueman import QueueManager
-from queueman.exceptions import QueueManagerExecutionStillInProgress
 
 from custom_components.hacs.helpers import HacsHelpers
 from custom_components.hacs.helpers.functions.get_list_from_default import (
@@ -25,7 +23,9 @@ from custom_components.hacs.share import (
 
 from ..base import HacsBase
 from ..enums import HacsCategory, HacsStage
+from ..exceptions import HacsExecutionStillInProgress
 from ..share import get_factory, get_queue
+from ..utils.queue_manager import QueueManager
 
 
 class Hacs(HacsBase, HacsHelpers):
@@ -243,7 +243,7 @@ class Hacs(HacsBase, HacsHelpers):
             self.hass.bus.async_fire("hacs/status", {})
             try:
                 await self.queue.execute(can_update)
-            except QueueManagerExecutionStillInProgress:
+            except HacsExecutionStillInProgress:
                 pass
             self.status.background_task = False
             self.hass.bus.async_fire("hacs/status", {})

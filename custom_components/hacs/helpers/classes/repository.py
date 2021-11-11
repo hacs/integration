@@ -7,7 +7,6 @@ import tempfile
 import zipfile
 
 from aiogithubapi import AIOGitHubAPIException
-from queueman import QueueManager
 
 from custom_components.hacs.exceptions import HacsException, HacsNotModifiedException
 from custom_components.hacs.helpers import RepositoryHelpers
@@ -31,6 +30,7 @@ from custom_components.hacs.helpers.functions.version_to_install import (
 )
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.logger import getLogger
+from custom_components.hacs.utils.queue_manager import QueueManager
 
 
 class RepositoryVersions:

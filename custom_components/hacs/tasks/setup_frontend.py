@@ -1,11 +1,10 @@
 """"Starting setup task: Frontend"."""
 from __future__ import annotations
 
-from ..hacs_frontend import locate_dir
-from ..hacs_frontend.version import VERSION as FE_VERSION
-
 from ..const import DOMAIN
 from ..enums import HacsStage
+from ..hacs_frontend import locate_dir
+from ..hacs_frontend.version import VERSION as FE_VERSION
 from ..webresponses.frontend import HacsFrontendDev
 from .base import HacsTask
 

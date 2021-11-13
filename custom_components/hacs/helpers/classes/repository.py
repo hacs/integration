@@ -8,7 +8,11 @@ import zipfile
 
 from aiogithubapi import AIOGitHubAPIException
 
-from custom_components.hacs.exceptions import HacsException, HacsNotModifiedException
+from custom_components.hacs.exceptions import (
+    HacsException,
+    HacsNotModifiedException,
+    HacsRepositoryExistException,
+)
 from custom_components.hacs.helpers import RepositoryHelpers
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.helpers.classes.repositorydata import RepositoryData
@@ -267,7 +271,12 @@ class HacsRepository(RepositoryHelpers):
 
         # Attach repository
         current_etag = self.data.etag_repository
-        await common_update_data(self, ignore_issues, force)
+        try:
+            await common_update_data(self, ignore_issues, force)
+        except HacsRepositoryExistException:
+            self.data.full_name = self.hacs.common.renamed_repositories[self.data.full_name]
+            await common_update_data(self, ignore_issues, force)
+
         if not self.data.installed and (current_etag == self.data.etag_repository) and not force:
             self.logger.debug("Did not update %s, content was not modified", self.data.full_name)
             return False

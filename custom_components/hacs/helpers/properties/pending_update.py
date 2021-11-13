@@ -15,17 +15,16 @@ class RepositoryPropertyPendingUpdate(ABC):
                     if self.data.installed_commit != self.data.last_commit:
                         return True
                     return False
-            if self.display_version_or_commit == "commit":
-                if self.display_installed_version != self.display_available_version:
-                    return True
-            else:
+            if self.display_version_or_commit == "version":
                 try:
                     return AwesomeVersion(self.display_available_version) > AwesomeVersion(
                         self.display_installed_version
                     )
                 except AwesomeVersionException:
-                    # Assume pending_update on failure
-                    return True
+                    pass
+            if self.display_installed_version != self.display_available_version:
+                return True
+
         return False
 
     @property

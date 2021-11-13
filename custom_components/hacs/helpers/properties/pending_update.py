@@ -1,6 +1,8 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
 from abc import ABC
 
+from awesomeversion import AwesomeVersion, AwesomeVersionException
+
 
 class RepositoryPropertyPendingUpdate(ABC):
     @property
@@ -13,8 +15,17 @@ class RepositoryPropertyPendingUpdate(ABC):
                     if self.data.installed_commit != self.data.last_commit:
                         return True
                     return False
-            if self.display_installed_version != self.display_available_version:
-                return True
+            if self.display_version_or_commit == "commit":
+                if self.display_installed_version != self.display_available_version:
+                    return True
+            else:
+                try:
+                    return AwesomeVersion(self.display_available_version) > AwesomeVersion(
+                        self.display_installed_version
+                    )
+                except AwesomeVersionException:
+                    # Assume pending_update on failure
+                    return True
         return False
 
     @property

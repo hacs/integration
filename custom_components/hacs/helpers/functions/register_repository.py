@@ -29,6 +29,9 @@ async def register_repository(full_name, category, check=True, ref=None):
     if category not in RERPOSITORY_CLASSES:
         raise HacsException(f"{category} is not a valid repository category.")
 
+    if (renamed := hacs.common.renamed_repositories.get(full_name)) is not None:
+        full_name = renamed
+
     repository: HacsRepository = RERPOSITORY_CLASSES[category](full_name)
     if check:
         try:

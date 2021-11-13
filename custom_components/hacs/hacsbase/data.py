@@ -134,7 +134,6 @@ class HacsData:
         self.hacs.common.archived_repositories = hacs.get("archived_repositories", [])
         self.hacs.common.renamed_repositories = hacs.get("renamed_repositories", {})
 
-        # Repositories
         hass = self.hacs.hass
         stores = {}
 
@@ -148,6 +147,10 @@ class HacsData:
             def _load_from_storage():
                 for entry, store in stores.items():
                     if os.path.exists(store.path) and (data := store.load()):
+                        if (full_name := data.get("full_name")) and (
+                            renamed := self.hacs.common.renamed_repositories.get(full_name)
+                        ) is not None:
+                            data["full_name"] = renamed
                         update_repository_from_storage(self.hacs.get_by_id(entry), data)
 
             await hass.async_add_executor_job(_load_from_storage)
@@ -201,7 +204,7 @@ class HacsData:
         if repository.data.installed:
             repository.status.first_install = False
 
-        if repository_data["full_name"] == "hacs/integration":
+        if full_name == "hacs/integration":
             repository.data.installed_version = self.hacs.version
             repository.data.installed = True
 

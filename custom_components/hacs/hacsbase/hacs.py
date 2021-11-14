@@ -63,7 +63,7 @@ class Hacs(HacsBase, HacsHelpers):
     def async_add_repository(self, repository):
         """Add a repository to the list."""
         if repository.data.full_name_lower in self._repositories_by_full_name:
-            raise ValueError(f"The repo {repository.data.full_name_lower} is already added")
+            return
         self._repositories.append(repository)
         repo_id = str(repository.data.id)
         if repo_id != "0":

@@ -141,6 +141,10 @@ class HacsData:
             await self.register_unknown_repositories(repositories)
 
             for entry, repo_data in repositories.items():
+                if entry == "0":
+                    # Ignore repositories with ID 0
+                    self.logger.error("Found repository with ID %s - %s", entry, repo_data)
+                    continue
                 if self.async_restore_repository(entry, repo_data):
                     stores[entry] = get_store_for_key(hass, f"hacs/{entry}.hacs")
 
@@ -165,7 +169,7 @@ class HacsData:
         register_tasks = [
             register_repository(repo_data["full_name"], repo_data["category"], False)
             for entry, repo_data in repositories.items()
-            if not self.hacs.is_known(entry)
+            if entry != "0" and not self.hacs.is_known(entry)
         ]
         if register_tasks:
             await asyncio.gather(*register_tasks)

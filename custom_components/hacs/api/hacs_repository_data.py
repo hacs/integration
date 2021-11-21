@@ -44,6 +44,9 @@ async def hacs_repository_data(hass, connection, msg):
         if repo_id in hacs.common.skip:
             hacs.common.skip.remove(repo_id)
 
+        if hacs.common.renamed_repositories.get(repo_id):
+            repo_id = hacs.common.renamed_repositories[repo_id]
+
         if not hacs.get_by_name(repo_id):
             try:
                 registration = await register_repository(repo_id, data.lower())

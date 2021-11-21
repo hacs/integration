@@ -5,8 +5,9 @@ import voluptuous as vol
 from custom_components.hacs.share import list_removed_repositories
 
 
-@websocket_api.async_response
 @websocket_api.websocket_command({vol.Required("type"): "hacs/removed"})
+@websocket_api.require_admin
+@websocket_api.async_response
 async def hacs_removed(_hass, connection, msg):
     """Get information about removed repositories."""
     content = []

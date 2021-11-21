@@ -17,7 +17,6 @@ from custom_components.hacs.utils.logger import getLogger
 _LOGGER = getLogger()
 
 
-@websocket_api.async_response
 @websocket_api.websocket_command(
     {
         vol.Required("type"): "hacs/repository/data",
@@ -26,6 +25,8 @@ _LOGGER = getLogger()
         vol.Optional("data"): cv.string,
     }
 )
+@websocket_api.require_admin
+@websocket_api.async_response
 async def hacs_repository_data(hass, connection, msg):
     """Handle get media player cover command."""
     hacs = get_hacs()

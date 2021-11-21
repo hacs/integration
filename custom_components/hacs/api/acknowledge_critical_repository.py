@@ -9,10 +9,11 @@ from custom_components.hacs.helpers.functions.store import (
 )
 
 
-@websocket_api.async_response
 @websocket_api.websocket_command(
     {vol.Required("type"): "hacs/critical", vol.Optional("repository"): cv.string}
 )
+@websocket_api.require_admin
+@websocket_api.async_response
 async def acknowledge_critical_repository(hass, connection, msg):
     """Handle get media player cover command."""
     repository = msg["repository"]

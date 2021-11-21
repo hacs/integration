@@ -6,10 +6,11 @@ import voluptuous as vol
 from custom_components.hacs.helpers.functions.path_exsist import async_path_exsist
 
 
-@websocket_api.async_response
 @websocket_api.websocket_command(
     {vol.Required("type"): "hacs/check_path", vol.Optional("path"): cv.string}
 )
+@websocket_api.require_admin
+@websocket_api.async_response
 async def check_local_path(_hass, connection, msg):
     """Handle get media player cover command."""
     path = msg.get("path")

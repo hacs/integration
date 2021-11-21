@@ -20,17 +20,16 @@ def test_sensor_data():
     repository = HacsIntegrationRepository("test/test")
     sensor.repositories = [repository]
     assert sensor.name == "hacs"
-    assert sensor.device_state_attributes
-    assert sensor.device_info
     assert sensor.icon == "hacs:hacs"
     assert sensor.unique_id.startswith("0717a0cd")
     assert sensor.unit_of_measurement == "pending update(s)"
 
 
 @pytest.mark.asyncio
-async def test_sensor_update(hacs):
+async def test_sensor_update(hacs, hass):
     sensor = HACSSensor()
     sensor.hacs = hacs
+    sensor.hass = hass
     repository = HacsIntegrationRepository("test/one")
     repository.data.installed = True
     repository.data.installed_version = "1"
@@ -42,17 +41,9 @@ async def test_sensor_update(hacs):
     repository.data.last_version = "1"
     hacs.async_add_repository(repository)
     hacs.common.categories = {"integration"}
-    dummy_state = "DUMMY"
-    sensor._state = dummy_state  # pylint: disable=protected-access
-    assert sensor.state == dummy_state
+    assert sensor.state is None
     await sensor.async_update()
     assert sensor.state == 1
-
-    hacs.status.background_task = True
-    sensor._state = dummy_state  # pylint: disable=protected-access
-    assert sensor.state == dummy_state
-    await sensor.async_update()
-    assert sensor.state == dummy_state
 
 
 @pytest.mark.asyncio

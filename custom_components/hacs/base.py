@@ -195,8 +195,9 @@ class HacsBase:
 
     def enable_hacs(self) -> None:
         """Enable HACS."""
-        self.system.disabled_reason = None
-        self.log.info("HACS is enabled")
+        if self.system.disabled_reason is not None:
+            self.system.disabled_reason = None
+            self.log.info("HACS is enabled")
 
     def enable_hacs_category(self, category: HacsCategory):
         """Enable HACS category."""

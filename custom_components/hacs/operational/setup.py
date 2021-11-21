@@ -147,6 +147,7 @@ async def async_startup_wrapper_for_yaml(_=None):
 async def async_hacs_startup():
     """HACS startup tasks."""
     hacs = get_hacs()
+    hacs.enable_hacs()
 
     await hacs.async_set_stage(HacsStage.SETUP)
     if hacs.system.disabled:

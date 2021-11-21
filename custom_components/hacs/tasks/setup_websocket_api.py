@@ -181,8 +181,7 @@ async def hacs_repositories(_hass, connection, msg):
                     "version_or_commit": repo.display_version_or_commit,
                 }
                 for repo in hacs.repositories
-                if repo.data.category in msg.get("categories")
-                or hacs.common.categories
+                if repo.data.category in (msg.get("categories") or hacs.common.categories)
                 and not repo.ignored_by_country_configuration
             ],
         )

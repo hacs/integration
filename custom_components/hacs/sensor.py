@@ -1,7 +1,6 @@
 """Sensor platform for HACS."""
 from __future__ import annotations
 from homeassistant.core import callback
-from homeassistant.helpers.entity import Entity
 from homeassistant.components.sensor import SensorEntity
 
 from custom_components.hacs.const import DOMAIN, NAME_SHORT
@@ -51,6 +50,7 @@ class HACSSensor(HacsMixin, SensorEntity):
             "model": "",
             "sw_version": str(self.hacs.version),
             "entry_type": "service",
+            "configuration_url": "homeassistant://hacs",
         }
 
     @callback

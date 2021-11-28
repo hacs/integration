@@ -26,10 +26,8 @@ fi
 rm -rf "${PWD}/config/custom_components"
 ln -sf "${PWD}/custom_components" "${PWD}/config/custom_components"
 
-if [ ! -d "${PWD}/custom_components/hacs/hacs_frontend" ]; then
-  echo "Installing HACS frontend"
-  bash "${PWD}/manage/install_frontend"
-fi
+echo "Installing HACS frontend"
+bash "${PWD}/manage/install_frontend"
 
 # Start Home Assistant
 hass -c "${PWD}/config" --debug

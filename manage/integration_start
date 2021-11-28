@@ -1,20 +1,35 @@
 #!/usr/bin/env bash
 
-# Make the config dir
-mkdir -p /tmp/config
+if [ ! -d "${PWD}/config" ]; then
+  echo "Creating default configuration."
+  mkdir -p "${PWD}/config";
+  hass --script ensure_config -c "${PWD}/config"
+  echo "
+logger:
+  default: info
+  logs:
+    custom_components.hacs: debug
+    aiogithubapi: debug
+    awesomeversion: debug
+frontend:
+  themes: !include_dir_merge_named themes
 
-
-# Symplink the custom_components dir
-if [ -d "/tmp/config/custom_components" ]; then
-  rm -rf /tmp/config/custom_components
+#hacs: https://hacs.xyz/docs/configuration/legacy
+#  token: CHANGE_ME
+#  frontend_repo_url: http://192.168.100.50:5000
+#  appdaemon: true
+#  experimental: true
+" >> "${PWD}/config/configuration.yaml"
 fi
-ln -sf "${PWD}/custom_components" /tmp/config/custom_components
 
-# Symlink configuration.yaml
-if [ ! -f ".devcontainer/configuration.yaml" ]; then
-  cp .devcontainer/sample_configuration.yaml .devcontainer/configuration.yaml
+# Symlink the custom_components dir
+rm -rf "${PWD}/config/custom_components"
+ln -sf "${PWD}/custom_components" "${PWD}/config/custom_components"
+
+if [ ! -d "${PWD}/custom_components/hacs/hacs_frontend" ]; then
+  echo "Installing HACS frontend"
+  bash "${PWD}/manage/install_frontend"
 fi
-ln -sf "${PWD}/.devcontainer/configuration.yaml" /tmp/config/configuration.yaml
 
 # Start Home Assistant
-hass -c /tmp/config --debug
+hass -c "${PWD}/config" --debug

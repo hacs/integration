@@ -1,5 +1,6 @@
 """Sensor platform for HACS."""
 from __future__ import annotations
+from awesomeversion import AwesomeVersion
 from homeassistant.core import callback
 from homeassistant.components.sensor import SensorEntity
 
@@ -43,15 +44,23 @@ class HACSSensor(HacsMixin, SensorEntity):
     @property
     def device_info(self) -> dict[str, any]:
         """Return device information about HACS."""
-        return {
+        info = {
             "identifiers": {(DOMAIN, self.unique_id)},
             "name": NAME_SHORT,
             "manufacturer": "hacs.xyz",
             "model": "",
             "sw_version": str(self.hacs.version),
-            "entry_type": "service",
             "configuration_url": "homeassistant://hacs",
         }
+        # LEGACY can be removed when min HA version is 2021.12
+        if AwesomeVersion(self.hacs.core.ha_version) >= "2021.12.0b0":
+            # pylint: disable=import-outside-toplevel
+            from homeassistant.helpers.device_registry import DeviceEntryType
+
+            info["entry_type"] = DeviceEntryType.SERVICE
+        else:
+            info["entry_type"] = "service"
+        return info
 
     @callback
     def _update(self) -> None:

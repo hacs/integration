@@ -22,6 +22,10 @@ class RepositoryPropertyPendingUpdate(ABC):
                     )
                 except AwesomeVersionException:
                     pass
+
+                # LEGACY: Remove when 2021.10 is min version
+                except AttributeError:
+                    pass
             if self.display_installed_version != self.display_available_version:
                 return True
 

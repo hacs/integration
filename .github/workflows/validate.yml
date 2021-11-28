@@ -63,9 +63,10 @@ jobs:
       - name: 📋 Copy sample configuration for Home Assistant
         run: |
           mkdir ./test_configuration
-          cp -f .devcontainer/sample_configuration.yaml ./test_configuration/configuration.yaml
           cp -r ./custom_components ./test_configuration
-          sed -i 's/#//g' ./test_configuration/configuration.yaml
+          echo "default_config:" >> ./test_configuration/configuration.yaml
+          echo "hacs:" >> ./test_configuration/configuration.yaml
+          echo "  token: CHANGE_ME" >> ./test_configuration/configuration.yaml
 
       - name: 👷 Setup Home Assistant
         id: homeassistant

@@ -43,7 +43,7 @@ class HacsThemeRepository(HacsRepository):
                 break
         if not compliant:
             raise HacsException(
-                f"Repostitory structure for {self.ref.replace('tags/','')} is not compliant"
+                f"Repository structure for {self.ref.replace('tags/','')} is not compliant"
             )
 
         if self.data.content_in_root:

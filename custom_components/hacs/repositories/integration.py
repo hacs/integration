@@ -51,7 +51,7 @@ class HacsIntegrationRepository(HacsRepository):
             name = get_first_directory_in_directory(self.tree, "custom_components")
             if name is None:
                 raise HacsException(
-                    f"Repostitory structure for {self.ref.replace('tags/','')} is not compliant"
+                    f"Repository structure for {self.ref.replace('tags/','')} is not compliant"
                 )
             self.content.path.remote = f"custom_components/{name}"
 

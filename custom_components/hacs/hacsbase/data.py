@@ -132,7 +132,14 @@ class HacsData:
         self.hacs.configuration.frontend_compact = hacs.get("compact", False)
         self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
         self.hacs.common.archived_repositories = hacs.get("archived_repositories", [])
-        self.hacs.common.renamed_repositories = hacs.get("renamed_repositories", {})
+        self.hacs.common.renamed_repositories = {}
+
+        # Clear out doubble renamed values
+        renamed = hacs.get("renamed_repositories", {})
+        for entry in renamed:
+            value = renamed.get(entry)
+            if value not in renamed:
+                self.hacs.common.renamed_repositories[entry] = value
 
         hass = self.hacs.hass
         stores = {}
@@ -143,7 +150,7 @@ class HacsData:
             for entry, repo_data in repositories.items():
                 if entry == "0":
                     # Ignore repositories with ID 0
-                    self.logger.error("Found repository with ID %s - %s", entry, repo_data)
+                    self.logger.debug("Found repository with ID %s - %s", entry, repo_data)
                     continue
                 if self.async_restore_repository(entry, repo_data):
                     stores[entry] = get_store_for_key(hass, f"hacs/{entry}.hacs")

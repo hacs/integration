@@ -194,7 +194,7 @@ class HacsRepository(RepositoryHelpers):
                 installed = self.data.installed_commit
             else:
                 installed = ""
-        return installed
+        return str(installed)
 
     @property
     def display_available_version(self):
@@ -206,7 +206,7 @@ class HacsRepository(RepositoryHelpers):
                 available = self.data.last_commit
             else:
                 available = ""
-        return available
+        return str(available)
 
     @property
     def display_version_or_commit(self):

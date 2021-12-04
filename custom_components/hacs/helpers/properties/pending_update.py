@@ -1,7 +1,7 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member
 from abc import ABC
 
-from awesomeversion import AwesomeVersion, AwesomeVersionException
+from custom_components.hacs.utils.version import version_left_higher_then_right
 
 
 class RepositoryPropertyPendingUpdate(ABC):
@@ -16,16 +16,11 @@ class RepositoryPropertyPendingUpdate(ABC):
                         return True
                     return False
             if self.display_version_or_commit == "version":
-                try:
-                    return AwesomeVersion(self.display_available_version) > AwesomeVersion(
-                        self.display_installed_version
-                    )
-                except AwesomeVersionException:
-                    pass
-
-                # LEGACY: Remove when 2021.10 is min version
-                except AttributeError:
-                    pass
+                if version_left_higher_then_right(
+                    self.display_available_version,
+                    self.display_installed_version,
+                ):
+                    return True
             if self.display_installed_version != self.display_available_version:
                 return True
 

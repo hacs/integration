@@ -1,8 +1,9 @@
 """Sensor platform for HACS."""
 from __future__ import annotations
+
 from awesomeversion import AwesomeVersion
-from homeassistant.core import callback
 from homeassistant.components.sensor import SensorEntity
+from homeassistant.core import callback
 
 from custom_components.hacs.const import DOMAIN, NAME_SHORT
 from custom_components.hacs.mixin import HacsMixin

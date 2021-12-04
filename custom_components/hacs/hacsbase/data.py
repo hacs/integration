@@ -135,7 +135,7 @@ class HacsData:
         self.hacs.common.renamed_repositories = {}
 
         # Clear out doubble renamed values
-        for entry in (renamed := hacs.get("renamed_repositories", {})):
+        for entry in (renamed := hacs.get("renamed_repositories", {})) :
             value = renamed.get(entry)
             if value not in renamed:
                 self.hacs.common.renamed_repositories[entry] = value

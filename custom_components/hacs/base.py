@@ -19,7 +19,7 @@ from aiogithubapi import (
 )
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
-from homeassistant.core import T, HomeAssistant
+from homeassistant.core import HomeAssistant, T
 from homeassistant.loader import Integration
 
 from .const import REPOSITORY_HACS_DEFAULT

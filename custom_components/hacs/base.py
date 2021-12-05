@@ -9,7 +9,7 @@ import math
 import os
 import pathlib
 import shutil
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Awaitable
 
 from aiogithubapi import (
     GitHub,
@@ -19,7 +19,7 @@ from aiogithubapi import (
 )
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, T
 from homeassistant.loader import Integration
 
 from .const import REPOSITORY_HACS_DEFAULT
@@ -250,18 +250,12 @@ class HacsBase:
     async def async_can_update(self) -> int:
         """Helper to calculate the number of repositories we can fetch data for."""
         try:
-            response = await self.githubapi.rate_limit()
+            response = await self.async_github_api_method(self.githubapi.rate_limit)
             if ((limit := response.data.resources.core.remaining or 0) - 1000) >= 15:
                 return math.floor((limit - 1000) / 15)
             self.log.error(
                 "GitHub API ratelimited - %s remaining", response.data.resources.core.remaining
             )
-            self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
-        except GitHubAuthenticationException as exception:
-            self.log.error("GitHub authentication failed - %s", exception)
-            self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
-        except GitHubRatelimitException as exception:
-            self.log.error("GitHub API ratelimited - %s", exception)
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
         except BaseException as exception:  # pylint: disable=broad-except
             self.log.exception(exception)
@@ -270,7 +264,29 @@ class HacsBase:
 
     async def async_github_get_hacs_default_file(self, filename: str) -> dict[str, Any]:
         """Get the content of a default file."""
-        response = await self.githubapi.repos.contents.get(
-            repository=REPOSITORY_HACS_DEFAULT, path=filename
+        response = await self.async_github_api_method(
+            method=self.githubapi.repos.contents.get,
+            repository=REPOSITORY_HACS_DEFAULT,
+            path=filename,
         )
         return json.loads(decode_content(response.data.content))
+
+    async def async_github_api_method(
+        self,
+        method: Awaitable[T],
+        *args,
+        **kwargs,
+    ) -> T | None:
+        """Call a GitHub API method"""
+        try:
+            return await method(*args, **kwargs)
+        except GitHubAuthenticationException as exception:
+            self.log.error("GitHub authentication failed - %s", exception)
+            self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
+        except GitHubRatelimitException as exception:
+            self.log.error("GitHub API ratelimited - %s", exception)
+            self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
+        except BaseException as exception:  # pylint: disable=broad-except
+            self.log.exception(exception)
+            raise exception
+        return None

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import timedelta
+from logging import Handler
 from timeit import default_timer as timer
 
 from homeassistant.core import HomeAssistant
@@ -20,6 +21,7 @@ class HacsTask(LogMixin):
     events: list[str] | None = None
     schedule: timedelta | None = None
     stages: list[HacsStage] | None = None
+    _can_run_disabled = False  ## Set to True if task can run while disabled
 
     def __init__(self, hacs: HacsBase, hass: HomeAssistant) -> None:
         self.hacs = hacs
@@ -30,16 +32,20 @@ class HacsTask(LogMixin):
         """Return the check slug."""
         return self.__class__.__module__.rsplit(".", maxsplit=1)[-1]
 
+    def task_logger(self, handler: Handler, msg: str) -> None:
+        """Log message from task"""
+        handler("HacsTask<%s> %s", self.slug, msg)
+
     async def execute_task(self, *_, **__) -> None:
         """Execute the task defined in subclass."""
-        if self.hacs.system.disabled:
+        if not self._can_run_disabled and self.hacs.system.disabled:
             self.log.warning(
-                "Skipping task %s, HACS is disabled - %s",
+                "HacsTask<%s> Skipping task, HACS is disabled - %s",
                 self.slug,
                 self.hacs.system.disabled_reason,
             )
             return
-        self.log.info("Executing task: %s", self.slug)
+        self.log.info("HacsTask<%s> Executing task", self.slug)
         start_time = timer()
 
         try:
@@ -48,11 +54,11 @@ class HacsTask(LogMixin):
             elif task := getattr(self, "async_execute", None):
                 await task()  # pylint: disable=not-callable
         except BaseException as exception:  # pylint: disable=broad-except
-            self.log.error("Task %s failed: %s", self.slug, exception)
+            self.log.error("HacsTask<%s> failed: %s", self.slug, exception)
 
         else:
             self.log.debug(
-                "Task %s took " "%.2f seconds to complete",
+                "HacsTask<%s> took " "%.2f seconds to complete",
                 self.slug,
                 timer() - start_time,
             )

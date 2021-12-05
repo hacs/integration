@@ -19,5 +19,6 @@ class Task(HacsTask):
     stages = [HacsStage.SETUP]
 
     async def async_execute(self) -> None:
+        """Execute the task."""
         if not await self.hacs.data.restore():
             self.hacs.disable_hacs(HacsDisabledReason.RESTORE)

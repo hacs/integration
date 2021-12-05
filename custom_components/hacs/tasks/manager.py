@@ -51,7 +51,7 @@ class HacsTaskManager(LogMixin):
                     self.hass.bus.async_listen_once(event, task.execute_task)
 
             if task.schedule is not None and schedule_tasks:
-                self.log.debug("Scheduling the %s task to run every %s", task.slug, task.schedule)
+                self.log.debug("Scheduling HacsTask<%s> to run every %s", task.slug, task.schedule)
                 self.hacs.recuring_tasks.append(
                     self.hacs.hass.helpers.event.async_track_time_interval(
                         task.execute_task, task.schedule

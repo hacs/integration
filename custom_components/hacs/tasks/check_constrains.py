@@ -23,21 +23,23 @@ class Task(HacsTask):
     stages = [HacsStage.SETUP]
 
     def execute(self) -> None:
+        """Execute the task."""
         for location in (
             self.hass.config.path("custom_components/custom_updater.py"),
             self.hass.config.path("custom_components/custom_updater/__init__.py"),
         ):
             if os.path.exists(location):
-                self.log.critical(
+                self.task_logger(
+                    self.log.critical,
                     "This cannot be used with custom_updater. "
-                    "To use this you need to remove custom_updater form %s",
-                    location,
+                    f"To use this you need to remove custom_updater form {location}",
                 )
+
                 self.hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
 
         if not version_left_higher_then_right(self.hacs.core.ha_version, MINIMUM_HA_VERSION):
-            self.log.critical(
-                "You need HA version %s or newer to use this integration.",
-                MINIMUM_HA_VERSION,
+            self.task_logger(
+                self.log.critical,
+                f"You need HA version {MINIMUM_HA_VERSION} or newer to use this integration.",
             )
             self.hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)

@@ -27,13 +27,17 @@ class Task(HacsTask):
     stages = [HacsStage.SETUP]
 
     async def async_execute(self) -> None:
+        """Execute the task."""
 
         # Register themes
         self.hass.http.register_static_path(f"{URL_BASE}/themes", self.hass.config.path("themes"))
 
         # Register frontend
         if self.hacs.configuration.frontend_repo_url:
-            self.log.warning("Frontend development mode enabled. Do not run in production!")
+            self.task_logger(
+                self.log.warning,
+                "Frontend development mode enabled. Do not run in production!",
+            )
             self.hass.http.register_view(HacsFrontendDev())
         else:
             #
@@ -51,11 +55,11 @@ class Task(HacsTask):
 
         # Register www/community for all other files
         use_cache = self.hacs.core.lovelace_mode == "storage"
-        self.log.info(
-            "%s mode, cache for /hacsfiles/: %s",
-            self.hacs.core.lovelace_mode,
-            use_cache,
+        self.task_logger(
+            self.log.info,
+            f"{self.hacs.core.lovelace_mode} mode, cache for /hacsfiles/: {use_cache}",
         )
+
         self.hass.http.register_static_path(
             URL_BASE,
             self.hass.config.path("www/community"),

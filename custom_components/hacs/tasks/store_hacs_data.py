@@ -19,4 +19,5 @@ class Task(HacsTask):
     events = [EVENT_HOMEASSISTANT_FINAL_WRITE]
 
     async def async_execute(self) -> None:
+        """Execute the task."""
         await self.hacs.data.async_write()

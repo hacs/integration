@@ -9,7 +9,7 @@ init: requirements homeassistant-install## Install requirements
 	pre-commit install-hooks --config .github/pre-commit-config.yaml;
 
 requirements:
-	sudo apt update && sudo apt install -y libxml2-dev libxslt-dev bash curl jq
+	sudo apt update && sudo apt install -y libxml2-dev libxslt-dev bash curl jq libpcap0.8
 	python3 -m pip --disable-pip-version-check install -U "pip>=8.0.3,<20.3"
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel
 	python3 -m pip --disable-pip-version-check install --ignore-installed -r requirements.txt

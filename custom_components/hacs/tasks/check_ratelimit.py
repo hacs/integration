@@ -19,7 +19,7 @@ class Task(HacsTask):
     """ "Hacs task base."""
 
     _can_run_disabled = True
-    schedule = timedelta(minutes=15)
+    schedule = timedelta(hours=1)
 
     async def async_execute(self) -> None:
         """Execute the task."""

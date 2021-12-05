@@ -39,13 +39,12 @@ class HacsTask(LogMixin):
     async def execute_task(self, *_, **__) -> None:
         """Execute the task defined in subclass."""
         if not self._can_run_disabled and self.hacs.system.disabled:
-            self.log.warning(
-                "HacsTask<%s> Skipping task, HACS is disabled - %s",
-                self.slug,
-                self.hacs.system.disabled_reason,
+            self.task_logger(
+                self.log.debug,
+                f"Skipping task, HACS is disabled {self.hacs.system.disabled_reason}",
             )
             return
-        self.log.info("HacsTask<%s> Executing task", self.slug)
+        self.task_logger(self.log.debug, "Executing task")
         start_time = timer()
 
         try:
@@ -54,11 +53,10 @@ class HacsTask(LogMixin):
             elif task := getattr(self, "async_execute", None):
                 await task()  # pylint: disable=not-callable
         except BaseException as exception:  # pylint: disable=broad-except
-            self.log.error("HacsTask<%s> failed: %s", self.slug, exception)
+            self.task_logger(self.log.error, f"failed: {exception}")
 
         else:
-            self.log.debug(
-                "HacsTask<%s> took " "%.2f seconds to complete",
-                self.slug,
-                timer() - start_time,
+            self.task_logger(
+                self.log.debug,
+                f"took {str(timer() - start_time)[:5]} seconds to complete",
             )

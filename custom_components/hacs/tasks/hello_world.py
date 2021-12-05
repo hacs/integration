@@ -20,4 +20,5 @@ class Task(HacsTask):
     schedule = timedelta(weeks=52)
 
     def execute(self) -> None:
-        self.log.debug("Hello World!")
+        """Execute the task."""
+        self.task_logger(self.log.debug, "Hello World!")

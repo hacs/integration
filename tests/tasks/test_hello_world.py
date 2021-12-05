@@ -28,7 +28,7 @@ async def test_hello_world_exception(hacs: HacsBase, caplog: pytest.LogCaptureFi
         "custom_components.hacs.tasks.hello_world.Task.execute", side_effect=Exception("lore_ipsum")
     ):
         await task.execute_task()
-        assert "Task hello_world failed: lore_ipsum" in caplog.text
+        assert "HacsTask<hello_world> failed: lore_ipsum" in caplog.text
 
 
 @pytest.mark.asyncio
@@ -41,4 +41,4 @@ async def test_hello_world_disabled(hacs: HacsBase, caplog: pytest.LogCaptureFix
     hacs.system.disabled_reason = "lorem_ipsum"
 
     await task.execute_task()
-    assert "Skipping task hello_world, HACS is disabled - lorem_ipsum" in caplog.text
+    assert "HacsTask<hello_world> Skipping task, HACS is disabled - lorem_ipsum" in caplog.text

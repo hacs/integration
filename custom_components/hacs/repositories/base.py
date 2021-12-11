@@ -107,7 +107,6 @@ class Repository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-attr
                 return tree
         return None
 
-    @GitHubAPI
     async def async_github_update_information(self) -> None:
         """Update repository information from github."""
         try:
@@ -143,7 +142,6 @@ class Repository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-attr
         ):
             self.hacs_manifest = HacsManifest.from_dict(json.loads(hacs_manifest))
 
-    @GitHubAPI
     async def async_github_get_tree(
         self,
         tree_sha: str,
@@ -164,7 +162,6 @@ class Repository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-attr
 
         return tuple(tree.path for tree in response.data.tree or [])
 
-    @GitHubAPI
     async def async_github_get_file_contents(
         self,
         file_path: str,

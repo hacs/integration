@@ -8,7 +8,7 @@ from homeassistant.core import HomeAssistant
 from ..base import HacsBase
 from ..const import MINIMUM_HA_VERSION
 from ..enums import HacsDisabledReason, HacsStage
-from ..utils.version import version_left_higher_then_right
+from ..utils.version import version_left_higher_or_equal_then_right
 from .base import HacsTask
 
 
@@ -37,7 +37,9 @@ class Task(HacsTask):
 
                 self.hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
 
-        if not version_left_higher_then_right(self.hacs.core.ha_version, MINIMUM_HA_VERSION):
+        if not version_left_higher_or_equal_then_right(
+            self.hacs.core.ha_version, MINIMUM_HA_VERSION
+        ):
             self.task_logger(
                 self.log.critical,
                 f"You need HA version {MINIMUM_HA_VERSION} or newer to use this integration.",

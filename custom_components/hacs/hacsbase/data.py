@@ -132,9 +132,15 @@ class HacsData:
         self.hacs.configuration.frontend_compact = hacs.get("compact", False)
         self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
         self.hacs.common.archived_repositories = hacs.get("archived_repositories", [])
-        self.hacs.common.renamed_repositories = hacs.get("renamed_repositories", {})
+        self.hacs.common.renamed_repositories = {}
 
-        # Repositories
+        # Clear out doubble renamed values
+        renamed = hacs.get("renamed_repositories", {})
+        for entry in renamed:
+            value = renamed.get(entry)
+            if value not in renamed:
+                self.hacs.common.renamed_repositories[entry] = value
+
         hass = self.hacs.hass
         stores = {}
 
@@ -142,12 +148,20 @@ class HacsData:
             await self.register_unknown_repositories(repositories)
 
             for entry, repo_data in repositories.items():
+                if entry == "0":
+                    # Ignore repositories with ID 0
+                    self.logger.debug("Found repository with ID %s - %s", entry, repo_data)
+                    continue
                 if self.async_restore_repository(entry, repo_data):
                     stores[entry] = get_store_for_key(hass, f"hacs/{entry}.hacs")
 
             def _load_from_storage():
                 for entry, store in stores.items():
                     if os.path.exists(store.path) and (data := store.load()):
+                        if (full_name := data.get("full_name")) and (
+                            renamed := self.hacs.common.renamed_repositories.get(full_name)
+                        ) is not None:
+                            data["full_name"] = renamed
                         update_repository_from_storage(self.hacs.get_by_id(entry), data)
 
             await hass.async_add_executor_job(_load_from_storage)
@@ -162,7 +176,7 @@ class HacsData:
         register_tasks = [
             register_repository(repo_data["full_name"], repo_data["category"], False)
             for entry, repo_data in repositories.items()
-            if not self.hacs.is_known(entry)
+            if entry != "0" and not self.hacs.is_known(entry)
         ]
         if register_tasks:
             await asyncio.gather(*register_tasks)
@@ -201,7 +215,7 @@ class HacsData:
         if repository.data.installed:
             repository.status.first_install = False
 
-        if repository_data["full_name"] == "hacs/integration":
+        if full_name == "hacs/integration":
             repository.data.installed_version = self.hacs.version
             repository.data.installed = True
 

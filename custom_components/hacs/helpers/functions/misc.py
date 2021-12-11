@@ -22,11 +22,6 @@ def get_repository_name(repository) -> str:
     return repository.data.full_name.split("/")[-1].replace("-", " ").replace("_", " ").title()
 
 
-def version_left_higher_then_right(left: str, right: str) -> bool:
-    """Return a bool if source is newer than target, will also be true if identical."""
-    return version.version_left_higher_then_right(left, right)
-
-
 def extract_repository_from_url(url: str) -> str or None:
     """Extract the owner/repo part form a URL."""
     match = re.match(RE_REPOSITORY, url)

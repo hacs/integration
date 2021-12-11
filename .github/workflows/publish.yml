@@ -1,12 +1,14 @@
-name: Release
+name: Publish
 
 on:
   release:
     types: [published]
+  push:
+    branches: [main]
 
 jobs:
   release_zip_file:
-    name: Prepare release asset
+    name: Publish HACS zip file asset
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -26,15 +28,26 @@ jobs:
           sed -i "/MINIMUM_HA_VERSION = /c\MINIMUM_HA_VERSION = \"$(jq .homeassistant -r ${{ github.workspace }}/hacs.json)\"" ${{ github.workspace }}/custom_components/hacs/const.py
           python3 ${{ github.workspace }}/manage/update_manifest.py --version ${{ steps.version.outputs.version }}
 
+      - name: Download HACS frontend
+        run: ${{ github.workspace }}/manage/install_frontend
+
+      - name: Upload zip to action
+        uses: actions/upload-artifact@v2
+        if: ${{ github.event_name == 'push' }}
+        with:
+          name: hacs
+          path: ${{ github.workspace }}/custom_components/hacs
 
       # Pack the HACS dir as a zip and upload to the release
       - name: ZIP HACS Dir
+        if: ${{ github.event_name == 'release' }}
         run: |
           cd ${{ github.workspace }}/custom_components/hacs
           zip hacs.zip -r ./
+
       - name: Upload zip to release
         uses: svenstaro/upload-release-action@v1-release
-
+        if: ${{ github.event_name == 'release' }}
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ github.workspace }}/custom_components/hacs/hacs.zip

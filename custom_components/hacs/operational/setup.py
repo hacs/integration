@@ -11,11 +11,7 @@ from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
 
 from custom_components.hacs.const import DOMAIN, STARTUP
-from custom_components.hacs.enums import (
-    ConfigurationType,
-    HacsStage,
-    LovelaceMode,
-)
+from custom_components.hacs.enums import ConfigurationType, HacsStage, LovelaceMode
 from custom_components.hacs.hacsbase.data import HacsData
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.tasks.manager import HacsTaskManager
@@ -151,6 +147,7 @@ async def async_startup_wrapper_for_yaml(_=None):
 async def async_hacs_startup():
     """HACS startup tasks."""
     hacs = get_hacs()
+    hacs.enable_hacs()
 
     await hacs.async_set_stage(HacsStage.SETUP)
     if hacs.system.disabled:

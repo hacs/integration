@@ -7,9 +7,12 @@ import tempfile
 import zipfile
 
 from aiogithubapi import AIOGitHubAPIException
-from queueman import QueueManager
 
-from custom_components.hacs.exceptions import HacsException, HacsNotModifiedException
+from custom_components.hacs.exceptions import (
+    HacsException,
+    HacsNotModifiedException,
+    HacsRepositoryExistException,
+)
 from custom_components.hacs.helpers import RepositoryHelpers
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.helpers.classes.repositorydata import RepositoryData
@@ -21,7 +24,6 @@ from custom_components.hacs.helpers.functions.information import (
 )
 from custom_components.hacs.helpers.functions.is_safe_to_remove import is_safe_to_remove
 from custom_components.hacs.helpers.functions.misc import get_repository_name
-from custom_components.hacs.helpers.functions.save import async_save_file
 from custom_components.hacs.helpers.functions.store import async_remove_store
 from custom_components.hacs.helpers.functions.validate_repository import (
     common_update_data,
@@ -32,6 +34,7 @@ from custom_components.hacs.helpers.functions.version_to_install import (
 )
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.logger import getLogger
+from custom_components.hacs.utils.queue_manager import QueueManager
 
 
 class RepositoryVersions:
@@ -191,7 +194,7 @@ class HacsRepository(RepositoryHelpers):
                 installed = self.data.installed_commit
             else:
                 installed = ""
-        return installed
+        return str(installed)
 
     @property
     def display_available_version(self):
@@ -203,7 +206,7 @@ class HacsRepository(RepositoryHelpers):
                 available = self.data.last_commit
             else:
                 available = ""
-        return available
+        return str(available)
 
     @property
     def display_version_or_commit(self):
@@ -268,7 +271,12 @@ class HacsRepository(RepositoryHelpers):
 
         # Attach repository
         current_etag = self.data.etag_repository
-        await common_update_data(self, ignore_issues, force)
+        try:
+            await common_update_data(self, ignore_issues, force)
+        except HacsRepositoryExistException:
+            self.data.full_name = self.hacs.common.renamed_repositories[self.data.full_name]
+            await common_update_data(self, ignore_issues, force)
+
         if not self.data.installed and (current_etag == self.data.etag_repository) and not force:
             self.logger.debug("Did not update %s, content was not modified", self.data.full_name)
             return False
@@ -323,7 +331,7 @@ class HacsRepository(RepositoryHelpers):
             temp_dir = await self.hacs.hass.async_add_executor_job(tempfile.mkdtemp)
             temp_file = f"{temp_dir}/{self.data.filename}"
 
-            result = await async_save_file(temp_file, filecontent)
+            result = await self.hacs.async_save_file(temp_file, filecontent)
             with zipfile.ZipFile(temp_file, "r") as zip_file:
                 zip_file.extractall(self.content.path.local)
 

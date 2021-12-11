@@ -2,11 +2,14 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+import gzip
 import json
 import logging
 import math
+import os
 import pathlib
-from typing import TYPE_CHECKING, Any, Coroutine
+import shutil
+from typing import TYPE_CHECKING, Any, Awaitable
 
 from aiogithubapi import (
     GitHub,
@@ -14,12 +17,10 @@ from aiogithubapi import (
     GitHubAuthenticationException,
     GitHubRatelimitException,
 )
-from aiogithubapi.exceptions import GitHubException
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
-from homeassistant.core import T, HomeAssistant
+from homeassistant.core import HomeAssistant, T
 from homeassistant.loader import Integration
-from queueman.manager import QueueManager
 
 from .const import REPOSITORY_HACS_DEFAULT
 from .enums import (
@@ -32,6 +33,7 @@ from .enums import (
 from .exceptions import HacsException
 from .utils.decode import decode_content
 from .utils.logger import getLogger
+from .utils.queue_manager import QueueManager
 
 if TYPE_CHECKING:
     from .hacsbase.data import HacsData
@@ -193,8 +195,9 @@ class HacsBase:
 
     def enable_hacs(self) -> None:
         """Enable HACS."""
-        self.system.disabled_reason = None
-        self.log.info("HACS is enabled")
+        if self.system.disabled_reason is not None:
+            self.system.disabled_reason = None
+            self.log.info("HACS is enabled")
 
     def enable_hacs_category(self, category: HacsCategory):
         """Enable HACS category."""
@@ -208,21 +211,51 @@ class HacsBase:
             self.log.info("Disabling category: %s", category)
             self.common.categories.pop(category)
 
+    async def async_save_file(self, file_path: str, content: Any) -> bool:
+        """Save a file."""
+
+        def _write_file():
+            with open(
+                file_path,
+                mode="w" if isinstance(content, str) else "wb",
+                encoding="utf-8" if isinstance(content, str) else None,
+                errors="ignore" if isinstance(content, str) else None,
+            ) as file_handler:
+                file_handler.write(content)
+
+            # Create gz for .js files
+            if os.path.isfile(file_path):
+                if file_path.endswith(".js"):
+                    with open(file_path, "rb") as f_in:
+                        with gzip.open(file_path + ".gz", "wb") as f_out:
+                            shutil.copyfileobj(f_in, f_out)
+
+            # LEGACY! Remove with 2.0
+            if "themes" in file_path and file_path.endswith(".yaml"):
+                filename = file_path.split("/")[-1]
+                base = file_path.split("/themes/")[0]
+                combined = f"{base}/themes/{filename}"
+                if os.path.exists(combined):
+                    self.log.info("Removing old theme file %s", combined)
+                    os.remove(combined)
+
+        try:
+            await self.hass.async_add_executor_job(_write_file)
+        except BaseException as error:  # pylint: disable=broad-except
+            self.log.error("Could not write data to %s - %s", file_path, error)
+            return False
+
+        return os.path.exists(file_path)
+
     async def async_can_update(self) -> int:
         """Helper to calculate the number of repositories we can fetch data for."""
         try:
-            response = await self.githubapi.rate_limit()
+            response = await self.async_github_api_method(self.githubapi.rate_limit)
             if ((limit := response.data.resources.core.remaining or 0) - 1000) >= 15:
                 return math.floor((limit - 1000) / 15)
             self.log.error(
                 "GitHub API ratelimited - %s remaining", response.data.resources.core.remaining
             )
-            self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
-        except GitHubAuthenticationException as exception:
-            self.log.error("GitHub authentication failed - %s", exception)
-            self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
-        except GitHubRatelimitException as exception:
-            self.log.error("GitHub API ratelimited - %s", exception)
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
         except BaseException as exception:  # pylint: disable=broad-except
             self.log.exception(exception)
@@ -231,15 +264,29 @@ class HacsBase:
 
     async def async_github_get_hacs_default_file(self, filename: str) -> dict[str, Any]:
         """Get the content of a default file."""
-        response = await self.githubapi.repos.contents.get(
-            repository=REPOSITORY_HACS_DEFAULT, path=filename
+        response = await self.async_github_api_method(
+            method=self.githubapi.repos.contents.get,
+            repository=REPOSITORY_HACS_DEFAULT,
+            path=filename,
         )
         return json.loads(decode_content(response.data.content))
 
-    async def async_github_api_wrapper(self, coroutine: T) -> T:
-        """Wrap GitHub API calls."""
+    async def async_github_api_method(
+        self,
+        method: Awaitable[T],
+        *args,
+        **kwargs,
+    ) -> T | None:
+        """Call a GitHub API method"""
         try:
-            response = await coroutine
-            return response
-        except GitHubException as exception:
-            raise HacsException(f"GitHub API error - {exception}") from exception
+            return await method(*args, **kwargs)
+        except GitHubAuthenticationException as exception:
+            self.log.error("GitHub authentication failed - %s", exception)
+            self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
+        except GitHubRatelimitException as exception:
+            self.log.error("GitHub API ratelimited - %s", exception)
+            self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
+        except BaseException as exception:  # pylint: disable=broad-except
+            self.log.exception(exception)
+            raise exception
+        return None

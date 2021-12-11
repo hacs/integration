@@ -21,6 +21,7 @@ class Task(HacsTask):
     stages = [HacsStage.SETUP]
 
     async def async_execute(self) -> None:
+        """Execute the task."""
         if self.hacs.configuration.config_type == ConfigurationType.YAML:
             self.hass.async_create_task(
                 async_load_platform(self.hass, "sensor", DOMAIN, {}, self.hacs.configuration.config)

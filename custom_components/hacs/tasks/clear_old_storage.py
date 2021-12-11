@@ -21,8 +21,9 @@ class Task(HacsTask):
     stages = [HacsStage.SETUP]
 
     def execute(self) -> None:
+        """Execute the task."""
         for storage_file in ("hacs",):
             path = f"{self.hacs.core.config_path}/.storage/{storage_file}"
             if os.path.isfile(path):
-                self.log.info("Cleaning up old storage file: %s", path)
+                self.task_logger(self.log.info, f"Cleaning up old storage file: {path}")
                 os.remove(path)

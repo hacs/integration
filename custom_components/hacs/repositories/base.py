@@ -7,13 +7,9 @@ import json
 from typing import Any
 
 from aiogithubapi import GitHubNotModifiedException
-from aiogithubapi.exceptions import GitHubException
-from aiogithubapi.models.contents import GitHubContentsModel
 from awesomeversion import AwesomeVersion
 
-from custom_components.hacs.exceptions import HacsException
-
-from ..utils.decorator import GitHubAPI
+from ..exceptions import HacsException
 
 from ..enums import HacsCategory, RepositoryFile
 from ..mixin import HacsMixin, LogMixin
@@ -95,17 +91,14 @@ class Repository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-attr
 
         return timedelta(days=7)
 
-    def repository_tree_contains(
-        self,
-        path: str,
-    ) -> str | None:
+    def repository_tree_contains(self, path: str) -> bool:
         """Check if the tree contains a file."""
         if self.repository_tree is None:
-            return None
+            return False
         for tree in self.repository_tree:
             if tree.split("/")[-1] == path:
-                return tree
-        return None
+                return True
+        return False
 
     async def async_github_update_information(self) -> None:
         """Update repository information from github."""
@@ -126,7 +119,6 @@ class Repository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-attr
                 self.full_name, response.data.full_name
             )
 
-        ## Update hacs._repositories*
         self.id = str(response.data.id)
         self.description = response.data.description
         self.default_branch = response.data.default_branch
@@ -145,10 +137,11 @@ class Repository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-attr
     async def async_github_get_tree(
         self,
         tree_sha: str,
-    ) -> set[str] | None:
+    ) -> tuple[str] | None:
         """Get the tree from GitHub."""
         try:
-            response = await self.hacs.githubapi.repos.git.get_tree(
+            response = await self.hacs.async_github_api_method(
+                self.hacs.githubapi.repos.git.get_tree,
                 repository=self.full_name,
                 tree_sha=tree_sha,
                 **{"etag": self.etag_repository_tree},
@@ -156,8 +149,7 @@ class Repository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-attr
             self.etag_repository_tree = response.etag
         except GitHubNotModifiedException:
             return None
-        except HacsException as exception:
-            self.log.error(exception)
+        except HacsException:
             return None
 
         return tuple(tree.path for tree in response.data.tree or [])
@@ -166,13 +158,14 @@ class Repository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-attr
         self,
         file_path: str,
         ref: str | None = None,
-    ) -> GitHubContentsModel | None:
+    ) -> str | None:
         """Get the HACS manifest from GitHub."""
         if not self.repository_tree_contains(file_path):
             return
 
         try:
-            response = await self.hacs.githubapi.repos.contents.get(
+            response = await self.hacs.async_github_api_method(
+                self.hacs.githubapi.repos.contents.get,
                 repository=self.full_name,
                 path=file_path,
                 **{
@@ -183,8 +176,7 @@ class Repository(HacsMixin, LogMixin):  # pylint: disable=too-many-instance-attr
             self.etag_hacs_manifest = response.etag
         except GitHubNotModifiedException:
             return None
-        except HacsException as exception:
-            self.log.error(exception)
+        except HacsException:
             return None
 
         return decode_content(response.data.content)

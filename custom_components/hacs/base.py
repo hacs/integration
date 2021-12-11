@@ -9,7 +9,7 @@ import math
 import os
 import pathlib
 import shutil
-from typing import TYPE_CHECKING, Any, Awaitable
+from typing import TYPE_CHECKING, Any, Awaitable, Callable
 
 from aiogithubapi import (
     GitHub,
@@ -17,6 +17,7 @@ from aiogithubapi import (
     GitHubAuthenticationException,
     GitHubRatelimitException,
 )
+from aiogithubapi.exceptions import GitHubNotModifiedException
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
 from homeassistant.core import HomeAssistant, T
@@ -189,6 +190,8 @@ class HacsBase:
 
     def disable_hacs(self, reason: HacsDisabledReason) -> None:
         """Disable HACS."""
+        if self.system.disabled_reason == reason:
+            return
         self.system.disabled_reason = reason
         if reason != HacsDisabledReason.REMOVED:
             self.log.error("HACS is disabled - %s", reason)
@@ -286,7 +289,9 @@ class HacsBase:
         except GitHubRatelimitException as exception:
             self.log.error("GitHub API ratelimited - %s", exception)
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
-        except BaseException as exception:  # pylint: disable=broad-except
-            self.log.exception(exception)
+        except GitHubNotModifiedException as exception:
             raise exception
+        except BaseException as exception:
+            self.log.exception(exception)
+            raise HacsException(exception) from exception
         return None

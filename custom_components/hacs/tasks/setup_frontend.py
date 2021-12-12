@@ -66,10 +66,7 @@ class Task(HacsTask):
             cache_headers=use_cache,
         )
 
-        self.hacs.frontend.version_running = FE_VERSION
-        for requirement in self.hacs.integration.requirements:
-            if "hacs_frontend" in requirement:
-                self.hacs.frontend.version_expected = requirement.split("==")[-1]
+        self.hacs.frontend_version = FE_VERSION
 
         # Add to sidepanel if needed
         if DOMAIN not in self.hass.data.get("frontend_panels", {}):

@@ -88,16 +88,6 @@ class HacsConfiguration:
 
 
 @dataclass
-class HacsFrontend:
-    """HacsFrontend."""
-
-    version_running: str | None = None
-    version_available: str | None = None
-    version_expected: str | None = None
-    update_pending: bool = False
-
-
-@dataclass
 class HacsCore:
     """HACS Core info."""
 
@@ -223,7 +213,7 @@ class HacsBase:
     core = HacsCore()
     data: HacsData | None = None
     factory: HacsTaskFactory | None = None
-    frontend = HacsFrontend()
+    frontend_version: str | None = None
     github: GitHub | None = None
     githubapi: GitHubAPI | None = None
     hass: HomeAssistant | None = None

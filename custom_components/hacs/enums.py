@@ -39,15 +39,6 @@ class HacsStage(str, Enum):
     BACKGROUND = "background"
 
 
-class HacsSetupTask(str, Enum):
-    WEBSOCKET = "WebSocket API"
-    FRONTEND = "Frontend"
-    SENSOR = "Sensor"
-    HACS_REPO = "Hacs Repository"
-    CATEGORIES = "Additional categories"
-    CLEAR_STORAGE = "Clear storage"
-
-
 class HacsDisabledReason(str, Enum):
     RATE_LIMIT = "rate_limit"
     REMOVED = "removed"

@@ -9,20 +9,22 @@ import math
 import os
 import pathlib
 import shutil
-from typing import TYPE_CHECKING, Any, Awaitable
+from typing import TYPE_CHECKING, Any, Awaitable, Callable
 
 from aiogithubapi import (
     GitHub,
     GitHubAPI,
     GitHubAuthenticationException,
     GitHubRatelimitException,
+    GitHubNotModifiedException,
+    GitHubException,
 )
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
-from homeassistant.core import HomeAssistant, T
+from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 
-from .const import REPOSITORY_HACS_DEFAULT
+from .const import REPOSITORY_HACS_DEFAULT, TV
 from .enums import (
     ConfigurationType,
     HacsCategory,
@@ -338,7 +340,12 @@ class HacsBase:
         )
         return json.loads(decode_content(response.data.content))
 
-    async def async_github_api_method(self, method: Awaitable[T], *args, **kwargs) -> T | None:
+    async def async_github_api_method(
+        self,
+        method: Callable[[], Awaitable[TV]],
+        *args,
+        **kwargs,
+    ) -> TV | None:
         """Call a GitHub API method"""
         try:
             return await method(*args, **kwargs)
@@ -348,7 +355,12 @@ class HacsBase:
         except GitHubRatelimitException as exception:
             self.log.error("GitHub API ratelimited - %s", exception)
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
-        except BaseException as exception:  # pylint: disable=broad-except
-            self.log.exception(exception)
+        except GitHubNotModifiedException as exception:
             raise exception
+        except GitHubException as exception:
+            self.log.error("GitHub API error - %s", exception)
+            raise HacsException(exception) from exception
+        except BaseException as exception:
+            self.log.exception(exception)
+            raise HacsException(exception) from exception
         return None

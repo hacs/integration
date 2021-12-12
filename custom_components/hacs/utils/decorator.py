@@ -11,7 +11,6 @@ def concurrent(concurrenttasks=15, sleepafter=0) -> Coroutine[Any, Any, None]:
 
     def inner_function(function) -> Coroutine[Any, Any, None]:
         if not asyncio.iscoroutinefunction(function):
-            print("Is not a coroutine")
             return function
 
         @wraps(function)

@@ -31,15 +31,17 @@ async def test_sensor_update(hacs, hass):
     sensor.hacs = hacs
     sensor.hass = hass
     repository = HacsIntegrationRepository("test/one")
+    repository.data.id = "123"
     repository.data.installed = True
     repository.data.installed_version = "1"
     repository.data.last_version = "2"
-    hacs.async_add_repository(repository)
+    hacs.repositories.register(repository)
     repository = HacsIntegrationRepository("test/two")
+    repository.data.id = "321"
     repository.data.installed = True
     repository.data.installed_version = "1"
     repository.data.last_version = "1"
-    hacs.async_add_repository(repository)
+    hacs.repositories.register(repository)
     hacs.common.categories = {"integration"}
     assert sensor.state is None
     await sensor.async_update()

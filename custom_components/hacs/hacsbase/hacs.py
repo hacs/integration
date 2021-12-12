@@ -34,20 +34,6 @@ class Hacs(HacsBase, HacsHelpers):
     factory = get_factory()
     queue = get_queue()
 
-    @property
-    def repositories(self):
-        """Return the full repositories list."""
-        return self._repositories
-
-    def async_set_repositories(self, repositories):
-        """Set the list of repositories."""
-        self._repositories = []
-        self._repositories_by_id = {}
-        self._repositories_by_full_name = {}
-
-        for repository in repositories:
-            self.async_add_repository(repository)
-
     def async_set_repository_id(self, repository, repo_id):
         """Update a repository id."""
         existing_repo_id = str(repository.data.id)
@@ -58,51 +44,17 @@ class Hacs(HacsBase, HacsHelpers):
                 f"The repo id for {repository.data.full_name_lower} is already set to {existing_repo_id}"
             )
         repository.data.id = repo_id
-        self._repositories_by_id[repo_id] = repository
-
-    def async_add_repository(self, repository):
-        """Add a repository to the list."""
-        if repository.data.full_name_lower in self._repositories_by_full_name:
-            return
-        self._repositories.append(repository)
-        repo_id = str(repository.data.id)
-        if repo_id != "0":
-            self._repositories_by_id[repo_id] = repository
-        self._repositories_by_full_name[repository.data.full_name_lower] = repository
-
-    def async_remove_repository(self, repository):
-        """Remove a repository from the list."""
-        if repository.data.full_name_lower not in self._repositories_by_full_name:
-            return
-        self._repositories.remove(repository)
-        repo_id = str(repository.data.id)
-        if repo_id in self._repositories_by_id:
-            del self._repositories_by_id[repo_id]
-        del self._repositories_by_full_name[repository.data.full_name_lower]
-
-    def get_by_id(self, repository_id):
-        """Get repository by ID."""
-        return self._repositories_by_id.get(str(repository_id))
-
-    def get_by_name(self, repository_full_name):
-        """Get repository by full_name."""
-        if repository_full_name is None:
-            return None
-        return self._repositories_by_full_name.get(repository_full_name.lower())
-
-    def is_known(self, repository_id):
-        """Return a bool if the repository is known."""
-        return str(repository_id) in self._repositories_by_id
+        self.repositories.register(repository)
 
     @property
     def sorted_by_name(self):
         """Return a sorted(by name) list of repository objects."""
-        return sorted(self.repositories, key=lambda x: x.display_name)
+        return sorted(self.repositories.list_all, key=lambda x: x.display_name)
 
     @property
     def sorted_by_repository_name(self):
         """Return a sorted(by repository_name) list of repository objects."""
-        return sorted(self.repositories, key=lambda x: x.data.full_name)
+        return sorted(self.repositories.list_all, key=lambda x: x.data.full_name)
 
     async def register_repository(self, full_name, category, check=True):
         """Register a repository."""
@@ -189,7 +141,7 @@ class Hacs(HacsBase, HacsHelpers):
         for repository in critical:
             removed_repo = get_removed(repository["repository"])
             removed_repo.removal_type = "critical"
-            repo = self.get_by_name(repository["repository"])
+            repo = self.repositories.get_by_full_name(repository["repository"])
 
             stored = {
                 "repository": repository["repository"],
@@ -254,7 +206,7 @@ class Hacs(HacsBase, HacsHelpers):
         self.status.background_task = True
         self.hass.bus.async_fire("hacs/status", {})
 
-        for repository in self.repositories:
+        for repository in self.repositories.list_all:
             if self.status.startup and repository.data.full_name == "hacs/integration":
                 continue
             if repository.data.installed and repository.data.category in self.common.categories:
@@ -272,7 +224,7 @@ class Hacs(HacsBase, HacsHelpers):
         self.status.background_task = True
         self.hass.bus.async_fire("hacs/status", {})
 
-        for repository in self.repositories:
+        for repository in self.repositories.list_all:
             if repository.data.category in self.common.categories:
                 self.queue.add(self.factory.safe_common_update(repository))
 
@@ -288,7 +240,7 @@ class Hacs(HacsBase, HacsHelpers):
         """Clear out blaclisted repositories."""
         need_to_save = False
         for removed in list_removed_repositories():
-            repository = self.get_by_name(removed.repository)
+            repository = self.repositories.get_by_full_name(removed.repository)
             if repository is not None:
                 if repository.data.installed and removed.removal_type != "critical":
                     self.log.warning(
@@ -328,7 +280,7 @@ class Hacs(HacsBase, HacsHelpers):
                 continue
             if repo in self.common.archived_repositories:
                 continue
-            repository = self.get_by_name(repo)
+            repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
                 if str(repository.data.id) not in self.common.default:
                     self.common.default.append(str(repository.data.id))

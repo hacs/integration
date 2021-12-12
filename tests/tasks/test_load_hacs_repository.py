@@ -3,7 +3,7 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from custom_components.hacs.base import HacsBase
+from custom_components.hacs.base import HacsBase, HacsRepositories
 from custom_components.hacs.enums import HacsDisabledReason
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.classes.repository import HacsRepository
@@ -18,7 +18,9 @@ async def test_load_hacs_repository_exist(hacs: HacsBase, repository: HacsReposi
 
     assert not repository.data.installed
 
-    with patch("custom_components.hacs.hacsbase.hacs.Hacs.get_by_name", return_value=repository):
+    with patch(
+        "custom_components.hacs.base.HacsRepositories.get_by_full_name", return_value=repository
+    ):
         await task.execute_task()
         assert repository.data.installed
 

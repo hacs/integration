@@ -66,7 +66,7 @@ class HacsData:
         # Repositories
         self.content = {}
         # Not run concurrently since this is bound by disk I/O
-        for repository in self.hacs.repositories:
+        for repository in self.hacs.repositories.list_all:
             await self.async_store_repository_data(repository)
 
         await async_save_to_store(self.hacs.hass, "repositories", self.content)
@@ -162,7 +162,9 @@ class HacsData:
                             renamed := self.hacs.common.renamed_repositories.get(full_name)
                         ) is not None:
                             data["full_name"] = renamed
-                        update_repository_from_storage(self.hacs.get_by_id(entry), data)
+                        update_repository_from_storage(
+                            self.hacs.repositories.get_by_id(entry), data
+                        )
 
             await hass.async_add_executor_job(_load_from_storage)
             self.logger.info("Restore done")
@@ -174,9 +176,14 @@ class HacsData:
     async def register_unknown_repositories(self, repositories):
         """Registry any unknown repositories."""
         register_tasks = [
-            register_repository(repo_data["full_name"], repo_data["category"], False)
+            register_repository(
+                full_name=repo_data["full_name"],
+                category=repo_data["category"],
+                check=False,
+                repo_id=entry,
+            )
             for entry, repo_data in repositories.items()
-            if entry != "0" and not self.hacs.is_known(entry)
+            if entry != "0" and not self.hacs.repositories.is_registered(repository_id=entry)
         ]
         if register_tasks:
             await asyncio.gather(*register_tasks)
@@ -184,7 +191,7 @@ class HacsData:
     @callback
     def async_restore_repository(self, entry, repository_data):
         full_name = repository_data["full_name"]
-        if not (repository := self.hacs.get_by_name(full_name)):
+        if not (repository := self.hacs.repositories.get_by_full_name(full_name)):
             self.logger.error(f"Did not find {full_name} ({entry})")
             return False
         # Restore repository attributes

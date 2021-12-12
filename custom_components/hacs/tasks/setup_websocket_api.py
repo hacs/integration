@@ -180,7 +180,7 @@ async def hacs_repositories(_hass, connection, msg):
                     "updated_info": repo.status.updated_info,
                     "version_or_commit": repo.display_version_or_commit,
                 }
-                for repo in hacs.repositories
+                for repo in hacs.repositories.list_all
                 if repo.data.category in (msg.get("categories") or hacs.common.categories)
                 and not repo.ignored_by_country_configuration
             ],
@@ -219,7 +219,7 @@ async def hacs_repository_data(hass, connection, msg):
         if hacs.common.renamed_repositories.get(repo_id):
             repo_id = hacs.common.renamed_repositories[repo_id]
 
-        if not hacs.get_by_name(repo_id):
+        if not hacs.repositories.get_by_full_name(repo_id):
             try:
                 registration = await register_repository(repo_id, data.lower())
                 if registration is not None:
@@ -245,9 +245,9 @@ async def hacs_repository_data(hass, connection, msg):
                 },
             )
 
-        repository = hacs.get_by_name(repo_id)
+        repository = hacs.repositories.get_by_full_name(repo_id)
     else:
-        repository = hacs.get_by_id(repo_id)
+        repository = hacs.repositories.get_by_id(repo_id)
 
     if repository is None:
         hass.bus.async_fire("hacs/repository", {})
@@ -317,7 +317,7 @@ async def hacs_repository(hass, connection, msg):
         return
 
     try:
-        repository = hacs.get_by_id(repo_id)
+        repository = hacs.repositories.get_by_id(repo_id)
         hacs.log.debug(f"Running {action} for {repository.data.full_name}")
 
         if action == "update":
@@ -433,7 +433,7 @@ async def hacs_settings(hass, connection, msg):
         hacs.configuration.frontend_compact = True
 
     elif action == "clear_new":
-        for repo in hacs.repositories:
+        for repo in hacs.repositories.list_all:
             if repo.data.new and repo.data.category in msg.get("categories", []):
                 hacs.log.debug(
                     "Clearing new flag from '%s'",

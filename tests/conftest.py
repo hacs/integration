@@ -12,7 +12,7 @@ from homeassistant.loader import Integration
 from homeassistant.runner import HassEventLoopPolicy
 import pytest
 
-from custom_components.hacs.base import HacsCommon, HacsCore, HacsSystem
+from custom_components.hacs.base import HacsCommon, HacsCore, HacsRepositories, HacsSystem
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.hacsbase.hacs import Hacs
 from custom_components.hacs.helpers.classes.repository import HacsRepository
@@ -92,12 +92,10 @@ def hass(event_loop, tmpdir):
 def hacs(hass):
     """Fixture to provide a HACS object."""
     hacs_obj = Hacs()
-    hacs_obj._repositories = []
-    hacs_obj._repositories_by_full_name = {}
-    hacs_obj._repositories_by_id = {}
     hacs_obj.hass = hass
     hacs_obj.tasks = HacsTaskManager(hacs=hacs_obj, hass=hass)
     hacs_obj.session = async_create_clientsession(hass)
+    hacs_obj.repositories = HacsRepositories()
 
     hacs_obj.integration = Integration(
         hass=hass,

@@ -168,7 +168,7 @@ class HacsData:
 
             await hass.async_add_executor_job(_load_from_storage)
             self.logger.info("Restore done")
-        except (Exception, BaseException) as exception:  # pylint: disable=broad-except
+        except BaseException as exception:  # pylint: disable=broad-except
             self.logger.critical(f"[{exception}] Restore Failed!", exc_info=exception)
             return False
         return True

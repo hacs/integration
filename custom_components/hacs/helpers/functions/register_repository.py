@@ -18,7 +18,7 @@ if TYPE_CHECKING:
     from ..classes.repository import HacsRepository
 
 # @concurrent(15, 5)
-async def register_repository(full_name, category, check=True, ref=None):
+async def register_repository(full_name, category, check=True, ref=None, repo_id=None):
     """Register a repository."""
     hacs = get_hacs()
 
@@ -54,9 +54,13 @@ async def register_repository(full_name, category, check=True, ref=None):
         except AIOGitHubAPIException as exception:
             hacs.common.skip.append(repository.data.full_name)
             raise HacsException(f"Validation for {full_name} failed with {exception}.") from None
+    elif repo_id is not None:
+        repository.data.id = repo_id
 
-    if str(repository.data.id) != "0" and (exists := hacs.get_by_id(repository.data.id)):
-        hacs.async_remove_repository(exists)
+    if str(repository.data.id) != "0" and (
+        exists := hacs.repositories.get_by_id(repository.data.id)
+    ):
+        hacs.repositories.unregister(exists)
 
     else:
         if hacs.hass is not None and ((check and repository.data.new) or hacs.status.new):
@@ -68,4 +72,4 @@ async def register_repository(full_name, category, check=True, ref=None):
                     "repository_id": repository.data.id,
                 },
             )
-    hacs.async_add_repository(repository)
+    hacs.repositories.register(repository)

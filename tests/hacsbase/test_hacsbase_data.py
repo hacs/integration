@@ -1,5 +1,6 @@
 """Data Test Suite."""
 import pytest
+from custom_components.hacs.base import HacsRepositories
 
 from custom_components.hacs.hacsbase.data import HacsData
 
@@ -11,7 +12,7 @@ async def test_hacs_data_async_write1(hacs, repository):
     data = HacsData()
     repository.data.installed = True
     repository.data.installed_version = "1"
-    hacs.async_set_repositories([repository])
+    hacs.repositories.register(repository)
     await data.async_write()
 
 
@@ -20,7 +21,7 @@ async def test_hacs_data_async_write2(hacs):
     data = HacsData()
     hacs.status.background_task = False
     hacs.system.disabled_reason = None
-    hacs.async_set_repositories([])
+    hacs.repositories = HacsRepositories()
     await data.async_write()
 
 
@@ -77,17 +78,17 @@ async def test_hacs_data_restore_write_not_new(hacs):
     ):
         await data.restore()
 
-    assert hacs.get_by_id("202226247")
-    assert hacs.get_by_name("shbatm/hacs-isy994")
+    assert hacs.repositories.get_by_id("202226247")
+    assert hacs.repositories.get_by_full_name("shbatm/hacs-isy994")
 
-    assert hacs.get_by_id("172733314")
-    assert hacs.get_by_name("hacs/integration")
+    assert hacs.repositories.get_by_id("172733314")
+    assert hacs.repositories.get_by_full_name("hacs/integration")
 
-    assert hacs.get_by_id("172733314").data.show_beta is True
-    assert hacs.get_by_id("172733314").data.installed is True
+    assert hacs.repositories.get_by_id("172733314").data.show_beta is True
+    assert hacs.repositories.get_by_id("172733314").data.installed is True
 
-    assert hacs.get_by_id("202226247").data.show_beta is True
-    assert hacs.get_by_id("202226247").data.installed is True
+    assert hacs.repositories.get_by_id("202226247").data.show_beta is True
+    assert hacs.repositories.get_by_id("202226247").data.installed is True
 
     with patch(
         "custom_components.hacs.hacsbase.data.async_save_to_store"

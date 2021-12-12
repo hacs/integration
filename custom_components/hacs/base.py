@@ -144,12 +144,79 @@ class HacsSystem:
         return self.disabled_reason is not None
 
 
+@dataclass
+class HacsRepositories:
+    """HACS Repositories."""
+
+    _repositories: list[str] = field(default_factory=list)
+    _repositories_by_full_name: dict[str, str] = field(default_factory=dict)
+    _repositories_by_id: dict[str, str] = field(default_factory=dict)
+
+    @property
+    def list_all(self) -> list[HacsRepository]:
+        """Return a list of repositories."""
+        return self._repositories
+
+    @property
+    def list_downloaded(self) -> list[HacsRepository]:
+        """Return a list of downloaded repositories."""
+        return [repo for repo in self._repositories if repo.data.installed]
+
+    def register(self, repository: HacsRepository) -> None:
+        """Register a repository."""
+        repo_id = str(repository.data.id)
+
+        if repo_id == "0":
+            return
+
+        if self.is_registered(repository_id=repo_id):
+            return
+
+        self._repositories.append(repository)
+        self._repositories_by_id[repo_id] = repository
+        self._repositories_by_full_name[repository.data.full_name_lower] = repository
+
+    def unregister(self, repository: HacsRepository) -> None:
+        """Unregister a repository."""
+        repo_id = str(repository.data.id)
+
+        if repo_id == "0":
+            return
+
+        if not self.is_registered(repository_id=repo_id):
+            return
+
+        self._repositories.remove(repository)
+        del self._repositories_by_id[repo_id]
+        del self._repositories_by_full_name[repository.data.full_name_lower]
+
+    def is_registered(
+        self,
+        repository_id: str | None = None,
+        repository_full_name: str | None = None,
+    ) -> bool:
+        """Check if a repository is registered."""
+        if repository_id is not None:
+            return repository_id in self._repositories_by_id
+        if repository_full_name is not None:
+            return repository_full_name in self._repositories_by_full_name
+        return False
+
+    def get_by_id(self, repository_id: str | None) -> HacsRepository | None:
+        """Get repository by id."""
+        if not repository_id:
+            return None
+        return self._repositories_by_id.get(str(repository_id))
+
+    def get_by_full_name(self, repository_full_name: str) -> HacsRepository | None:
+        """Get repository by full name."""
+        if not repository_full_name:
+            return None
+        return self._repositories_by_full_name.get(repository_full_name.lower())
+
+
 class HacsBase:
     """Base HACS class."""
-
-    _repositories = []
-    _repositories_by_full_name = {}
-    _repositories_by_id = {}
 
     common = HacsCommon()
     configuration = HacsConfiguration()
@@ -164,7 +231,7 @@ class HacsBase:
     log: logging.Logger = getLogger()
     queue: QueueManager | None = None
     recuring_tasks = []
-    repositories: list[HacsRepository] = []
+    repositories: HacsRepositories = HacsRepositories()
     repository: AIOGitHubAPIRepository | None = None
     session: ClientSession | None = None
     stage: HacsStage | None = None
@@ -201,13 +268,13 @@ class HacsBase:
             self.system.disabled_reason = None
             self.log.info("HACS is enabled")
 
-    def enable_hacs_category(self, category: HacsCategory):
+    def enable_hacs_category(self, category: HacsCategory) -> None:
         """Enable HACS category."""
         if category not in self.common.categories:
             self.log.info("Enable category: %s", category)
             self.common.categories.add(category)
 
-    def disable_hacs_category(self, category: HacsCategory):
+    def disable_hacs_category(self, category: HacsCategory) -> None:
         """Disable HACS category."""
         if category in self.common.categories:
             self.log.info("Disabling category: %s", category)

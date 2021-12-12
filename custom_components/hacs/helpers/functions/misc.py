@@ -1,8 +1,6 @@
 """Helper functions: misc"""
 import re
 
-from ...utils import version
-
 RE_REPOSITORY = re.compile(
     r"(?:(?:.*github.com.)|^)([A-Za-z0-9-]+\/[\w.-]+?)(?:(?:\.git)?|(?:[^\w.-].*)?)$"
 )

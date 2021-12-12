@@ -26,8 +26,8 @@ async def system_health_info(hass):
         "Github API Calls Remaining": response.data.resources.core.remaining,
         "Installed Version": hacs.version,
         "Stage": hacs.stage,
-        "Available Repositories": len(hacs.repositories),
-        "Installed Repositories": len([repo for repo in hacs.repositories if repo.data.installed]),
+        "Available Repositories": len(hacs.repositories.list_all),
+        "Downloaded Repositories": len(hacs.repositories.list_downloaded),
     }
 
     if hacs.system.disabled:

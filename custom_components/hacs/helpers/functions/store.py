@@ -4,7 +4,8 @@ from homeassistant.helpers.json import JSONEncoder
 from homeassistant.helpers.storage import Store
 from homeassistant.util import json as json_util
 
-from custom_components.hacs.const import VERSION_STORAGE
+from ...const import VERSION_STORAGE
+from ...exceptions import HacsException
 
 from ...utils.logger import getLogger
 
@@ -16,7 +17,15 @@ class HACSStore(Store):
 
     def load(self):
         """Load the data from disk if version matches."""
-        data = json_util.load_json(self.path)
+        try:
+            data = json_util.load_json(self.path)
+        except BaseException as exception:  # pylint: disable=broad-except
+            _LOGGER.critical(
+                "Could not load '%s', restore it from a backup or delete the file: %s",
+                self.path,
+                exception,
+            )
+            raise HacsException(exception) from exception
         if data == {} or data["version"] != self.version:
             return None
         return data["data"]

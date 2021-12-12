@@ -1,4 +1,5 @@
 """Constants for HACS"""
+from typing import TypeVar
 from aiogithubapi.common.const import ACCEPT_HEADERS
 
 NAME_LONG = "HACS (Home Assistant Community Store)"
@@ -11,6 +12,8 @@ PROJECT_URL = "https://github.com/hacs/integration/"
 
 ISSUE_URL = f"{PROJECT_URL}issues"
 DOMAIN_DATA = f"{NAME_SHORT.lower()}_data"
+
+TV = TypeVar("TV")
 
 PACKAGE_NAME = "custom_components.hacs"
 

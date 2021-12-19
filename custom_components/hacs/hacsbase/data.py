@@ -131,7 +131,7 @@ class HacsData:
         self.hacs.configuration.frontend_mode = hacs.get("view", "Grid")
         self.hacs.configuration.frontend_compact = hacs.get("compact", False)
         self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
-        self.hacs.common.archived_repositories = hacs.get("archived_repositories", [])
+        self.hacs.common.archived_repositories = []
         self.hacs.common.renamed_repositories = {}
 
         # Clear out doubble renamed values
@@ -140,6 +140,11 @@ class HacsData:
             value = renamed.get(entry)
             if value not in renamed:
                 self.hacs.common.renamed_repositories[entry] = value
+
+        # Clear out doubble archived values
+        for entry in hacs.get("archived_repositories", []):
+            if entry not in self.hacs.common.archived_repositories:
+                self.hacs.common.archived_repositories.append(entry)
 
         hass = self.hacs.hass
         stores = {}

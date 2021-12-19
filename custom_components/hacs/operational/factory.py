@@ -50,10 +50,10 @@ class HacsTaskFactory:
             # Due to GitHub ratelimits we need to sleep a bit
             await asyncio.sleep(sleeper)
 
-    async def safe_register(self, repo, category):
+    async def safe_register(self, repo, category, default=False):
         async with max_concurrent_tasks:
             try:
-                await register_repository(repo, category)
+                await register_repository(full_name=repo, category=category, default=default)
             except (AIOGitHubAPIException, HacsException) as exception:
                 _LOGGER.error("%s - %s", repo, exception)
 

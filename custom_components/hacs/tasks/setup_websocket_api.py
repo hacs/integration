@@ -147,7 +147,7 @@ async def hacs_repositories(_hass, connection, msg):
                     "category": repo.data.category,
                     "config_flow": repo.data.config_flow,
                     "country": repo.data.country,
-                    "custom": repo.custom,
+                    "custom": not hacs.repositories.is_default(str(repo.data.id)),
                     "default_branch": repo.data.default_branch,
                     "description": repo.data.description,
                     "domain": repo.data.domain,

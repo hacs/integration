@@ -15,9 +15,9 @@ from aiogithubapi import (
     GitHub,
     GitHubAPI,
     GitHubAuthenticationException,
-    GitHubRatelimitException,
-    GitHubNotModifiedException,
     GitHubException,
+    GitHubNotModifiedException,
+    GitHubRatelimitException,
 )
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
@@ -101,8 +101,6 @@ class HacsCommon:
     """Common for HACS."""
 
     categories: set[str] = field(default_factory=set)
-    default: list[str] = field(default_factory=list)
-    installed: list[str] = field(default_factory=list)
     renamed_repositories: dict[str, str] = field(default_factory=dict)
     archived_repositories: list[str] = field(default_factory=list)
     skip: list[str] = field(default_factory=list)
@@ -138,6 +136,7 @@ class HacsSystem:
 class HacsRepositories:
     """HACS Repositories."""
 
+    _default_repositories: set[HacsRepository] = field(default_factory=set)
     _repositories: list[str] = field(default_factory=list)
     _repositories_by_full_name: dict[str, str] = field(default_factory=dict)
     _repositories_by_id: dict[str, str] = field(default_factory=dict)
@@ -152,7 +151,7 @@ class HacsRepositories:
         """Return a list of downloaded repositories."""
         return [repo for repo in self._repositories if repo.data.installed]
 
-    def register(self, repository: HacsRepository) -> None:
+    def register(self, repository: HacsRepository, default: bool = False) -> None:
         """Register a repository."""
         repo_id = str(repository.data.id)
 
@@ -162,9 +161,14 @@ class HacsRepositories:
         if self.is_registered(repository_id=repo_id):
             return
 
-        self._repositories.append(repository)
+        if repository not in self._repositories:
+            self._repositories.append(repository)
+
         self._repositories_by_id[repo_id] = repository
         self._repositories_by_full_name[repository.data.full_name_lower] = repository
+
+        if default:
+            self.mark_default(repository)
 
     def unregister(self, repository: HacsRepository) -> None:
         """Unregister a repository."""
@@ -176,9 +180,32 @@ class HacsRepositories:
         if not self.is_registered(repository_id=repo_id):
             return
 
-        self._repositories.remove(repository)
-        del self._repositories_by_id[repo_id]
-        del self._repositories_by_full_name[repository.data.full_name_lower]
+        if self.is_default(repo_id):
+            self._default_repositories.remove(repo_id)
+
+        if repository in self._repositories:
+            self._repositories.remove(repository)
+
+        self._repositories_by_id.pop(repo_id, None)
+        self._repositories_by_full_name.pop(repository.data.full_name_lower, None)
+
+    def mark_default(self, repository: HacsRepository) -> None:
+        """Mark a repository as default."""
+        repo_id = str(repository.data.id)
+
+        if repo_id == "0":
+            return
+
+        if not self.is_registered(repository_id=repo_id):
+            return
+
+        self._default_repositories.add(repo_id)
+
+    def is_default(self, repository_id: str | None = None) -> bool:
+        """Check if a repository is default."""
+        if not repository_id:
+            return False
+        return repository_id in self._default_repositories
 
     def is_registered(
         self,
@@ -198,7 +225,7 @@ class HacsRepositories:
             return None
         return self._repositories_by_id.get(str(repository_id))
 
-    def get_by_full_name(self, repository_full_name: str) -> HacsRepository | None:
+    def get_by_full_name(self, repository_full_name: str | None) -> HacsRepository | None:
         """Get repository by full name."""
         if not repository_full_name:
             return None

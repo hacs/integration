@@ -386,11 +386,8 @@ class HacsRepository(RepositoryHelpers):
         """Run remove tasks."""
         self.logger.info("%s Starting removal", self)
 
-        if self.data.id in self.hacs.common.installed:
-            self.hacs.common.installed.remove(self.data.id)
-        for repository in self.hacs.repositories.list_all:
-            if repository.data.id == self.data.id:
-                self.hacs.repositories.unregister(repository)
+        if self.hacs.repositories.is_registered(repository_id=str(self.data.id)):
+            self.hacs.repositories.unregister(self)
 
     async def uninstall(self):
         """Run uninstall tasks."""
@@ -408,8 +405,6 @@ class HacsRepository(RepositoryHelpers):
                 await self.hacs.hass.services.async_call("frontend", "reload_themes", {})
             except (Exception, BaseException):  # pylint: disable=broad-except
                 pass
-        if self.data.full_name in self.hacs.common.installed:
-            self.hacs.common.installed.remove(self.data.full_name)
 
         await async_remove_store(self.hacs.hass, f"hacs/{self.data.id}.hacs")
 

@@ -70,7 +70,8 @@ async def common_update_data(repository: HacsRepository, ignore_issues=False, fo
     # Make sure the repository is not archived.
     if repository.data.archived and not ignore_issues:
         repository.validate.errors.append("Repository is archived.")
-        hacs.common.archived_repositories.append(repository.data.full_name)
+        if repository.data.full_name not in hacs.common.archived_repositories:
+            hacs.common.archived_repositories.append(repository.data.full_name)
         raise HacsRepositoryArchivedException("Repository is archived.")
 
     # Make sure the repository is not in the blacklist.

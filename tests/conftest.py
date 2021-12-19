@@ -12,7 +12,12 @@ from homeassistant.loader import Integration
 from homeassistant.runner import HassEventLoopPolicy
 import pytest
 
-from custom_components.hacs.base import HacsCommon, HacsCore, HacsRepositories, HacsSystem
+from custom_components.hacs.base import (
+    HacsCommon,
+    HacsCore,
+    HacsRepositories,
+    HacsSystem,
+)
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.hacsbase.hacs import Hacs
 from custom_components.hacs.helpers.classes.repository import HacsRepository

@@ -282,9 +282,6 @@ class Hacs(HacsBase, HacsHelpers):
                 continue
             repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
-                if str(repository.data.id) not in self.common.default:
-                    self.common.default.append(str(repository.data.id))
-                else:
-                    continue
+                self.repositories.mark_default(repository)
                 continue
-            self.queue.add(self.factory.safe_register(repo, category))
+            self.queue.add(self.factory.safe_register(repo=repo, category=category, default=True))

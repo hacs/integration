@@ -1,5 +1,6 @@
 """Constants for HACS"""
 from typing import TypeVar
+
 from aiogithubapi.common.const import ACCEPT_HEADERS
 
 NAME_LONG = "HACS (Home Assistant Community Store)"

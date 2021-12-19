@@ -18,7 +18,14 @@ if TYPE_CHECKING:
     from ..classes.repository import HacsRepository
 
 # @concurrent(15, 5)
-async def register_repository(full_name, category, check=True, ref=None, repo_id=None):
+async def register_repository(
+    full_name,
+    category,
+    check=True,
+    ref=None,
+    repo_id=None,
+    default=False,
+):
     """Register a repository."""
     hacs = get_hacs()
 
@@ -72,4 +79,4 @@ async def register_repository(full_name, category, check=True, ref=None, repo_id
                     "repository_id": repository.data.id,
                 },
             )
-    hacs.repositories.register(repository)
+    hacs.repositories.register(repository, default)

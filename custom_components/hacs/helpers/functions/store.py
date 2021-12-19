@@ -6,7 +6,6 @@ from homeassistant.util import json as json_util
 
 from ...const import VERSION_STORAGE
 from ...exceptions import HacsException
-
 from ...utils.logger import getLogger
 
 _LOGGER = getLogger()

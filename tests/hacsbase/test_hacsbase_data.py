@@ -1,7 +1,7 @@
 """Data Test Suite."""
 import pytest
-from custom_components.hacs.base import HacsRepositories
 
+from custom_components.hacs.base import HacsRepositories
 from custom_components.hacs.hacsbase.data import HacsData
 
 from tests.async_mock import patch

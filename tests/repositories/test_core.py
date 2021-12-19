@@ -12,7 +12,6 @@ def test_hacs_repository_core_mostly_defaults():
     repository.data.description = "Awesome GitHub repository"
 
     assert repository.display_name == "Repository"
-    assert repository.custom
     assert repository.display_status == "new"
     assert repository.display_status_description == "This is a newly added repository."
     assert repository.main_action == "INSTALL"

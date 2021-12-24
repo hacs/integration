@@ -21,6 +21,7 @@ from aiogithubapi import (
 )
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
+from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 
@@ -92,7 +93,7 @@ class HacsCore:
     """HACS Core info."""
 
     config_path: pathlib.Path | None = None
-    ha_version: str | None = None
+    ha_version: AwesomeVersion | None = None
     lovelace_mode = LovelaceMode("yaml")
 
 

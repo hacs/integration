@@ -1,6 +1,7 @@
 """Setup HACS."""
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
+from awesomeversion import AwesomeVersion
 from homeassistant.components.lovelace.system_health import system_health_info
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED, __version__ as HAVERSION
@@ -45,7 +46,9 @@ async def _async_common_setup(hass: HomeAssistant):
         pass
     hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")
     hacs.core.config_path = hacs.hass.config.path()
-    hacs.core.ha_version = HAVERSION
+
+    if hacs.core.ha_version is None:
+        hacs.core.ha_version = AwesomeVersion(HAVERSION)
 
     await hacs.tasks.async_load()
 

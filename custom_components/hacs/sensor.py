@@ -54,7 +54,7 @@ class HACSSensor(HacsMixin, SensorEntity):
             "configuration_url": "homeassistant://hacs",
         }
         # LEGACY can be removed when min HA version is 2021.12
-        if AwesomeVersion(self.hacs.core.ha_version) >= "2021.12.0b0":
+        if self.hacs.core.ha_version >= "2021.12.0b0":
             # pylint: disable=import-outside-toplevel
             from homeassistant.helpers.device_registry import DeviceEntryType
 

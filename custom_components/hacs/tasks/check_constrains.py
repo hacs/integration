@@ -38,7 +38,8 @@ class Task(HacsTask):
                 self.hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
 
         if not version_left_higher_or_equal_then_right(
-            self.hacs.core.ha_version, MINIMUM_HA_VERSION
+            self.hacs.core.ha_version.string,
+            MINIMUM_HA_VERSION,
         ):
             self.task_logger(
                 self.log.critical,

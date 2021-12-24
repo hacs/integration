@@ -4,6 +4,7 @@ import asyncio
 import logging
 from pathlib import Path
 from unittest.mock import AsyncMock
+from awesomeversion import AwesomeVersion
 
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.exceptions import ServiceNotFound
@@ -115,7 +116,7 @@ def hacs(hass):
     hacs_obj.system = HacsSystem()
 
     hacs_obj.core.config_path = hass.config.path()
-    hacs_obj.core.ha_version = HAVERSION
+    hacs_obj.core.ha_version = AwesomeVersion(HAVERSION)
     hacs_obj.version = hacs_obj.integration.version
     hacs_obj.configuration.token = TOKEN
 

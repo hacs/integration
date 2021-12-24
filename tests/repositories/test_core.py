@@ -1,5 +1,6 @@
 """Configuration Test Suite: Core repository."""
 # pylint: disable=missing-docstring
+from awesomeversion import AwesomeVersion
 from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 
@@ -24,7 +25,7 @@ def test_hacs_repository_core_mostly_defaults():
 
 def test_hacs_repository_core_can_install_legacy():
     repository = HacsRepository()
-    repository.hacs.core.ha_version = "1.0.0"
+    repository.hacs.core.ha_version = AwesomeVersion("1.0.0")
     repository.data.releases = True
 
     repository.data.homeassistant = "1.1.0"
@@ -39,7 +40,7 @@ def test_hacs_repository_core_can_install_legacy():
 
 def test_hacs_repository_core_can_install_manifest():
     repository = HacsRepository()
-    repository.hacs.core.ha_version = "1.0.0"
+    repository.hacs.core.ha_version = AwesomeVersion("1.0.0")
     repository.data.releases = True
 
     repository.data.homeassistant = "1.1.0"

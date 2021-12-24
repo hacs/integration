@@ -95,7 +95,9 @@ class HacsFlowHandler(HacsMixin, config_entries.ConfigFlow, domain=DOMAIN):
         """Show the configuration form to edit location data."""
         if not user_input:
             user_input = {}
-        if AwesomeVersion(HAVERSION) < MINIMUM_HA_VERSION:
+        if self.hacs.core.ha_version is None:
+            self.hacs.core.ha_version = AwesomeVersion(HAVERSION)
+        if self.hacs.core.ha_version < MINIMUM_HA_VERSION:
             return self.async_abort(
                 reason="min_ha_version",
                 description_placeholders={"version": MINIMUM_HA_VERSION},

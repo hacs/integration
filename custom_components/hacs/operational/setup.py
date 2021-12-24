@@ -156,10 +156,6 @@ async def async_hacs_startup():
     if hacs.system.disabled:
         return False
 
-    await hacs.async_set_stage(HacsStage.STARTUP)
-    if hacs.system.disabled:
-        return False
-
     # Setup startup tasks
     if hacs.hass.state == CoreState.running:
         async_call_later(hacs.hass, 5, hacs.startup_tasks)

@@ -1,6 +1,7 @@
 """Configuration Test Suite: Core repository."""
 # pylint: disable=missing-docstring
 from awesomeversion import AwesomeVersion
+
 from custom_components.hacs.helpers.classes.repository import HacsRepository
 
 

@@ -276,6 +276,9 @@ class HacsBase:
 
     def disable_hacs(self, reason: HacsDisabledReason) -> None:
         """Disable HACS."""
+        if self.system.disabled_reason == reason:
+            return
+
         self.system.disabled_reason = reason
         if reason != HacsDisabledReason.REMOVED:
             self.log.error("HACS is disabled - %s", reason)

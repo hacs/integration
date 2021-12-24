@@ -23,16 +23,17 @@ class Task(HacsTask):
     async def async_execute(self) -> None:
         """Execute the task."""
         try:
-            repository = self.hacs.get_by_name("hacs/integration")
+            repository = self.hacs.repositories.get_by_full_name("hacs/integration")
             if repository is None:
-                await register_repository("hacs/integration", "integration")
-                repository = self.hacs.get_by_name("hacs/integration")
+                await register_repository("hacs/integration", "integration", default=True)
+                repository = self.hacs.repositories.get_by_full_name("hacs/integration")
             if repository is None:
                 raise HacsException("Unknown error")
             repository.data.installed = True
             repository.data.installed_version = self.hacs.integration.version
             repository.data.new = False
             self.hacs.repository = repository.repository_object
+            self.hacs.repositories.mark_default(repository)
         except HacsException as exception:
             if "403" in f"{exception}":
                 self.task_logger(

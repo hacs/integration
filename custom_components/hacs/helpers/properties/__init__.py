@@ -2,7 +2,6 @@
 from custom_components.hacs.helpers.properties.can_be_installed import (
     RepositoryPropertyCanBeInstalled,
 )
-from custom_components.hacs.helpers.properties.custom import RepositoryPropertyCustom
 from custom_components.hacs.helpers.properties.pending_update import (
     RepositoryPropertyPendingUpdate,
 )
@@ -10,7 +9,6 @@ from custom_components.hacs.helpers.properties.pending_update import (
 
 class RepositoryHelperProperties(
     RepositoryPropertyPendingUpdate,
-    RepositoryPropertyCustom,
     RepositoryPropertyCanBeInstalled,
 ):
     pass

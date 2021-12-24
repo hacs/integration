@@ -101,9 +101,6 @@ async def async_install_repository(repository):
         await hacs.hass.async_add_executor_job(persistent_directory.cleanup)
 
     if repository.validate.success:
-        if repository.data.full_name not in repository.hacs.common.installed:
-            if repository.data.full_name == "hacs/integration":
-                repository.hacs.common.installed.append(repository.data.full_name)
         repository.data.installed = True
         repository.data.installed_commit = repository.data.last_commit
 

@@ -15,15 +15,18 @@ from aiogithubapi import (
     GitHub,
     GitHubAPI,
     GitHubAuthenticationException,
+    GitHubException,
+    GitHubNotModifiedException,
     GitHubRatelimitException,
 )
 from aiogithubapi.exceptions import GitHubNotModifiedException
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession
-from homeassistant.core import HomeAssistant, T
+from awesomeversion import AwesomeVersion
+from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 
-from .const import REPOSITORY_HACS_DEFAULT
+from .const import REPOSITORY_HACS_DEFAULT, TV
 from .enums import (
     ConfigurationType,
     HacsCategory,
@@ -87,21 +90,11 @@ class HacsConfiguration:
 
 
 @dataclass
-class HacsFrontend:
-    """HacsFrontend."""
-
-    version_running: str | None = None
-    version_available: str | None = None
-    version_expected: str | None = None
-    update_pending: bool = False
-
-
-@dataclass
 class HacsCore:
     """HACS Core info."""
 
     config_path: pathlib.Path | None = None
-    ha_version: str | None = None
+    ha_version: AwesomeVersion | None = None
     lovelace_mode = LovelaceMode("yaml")
 
 
@@ -110,8 +103,6 @@ class HacsCommon:
     """Common for HACS."""
 
     categories: set[str] = field(default_factory=set)
-    default: list[str] = field(default_factory=list)
-    installed: list[str] = field(default_factory=list)
     renamed_repositories: dict[str, str] = field(default_factory=dict)
     archived_repositories: list[str] = field(default_factory=list)
     skip: list[str] = field(default_factory=list)
@@ -143,19 +134,115 @@ class HacsSystem:
         return self.disabled_reason is not None
 
 
+@dataclass
+class HacsRepositories:
+    """HACS Repositories."""
+
+    _default_repositories: set[HacsRepository] = field(default_factory=set)
+    _repositories: list[str] = field(default_factory=list)
+    _repositories_by_full_name: dict[str, str] = field(default_factory=dict)
+    _repositories_by_id: dict[str, str] = field(default_factory=dict)
+
+    @property
+    def list_all(self) -> list[HacsRepository]:
+        """Return a list of repositories."""
+        return self._repositories
+
+    @property
+    def list_downloaded(self) -> list[HacsRepository]:
+        """Return a list of downloaded repositories."""
+        return [repo for repo in self._repositories if repo.data.installed]
+
+    def register(self, repository: HacsRepository, default: bool = False) -> None:
+        """Register a repository."""
+        repo_id = str(repository.data.id)
+
+        if repo_id == "0":
+            return
+
+        if self.is_registered(repository_id=repo_id):
+            return
+
+        if repository not in self._repositories:
+            self._repositories.append(repository)
+
+        self._repositories_by_id[repo_id] = repository
+        self._repositories_by_full_name[repository.data.full_name_lower] = repository
+
+        if default:
+            self.mark_default(repository)
+
+    def unregister(self, repository: HacsRepository) -> None:
+        """Unregister a repository."""
+        repo_id = str(repository.data.id)
+
+        if repo_id == "0":
+            return
+
+        if not self.is_registered(repository_id=repo_id):
+            return
+
+        if self.is_default(repo_id):
+            self._default_repositories.remove(repo_id)
+
+        if repository in self._repositories:
+            self._repositories.remove(repository)
+
+        self._repositories_by_id.pop(repo_id, None)
+        self._repositories_by_full_name.pop(repository.data.full_name_lower, None)
+
+    def mark_default(self, repository: HacsRepository) -> None:
+        """Mark a repository as default."""
+        repo_id = str(repository.data.id)
+
+        if repo_id == "0":
+            return
+
+        if not self.is_registered(repository_id=repo_id):
+            return
+
+        self._default_repositories.add(repo_id)
+
+    def is_default(self, repository_id: str | None = None) -> bool:
+        """Check if a repository is default."""
+        if not repository_id:
+            return False
+        return repository_id in self._default_repositories
+
+    def is_registered(
+        self,
+        repository_id: str | None = None,
+        repository_full_name: str | None = None,
+    ) -> bool:
+        """Check if a repository is registered."""
+        if repository_id is not None:
+            return repository_id in self._repositories_by_id
+        if repository_full_name is not None:
+            return repository_full_name in self._repositories_by_full_name
+        return False
+
+    def get_by_id(self, repository_id: str | None) -> HacsRepository | None:
+        """Get repository by id."""
+        if not repository_id:
+            return None
+        return self._repositories_by_id.get(str(repository_id))
+
+    def get_by_full_name(self, repository_full_name: str | None) -> HacsRepository | None:
+        """Get repository by full name."""
+        if not repository_full_name:
+            return None
+        return self._repositories_by_full_name.get(repository_full_name.lower())
+
+
 class HacsBase:
     """Base HACS class."""
-
-    _repositories = []
-    _repositories_by_full_name = {}
-    _repositories_by_id = {}
 
     common = HacsCommon()
     configuration = HacsConfiguration()
     core = HacsCore()
     data: HacsData | None = None
     factory: HacsTaskFactory | None = None
-    frontend = HacsFrontend()
+    frontend_version: str | None = None
     github: GitHub | None = None
     githubapi: GitHubAPI | None = None
     hass: HomeAssistant | None = None
@@ -163,7 +250,7 @@ class HacsBase:
     log: logging.Logger = getLogger()
     queue: QueueManager | None = None
     recuring_tasks = []
-    repositories: list[HacsRepository] = []
+    repositories: HacsRepositories = HacsRepositories()
     repository: AIOGitHubAPIRepository | None = None
     session: ClientSession | None = None
     stage: HacsStage | None = None
@@ -202,13 +289,13 @@ class HacsBase:
             self.system.disabled_reason = None
             self.log.info("HACS is enabled")
 
-    def enable_hacs_category(self, category: HacsCategory):
+    def enable_hacs_category(self, category: HacsCategory) -> None:
         """Enable HACS category."""
         if category not in self.common.categories:
             self.log.info("Enable category: %s", category)
             self.common.categories.add(category)
 
-    def disable_hacs_category(self, category: HacsCategory):
+    def disable_hacs_category(self, category: HacsCategory) -> None:
         """Disable HACS category."""
         if category in self.common.categories:
             self.log.info("Disabling category: %s", category)
@@ -276,10 +363,10 @@ class HacsBase:
 
     async def async_github_api_method(
         self,
-        method: Awaitable[T],
+        method: Callable[[], Awaitable[TV]],
         *args,
         **kwargs,
-    ) -> T | None:
+    ) -> TV | None:
         """Call a GitHub API method"""
         try:
             return await method(*args, **kwargs)
@@ -291,6 +378,9 @@ class HacsBase:
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
         except GitHubNotModifiedException as exception:
             raise exception
+        except GitHubException as exception:
+            self.log.error("GitHub API error - %s", exception)
+            raise HacsException(exception) from exception
         except BaseException as exception:
             self.log.exception(exception)
             raise HacsException(exception) from exception

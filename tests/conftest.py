@@ -4,6 +4,7 @@ import asyncio
 import logging
 from pathlib import Path
 from unittest.mock import AsyncMock
+from awesomeversion import AwesomeVersion
 
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.exceptions import ServiceNotFound
@@ -12,7 +13,12 @@ from homeassistant.loader import Integration
 from homeassistant.runner import HassEventLoopPolicy
 import pytest
 
-from custom_components.hacs.base import HacsCommon, HacsCore, HacsSystem
+from custom_components.hacs.base import (
+    HacsCommon,
+    HacsCore,
+    HacsRepositories,
+    HacsSystem,
+)
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.hacsbase.hacs import Hacs
 from custom_components.hacs.helpers.classes.repository import HacsRepository
@@ -92,12 +98,10 @@ def hass(event_loop, tmpdir):
 def hacs(hass):
     """Fixture to provide a HACS object."""
     hacs_obj = Hacs()
-    hacs_obj._repositories = []
-    hacs_obj._repositories_by_full_name = {}
-    hacs_obj._repositories_by_id = {}
     hacs_obj.hass = hass
     hacs_obj.tasks = HacsTaskManager(hacs=hacs_obj, hass=hass)
     hacs_obj.session = async_create_clientsession(hass)
+    hacs_obj.repositories = HacsRepositories()
 
     hacs_obj.integration = Integration(
         hass=hass,
@@ -112,7 +116,7 @@ def hacs(hass):
     hacs_obj.system = HacsSystem()
 
     hacs_obj.core.config_path = hass.config.path()
-    hacs_obj.core.ha_version = HAVERSION
+    hacs_obj.core.ha_version = AwesomeVersion(HAVERSION)
     hacs_obj.version = hacs_obj.integration.version
     hacs_obj.configuration.token = TOKEN
 

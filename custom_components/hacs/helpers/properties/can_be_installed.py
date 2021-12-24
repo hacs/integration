@@ -10,7 +10,8 @@ class RepositoryPropertyCanBeInstalled(ABC):
         if self.data.homeassistant is not None:
             if self.data.releases:
                 if not version_left_higher_or_equal_then_right(
-                    self.hacs.core.ha_version, self.data.homeassistant
+                    self.hacs.core.ha_version.string,
+                    self.data.homeassistant,
                 ):
                     return False
         return True

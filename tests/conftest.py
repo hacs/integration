@@ -4,8 +4,8 @@ import asyncio
 import logging
 from pathlib import Path
 from unittest.mock import AsyncMock
-from awesomeversion import AwesomeVersion
 
+from awesomeversion import AwesomeVersion
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.exceptions import ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession

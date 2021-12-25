@@ -4,20 +4,12 @@ from custom_components.hacs.helpers.methods.installation import (
     RepositoryMethodPostInstall,
     RepositoryMethodPreInstall,
 )
-from custom_components.hacs.helpers.methods.registration import (
-    RepositoryMethodPostRegistration,
-    RepositoryMethodPreRegistration,
-    RepositoryMethodRegistration,
-)
 
 
 class RepositoryHelperMethods(
     RepositoryMethodInstall,
     RepositoryMethodPostInstall,
     RepositoryMethodPreInstall,
-    RepositoryMethodPreRegistration,
-    RepositoryMethodRegistration,
-    RepositoryMethodPostRegistration,
 ):
     """Collection of repository methods that are nested to all repositories."""
 

@@ -5,11 +5,10 @@ import tempfile
 
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.download import download_content
-from custom_components.hacs.helpers.functions.version_to_install import (
-    version_to_install,
-)
+
 from custom_components.hacs.operational.backup import Backup, BackupNetDaemon
 from custom_components.hacs.share import get_hacs
+from custom_components.hacs.utils.version import version_to_download
 
 
 class RepositoryMethodPreInstall(ABC):
@@ -58,7 +57,7 @@ async def async_install_repository(repository):
     if not repository.can_install:
         raise HacsException("The version of Home Assistant is not compatible with this version")
 
-    version = version_to_install(repository)
+    version = version_to_download(repository)
     if version == repository.data.default_branch:
         repository.ref = version
     else:

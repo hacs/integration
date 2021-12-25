@@ -16,10 +16,9 @@ from custom_components.hacs.helpers.functions.information import (
     get_repository,
     get_tree,
 )
-from custom_components.hacs.helpers.functions.version_to_install import (
-    version_to_install,
-)
+
 from custom_components.hacs.share import get_hacs, is_removed
+from custom_components.hacs.utils.version import version_to_download
 
 if TYPE_CHECKING:
     from custom_components.hacs.helpers.classes.repository import HacsRepository
@@ -96,7 +95,7 @@ async def common_update_data(repository: HacsRepository, ignore_issues=False, fo
         repository.data.releases = False
 
     if not repository.force_branch:
-        repository.ref = version_to_install(repository)
+        repository.ref = version_to_download(repository)
     if repository.data.releases:
         for release in repository.releases.objects or []:
             if release.tag_name == repository.ref:

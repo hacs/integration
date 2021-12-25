@@ -2,9 +2,7 @@
 from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.classes.repository import HacsRepository
-from custom_components.hacs.helpers.functions.filters import (
-    get_first_directory_in_directory,
-)
+from custom_components.hacs.utils import filters
 
 
 class HacsNetdaemonRepository(HacsRepository):
@@ -34,7 +32,9 @@ class HacsNetdaemonRepository(HacsRepository):
                 self.content.path.remote = ""
 
         if self.content.path.remote == "apps":
-            self.data.domain = get_first_directory_in_directory(self.tree, self.content.path.remote)
+            self.data.domain = filters.get_first_directory_in_directory(
+                self.tree, self.content.path.remote
+            )
             self.content.path.remote = f"apps/{self.data.name}"
 
         compliant = False
@@ -65,7 +65,9 @@ class HacsNetdaemonRepository(HacsRepository):
                 self.content.path.remote = ""
 
         if self.content.path.remote == "apps":
-            self.data.domain = get_first_directory_in_directory(self.tree, self.content.path.remote)
+            self.data.domain = filters.get_first_directory_in_directory(
+                self.tree, self.content.path.remote
+            )
             self.content.path.remote = f"apps/{self.data.name}"
 
         # Set local path

@@ -4,7 +4,6 @@ from datetime import timedelta
 from aiogithubapi import GitHubException
 from aiogithubapi.exceptions import GitHubNotModifiedException
 
-from custom_components.hacs.helpers import HacsHelpers
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
@@ -19,7 +18,7 @@ from ..share import get_queue
 from ..utils.queue_manager import QueueManager
 
 
-class Hacs(HacsBase, HacsHelpers):
+class Hacs(HacsBase):
     """The base class of HACS, nested throughout the project."""
 
     queue = get_queue()

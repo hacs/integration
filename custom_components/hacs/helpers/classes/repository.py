@@ -7,13 +7,13 @@ import tempfile
 import zipfile
 
 from aiogithubapi import AIOGitHubAPIException
+from custom_components.hacs.backup import Backup, BackupNetDaemon
 
 from custom_components.hacs.exceptions import (
     HacsException,
     HacsNotModifiedException,
     HacsRepositoryExistException,
 )
-from custom_components.hacs.helpers import RepositoryHelpers
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.helpers.classes.repositorydata import RepositoryData
 from custom_components.hacs.helpers.functions.download import async_download_file
@@ -21,6 +21,7 @@ from custom_components.hacs.helpers.functions.information import (
     get_info_md_content,
     get_repository,
 )
+from custom_components.hacs.helpers.functions.download import download_content
 from custom_components.hacs.helpers.functions.misc import get_repository_name
 from custom_components.hacs.helpers.functions.store import async_remove_store
 from custom_components.hacs.helpers.functions.validate_repository import (
@@ -113,7 +114,7 @@ class RepositoryContent:
     single = False
 
 
-class HacsRepository(RepositoryHelpers):
+class HacsRepository:
     """HacsRepository."""
 
     def __init__(self):
@@ -391,7 +392,6 @@ class HacsRepository(RepositoryHelpers):
 
     async def download_content(self, validate, _directory_path, _local_directory, _ref):
         """Download the content of a directory."""
-        from custom_components.hacs.helpers.functions.download import download_content
 
         validate = await download_content(self)
         return validate
@@ -525,3 +525,96 @@ class HacsRepository(RepositoryHelpers):
     async def async_post_registration(self):
         """Run post registration steps."""
         await async_run_repository_checks(self.hacs, self)
+
+    async def async_pre_install(self) -> None:
+        """Run pre install steps."""
+
+    async def _async_pre_install(self) -> None:
+        """Run pre install steps."""
+        self.logger.info("Running pre installation steps")
+        await self.async_pre_install()
+        self.logger.info("Pre installation steps completed")
+
+    async def async_install(self) -> None:
+        """Run install steps."""
+        await self._async_pre_install()
+        self.logger.info("Running installation steps")
+        await self.async_install_repository()
+        self.logger.info("Installation steps completed")
+        await self._async_post_install()
+
+    async def async_post_installation(self) -> None:
+        """Run post install steps."""
+
+    async def _async_post_install(self) -> None:
+        """Run post install steps."""
+        self.logger.info("Running post installation steps")
+        await self.async_post_installation()
+        self.data.new = False
+        self.hacs.hass.bus.async_fire(
+            "hacs/repository",
+            {"id": 1337, "action": "install", "repository": self.data.full_name},
+        )
+        self.logger.info("Post installation steps completed")
+
+    async def async_install_repository(self):
+        """Common installation steps of the repository."""
+        hacs = get_hacs()
+        persistent_directory = None
+        await self.update_repository()
+        if self.content.path.local is None:
+            raise HacsException("repository.content.path.local is None")
+        self.validate.errors.clear()
+
+        if not self.can_download:
+            raise HacsException("The version of Home Assistant is not compatible with this version")
+
+        version = version_to_download(self)
+        if version == self.data.default_branch:
+            self.ref = version
+        else:
+            self.ref = f"tags/{version}"
+
+        if self.data.installed and self.data.category == "netdaemon":
+            persistent_directory = BackupNetDaemon(hacs=hacs, repository=self)
+            await hacs.hass.async_add_executor_job(persistent_directory.create)
+
+        elif self.data.persistent_directory:
+            if os.path.exists(f"{self.content.path.local}/{self.data.persistent_directory}"):
+                persistent_directory = Backup(
+                    hacs=hacs,
+                    local_path=f"{self.content.path.local}/{self.data.persistent_directory}",
+                    backup_path=tempfile.gettempdir() + "/hacs_persistent_directory/",
+                )
+                await hacs.hass.async_add_executor_job(persistent_directory.create)
+
+        if self.data.installed and not self.content.single:
+            backup = Backup(hacs=hacs, local_path=self.content.path.local)
+            await hacs.hass.async_add_executor_job(backup.create)
+
+        if self.data.zip_release and version != self.data.default_branch:
+            await self.download_zip_files(self.validate)
+        else:
+            await download_content(self)
+
+        if self.validate.errors:
+            for error in self.validate.errors:
+                self.logger.error(error)
+            if self.data.installed and not self.content.single:
+                await hacs.hass.async_add_executor_job(backup.restore)
+
+        if self.data.installed and not self.content.single:
+            await hacs.hass.async_add_executor_job(backup.cleanup)
+
+        if persistent_directory is not None:
+            await hacs.hass.async_add_executor_job(persistent_directory.restore)
+            await hacs.hass.async_add_executor_job(persistent_directory.cleanup)
+
+        if self.validate.success:
+            self.data.installed = True
+            self.data.installed_commit = self.data.last_commit
+
+            if version == self.data.default_branch:
+                self.data.installed_version = None
+            else:
+                self.data.installed_version = version

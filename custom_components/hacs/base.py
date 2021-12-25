@@ -56,8 +56,15 @@ class RemovedRepository:
     def update_data(self, data: dict):
         """Update data of the repository."""
         for key in data:
-            if key in self.__dict__:
-                setattr(self, key, data[key])
+            if data[key] is None:
+                continue
+            if key in (
+                "reason",
+                "link",
+                "removal_type",
+                "acknowledged",
+            ):
+                self.__setattr__(key, data[key])
 
     def to_json(self):
         """Return a JSON representation of the data."""
@@ -281,21 +288,19 @@ class HacsRepositories:
             repository.repository for repository in self._removed_repositories
         )
 
-    def removed_repository(self, repository_full_name: str) -> RemovedRepository | None:
+    def removed_repository(self, repository_full_name: str) -> RemovedRepository:
         """Get repository by full name."""
-        if not self.is_removed(repository_full_name):
-            removed = RemovedRepository(repository=repository_full_name)
-            self._removed_repositories.append(removed)
-            return removed
+        if self.is_removed(repository_full_name):
+            if removed := [
+                repository
+                for repository in self._removed_repositories
+                if repository.repository == repository_full_name
+            ]:
+                return removed[0]
 
-        if removed := [
-            repository.repository
-            for repository in self._removed_repositories
-            if repository.repository == repository_full_name
-        ]:
-            return removed[0]
-
-        return None
+        removed = RemovedRepository(repository=repository_full_name)
+        self._removed_repositories.append(removed)
+        return removed
 
 
 class HacsBase:

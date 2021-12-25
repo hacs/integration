@@ -51,16 +51,12 @@ class Hacs(HacsBase, HacsHelpers):
                 self.recurring_tasks_all, timedelta(hours=25)
             )
         )
-        self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.prosess_queue, timedelta(minutes=10)
-            )
-        )
 
         self.hass.bus.async_fire("hacs/reload", {"force": True})
         await self.recurring_tasks_installed()
 
-        await self.prosess_queue()
+        if queue_task := self.tasks.get("prosess_queue"):
+            await queue_task.execute_task()
 
         self.status.startup = False
         self.status.background_task = False
@@ -145,31 +141,6 @@ class Hacs(HacsBase, HacsHelpers):
             self.log.critical("Resarting Home Assistant")
             self.hass.async_create_task(self.hass.async_stop(100))
 
-    async def prosess_queue(self, _notarealarg=None):
-        """Recurring tasks for installed repositories."""
-        if not self.queue.has_pending_tasks:
-            self.log.debug("Nothing in the queue")
-            return
-        if self.queue.running:
-            self.log.debug("Queue is already running")
-            return
-
-        can_update = await self.async_can_update()
-        self.log.debug(
-            "Can update %s repositories, items in queue %s",
-            can_update,
-            self.queue.pending_tasks,
-        )
-        if can_update != 0:
-            self.status.background_task = True
-            self.hass.bus.async_fire("hacs/status", {})
-            try:
-                await self.queue.execute(can_update)
-            except HacsExecutionStillInProgress:
-                pass
-            self.status.background_task = False
-            self.hass.bus.async_fire("hacs/status", {})
-
     async def recurring_tasks_installed(self, _notarealarg=None):
         """Recurring tasks for installed repositories."""
         self.log.debug("Starting recurring background task for installed repositories")
@@ -236,7 +207,8 @@ class Hacs(HacsBase, HacsHelpers):
         for category in self.common.categories or []:
             self.queue.add(self.async_get_category_repositories(HacsCategory(category)))
 
-        await self.prosess_queue()
+        if queue_task := self.tasks.get("prosess_queue"):
+            await queue_task.execute_task()
 
     async def async_get_category_repositories(self, category: HacsCategory):
         """Get repositories from category."""

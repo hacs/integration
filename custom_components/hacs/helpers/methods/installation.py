@@ -73,13 +73,14 @@ async def async_install_repository(repository):
             f"{repository.content.path.local}/{repository.data.persistent_directory}"
         ):
             persistent_directory = Backup(
+                hacs,
                 f"{repository.content.path.local}/{repository.data.persistent_directory}",
                 tempfile.gettempdir() + "/hacs_persistent_directory/",
             )
             await hacs.hass.async_add_executor_job(persistent_directory.create)
 
     if repository.data.installed and not repository.content.single:
-        backup = Backup(repository.content.path.local)
+        backup = Backup(hacs, repository.content.path.local)
         await hacs.hass.async_add_executor_job(backup.create)
 
     if repository.data.zip_release and version != repository.data.default_branch:

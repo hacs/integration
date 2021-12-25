@@ -5,11 +5,11 @@ import os
 from custom_components.hacs.operational.backup import Backup, BackupNetDaemon
 
 
-def test_file(tmpdir):
+def test_file(hacs, tmpdir):
     with open(f"{tmpdir.dirname}/dummy_file", "w") as dummy:
         dummy.write("")
 
-    backup = Backup(f"{tmpdir.dirname}/dummy_file")
+    backup = Backup(hacs, f"{tmpdir.dirname}/dummy_file")
     backup.create()
 
     assert not os.path.exists(backup.local_path)
@@ -22,10 +22,10 @@ def test_file(tmpdir):
     assert not os.path.exists(backup.backup_path_full)
 
 
-def test_directory(tmpdir):
+def test_directory(hacs, tmpdir):
     os.makedirs(f"{tmpdir.dirname}/dummy_directory", exist_ok=True)
 
-    backup = Backup(f"{tmpdir.dirname}/dummy_directory")
+    backup = Backup(hacs, f"{tmpdir.dirname}/dummy_directory")
     backup.create()
 
     assert not os.path.exists(backup.local_path)
@@ -38,17 +38,17 @@ def test_directory(tmpdir):
     assert not os.path.exists(backup.backup_path_full)
 
 
-def test_muilti(tmpdir):
-    backup = Backup(f"{tmpdir.dirname}/dummy_directory")
+def test_muilti(hacs, tmpdir):
+    backup = Backup(hacs, f"{tmpdir.dirname}/dummy_directory")
     backup.create()
     backup.create()
 
 
-def test_netdaemon_backup(repository_netdaemon):
+def test_netdaemon_backup(hacs, repository_netdaemon):
     repository = repository_netdaemon
     repository.content.path.local = repository.localpath
     os.makedirs(repository.content.path.local, exist_ok=True)
-    backup = BackupNetDaemon(repository)
+    backup = BackupNetDaemon(hacs, repository)
     backup.cleanup()
     with open(f"{repository.content.path.local}/dummy_file.yaml", "w") as dummy:
         dummy.write("test: test")

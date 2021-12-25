@@ -22,7 +22,6 @@ from custom_components.hacs.helpers.functions.information import (
     get_info_md_content,
     get_repository,
 )
-from custom_components.hacs.helpers.functions.is_safe_to_remove import is_safe_to_remove
 from custom_components.hacs.helpers.functions.misc import get_repository_name
 from custom_components.hacs.helpers.functions.store import async_remove_store
 from custom_components.hacs.helpers.functions.validate_repository import (
@@ -34,6 +33,7 @@ from custom_components.hacs.helpers.functions.version_to_install import (
 )
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.logger import getLogger
+from custom_components.hacs.utils.path import is_safe
 from custom_components.hacs.utils.queue_manager import QueueManager
 
 
@@ -439,7 +439,7 @@ class HacsRepository(RepositoryHelpers):
                 local_path = self.content.path.local
 
             if os.path.exists(local_path):
-                if not is_safe_to_remove(local_path):
+                if not is_safe(self.hacs, local_path):
                     self.logger.error("%s Path %s is blocked from removal", self, local_path)
                     return False
                 self.logger.debug("%s Removing %s", self, local_path)

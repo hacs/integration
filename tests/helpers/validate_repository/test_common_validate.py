@@ -6,7 +6,6 @@ import pytest
 
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.validate_repository import common_validate
-from custom_components.hacs.share import get_removed
 
 from tests.sample_data import (
     release_data,
@@ -160,7 +159,7 @@ async def test_common_archived(repository, aresponses):
 
 
 @pytest.mark.asyncio
-async def test_common_blacklist(repository, aresponses):
+async def test_common_blacklist(hacs, repository, aresponses):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -173,7 +172,7 @@ async def test_common_blacklist(repository, aresponses):
         "get",
         aresponses.Response(body=json.dumps(repository_data), headers=response_rate_limit_header),
     )
-    removed = get_removed("test/test")
+    removed = hacs.repositories.removed_repository("test/test")
     assert removed.repository == "test/test"
     with pytest.raises(HacsException):
         await common_validate(repository)

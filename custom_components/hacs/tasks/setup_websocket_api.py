@@ -16,7 +16,7 @@ from ..exceptions import HacsException
 from ..helpers.functions.misc import extract_repository_from_url
 from ..helpers.functions.register_repository import register_repository
 from ..helpers.functions.store import async_load_from_store, async_save_to_store
-from ..share import get_hacs, list_removed_repositories
+from ..share import get_hacs
 from .base import HacsTask
 
 
@@ -117,8 +117,9 @@ async def hacs_config(_hass, connection, msg):
 @websocket_api.async_response
 async def hacs_removed(_hass, connection, msg):
     """Get information about removed repositories."""
+    hacs = get_hacs()
     content = []
-    for repo in list_removed_repositories():
+    for repo in hacs.repositories.list_removed:
         content.append(repo.to_json())
     connection.send_message(websocket_api.result_message(msg["id"], content))
 

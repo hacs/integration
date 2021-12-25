@@ -17,7 +17,7 @@ from custom_components.hacs.helpers.functions.information import (
     get_tree,
 )
 
-from custom_components.hacs.share import get_hacs, is_removed
+from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.version import version_to_download
 
 if TYPE_CHECKING:
@@ -74,7 +74,7 @@ async def common_update_data(repository: HacsRepository, ignore_issues=False, fo
         raise HacsRepositoryArchivedException("Repository is archived.")
 
     # Make sure the repository is not in the blacklist.
-    if is_removed(repository.data.full_name) and not ignore_issues:
+    if hacs.repositories.is_removed(repository.data.full_name) and not ignore_issues:
         repository.validate.errors.append("Repository is in the blacklist.")
         raise HacsException("Repository is in the blacklist.")
 

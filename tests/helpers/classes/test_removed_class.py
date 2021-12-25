@@ -1,4 +1,4 @@
-from custom_components.hacs.helpers.classes.removed import RemovedRepository
+from custom_components.hacs.base import RemovedRepository
 
 
 def test_removed():

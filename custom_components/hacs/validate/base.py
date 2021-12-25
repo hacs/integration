@@ -1,4 +1,10 @@
-from custom_components.hacs.share import SHARE, get_hacs
+from __future__ import annotations
+from typing import TYPE_CHECKING
+from ..share import SHARE, get_hacs
+
+
+if TYPE_CHECKING:
+    from ..helpers.classes.repository import HacsRepository
 
 
 class ValidationException(Exception):
@@ -6,9 +12,11 @@ class ValidationException(Exception):
 
 
 class ValidationBase:
-    def __init__(self, repository) -> None:
-        self.repository = repository
+    action_only = False
+
+    def __init__(self, repository: HacsRepository) -> None:
         self.hacs = get_hacs()
+        self.repository = repository
         self.failed = False
         self.logger = repository.logger
 
@@ -19,10 +27,6 @@ class ValidationBase:
             SHARE["rules"][category] = []
         if cls not in SHARE["rules"][category]:
             SHARE["rules"][category].append(cls)
-
-    @property
-    def action_only(self):
-        return False
 
     async def _async_run_check(self):
         """DO NOT OVERRIDE THIS IN SUBCLASSES!"""
@@ -43,6 +47,4 @@ class ValidationBase:
 
 
 class ActionValidationBase(ValidationBase):
-    @property
-    def action_only(self):
-        return True
+    action_only = True

@@ -1,3 +1,4 @@
+from custom_components.hacs.enums import RepositoryFile
 from custom_components.hacs.validate.base import (
     ActionValidationBase,
     ValidationException,
@@ -6,5 +7,5 @@ from custom_components.hacs.validate.base import (
 
 class HacsManifest(ActionValidationBase):
     def check(self):
-        if "hacs.json" not in [x.filename for x in self.repository.tree]:
-            raise ValidationException("The repository has no 'hacs.json' file")
+        if RepositoryFile.HACS_JSON not in [x.filename for x in self.repository.tree]:
+            raise ValidationException(f"The repository has no '{RepositoryFile.HACS_JSON}' file")

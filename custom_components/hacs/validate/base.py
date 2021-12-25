@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ..share import SHARE
-
 if TYPE_CHECKING:
     from ..repositories.base import HacsRepository
+
+RULES: dict[str, list[ValidationBase]] = {}
 
 
 class ValidationException(Exception):
@@ -24,10 +24,10 @@ class ValidationBase:
     def __init_subclass__(cls, category="common", **kwargs) -> None:
         """Initialize a subclass, register if possible."""
         super().__init_subclass__(**kwargs)
-        if SHARE["rules"].get(category) is None:
-            SHARE["rules"][category] = []
-        if cls not in SHARE["rules"][category]:
-            SHARE["rules"][category].append(cls)
+        if RULES.get(category) is None:
+            RULES[category] = []
+        if cls not in RULES[category]:
+            RULES[category].append(cls)
 
     async def _async_run_check(self):
         """DO NOT OVERRIDE THIS IN SUBCLASSES!"""

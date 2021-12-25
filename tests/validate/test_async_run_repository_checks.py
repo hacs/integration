@@ -1,10 +1,10 @@
 import pytest
 
 from custom_components.hacs.base import HacsBase
-from custom_components.hacs.share import SHARE
 from custom_components.hacs.validate import (
     async_initialize_rules,
     async_run_repository_checks,
+    base,
 )
 
 
@@ -12,6 +12,7 @@ from custom_components.hacs.validate import (
 async def test_async_initialize_rules(hacs: HacsBase):
 
     await async_initialize_rules(hacs.hass)
+    assert base.RULES != {}
 
 
 @pytest.mark.asyncio
@@ -25,6 +26,6 @@ async def test_async_run_repository_checks(hacs: HacsBase, repository_integratio
         await async_run_repository_checks(hacs, repository_integration)
 
     hacs.system.action = False
-    SHARE["rules"] = {}
+    base.RULES = {}
     await async_run_repository_checks(hacs, repository_integration)
     hacs.system.running = False

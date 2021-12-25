@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
 
-from ..share import SHARE
+from .base import RULES
 
 if TYPE_CHECKING:
     from ..base import HacsBase
@@ -29,14 +29,14 @@ async def async_initialize_rules(hass: HomeAssistant) -> None:
 
 
 async def async_run_repository_checks(hacs: HacsBase, repository: HacsRepository):
-    if not SHARE["rules"]:
+    if not RULES:
         await async_initialize_rules(hacs.hass)
     if not hacs.system.running:
         return
     checks = []
-    for check in SHARE["rules"].get("common", []):
+    for check in RULES.get("common", []):
         checks.append(check(repository))
-    for check in SHARE["rules"].get(repository.data.category, []):
+    for check in RULES.get(repository.data.category, []):
         checks.append(check(repository))
 
     await asyncio.gather(

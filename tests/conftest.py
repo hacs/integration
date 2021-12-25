@@ -7,6 +7,7 @@ from unittest.mock import AsyncMock
 
 from awesomeversion import AwesomeVersion
 from homeassistant.const import __version__ as HAVERSION
+from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.loader import Integration
@@ -94,7 +95,7 @@ def hass(event_loop, tmpdir):
 
 
 @pytest.fixture
-def hacs(hass):
+def hacs(hass: HomeAssistant):
     """Fixture to provide a HACS object."""
     hacs_obj = Hacs()
     hacs_obj.hass = hass

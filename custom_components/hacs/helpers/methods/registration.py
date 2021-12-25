@@ -38,4 +38,4 @@ class RepositoryMethodRegistration(ABC):
 
 class RepositoryMethodPostRegistration(ABC):
     async def async_post_registration(self):
-        await async_run_repository_checks(self)
+        await async_run_repository_checks(self.hacs, self)

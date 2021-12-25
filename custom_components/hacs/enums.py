@@ -17,6 +17,13 @@ class HacsCategory(str, Enum):
         return str(self.value)
 
 
+class RepositoryFile(str, Enum):
+    """Repository file names."""
+
+    HACS_JSON = "hacs.json"
+    MAINIFEST_JSON = "manifest.json"
+
+
 class ConfigurationType(str, Enum):
     YAML = "yaml"
     CONFIG_ENTRY = "config_entry"

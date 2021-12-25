@@ -1,9 +1,18 @@
+from __future__ import annotations
 import asyncio
 import glob
 import importlib
 from os.path import dirname, join, sep
+from typing import TYPE_CHECKING
 
-from custom_components.hacs.share import SHARE, get_hacs
+from homeassistant.core import HomeAssistant
+
+
+from ..share import SHARE
+
+if TYPE_CHECKING:
+    from ..base import HacsBase
+    from ..helpers.classes.repository import HacsRepository
 
 
 def _initialize_rules():
@@ -15,15 +24,13 @@ def _initialize_rules():
         importlib.import_module(rule)
 
 
-async def async_initialize_rules():
-    hass = get_hacs().hass
+async def async_initialize_rules(hass: HomeAssistant) -> None:
     await hass.async_add_executor_job(_initialize_rules)
 
 
-async def async_run_repository_checks(repository):
-    hacs = get_hacs()
+async def async_run_repository_checks(hacs: HacsBase, repository: HacsRepository):
     if not SHARE["rules"]:
-        await async_initialize_rules()
+        await async_initialize_rules(hacs.hass)
     if not hacs.system.running:
         return
     checks = []

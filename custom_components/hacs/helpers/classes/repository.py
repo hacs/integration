@@ -37,6 +37,7 @@ from custom_components.hacs.utils.version import (
     version_left_higher_then_right,
     version_to_download,
 )
+from custom_components.hacs.validate import async_run_repository_checks
 
 
 class RepositoryVersions:
@@ -496,3 +497,31 @@ class HacsRepository(RepositoryHelpers):
             self.logger.debug("%s Removing %s failed with %s", self, local_path, exception)
             return False
         return True
+
+    async def async_pre_registration(self):
+        """Run pre registration steps."""
+
+    async def async_registration(self, ref=None) -> None:
+        """Run registration steps."""
+        await self.async_pre_registration()
+
+        if ref is not None:
+            self.data.selected_tag = ref
+            self.ref = ref
+            self.force_branch = True
+
+        if not await self.validate_repository():
+            return False
+
+        # Run common registration steps.
+        await self.common_registration()
+
+        # Set correct local path
+        self.content.path.local = self.localpath
+
+        # Run local post registration steps.
+        await self.async_post_registration()
+
+    async def async_post_registration(self):
+        """Run post registration steps."""
+        await async_run_repository_checks(self.hacs, self)

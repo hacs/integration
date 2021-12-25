@@ -1,13 +1,11 @@
 """Class for integrations in HACS."""
 from homeassistant.loader import async_get_custom_components
 
-from custom_components.hacs.enums import HacsCategory
-from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.classes.repository import HacsRepository
-from custom_components.hacs.utils import filters
-from custom_components.hacs.helpers.functions.information import (
-    get_integration_manifest,
-)
+from ..enums import HacsCategory
+from ..exceptions import HacsException
+from ..helpers.functions.information import get_integration_manifest
+from ..utils import filters
+from .base import HacsRepository
 
 
 class HacsIntegrationRepository(HacsRepository):

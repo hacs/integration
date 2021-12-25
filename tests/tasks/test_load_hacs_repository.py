@@ -6,7 +6,7 @@ import pytest
 from custom_components.hacs.base import HacsBase, HacsRepositories
 from custom_components.hacs.enums import HacsDisabledReason
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.classes.repository import HacsRepository
+from custom_components.hacs.repositories.base import HacsRepository
 
 
 @pytest.mark.asyncio

@@ -1,9 +1,9 @@
 """Class for appdaemon apps in HACS."""
 from aiogithubapi import AIOGitHubAPIException
 
-from custom_components.hacs.enums import HacsCategory
-from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.classes.repository import HacsRepository
+from ..enums import HacsCategory
+from ..exceptions import HacsException
+from .base import HacsRepository
 
 
 class HacsAppdaemonRepository(HacsRepository):

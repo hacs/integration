@@ -1,11 +1,12 @@
 """Custom template support."""
 from __future__ import annotations
+
 from typing import TYPE_CHECKING
+
 from jinja2 import Template
 
-
 if TYPE_CHECKING:
-    from ..helpers.classes.repository import HacsRepository
+    from ..repositories.base import HacsRepository
 
 
 def render_template(content: str, context: HacsRepository) -> str:

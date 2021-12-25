@@ -45,7 +45,7 @@ from .utils.queue_manager import QueueManager
 
 if TYPE_CHECKING:
     from .hacsbase.data import HacsData
-    from .helpers.classes.repository import HacsRepository
+    from .repositories.base import HacsRepository
     from .tasks.manager import HacsTaskManager
 
 

@@ -20,7 +20,7 @@ from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.version import version_to_download
 
 if TYPE_CHECKING:
-    from custom_components.hacs.helpers.classes.repository import HacsRepository
+    from custom_components.hacs.repositories.base import HacsRepository
 
 
 async def common_validate(repository, ignore_issues=False):

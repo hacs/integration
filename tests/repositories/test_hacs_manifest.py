@@ -3,7 +3,7 @@
 import pytest
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.classes.manifest import HacsManifest
+from custom_components.hacs.repositories.base import HacsManifest
 
 
 def test_manifest_structure():

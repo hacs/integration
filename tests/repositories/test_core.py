@@ -20,8 +20,8 @@ def test_hacs_repository_core_mostly_defaults():
     assert repository.display_version_or_commit == "commit"
     assert repository.display_available_version == ""
     assert repository.display_installed_version == ""
-    assert repository.can_install
-    assert not repository.pending_upgrade
+    assert repository.can_download
+    assert not repository.pending_update
 
 
 def test_hacs_repository_core_can_install_legacy():
@@ -30,13 +30,13 @@ def test_hacs_repository_core_can_install_legacy():
     repository.data.releases = True
 
     repository.data.homeassistant = "1.1.0"
-    assert not repository.can_install
+    assert not repository.can_download
 
     repository.data.homeassistant = "1.0.0"
-    assert repository.can_install
+    assert repository.can_download
 
     repository.data.homeassistant = "0.1.0"
-    assert repository.can_install
+    assert repository.can_download
 
 
 def test_hacs_repository_core_can_install_manifest():
@@ -45,10 +45,10 @@ def test_hacs_repository_core_can_install_manifest():
     repository.data.releases = True
 
     repository.data.homeassistant = "1.1.0"
-    assert not repository.can_install
+    assert not repository.can_download
 
     repository.data.homeassistant = "1.0.0"
-    assert repository.can_install
+    assert repository.can_download
 
     repository.data.homeassistant = "0.1.0"
-    assert repository.can_install
+    assert repository.can_download

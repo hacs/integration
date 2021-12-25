@@ -54,7 +54,7 @@ async def async_install_repository(repository):
         raise HacsException("repository.content.path.local is None")
     repository.validate.errors = []
 
-    if not repository.can_install:
+    if not repository.can_download:
         raise HacsException("The version of Home Assistant is not compatible with this version")
 
     version = version_to_download(repository)

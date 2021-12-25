@@ -12,10 +12,10 @@ from custom_components.hacs.exceptions import (
 )
 from custom_components.hacs.share import get_hacs
 
-from ...repositories import RERPOSITORY_CLASSES
+from ..repositories import RERPOSITORY_CLASSES
 
 if TYPE_CHECKING:
-    from ...repositories.base import HacsRepository
+    from ..repositories.base import HacsRepository
 
 # @concurrent(15, 5)
 async def register_repository(

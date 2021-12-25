@@ -12,11 +12,11 @@ import voluptuous as vol
 
 from custom_components.hacs.const import CLIENT_ID, DOMAIN, MINIMUM_HA_VERSION
 from custom_components.hacs.enums import ConfigurationType
-from custom_components.hacs.helpers.functions.configuration_schema import (
+from custom_components.hacs.mixin import HacsMixin
+from custom_components.hacs.utils.configuration_schema import (
     RELEASE_LIMIT,
     hacs_config_option_schema,
 )
-from custom_components.hacs.mixin import HacsMixin
 
 
 class HacsFlowHandler(HacsMixin, config_entries.ConfigFlow, domain=DOMAIN):

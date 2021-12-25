@@ -2,7 +2,7 @@
 import json
 
 from ..exceptions import HacsException
-from ..helpers.functions.information import find_file_name
+from ..utils.information import find_file_name
 from .base import HacsRepository
 
 

@@ -5,7 +5,7 @@ import os
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 import pytest
 
-from custom_components.hacs.helpers.functions.download import download_content
+from custom_components.hacs.utils.download import download_content
 
 from tests.sample_data import response_rate_limit_header
 

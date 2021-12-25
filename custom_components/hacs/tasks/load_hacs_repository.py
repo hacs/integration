@@ -6,7 +6,7 @@ from homeassistant.core import HomeAssistant
 from ..base import HacsBase
 from ..enums import HacsDisabledReason, HacsStage
 from ..exceptions import HacsException
-from ..helpers.functions.register_repository import register_repository
+from ..utils.register_repository import register_repository
 from .base import HacsTask
 
 

@@ -23,9 +23,9 @@ import voluptuous as vol
 from .const import DOMAIN, PLATFORMS, STARTUP
 from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
 from .hacsbase.data import HacsData
-from .helpers.functions.configuration_schema import hacs_config_combined
 from .share import get_hacs
 from .tasks.manager import HacsTaskManager
+from .utils.configuration_schema import hacs_config_combined
 
 if TYPE_CHECKING:
     from .base import HacsBase

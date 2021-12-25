@@ -11,12 +11,12 @@ from custom_components.hacs.exceptions import (
     HacsRepositoryArchivedException,
     HacsRepositoryExistException,
 )
-from custom_components.hacs.helpers.functions.information import (
+from custom_components.hacs.share import get_hacs
+from custom_components.hacs.utils.information import (
     get_releases,
     get_repository,
     get_tree,
 )
-from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.version import version_to_download
 
 if TYPE_CHECKING:

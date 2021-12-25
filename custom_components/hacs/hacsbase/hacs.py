@@ -4,9 +4,7 @@ from datetime import timedelta
 from aiogithubapi import GitHubException
 from aiogithubapi.exceptions import GitHubNotModifiedException
 
-from custom_components.hacs.helpers.functions.register_repository import (
-    register_repository,
-)
+from custom_components.hacs.utils.register_repository import register_repository
 from custom_components.hacs.utils.store import (
     async_load_from_store,
     async_save_to_store,

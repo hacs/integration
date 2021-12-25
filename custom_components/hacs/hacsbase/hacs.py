@@ -5,7 +5,6 @@ from aiogithubapi import GitHubException
 from aiogithubapi.exceptions import GitHubNotModifiedException
 
 from custom_components.hacs.helpers import HacsHelpers
-
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
@@ -13,6 +12,7 @@ from custom_components.hacs.helpers.functions.store import (
     async_load_from_store,
     async_save_to_store,
 )
+
 from ..base import HacsBase
 from ..enums import HacsCategory, HacsStage
 from ..share import get_queue

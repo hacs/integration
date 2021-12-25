@@ -1,5 +1,6 @@
 """Version utils."""
 from __future__ import annotations
+
 from functools import lru_cache
 from typing import TYPE_CHECKING
 

@@ -16,7 +16,6 @@ from custom_components.hacs.helpers.functions.information import (
     get_repository,
     get_tree,
 )
-
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.version import version_to_download
 
@@ -26,7 +25,7 @@ if TYPE_CHECKING:
 
 async def common_validate(repository, ignore_issues=False):
     """Common validation steps of the repository."""
-    repository.validate.errors = []
+    repository.validate.errors.clear()
 
     # Make sure the repository exist.
     repository.logger.debug("%s Checking repository.", repository)

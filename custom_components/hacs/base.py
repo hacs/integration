@@ -1,7 +1,7 @@
 """Base HACS class."""
 from __future__ import annotations
-import asyncio
 
+import asyncio
 from dataclasses import asdict, dataclass, field
 import gzip
 import json
@@ -26,7 +26,7 @@ from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 
-from .const import REPOSITORY_HACS_DEFAULT, TV, SEMAPHORE_DEFAULT
+from .const import REPOSITORY_HACS_DEFAULT, SEMAPHORE_DEFAULT, TV
 from .enums import (
     ConfigurationType,
     HacsCategory,
@@ -34,7 +34,11 @@ from .enums import (
     HacsStage,
     LovelaceMode,
 )
-from .exceptions import HacsException, HacsNotModifiedException, HacsRepositoryArchivedException
+from .exceptions import (
+    HacsException,
+    HacsNotModifiedException,
+    HacsRepositoryArchivedException,
+)
 from .utils.decode import decode_content
 from .utils.logger import getLogger
 from .utils.queue_manager import QueueManager

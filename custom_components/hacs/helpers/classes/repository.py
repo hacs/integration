@@ -16,7 +16,6 @@ from custom_components.hacs.exceptions import (
 from custom_components.hacs.helpers import RepositoryHelpers
 from custom_components.hacs.helpers.classes.manifest import HacsManifest
 from custom_components.hacs.helpers.classes.repositorydata import RepositoryData
-from custom_components.hacs.helpers.classes.validate import Validate
 from custom_components.hacs.helpers.functions.download import async_download_file
 from custom_components.hacs.helpers.functions.information import (
     get_info_md_content,
@@ -32,10 +31,11 @@ from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.logger import getLogger
 from custom_components.hacs.utils.path import is_safe
 from custom_components.hacs.utils.queue_manager import QueueManager
+from custom_components.hacs.utils.validate import Validate
 from custom_components.hacs.utils.version import (
     version_left_higher_or_equal_then_right,
-    version_to_download,
     version_left_higher_then_right,
+    version_to_download,
 )
 
 

@@ -1,4 +1,4 @@
-from custom_components.hacs.helpers.classes.validate import Validate
+from custom_components.hacs.utils.validate import Validate
 
 
 def test_validate():

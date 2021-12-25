@@ -15,7 +15,6 @@ import homeassistant.util.dt as date_util
 from homeassistant.util.unit_system import METRIC_SYSTEM
 
 from custom_components.hacs.helpers.classes.repository import HacsRepository
-
 from custom_components.hacs.utils.logger import getLogger
 from custom_components.hacs.utils.version import version_to_download
 

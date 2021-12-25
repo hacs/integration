@@ -4,9 +4,9 @@ import json
 from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPINotModifiedException, GitHub
 from aiogithubapi.const import ACCEPT_HEADERS
 
-from custom_components.hacs.exceptions import HacsException, HacsNotModifiedException
-from custom_components.hacs.share import get_hacs
-from custom_components.hacs.utils.template import render_template
+from ..exceptions import HacsException, HacsNotModifiedException
+from ..share import get_hacs
+from ..utils.template import render_template
 
 
 def info_file(repository):
@@ -112,7 +112,7 @@ async def get_integration_manifest(repository):
     try:
         manifest = await repository.repository_object.get_contents(manifest_path, repository.ref)
         manifest = json.loads(manifest.content)
-    except (Exception, BaseException) as exception:  # pylint: disable=broad-except
+    except BaseException as exception:  # pylint: disable=broad-except
         raise HacsException(f"Could not read manifest.json [{exception}]")
 
     try:

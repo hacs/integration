@@ -5,14 +5,13 @@ from typing import TYPE_CHECKING
 
 from aiogithubapi import AIOGitHubAPIException
 
-from custom_components.hacs.exceptions import (
+from ..exceptions import (
     HacsException,
     HacsExpectedException,
     HacsRepositoryExistException,
 )
-from custom_components.hacs.share import get_hacs
-
 from ..repositories import RERPOSITORY_CLASSES
+from ..share import get_hacs
 
 if TYPE_CHECKING:
     from ..repositories.base import HacsRepository

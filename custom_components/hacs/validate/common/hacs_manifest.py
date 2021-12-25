@@ -1,8 +1,5 @@
-from custom_components.hacs.enums import RepositoryFile
-from custom_components.hacs.validate.base import (
-    ActionValidationBase,
-    ValidationException,
-)
+from ...enums import RepositoryFile
+from ..base import ActionValidationBase, ValidationException
 
 
 class HacsManifest(ActionValidationBase):

@@ -1,12 +1,11 @@
 """Sensor platform for HACS."""
 from __future__ import annotations
 
-from awesomeversion import AwesomeVersion
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.core import callback
 
-from custom_components.hacs.const import DOMAIN, NAME_SHORT
-from custom_components.hacs.mixin import HacsMixin
+from .const import DOMAIN, NAME_SHORT
+from .mixin import HacsMixin
 
 
 async def async_setup_platform(_hass, _config, async_add_entities, _discovery_info=None):

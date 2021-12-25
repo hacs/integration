@@ -13,7 +13,7 @@ SHARE = {
 
 def get_hacs() -> HacsBase:
     if SHARE["hacs"] is None:
-        from custom_components.hacs.hacsbase.hacs import Hacs as Legacy
+        from .hacsbase.hacs import Hacs as Legacy
 
         _hacs = Legacy()
 

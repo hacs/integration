@@ -1,7 +1,4 @@
-from custom_components.hacs.validate.base import (
-    ActionValidationBase,
-    ValidationException,
-)
+from ..base import ActionValidationBase, ValidationException
 
 
 class RepositoryInformationFile(ActionValidationBase):

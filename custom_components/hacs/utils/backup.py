@@ -7,11 +7,11 @@ import tempfile
 from time import sleep
 from typing import TYPE_CHECKING
 
-from .utils import path
+from .path import is_safe
 
 if TYPE_CHECKING:
-    from .base import HacsBase
-    from .repositories.base import HacsRepository
+    from ..base import HacsBase
+    from ..repositories.base import HacsRepository
 
 
 DEFAULT_BACKUP_PATH = f"{tempfile.gettempdir()}/hacs_backup/"
@@ -44,7 +44,7 @@ class Backup:
         """Init backup dir."""
         if not os.path.exists(self.local_path):
             return False
-        if not path.is_safe(self.hacs, self.local_path):
+        if not is_safe(self.hacs, self.local_path):
             return False
         if os.path.exists(self.backup_path):
             shutil.rmtree(self.backup_path)

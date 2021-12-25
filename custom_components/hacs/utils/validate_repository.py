@@ -5,22 +5,18 @@ from typing import TYPE_CHECKING
 
 from aiogithubapi import AIOGitHubAPIException
 
-from custom_components.hacs.exceptions import (
+from ..exceptions import (
     HacsException,
     HacsNotModifiedException,
     HacsRepositoryArchivedException,
     HacsRepositoryExistException,
 )
-from custom_components.hacs.share import get_hacs
-from custom_components.hacs.utils.information import (
-    get_releases,
-    get_repository,
-    get_tree,
-)
-from custom_components.hacs.utils.version import version_to_download
+from ..share import get_hacs
+from ..utils.information import get_releases, get_repository, get_tree
+from ..utils.version import version_to_download
 
 if TYPE_CHECKING:
-    from custom_components.hacs.repositories.base import HacsRepository
+    from ..repositories.base import HacsRepository
 
 
 async def common_validate(repository, ignore_issues=False):

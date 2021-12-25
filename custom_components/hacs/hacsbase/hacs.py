@@ -13,12 +13,6 @@ from custom_components.hacs.helpers.functions.store import (
     async_load_from_store,
     async_save_to_store,
 )
-from custom_components.hacs.share import (
-    get_removed,
-    is_removed,
-    list_removed_repositories,
-)
-
 from ..base import HacsBase
 from ..enums import HacsCategory, HacsStage
 from ..exceptions import HacsExecutionStillInProgress
@@ -31,28 +25,6 @@ class Hacs(HacsBase, HacsHelpers):
 
     factory = get_factory()
     queue = get_queue()
-
-    def async_set_repository_id(self, repository, repo_id):
-        """Update a repository id."""
-        existing_repo_id = str(repository.data.id)
-        if existing_repo_id == repo_id:
-            return
-        if existing_repo_id != "0":
-            raise ValueError(
-                f"The repo id for {repository.data.full_name_lower} is already set to {existing_repo_id}"
-            )
-        repository.data.id = repo_id
-        self.repositories.register(repository)
-
-    @property
-    def sorted_by_name(self):
-        """Return a sorted(by name) list of repository objects."""
-        return sorted(self.repositories.list_all, key=lambda x: x.display_name)
-
-    @property
-    def sorted_by_repository_name(self):
-        """Return a sorted(by repository_name) list of repository objects."""
-        return sorted(self.repositories.list_all, key=lambda x: x.data.full_name)
 
     async def register_repository(self, full_name, category, check=True):
         """Register a repository."""
@@ -137,7 +109,7 @@ class Hacs(HacsBase, HacsHelpers):
         stored_critical = []
 
         for repository in critical:
-            removed_repo = get_removed(repository["repository"])
+            removed_repo = self.repositories.removed_repository(repository["repository"])
             removed_repo.removal_type = "critical"
             repo = self.repositories.get_by_full_name(repository["repository"])
 
@@ -237,7 +209,7 @@ class Hacs(HacsBase, HacsHelpers):
     async def clear_out_removed_repositories(self):
         """Clear out blaclisted repositories."""
         need_to_save = False
-        for removed in list_removed_repositories():
+        for removed in self.repositories.list_removed:
             repository = self.repositories.get_by_full_name(removed.repository)
             if repository is not None:
                 if repository.data.installed and removed.removal_type != "critical":
@@ -258,7 +230,7 @@ class Hacs(HacsBase, HacsHelpers):
         self.log.info("Loading known repositories")
 
         for item in await self.async_github_get_hacs_default_file(HacsCategory.REMOVED):
-            removed = get_removed(item["repository"])
+            removed = self.repositories.removed_repository(item["repository"])
             removed.reason = item.get("reason")
             removed.link = item.get("link")
             removed.removal_type = item.get("removal_type")
@@ -274,7 +246,7 @@ class Hacs(HacsBase, HacsHelpers):
         for repo in repositories:
             if self.common.renamed_repositories.get(repo):
                 repo = self.common.renamed_repositories[repo]
-            if is_removed(repo):
+            if self.repositories.is_removed(repo):
                 continue
             if repo in self.common.archived_repositories:
                 continue

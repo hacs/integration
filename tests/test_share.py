@@ -1,10 +1,6 @@
 import os
 
-from custom_components.hacs.share import SHARE, get_hacs, list_removed_repositories
-
-
-def test_list_removed_repositories():
-    list_removed_repositories()
+from custom_components.hacs.share import SHARE, get_hacs
 
 
 def test_get_hacs():

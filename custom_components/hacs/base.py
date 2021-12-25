@@ -46,6 +46,31 @@ if TYPE_CHECKING:
 
 
 @dataclass
+class RemovedRepository:
+    repository: str | None = None
+    reason: str | None = None
+    link: str | None = None
+    removal_type: str = None  # archived, not_compliant, critical, dev, broken
+    acknowledged: bool = False
+
+    def update_data(self, data: dict):
+        """Update data of the repository."""
+        for key in data:
+            if key in self.__dict__:
+                setattr(self, key, data[key])
+
+    def to_json(self):
+        """Return a JSON representation of the data."""
+        return {
+            "repository": self.repository,
+            "reason": self.reason,
+            "link": self.link,
+            "removal_type": self.removal_type,
+            "acknowledged": self.acknowledged,
+        }
+
+
+@dataclass
 class HacsConfiguration:
     """HacsConfiguration class."""
 
@@ -137,15 +162,21 @@ class HacsSystem:
 class HacsRepositories:
     """HACS Repositories."""
 
-    _default_repositories: set[HacsRepository] = field(default_factory=set)
+    _default_repositories: set[str] = field(default_factory=set)
     _repositories: list[str] = field(default_factory=list)
     _repositories_by_full_name: dict[str, str] = field(default_factory=dict)
     _repositories_by_id: dict[str, str] = field(default_factory=dict)
+    _removed_repositories: list[RemovedRepository] = field(default_factory=list)
 
     @property
     def list_all(self) -> list[HacsRepository]:
         """Return a list of repositories."""
         return self._repositories
+
+    @property
+    def list_removed(self) -> list[RemovedRepository]:
+        """Return a list of removed repositories."""
+        return self._removed_repositories
 
     @property
     def list_downloaded(self) -> list[HacsRepository]:
@@ -202,6 +233,18 @@ class HacsRepositories:
 
         self._default_repositories.add(repo_id)
 
+    def set_repository_id(self, repository, repo_id):
+        """Update a repository id."""
+        existing_repo_id = str(repository.data.id)
+        if existing_repo_id == repo_id:
+            return
+        if existing_repo_id != "0":
+            raise ValueError(
+                f"The repo id for {repository.data.full_name_lower} is already set to {existing_repo_id}"
+            )
+        repository.data.id = repo_id
+        self.register(repository)
+
     def is_default(self, repository_id: str | None = None) -> bool:
         """Check if a repository is default."""
         if not repository_id:
@@ -231,6 +274,28 @@ class HacsRepositories:
         if not repository_full_name:
             return None
         return self._repositories_by_full_name.get(repository_full_name.lower())
+
+    def is_removed(self, repository_full_name: str) -> bool:
+        """Check if a repository is removed."""
+        return repository_full_name in (
+            repository.repository for repository in self._removed_repositories
+        )
+
+    def removed_repository(self, repository_full_name: str) -> RemovedRepository | None:
+        """Get repository by full name."""
+        if not self.is_removed(repository_full_name):
+            removed = RemovedRepository(repository=repository_full_name)
+            self._removed_repositories.append(removed)
+            return removed
+
+        if removed := [
+            repository.repository
+            for repository in self._removed_repositories
+            if repository.repository == repository_full_name
+        ]:
+            return removed[0]
+
+        return None
 
 
 class HacsBase:

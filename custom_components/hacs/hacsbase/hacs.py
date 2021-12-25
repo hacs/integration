@@ -15,15 +15,13 @@ from custom_components.hacs.helpers.functions.store import (
 )
 from ..base import HacsBase
 from ..enums import HacsCategory, HacsStage
-from ..exceptions import HacsExecutionStillInProgress
-from ..share import get_factory, get_queue
+from ..share import get_queue
 from ..utils.queue_manager import QueueManager
 
 
 class Hacs(HacsBase, HacsHelpers):
     """The base class of HACS, nested throughout the project."""
 
-    factory = get_factory()
     queue = get_queue()
 
     async def register_repository(self, full_name, category, check=True):
@@ -151,7 +149,7 @@ class Hacs(HacsBase, HacsHelpers):
             if self.status.startup and repository.data.full_name == "hacs/integration":
                 continue
             if repository.data.installed and repository.data.category in self.common.categories:
-                self.queue.add(self.factory.safe_update(repository))
+                self.queue.add(self.async_semaphore_wrapper(repository.update_repository))
 
         await self.handle_critical_repositories()
         self.status.background_task = False
@@ -167,7 +165,7 @@ class Hacs(HacsBase, HacsHelpers):
 
         for repository in self.repositories.list_all:
             if repository.data.category in self.common.categories:
-                self.queue.add(self.factory.safe_common_update(repository))
+                self.queue.add(self.async_semaphore_wrapper(repository.common_update))
 
         await self.async_load_default_repositories()
         await self.clear_out_removed_repositories()
@@ -224,4 +222,8 @@ class Hacs(HacsBase, HacsHelpers):
             if repository is not None:
                 self.repositories.mark_default(repository)
                 continue
-            self.queue.add(self.factory.safe_register(repo=repo, category=category, default=True))
+            self.queue.add(
+                self.async_semaphore_wrapper(
+                    register_repository, full_name=repo, category=category, default=True
+                )
+            )

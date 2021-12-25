@@ -21,6 +21,8 @@ PACKAGE_NAME = "custom_components.hacs"
 REPOSITORY_HACS_DEFAULT = "hacs/default"
 REPOSITORY_HACS_INTEGRATION = "hacs/integration"
 
+SEMAPHORE_DEFAULT = 15
+
 PLATFORMS = ["sensor"]
 
 HACS_ACTION_GITHUB_API_HEADERS = {

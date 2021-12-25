@@ -3,9 +3,9 @@ import json
 
 from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPINotModifiedException, GitHub
 from aiogithubapi.const import ACCEPT_HEADERS
+from custom_components.hacs.utils.template import render_template
 
 from custom_components.hacs.exceptions import HacsException, HacsNotModifiedException
-from custom_components.hacs.helpers.functions.template import render_template
 from custom_components.hacs.share import get_hacs
 
 

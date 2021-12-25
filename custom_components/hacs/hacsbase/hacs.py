@@ -231,9 +231,7 @@ class Hacs(HacsBase, HacsHelpers):
 
         for item in await self.async_github_get_hacs_default_file(HacsCategory.REMOVED):
             removed = self.repositories.removed_repository(item["repository"])
-            removed.reason = item.get("reason")
-            removed.link = item.get("link")
-            removed.removal_type = item.get("removal_type")
+            removed.update_data(item)
 
         for category in self.common.categories or []:
             self.queue.add(self.async_get_category_repositories(HacsCategory(category)))

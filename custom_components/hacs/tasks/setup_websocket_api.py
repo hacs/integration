@@ -10,10 +10,11 @@ from homeassistant.core import HomeAssistant
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 
+from custom_components.hacs.const import DOMAIN
+
 from ..base import HacsBase
 from ..enums import HacsStage
 from ..exceptions import HacsException
-from ..share import get_hacs
 from ..utils import regex
 from ..utils.register_repository import register_repository
 from ..utils.store import async_load_from_store, async_save_to_store
@@ -85,9 +86,9 @@ async def get_critical_repositories(hass, connection, msg):
 )
 @websocket_api.require_admin
 @websocket_api.async_response
-async def hacs_config(_hass, connection, msg):
+async def hacs_config(hass, connection, msg):
     """Handle get media player cover command."""
-    hacs = get_hacs()
+    hacs: HacsBase = hass.data.get(DOMAIN)
     connection.send_message(
         websocket_api.result_message(
             msg["id"],
@@ -115,9 +116,9 @@ async def hacs_config(_hass, connection, msg):
 )
 @websocket_api.require_admin
 @websocket_api.async_response
-async def hacs_removed(_hass, connection, msg):
+async def hacs_removed(hass, connection, msg):
     """Get information about removed repositories."""
-    hacs = get_hacs()
+    hacs: HacsBase = hass.data.get(DOMAIN)
     content = []
     for repo in hacs.repositories.list_removed:
         content.append(repo.to_json())
@@ -132,9 +133,9 @@ async def hacs_removed(_hass, connection, msg):
 )
 @websocket_api.require_admin
 @websocket_api.async_response
-async def hacs_repositories(_hass, connection, msg):
+async def hacs_repositories(hass, connection, msg):
     """Handle get media player cover command."""
-    hacs = get_hacs()
+    hacs: HacsBase = hass.data.get(DOMAIN)
     connection.send_message(
         websocket_api.result_message(
             msg["id"],
@@ -201,7 +202,7 @@ async def hacs_repositories(_hass, connection, msg):
 @websocket_api.async_response
 async def hacs_repository_data(hass, connection, msg):
     """Handle get media player cover command."""
-    hacs = get_hacs()
+    hacs: HacsBase = hass.data.get(DOMAIN)
     repo_id = msg.get("repository")
     action = msg.get("action")
     data = msg.get("data")
@@ -222,7 +223,7 @@ async def hacs_repository_data(hass, connection, msg):
 
         if not hacs.repositories.get_by_full_name(repo_id):
             try:
-                registration = await register_repository(repo_id, data.lower())
+                registration = await register_repository(hacs, repo_id, data.lower())
                 if registration is not None:
                     raise HacsException(registration)
             except (
@@ -308,7 +309,7 @@ async def hacs_repository_data(hass, connection, msg):
 @websocket_api.async_response
 async def hacs_repository(hass, connection, msg):
     """Handle get media player cover command."""
-    hacs = get_hacs()
+    hacs: HacsBase = hass.data.get(DOMAIN)
     data = {}
     repository = None
 
@@ -413,7 +414,7 @@ async def hacs_repository(hass, connection, msg):
 @websocket_api.async_response
 async def hacs_settings(hass, connection, msg):
     """Handle get media player cover command."""
-    hacs = get_hacs()
+    hacs: HacsBase = hass.data.get(DOMAIN)
 
     action = msg["action"]
     hacs.log.debug("WS action '%s'", action)
@@ -451,9 +452,9 @@ async def hacs_settings(hass, connection, msg):
 @websocket_api.websocket_command({vol.Required("type"): "hacs/status"})
 @websocket_api.require_admin
 @websocket_api.async_response
-async def hacs_status(_hass, connection, msg):
+async def hacs_status(hass, connection, msg):
     """Handle get media player cover command."""
-    hacs = get_hacs()
+    hacs: HacsBase = hass.data.get(DOMAIN)
     connection.send_message(
         websocket_api.result_message(
             msg["id"],

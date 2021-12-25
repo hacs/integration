@@ -7,9 +7,9 @@ from aiogithubapi import GitHub
 import aiohttp
 from homeassistant.core import HomeAssistant
 
+from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.logger import getLogger
 from custom_components.hacs.utils.register_repository import register_repository
 
@@ -126,7 +126,7 @@ async def preflight():
 async def validate_repository(repository, category, ref=None):
     """Validate."""
     async with aiohttp.ClientSession() as session:
-        hacs = get_hacs()
+        hacs = HacsBase()
         hacs.hass = HomeAssistant()
         hacs.session = session
         hacs.configuration.token = TOKEN
@@ -137,7 +137,7 @@ async def validate_repository(repository, category, ref=None):
             headers=HACS_ACTION_GITHUB_API_HEADERS,
         )
         try:
-            await register_repository(repository, category, ref=ref)
+            await register_repository(hacs, repository, category, ref=ref)
         except HacsException as exception:
             error(exception)
 

@@ -6,7 +6,7 @@ from custom_components.hacs.repositories.base import HacsRepository
 
 
 def test_hacs_can_install(hacs):
-    repository = HacsRepository()
+    repository = HacsRepository(hacs)
     repository.repository_manifest = {"test": "test"}
     repository.data.releases = True
 

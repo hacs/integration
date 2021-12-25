@@ -2,6 +2,7 @@
 # pytest: disable=protected-access
 import asyncio
 import logging
+import os
 from pathlib import Path
 from unittest.mock import AsyncMock
 
@@ -15,13 +16,13 @@ from homeassistant.runner import HassEventLoopPolicy
 import pytest
 
 from custom_components.hacs.base import (
+    HacsBase,
     HacsCommon,
     HacsCore,
     HacsRepositories,
     HacsSystem,
 )
 from custom_components.hacs.const import DOMAIN
-from custom_components.hacs.hacsbase.hacs import Hacs
 from custom_components.hacs.repositories import (
     HacsAppdaemonRepository,
     HacsIntegrationRepository,
@@ -33,6 +34,7 @@ from custom_components.hacs.repositories import (
 from custom_components.hacs.repositories.base import HacsRepository
 from custom_components.hacs.share import SHARE
 from custom_components.hacs.tasks.manager import HacsTaskManager
+from custom_components.hacs.utils.queue_manager import QueueManager
 from custom_components.hacs.utils.version import version_to_download
 
 from tests.async_mock import MagicMock
@@ -96,7 +98,7 @@ def hass(event_loop, tmpdir):
 @pytest.fixture
 def hacs(hass: HomeAssistant):
     """Fixture to provide a HACS object."""
-    hacs_obj = Hacs()
+    hacs_obj = HacsBase()
     hacs_obj.hass = hass
     hacs_obj.tasks = HacsTaskManager(hacs=hacs_obj, hass=hass)
     hacs_obj.session = async_create_clientsession(hass)
@@ -111,6 +113,7 @@ def hacs(hass: HomeAssistant):
     hacs_obj.common = HacsCommon()
     hacs_obj.githubapi = AsyncMock()
     hacs_obj.data = AsyncMock()
+    hacs_obj.queue = QueueManager()
     hacs_obj.core = HacsCore()
     hacs_obj.system = HacsSystem()
 
@@ -119,14 +122,16 @@ def hacs(hass: HomeAssistant):
     hacs_obj.version = hacs_obj.integration.version
     hacs_obj.configuration.token = TOKEN
 
-    SHARE["hacs"] = hacs_obj
+    if not "PYTEST" in os.environ and "GITHUB_ACTION" in os.environ:
+        hacs_obj.system.action = True
+
     yield hacs_obj
 
 
 @pytest.fixture
 def repository(hacs):
     """Fixtrue for HACS repository object"""
-    repository_obj = HacsRepository()
+    repository_obj = HacsRepository(hacs)
     repository_obj.hacs = hacs
     repository_obj.hass = hacs.hass
     repository_obj.hacs.core.config_path = hacs.hass.config.path()
@@ -151,40 +156,40 @@ def repository(hacs):
 @pytest.fixture
 def repository_integration(hacs):
     """Fixtrue for HACS integration repository object"""
-    repository_obj = HacsIntegrationRepository("test/test")
+    repository_obj = HacsIntegrationRepository(hacs, "test/test")
     yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
 def repository_theme(hacs):
     """Fixtrue for HACS theme repository object"""
-    repository_obj = HacsThemeRepository("test/test")
+    repository_obj = HacsThemeRepository(hacs, "test/test")
     yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
 def repository_plugin(hacs):
     """Fixtrue for HACS plugin repository object"""
-    repository_obj = HacsPluginRepository("test/test")
+    repository_obj = HacsPluginRepository(hacs, "test/test")
     yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
 def repository_python_script(hacs):
     """Fixtrue for HACS python_script repository object"""
-    repository_obj = HacsPythonScriptRepository("test/test")
+    repository_obj = HacsPythonScriptRepository(hacs, "test/test")
     yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
 def repository_appdaemon(hacs):
     """Fixtrue for HACS appdaemon repository object"""
-    repository_obj = HacsAppdaemonRepository("test/test")
+    repository_obj = HacsAppdaemonRepository(hacs, "test/test")
     yield dummy_repository_base(hacs, repository_obj)
 
 
 @pytest.fixture
 def repository_netdaemon(hacs):
     """Fixtrue for HACS netdaemon repository object"""
-    repository_obj = HacsNetdaemonRepository("test/test")
+    repository_obj = HacsNetdaemonRepository(hacs, "test/test")
     yield dummy_repository_base(hacs, repository_obj)

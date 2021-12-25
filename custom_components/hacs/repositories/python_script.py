@@ -1,4 +1,11 @@
 """Class for python_scripts in HACS."""
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..base import HacsBase
+
 from ..enums import HacsCategory
 from ..exceptions import HacsException
 from ..utils.information import find_file_name
@@ -10,9 +17,9 @@ class HacsPythonScriptRepository(HacsRepository):
 
     category = "python_script"
 
-    def __init__(self, full_name):
+    def __init__(self, hacs: HacsBase, full_name: str):
         """Initialize."""
-        super().__init__()
+        super().__init__(hacs=hacs)
         self.data.full_name = full_name
         self.data.full_name_lower = full_name.lower()
         self.data.category = HacsCategory.PYTHON_SCRIPT

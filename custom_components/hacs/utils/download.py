@@ -5,18 +5,21 @@ import asyncio
 import os
 import pathlib
 import tempfile
+from typing import TYPE_CHECKING
 import zipfile
 
 import async_timeout
 
 from ..exceptions import HacsException
-from ..share import get_hacs
 from ..utils import filters
 from ..utils.decorator import concurrent
 from ..utils.logger import getLogger
 from ..utils.queue_manager import QueueManager
 
 _LOGGER = getLogger()
+
+if TYPE_CHECKING:
+    from ..base import HacsBase
 
 
 class FileInformation:
@@ -26,12 +29,11 @@ class FileInformation:
         self.name = name
 
 
-async def async_download_file(url: str) -> bytes | None:
+async def async_download_file(hacs: HacsBase, url: str) -> bytes | None:
     """Download files, and return the content."""
     if url is None:
         return None
 
-    hacs = get_hacs()
     tries_left = 5
 
     if "tags/" in url:
@@ -160,7 +162,7 @@ async def download_zip_files(repository, validate):
 async def async_download_zip_file(repository, content, validate):
     """Download ZIP archive from repository release."""
     try:
-        filecontent = await async_download_file(content.download_url)
+        filecontent = await async_download_file(repository.hacs, content.download_url)
 
         if filecontent is None:
             validate.errors.append(f"[{content.name}] was not downloaded.")
@@ -209,7 +211,7 @@ async def dowload_repository_content(repository, content):
     try:
         repository.logger.debug(f"Downloading {content.name}")
 
-        filecontent = await async_download_file(content.download_url)
+        filecontent = await async_download_file(repository.hacs, content.download_url)
 
         if filecontent is None:
             repository.validate.errors.append(f"[{content.name}] was not downloaded.")

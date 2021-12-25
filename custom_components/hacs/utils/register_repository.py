@@ -11,13 +11,14 @@ from ..exceptions import (
     HacsRepositoryExistException,
 )
 from ..repositories import RERPOSITORY_CLASSES
-from ..share import get_hacs
 
 if TYPE_CHECKING:
+    from ..base import HacsBase
     from ..repositories.base import HacsRepository
 
 # @concurrent(15, 5)
 async def register_repository(
+    hacs: HacsBase,
     full_name,
     category,
     check=True,
@@ -26,8 +27,6 @@ async def register_repository(
     default=False,
 ):
     """Register a repository."""
-    hacs = get_hacs()
-
     if full_name in hacs.common.skip:
         if full_name != "hacs/integration":
             raise HacsExpectedException(f"Skipping {full_name}")
@@ -38,7 +37,7 @@ async def register_repository(
     if (renamed := hacs.common.renamed_repositories.get(full_name)) is not None:
         full_name = renamed
 
-    repository: HacsRepository = RERPOSITORY_CLASSES[category](full_name)
+    repository: HacsRepository = RERPOSITORY_CLASSES[category](hacs, full_name)
     if check:
         try:
             await repository.async_registration(ref)

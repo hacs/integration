@@ -10,7 +10,6 @@ from ..const import DOMAIN
 from ..enums import HacsStage
 from ..hacs_frontend import locate_dir
 from ..hacs_frontend.version import VERSION as FE_VERSION
-from ..mixin import HacsMixin
 from .base import HacsTask
 
 URL_BASE = "/hacsfiles"
@@ -87,7 +86,7 @@ class Task(HacsTask):
             )
 
 
-class HacsFrontendDev(HacsMixin, HomeAssistantView):
+class HacsFrontendDev(HomeAssistantView):
     """Dev View Class for HACS."""
 
     requires_auth = False
@@ -96,10 +95,9 @@ class HacsFrontendDev(HacsMixin, HomeAssistantView):
 
     async def get(self, request, requested_file):  # pylint: disable=unused-argument
         """Handle HACS Web requests."""
+        hacs: HacsBase = request.app["hass"].data.get(DOMAIN)
         requested = requested_file.split("/")[-1]
-        request = await self.hacs.session.get(
-            f"{self.hacs.configuration.frontend_repo_url}/{requested}"
-        )
+        request = await hacs.session.get(f"{hacs.configuration.frontend_repo_url}/{requested}")
         if request.status == 200:
             result = await request.read()
             response = web.Response(body=result)

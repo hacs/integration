@@ -10,14 +10,14 @@ from custom_components.hacs.sensor import (
 )
 
 
-def mock_setup(entities):  # pylint: disable=unused-argument
+def mock_setup(entities):
     for entity in entities:
         assert entity.name == "hacs"
 
 
-def test_sensor_data():
-    sensor = HACSSensor()
-    repository = HacsIntegrationRepository("test/test")
+def test_sensor_data(hacs):
+    sensor = HACSSensor(hacs)
+    repository = HacsIntegrationRepository(hacs, "test/test")
     sensor.repositories = [repository]
     assert sensor.name == "hacs"
     assert sensor.icon == "hacs:hacs"
@@ -27,16 +27,15 @@ def test_sensor_data():
 
 @pytest.mark.asyncio
 async def test_sensor_update(hacs, hass):
-    sensor = HACSSensor()
-    sensor.hacs = hacs
+    sensor = HACSSensor(hacs)
     sensor.hass = hass
-    repository = HacsIntegrationRepository("test/one")
+    repository = HacsIntegrationRepository(hacs, "test/one")
     repository.data.id = "123"
     repository.data.installed = True
     repository.data.installed_version = "1"
     repository.data.last_version = "2"
     hacs.repositories.register(repository)
-    repository = HacsIntegrationRepository("test/two")
+    repository = HacsIntegrationRepository(hacs, "test/two")
     repository.data.id = "321"
     repository.data.installed = True
     repository.data.installed_version = "1"

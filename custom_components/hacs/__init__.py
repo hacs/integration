@@ -6,7 +6,7 @@ https://hacs.xyz/
 """
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
@@ -20,15 +20,13 @@ from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
 import voluptuous as vol
 
+from .base import HacsBase
 from .const import DOMAIN, PLATFORMS, STARTUP
 from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
-from .hacsbase.data import HacsData
-from .share import get_hacs
 from .tasks.manager import HacsTaskManager
 from .utils.configuration_schema import hacs_config_combined
-
-if TYPE_CHECKING:
-    from .base import HacsBase
+from .utils.data import HacsData
+from .utils.queue_manager import QueueManager
 
 CONFIG_SCHEMA = vol.Schema({DOMAIN: hacs_config_combined()}, extra=vol.ALLOW_EXTRA)
 
@@ -40,7 +38,7 @@ async def async_initialize_integration(
     config: dict[str, Any] | None = None,
 ) -> bool:
     """Initialize the integration"""
-    hass.data[DOMAIN] = hacs = get_hacs()
+    hass.data[DOMAIN] = hacs = HacsBase()
     hacs.enable_hacs()
 
     if config is not None:
@@ -79,7 +77,8 @@ async def async_initialize_integration(
     hacs.integration = integration
     hacs.version = integration.version
     hacs.hass = hass
-    hacs.data = HacsData()
+    hacs.queue = QueueManager()
+    hacs.data = HacsData(hacs=hacs)
     hacs.system.running = True
     hacs.session = async_create_clientsession(hass)
     hacs.tasks = HacsTaskManager(hacs=hacs, hass=hass)

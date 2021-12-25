@@ -36,7 +36,7 @@ def fixture(filename, asjson=True):
 
 def dummy_repository_base(hacs, repository=None):
     if repository is None:
-        repository = HacsRepository()
+        repository = HacsRepository(hacs)
     repository.hacs = hacs
     repository.hacs.hass = hacs.hass
     repository.hacs.core.config_path = hacs.hass.config.path()

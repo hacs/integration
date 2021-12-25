@@ -27,5 +27,5 @@ def render_template(content: str, context: HacsRepository) -> str:
             version_installed=context.display_installed_version,
         )
     except BaseException as exception:
-        context.log.debug(exception)
+        context.logger.debug(exception)
     return content

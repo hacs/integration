@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import timedelta
 from logging import Handler
-from timeit import default_timer as timer
+from time import monotonic
 
 from homeassistant.core import HomeAssistant
 
@@ -45,7 +45,7 @@ class HacsTask(LogMixin):
             )
             return
         self.task_logger(self.log.debug, "Executing task")
-        start_time = timer()
+        start_time = monotonic()
 
         try:
             if task := getattr(self, "execute", None):
@@ -56,7 +56,6 @@ class HacsTask(LogMixin):
             self.task_logger(self.log.error, f"failed: {exception}")
 
         else:
-            self.task_logger(
-                self.log.debug,
-                f"took {str(timer() - start_time)[:5]} seconds to complete",
+            self.log.debug(
+                "HacsTask<%s> took %.3f seconds to complete", self.slug, monotonic() - start_time
             )

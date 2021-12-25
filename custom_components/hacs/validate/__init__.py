@@ -12,7 +12,7 @@ from ..share import SHARE
 
 if TYPE_CHECKING:
     from ..base import HacsBase
-    from ..helpers.classes.repository import HacsRepository
+    from ..repositories.base import HacsRepository
 
 
 def _initialize_rules():

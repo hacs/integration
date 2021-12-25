@@ -15,7 +15,7 @@ from custom_components.hacs.share import get_hacs
 from ...repositories import RERPOSITORY_CLASSES
 
 if TYPE_CHECKING:
-    from ..classes.repository import HacsRepository
+    from ...repositories.base import HacsRepository
 
 # @concurrent(15, 5)
 async def register_repository(

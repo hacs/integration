@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from ..share import SHARE, get_hacs
 
 if TYPE_CHECKING:
-    from ..helpers.classes.repository import HacsRepository
+    from ..repositories.base import HacsRepository
 
 
 class ValidationException(Exception):

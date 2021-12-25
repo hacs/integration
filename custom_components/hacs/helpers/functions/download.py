@@ -10,8 +10,8 @@ import zipfile
 import async_timeout
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.utils import filters
 from custom_components.hacs.share import get_hacs
+from custom_components.hacs.utils import filters
 from custom_components.hacs.utils.decorator import concurrent
 from custom_components.hacs.utils.logger import getLogger
 from custom_components.hacs.utils.queue_manager import QueueManager

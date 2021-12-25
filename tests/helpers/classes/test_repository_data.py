@@ -1,4 +1,4 @@
-from custom_components.hacs.helpers.classes.repositorydata import RepositoryData
+from custom_components.hacs.repositories.base import RepositoryData
 
 
 def test_guarded():

@@ -4,9 +4,7 @@ from homeassistant.loader import async_get_custom_components
 from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.classes.repository import HacsRepository
-from custom_components.hacs.helpers.functions.filters import (
-    get_first_directory_in_directory,
-)
+from custom_components.hacs.utils import filters
 from custom_components.hacs.helpers.functions.information import (
     get_integration_manifest,
 )
@@ -48,7 +46,7 @@ class HacsIntegrationRepository(HacsRepository):
             self.content.path.remote = ""
 
         if self.content.path.remote == "custom_components":
-            name = get_first_directory_in_directory(self.tree, "custom_components")
+            name = filters.get_first_directory_in_directory(self.tree, "custom_components")
             if name is None:
                 raise HacsException(
                     f"Repository structure for {self.ref.replace('tags/','')} is not compliant"
@@ -78,7 +76,7 @@ class HacsIntegrationRepository(HacsRepository):
             self.content.path.remote = ""
 
         if self.content.path.remote == "custom_components":
-            name = get_first_directory_in_directory(self.tree, "custom_components")
+            name = filters.get_first_directory_in_directory(self.tree, "custom_components")
             self.content.path.remote = f"custom_components/{name}"
 
         try:

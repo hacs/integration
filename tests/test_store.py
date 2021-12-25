@@ -2,7 +2,7 @@
 # pylint: disable=missing-docstring
 import pytest
 
-from custom_components.hacs.helpers.functions.store import (
+from custom_components.hacs.utils.store import (
     async_load_from_store,
     async_save_to_store,
 )

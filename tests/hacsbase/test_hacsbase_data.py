@@ -73,7 +73,7 @@ async def test_hacs_data_restore_write_not_new(hacs):
         "custom_components.hacs.hacsbase.data.async_load_from_store",
         side_effect=_mocked_loads,
     ), patch(
-        "custom_components.hacs.helpers.functions.store.HACSStore.load",
+        "custom_components.hacs.utils.store.HACSStore.load",
         side_effect=_mocked_load,
     ):
         await data.restore()

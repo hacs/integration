@@ -4,9 +4,9 @@ from homeassistant.helpers.json import JSONEncoder
 from homeassistant.helpers.storage import Store
 from homeassistant.util import json as json_util
 
-from ...const import VERSION_STORAGE
-from ...exceptions import HacsException
-from ...utils.logger import getLogger
+from ..const import VERSION_STORAGE
+from ..exceptions import HacsException
+from .logger import getLogger
 
 _LOGGER = getLogger()
 

@@ -26,7 +26,8 @@ from custom_components.hacs.helpers.functions.information import (
     get_info_md_content,
     get_repository,
 )
-from custom_components.hacs.helpers.functions.store import async_remove_store
+from custom_components.hacs.helpers.functions.download import download_content
+from custom_components.hacs.utils.store import async_remove_store
 from custom_components.hacs.helpers.functions.validate_repository import (
     common_update_data,
     common_validate,

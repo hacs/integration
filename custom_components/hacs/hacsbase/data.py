@@ -7,7 +7,7 @@ from homeassistant.core import callback
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
-from custom_components.hacs.helpers.functions.store import (
+from custom_components.hacs.utils.store import (
     async_load_from_store,
     async_save_to_store,
     async_save_to_store_default_encoder,

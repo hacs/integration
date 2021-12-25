@@ -22,7 +22,6 @@ from custom_components.hacs.helpers.functions.information import (
     get_repository,
 )
 from custom_components.hacs.helpers.functions.download import download_content
-from custom_components.hacs.helpers.functions.misc import get_repository_name
 from custom_components.hacs.helpers.functions.store import async_remove_store
 from custom_components.hacs.helpers.functions.validate_repository import (
     common_update_data,
@@ -146,7 +145,15 @@ class HacsRepository:
     @property
     def display_name(self):
         """Return display name."""
-        return get_repository_name(self)
+        if self.repository_manifest.name is not None:
+            return self.repository_manifest.name
+
+        if self.data.category == "integration":
+            if self.integration_manifest:
+                if "name" in self.integration_manifest:
+                    return self.integration_manifest["name"]
+
+        return self.data.full_name.split("/")[-1].replace("-", " ").replace("_", " ").title()
 
     @property
     def ignored_by_country_configuration(self) -> bool:

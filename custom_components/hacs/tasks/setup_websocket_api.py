@@ -10,10 +10,11 @@ from homeassistant.core import HomeAssistant
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 
+from custom_components.hacs.utils import regex
+
 from ..base import HacsBase
 from ..enums import HacsStage
 from ..exceptions import HacsException
-from ..helpers.functions.misc import extract_repository_from_url
 from ..helpers.functions.register_repository import register_repository
 from ..helpers.functions.store import async_load_from_store, async_save_to_store
 from ..share import get_hacs
@@ -210,7 +211,7 @@ async def hacs_repository_data(hass, connection, msg):
         return
 
     if action == "add":
-        repo_id = extract_repository_from_url(repo_id)
+        repo_id = regex.extract_repository_from_url(repo_id)
         if repo_id is None:
             return
 

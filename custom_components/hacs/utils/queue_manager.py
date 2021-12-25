@@ -27,7 +27,7 @@ class QueueManager:
 
     def clear(self) -> None:
         """Clear the queue."""
-        self.queue = []
+        self.queue.clear()
 
     def add(self, task) -> None:
         """Add a task to the queue."""

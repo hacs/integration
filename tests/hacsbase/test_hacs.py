@@ -25,7 +25,8 @@ async def test_hacs(hacs, repository, tmpdir):
     assert hacs.repositories.get_by_full_name("test/test").data.id == "1337"
     assert hacs.repositories.is_registered(repository_id="1337")
 
-    await hacs.prosess_queue()
+    if queue_task := hacs.tasks.get("prosess_queue"):
+        await queue_task.execute_task()
     await hacs.clear_out_removed_repositories()
 
 

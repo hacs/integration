@@ -22,9 +22,7 @@ from custom_components.hacs.base import (
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.hacsbase.hacs import Hacs
 from custom_components.hacs.helpers.classes.repository import HacsRepository
-from custom_components.hacs.helpers.functions.version_to_install import (
-    version_to_install,
-)
+
 from custom_components.hacs.repositories import (
     HacsAppdaemonRepository,
     HacsIntegrationRepository,
@@ -35,6 +33,7 @@ from custom_components.hacs.repositories import (
 )
 from custom_components.hacs.share import SHARE
 from custom_components.hacs.tasks.manager import HacsTaskManager
+from custom_components.hacs.utils.version import version_to_download
 
 from tests.async_mock import MagicMock
 from tests.common import (
@@ -137,7 +136,7 @@ def repository(hacs):
     repository_obj.data.domain = "test"
     repository_obj.data.last_version = "3"
     repository_obj.data.selected_tag = "3"
-    repository_obj.ref = version_to_install(repository_obj)
+    repository_obj.ref = version_to_download(repository_obj)
     repository_obj.integration_manifest = {"config_flow": False, "domain": "test"}
     repository_obj.data.published_tags = ["1", "2", "3"]
     repository_obj.data.update_data(fixture("repository_data.json"))

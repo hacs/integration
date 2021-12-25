@@ -28,13 +28,11 @@ from custom_components.hacs.helpers.functions.validate_repository import (
     common_update_data,
     common_validate,
 )
-from custom_components.hacs.helpers.functions.version_to_install import (
-    version_to_install,
-)
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.logger import getLogger
 from custom_components.hacs.utils.path import is_safe
 from custom_components.hacs.utils.queue_manager import QueueManager
+from custom_components.hacs.utils.version import version_to_download
 
 
 class RepositoryVersions:
@@ -368,7 +366,7 @@ class HacsRepository(RepositoryHelpers):
         if self.hacs.system.action:
             self.logger.info("%s Found hacs.json", self)
 
-        self.ref = version_to_install(self)
+        self.ref = version_to_download(self)
 
         try:
             manifest = await self.repository_object.get_contents("hacs.json", self.ref)

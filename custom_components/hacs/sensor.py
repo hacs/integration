@@ -4,21 +4,21 @@ from __future__ import annotations
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.core import callback
 
+from .base import HacsBase
 from .const import DOMAIN, NAME_SHORT
-from .mixin import HacsMixin
 
 
-async def async_setup_platform(_hass, _config, async_add_entities, _discovery_info=None):
+async def async_setup_platform(hass, _config, async_add_entities, _discovery_info=None):
     """Setup sensor platform."""
-    async_add_entities([HACSSensor()])
+    async_add_entities([HACSSensor(hacs=hass.data.get(DOMAIN))])
 
 
-async def async_setup_entry(_hass, _config_entry, async_add_devices):
+async def async_setup_entry(hass, _config_entry, async_add_devices):
     """Setup sensor platform."""
-    async_add_devices([HACSSensor()])
+    async_add_devices([HACSSensor(hacs=hass.data.get(DOMAIN))])
 
 
-class HACSSensor(HacsMixin, SensorEntity):
+class HACSSensor(SensorEntity):
     """HACS Sensor class."""
 
     _attr_should_poll = False
@@ -27,8 +27,9 @@ class HACSSensor(HacsMixin, SensorEntity):
     _attr_icon = "hacs:hacs"
     _attr_unit_of_measurement = "pending update(s)"
 
-    def __init__(self) -> None:
+    def __init__(self, hacs: HacsBase) -> None:
         """Initialize."""
+        self.hacs = hacs
         self._attr_native_value = None
 
     async def async_update(self) -> None:

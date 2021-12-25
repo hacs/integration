@@ -1,11 +1,13 @@
 """Repository."""
 # pylint: disable=broad-except, no-member
+from __future__ import annotations
+
 from datetime import datetime
 import json
 import os
 import shutil
 import tempfile
-from typing import List, Optional
+from typing import TYPE_CHECKING, List, Optional
 import zipfile
 
 from aiogithubapi import AIOGitHubAPIException
@@ -17,7 +19,6 @@ from ..exceptions import (
     HacsNotModifiedException,
     HacsRepositoryExistException,
 )
-from ..share import get_hacs
 from ..utils.backup import Backup, BackupNetDaemon
 from ..utils.download import async_download_file, download_content
 from ..utils.information import get_info_md_content, get_repository
@@ -33,6 +34,9 @@ from ..utils.version import (
     version_to_download,
 )
 from ..validate import async_run_repository_checks
+
+if TYPE_CHECKING:
+    from ..base import HacsBase
 
 
 @attr.s(auto_attribs=True)
@@ -287,9 +291,9 @@ class RepositoryContent:
 class HacsRepository:
     """HacsRepository."""
 
-    def __init__(self):
+    def __init__(self, hacs: HacsBase):
         """Set up HacsRepository."""
-        self.hacs = get_hacs()
+        self.hacs = hacs
         self.data = RepositoryData()
         self.content = RepositoryContent()
         self.content.path = RepositoryPath()
@@ -538,7 +542,7 @@ class HacsRepository:
     async def async_download_zip_file(self, content, validate):
         """Download ZIP archive from repository release."""
         try:
-            filecontent = await async_download_file(content.download_url)
+            filecontent = await async_download_file(self.hacs, content.download_url)
 
             if filecontent is None:
                 validate.errors.append(f"[{content.name}] was not downloaded")
@@ -737,7 +741,6 @@ class HacsRepository:
 
     async def async_install_repository(self):
         """Common installation steps of the repository."""
-        hacs = get_hacs()
         persistent_directory = None
         await self.update_repository()
         if self.content.path.local is None:
@@ -754,21 +757,21 @@ class HacsRepository:
             self.ref = f"tags/{version}"
 
         if self.data.installed and self.data.category == "netdaemon":
-            persistent_directory = BackupNetDaemon(hacs=hacs, repository=self)
-            await hacs.hass.async_add_executor_job(persistent_directory.create)
+            persistent_directory = BackupNetDaemon(hacs=self.hacs, repository=self)
+            await self.hacs.hass.async_add_executor_job(persistent_directory.create)
 
         elif self.data.persistent_directory:
             if os.path.exists(f"{self.content.path.local}/{self.data.persistent_directory}"):
                 persistent_directory = Backup(
-                    hacs=hacs,
+                    hacs=self.hacs,
                     local_path=f"{self.content.path.local}/{self.data.persistent_directory}",
                     backup_path=tempfile.gettempdir() + "/hacs_persistent_directory/",
                 )
-                await hacs.hass.async_add_executor_job(persistent_directory.create)
+                await self.hacs.hass.async_add_executor_job(persistent_directory.create)
 
         if self.data.installed and not self.content.single:
-            backup = Backup(hacs=hacs, local_path=self.content.path.local)
-            await hacs.hass.async_add_executor_job(backup.create)
+            backup = Backup(hacs=self.hacs, local_path=self.content.path.local)
+            await self.hacs.hass.async_add_executor_job(backup.create)
 
         if self.data.zip_release and version != self.data.default_branch:
             await self.download_zip_files(self.validate)
@@ -779,14 +782,14 @@ class HacsRepository:
             for error in self.validate.errors:
                 self.logger.error(error)
             if self.data.installed and not self.content.single:
-                await hacs.hass.async_add_executor_job(backup.restore)
+                await self.hacs.hass.async_add_executor_job(backup.restore)
 
         if self.data.installed and not self.content.single:
-            await hacs.hass.async_add_executor_job(backup.cleanup)
+            await self.hacs.hass.async_add_executor_job(backup.cleanup)
 
         if persistent_directory is not None:
-            await hacs.hass.async_add_executor_job(persistent_directory.restore)
-            await hacs.hass.async_add_executor_job(persistent_directory.cleanup)
+            await self.hacs.hass.async_add_executor_job(persistent_directory.restore)
+            await self.hacs.hass.async_add_executor_job(persistent_directory.cleanup)
 
         if self.validate.success:
             self.data.installed = True

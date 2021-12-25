@@ -25,7 +25,9 @@ class Task(HacsTask):
         try:
             repository = self.hacs.repositories.get_by_full_name("hacs/integration")
             if repository is None:
-                await register_repository("hacs/integration", "integration", default=True)
+                await register_repository(
+                    self.hacs, "hacs/integration", "integration", default=True
+                )
                 repository = self.hacs.repositories.get_by_full_name("hacs/integration")
             if repository is None:
                 raise HacsException("Unknown error")

@@ -11,7 +11,6 @@ from ..exceptions import (
     HacsRepositoryArchivedException,
     HacsRepositoryExistException,
 )
-from ..share import get_hacs
 from ..utils.information import get_releases, get_repository, get_tree
 from ..utils.version import version_to_download
 
@@ -33,7 +32,7 @@ async def common_validate(repository, ignore_issues=False):
 
 async def common_update_data(repository: HacsRepository, ignore_issues=False, force=False):
     """Common update data."""
-    hacs = get_hacs()
+    hacs = repository.hacs
     releases = []
     try:
         repository_object, etag = await get_repository(

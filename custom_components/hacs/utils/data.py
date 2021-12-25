@@ -4,11 +4,11 @@ import os
 
 from homeassistant.core import callback
 
+from ..base import HacsBase
 from ..repositories.base import HacsManifest
-from ..share import get_hacs
-from ..utils.logger import getLogger
-from ..utils.register_repository import register_repository
-from ..utils.store import (
+from .logger import getLogger
+from .register_repository import register_repository
+from .store import (
     async_load_from_store,
     async_save_to_store,
     async_save_to_store_default_encoder,
@@ -30,10 +30,10 @@ def update_repository_from_storage(repository, storage_data):
 class HacsData:
     """HacsData class."""
 
-    def __init__(self):
+    def __init__(self, hacs: HacsBase):
         """Initialize."""
         self.logger = getLogger()
-        self.hacs = get_hacs()
+        self.hacs = hacs
         self.content = {}
 
     async def async_write(self):
@@ -180,6 +180,7 @@ class HacsData:
         """Registry any unknown repositories."""
         register_tasks = [
             register_repository(
+                hacs=self.hacs,
                 full_name=repo_data["full_name"],
                 category=repo_data["category"],
                 check=False,

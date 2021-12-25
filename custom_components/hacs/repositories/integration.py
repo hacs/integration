@@ -1,4 +1,8 @@
 """Class for integrations in HACS."""
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from homeassistant.loader import async_get_custom_components
 
 from ..enums import HacsCategory
@@ -7,13 +11,16 @@ from ..utils import filters
 from ..utils.information import get_integration_manifest
 from .base import HacsRepository
 
+if TYPE_CHECKING:
+    from ..base import HacsBase
+
 
 class HacsIntegrationRepository(HacsRepository):
     """Integrations in HACS."""
 
-    def __init__(self, full_name):
+    def __init__(self, hacs: HacsBase, full_name: str):
         """Initialize."""
-        super().__init__()
+        super().__init__(hacs=hacs)
         self.data.full_name = full_name
         self.data.full_name_lower = full_name.lower()
         self.data.category = HacsCategory.INTEGRATION

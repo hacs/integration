@@ -1,5 +1,11 @@
 """Class for plugins in HACS."""
+from __future__ import annotations
+
 import json
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..base import HacsBase
 
 from ..exceptions import HacsException
 from ..utils.information import find_file_name
@@ -9,9 +15,9 @@ from .base import HacsRepository
 class HacsPluginRepository(HacsRepository):
     """Plugins in HACS."""
 
-    def __init__(self, full_name):
+    def __init__(self, hacs: HacsBase, full_name: str):
         """Initialize."""
-        super().__init__()
+        super().__init__(hacs=hacs)
         self.data.full_name = full_name
         self.data.full_name_lower = full_name.lower()
         self.data.file_name = None

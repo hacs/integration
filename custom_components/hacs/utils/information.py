@@ -5,7 +5,6 @@ from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPINotModifiedException
 from aiogithubapi.const import ACCEPT_HEADERS
 
 from ..exceptions import HacsException, HacsNotModifiedException
-from ..share import get_hacs
 from ..utils.template import render_template
 
 
@@ -45,13 +44,12 @@ async def get_info_md_content(repository):
 
 async def get_repository(session, token, repository_full_name, etag=None):
     """Return a repository object or None."""
-    hacs = get_hacs()
     try:
         github = GitHub(
             token,
             session,
             headers={
-                "User-Agent": f"HACS/{hacs.version}",
+                "User-Agent": f"HACS/0.0.0",
                 "Accept": ACCEPT_HEADERS["preview"],
             },
         )
@@ -79,26 +77,6 @@ async def get_releases(repository, prerelease=False, returnlimit=5):
         return releases
     except (ValueError, AIOGitHubAPIException) as exception:
         raise HacsException(exception)
-
-
-def get_frontend_version():
-    """get the frontend version from the manifest."""
-    manifest = read_hacs_manifest()
-    frontend = 0
-    for requirement in manifest.get("requirements", []):
-        if requirement.startswith("hacs_frontend"):
-            frontend = requirement.split("==")[1]
-            break
-    return frontend
-
-
-def read_hacs_manifest():
-    """Reads the HACS manifest file and returns the contents."""
-    hacs = get_hacs()
-    content = {}
-    with open(f"{hacs.core.config_path}/custom_components/hacs/manifest.json") as manifest:
-        content = json.loads(manifest.read())
-    return content
 
 
 async def get_integration_manifest(repository):

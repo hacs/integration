@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ..share import SHARE, get_hacs
+from ..share import SHARE
 
 if TYPE_CHECKING:
     from ..repositories.base import HacsRepository
@@ -16,7 +16,7 @@ class ValidationBase:
     action_only = False
 
     def __init__(self, repository: HacsRepository) -> None:
-        self.hacs = get_hacs()
+        self.hacs = repository.hacs
         self.repository = repository
         self.failed = False
         self.logger = repository.logger

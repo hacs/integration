@@ -5,8 +5,8 @@ from awesomeversion import AwesomeVersion
 from custom_components.hacs.repositories.base import HacsRepository
 
 
-def test_hacs_repository_core_mostly_defaults():
-    repository = HacsRepository()
+def test_hacs_repository_core_mostly_defaults(hacs):
+    repository = HacsRepository(hacs)
 
     repository.data.full_name = "developer/repository"
     repository.data.full_name_lower = "developer/repository"
@@ -24,8 +24,8 @@ def test_hacs_repository_core_mostly_defaults():
     assert not repository.pending_update
 
 
-def test_hacs_repository_core_can_install_legacy():
-    repository = HacsRepository()
+def test_hacs_repository_core_can_install_legacy(hacs):
+    repository = HacsRepository(hacs)
     repository.hacs.core.ha_version = AwesomeVersion("1.0.0")
     repository.data.releases = True
 
@@ -39,8 +39,8 @@ def test_hacs_repository_core_can_install_legacy():
     assert repository.can_download
 
 
-def test_hacs_repository_core_can_install_manifest():
-    repository = HacsRepository()
+def test_hacs_repository_core_can_install_manifest(hacs):
+    repository = HacsRepository(hacs)
     repository.hacs.core.ha_version = AwesomeVersion("1.0.0")
     repository.data.releases = True
 

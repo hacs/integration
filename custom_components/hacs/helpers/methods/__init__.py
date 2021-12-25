@@ -9,13 +9,9 @@ from custom_components.hacs.helpers.methods.registration import (
     RepositoryMethodPreRegistration,
     RepositoryMethodRegistration,
 )
-from custom_components.hacs.helpers.methods.reinstall_if_needed import (
-    RepositoryMethodReinstallIfNeeded,
-)
 
 
 class RepositoryHelperMethods(
-    RepositoryMethodReinstallIfNeeded,
     RepositoryMethodInstall,
     RepositoryMethodPostInstall,
     RepositoryMethodPreInstall,

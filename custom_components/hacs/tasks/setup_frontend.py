@@ -1,19 +1,19 @@
 """"Starting setup task: Frontend"."""
 from __future__ import annotations
 
+from aiohttp import web
+from homeassistant.core import HomeAssistant
+from homeassistant.components.http import HomeAssistantView
+
+from ..base import HacsBase
 from ..const import DOMAIN
 from ..enums import HacsStage
 from ..hacs_frontend import locate_dir
 from ..hacs_frontend.version import VERSION as FE_VERSION
-from ..webresponses.frontend import HacsFrontendDev
+from ..mixin import HacsMixin
 from .base import HacsTask
 
 URL_BASE = "/hacsfiles"
-
-
-from homeassistant.core import HomeAssistant
-
-from ..base import HacsBase
 
 
 async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
@@ -85,3 +85,24 @@ class Task(HacsTask):
                 },
                 require_admin=True,
             )
+
+
+class HacsFrontendDev(HacsMixin, HomeAssistantView):
+    """Dev View Class for HACS."""
+
+    requires_auth = False
+    name = "hacs_files:frontend"
+    url = r"/hacsfiles/frontend/{requested_file:.+}"
+
+    async def get(self, request, requested_file):  # pylint: disable=unused-argument
+        """Handle HACS Web requests."""
+        requested = requested_file.split("/")[-1]
+        request = await self.hacs.session.get(
+            f"{self.hacs.configuration.frontend_repo_url}/{requested}"
+        )
+        if request.status == 200:
+            result = await request.read()
+            response = web.Response(body=result)
+            response.headers["Content-Type"] = "application/javascript"
+
+            return response

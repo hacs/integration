@@ -18,7 +18,6 @@ async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
 class Task(HacsTask):
     """ "Hacs task base."""
 
-    _can_run_disabled = True
     schedule = timedelta(minutes=10)
 
     async def async_execute(self) -> None:

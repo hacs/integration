@@ -4,12 +4,30 @@ from unittest.mock import patch
 import pytest
 
 from custom_components.hacs.base import HacsBase
-from custom_components.hacs.enums import HacsStage
+from custom_components.hacs.enums import HacsDisabledReason, HacsStage
 from custom_components.hacs.exceptions import HacsExecutionStillInProgress
 
 
 async def dummy_task() -> None:
     pass
+
+
+@pytest.mark.asyncio
+async def test_prosess_queue_disabled(hacs: HacsBase, caplog: pytest.LogCaptureFixture):
+    hacs.stage = HacsStage.RUNNING
+    await hacs.tasks.async_load()
+    task = hacs.tasks.get("prosess_queue")
+
+    assert task
+
+    hacs.disable_hacs(HacsDisabledReason.RATE_LIMIT)
+
+    assert hacs.system.disabled
+    assert hacs.system.disabled_reason == HacsDisabledReason.RATE_LIMIT
+
+    await task.execute_task()
+
+    assert "HacsTask<prosess_queue> Skipping task, HACS is disabled rate_limit" in caplog.text
 
 
 @pytest.mark.asyncio

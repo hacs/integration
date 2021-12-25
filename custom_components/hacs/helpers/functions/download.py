@@ -10,9 +10,7 @@ import zipfile
 import async_timeout
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.functions.filters import (
-    filter_content_return_one_of_type,
-)
+from custom_components.hacs.utils import filters
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.decorator import concurrent
 from custom_components.hacs.utils.logger import getLogger
@@ -124,7 +122,9 @@ def gather_files_to_download(repository):
     if repository.data.content_in_root:
         if not repository.data.filename:
             if category == "theme":
-                tree = filter_content_return_one_of_type(repository.tree, "", "yaml", "full_path")
+                tree = filters.filter_content_return_one_of_type(
+                    repository.tree, "", "yaml", "full_path"
+                )
 
     for path in tree:
         if path.is_directory:

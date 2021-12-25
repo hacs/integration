@@ -5,9 +5,7 @@ from aiogithubapi import GitHubException
 from aiogithubapi.exceptions import GitHubNotModifiedException
 
 from custom_components.hacs.helpers import HacsHelpers
-from custom_components.hacs.helpers.functions.get_list_from_default import (
-    async_get_list_from_default,
-)
+
 from custom_components.hacs.helpers.functions.register_repository import (
     register_repository,
 )
@@ -259,7 +257,7 @@ class Hacs(HacsBase, HacsHelpers):
         """Load known repositories."""
         self.log.info("Loading known repositories")
 
-        for item in await async_get_list_from_default(HacsCategory.REMOVED):
+        for item in await self.async_github_get_hacs_default_file(HacsCategory.REMOVED):
             removed = get_removed(item["repository"])
             removed.reason = item.get("reason")
             removed.link = item.get("link")
@@ -272,7 +270,7 @@ class Hacs(HacsBase, HacsHelpers):
 
     async def async_get_category_repositories(self, category: HacsCategory):
         """Get repositories from category."""
-        repositories = await async_get_list_from_default(category)
+        repositories = await self.async_github_get_hacs_default_file(category)
         for repo in repositories:
             if self.common.renamed_repositories.get(repo):
                 repo = self.common.renamed_repositories[repo]

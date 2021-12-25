@@ -2,9 +2,7 @@
 # pylint: disable=missing-docstring
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 
-from custom_components.hacs.helpers.functions.filters import (
-    get_first_directory_in_directory,
-)
+from custom_components.hacs.utils import filters
 
 
 def test_valid():
@@ -17,7 +15,7 @@ def test_valid():
             {"path": "test/path/sub", "type": "tree"}, "test/test", "main"
         ),
     ]
-    assert get_first_directory_in_directory(tree, "test") == "path"
+    assert filters.get_first_directory_in_directory(tree, "test") == "path"
 
 
 def test_not_valid():
@@ -26,4 +24,4 @@ def test_not_valid():
             {"path": ".github/path/file.file", "type": "tree"}, "test/test", "main"
         )
     ]
-    assert get_first_directory_in_directory(tree, "test") is None
+    assert filters.get_first_directory_in_directory(tree, "test") is None

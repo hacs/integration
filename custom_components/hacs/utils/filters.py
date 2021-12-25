@@ -1,7 +1,14 @@
 """Filter functions."""
+from __future__ import annotations
+from typing import Any
 
 
-def filter_content_return_one_of_type(content, namestartswith, filterfiltype, attr="name"):
+def filter_content_return_one_of_type(
+    content: list[str | Any],
+    namestartswith: str,
+    filterfiltype: str,
+    attr: str = "name",
+) -> list[str]:
     """Only match 1 of the filter."""
     contents = []
     filetypefound = False
@@ -27,22 +34,7 @@ def filter_content_return_one_of_type(content, namestartswith, filterfiltype, at
     return contents
 
 
-def find_first_of_filetype(content, filterfiltype, attr="name"):
-    """Find the first of the file type."""
-    filename = ""
-    for _filename in content:
-        if isinstance(_filename, str):
-            if _filename.endswith(f".{filterfiltype}"):
-                filename = _filename
-                break
-        else:
-            if getattr(_filename, attr).endswith(f".{filterfiltype}"):
-                filename = getattr(_filename, attr)
-                break
-    return filename
-
-
-def get_first_directory_in_directory(content, dirname):
+def get_first_directory_in_directory(content: list[str | Any], dirname: str) -> str | None:
     """Return the first directory in dirname or None."""
     directory = None
     for path in content:

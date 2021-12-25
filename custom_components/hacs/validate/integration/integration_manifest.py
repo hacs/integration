@@ -1,5 +1,5 @@
-from ..base import ActionValidationBase, ValidationException
 from ...enums import RepositoryFile
+from ..base import ActionValidationBase, ValidationException
 
 
 class IntegrationManifest(ActionValidationBase, category="integration"):

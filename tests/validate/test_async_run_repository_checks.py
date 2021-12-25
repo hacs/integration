@@ -1,6 +1,6 @@
 import pytest
-from custom_components.hacs.base import HacsBase
 
+from custom_components.hacs.base import HacsBase
 from custom_components.hacs.share import SHARE
 from custom_components.hacs.validate import (
     async_initialize_rules,

@@ -3,10 +3,9 @@ from abc import ABC
 import os
 import tempfile
 
+from custom_components.hacs.backup import Backup, BackupNetDaemon
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.download import download_content
-
-from custom_components.hacs.backup import Backup, BackupNetDaemon
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.version import version_to_download
 
@@ -52,7 +51,7 @@ async def async_install_repository(repository):
     await repository.update_repository()
     if repository.content.path.local is None:
         raise HacsException("repository.content.path.local is None")
-    repository.validate.errors = []
+    repository.validate.errors.clear()
 
     if not repository.can_download:
         raise HacsException("The version of Home Assistant is not compatible with this version")

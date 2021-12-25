@@ -2,8 +2,8 @@
 from __future__ import annotations
 
 from aiohttp import web
-from homeassistant.core import HomeAssistant
 from homeassistant.components.http import HomeAssistantView
+from homeassistant.core import HomeAssistant
 
 from ..base import HacsBase
 from ..const import DOMAIN

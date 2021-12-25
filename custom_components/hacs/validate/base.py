@@ -1,7 +1,8 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING
-from ..share import SHARE, get_hacs
 
+from typing import TYPE_CHECKING
+
+from ..share import SHARE, get_hacs
 
 if TYPE_CHECKING:
     from ..helpers.classes.repository import HacsRepository

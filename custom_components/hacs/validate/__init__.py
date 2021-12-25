@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import asyncio
 import glob
 import importlib
@@ -6,7 +7,6 @@ from os.path import dirname, join, sep
 from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
-
 
 from ..share import SHARE
 

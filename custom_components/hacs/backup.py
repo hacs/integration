@@ -1,11 +1,11 @@
 """Backup."""
 from __future__ import annotations
+
 import os
 import shutil
 import tempfile
 from time import sleep
 from typing import TYPE_CHECKING
-
 
 from .utils import path
 

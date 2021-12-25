@@ -54,6 +54,16 @@ asyncio.set_event_loop_policy(HassEventLoopPolicy(False))
 # Disable fixtures overriding our beautiful policy
 asyncio.set_event_loop_policy = lambda policy: None
 
+# Disable sleep in tests
+original_sleep = asyncio.sleep
+
+
+def _mocked_sleep(_):
+    return original_sleep(0)
+
+
+asyncio.sleep = _mocked_sleep
+
 
 @pytest.fixture()
 def connection():

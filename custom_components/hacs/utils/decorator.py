@@ -14,10 +14,10 @@ def concurrent(concurrenttasks=15, sleepafter=0) -> Coroutine[Any, Any, None]:
             return function
 
         @wraps(function)
-        async def wrapper(*args) -> None:
+        async def wrapper(*args, **kwargs) -> None:
 
             async with max_concurrent:
-                await function(*args)
+                await function(*args, **kwargs)
                 await asyncio.sleep(sleepafter)
 
         return wrapper

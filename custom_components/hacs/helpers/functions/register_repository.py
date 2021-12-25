@@ -11,13 +11,15 @@ from custom_components.hacs.exceptions import (
     HacsRepositoryExistException,
 )
 from custom_components.hacs.share import get_hacs
+from custom_components.hacs.utils.decorator import concurrent
 
 from ...repositories import RERPOSITORY_CLASSES
 
 if TYPE_CHECKING:
     from ..classes.repository import HacsRepository
 
-# @concurrent(15, 5)
+
+@concurrent(concurrenttasks=15, sleepafter=5)
 async def register_repository(
     full_name,
     category,

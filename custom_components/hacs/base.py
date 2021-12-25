@@ -1,5 +1,6 @@
 """Base HACS class."""
 from __future__ import annotations
+import asyncio
 
 from dataclasses import asdict, dataclass, field
 import gzip
@@ -25,7 +26,7 @@ from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 
-from .const import REPOSITORY_HACS_DEFAULT, TV
+from .const import REPOSITORY_HACS_DEFAULT, TV, SEMAPHORE_DEFAULT
 from .enums import (
     ConfigurationType,
     HacsCategory,
@@ -33,7 +34,7 @@ from .enums import (
     HacsStage,
     LovelaceMode,
 )
-from .exceptions import HacsException
+from .exceptions import HacsException, HacsNotModifiedException, HacsRepositoryArchivedException
 from .utils.decode import decode_content
 from .utils.logger import getLogger
 from .utils.queue_manager import QueueManager
@@ -41,7 +42,6 @@ from .utils.queue_manager import QueueManager
 if TYPE_CHECKING:
     from .hacsbase.data import HacsData
     from .helpers.classes.repository import HacsRepository
-    from .operational.factory import HacsTaskFactory
     from .tasks.manager import HacsTaskManager
 
 
@@ -310,7 +310,6 @@ class HacsBase:
     configuration = HacsConfiguration()
     core = HacsCore()
     data: HacsData | None = None
-    factory: HacsTaskFactory | None = None
     frontend_version: str | None = None
     github: GitHub | None = None
     githubapi: GitHubAPI | None = None
@@ -455,3 +454,23 @@ class HacsBase:
             self.log.exception(exception)
             raise HacsException(exception) from exception
         return None
+
+    async def async_semaphore_wrapper(
+        self,
+        method: Callable[[], Awaitable[TV]],
+        *args,
+        **kwargs,
+    ) -> None:
+        """Semaphore wrapper."""
+        async with asyncio.Semaphore(SEMAPHORE_DEFAULT):
+            try:
+                await method(*args, **kwargs)
+            except HacsNotModifiedException:
+                pass
+            except HacsRepositoryArchivedException as exception:
+                self.log.warning(exception)
+            except BaseException as exception:
+                self.log.error(exception)
+
+            # Due to GitHub secondary ratelimits we need to sleep a bit
+            await asyncio.sleep(5)

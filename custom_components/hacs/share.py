@@ -6,7 +6,6 @@ from .utils.queue_manager import QueueManager
 
 SHARE = {
     "hacs": None,
-    "factory": None,
     "queue": None,
     "rules": {},
 }
@@ -24,15 +23,6 @@ def get_hacs() -> HacsBase:
         SHARE["hacs"] = _hacs
 
     return SHARE["hacs"]
-
-
-def get_factory():
-    if SHARE["factory"] is None:
-        from custom_components.hacs.operational.factory import HacsTaskFactory
-
-        SHARE["factory"] = HacsTaskFactory()
-
-    return SHARE["factory"]
 
 
 def get_queue():

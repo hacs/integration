@@ -3,8 +3,8 @@ from homeassistant.loader import async_get_custom_components
 
 from ..enums import HacsCategory
 from ..exceptions import HacsException
-from ..helpers.functions.information import get_integration_manifest
 from ..utils import filters
+from ..utils.information import get_integration_manifest
 from .base import HacsRepository
 
 

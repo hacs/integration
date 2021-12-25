@@ -8,7 +8,7 @@ import aiohttp
 import pytest
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.functions.information import (
+from custom_components.hacs.utils.information import (
     get_integration_manifest,
     get_repository,
 )

@@ -15,9 +15,9 @@ from custom_components.hacs.utils import regex
 from ..base import HacsBase
 from ..enums import HacsStage
 from ..exceptions import HacsException
-from ..helpers.functions.register_repository import register_repository
-from ..utils.store import async_load_from_store, async_save_to_store
 from ..share import get_hacs
+from ..utils.register_repository import register_repository
+from ..utils.store import async_load_from_store, async_save_to_store
 from .base import HacsTask
 
 

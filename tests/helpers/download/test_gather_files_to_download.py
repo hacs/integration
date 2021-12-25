@@ -3,8 +3,8 @@
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from aiogithubapi.objects.repository.release import AIOGitHubAPIRepositoryRelease
 
-from custom_components.hacs.helpers.functions.download import gather_files_to_download
-from custom_components.hacs.helpers.functions.information import find_file_name
+from custom_components.hacs.utils.download import gather_files_to_download
+from custom_components.hacs.utils.information import find_file_name
 
 
 def test_gather_files_to_download(repository):

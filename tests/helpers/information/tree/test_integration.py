@@ -5,10 +5,7 @@ import json
 import aiohttp
 import pytest
 
-from custom_components.hacs.helpers.functions.information import (
-    get_repository,
-    get_tree,
-)
+from custom_components.hacs.utils.information import get_repository, get_tree
 
 from tests.sample_data import (
     repository_data,

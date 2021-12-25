@@ -4,7 +4,7 @@ import json
 # pylint: disable=missing-docstring
 import os
 
-from custom_components.hacs.helpers.functions.information import read_hacs_manifest
+from custom_components.hacs.utils.information import read_hacs_manifest
 
 
 def temp_cleanup(tmpdir):

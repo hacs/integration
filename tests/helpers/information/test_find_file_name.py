@@ -3,7 +3,7 @@
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from aiogithubapi.objects.repository.release import AIOGitHubAPIRepositoryRelease
 
-from custom_components.hacs.helpers.functions.information import find_file_name
+from custom_components.hacs.utils.information import find_file_name
 
 
 def test_find_file_name_base(repository_plugin):

@@ -1,5 +1,5 @@
 """Helpers: Install: info_file."""
-from custom_components.hacs.helpers.functions.information import info_file
+from custom_components.hacs.utils.information import info_file
 
 
 def test_info_file(repository):

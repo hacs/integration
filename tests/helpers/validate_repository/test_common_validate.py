@@ -5,7 +5,7 @@ import json
 import pytest
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.helpers.functions.validate_repository import common_validate
+from custom_components.hacs.utils.validate_repository import common_validate
 
 from tests.sample_data import (
     release_data,

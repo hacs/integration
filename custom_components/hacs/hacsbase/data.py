@@ -4,11 +4,11 @@ import os
 
 from homeassistant.core import callback
 
-from custom_components.hacs.repositories.base import HacsManifest
-from custom_components.hacs.share import get_hacs
-from custom_components.hacs.utils.logger import getLogger
-from custom_components.hacs.utils.register_repository import register_repository
-from custom_components.hacs.utils.store import (
+from ..repositories.base import HacsManifest
+from ..share import get_hacs
+from ..utils.logger import getLogger
+from ..utils.register_repository import register_repository
+from ..utils.store import (
     async_load_from_store,
     async_save_to_store,
     async_save_to_store_default_encoder,

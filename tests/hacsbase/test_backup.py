@@ -2,7 +2,7 @@
 # pylint: disable=missing-docstring
 import os
 
-from custom_components.hacs.backup import Backup, BackupNetDaemon
+from custom_components.hacs.utils.backup import Backup, BackupNetDaemon
 
 
 def test_file(hacs, tmpdir):

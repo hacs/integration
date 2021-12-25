@@ -9,12 +9,12 @@ import zipfile
 
 import async_timeout
 
-from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.share import get_hacs
-from custom_components.hacs.utils import filters
-from custom_components.hacs.utils.decorator import concurrent
-from custom_components.hacs.utils.logger import getLogger
-from custom_components.hacs.utils.queue_manager import QueueManager
+from ..exceptions import HacsException
+from ..share import get_hacs
+from ..utils import filters
+from ..utils.decorator import concurrent
+from ..utils.logger import getLogger
+from ..utils.queue_manager import QueueManager
 
 _LOGGER = getLogger()
 
@@ -151,7 +151,7 @@ async def download_zip_files(repository, validate):
             queue.add(async_download_zip_file(repository, content, validate))
 
         await queue.execute()
-    except (Exception, BaseException) as exception:  # pylint: disable=broad-except
+    except BaseException as exception:  # pylint: disable=broad-except
         validate.errors.append(f"Download was not completed [{exception}]")
 
     return validate
@@ -180,7 +180,7 @@ async def async_download_zip_file(repository, content, validate):
             repository.logger.info(f"Download of {content.name} completed")
             return
         validate.errors.append(f"[{content.name}] was not downloaded.")
-    except (Exception, BaseException) as exception:  # pylint: disable=broad-except
+    except BaseException as exception:  # pylint: disable=broad-except
         validate.errors.append(f"Download was not completed [{exception}]")
 
     return validate
@@ -240,5 +240,5 @@ async def dowload_repository_content(repository, content):
             return
         repository.validate.errors.append(f"[{content.name}] was not downloaded.")
 
-    except (Exception, BaseException) as exception:  # pylint: disable=broad-except
+    except BaseException as exception:  # pylint: disable=broad-except
         repository.validate.errors.append(f"Download was not completed [{exception}]")

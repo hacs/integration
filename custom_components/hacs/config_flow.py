@@ -10,13 +10,10 @@ from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
 import voluptuous as vol
 
-from custom_components.hacs.const import CLIENT_ID, DOMAIN, MINIMUM_HA_VERSION
-from custom_components.hacs.enums import ConfigurationType
-from custom_components.hacs.mixin import HacsMixin
-from custom_components.hacs.utils.configuration_schema import (
-    RELEASE_LIMIT,
-    hacs_config_option_schema,
-)
+from .const import CLIENT_ID, DOMAIN, MINIMUM_HA_VERSION
+from .enums import ConfigurationType
+from .mixin import HacsMixin
+from .utils.configuration_schema import RELEASE_LIMIT, hacs_config_option_schema
 
 
 class HacsFlowHandler(HacsMixin, config_entries.ConfigFlow, domain=DOMAIN):

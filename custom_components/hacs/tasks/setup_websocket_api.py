@@ -10,12 +10,11 @@ from homeassistant.core import HomeAssistant
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 
-from custom_components.hacs.utils import regex
-
 from ..base import HacsBase
 from ..enums import HacsStage
 from ..exceptions import HacsException
 from ..share import get_hacs
+from ..utils import regex
 from ..utils.register_repository import register_repository
 from ..utils.store import async_load_from_store, async_save_to_store
 from .base import HacsTask
@@ -287,7 +286,7 @@ async def hacs_repository_data(hass, connection, msg):
         message = exception
     except AttributeError as exception:
         message = f"Could not use repository with ID {repo_id} ({exception})"
-    except (Exception, BaseException) as exception:  # pylint: disable=broad-except
+    except BaseException as exception:  # pylint: disable=broad-except
         message = exception
 
     if message is not None:
@@ -391,7 +390,7 @@ async def hacs_repository(hass, connection, msg):
         message = exception
     except AttributeError as exception:
         message = f"Could not use repository with ID {repo_id} ({exception})"
-    except (Exception, BaseException) as exception:  # pylint: disable=broad-except
+    except BaseException as exception:  # pylint: disable=broad-except
         message = exception
 
     if message is not None:

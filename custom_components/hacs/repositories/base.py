@@ -12,30 +12,27 @@ from aiogithubapi import AIOGitHubAPIException
 import attr
 from homeassistant.helpers.json import JSONEncoder
 
-from custom_components.hacs.backup import Backup, BackupNetDaemon
-from custom_components.hacs.exceptions import (
+from ..exceptions import (
     HacsException,
     HacsNotModifiedException,
     HacsRepositoryExistException,
 )
-from custom_components.hacs.share import get_hacs
-from custom_components.hacs.utils.download import async_download_file, download_content
-from custom_components.hacs.utils.information import get_info_md_content, get_repository
-from custom_components.hacs.utils.logger import getLogger
-from custom_components.hacs.utils.path import is_safe
-from custom_components.hacs.utils.queue_manager import QueueManager
-from custom_components.hacs.utils.store import async_remove_store
-from custom_components.hacs.utils.validate import Validate
-from custom_components.hacs.utils.validate_repository import (
-    common_update_data,
-    common_validate,
-)
-from custom_components.hacs.utils.version import (
+from ..share import get_hacs
+from ..utils.backup import Backup, BackupNetDaemon
+from ..utils.download import async_download_file, download_content
+from ..utils.information import get_info_md_content, get_repository
+from ..utils.logger import getLogger
+from ..utils.path import is_safe
+from ..utils.queue_manager import QueueManager
+from ..utils.store import async_remove_store
+from ..utils.validate import Validate
+from ..utils.validate_repository import common_update_data, common_validate
+from ..utils.version import (
     version_left_higher_or_equal_then_right,
     version_left_higher_then_right,
     version_to_download,
 )
-from custom_components.hacs.validate import async_run_repository_checks
+from ..validate import async_run_repository_checks
 
 
 @attr.s(auto_attribs=True)
@@ -674,7 +671,7 @@ class HacsRepository:
                     "%s Presumed local content path %s does not exist", self, local_path
                 )
 
-        except (Exception, BaseException) as exception:
+        except BaseException as exception:
             self.logger.debug("%s Removing %s failed with %s", self, local_path, exception)
             return False
         return True

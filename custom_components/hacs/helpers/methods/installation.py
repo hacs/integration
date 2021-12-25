@@ -6,7 +6,7 @@ import tempfile
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.helpers.functions.download import download_content
 
-from custom_components.hacs.operational.backup import Backup, BackupNetDaemon
+from custom_components.hacs.backup import Backup, BackupNetDaemon
 from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.version import version_to_download
 
@@ -64,7 +64,7 @@ async def async_install_repository(repository):
         repository.ref = f"tags/{version}"
 
     if repository.data.installed and repository.data.category == "netdaemon":
-        persistent_directory = BackupNetDaemon(hacs, repository)
+        persistent_directory = BackupNetDaemon(hacs=hacs, repository=repository)
         await hacs.hass.async_add_executor_job(persistent_directory.create)
 
     elif repository.data.persistent_directory:
@@ -72,14 +72,14 @@ async def async_install_repository(repository):
             f"{repository.content.path.local}/{repository.data.persistent_directory}"
         ):
             persistent_directory = Backup(
-                hacs,
-                f"{repository.content.path.local}/{repository.data.persistent_directory}",
-                tempfile.gettempdir() + "/hacs_persistent_directory/",
+                hacs=hacs,
+                local_path=f"{repository.content.path.local}/{repository.data.persistent_directory}",
+                backup_path=tempfile.gettempdir() + "/hacs_persistent_directory/",
             )
             await hacs.hass.async_add_executor_job(persistent_directory.create)
 
     if repository.data.installed and not repository.content.single:
-        backup = Backup(hacs, repository.content.path.local)
+        backup = Backup(hacs=hacs, local_path=repository.content.path.local)
         await hacs.hass.async_add_executor_job(backup.create)
 
     if repository.data.zip_release and version != repository.data.default_branch:

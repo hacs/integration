@@ -32,7 +32,11 @@ from custom_components.hacs.share import get_hacs
 from custom_components.hacs.utils.logger import getLogger
 from custom_components.hacs.utils.path import is_safe
 from custom_components.hacs.utils.queue_manager import QueueManager
-from custom_components.hacs.utils.version import version_to_download
+from custom_components.hacs.utils.version import (
+    version_left_higher_or_equal_then_right,
+    version_to_download,
+    version_left_higher_then_right,
+)
 
 
 class RepositoryVersions:
@@ -162,7 +166,7 @@ class HacsRepository(RepositoryHelpers):
             status = "new"
         elif self.pending_restart:
             status = "pending-restart"
-        elif self.pending_upgrade:
+        elif self.pending_update:
             status = "pending-upgrade"
         elif self.data.installed:
             status = "installed"
@@ -226,6 +230,40 @@ class HacsRepository(RepositoryHelpers):
             "pending-upgrade": "UPGRADE",
         }
         return actions[self.display_status]
+
+    @property
+    def pending_update(self) -> bool:
+        """Return True if pending update."""
+        if not self.can_download:
+            return False
+        if self.data.installed:
+            if self.data.selected_tag is not None:
+                if self.data.selected_tag == self.data.default_branch:
+                    if self.data.installed_commit != self.data.last_commit:
+                        return True
+                    return False
+            if self.display_version_or_commit == "version":
+                if version_left_higher_then_right(
+                    self.display_available_version,
+                    self.display_installed_version,
+                ):
+                    return True
+            if self.display_installed_version != self.display_available_version:
+                return True
+
+        return False
+
+    @property
+    def can_download(self) -> bool:
+        """Return True if we can download."""
+        if self.data.homeassistant is not None:
+            if self.data.releases:
+                if not version_left_higher_or_equal_then_right(
+                    self.hacs.core.ha_version.string,
+                    self.data.homeassistant,
+                ):
+                    return False
+        return True
 
     async def common_validate(self, ignore_issues=False):
         """Common validation steps of the repository."""

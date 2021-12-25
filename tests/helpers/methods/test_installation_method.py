@@ -12,6 +12,6 @@ async def test_installation_method(repository):
     with pytest.raises(HacsException):
         await repository.async_install()
 
-    # repository.can_install = True
+    # repository.can_download = True
 
     await repository._async_post_install()

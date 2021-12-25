@@ -72,7 +72,7 @@ class HACSSensor(HacsMixin, SensorEntity):
         repositories = [
             repository
             for repository in self.hacs.repositories.list_all
-            if repository.pending_upgrade
+            if repository.pending_update
         ]
         self._attr_native_value = len(repositories)
         self._attr_extra_state_attributes = {

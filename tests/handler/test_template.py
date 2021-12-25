@@ -2,7 +2,7 @@
 # pylint: disable=missing-docstring
 
 
-from config.custom_components.hacs.utils.template import render_template
+from custom_components.hacs.utils.template import render_template
 
 
 class MockRelease:

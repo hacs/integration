@@ -1,13 +1,14 @@
 """Custom template support."""
-# pylint: disable=broad-except
+from __future__ import annotations
+from typing import TYPE_CHECKING
 from jinja2 import Template
 
-from custom_components.hacs.utils.logger import getLogger
 
-_LOGGER = getLogger()
+if TYPE_CHECKING:
+    from ..helpers.classes.repository import HacsRepository
 
 
-def render_template(content, context):
+def render_template(content: str, context: HacsRepository) -> str:
     """Render templates in content."""
     # Fix None issues
     if context.releases.last_release_object is not None:
@@ -17,8 +18,7 @@ def render_template(content, context):
 
     # Render the template
     try:
-        render = Template(content)
-        render = render.render(
+        return Template(content).render(
             installed=context.data.installed,
             pending_update=context.pending_update,
             prerelease=prerelease,
@@ -26,7 +26,6 @@ def render_template(content, context):
             version_available=context.releases.last_release,
             version_installed=context.display_installed_version,
         )
-        return render
-    except (Exception, BaseException) as exception:
-        _LOGGER.debug(exception)
-        return content
+    except BaseException as exception:
+        context.logger.debug(exception)
+    return content

@@ -1,6 +1,8 @@
 """Template tests."""
 # pylint: disable=missing-docstring
-from custom_components.hacs.helpers.functions.template import render_template
+
+
+from custom_components.hacs.utils.template import render_template
 
 
 class MockRelease:

@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 from awesomeversion import AwesomeVersion, AwesomeVersionException
 
 if TYPE_CHECKING:
-    from ..helpers.classes.repository import HacsRepository
+    from ..repositories.base import HacsRepository
 
 
 @lru_cache(maxsize=1024)

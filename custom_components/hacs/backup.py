@@ -11,7 +11,7 @@ from .utils import path
 
 if TYPE_CHECKING:
     from .base import HacsBase
-    from .helpers.classes.repository import HacsRepository
+    from .repositories.base import HacsRepository
 
 
 DEFAULT_BACKUP_PATH = f"{tempfile.gettempdir()}/hacs_backup/"

@@ -22,7 +22,6 @@ from custom_components.hacs.base import (
 )
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.hacsbase.hacs import Hacs
-from custom_components.hacs.helpers.classes.repository import HacsRepository
 from custom_components.hacs.repositories import (
     HacsAppdaemonRepository,
     HacsIntegrationRepository,
@@ -31,6 +30,7 @@ from custom_components.hacs.repositories import (
     HacsPythonScriptRepository,
     HacsThemeRepository,
 )
+from custom_components.hacs.repositories.base import HacsRepository
 from custom_components.hacs.share import SHARE
 from custom_components.hacs.tasks.manager import HacsTaskManager
 from custom_components.hacs.utils.version import version_to_download

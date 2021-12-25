@@ -1,5 +1,6 @@
 """Regex utils"""
 from __future__ import annotations
+
 import re
 
 RE_REPOSITORY = re.compile(

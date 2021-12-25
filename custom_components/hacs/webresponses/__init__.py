@@ -1,1 +1,0 @@
-"""Initialize HACS Web responses"""

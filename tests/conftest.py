@@ -32,10 +32,10 @@ from custom_components.hacs.repositories import (
     HacsThemeRepository,
 )
 from custom_components.hacs.repositories.base import HacsRepository
-from custom_components.hacs.share import SHARE
 from custom_components.hacs.tasks.manager import HacsTaskManager
 from custom_components.hacs.utils.queue_manager import QueueManager
 from custom_components.hacs.utils.version import version_to_download
+from custom_components.hacs.validate.manager import ValidationManager
 
 from tests.async_mock import MagicMock
 from tests.common import (
@@ -101,6 +101,7 @@ def hacs(hass: HomeAssistant):
     hacs_obj = HacsBase()
     hacs_obj.hass = hass
     hacs_obj.tasks = HacsTaskManager(hacs=hacs_obj, hass=hass)
+    hacs_obj.validation = ValidationManager(hacs=hacs_obj, hass=hass)
     hacs_obj.session = async_create_clientsession(hass)
     hacs_obj.repositories = HacsRepositories()
 

@@ -1,15 +1,13 @@
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 import pytest
 
-from custom_components.hacs.validate.integration.integration_manifest import (
-    IntegrationManifest,
-)
+from custom_components.hacs.validate.integration_manifest import Validator
 
 
 @pytest.mark.asyncio
 async def test_hacs_manifest_no_manifest(repository_integration):
-    check = IntegrationManifest(repository_integration)
-    await check._async_run_check()
+    check = Validator(repository_integration)
+    await check.execute_validation()
     assert check.failed
 
 
@@ -20,6 +18,6 @@ async def test_hacs_manifest_with_manifest(repository_integration):
             {"path": "manifest.json", "type": "file"}, "test/test", "main"
         )
     ]
-    check = IntegrationManifest(repository_integration)
-    await check._async_run_check()
+    check = Validator(repository_integration)
+    await check.execute_validation()
     assert not check.failed

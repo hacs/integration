@@ -16,8 +16,6 @@ from ..mixin import LogMixin
 class HacsTask(LogMixin):
     """Hacs task base."""
 
-    hass: HomeAssistant
-
     events: list[str] | None = None
     schedule: timedelta | None = None
     stages: list[HacsStage] | None = None

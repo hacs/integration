@@ -1,8 +1,16 @@
-from ..base import ActionValidationBase, ValidationException
+from __future__ import annotations
+
+from ..repositories.base import HacsRepository
+from .base import ActionValidationBase, ValidationException
 
 
-class RepositoryInformationFile(ActionValidationBase):
-    async def async_check(self):
+async def async_setup_validator(repository: HacsRepository) -> Validator:
+    """Set up this validator."""
+    return Validator(repository=repository)
+
+
+class Validator(ActionValidationBase):
+    async def async_validate(self):
         filenames = [x.filename.lower() for x in self.repository.tree]
         if self.repository.data.render_readme and "readme" in filenames:
             pass

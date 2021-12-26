@@ -16,7 +16,6 @@ from ..base import HacsBase
 from ..enums import HacsStage
 from ..exceptions import HacsException
 from ..utils import regex
-from ..utils.register_repository import register_repository
 from ..utils.store import async_load_from_store, async_save_to_store
 from .base import HacsTask
 
@@ -223,13 +222,12 @@ async def hacs_repository_data(hass, connection, msg):
 
         if not hacs.repositories.get_by_full_name(repo_id):
             try:
-                registration = await register_repository(hacs, repo_id, data.lower())
+                registration = await hacs.async_register_repository(
+                    repository_full_name=repo_id, category=data.lower()
+                )
                 if registration is not None:
                     raise HacsException(registration)
-            except (
-                Exception,
-                BaseException,
-            ) as exception:  # pylint: disable=broad-except
+            except BaseException as exception:  # pylint: disable=broad-except
                 hass.bus.async_fire(
                     "hacs/error",
                     {

@@ -37,9 +37,7 @@ async def test_load_hacs_repository_register_failed(
 
     assert not hacs.system.disabled
 
-    with patch(
-        "custom_components.hacs.tasks.load_hacs_repository.register_repository", AsyncMock()
-    ):
+    with patch("custom_components.hacs.base.HacsBase.async_register_repository", AsyncMock()):
         await task.execute_task()
         assert hacs.system.disabled
         assert hacs.system.disabled_reason == HacsDisabledReason.LOAD_HACS
@@ -59,7 +57,7 @@ async def test_load_hacs_repository_register_failed_rate_limit(
     assert not hacs.system.disabled
 
     with patch(
-        "custom_components.hacs.tasks.load_hacs_repository.register_repository",
+        "custom_components.hacs.base.HacsBase.async_register_repository",
         side_effect=HacsException("ratelimit 403"),
     ):
         await task.execute_task()

@@ -653,7 +653,7 @@ class HacsBase:
                     was_installed = True
                     stored["acknowledged"] = False
                     # Remove from HACS
-                    critical_queue.add(repository.uninstall())
+                    critical_queue.add(repo.uninstall())
                     repo.remove()
 
             stored_critical.append(stored)
@@ -755,6 +755,9 @@ class HacsBase:
                 continue
             self.queue.add(
                 self.async_semaphore_wrapper(
-                    self.async_register_repository, repository_full_name=repo, category=category, default=True
+                    self.async_register_repository,
+                    repository_full_name=repo,
+                    category=category,
+                    default=True,
                 )
             )

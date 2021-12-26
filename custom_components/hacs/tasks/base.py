@@ -10,10 +10,9 @@ from homeassistant.core import HomeAssistant
 
 from ..base import HacsBase
 from ..enums import HacsStage
-from ..mixin import LogMixin
 
 
-class HacsTask(LogMixin):
+class HacsTask:
     """Hacs task base."""
 
     events: list[str] | None = None
@@ -38,11 +37,11 @@ class HacsTask(LogMixin):
         """Execute the task defined in subclass."""
         if not self._can_run_disabled and self.hacs.system.disabled:
             self.task_logger(
-                self.log.debug,
+                self.hacs.log.debug,
                 f"Skipping task, HACS is disabled {self.hacs.system.disabled_reason}",
             )
             return
-        self.task_logger(self.log.debug, "Executing task")
+        self.task_logger(self.hacs.log.debug, "Executing task")
         start_time = monotonic()
 
         try:
@@ -51,9 +50,9 @@ class HacsTask(LogMixin):
             elif task := getattr(self, "async_execute", None):
                 await task()  # pylint: disable=not-callable
         except BaseException as exception:  # pylint: disable=broad-except
-            self.task_logger(self.log.error, f"failed: {exception}")
+            self.task_logger(self.hacs.log.error, f"failed: {exception}")
 
         else:
-            self.log.debug(
+            self.hacs.log.debug(
                 "HacsTask<%s> took %.3f seconds to complete", self.slug, monotonic() - start_time
             )

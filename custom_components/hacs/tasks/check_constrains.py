@@ -30,7 +30,7 @@ class Task(HacsTask):
         ):
             if os.path.exists(location):
                 self.task_logger(
-                    self.log.critical,
+                    self.hacs.log.critical,
                     "This cannot be used with custom_updater. "
                     f"To use this you need to remove custom_updater form {location}",
                 )
@@ -42,7 +42,7 @@ class Task(HacsTask):
             MINIMUM_HA_VERSION,
         ):
             self.task_logger(
-                self.log.critical,
+                self.hacs.log.critical,
                 f"You need HA version {MINIMUM_HA_VERSION} or newer to use this integration.",
             )
             self.hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)

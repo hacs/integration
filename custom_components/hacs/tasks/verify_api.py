@@ -21,4 +21,4 @@ class Task(HacsTask):
     async def async_execute(self) -> None:
         """Execute the task."""
         can_update = await self.hacs.async_can_update()
-        self.task_logger(self.log.debug, f"Can update {can_update} repositories")
+        self.task_logger(self.hacs.log.debug, f"Can update {can_update} repositories")

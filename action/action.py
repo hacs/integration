@@ -3,7 +3,7 @@ import asyncio
 import json
 import os
 
-from aiogithubapi import GitHub
+from aiogithubapi import GitHub, GitHubAPI
 import aiohttp
 from homeassistant.core import HomeAssistant
 
@@ -129,10 +129,18 @@ async def validate_repository(repository, category, ref=None):
         hacs.session = session
         hacs.configuration.token = TOKEN
         hacs.core.config_path = None
+        ## Legacy GitHub client
         hacs.github = GitHub(
             hacs.configuration.token,
-            hacs.session,
+            session,
             headers=HACS_ACTION_GITHUB_API_HEADERS,
+        )
+
+        ## New GitHub client
+        hacs.githubapi = GitHubAPI(
+            token=hacs.configuration.token,
+            session=session,
+            **{"client_name": "HACS/Action"},
         )
         try:
             await hacs.async_register_repository(

@@ -20,6 +20,8 @@ from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
 import voluptuous as vol
 
+from custom_components.hacs.validate.manager import ValidationManager
+
 from .base import HacsBase
 from .const import DOMAIN, PLATFORMS, STARTUP
 from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
@@ -82,6 +84,7 @@ async def async_initialize_integration(
     hacs.system.running = True
     hacs.session = async_create_clientsession(hass)
     hacs.tasks = HacsTaskManager(hacs=hacs, hass=hass)
+    hacs.validation = ValidationManager(hacs=hacs, hass=hass)
 
     hacs.core.lovelace_mode = LovelaceMode.YAML
     try:

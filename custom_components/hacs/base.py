@@ -27,6 +27,7 @@ from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 
+
 from .const import REPOSITORY_HACS_DEFAULT, SEMAPHORE_DEFAULT, TV
 from .enums import (
     ConfigurationType,
@@ -50,6 +51,7 @@ if TYPE_CHECKING:
     from .repositories.base import HacsRepository
     from .tasks.manager import HacsTaskManager
     from .utils.data import HacsData
+    from .validate.manager import ValidationManager
 
 
 @dataclass
@@ -332,6 +334,7 @@ class HacsBase:
     status = HacsStatus()
     system = HacsSystem()
     tasks: HacsTaskManager | None = None
+    validation: ValidationManager | None = None
     version: str | None = None
 
     @property

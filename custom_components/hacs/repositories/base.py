@@ -33,7 +33,6 @@ from ..utils.version import (
     version_left_higher_then_right,
     version_to_download,
 )
-from ..validate import async_run_repository_checks
 
 if TYPE_CHECKING:
     from ..base import HacsBase
@@ -706,7 +705,7 @@ class HacsRepository:
 
     async def async_post_registration(self):
         """Run post registration steps."""
-        await async_run_repository_checks(self.hacs, self)
+        await self.hacs.validation.async_run_repository_checks(self)
 
     async def async_pre_install(self) -> None:
         """Run pre install steps."""

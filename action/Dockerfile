@@ -1,4 +1,4 @@
-FROM ghcr.io/ludeeus/debian/python:3.9
+FROM ghcr.io/ludeeus/devcontainer/python:3.9
 
 WORKDIR /hacs
 

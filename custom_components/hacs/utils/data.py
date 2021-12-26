@@ -5,6 +5,7 @@ import os
 from homeassistant.core import callback
 
 from ..base import HacsBase
+from ..enums import HacsGitHubRepo
 from ..repositories.base import HacsManifest
 from .logger import getLogger
 from .register_repository import register_repository
@@ -226,7 +227,7 @@ class HacsData:
         if repository.data.installed:
             repository.status.first_install = False
 
-        if full_name == "hacs/integration":
+        if full_name == HacsGitHubRepo.INTEGRATION:
             repository.data.installed_version = self.hacs.version
             repository.data.installed = True
 

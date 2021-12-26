@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 from aiogithubapi import AIOGitHubAPIException
 
+from ..enums import HacsGitHubRepo
 from ..exceptions import (
     HacsException,
     HacsExpectedException,
@@ -28,7 +29,7 @@ async def register_repository(
 ):
     """Register a repository."""
     if full_name in hacs.common.skip:
-        if full_name != "hacs/integration":
+        if full_name != HacsGitHubRepo.INTEGRATION:
             raise HacsExpectedException(f"Skipping {full_name}")
 
     if category not in RERPOSITORY_CLASSES:

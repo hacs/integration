@@ -2,6 +2,7 @@
 import pytest
 
 from custom_components.hacs.base import HacsRepositories
+from custom_components.hacs.enums import HacsGitHubRepo
 from custom_components.hacs.utils.data import HacsData
 
 from tests.async_mock import patch
@@ -82,7 +83,7 @@ async def test_hacs_data_restore_write_not_new(hacs):
     assert hacs.repositories.get_by_full_name("shbatm/hacs-isy994")
 
     assert hacs.repositories.get_by_id("172733314")
-    assert hacs.repositories.get_by_full_name("hacs/integration")
+    assert hacs.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
 
     assert hacs.repositories.get_by_id("172733314").data.show_beta is True
     assert hacs.repositories.get_by_id("172733314").data.installed is True

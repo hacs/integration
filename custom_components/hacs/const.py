@@ -3,23 +3,14 @@ from typing import TypeVar
 
 from aiogithubapi.common.const import ACCEPT_HEADERS
 
-NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
 DOMAIN = "hacs"
 CLIENT_ID = "395a8e669c5de9f7c6e8"
 MINIMUM_HA_VERSION = "0.0.0"
-PROJECT_URL = "https://github.com/hacs/integration/"
-
-
-ISSUE_URL = f"{PROJECT_URL}issues"
-DOMAIN_DATA = f"{NAME_SHORT.lower()}_data"
 
 TV = TypeVar("TV")
 
 PACKAGE_NAME = "custom_components.hacs"
-
-REPOSITORY_HACS_DEFAULT = "hacs/default"
-REPOSITORY_HACS_INTEGRATION = "hacs/integration"
 
 SEMAPHORE_DEFAULT = 15
 
@@ -30,19 +21,8 @@ HACS_ACTION_GITHUB_API_HEADERS = {
     "Accept": ACCEPT_HEADERS["preview"],
 }
 
-IFRAME = {
-    "title": "HACS",
-    "icon": "hacs:hacs",
-    "url": "/community_overview",
-    "path": "community",
-    "require_admin": True,
-}
-
 VERSION_STORAGE = "6"
 STORENAME = "hacs"
-
-# Messages
-NO_ELEMENTS = "No elements to show, open the store to install some awesome stuff."
 
 STARTUP = """
 -------------------------------------------------------------------

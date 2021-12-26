@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 from homeassistant.loader import async_get_custom_components
 
-from ..enums import HacsCategory
+from ..enums import HacsCategory, HacsGitHubRepo
 from ..exceptions import HacsException
 from ..utils import filters
 from ..utils.information import get_integration_manifest
@@ -35,7 +35,7 @@ class HacsIntegrationRepository(HacsRepository):
     async def async_post_installation(self):
         """Run post installation steps."""
         if self.data.config_flow:
-            if self.data.full_name != "hacs/integration":
+            if self.data.full_name != HacsGitHubRepo.INTEGRATION:
                 await self.reload_custom_components()
             if self.data.first_install:
                 self.pending_restart = False

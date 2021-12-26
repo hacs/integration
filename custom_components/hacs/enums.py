@@ -3,6 +3,13 @@
 from enum import Enum
 
 
+class HacsGitHubRepo(str, Enum):
+    """HacsGitHubRepo."""
+
+    DEFAULT = "hacs/default"
+    INTEGRATION = "hacs/integration"
+
+
 class HacsCategory(str, Enum):
     APPDAEMON = "appdaemon"
     INTEGRATION = "integration"

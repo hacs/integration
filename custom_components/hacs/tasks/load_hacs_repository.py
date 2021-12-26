@@ -4,7 +4,7 @@ from __future__ import annotations
 from homeassistant.core import HomeAssistant
 
 from ..base import HacsBase
-from ..enums import HacsDisabledReason, HacsStage
+from ..enums import HacsDisabledReason, HacsGitHubRepo, HacsStage
 from ..exceptions import HacsException
 from ..utils.register_repository import register_repository
 from .base import HacsTask
@@ -23,12 +23,12 @@ class Task(HacsTask):
     async def async_execute(self) -> None:
         """Execute the task."""
         try:
-            repository = self.hacs.repositories.get_by_full_name("hacs/integration")
+            repository = self.hacs.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
             if repository is None:
                 await register_repository(
-                    self.hacs, "hacs/integration", "integration", default=True
+                    self.hacs, HacsGitHubRepo.INTEGRATION, "integration", default=True
                 )
-                repository = self.hacs.repositories.get_by_full_name("hacs/integration")
+                repository = self.hacs.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
             if repository is None:
                 raise HacsException("Unknown error")
             repository.data.installed = True

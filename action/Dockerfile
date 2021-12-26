@@ -5,7 +5,7 @@ WORKDIR /hacs
 RUN git clone --quiet --depth 1 https://github.com/hacs/integration.git /hacs
 RUN git clone --quiet --depth 1 https://github.com/hacs/default.git /default
 
-RUN cd /hacs && make requirements && make homeassistant-install
+RUN python3 -m pip install homeassistant
 
 COPY ./action.py /hacs/action.py
 

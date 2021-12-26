@@ -20,8 +20,6 @@ from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
 import voluptuous as vol
 
-from custom_components.hacs.validate.manager import ValidationManager
-
 from .base import HacsBase
 from .const import DOMAIN, PLATFORMS, STARTUP
 from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
@@ -29,6 +27,7 @@ from .tasks.manager import HacsTaskManager
 from .utils.configuration_schema import hacs_config_combined
 from .utils.data import HacsData
 from .utils.queue_manager import QueueManager
+from .validate.manager import ValidationManager
 
 CONFIG_SCHEMA = vol.Schema({DOMAIN: hacs_config_combined()}, extra=vol.ALLOW_EXTRA)
 

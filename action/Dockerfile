@@ -1,7 +1,8 @@
-FROM ludeeus/container:hacs-action
+FROM ghcr.io/ludeeus/alpine/python:3.9
 
-RUN git clone https://github.com/hacs/default.git /default
+WORKDIR /hacs
 
-COPY action.py /hacs/action.py
+RUN git clone --quiet --depth 1 https://github.com/hacs/integration.git /hacs
+RUN git clone --quiet --depth 1 https://github.com/hacs/default.git /default
 
 ENTRYPOINT ["python3", "/hacs/action.py"]

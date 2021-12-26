@@ -109,7 +109,6 @@ async def preflight():
         error("No category found, use env CATEGORY to set this.")
 
     async with aiohttp.ClientSession() as session:
-
         github = GitHub(TOKEN, session, headers=HACS_ACTION_GITHUB_API_HEADERS)
         repo = await github.get_repo(repository)
         if not pr and repo.description is None:
@@ -136,7 +135,9 @@ async def validate_repository(repository, category, ref=None):
             headers=HACS_ACTION_GITHUB_API_HEADERS,
         )
         try:
-            await hacs.async_register_repository(repository_full_name=repository, category=category, ref=ref)
+            await hacs.async_register_repository(
+                repository_full_name=repository, category=category, ref=ref
+            )
         except HacsException as exception:
             error(exception)
 

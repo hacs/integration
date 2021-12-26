@@ -1,12 +1,13 @@
 """Data handler for HACS."""
 import asyncio
+from datetime import datetime
 import os
 
 from homeassistant.core import callback
 
 from ..base import HacsBase
 from ..enums import HacsGitHubRepo
-from ..repositories.base import HacsManifest
+from ..repositories.base import HacsManifest, HacsRepository
 from .logger import getLogger
 from .store import (
     async_load_from_store,
@@ -69,7 +70,7 @@ class HacsData:
 
         await async_save_to_store(self.hacs.hass, "repositories", self.content)
 
-    async def async_store_repository_data(self, repository):
+    async def async_store_repository_data(self, repository: HacsRepository):
         repository_manifest = repository.repository_manifest.manifest
         data = {
             "authors": repository.data.authors,
@@ -94,6 +95,9 @@ class HacsData:
             "topics": repository.data.topics,
             "version_installed": repository.data.installed_version,
         }
+        if repository.data.last_fetched:
+            data["last_fetched"] = repository.data.last_fetched.timestamp()
+
         self.content[str(repository.data.id)] = data
 
         if (
@@ -217,6 +221,9 @@ class HacsData:
         repository.data.last_commit = repository_data.get("last_commit")
         repository.data.installed_version = repository_data.get("version_installed")
         repository.data.installed_commit = repository_data.get("installed_commit")
+
+        if last_fetched := repository_data.get("last_fetched"):
+            repository.data.last_fetched = datetime.fromtimestamp(last_fetched)
 
         repository.repository_manifest = HacsManifest.from_dict(
             repository_data.get("repository_manifest", {})

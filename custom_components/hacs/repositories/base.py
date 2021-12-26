@@ -17,12 +17,14 @@ from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 import attr
 from homeassistant.helpers.json import JSONEncoder
 
+from ..enums import RepositoryFile
 from ..exceptions import (
     HacsException,
     HacsNotModifiedException,
     HacsRepositoryExistException,
 )
 from ..utils.backup import Backup, BackupNetDaemon
+from ..utils.decode import decode_content
 from ..utils.download import async_download_file, download_content
 from ..utils.information import get_info_md_content
 from ..utils.logger import getLogger
@@ -104,7 +106,10 @@ class RepositoryData:
 
     def to_json(self):
         """Export to json."""
-        return attr.asdict(self, filter=lambda attr, _: attr.name != "_storage_data")
+        return attr.asdict(
+            self,
+            filter=lambda attr, _: attr.name != "_storage_data" and attr.name != "last_fetched",
+        )
 
     def memorize_storage(self, data) -> None:
         """Memorize the storage data."""
@@ -198,6 +203,10 @@ class HacsManifest:
     persistent_directory: str = None
     iot_class: str = None
     render_readme: bool = False
+
+    def to_dict(self):
+        """Export to json."""
+        return attr.asdict(self)
 
     @staticmethod
     def from_dict(manifest: dict):
@@ -452,6 +461,9 @@ class HacsRepository:
                     return False
         return True
 
+    async def update_repository(self, ignore_issues=False, force=False) -> None:
+        """Update the repository"""
+
     async def common_validate(self, ignore_issues=False) -> None:
         """Common validation steps of the repository."""
         await common_validate(self, ignore_issues)
@@ -585,15 +597,25 @@ class HacsRepository:
 
     async def get_repository_manifest_content(self) -> None:
         """Get the content of the hacs.json file."""
-        if not "hacs.json" in [x.filename for x in self.tree]:
+        if not RepositoryFile.HACS_JSON in [x.filename for x in self.tree]:
             return
 
-        self.ref = version_to_download(self)
+        if manifest := await self.async_get_hacs_json():
+            self.repository_manifest = HacsManifest.from_dict(manifest)
+            self.data.update_data(self.repository_manifest.to_dict())
+
+    async def async_get_hacs_json(self, ref: str = None) -> dict[str, Any] | None:
+        """Get the content of the hacs.json file."""
+        ref = ref or version_to_download(self)
 
         try:
-            manifest = await self.repository_object.get_contents("hacs.json", self.ref)
-            self.repository_manifest = HacsManifest.from_dict(json.loads(manifest.content))
-            self.data.update_data(json.loads(manifest.content))
+            response = await self.hacs.async_github_api_method(
+                method=self.hacs.githubapi.repos.contents.get,
+                repository=self.data.full_name,
+                path=RepositoryFile.HACS_JSON,
+                **{"params": {"ref": ref}},
+            )
+            return json.loads(decode_content(response.data.content))
         except BaseException:  # pylint: disable=broad-except
             pass
 

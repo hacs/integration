@@ -559,7 +559,7 @@ class HacsBase:
                 )
         self.repositories.register(repository, default)
 
-    async def startup_tasks(self, _event=None):
+    async def startup_tasks(self, _event=None) -> None:
         """Tasks that are started after startup."""
         await self.async_set_stage(HacsStage.STARTUP)
         self.status.background_task = True
@@ -592,7 +592,7 @@ class HacsBase:
         self.hass.bus.async_fire("hacs/status", {})
         await self.async_set_stage(HacsStage.RUNNING)
 
-    async def handle_critical_repositories_startup(self):
+    async def handle_critical_repositories_startup(self) -> None:
         """Handled critical repositories during startup."""
         alert = False
         critical = await async_load_from_store(self.hass, "critical")
@@ -607,7 +607,7 @@ class HacsBase:
                 title="URGENT!", message="**Check the HACS panel!**"
             )
 
-    async def handle_critical_repositories(self):
+    async def handle_critical_repositories(self) -> None:
         """Handled critical repositories during runtime."""
         # Get critical repositories
         critical_queue = QueueManager()
@@ -670,7 +670,7 @@ class HacsBase:
             self.log.critical("Resarting Home Assistant")
             self.hass.async_create_task(self.hass.async_stop(100))
 
-    async def recurring_tasks_installed(self, _notarealarg=None):
+    async def recurring_tasks_installed(self, _notarealarg=None) -> None:
         """Recurring tasks for installed repositories."""
         self.log.debug("Starting recurring background task for installed repositories")
         self.status.background_task = True
@@ -688,7 +688,7 @@ class HacsBase:
         await self.data.async_write()
         self.log.debug("Recurring background task for installed repositories done")
 
-    async def recurring_tasks_all(self, _notarealarg=None):
+    async def recurring_tasks_all(self, _notarealarg=None) -> None:
         """Recurring tasks for all repositories."""
         self.log.debug("Starting recurring background task for all repositories")
         self.status.background_task = True
@@ -706,7 +706,7 @@ class HacsBase:
         self.hass.bus.async_fire("hacs/repository", {"action": "reload"})
         self.log.debug("Recurring background task for all repositories done")
 
-    async def clear_out_removed_repositories(self):
+    async def clear_out_removed_repositories(self) -> None:
         """Clear out blaclisted repositories."""
         need_to_save = False
         for removed in self.repositories.list_removed:
@@ -725,7 +725,7 @@ class HacsBase:
         if need_to_save:
             await self.data.async_write()
 
-    async def async_load_default_repositories(self):
+    async def async_load_default_repositories(self) -> None:
         """Load known repositories."""
         self.log.info("Loading known repositories")
 
@@ -739,7 +739,7 @@ class HacsBase:
         if queue_task := self.tasks.get("prosess_queue"):
             await queue_task.execute_task()
 
-    async def async_get_category_repositories(self, category: HacsCategory):
+    async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""
         repositories = await self.async_github_get_hacs_default_file(category)
         for repo in repositories:

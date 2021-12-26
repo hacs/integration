@@ -2,6 +2,7 @@
 # pylint: disable=broad-except, no-member
 from __future__ import annotations
 
+from asyncio import sleep
 from datetime import datetime
 import json
 import os
@@ -292,7 +293,7 @@ class RepositoryContent:
 class HacsRepository:
     """HacsRepository."""
 
-    def __init__(self, hacs: HacsBase):
+    def __init__(self, hacs: HacsBase) -> None:
         """Set up HacsRepository."""
         self.hacs = hacs
         self.data = RepositoryData()
@@ -319,7 +320,7 @@ class HacsRepository:
         return f"<{self.data.category.title()} {self.data.full_name}>"
 
     @property
-    def display_name(self):
+    def display_name(self) -> str:
         """Return display name."""
         if self.repository_manifest.name is not None:
             return self.repository_manifest.name
@@ -345,7 +346,7 @@ class HacsRepository:
         return configuration not in manifest
 
     @property
-    def display_status(self):
+    def display_status(self) -> str:
         """Return display_status."""
         if self.data.new:
             status = "new"
@@ -360,7 +361,7 @@ class HacsRepository:
         return status
 
     @property
-    def display_status_description(self):
+    def display_status_description(self) -> str:
         """Return display_status_description."""
         description = {
             "default": "Not installed.",
@@ -372,7 +373,7 @@ class HacsRepository:
         return description[self.display_status]
 
     @property
-    def display_installed_version(self):
+    def display_installed_version(self) -> str:
         """Return display_authors"""
         if self.data.installed_version is not None:
             installed = self.data.installed_version
@@ -384,7 +385,7 @@ class HacsRepository:
         return str(installed)
 
     @property
-    def display_available_version(self):
+    def display_available_version(self) -> str:
         """Return display_authors"""
         if self.data.last_version is not None:
             available = self.data.last_version
@@ -396,7 +397,7 @@ class HacsRepository:
         return str(available)
 
     @property
-    def display_version_or_commit(self):
+    def display_version_or_commit(self) -> str:
         """Does the repositoriy use releases or commits?"""
         if self.data.releases:
             version_or_commit = "version"
@@ -405,7 +406,7 @@ class HacsRepository:
         return version_or_commit
 
     @property
-    def main_action(self):
+    def main_action(self) -> str:
         """Return the main action."""
         actions = {
             "new": "INSTALL",
@@ -450,11 +451,11 @@ class HacsRepository:
                     return False
         return True
 
-    async def common_validate(self, ignore_issues=False):
+    async def common_validate(self, ignore_issues=False) -> None:
         """Common validation steps of the repository."""
         await common_validate(self, ignore_issues)
 
-    async def common_registration(self):
+    async def common_registration(self) -> None:
         """Common registration steps of the repository."""
         # Attach repository
         if self.repository_object is None:
@@ -483,7 +484,7 @@ class HacsRepository:
             if self.data.description is None or len(self.data.description) == 0:
                 raise HacsException("::error:: Missing repository description")
 
-    async def common_update(self, ignore_issues=False, force=False):
+    async def common_update(self, ignore_issues=False, force=False) -> bool:
         """Common information update steps of the repository."""
         self.logger.debug("%s Getting repository information", self)
 
@@ -514,7 +515,7 @@ class HacsRepository:
 
         return True
 
-    async def download_zip_files(self, validate):
+    async def download_zip_files(self, validate) -> Validate:
         """Download ZIP archive from repository release."""
         download_queue = QueueManager()
         try:
@@ -537,7 +538,7 @@ class HacsRepository:
 
         return validate
 
-    async def async_download_zip_file(self, content, validate):
+    async def async_download_zip_file(self, content, validate) -> Validate:
         """Download ZIP archive from repository release."""
         try:
             filecontent = await async_download_file(self.hacs, content.download_url)
@@ -570,13 +571,19 @@ class HacsRepository:
 
         return validate
 
-    async def download_content(self, validate, _directory_path, _local_directory, _ref):
+    async def download_content(
+        self,
+        validate,
+        _directory_path,
+        _local_directory,
+        _ref,
+    ) -> Validate:
         """Download the content of a directory."""
 
         validate = await download_content(self)
         return validate
 
-    async def get_repository_manifest_content(self):
+    async def get_repository_manifest_content(self) -> None:
         """Get the content of the hacs.json file."""
         if not "hacs.json" in [x.filename for x in self.tree]:
             if self.hacs.system.action:
@@ -599,14 +606,14 @@ class HacsRepository:
         if self.hacs.system.action:
             self.logger.info("%s hacs.json is valid", self)
 
-    def remove(self):
+    def remove(self) -> None:
         """Run remove tasks."""
         self.logger.info("%s Starting removal", self)
 
         if self.hacs.repositories.is_registered(repository_id=str(self.data.id)):
             self.hacs.repositories.unregister(self)
 
-    async def uninstall(self):
+    async def uninstall(self) -> None:
         """Run uninstall tasks."""
         self.logger.info("%s Uninstalling", self)
         if not await self.remove_local_directory():
@@ -632,20 +639,20 @@ class HacsRepository:
             {"id": 1337, "action": "uninstall", "repository": self.data.full_name},
         )
 
-    async def remove_local_directory(self):
+    async def remove_local_directory(self) -> None:
         """Check the local directory."""
-        from asyncio import sleep
 
         try:
             if self.data.category == "python_script":
                 local_path = f"{self.content.path.local}/{self.data.name}.py"
             elif self.data.category == "theme":
-                if os.path.exists(
-                    f"{self.hacs.core.config_path}/{self.hacs.configuration.theme_path}/{self.data.name}.yaml"
-                ):
-                    os.remove(
-                        f"{self.hacs.core.config_path}/{self.hacs.configuration.theme_path}/{self.data.name}.yaml"
-                    )
+                path = (
+                    f"{self.hacs.core.config_path}/"
+                    f"{self.hacs.configuration.theme_path}/"
+                    f"{self.data.name}.yaml"
+                )
+                if os.path.exists(path):
+                    os.remove(path)
                 local_path = self.content.path.local
             elif self.data.category == "integration":
                 if not self.data.domain:
@@ -678,7 +685,7 @@ class HacsRepository:
             return False
         return True
 
-    async def async_pre_registration(self):
+    async def async_pre_registration(self) -> None:
         """Run pre registration steps."""
 
     async def async_registration(self, ref=None) -> None:
@@ -702,7 +709,7 @@ class HacsRepository:
         # Run local post registration steps.
         await self.async_post_registration()
 
-    async def async_post_registration(self):
+    async def async_post_registration(self) -> None:
         """Run post registration steps."""
         await self.hacs.validation.async_run_repository_checks(self)
 
@@ -737,7 +744,7 @@ class HacsRepository:
         )
         self.logger.info("Post installation steps completed")
 
-    async def async_install_repository(self):
+    async def async_install_repository(self) -> None:
         """Common installation steps of the repository."""
         persistent_directory = None
         await self.update_repository()

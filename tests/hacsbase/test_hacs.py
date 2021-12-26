@@ -27,7 +27,6 @@ async def test_hacs(hacs, repository, tmpdir):
 
     if queue_task := hacs.tasks.get("prosess_queue"):
         await queue_task.execute_task()
-    await hacs.clear_out_removed_repositories()
 
 
 @pytest.mark.asyncio

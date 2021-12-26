@@ -567,7 +567,6 @@ class HacsBase:
 
         await self.handle_critical_repositories_startup()
         await self.async_load_default_repositories()
-        await self.clear_out_removed_repositories()
 
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
@@ -699,34 +698,15 @@ class HacsBase:
                 self.queue.add(self.async_semaphore_wrapper(repository.common_update))
 
         await self.async_load_default_repositories()
-        await self.clear_out_removed_repositories()
         self.status.background_task = False
         await self.data.async_write()
         self.hass.bus.async_fire("hacs/status", {})
         self.hass.bus.async_fire("hacs/repository", {"action": "reload"})
         self.log.debug("Recurring background task for all repositories done")
 
-    async def clear_out_removed_repositories(self) -> None:
-        """Clear out blaclisted repositories."""
-        need_to_save = False
-        for removed in self.repositories.list_removed:
-            repository = self.repositories.get_by_full_name(removed.repository)
-            if repository is not None:
-                if repository.data.installed and removed.removal_type != "critical":
-                    self.log.warning(
-                        f"You have {repository.data.full_name} installed with HACS "
-                        + "this repository has been removed, please consider removing it. "
-                        + f"Removal reason ({removed.removal_type})"
-                    )
-                else:
-                    need_to_save = True
-                    repository.remove()
-
-        if need_to_save:
-            await self.data.async_write()
-
     async def async_load_default_repositories(self) -> None:
         """Load known repositories."""
+        need_to_save = False
         self.log.info("Loading known repositories")
 
         for item in await self.async_github_get_hacs_default_file(HacsCategory.REMOVED):
@@ -738,6 +718,24 @@ class HacsBase:
 
         if queue_task := self.tasks.get("prosess_queue"):
             await queue_task.execute_task()
+
+        for removed in self.repositories.list_removed:
+            if (repository := self.repositories.get_by_full_name(removed.repository)) is None:
+                continue
+            if repository.data.installed and removed.removal_type != "critical":
+                self.log.warning(
+                    "You have '%s' installed with HACS "
+                    "this repository has been removed from HACS, please consider removing it. "
+                    "Removal reason (%s)",
+                    repository.data.full_name,
+                    removed.reason,
+                )
+            else:
+                need_to_save = True
+                repository.remove()
+
+        if need_to_save:
+            await self.data.async_write()
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""

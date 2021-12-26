@@ -6,7 +6,6 @@ import aiohttp
 import pytest
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.utils.information import get_repository
 
 from tests.common import TOKEN
 from tests.sample_data import (
@@ -17,7 +16,7 @@ from tests.sample_data import (
 
 
 @pytest.mark.asyncio
-async def test_get_repository(aresponses, event_loop):
+async def test_get_repository(aresponses, repository_integration):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -31,13 +30,12 @@ async def test_get_repository(aresponses, event_loop):
         aresponses.Response(body=json.dumps(repository_data), headers=response_rate_limit_header),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository, _ = await get_repository(session, TOKEN, "test/test")
-        assert repository.attributes["full_name"] == "test/test"
+    repository, _ = await repository_integration.async_get_legacy_repository_object()
+    assert repository.attributes["full_name"] == "test/test"
 
 
 @pytest.mark.asyncio
-async def test_get_repository_exception(aresponses, event_loop):
+async def test_get_repository_exception(aresponses, repository_integration):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -54,6 +52,5 @@ async def test_get_repository_exception(aresponses, event_loop):
             status=403,
         ),
     )
-    async with aiohttp.ClientSession(loop=event_loop) as session:
-        with pytest.raises(HacsException):
-            await get_repository(session, TOKEN, "test/test")
+    with pytest.raises(HacsException):
+        await repository_integration.async_get_legacy_repository_object()

@@ -6,7 +6,7 @@ import aiohttp
 import pytest
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.utils.information import get_repository, get_tree
+from custom_components.hacs.utils.information import get_tree
 
 from tests.common import TOKEN
 from tests.sample_data import (
@@ -18,7 +18,7 @@ from tests.sample_data import (
 
 
 @pytest.mark.asyncio
-async def test_get_tree(aresponses, event_loop):
+async def test_get_tree(aresponses, repository_integration):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -44,14 +44,13 @@ async def test_get_tree(aresponses, event_loop):
         aresponses.Response(body=json.dumps(tree_files_base), headers=response_rate_limit_header),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository, _ = await get_repository(session, TOKEN, "test/test")
-        tree = await get_tree(repository, repository.default_branch)
-        assert "hacs.json" in [x.full_path for x in tree]
+    repository, _ = await repository_integration.async_get_legacy_repository_object()
+    tree = await get_tree(repository, repository.default_branch)
+    assert "hacs.json" in [x.full_path for x in tree]
 
 
 @pytest.mark.asyncio
-async def test_get_tree_exception(aresponses, event_loop):
+async def test_get_tree_exception(aresponses, repository_integration):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -80,7 +79,6 @@ async def test_get_tree_exception(aresponses, event_loop):
             status=403,
         ),
     )
-    async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository, _ = await get_repository(session, TOKEN, "test/test")
-        with pytest.raises(HacsException):
-            await get_tree(repository, repository.default_branch)
+    repository, _ = await repository_integration.async_get_legacy_repository_object()
+    with pytest.raises(HacsException):
+        await get_tree(repository, repository.default_branch)

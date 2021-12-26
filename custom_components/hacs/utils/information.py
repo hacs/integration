@@ -42,25 +42,6 @@ async def get_info_md_content(repository):
     return ""
 
 
-async def get_repository(session, token, repository_full_name, etag=None):
-    """Return a repository object or None."""
-    try:
-        github = GitHub(
-            token,
-            session,
-            headers={
-                "User-Agent": f"HACS/0.0.0",
-                "Accept": ACCEPT_HEADERS["preview"],
-            },
-        )
-        repository = await github.get_repo(repository_full_name, etag)
-        return repository, github.client.last_response.etag
-    except AIOGitHubAPINotModifiedException as exception:
-        raise HacsNotModifiedException(exception) from exception
-    except (ValueError, AIOGitHubAPIException, Exception) as exception:
-        raise HacsException(exception) from exception
-
-
 async def get_tree(repository, ref):
     """Return the repository tree."""
     try:

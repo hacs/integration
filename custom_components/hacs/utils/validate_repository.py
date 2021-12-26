@@ -11,7 +11,7 @@ from ..exceptions import (
     HacsRepositoryArchivedException,
     HacsRepositoryExistException,
 )
-from ..utils.information import get_releases, get_repository, get_tree
+from ..utils.information import get_releases, get_tree
 from ..utils.version import version_to_download
 
 if TYPE_CHECKING:
@@ -35,10 +35,7 @@ async def common_update_data(repository: HacsRepository, ignore_issues=False, fo
     hacs = repository.hacs
     releases = []
     try:
-        repository_object, etag = await get_repository(
-            hacs.session,
-            hacs.configuration.token,
-            repository.data.full_name,
+        repository_object, etag = await repository.async_get_legacy_repository_object(
             etag=None if force or repository.data.installed else repository.data.etag_repository,
         )
         repository.repository_object = repository_object

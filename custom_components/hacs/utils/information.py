@@ -32,13 +32,9 @@ async def get_info_md_content(repository):
             return ""
         info = info.content.replace("<svg", "<disabled").replace("</svg", "</disabled")
         return render_template(info, repository)
-    except (
-        ValueError,
-        AIOGitHubAPIException,
-        Exception,  # pylint: disable=broad-except
-    ):
-        if repository.hacs.system.action:
-            raise HacsException("::error:: No info file found")
+    except BaseException:  # pylint: disable=broad-except
+        pass
+
     return ""
 
 
@@ -81,21 +77,11 @@ async def get_integration_manifest(repository):
         repository.data.manifest_name = manifest["name"]
         repository.data.config_flow = manifest.get("config_flow", False)
 
-        if repository.hacs.system.action:
-            if manifest.get("documentation") is None:
-                raise HacsException("::error:: manifest.json is missing documentation")
-            if manifest.get("homeassistant") is not None:
-                raise HacsException(
-                    "::error:: The homeassistant key in manifest.json is no longer valid"
-                )
-            # if manifest.get("issue_tracker") is None:
-            #    raise HacsException("The 'issue_tracker' is missing in manifest.json")
-
         # Set local path
         repository.content.path.local = repository.localpath
 
     except KeyError as exception:
-        raise HacsException(f"Missing expected key {exception} in '{manifest_path}'")
+        raise HacsException(f"Missing expected key {exception} in '{manifest_path}'") from exception
 
 
 def find_file_name(repository):

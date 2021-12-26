@@ -77,6 +77,7 @@ class RepositoryData:
     last_updated: str = 0
     manifest_name: str = None
     new: bool = True
+    last_fetched: datetime = None
     persistent_directory: str = None
     pushed_at: str = ""
     releases: bool = False
@@ -300,7 +301,7 @@ class HacsRepository:
         self.content = RepositoryContent()
         self.content.path = RepositoryPath()
         self.information = RepositoryInformation()
-        self.repository_object = None
+        self.repository_object: AIOGitHubAPIRepository | None = None
         self.status = RepositoryStatus()
         self.state = None
         self.force_branch = False
@@ -480,10 +481,6 @@ class HacsRepository:
         # Set description
         self.data.description = self.data.description
 
-        if self.hacs.system.action:
-            if self.data.description is None or len(self.data.description) == 0:
-                raise HacsException("::error:: Missing repository description")
-
     async def common_update(self, ignore_issues=False, force=False) -> bool:
         """Common information update steps of the repository."""
         self.logger.debug("%s Getting repository information", self)
@@ -512,6 +509,9 @@ class HacsRepository:
 
         # Update "info.md"
         self.information.additional_info = await get_info_md_content(self)
+
+        # Set last fetch attribute
+        self.data.last_fetched = datetime.now()
 
         return True
 
@@ -586,11 +586,7 @@ class HacsRepository:
     async def get_repository_manifest_content(self) -> None:
         """Get the content of the hacs.json file."""
         if not "hacs.json" in [x.filename for x in self.tree]:
-            if self.hacs.system.action:
-                raise HacsException("::error:: No hacs.json file in the root of the repository.")
             return
-        if self.hacs.system.action:
-            self.logger.info("%s Found hacs.json", self)
 
         self.ref = version_to_download(self)
 
@@ -598,13 +594,8 @@ class HacsRepository:
             manifest = await self.repository_object.get_contents("hacs.json", self.ref)
             self.repository_manifest = HacsManifest.from_dict(json.loads(manifest.content))
             self.data.update_data(json.loads(manifest.content))
-        except (AIOGitHubAPIException, Exception) as exception:  # Gotta Catch 'Em All
-            if self.hacs.system.action:
-                raise HacsException(
-                    f"::error:: hacs.json file is not valid ({exception})."
-                ) from None
-        if self.hacs.system.action:
-            self.logger.info("%s hacs.json is valid", self)
+        except BaseException:  # pylint: disable=broad-except
+            pass
 
     def remove(self) -> None:
         """Run remove tasks."""

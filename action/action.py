@@ -11,7 +11,6 @@ from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.utils.logger import getLogger
-from custom_components.hacs.utils.register_repository import register_repository
 
 TOKEN = os.getenv("INPUT_GITHUB_TOKEN")
 GITHUB_WORKSPACE = os.getenv("GITHUB_WORKSPACE")
@@ -137,7 +136,7 @@ async def validate_repository(repository, category, ref=None):
             headers=HACS_ACTION_GITHUB_API_HEADERS,
         )
         try:
-            await register_repository(hacs, repository, category, ref=ref)
+            await hacs.async_register_repository(repository_full_name=repository, category=category, ref=ref)
         except HacsException as exception:
             error(exception)
 

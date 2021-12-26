@@ -14,6 +14,7 @@ import shutil
 from typing import TYPE_CHECKING, Any, Awaitable, Callable
 
 from aiogithubapi import (
+    AIOGitHubAPIException,
     GitHub,
     GitHubAPI,
     GitHubAuthenticationException,
@@ -38,13 +39,15 @@ from .enums import (
 )
 from .exceptions import (
     HacsException,
+    HacsExpectedException,
     HacsNotModifiedException,
     HacsRepositoryArchivedException,
+    HacsRepositoryExistException,
 )
+from .repositories import RERPOSITORY_CLASSES
 from .utils.decode import decode_content
 from .utils.logger import getLogger
 from .utils.queue_manager import QueueManager
-from .utils.register_repository import register_repository
 from .utils.store import async_load_from_store, async_save_to_store
 
 if TYPE_CHECKING:
@@ -56,6 +59,8 @@ if TYPE_CHECKING:
 
 @dataclass
 class RemovedRepository:
+    """Removed repository."""
+
     repository: str | None = None
     reason: str | None = None
     link: str | None = None
@@ -256,7 +261,8 @@ class HacsRepositories:
             return
         if existing_repo_id != "0":
             raise ValueError(
-                f"The repo id for {repository.data.full_name_lower} is already set to {existing_repo_id}"
+                f"The repo id for {repository.data.full_name_lower} "
+                f"is already set to {existing_repo_id}"
             )
         repository.data.id = repo_id
         self.register(repository)
@@ -479,15 +485,79 @@ class HacsBase:
                 pass
             except HacsRepositoryArchivedException as exception:
                 self.log.warning(exception)
-            except BaseException as exception:
+            except BaseException as exception:  # pylint: disable=broad-except
                 self.log.error(exception)
 
             # Due to GitHub secondary ratelimits we need to sleep a bit
             await asyncio.sleep(5)
 
-    async def register_repository(self, full_name, category, check=True):
+    async def async_register_repository(
+        self,
+        repository_full_name: str,
+        category: HacsCategory,
+        *,
+        check: bool = True,
+        ref: str | None = None,
+        repository_id: str | None = None,
+        default: bool = False,
+    ) -> None:
         """Register a repository."""
-        await register_repository(self, full_name, category, check=check)
+        if repository_full_name in self.common.skip:
+            if repository_full_name != HacsGitHubRepo.INTEGRATION:
+                raise HacsExpectedException(f"Skipping {repository_full_name}")
+
+        if category not in RERPOSITORY_CLASSES:
+            raise HacsException(f"{category} is not a valid repository category.")
+
+        if (renamed := self.common.renamed_repositories.get(repository_full_name)) is not None:
+            repository_full_name = renamed
+
+        repository: HacsRepository = RERPOSITORY_CLASSES[category](self, repository_full_name)
+        if check:
+            try:
+                await repository.async_registration(ref)
+                if self.status.new:
+                    repository.data.new = False
+                if repository.validate.errors:
+                    self.common.skip.append(repository.data.full_name)
+                    if not self.status.startup:
+                        self.log.error("Validation for %s failed.", repository_full_name)
+                    if self.system.action:
+                        raise HacsException(
+                            f"::error:: Validation for {repository_full_name} failed."
+                        )
+                    return repository.validate.errors
+                if self.system.action:
+                    repository.logger.info("%s Validation completed", repository)
+                else:
+                    repository.logger.info("%s Registration completed", repository)
+            except HacsRepositoryExistException:
+                return
+            except AIOGitHubAPIException as exception:
+                self.common.skip.append(repository.data.full_name)
+                raise HacsException(
+                    f"Validation for {repository_full_name} failed with {exception}."
+                ) from None
+
+        if repository_id is not None:
+            repository.data.id = repository_id
+
+        if str(repository.data.id) != "0" and (
+            exists := self.repositories.get_by_id(repository.data.id)
+        ):
+            self.repositories.unregister(exists)
+
+        else:
+            if self.hass is not None and ((check and repository.data.new) or self.status.new):
+                self.hass.bus.async_fire(
+                    "hacs/repository",
+                    {
+                        "action": "registration",
+                        "repository": repository.data.full_name,
+                        "repository_id": repository.data.id,
+                    },
+                )
+        self.repositories.register(repository, default)
 
     async def startup_tasks(self, _event=None):
         """Tasks that are started after startup."""
@@ -583,7 +653,7 @@ class HacsBase:
                     was_installed = True
                     stored["acknowledged"] = False
                     # Remove from HACS
-                    critical_queue.add(repository.uninstall())
+                    critical_queue.add(repo.uninstall())
                     repo.remove()
 
             stored_critical.append(stored)
@@ -685,6 +755,9 @@ class HacsBase:
                 continue
             self.queue.add(
                 self.async_semaphore_wrapper(
-                    register_repository, full_name=repo, category=category, default=True
+                    self.async_register_repository,
+                    repository_full_name=repo,
+                    category=category,
+                    default=True,
                 )
             )

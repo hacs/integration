@@ -27,11 +27,12 @@ from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 
-from .const import REPOSITORY_HACS_DEFAULT, SEMAPHORE_DEFAULT, TV
+from .const import SEMAPHORE_DEFAULT, TV
 from .enums import (
     ConfigurationType,
     HacsCategory,
     HacsDisabledReason,
+    HacsGitHubRepo,
     HacsStage,
     LovelaceMode,
 )
@@ -434,7 +435,7 @@ class HacsBase:
         """Get the content of a default file."""
         response = await self.async_github_api_method(
             method=self.githubapi.repos.contents.get,
-            repository=REPOSITORY_HACS_DEFAULT,
+            repository=HacsGitHubRepo.DEFAULT,
             path=filename,
         )
         return json.loads(decode_content(response.data.content))
@@ -606,7 +607,7 @@ class HacsBase:
         self.hass.bus.async_fire("hacs/status", {})
 
         for repository in self.repositories.list_all:
-            if self.status.startup and repository.data.full_name == "hacs/integration":
+            if self.status.startup and repository.data.full_name == HacsGitHubRepo.INTEGRATION:
                 continue
             if repository.data.installed and repository.data.category in self.common.categories:
                 self.queue.add(self.async_semaphore_wrapper(repository.update_repository))

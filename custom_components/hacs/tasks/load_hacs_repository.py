@@ -4,9 +4,8 @@ from __future__ import annotations
 from homeassistant.core import HomeAssistant
 
 from ..base import HacsBase
-from ..enums import HacsDisabledReason, HacsGitHubRepo, HacsStage
+from ..enums import HacsCategory, HacsDisabledReason, HacsGitHubRepo, HacsStage
 from ..exceptions import HacsException
-from ..utils.register_repository import register_repository
 from .base import HacsTask
 
 
@@ -25,8 +24,10 @@ class Task(HacsTask):
         try:
             repository = self.hacs.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
             if repository is None:
-                await register_repository(
-                    self.hacs, HacsGitHubRepo.INTEGRATION, "integration", default=True
+                await self.hacs.async_register_repository(
+                    repository_full_name=HacsGitHubRepo.INTEGRATION,
+                    category=HacsCategory.INTEGRATION,
+                    default=True,
                 )
                 repository = self.hacs.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
             if repository is None:

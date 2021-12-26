@@ -8,7 +8,6 @@ from ..base import HacsBase
 from ..enums import HacsGitHubRepo
 from ..repositories.base import HacsManifest
 from .logger import getLogger
-from .register_repository import register_repository
 from .store import (
     async_load_from_store,
     async_save_to_store,
@@ -180,12 +179,11 @@ class HacsData:
     async def register_unknown_repositories(self, repositories):
         """Registry any unknown repositories."""
         register_tasks = [
-            register_repository(
-                hacs=self.hacs,
-                full_name=repo_data["full_name"],
+            self.hacs.async_register_repository(
+                repository_full_name=repo_data["full_name"],
                 category=repo_data["category"],
                 check=False,
-                repo_id=entry,
+                repository_id=entry,
             )
             for entry, repo_data in repositories.items()
             if entry != "0" and not self.hacs.repositories.is_registered(repository_id=entry)

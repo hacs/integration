@@ -1,9 +1,7 @@
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 import pytest
 
-from custom_components.hacs.validate.integration_manifest import (
-    Validator,
-)
+from custom_components.hacs.validate.integration_manifest import Validator
 
 
 @pytest.mark.asyncio

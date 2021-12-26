@@ -1,9 +1,7 @@
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 import pytest
 
-from custom_components.hacs.validate.repository_information_file import (
-    Validator,
-)
+from custom_components.hacs.validate.repository_information_file import Validator
 
 
 @pytest.mark.asyncio

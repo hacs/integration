@@ -27,7 +27,6 @@ from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 
-
 from .const import REPOSITORY_HACS_DEFAULT, SEMAPHORE_DEFAULT, TV
 from .enums import (
     ConfigurationType,

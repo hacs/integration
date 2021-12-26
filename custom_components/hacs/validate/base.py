@@ -1,8 +1,7 @@
 """Base class for validation."""
 from __future__ import annotations
+
 from time import monotonic
-
-
 from typing import TYPE_CHECKING
 
 from ..exceptions import HacsException

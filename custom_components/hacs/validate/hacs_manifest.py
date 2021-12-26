@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from ..repositories.base import HacsRepository
 from ..enums import RepositoryFile
+from ..repositories.base import HacsRepository
 from .base import ActionValidationBase, ValidationException
 
 

@@ -39,9 +39,9 @@ class Task(HacsTask):
         except HacsException as exception:
             if "403" in f"{exception}":
                 self.task_logger(
-                    self.log.critical,
+                    self.hacs.log.critical,
                     "GitHub API is ratelimited, or the token is wrong.",
                 )
             else:
-                self.task_logger(self.log.critical, f"[{exception}] - Could not load HACS!")
+                self.task_logger(self.hacs.log.critical, f"[{exception}] - Could not load HACS!")
             self.hacs.disable_hacs(HacsDisabledReason.LOAD_HACS)

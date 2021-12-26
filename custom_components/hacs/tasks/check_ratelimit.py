@@ -24,17 +24,17 @@ class Task(HacsTask):
     async def async_execute(self) -> None:
         """Execute the task."""
         if not self.hacs.stage == HacsStage.RUNNING:
-            self.task_logger(self.log.debug, "HACS is not running")
+            self.task_logger(self.hacs.log.debug, "HACS is not running")
             return
         if (
             not self.hacs.system.disabled
             or self.hacs.system.disabled_reason != HacsDisabledReason.RATE_LIMIT
         ):
-            self.task_logger(self.log.debug, "HACS is not ratelimited")
+            self.task_logger(self.hacs.log.debug, "HACS is not ratelimited")
             return
 
-        self.task_logger(self.log.debug, "Checking if ratelimit has lifted")
+        self.task_logger(self.hacs.log.debug, "Checking if ratelimit has lifted")
         can_update = await self.hacs.async_can_update()
-        self.task_logger(self.log.debug, f"Ratelimit indicate we can update {can_update}")
+        self.task_logger(self.hacs.log.debug, f"Ratelimit indicate we can update {can_update}")
         if can_update > 0:
             self.hacs.enable_hacs()

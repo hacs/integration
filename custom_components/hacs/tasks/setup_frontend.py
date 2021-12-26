@@ -34,7 +34,7 @@ class Task(HacsTask):
         # Register frontend
         if self.hacs.configuration.frontend_repo_url:
             self.task_logger(
-                self.log.warning,
+                self.hacs.log.warning,
                 "Frontend development mode enabled. Do not run in production!",
             )
             self.hass.http.register_view(HacsFrontendDev())
@@ -55,7 +55,7 @@ class Task(HacsTask):
         # Register www/community for all other files
         use_cache = self.hacs.core.lovelace_mode == "storage"
         self.task_logger(
-            self.log.info,
+            self.hacs.log.info,
             f"{self.hacs.core.lovelace_mode} mode, cache for /hacsfiles/: {use_cache}",
         )
 

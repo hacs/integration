@@ -25,5 +25,5 @@ class Task(HacsTask):
         for storage_file in ("hacs",):
             path = f"{self.hacs.core.config_path}/.storage/{storage_file}"
             if os.path.isfile(path):
-                self.task_logger(self.log.info, f"Cleaning up old storage file: {path}")
+                self.task_logger(self.hacs.log.info, f"Cleaning up old storage file: {path}")
                 os.remove(path)

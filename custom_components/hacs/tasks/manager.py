@@ -8,11 +8,10 @@ from pathlib import Path
 from homeassistant.core import HomeAssistant
 
 from ..base import HacsBase
-from ..mixin import LogMixin
 from .base import HacsTask
 
 
-class HacsTaskManager(LogMixin):
+class HacsTaskManager:
     """Hacs task manager."""
 
     def __init__(self, hacs: HacsBase, hass: HomeAssistant) -> None:
@@ -41,7 +40,7 @@ class HacsTaskManager(LogMixin):
                 self.__tasks[task.slug] = task
 
         await asyncio.gather(*[_load_module(task) for task in task_modules])
-        self.log.info("Loaded %s tasks", len(self.tasks))
+        self.hacs.log.info("Loaded %s tasks", len(self.tasks))
 
         schedule_tasks = len(self.hacs.recuring_tasks) == 0
 
@@ -51,7 +50,9 @@ class HacsTaskManager(LogMixin):
                     self.hass.bus.async_listen_once(event, task.execute_task)
 
             if task.schedule is not None and schedule_tasks:
-                self.log.debug("Scheduling HacsTask<%s> to run every %s", task.slug, task.schedule)
+                self.hacs.log.debug(
+                    "Scheduling HacsTask<%s> to run every %s", task.slug, task.schedule
+                )
                 self.hacs.recuring_tasks.append(
                     self.hacs.hass.helpers.event.async_track_time_interval(
                         task.execute_task, task.schedule

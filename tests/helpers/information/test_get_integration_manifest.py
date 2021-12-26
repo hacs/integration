@@ -8,10 +8,7 @@ import aiohttp
 import pytest
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.utils.information import (
-    get_integration_manifest,
-    get_repository,
-)
+from custom_components.hacs.utils.information import get_integration_manifest
 
 from tests.common import TOKEN
 from tests.sample_data import (
@@ -22,7 +19,7 @@ from tests.sample_data import (
 
 
 @pytest.mark.asyncio
-async def test_get_integration_manifest(repository_integration, aresponses, event_loop):
+async def test_get_integration_manifest(repository_integration, aresponses):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -52,20 +49,20 @@ async def test_get_integration_manifest(repository_integration, aresponses, even
         ),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository_integration.repository_object, _ = await get_repository(
-            session, TOKEN, "test/test", None
+    (
+        repository_integration.repository_object,
+        _,
+    ) = await repository_integration.async_get_legacy_repository_object(etag=None)
+    repository_integration.content.path.remote = "custom_components/test"
+    repository_integration.tree = [
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "custom_components/test/manifest.json", "type": "blob"},
+            "test/test",
+            "main",
         )
-        repository_integration.content.path.remote = "custom_components/test"
-        repository_integration.tree = [
-            AIOGitHubAPIRepositoryTreeContent(
-                {"path": "custom_components/test/manifest.json", "type": "blob"},
-                "test/test",
-                "main",
-            )
-        ]
-        await get_integration_manifest(repository_integration)
-        assert repository_integration.data.domain == integration_manifest["domain"]
+    ]
+    await get_integration_manifest(repository_integration)
+    assert repository_integration.data.domain == integration_manifest["domain"]
 
 
 @pytest.mark.asyncio
@@ -83,19 +80,17 @@ async def test_get_integration_manifest_no_file(repository_integration, arespons
         aresponses.Response(body=json.dumps(repository_data), headers=response_rate_limit_header),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository_integration.repository_object, _ = await get_repository(
-            session, TOKEN, "test/test", None
-        )
-        repository_integration.content.path.remote = "custom_components/test"
-        with pytest.raises(HacsException):
-            await get_integration_manifest(repository_integration)
+    (
+        repository_integration.repository_object,
+        _,
+    ) = await repository_integration.async_get_legacy_repository_object()
+    repository_integration.content.path.remote = "custom_components/test"
+    with pytest.raises(HacsException):
+        await get_integration_manifest(repository_integration)
 
 
 @pytest.mark.asyncio
-async def test_get_integration_manifest_format_issue(
-    repository_integration, aresponses, event_loop
-):
+async def test_get_integration_manifest_format_issue(repository_integration, aresponses):
     aresponses.add(
         "api.github.com",
         "/rate_limit",
@@ -124,20 +119,20 @@ async def test_get_integration_manifest_format_issue(
         ),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository_integration.repository_object, _ = await get_repository(
-            session, TOKEN, "test/test"
+    (
+        repository_integration.repository_object,
+        _,
+    ) = await repository_integration.async_get_legacy_repository_object()
+    repository_integration.content.path.remote = "custom_components/test"
+    repository_integration.tree = [
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "custom_components/test/manifest.json", "type": "blob"},
+            "test/test",
+            "main",
         )
-        repository_integration.content.path.remote = "custom_components/test"
-        repository_integration.tree = [
-            AIOGitHubAPIRepositoryTreeContent(
-                {"path": "custom_components/test/manifest.json", "type": "blob"},
-                "test/test",
-                "main",
-            )
-        ]
-        with pytest.raises(HacsException):
-            await get_integration_manifest(repository_integration)
+    ]
+    with pytest.raises(HacsException):
+        await get_integration_manifest(repository_integration)
 
 
 @pytest.mark.asyncio
@@ -174,17 +169,17 @@ async def test_get_integration_manifest_missing_required_key(
         ),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as session:
-        repository_integration.repository_object, _ = await get_repository(
-            session, TOKEN, "test/test"
+    (
+        repository_integration.repository_object,
+        _,
+    ) = await repository_integration.async_get_legacy_repository_object()
+    repository_integration.content.path.remote = "custom_components/test"
+    repository_integration.tree = [
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "custom_components/test/manifest.json", "type": "blob"},
+            "test/test",
+            "main",
         )
-        repository_integration.content.path.remote = "custom_components/test"
-        repository_integration.tree = [
-            AIOGitHubAPIRepositoryTreeContent(
-                {"path": "custom_components/test/manifest.json", "type": "blob"},
-                "test/test",
-                "main",
-            )
-        ]
-        with pytest.raises(HacsException):
-            await get_integration_manifest(repository_integration)
+    ]
+    with pytest.raises(HacsException):
+        await get_integration_manifest(repository_integration)

@@ -7,10 +7,12 @@ import json
 import os
 import shutil
 import tempfile
-from typing import TYPE_CHECKING, List, Optional
+from typing import TYPE_CHECKING, Any, List, Optional
 import zipfile
 
-from aiogithubapi import AIOGitHubAPIException
+from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPINotModifiedException, GitHub
+from aiogithubapi.const import ACCEPT_HEADERS
+from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 import attr
 from homeassistant.helpers.json import JSONEncoder
 
@@ -21,7 +23,7 @@ from ..exceptions import (
 )
 from ..utils.backup import Backup, BackupNetDaemon
 from ..utils.download import async_download_file, download_content
-from ..utils.information import get_info_md_content, get_repository
+from ..utils.information import get_info_md_content
 from ..utils.logger import getLogger
 from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
@@ -457,11 +459,8 @@ class HacsRepository:
         # Attach repository
         if self.repository_object is None:
             try:
-                self.repository_object, etag = await get_repository(
-                    self.hacs.session,
-                    self.hacs.configuration.token,
-                    self.data.full_name,
-                    None if self.data.installed else self.data.etag_repository,
+                self.repository_object, etag = await self.async_get_legacy_repository_object(
+                    etag=None if self.data.installed else self.data.etag_repository,
                 )
                 self.data.update_data(self.repository_object.attributes)
                 self.data.etag_repository = etag
@@ -798,3 +797,24 @@ class HacsRepository:
                 self.data.installed_version = None
             else:
                 self.data.installed_version = version
+
+    async def async_get_legacy_repository_object(
+        self,
+        etag: str | None = None,
+    ) -> tuple[AIOGitHubAPIRepository, Any | None]:
+        """Return a repository object."""
+        try:
+            github = GitHub(
+                self.hacs.configuration.token,
+                self.hacs.session,
+                headers={
+                    "User-Agent": f"HACS/{self.hacs.version}",
+                    "Accept": ACCEPT_HEADERS["preview"],
+                },
+            )
+            repository = await github.get_repo(self.data.full_name, etag)
+            return repository, github.client.last_response.etag
+        except AIOGitHubAPINotModifiedException as exception:
+            raise HacsNotModifiedException(exception) from exception
+        except (ValueError, AIOGitHubAPIException, Exception) as exception:
+            raise HacsException(exception) from exception

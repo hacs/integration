@@ -1,19 +1,10 @@
 """Helpers to download repository content."""
 from __future__ import annotations
 
-import os
 import pathlib
-import tempfile
-from typing import TYPE_CHECKING
-import zipfile
 
-from ..exceptions import HacsException
 from ..utils import filters
 from ..utils.decorator import concurrent
-from ..utils.queue_manager import QueueManager
-
-if TYPE_CHECKING:
-    from ..base import HacsBase
 
 
 class FileInformation:
@@ -95,75 +86,6 @@ def gather_files_to_download(repository):
         if path.full_path.startswith(repository.content.path.remote):
             files.append(FileInformation(path.download_url, path.full_path, path.filename))
     return files
-
-
-async def download_zip_files(repository, validate):
-    """Download ZIP archive from repository release."""
-    contents = []
-    queue = QueueManager()
-    try:
-        for release in repository.releases.objects:
-            repository.logger.info(f"ref: {repository.ref}  ---  tag: {release.tag_name}")
-            if release.tag_name == repository.ref.split("/")[1]:
-                contents = release.assets
-
-        if not contents:
-            return validate
-
-        for content in contents or []:
-            queue.add(async_download_zip_file(repository, content, validate))
-
-        await queue.execute()
-    except BaseException as exception:  # pylint: disable=broad-except
-        validate.errors.append(f"Download was not completed [{exception}]")
-
-    return validate
-
-
-async def async_download_zip_file(repository, content, validate):
-    """Download ZIP archive from repository release."""
-    try:
-        filecontent = await repository.hacs.async_download_file(content.download_url)
-
-        if filecontent is None:
-            validate.errors.append(f"[{content.name}] was not downloaded.")
-            return
-
-        result = await repository.hacs.async_save_file(
-            f"{tempfile.gettempdir()}/{repository.data.filename}", filecontent
-        )
-        with zipfile.ZipFile(
-            f"{tempfile.gettempdir()}/{repository.data.filename}", "r"
-        ) as zip_file:
-            zip_file.extractall(repository.content.path.local)
-
-        os.remove(f"{tempfile.gettempdir()}/{repository.data.filename}")
-
-        if result:
-            repository.logger.info(f"Download of {content.name} completed")
-            return
-        validate.errors.append(f"[{content.name}] was not downloaded.")
-    except BaseException as exception:  # pylint: disable=broad-except
-        validate.errors.append(f"Download was not completed [{exception}]")
-
-    return validate
-
-
-async def download_content(repository):
-    """Download the content of a directory."""
-    queue = QueueManager()
-    contents = gather_files_to_download(repository)
-    repository.logger.debug(repository.data.filename)
-    if not contents:
-        raise HacsException("No content to download")
-
-    for content in contents:
-        if repository.data.content_in_root and repository.data.filename:
-            if content.name != repository.data.filename:
-                continue
-        queue.add(dowload_repository_content(repository, content))
-    await queue.execute()
-    return repository.validate
 
 
 @concurrent(10)

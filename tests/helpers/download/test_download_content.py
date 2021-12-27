@@ -5,8 +5,6 @@ import os
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 import pytest
 
-from custom_components.hacs.utils.download import download_content
-
 from tests.sample_data import response_rate_limit_header
 
 
@@ -27,7 +25,7 @@ async def test_download_content(repository, aresponses, tmp_path):
         )
     ]
 
-    await download_content(repository)
+    await repository.download_content()
     assert os.path.exists(f"{repository.content.path.local}/test/path/file.file")
 
 
@@ -74,6 +72,6 @@ async def test_download_content_integration(repository_integration, aresponses, 
                 "main",
             )
         )
-    await download_content(repository_integration)
+    await repository_integration.download_content()
     for path in repository_integration.tree:
         assert os.path.exists(f"{hacs.core.config_path}/{path.full_path}")

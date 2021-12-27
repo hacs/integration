@@ -24,7 +24,7 @@ from ..exceptions import (
 )
 from ..utils.backup import Backup, BackupNetDaemon
 from ..utils.decode import decode_content
-from ..utils.download import download_content
+from ..utils.download import dowload_repository_content, gather_files_to_download
 from ..utils.logger import getLogger
 from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
@@ -547,19 +547,23 @@ class HacsRepository:
 
         return True
 
-    async def download_zip_files(self, validate) -> Validate:
+    async def download_zip_files(self, validate) -> None:
         """Download ZIP archive from repository release."""
-        download_queue = QueueManager()
         try:
-            contents = False
+            contents = None
+            target_ref = self.ref.split("/")[1]
 
             for release in self.releases.objects:
-                self.logger.info("%s ref: %s ---  tag: %s.", self, self.ref, release.tag_name)
-                if release.tag_name == self.ref.split("/")[1]:
+                self.logger.debug("%s ref: %s --- tag: %s", self, target_ref, release.tag_name)
+                if release.tag_name == target_ref:
                     contents = release.assets
+                    break
 
             if not contents:
-                return validate
+                validate.errors.append(f"No assets found for release '{self.ref}'")
+                return
+
+            download_queue = QueueManager()
 
             for content in contents or []:
                 download_queue.add(self.async_download_zip_file(content, validate))
@@ -568,9 +572,7 @@ class HacsRepository:
         except BaseException:  # pylint: disable=broad-except
             validate.errors.append("Download was not completed")
 
-        return validate
-
-    async def async_download_zip_file(self, content, validate) -> Validate:
+    async def async_download_zip_file(self, content, validate) -> None:
         """Download ZIP archive from repository release."""
         try:
             filecontent = await self.hacs.async_download_file(content.download_url)
@@ -601,19 +603,21 @@ class HacsRepository:
         except BaseException:  # pylint: disable=broad-except
             validate.errors.append("Download was not completed")
 
-        return validate
-
-    async def download_content(
-        self,
-        validate,
-        _directory_path,
-        _local_directory,
-        _ref,
-    ) -> Validate:
+    async def download_content(self) -> None:
         """Download the content of a directory."""
+        contents = gather_files_to_download(self)
+        self.logger.debug(self.data.filename)
+        if not contents:
+            raise HacsException("No content to download")
 
-        validate = await download_content(self)
-        return validate
+        download_queue = QueueManager()
+
+        for content in contents:
+            if self.data.content_in_root and self.data.filename:
+                if content.name != self.data.filename:
+                    continue
+            download_queue.add(dowload_repository_content(self, content))
+        await download_queue.execute()
 
     async def async_get_hacs_json(self, ref: str = None) -> dict[str, Any] | None:
         """Get the content of the hacs.json file."""
@@ -843,7 +847,7 @@ class HacsRepository:
         if self.data.zip_release and version != self.data.default_branch:
             await self.download_zip_files(self.validate)
         else:
-            await download_content(self)
+            await self.download_content()
 
         if self.validate.errors:
             for error in self.validate.errors:

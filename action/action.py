@@ -1,6 +1,7 @@
 """Validate a GitHub repository to be used with HACS."""
 import asyncio
 import json
+import logging
 import os
 
 import aiohttp
@@ -34,6 +35,11 @@ CATEGORIES = [
     "theme",
 ]
 
+
+logging.basicConfig(
+    format="::%(levelname)s:: %(message)s",
+    level=logging.DEBUG,
+)
 logger = get_hacs_logger()
 
 

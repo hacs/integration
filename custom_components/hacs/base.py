@@ -23,7 +23,7 @@ from aiogithubapi import (
     GitHubRatelimitException,
 )
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
-from aiohttp.client import ClientSession
+from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
@@ -759,3 +759,34 @@ class HacsBase:
                     default=True,
                 )
             )
+
+    async def async_download_file(self, url: str) -> bytes | None:
+        """Download files, and return the content."""
+        if url is None:
+            return None
+
+        tries_left = 5
+
+        if "tags/" in url:
+            url = url.replace("tags/", "")
+
+        self.log.debug("Downloading %s", url)
+
+        while tries_left > 0:
+            try:
+                request = await self.session.get(url=url, timeout=ClientTimeout(total=60))
+
+                # Make sure that we got a valid result
+                if request.status == 200:
+                    return await request.read()
+
+                raise HacsException(
+                    f"Got status code {request.status} when trying to download {url}"
+                )
+            except Exception as exception:  # pylint: disable=broad-except
+                self.log.debug("Download failed - %s", exception)
+                tries_left -= 1
+                await asyncio.sleep(1)
+                continue
+
+        return None

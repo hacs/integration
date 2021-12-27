@@ -25,11 +25,11 @@ from ..exceptions import (
 from ..utils.backup import Backup, BackupNetDaemon
 from ..utils.decode import decode_content
 from ..utils.download import download_content
-from ..utils.information import get_info_md_content
 from ..utils.logger import getLogger
 from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
 from ..utils.store import async_remove_store
+from ..utils.template import render_template
 from ..utils.validate import Validate
 from ..utils.validate_repository import common_update_data
 from ..utils.version import (
@@ -540,7 +540,7 @@ class HacsRepository:
                 self.data.update_data(self.repository_manifest.to_dict())
 
         # Update "info.md"
-        self.information.additional_info = await get_info_md_content(self)
+        self.information.additional_info = await self.async_get_info_file_contents()
 
         # Set last fetch attribute
         self.data.last_fetched = datetime.now()
@@ -629,6 +629,44 @@ class HacsRepository:
             return json.loads(decode_content(response.data.content))
         except BaseException:  # pylint: disable=broad-except
             pass
+
+    async def async_get_info_file_contents(self) -> str:
+        """Get the content of the info.md file."""
+
+        def _info_file_variants() -> tuple[str, ...]:
+            name: str = "readme" if self.data.render_readme else "info"
+            return (
+                f"{name.upper()}.md",
+                f"{name}.md",
+                f"{name}.MD",
+                f"{name.upper()}.MD",
+                name.upper(),
+                name,
+            )
+
+        info_files = [filename for filename in _info_file_variants() if filename in self.treefiles]
+
+        if not info_files:
+            return ""
+
+        try:
+            response = await self.hacs.async_github_api_method(
+                method=self.hacs.githubapi.repos.contents.get,
+                repository=self.data.full_name,
+                path=info_files[0],
+            )
+
+            return render_template(
+                decode_content(response.data.content)
+                .replace("<svg", "<disabled")
+                .replace("</svg", "</disabled"),
+                self,
+            )
+        except BaseException as exc:  # pylint: disable=broad-except
+            self.logger.error(exc)
+            pass
+
+        return ""
 
     def remove(self) -> None:
         """Run remove tasks."""

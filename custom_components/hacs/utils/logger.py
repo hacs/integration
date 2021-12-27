@@ -1,5 +1,4 @@
 """Custom logger for HACS."""
-# pylint: disable=invalid-name
 import logging
 import os
 
@@ -14,6 +13,6 @@ if "GITHUB_ACTION" in os.environ:
     )
 
 
-def getLogger(_name: str = None) -> logging.Logger:
+def get_hacs_logger() -> logging.Logger:
     """Return a Logger instance."""
     return _HACSLogger

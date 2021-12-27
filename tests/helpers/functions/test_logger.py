@@ -1,9 +1,9 @@
 import os
 
-from custom_components.hacs.utils.logger import getLogger
+from custom_components.hacs.utils.logger import get_hacs_logger
 
 
 def test_logger():
     os.environ["GITHUB_ACTION"] = "value"
-    getLogger()
+    get_hacs_logger()
     del os.environ["GITHUB_ACTION"]

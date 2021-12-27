@@ -25,7 +25,7 @@ from ..exceptions import (
 from ..utils.backup import Backup, BackupNetDaemon
 from ..utils.decode import decode_content
 from ..utils.download import dowload_repository_content, gather_files_to_download
-from ..utils.logger import getLogger
+from ..utils.logger import get_hacs_logger
 from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
 from ..utils.store import async_remove_store
@@ -322,7 +322,7 @@ class HacsRepository:
         self.tree = []
         self.treefiles = []
         self.ref = None
-        self.logger = getLogger()
+        self.logger = get_hacs_logger()
 
     def __str__(self) -> str:
         """Return a string representation of the repository."""

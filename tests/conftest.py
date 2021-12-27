@@ -33,6 +33,7 @@ from custom_components.hacs.repositories import (
 )
 from custom_components.hacs.repositories.base import HacsRepository
 from custom_components.hacs.tasks.manager import HacsTaskManager
+from custom_components.hacs.utils.logger import get_hacs_logger
 from custom_components.hacs.utils.queue_manager import QueueManager
 from custom_components.hacs.utils.version import version_to_download
 from custom_components.hacs.validate.manager import ValidationManager

@@ -8,7 +8,6 @@ if TYPE_CHECKING:
 
 from ..enums import HacsCategory
 from ..exceptions import HacsException
-from ..utils.information import find_file_name
 from .base import HacsRepository
 
 
@@ -61,7 +60,7 @@ class HacsPythonScriptRepository(HacsRepository):
     async def async_post_registration(self):
         """Registration."""
         # Set name
-        find_file_name(self)
+        self.update_filenames()
 
     async def update_repository(self, ignore_issues=False, force=False):
         """Update."""
@@ -83,4 +82,12 @@ class HacsPythonScriptRepository(HacsRepository):
             )
 
         # Update name
-        find_file_name(self)
+        self.update_filenames()
+
+    def update_filenames(self) -> None:
+        """Get the filename to target."""
+        for treefile in self.tree:
+            if treefile.full_path.startswith(
+                self.content.path.remote
+            ) and treefile.full_path.endswith(".py"):
+                self.data.file_name = treefile.filename

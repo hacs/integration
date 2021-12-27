@@ -24,7 +24,7 @@ from ..exceptions import (
 )
 from ..utils.backup import Backup, BackupNetDaemon
 from ..utils.decode import decode_content
-from ..utils.download import async_download_file, download_content
+from ..utils.download import download_content
 from ..utils.information import get_info_md_content
 from ..utils.logger import getLogger
 from ..utils.path import is_safe
@@ -573,7 +573,7 @@ class HacsRepository:
     async def async_download_zip_file(self, content, validate) -> Validate:
         """Download ZIP archive from repository release."""
         try:
-            filecontent = await async_download_file(self.hacs, content.download_url)
+            filecontent = await self.hacs.async_download_file(content.download_url)
 
             if filecontent is None:
                 validate.errors.append(f"[{content.name}] was not downloaded")

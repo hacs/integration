@@ -1,22 +1,16 @@
 """Helpers to download repository content."""
 from __future__ import annotations
 
-import asyncio
 import os
 import pathlib
 import tempfile
 from typing import TYPE_CHECKING
 import zipfile
 
-import async_timeout
-
 from ..exceptions import HacsException
 from ..utils import filters
 from ..utils.decorator import concurrent
-from ..utils.logger import getLogger
 from ..utils.queue_manager import QueueManager
-
-_LOGGER = getLogger()
 
 if TYPE_CHECKING:
     from ..base import HacsBase
@@ -27,39 +21,6 @@ class FileInformation:
         self.download_url = url
         self.path = path
         self.name = name
-
-
-async def async_download_file(hacs: HacsBase, url: str) -> bytes | None:
-    """Download files, and return the content."""
-    if url is None:
-        return None
-
-    tries_left = 5
-
-    if "tags/" in url:
-        url = url.replace("tags/", "")
-
-    _LOGGER.debug("Downloading %s", url)
-
-    while tries_left > 0:
-        try:
-            with async_timeout.timeout(60):
-                request = await hacs.session.get(url)
-
-                # Make sure that we got a valid result
-                if request.status == 200:
-                    return await request.read()
-
-                raise HacsException(
-                    f"Got status code {request.status} when trying to download {url}"
-                )
-        except Exception as exception:
-            _LOGGER.debug("Download failed - %s", exception)
-            tries_left -= 1
-            await asyncio.sleep(1)
-            continue
-
-    return None
 
 
 def should_try_releases(repository):
@@ -162,7 +123,7 @@ async def download_zip_files(repository, validate):
 async def async_download_zip_file(repository, content, validate):
     """Download ZIP archive from repository release."""
     try:
-        filecontent = await async_download_file(repository.hacs, content.download_url)
+        filecontent = await repository.hacs.async_download_file(content.download_url)
 
         if filecontent is None:
             validate.errors.append(f"[{content.name}] was not downloaded.")
@@ -211,7 +172,7 @@ async def dowload_repository_content(repository, content):
     try:
         repository.logger.debug(f"Downloading {content.name}")
 
-        filecontent = await async_download_file(repository.hacs, content.download_url)
+        filecontent = await repository.hacs.async_download_file(content.download_url)
 
         if filecontent is None:
             repository.validate.errors.append(f"[{content.name}] was not downloaded.")

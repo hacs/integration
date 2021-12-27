@@ -1,5 +1,4 @@
 """Repository."""
-# pylint: disable=broad-except, no-member
 from __future__ import annotations
 
 from asyncio import sleep
@@ -32,7 +31,7 @@ from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
 from ..utils.store import async_remove_store
 from ..utils.validate import Validate
-from ..utils.validate_repository import common_update_data, common_validate
+from ..utils.validate_repository import common_update_data
 from ..utils.version import (
     version_left_higher_or_equal_then_right,
     version_left_higher_then_right,
@@ -461,12 +460,30 @@ class HacsRepository:
                     return False
         return True
 
+    @property
+    def localpath(self) -> str | None:
+        """Return localpath."""
+        return None
+
+    async def validate_repository(self) -> None:
+        """Validate."""
+
     async def update_repository(self, ignore_issues=False, force=False) -> None:
         """Update the repository"""
 
-    async def common_validate(self, ignore_issues=False) -> None:
+    async def common_validate(self, ignore_issues: bool = False) -> None:
         """Common validation steps of the repository."""
-        await common_validate(self, ignore_issues)
+        self.validate.errors.clear()
+
+        # Make sure the repository exist.
+        self.logger.debug("%s Checking repository.", self)
+        await common_update_data(repository=self, ignore_issues=ignore_issues)
+
+        # Get the content of hacs.json
+        if RepositoryFile.HACS_JSON in [x.filename for x in self.tree]:
+            if manifest := await self.async_get_hacs_json():
+                self.repository_manifest = HacsManifest.from_dict(manifest)
+                self.data.update_data(self.repository_manifest.to_dict())
 
     async def common_registration(self) -> None:
         """Common registration steps of the repository."""
@@ -500,10 +517,10 @@ class HacsRepository:
         # Attach repository
         current_etag = self.data.etag_repository
         try:
-            await common_update_data(self, ignore_issues, force)
+            await common_update_data(repository=self, ignore_issues=ignore_issues, force=force)
         except HacsRepositoryExistException:
             self.data.full_name = self.hacs.common.renamed_repositories[self.data.full_name]
-            await common_update_data(self, ignore_issues, force)
+            await common_update_data(repository=self, ignore_issues=ignore_issues, force=force)
 
         if not self.data.installed and (current_etag == self.data.etag_repository) and not force:
             self.logger.debug("Did not update %s, content was not modified", self.data.full_name)
@@ -517,7 +534,10 @@ class HacsRepository:
         self.data.last_commit = self.repository_object.last_commit
 
         # Get the content of hacs.json
-        await self.get_repository_manifest_content()
+        if RepositoryFile.HACS_JSON in [x.filename for x in self.tree]:
+            if manifest := await self.async_get_hacs_json():
+                self.repository_manifest = HacsManifest.from_dict(manifest)
+                self.data.update_data(self.repository_manifest.to_dict())
 
         # Update "info.md"
         self.information.additional_info = await get_info_md_content(self)
@@ -545,7 +565,7 @@ class HacsRepository:
                 download_queue.add(self.async_download_zip_file(content, validate))
 
             await download_queue.execute()
-        except (Exception, BaseException):
+        except BaseException:  # pylint: disable=broad-except
             validate.errors.append("Download was not completed")
 
         return validate
@@ -578,7 +598,7 @@ class HacsRepository:
                 return
 
             validate.errors.append(f"[{content.name}] was not downloaded")
-        except (Exception, BaseException):
+        except BaseException:  # pylint: disable=broad-except
             validate.errors.append("Download was not completed")
 
         return validate
@@ -594,15 +614,6 @@ class HacsRepository:
 
         validate = await download_content(self)
         return validate
-
-    async def get_repository_manifest_content(self) -> None:
-        """Get the content of the hacs.json file."""
-        if not RepositoryFile.HACS_JSON in [x.filename for x in self.tree]:
-            return
-
-        if manifest := await self.async_get_hacs_json():
-            self.repository_manifest = HacsManifest.from_dict(manifest)
-            self.data.update_data(self.repository_manifest.to_dict())
 
     async def async_get_hacs_json(self, ref: str = None) -> dict[str, Any] | None:
         """Get the content of the hacs.json file."""
@@ -693,7 +704,7 @@ class HacsRepository:
                     "%s Presumed local content path %s does not exist", self, local_path
                 )
 
-        except BaseException as exception:
+        except BaseException as exception:  # pylint: disable=broad-except
             self.logger.debug("%s Removing %s failed with %s", self, local_path, exception)
             return False
         return True

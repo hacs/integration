@@ -18,19 +18,11 @@ if TYPE_CHECKING:
     from ..repositories.base import HacsRepository
 
 
-async def common_validate(repository, ignore_issues=False):
-    """Common validation steps of the repository."""
-    repository.validate.errors.clear()
-
-    # Make sure the repository exist.
-    repository.logger.debug("%s Checking repository.", repository)
-    await common_update_data(repository, ignore_issues)
-
-    # Step 6: Get the content of hacs.json
-    await repository.get_repository_manifest_content()
-
-
-async def common_update_data(repository: HacsRepository, ignore_issues=False, force=False):
+async def common_update_data(
+    repository: HacsRepository,
+    ignore_issues: bool = False,
+    force: bool = False,
+) -> None:
     """Common update data."""
     hacs = repository.hacs
     releases = []
@@ -56,6 +48,9 @@ async def common_update_data(repository: HacsRepository, ignore_issues=False, fo
         if not ignore_issues:
             repository.validate.errors.append("Repository does not exist.")
             raise HacsException(exception) from None
+
+    repository.logger.error(repository.data.archived)
+    repository.logger.error(ignore_issues)
 
     # Make sure the repository is not archived.
     if repository.data.archived and not ignore_issues:

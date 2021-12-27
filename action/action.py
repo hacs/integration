@@ -3,8 +3,8 @@ import asyncio
 import json
 import os
 
-from aiogithubapi import GitHub, GitHubAPI
 import aiohttp
+from aiogithubapi import GitHub, GitHubAPI
 from homeassistant.core import HomeAssistant
 
 from custom_components.hacs.base import HacsBase
@@ -75,7 +75,6 @@ def chose_category():
 
 async def preflight():
     """Preflight checks."""
-    logger.warning("This action is deprecated. Use https://github.com/hacs/action instead")
     event_data = get_event_data()
     ref = None
     if REPOSITORY and CATEGORY:
@@ -112,10 +111,6 @@ async def preflight():
     async with aiohttp.ClientSession() as session:
         github = GitHub(TOKEN, session, headers=HACS_ACTION_GITHUB_API_HEADERS)
         repo = await github.get_repo(repository)
-        if not pr and repo.description is None:
-            error("Repository is missing description")
-        if not pr and not repo.attributes["has_issues"]:
-            error("Repository does not have issues enabled")
         if ref is None and GITHUB_REPOSITORY != "hacs/default":
             ref = repo.default_branch
 
@@ -131,7 +126,6 @@ async def validate_repository(repository, category, ref=None):
         hacs.configuration.token = TOKEN
         hacs.core.config_path = None
         hacs.validation = ValidationManager(hacs=hacs, hass=hacs.hass)
-
         ## Legacy GitHub client
         hacs.github = GitHub(
             hacs.configuration.token,

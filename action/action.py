@@ -4,8 +4,8 @@ import json
 import logging
 import os
 
-import aiohttp
 from aiogithubapi import GitHub, GitHubAPI
+import aiohttp
 from homeassistant.core import HomeAssistant
 
 from custom_components.hacs.base import HacsBase

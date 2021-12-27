@@ -49,9 +49,6 @@ async def common_update_data(
             repository.validate.errors.append("Repository does not exist.")
             raise HacsException(exception) from None
 
-    repository.logger.error(repository.data.archived)
-    repository.logger.error(ignore_issues)
-
     # Make sure the repository is not archived.
     if repository.data.archived and not ignore_issues:
         repository.validate.errors.append("Repository is archived.")

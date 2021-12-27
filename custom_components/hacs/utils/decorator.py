@@ -10,9 +10,6 @@ def concurrent(concurrenttasks=15, sleepafter=0) -> Coroutine[Any, Any, None]:
     max_concurrent = asyncio.Semaphore(concurrenttasks)
 
     def inner_function(function) -> Coroutine[Any, Any, None]:
-        if not asyncio.iscoroutinefunction(function):
-            return function
-
         @wraps(function)
         async def wrapper(*args) -> None:
 

@@ -10,7 +10,7 @@ from homeassistant.core import HomeAssistant
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.utils.logger import getLogger
+from custom_components.hacs.utils.logger import get_hacs_logger
 from custom_components.hacs.validate.manager import ValidationManager
 
 TOKEN = os.getenv("INPUT_GITHUB_TOKEN")
@@ -34,7 +34,7 @@ CATEGORIES = [
     "theme",
 ]
 
-logger = getLogger()
+logger = get_hacs_logger()
 
 
 def error(error: str):

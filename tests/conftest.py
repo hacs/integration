@@ -33,6 +33,7 @@ from custom_components.hacs.repositories import (
 )
 from custom_components.hacs.repositories.base import HacsRepository
 from custom_components.hacs.tasks.manager import HacsTaskManager
+from custom_components.hacs.utils.logger import get_hacs_logger
 from custom_components.hacs.utils.queue_manager import QueueManager
 from custom_components.hacs.utils.version import version_to_download
 from custom_components.hacs.validate.manager import ValidationManager
@@ -136,7 +137,7 @@ def repository(hacs):
     repository_obj.hacs = hacs
     repository_obj.hass = hacs.hass
     repository_obj.hacs.core.config_path = hacs.hass.config.path()
-    repository_obj.logger = logging.getLogger("test")
+    repository_obj.logger = get_hacs_logger()
     repository_obj.data.full_name = "test/test"
     repository_obj.data.full_name_lower = "test/test"
     repository_obj.data.domain = "test"

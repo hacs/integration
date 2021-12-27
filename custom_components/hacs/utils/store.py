@@ -5,9 +5,9 @@ from homeassistant.util import json as json_util
 
 from ..const import VERSION_STORAGE
 from ..exceptions import HacsException
-from .logger import getLogger
+from .logger import get_hacs_logger
 
-_LOGGER = getLogger()
+_LOGGER = get_hacs_logger()
 
 
 class HACSStore(Store):

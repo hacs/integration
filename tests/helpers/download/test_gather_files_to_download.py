@@ -4,7 +4,6 @@ from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeCo
 from aiogithubapi.objects.repository.release import AIOGitHubAPIRepositoryRelease
 
 from custom_components.hacs.utils.download import gather_files_to_download
-from custom_components.hacs.utils.information import find_file_name
 
 
 def test_gather_files_to_download(repository):
@@ -28,7 +27,7 @@ def test_gather_plugin_files_from_root(repository_plugin):
             {"path": "dist/test.js", "type": "blob"}, "test/test", "main"
         ),
     ]
-    find_file_name(repository_plugin)
+    repository_plugin.update_filenames()
     files = [x.path for x in gather_files_to_download(repository_plugin)]
     assert "test.js" in files
     assert "dir" not in files
@@ -253,7 +252,7 @@ def test_gather_plugin_different_card_name(repository_plugin):
         AIOGitHubAPIRepositoryTreeContent({"path": "card.js", "type": "blob"}, "test/test", "main"),
         AIOGitHubAPIRepositoryTreeContent({"path": "info.md", "type": "blob"}, "test/test", "main"),
     ]
-    find_file_name(repository)
+    repository_plugin.update_filenames()
     files = [x.path for x in gather_files_to_download(repository)]
     assert "card.js" in files
     assert "info.md" not in files

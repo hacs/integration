@@ -891,3 +891,6 @@ class HacsRepository:
             raise HacsNotModifiedException(exception) from exception
         except (ValueError, AIOGitHubAPIException, Exception) as exception:
             raise HacsException(exception) from exception
+
+    def update_filenames(self) -> None:
+        """Get the filename to target."""

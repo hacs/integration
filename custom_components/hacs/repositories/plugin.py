@@ -8,7 +8,6 @@ if TYPE_CHECKING:
     from ..base import HacsBase
 
 from ..exceptions import HacsException
-from ..utils.information import find_file_name
 from .base import HacsRepository
 
 
@@ -36,7 +35,7 @@ class HacsPluginRepository(HacsRepository):
         await self.common_validate()
 
         # Custom step 1: Validate content.
-        find_file_name(self)
+        self.update_filenames()
 
         if self.content.path.remote is None:
             raise HacsException(
@@ -59,7 +58,7 @@ class HacsPluginRepository(HacsRepository):
             return
 
         # Get plugin objects.
-        find_file_name(self)
+        self.update_filenames()
 
         if self.content.path.remote is None:
             self.validate.errors.append(
@@ -79,3 +78,41 @@ class HacsPluginRepository(HacsRepository):
                 self.data.authors = package["author"]
         except (Exception, BaseException):  # pylint: disable=broad-except
             pass
+
+    def update_filenames(self) -> None:
+        """Get the filename to target."""
+        possible_locations = ("",) if self.data.content_in_root else ("release", "dist", "")
+
+        # Handler for plug requirement 3
+        if self.data.filename:
+            valid_filenames = (self.data.filename,)
+        else:
+            valid_filenames = (
+                f"{self.data.name.replace('lovelace-', '')}.js",
+                f"{self.data.name}.js",
+                f"{self.data.name}.umd.js",
+                f"{self.data.name}-bundle.js",
+            )
+
+        for location in possible_locations:
+            if location == "release":
+                if not self.releases.objects:
+                    continue
+                release = self.releases.objects[0]
+                if not release.assets:
+                    continue
+                asset = release.assets[0]
+                for filename in valid_filenames:
+                    if filename == asset.name:
+                        self.data.file_name = filename
+                        self.content.path.remote = "release"
+                        break
+
+            else:
+                for filename in valid_filenames:
+                    if f"{location+'/' if location else ''}{filename}" in [
+                        x.full_path for x in self.tree
+                    ]:
+                        self.data.file_name = filename.split("/")[-1]
+                        self.content.path.remote = location
+                        break

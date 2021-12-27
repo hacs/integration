@@ -127,32 +127,15 @@ def hacs(hass: HomeAssistant):
     if not "PYTEST" in os.environ and "GITHUB_ACTION" in os.environ:
         hacs_obj.system.action = True
 
+    hass.data[DOMAIN] = hacs_obj
+
     yield hacs_obj
 
 
 @pytest.fixture
 def repository(hacs):
     """Fixtrue for HACS repository object"""
-    repository_obj = HacsRepository(hacs)
-    repository_obj.hacs = hacs
-    repository_obj.hass = hacs.hass
-    repository_obj.hacs.core.config_path = hacs.hass.config.path()
-    repository_obj.logger = get_hacs_logger()
-    repository_obj.data.full_name = "test/test"
-    repository_obj.data.full_name_lower = "test/test"
-    repository_obj.data.domain = "test"
-    repository_obj.data.last_version = "3"
-    repository_obj.data.selected_tag = "3"
-    repository_obj.ref = version_to_download(repository_obj)
-    repository_obj.integration_manifest = {"config_flow": False, "domain": "test"}
-    repository_obj.data.published_tags = ["1", "2", "3"]
-    repository_obj.data.update_data(fixture("repository_data.json"))
-
-    async def update_repository():
-        pass
-
-    repository_obj.update_repository = update_repository
-    yield repository_obj
+    yield dummy_repository_base(hacs)
 
 
 @pytest.fixture

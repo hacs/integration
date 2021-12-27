@@ -14,3 +14,5 @@ def test_render_template(repository):
     render_template(content, repository)
     repository.releases.last_release_object = MockRelease()
     render_template(content, repository)
+
+    assert render_template("{{test.test}}", repository) == "{{test.test}}"

@@ -83,6 +83,7 @@ async def preflight():
     """Preflight checks."""
     event_data = get_event_data()
     ref = None
+    pr = True
     if REPOSITORY and CATEGORY:
         repository = REPOSITORY
         category = CATEGORY

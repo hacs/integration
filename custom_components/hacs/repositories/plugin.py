@@ -75,7 +75,7 @@ class HacsPluginRepository(HacsRepository):
 
             if package:
                 self.data.authors = package["author"]
-        except (Exception, BaseException):  # pylint: disable=broad-except
+        except BaseException:  # pylint: disable=broad-except # lgtm [py/catch-base-exception]
             pass
 
     def update_filenames(self) -> None:

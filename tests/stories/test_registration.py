@@ -9,11 +9,11 @@ from custom_components.hacs.base import HacsBase
 from custom_components.hacs.enums import HacsCategory
 
 from tests.sample_data import (
+    category_test_treefiles,
+    integration_manifest,
     release_data,
     repository_data,
     response_rate_limit_header,
-    integration_manifest,
-    category_test_treefiles,
 )
 
 

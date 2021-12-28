@@ -462,6 +462,7 @@ class HacsRepository:
     async def validate_repository(self) -> None:
         """Validate."""
 
+    @concurrent(concurrenttasks=10, backoff_time=5)
     async def update_repository(self, ignore_issues=False, force=False) -> None:
         """Update the repository"""
 
@@ -504,6 +505,7 @@ class HacsRepository:
         # Set description
         self.data.description = self.data.description
 
+    @concurrent(concurrenttasks=10, backoff_time=5)
     async def common_update(self, ignore_issues=False, force=False) -> bool:
         """Common information update steps of the repository."""
         self.logger.debug("%s Getting repository information", self)
@@ -745,6 +747,7 @@ class HacsRepository:
     async def async_pre_registration(self) -> None:
         """Run pre registration steps."""
 
+    @concurrent(concurrenttasks=10, backoff_time=5)
     async def async_registration(self, ref=None) -> None:
         """Run registration steps."""
         await self.async_pre_registration()
@@ -1038,7 +1041,7 @@ class HacsRepository:
                 files.append(FileInformation(path.download_url, path.full_path, path.filename))
         return files
 
-    @concurrent(10)
+    @concurrent(concurrenttasks=10)
     async def dowload_repository_content(self, content: FileInformation) -> None:
         """Download content."""
         try:

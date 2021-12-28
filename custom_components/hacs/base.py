@@ -28,7 +28,7 @@ from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 
-from .const import SEMAPHORE_DEFAULT, TV
+from .const import TV
 from .enums import (
     ConfigurationType,
     HacsCategory,
@@ -40,12 +40,11 @@ from .enums import (
 from .exceptions import (
     HacsException,
     HacsExpectedException,
-    HacsNotModifiedException,
-    HacsRepositoryArchivedException,
     HacsRepositoryExistException,
 )
 from .repositories import RERPOSITORY_CLASSES
 from .utils.decode import decode_content
+from .utils.decorator import concurrent
 from .utils.logger import get_hacs_logger
 from .utils.queue_manager import QueueManager
 from .utils.store import async_load_from_store, async_save_to_store
@@ -471,26 +470,6 @@ class HacsBase:
             raise HacsException(exception) from exception
         return None
 
-    async def async_semaphore_wrapper(
-        self,
-        method: Callable[[], Awaitable[TV]],
-        *args,
-        **kwargs,
-    ) -> None:
-        """Semaphore wrapper."""
-        async with asyncio.Semaphore(SEMAPHORE_DEFAULT):
-            try:
-                await method(*args, **kwargs)
-            except HacsNotModifiedException:
-                pass
-            except HacsRepositoryArchivedException as exception:
-                self.log.warning(exception)
-            except BaseException as exception:  # pylint: disable=broad-except
-                self.log.error(exception)
-
-            # Due to GitHub secondary ratelimits we need to sleep a bit
-            await asyncio.sleep(5)
-
     async def async_register_repository(
         self,
         repository_full_name: str,
@@ -679,7 +658,7 @@ class HacsBase:
             if self.status.startup and repository.data.full_name == HacsGitHubRepo.INTEGRATION:
                 continue
             if repository.data.installed and repository.data.category in self.common.categories:
-                self.queue.add(self.async_semaphore_wrapper(repository.update_repository))
+                self.queue.add(repository.update_repository())
 
         await self.handle_critical_repositories()
         self.status.background_task = False
@@ -695,7 +674,7 @@ class HacsBase:
 
         for repository in self.repositories.list_all:
             if repository.data.category in self.common.categories:
-                self.queue.add(self.async_semaphore_wrapper(repository.common_update))
+                self.queue.add(repository.common_update())
 
         await self.async_load_default_repositories()
         self.status.background_task = False
@@ -752,8 +731,7 @@ class HacsBase:
                 self.repositories.mark_default(repository)
                 continue
             self.queue.add(
-                self.async_semaphore_wrapper(
-                    self.async_register_repository,
+                self.async_register_repository(
                     repository_full_name=repo,
                     category=category,
                     default=True,

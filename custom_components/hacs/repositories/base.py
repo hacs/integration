@@ -621,14 +621,12 @@ class HacsRepository:
 
     async def async_get_hacs_json(self, ref: str = None) -> dict[str, Any] | None:
         """Get the content of the hacs.json file."""
-        ref = ref or version_to_download(self)
-
         try:
             response = await self.hacs.async_github_api_method(
                 method=self.hacs.githubapi.repos.contents.get,
                 repository=self.data.full_name,
                 path=RepositoryFile.HACS_JSON,
-                **{"params": {"ref": ref}},
+                **{"params": {"ref": ref or version_to_download(self)}},
             )
             return json.loads(decode_content(response.data.content))
         except BaseException:  # pylint: disable=broad-except

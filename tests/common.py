@@ -1,4 +1,6 @@
 # pylint: disable=missing-docstring,invalid-name
+from __future__ import annotations
+
 import asyncio
 from contextlib import contextmanager
 import functools as ft
@@ -27,29 +29,38 @@ INSTANCES = []
 
 def fixture(filename, asjson=True):
     """Load a fixture."""
-    path = os.path.join(os.path.dirname(__file__), "fixtures", filename)
-    with open(path, encoding="utf-8") as fptr:
-        if asjson:
-            return json.loads(fptr.read())
-        return fptr.read()
+    filename = f"{filename}.json" if "." not in filename else filename
+    path = os.path.join(
+        os.path.dirname(__file__),
+        "fixtures",
+        filename.lower().replace("/", "_"),
+    )
+    try:
+        with open(path, encoding="utf-8") as fptr:
+            _LOGGER.debug("Loading fixture from %s", path)
+            if asjson:
+                return json.loads(fptr.read())
+            return fptr.read()
+    except OSError as err:
+        raise OSError(f"Missing fixture for {path.split('fixtures/')[1]}") from err
 
 
 def dummy_repository_base(hacs, repository=None):
     if repository is None:
         repository = HacsRepository(hacs)
+        repository.data.full_name = "test/test"
+        repository.data.full_name_lower = "test/test"
     repository.hacs = hacs
     repository.hacs.hass = hacs.hass
     repository.hacs.core.config_path = hacs.hass.config.path()
     repository.logger = get_hacs_logger()
-    repository.data.full_name = "test/test"
-    repository.data.full_name_lower = "test/test"
     repository.data.domain = "test"
     repository.data.last_version = "3"
     repository.data.selected_tag = "3"
     repository.ref = version_to_download(repository)
     repository.integration_manifest = {"config_flow": False, "domain": "test"}
     repository.data.published_tags = ["1", "2", "3"]
-    repository.data.update_data(fixture("repository_data.json"))
+    repository.data.update_data(fixture("repository_data.json", asjson=True))
 
     async def update_repository():
         pass

@@ -1,9 +1,8 @@
-import os
+from logging import Logger
 
 from custom_components.hacs.utils.logger import get_hacs_logger
 
 
 def test_logger():
-    os.environ["GITHUB_ACTION"] = "value"
-    get_hacs_logger()
-    del os.environ["GITHUB_ACTION"]
+    hacs_logger = get_hacs_logger()
+    assert isinstance(hacs_logger, Logger)

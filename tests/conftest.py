@@ -125,9 +125,6 @@ def hacs(hass: HomeAssistant):
     hacs_obj.version = hacs_obj.integration.version
     hacs_obj.configuration.token = TOKEN
 
-    if not "PYTEST" in os.environ and "GITHUB_ACTION" in os.environ:
-        hacs_obj.system.action = True
-
     hass.data[DOMAIN] = hacs_obj
 
     yield hacs_obj

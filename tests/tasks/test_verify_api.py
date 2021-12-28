@@ -1,5 +1,5 @@
 # pylint: disable=missing-function-docstring,missing-module-docstring, protected-access
-from unittest.mock import MagicMock
+from unittest.mock import AsyncMock, MagicMock
 
 from aiogithubapi import (
     GitHubAuthenticationException,
@@ -15,6 +15,7 @@ from custom_components.hacs.enums import HacsDisabledReason
 
 @pytest.mark.asyncio
 async def test_verify_api_everything_is_good(hacs: HacsBase, caplog: pytest.LogCaptureFixture):
+    hacs.githubapi = AsyncMock()
     await hacs.tasks.async_load()
     task = hacs.tasks.get("verify_api")
 
@@ -30,6 +31,7 @@ async def test_verify_api_everything_is_good(hacs: HacsBase, caplog: pytest.LogC
 
 @pytest.mark.asyncio
 async def test_verify_api_ratelimited_value(hacs: HacsBase, caplog: pytest.LogCaptureFixture):
+    hacs.githubapi = AsyncMock()
     await hacs.tasks.async_load()
     task = hacs.tasks.get("verify_api")
 
@@ -48,6 +50,7 @@ async def test_verify_api_ratelimited_value(hacs: HacsBase, caplog: pytest.LogCa
 
 @pytest.mark.asyncio
 async def test_verify_api_ratelimited_exception(hacs: HacsBase, caplog: pytest.LogCaptureFixture):
+    hacs.githubapi = AsyncMock()
     await hacs.tasks.async_load()
     task = hacs.tasks.get("verify_api")
 
@@ -55,6 +58,7 @@ async def test_verify_api_ratelimited_exception(hacs: HacsBase, caplog: pytest.L
     assert not hacs.system.disabled
 
     hacs.githubapi.rate_limit.side_effect = GitHubRatelimitException
+
     await task.execute_task()
     assert "Can update 0 repositories" in caplog.text
     assert "GitHub API ratelimited -" in caplog.text
@@ -64,8 +68,10 @@ async def test_verify_api_ratelimited_exception(hacs: HacsBase, caplog: pytest.L
 
 @pytest.mark.asyncio
 async def test_verify_api_authentication_exception(
-    hacs: HacsBase, caplog: pytest.LogCaptureFixture
+    hacs: HacsBase,
+    caplog: pytest.LogCaptureFixture,
 ):
+    hacs.githubapi = AsyncMock()
     await hacs.tasks.async_load()
     task = hacs.tasks.get("verify_api")
 
@@ -82,6 +88,7 @@ async def test_verify_api_authentication_exception(
 
 @pytest.mark.asyncio
 async def test_verify_api_base_exception(hacs: HacsBase, caplog: pytest.LogCaptureFixture):
+    hacs.githubapi = AsyncMock()
     await hacs.tasks.async_load()
     task = hacs.tasks.get("verify_api")
 

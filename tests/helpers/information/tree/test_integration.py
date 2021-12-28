@@ -3,11 +3,12 @@
 import json
 
 import pytest
+from custom_components.hacs.enums import HacsCategory
 
 from tests.sample_data import (
     repository_data,
     response_rate_limit_header,
-    tree_files_base_integration,
+    category_test_treefiles,
 )
 
 TOKEN = "xxxxxxxxxxxxxxxxxxxxxxx"
@@ -38,7 +39,7 @@ async def test_base(aresponses, repository_integration):
         "/repos/test/test/git/trees/main",
         "get",
         aresponses.Response(
-            body=json.dumps(tree_files_base_integration()),
+            body=json.dumps(category_test_treefiles(HacsCategory.INTEGRATION)),
             headers=response_rate_limit_header,
         ),
     )

@@ -900,3 +900,11 @@ class HacsRepository:
             return tree
         except (ValueError, AIOGitHubAPIException) as exception:
             raise HacsException(exception) from exception
+
+    async def get_releases(self, prerelease=False, returnlimit=5):
+        """Return the repository releases."""
+        try:
+            releases = await self.repository_object.get_releases(prerelease, returnlimit)
+            return releases
+        except (ValueError, AIOGitHubAPIException) as exception:
+            raise HacsException(exception) from exception

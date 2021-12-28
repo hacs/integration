@@ -5,6 +5,7 @@ from asyncio import sleep
 from datetime import datetime
 import json
 import os
+import pathlib
 import shutil
 import tempfile
 from typing import TYPE_CHECKING, Any, List, Optional
@@ -25,7 +26,8 @@ from ..exceptions import (
 )
 from ..utils.backup import Backup, BackupNetDaemon
 from ..utils.decode import decode_content
-from ..utils.download import dowload_repository_content, gather_files_to_download
+from ..utils.decorator import concurrent
+from ..utils.filters import filter_content_return_one_of_type
 from ..utils.logger import get_hacs_logger
 from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
@@ -40,6 +42,15 @@ from ..utils.version import (
 
 if TYPE_CHECKING:
     from ..base import HacsBase
+
+
+class FileInformation:
+    """FileInformation."""
+
+    def __init__(self, url, path, name):
+        self.download_url = url
+        self.path = path
+        self.name = name
 
 
 @attr.s(auto_attribs=True)
@@ -465,6 +476,21 @@ class HacsRepository:
         """Return localpath."""
         return None
 
+    @property
+    def should_try_releases(self) -> bool:
+        """Return a boolean indicating whether to download releases or not."""
+        if self.data.zip_release:
+            if self.data.filename.endswith(".zip"):
+                if self.ref != self.data.default_branch:
+                    return True
+        if self.ref == self.data.default_branch:
+            return False
+        if self.data.category not in ["plugin", "theme"]:
+            return False
+        if not self.data.releases:
+            return False
+        return True
+
     async def validate_repository(self) -> None:
         """Validate."""
 
@@ -605,7 +631,7 @@ class HacsRepository:
 
     async def download_content(self) -> None:
         """Download the content of a directory."""
-        contents = gather_files_to_download(self)
+        contents = self.gather_files_to_download()
         self.logger.debug(self.data.filename)
         if not contents:
             raise HacsException("No content to download")
@@ -616,7 +642,7 @@ class HacsRepository:
             if self.data.content_in_root and self.data.filename:
                 if content.name != self.data.filename:
                     continue
-            download_queue.add(dowload_repository_content(self, content))
+            download_queue.add(self.dowload_repository_content(content))
         await download_queue.execute()
 
     async def async_get_hacs_json(self, ref: str = None) -> dict[str, Any] | None:
@@ -985,3 +1011,101 @@ class HacsRepository:
                 self.logger.error("%s %s", self, exception)
             if not ignore_issues:
                 raise HacsException(exception) from None
+
+    def gather_files_to_download(self) -> list[FileInformation]:
+        """Return a list of file objects to be downloaded."""
+        files = []
+        tree = self.tree
+        ref = f"{self.ref}".replace("tags/", "")
+        releaseobjects = self.releases.objects
+        category = self.data.category
+        remotelocation = self.content.path.remote
+
+        if self.should_try_releases:
+            for release in releaseobjects or []:
+                if ref == release.tag_name:
+                    for asset in release.assets or []:
+                        files.append(asset)
+            if files:
+                return files
+
+        if self.content.single:
+            for treefile in tree:
+                if treefile.filename == self.data.file_name:
+                    files.append(
+                        FileInformation(
+                            treefile.download_url, treefile.full_path, treefile.filename
+                        )
+                    )
+            return files
+
+        if category == "plugin":
+            for treefile in tree:
+                if treefile.path in ["", "dist"]:
+                    if remotelocation == "dist" and not treefile.filename.startswith("dist"):
+                        continue
+                    if not remotelocation:
+                        if not treefile.filename.endswith(".js"):
+                            continue
+                        if treefile.path != "":
+                            continue
+                    if not treefile.is_directory:
+                        files.append(
+                            FileInformation(
+                                treefile.download_url, treefile.full_path, treefile.filename
+                            )
+                        )
+            if files:
+                return files
+
+        if self.data.content_in_root:
+            if not self.data.filename:
+                if category == "theme":
+                    tree = filter_content_return_one_of_type(self.tree, "", "yaml", "full_path")
+
+        for path in tree:
+            if path.is_directory:
+                continue
+            if path.full_path.startswith(self.content.path.remote):
+                files.append(FileInformation(path.download_url, path.full_path, path.filename))
+        return files
+
+    @concurrent(10)
+    async def dowload_repository_content(self, content: FileInformation) -> None:
+        """Download content."""
+        try:
+            self.logger.debug("Downloading %s", content.name)
+
+            filecontent = await self.hacs.async_download_file(content.download_url)
+
+            if filecontent is None:
+                self.validate.errors.append(f"[{content.name}] was not downloaded.")
+                return
+
+            # Save the content of the file.
+            if self.content.single or content.path is None:
+                local_directory = self.content.path.local
+
+            else:
+                _content_path = content.path
+                if not self.data.content_in_root:
+                    _content_path = _content_path.replace(f"{self.content.path.remote}", "")
+
+                local_directory = f"{self.content.path.local}/{_content_path}"
+                local_directory = local_directory.split("/")
+                del local_directory[-1]
+                local_directory = "/".join(local_directory)
+
+            # Check local directory
+            pathlib.Path(local_directory).mkdir(parents=True, exist_ok=True)
+
+            local_file_path = (f"{local_directory}/{content.name}").replace("//", "/")
+
+            result = await self.hacs.async_save_file(local_file_path, filecontent)
+            if result:
+                self.logger.info("Download of %s completed", content.name)
+                return
+            self.validate.errors.append(f"[{content.name}] was not downloaded.")
+
+        except BaseException as exception:  # pylint: disable=broad-except
+            self.validate.errors.append(f"Download was not completed [{exception}]")

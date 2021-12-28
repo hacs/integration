@@ -33,7 +33,7 @@ class HacsThemeRepository(HacsRepository):
         """Run post installation steps."""
         try:
             await self.hacs.hass.services.async_call("frontend", "reload_themes", {})
-        except BaseException:  # pylint: disable=broad-except # lgtm [py/catch-base-exception]
+        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             pass
 
     async def validate_repository(self):

@@ -414,7 +414,7 @@ class HacsBase:
 
         try:
             await self.hass.async_add_executor_job(_write_file)
-        except BaseException as error:  # pylint: disable=broad-except # lgtm [py/catch-base-exception]
+        except BaseException as error:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.log.error("Could not write data to %s - %s", file_path, error)
             return False
 
@@ -430,7 +430,7 @@ class HacsBase:
                 "GitHub API ratelimited - %s remaining", response.data.resources.core.remaining
             )
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
-        except BaseException as exception:  # pylint: disable=broad-except # lgtm [py/catch-base-exception]
+        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.log.exception(exception)
 
         return 0
@@ -760,7 +760,7 @@ class HacsBase:
                 raise HacsException(
                     f"Got status code {request.status} when trying to download {url}"
                 )
-            except Exception as exception:  # pylint: disable=broad-except # lgtm [py/catch-base-exception]
+            except Exception as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
                 self.log.debug("Download failed - %s", exception)
                 tries_left -= 1
                 await asyncio.sleep(1)

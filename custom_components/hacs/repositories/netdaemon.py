@@ -86,5 +86,5 @@ class HacsNetdaemonRepository(HacsRepository):
             await self.hacs.hass.services.async_call(
                 "hassio", "addon_restart", {"addon": "c6a2317c_netdaemon"}
             )
-        except BaseException:  # pylint: disable=broad-except # lgtm [py/catch-base-exception]
+        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             pass

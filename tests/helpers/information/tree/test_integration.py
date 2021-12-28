@@ -2,10 +2,7 @@
 # pylint: disable=missing-docstring
 import json
 
-import aiohttp
 import pytest
-
-from custom_components.hacs.utils.information import get_tree
 
 from tests.sample_data import (
     repository_data,
@@ -46,8 +43,13 @@ async def test_base(aresponses, repository_integration):
         ),
     )
 
-    repository, _ = await repository_integration.async_get_legacy_repository_object()
-    tree = await get_tree(repository, repository.default_branch)
+    (
+        repository_integration.repository_object,
+        _,
+    ) = await repository_integration.async_get_legacy_repository_object()
+    tree = await repository_integration.get_tree(
+        repository_integration.repository_object.default_branch
+    )
     filestocheck = [
         "custom_components/test/__init__.py",
         "custom_components/test/translations/en.json",

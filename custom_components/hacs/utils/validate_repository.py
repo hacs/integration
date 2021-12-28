@@ -11,7 +11,7 @@ from ..exceptions import (
     HacsRepositoryArchivedException,
     HacsRepositoryExistException,
 )
-from ..utils.information import get_releases, get_tree
+from ..utils.information import get_releases
 from ..utils.version import version_to_download
 
 if TYPE_CHECKING:
@@ -92,7 +92,7 @@ async def common_update_data(
     )
 
     try:
-        repository.tree = await get_tree(repository.repository_object, repository.ref)
+        repository.tree = await repository.get_tree(repository.ref)
         if not repository.tree:
             raise HacsException("No files in tree")
         repository.treefiles = []

@@ -3,12 +3,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from ..base import HacsBase
-
 from ..enums import HacsCategory
 from ..exceptions import HacsException
 from .base import HacsRepository
+
+if TYPE_CHECKING:
+    from ..base import HacsBase
 
 
 class HacsPythonScriptRepository(HacsRepository):

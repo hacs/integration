@@ -237,15 +237,6 @@ class HacsManifest:
         return manifest_data
 
 
-class RepositoryVersions:
-    """Versions."""
-
-    available = None
-    available_commit = None
-    installed = None
-    installed_commit = None
-
-
 class RepositoryStatus:
     """Repository status."""
 
@@ -258,28 +249,6 @@ class RepositoryStatus:
     track = True
     updated_info = False
     first_install = True
-
-
-class RepositoryInformation:
-    """RepositoryInformation."""
-
-    additional_info = None
-    authors = []
-    category = None
-    default_branch = None
-    description = ""
-    state = None
-    full_name = None
-    full_name_lower = None
-    file_name = None
-    javascript_type = None
-    homeassistant_version = None
-    last_updated = None
-    uid = None
-    stars = 0
-    info = None
-    name = None
-    topics = []
 
 
 class RepositoryReleases:
@@ -316,10 +285,10 @@ class HacsRepository:
     def __init__(self, hacs: HacsBase) -> None:
         """Set up HacsRepository."""
         self.hacs = hacs
+        self.additional_info = ""
         self.data = RepositoryData()
         self.content = RepositoryContent()
         self.content.path = RepositoryPath()
-        self.information = RepositoryInformation()
         self.repository_object: AIOGitHubAPIRepository | None = None
         self.status = RepositoryStatus()
         self.state = None
@@ -328,7 +297,6 @@ class HacsRepository:
         self.repository_manifest = HacsManifest.from_dict({})
         self.validate = Validate()
         self.releases = RepositoryReleases()
-        self.versions = RepositoryVersions()
         self.pending_restart = False
         self.tree = []
         self.treefiles = []
@@ -568,7 +536,7 @@ class HacsRepository:
                 self.data.update_data(self.repository_manifest.to_dict())
 
         # Update "info.md"
-        self.information.additional_info = await self.async_get_info_file_contents()
+        self.additional_info = await self.async_get_info_file_contents()
 
         # Set last fetch attribute
         self.data.last_fetched = datetime.now()

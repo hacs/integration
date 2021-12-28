@@ -140,7 +140,7 @@ async def hacs_repositories(hass, connection, msg):
             msg["id"],
             [
                 {
-                    "additional_info": repo.information.additional_info,
+                    "additional_info": repo.additional_info,
                     "authors": repo.data.authors,
                     "available_version": repo.display_available_version,
                     "beta": repo.data.show_beta,
@@ -160,11 +160,11 @@ async def hacs_repositories(hass, connection, msg):
                     "hide": repo.data.hide,
                     "homeassistant": repo.data.homeassistant,
                     "id": repo.data.id,
-                    "info": repo.information.info,
+                    "info": None,
                     "installed_version": repo.display_installed_version,
                     "installed": repo.data.installed,
                     "issues": repo.data.open_issues,
-                    "javascript_type": repo.information.javascript_type,
+                    "javascript_type": None,
                     "last_updated": repo.data.last_updated,
                     "local_path": repo.content.path.local,
                     "main_action": repo.main_action,

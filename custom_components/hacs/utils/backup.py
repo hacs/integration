@@ -74,7 +74,7 @@ class Backup:
                 self.local_path,
                 self.backup_path_full,
             )
-        except BaseException as exception:  # pylint: disable=broad-except
+        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.hacs.log.warning("Could not create backup: %s", exception)
 
     def restore(self) -> None:

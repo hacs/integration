@@ -5,6 +5,7 @@ import logging
 import os
 from pathlib import Path
 from unittest.mock import AsyncMock
+
 from aiogithubapi import GitHubAPI
 from awesomeversion import AwesomeVersion
 from homeassistant.const import __version__ as HAVERSION

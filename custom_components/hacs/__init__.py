@@ -89,7 +89,7 @@ async def async_initialize_integration(
     try:
         lovelace_info = await system_health_info(hacs.hass)
         hacs.core.lovelace_mode = LovelaceMode(lovelace_info.get("mode", "yaml"))
-    except Exception:  # pylint: disable=broad-except
+    except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
         # If this happens, the users YAML is not valid, we assume YAML mode
         pass
     hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")

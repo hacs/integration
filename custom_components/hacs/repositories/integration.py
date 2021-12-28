@@ -148,5 +148,5 @@ class HacsIntegrationRepository(HacsRepository):
                 **{"params": {"ref": ref or version_to_download(self)}},
             )
             return json.loads(decode_content(response.data.content))
-        except BaseException:  # pylint: disable=broad-except
+        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             pass

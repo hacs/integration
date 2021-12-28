@@ -3,12 +3,13 @@
 import json
 
 import pytest
+
 from custom_components.hacs.enums import HacsCategory
 
 from tests.sample_data import (
+    category_test_treefiles,
     repository_data,
     response_rate_limit_header,
-    category_test_treefiles,
 )
 
 TOKEN = "xxxxxxxxxxxxxxxxxxxxxxx"

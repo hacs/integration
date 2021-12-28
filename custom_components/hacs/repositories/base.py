@@ -565,7 +565,7 @@ class HacsRepository:
                 download_queue.add(self.async_download_zip_file(content, validate))
 
             await download_queue.execute()
-        except BaseException:  # pylint: disable=broad-except
+        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             validate.errors.append("Download was not completed")
 
     async def async_download_zip_file(self, content, validate) -> None:
@@ -596,7 +596,7 @@ class HacsRepository:
                 return
 
             validate.errors.append(f"[{content.name}] was not downloaded")
-        except BaseException:  # pylint: disable=broad-except
+        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             validate.errors.append("Download was not completed")
 
     async def download_content(self) -> None:
@@ -625,7 +625,7 @@ class HacsRepository:
                 **{"params": {"ref": ref or version_to_download(self)}},
             )
             return json.loads(decode_content(response.data.content))
-        except BaseException:  # pylint: disable=broad-except
+        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             pass
 
     async def async_get_info_file_contents(self) -> str:
@@ -660,7 +660,7 @@ class HacsRepository:
                 .replace("</svg", "</disabled"),
                 self,
             )
-        except BaseException as exc:  # pylint: disable=broad-except
+        except BaseException as exc:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.logger.error(exc)
 
         return ""
@@ -686,7 +686,7 @@ class HacsRepository:
         elif self.data.category == "theme":
             try:
                 await self.hacs.hass.services.async_call("frontend", "reload_themes", {})
-            except (Exception, BaseException):  # pylint: disable=broad-except
+            except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
                 pass
 
         await async_remove_store(self.hacs.hass, f"hacs/{self.data.id}.hacs")
@@ -739,7 +739,7 @@ class HacsRepository:
                     "%s Presumed local content path %s does not exist", self, local_path
                 )
 
-        except BaseException as exception:  # pylint: disable=broad-except
+        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.logger.debug("%s Removing %s failed with %s", self, local_path, exception)
             return False
         return True
@@ -1078,5 +1078,5 @@ class HacsRepository:
                 return
             self.validate.errors.append(f"[{content.name}] was not downloaded.")
 
-        except BaseException as exception:  # pylint: disable=broad-except
+        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.validate.errors.append(f"Download was not completed [{exception}]")

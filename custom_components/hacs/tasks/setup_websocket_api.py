@@ -227,7 +227,7 @@ async def hacs_repository_data(hass, connection, msg):
                 )
                 if registration is not None:
                     raise HacsException(registration)
-            except BaseException as exception:  # pylint: disable=broad-except
+            except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
                 hass.bus.async_fire(
                     "hacs/error",
                     {
@@ -285,7 +285,7 @@ async def hacs_repository_data(hass, connection, msg):
         message = exception
     except AttributeError as exception:
         message = f"Could not use repository with ID {repo_id} ({exception})"
-    except BaseException as exception:  # pylint: disable=broad-except
+    except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
         message = exception
 
     if message is not None:
@@ -389,7 +389,7 @@ async def hacs_repository(hass, connection, msg):
         message = exception
     except AttributeError as exception:
         message = f"Could not use repository with ID {repo_id} ({exception})"
-    except BaseException as exception:  # pylint: disable=broad-except
+    except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
         message = exception
 
     if message is not None:

@@ -11,7 +11,6 @@ from ..exceptions import (
     HacsRepositoryArchivedException,
     HacsRepositoryExistException,
 )
-from ..utils.information import get_releases
 from ..utils.version import version_to_download
 
 if TYPE_CHECKING:
@@ -63,10 +62,9 @@ async def common_update_data(
 
     # Get releases.
     try:
-        releases = await get_releases(
-            repository.repository_object,
-            repository.data.show_beta,
-            hacs.configuration.release_limit,
+        releases = await repository.get_releases(
+            prerelease=repository.data.show_beta,
+            returnlimit=hacs.configuration.release_limit,
         )
         if releases:
             repository.data.releases = True

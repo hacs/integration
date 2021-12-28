@@ -4,11 +4,11 @@ from __future__ import annotations
 import json
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from ..base import HacsBase
-
 from ..exceptions import HacsException
 from .base import HacsRepository
+
+if TYPE_CHECKING:
+    from ..base import HacsBase
 
 
 class HacsPluginRepository(HacsRepository):
@@ -21,7 +21,6 @@ class HacsPluginRepository(HacsRepository):
         self.data.full_name_lower = full_name.lower()
         self.data.file_name = None
         self.data.category = "plugin"
-        self.information.javascript_type = None
         self.content.path.local = self.localpath
 
     @property

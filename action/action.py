@@ -83,20 +83,16 @@ async def preflight():
     """Preflight checks."""
     event_data = get_event_data()
     ref = None
-    pr = True
     if REPOSITORY and CATEGORY:
         repository = REPOSITORY
         category = CATEGORY
-        pr = False
     elif GITHUB_REPOSITORY == "hacs/default":
         category = chose_category()
         repository = chose_repository(category)
-        pr = False
         logger.info(f"Actor: {GITHUB_ACTOR}")
     else:
         category = CATEGORY.lower()
-        pr = True if event_data.get("pull_request") is not None else False
-        if pr:
+        if event_data.get("pull_request") is not None:
             head = event_data["pull_request"]["head"]
             ref = head["ref"]
             repository = head["repo"]["full_name"]

@@ -3,19 +3,24 @@ import asyncio
 from functools import wraps
 from typing import Any, Coroutine
 
+from ..const import DEFAULT_CONCURRENT_BACKOFF_TIME, DEFAULT_CONCURRENT_TASKS
 
-def concurrent(concurrenttasks=15, sleepafter=0) -> Coroutine[Any, Any, None]:
+
+def concurrent(
+    concurrenttasks: int = DEFAULT_CONCURRENT_TASKS,
+    backoff_time=DEFAULT_CONCURRENT_BACKOFF_TIME,
+) -> Coroutine[Any, Any, None]:
     """Return a modified function."""
 
     max_concurrent = asyncio.Semaphore(concurrenttasks)
 
     def inner_function(function) -> Coroutine[Any, Any, None]:
         @wraps(function)
-        async def wrapper(*args) -> None:
+        async def wrapper(*args, **kwargs) -> None:
 
             async with max_concurrent:
-                await function(*args)
-                await asyncio.sleep(sleepafter)
+                await function(*args, **kwargs)
+                await asyncio.sleep(backoff_time)
 
         return wrapper
 

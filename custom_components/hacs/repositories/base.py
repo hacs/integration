@@ -20,6 +20,7 @@ from ..enums import RepositoryFile
 from ..exceptions import (
     HacsException,
     HacsNotModifiedException,
+    HacsRepositoryArchivedException,
     HacsRepositoryExistException,
 )
 from ..utils.backup import Backup, BackupNetDaemon
@@ -31,7 +32,6 @@ from ..utils.queue_manager import QueueManager
 from ..utils.store import async_remove_store
 from ..utils.template import render_template
 from ..utils.validate import Validate
-from ..utils.validate_repository import common_update_data
 from ..utils.version import (
     version_left_higher_or_equal_then_right,
     version_left_higher_then_right,
@@ -477,7 +477,7 @@ class HacsRepository:
 
         # Make sure the repository exist.
         self.logger.debug("%s Checking repository.", self)
-        await common_update_data(repository=self, ignore_issues=ignore_issues)
+        await self.common_update_data(ignore_issues=ignore_issues)
 
         # Get the content of hacs.json
         if RepositoryFile.HACS_JSON in [x.filename for x in self.tree]:
@@ -517,10 +517,10 @@ class HacsRepository:
         # Attach repository
         current_etag = self.data.etag_repository
         try:
-            await common_update_data(repository=self, ignore_issues=ignore_issues, force=force)
+            await self.common_update_data(ignore_issues=ignore_issues, force=force)
         except HacsRepositoryExistException:
             self.data.full_name = self.hacs.common.renamed_repositories[self.data.full_name]
-            await common_update_data(repository=self, ignore_issues=ignore_issues, force=force)
+            await self.common_update_data(ignore_issues=ignore_issues, force=force)
 
         if not self.data.installed and (current_etag == self.data.etag_repository) and not force:
             self.logger.debug("Did not update %s, content was not modified", self.data.full_name)
@@ -666,7 +666,6 @@ class HacsRepository:
             )
         except BaseException as exc:  # pylint: disable=broad-except
             self.logger.error(exc)
-            pass
 
         return ""
 
@@ -908,3 +907,81 @@ class HacsRepository:
             return releases
         except (ValueError, AIOGitHubAPIException) as exception:
             raise HacsException(exception) from exception
+
+    async def common_update_data(self, ignore_issues: bool = False, force: bool = False) -> None:
+        """Common update data."""
+        releases = []
+        try:
+            repository_object, etag = await self.async_get_legacy_repository_object(
+                etag=None if force or self.data.installed else self.data.etag_repository,
+            )
+            self.repository_object = repository_object
+            if self.data.full_name.lower() != repository_object.full_name.lower():
+                self.hacs.common.renamed_repositories[
+                    self.data.full_name
+                ] = repository_object.full_name
+                raise HacsRepositoryExistException
+            self.data.update_data(repository_object.attributes)
+            self.data.etag_repository = etag
+        except HacsNotModifiedException:
+            return
+        except HacsRepositoryExistException:
+            raise HacsRepositoryExistException from None
+        except (AIOGitHubAPIException, HacsException) as exception:
+            if not self.hacs.status.startup:
+                self.logger.error("%s %s", self, exception)
+            if not ignore_issues:
+                self.validate.errors.append("Repository does not exist.")
+                raise HacsException(exception) from None
+
+        # Make sure the repository is not archived.
+        if self.data.archived and not ignore_issues:
+            self.validate.errors.append("Repository is archived.")
+            if self.data.full_name not in self.hacs.common.archived_repositories:
+                self.hacs.common.archived_repositories.append(self.data.full_name)
+            raise HacsRepositoryArchivedException("Repository is archived.")
+
+        # Make sure the repository is not in the blacklist.
+        if self.hacs.repositories.is_removed(self.data.full_name) and not ignore_issues:
+            self.validate.errors.append("Repository is in the blacklist.")
+            raise HacsException("Repository is in the blacklist.")
+
+        # Get releases.
+        try:
+            releases = await self.get_releases(
+                prerelease=self.data.show_beta,
+                returnlimit=self.hacs.configuration.release_limit,
+            )
+            if releases:
+                self.data.releases = True
+                self.releases.objects = [x for x in releases if not x.draft]
+                self.data.published_tags = [x.tag_name for x in self.releases.objects]
+                self.data.last_version = next(iter(self.data.published_tags))
+
+        except (AIOGitHubAPIException, HacsException):
+            self.data.releases = False
+
+        if not self.force_branch:
+            self.ref = version_to_download(self)
+        if self.data.releases:
+            for release in self.releases.objects or []:
+                if release.tag_name == self.ref:
+                    assets = release.assets
+                    if assets:
+                        downloads = next(iter(assets)).attributes.get("download_count")
+                        self.data.downloads = downloads
+
+        self.hacs.log.debug("%s Running checks against %s", self, self.ref.replace("tags/", ""))
+
+        try:
+            self.tree = await self.get_tree(self.ref)
+            if not self.tree:
+                raise HacsException("No files in tree")
+            self.treefiles = []
+            for treefile in self.tree:
+                self.treefiles.append(treefile.full_path)
+        except (AIOGitHubAPIException, HacsException) as exception:
+            if not self.hacs.status.startup:
+                self.logger.error("%s %s", self, exception)
+            if not ignore_issues:
+                raise HacsException(exception) from None

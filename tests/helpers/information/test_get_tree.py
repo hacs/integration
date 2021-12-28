@@ -2,13 +2,10 @@
 # pylint: disable=missing-docstring
 import json
 
-import aiohttp
 import pytest
 
 from custom_components.hacs.exceptions import HacsException
-from custom_components.hacs.utils.information import get_tree
 
-from tests.common import TOKEN
 from tests.sample_data import (
     repository_data,
     response_rate_limit_header,
@@ -44,8 +41,13 @@ async def test_get_tree(aresponses, repository_integration):
         aresponses.Response(body=json.dumps(tree_files_base), headers=response_rate_limit_header),
     )
 
-    repository, _ = await repository_integration.async_get_legacy_repository_object()
-    tree = await get_tree(repository, repository.default_branch)
+    (
+        repository_integration.repository_object,
+        _,
+    ) = await repository_integration.async_get_legacy_repository_object()
+    tree = await repository_integration.get_tree(
+        repository_integration.repository_object.default_branch
+    )
     assert "hacs.json" in [x.full_path for x in tree]
 
 
@@ -79,6 +81,11 @@ async def test_get_tree_exception(aresponses, repository_integration):
             status=403,
         ),
     )
-    repository, _ = await repository_integration.async_get_legacy_repository_object()
+    (
+        repository_integration.repository_object,
+        _,
+    ) = await repository_integration.async_get_legacy_repository_object()
     with pytest.raises(HacsException):
-        await get_tree(repository, repository.default_branch)
+        await repository_integration.get_tree(
+            repository_integration.repository_object.default_branch
+        )

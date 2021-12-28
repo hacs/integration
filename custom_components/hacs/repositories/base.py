@@ -892,3 +892,11 @@ class HacsRepository:
 
     def update_filenames(self) -> None:
         """Get the filename to target."""
+
+    async def get_tree(self, ref: str):
+        """Return the repository tree."""
+        try:
+            tree = await self.repository_object.get_tree(ref)
+            return tree
+        except (ValueError, AIOGitHubAPIException) as exception:
+            raise HacsException(exception) from exception

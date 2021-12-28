@@ -1,6 +1,8 @@
 """Sample datasets for testing."""
 # pylint: disable=invalid-name,missing-docstring
 
+from custom_components.hacs.enums import HacsCategory
+
 repository_data = {
     "id": 999999999,
     "full_name": "test/test",
@@ -71,12 +73,54 @@ def repository_data_archived():
     return data
 
 
-def tree_files_base_integration():
-    integrationtree = tree_files_base
-    integrationtree["tree"].append({"path": "custom_components/test/manifest.json", "type": "blob"})
-    integrationtree["tree"].append({"path": "custom_components/test/__init__.py", "type": "blob"})
-    integrationtree["tree"].append({"path": "custom_components/test/sensor.py", "type": "blob"})
-    integrationtree["tree"].append(
-        {"path": "custom_components/test/translations/en.json", "type": "blob"}
-    )
-    return integrationtree
+def category_test_treefiles(category):
+    base = tree_files_base
+    if category == HacsCategory.INTEGRATION:
+        return {
+            "tree": [
+                *base["tree"],
+                {"path": "custom_components", "type": "tree"},
+                {"path": "custom_components/test", "type": "tree"},
+                {"path": "custom_components/test/manifest.json", "type": "blob"},
+                {"path": "custom_components/test/__init__.py", "type": "blob"},
+                {"path": "custom_components/test/sensor.py", "type": "blob"},
+                {"path": "custom_components/test/translations/en.json", "type": "blob"},
+            ]
+        }
+
+    if category == HacsCategory.THEME:
+        return {
+            "tree": [
+                *base["tree"],
+                {"path": "themes/test.yaml", "type": "blob"},
+            ]
+        }
+
+    if category == HacsCategory.PLUGIN:
+        return {
+            "tree": [
+                *base["tree"],
+                {"path": "test-bundle.js", "type": "blob"},
+            ]
+        }
+
+    if category == HacsCategory.PYTHON_SCRIPT:
+        return {
+            "tree": [
+                *base["tree"],
+                {"path": "python_scripts", "type": "tree"},
+                {"path": "python_scripts/test.py", "type": "blob"},
+            ]
+        }
+
+    if category == HacsCategory.NETDAEMON:
+        return {
+            "tree": [
+                *base["tree"],
+                {"path": "apps", "type": "tree"},
+                {"path": "apps/test", "type": "tree"},
+                {"path": "apps/test/test.cs", "type": "blob"},
+            ]
+        }
+
+    return base

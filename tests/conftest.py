@@ -5,7 +5,7 @@ import logging
 import os
 from pathlib import Path
 from unittest.mock import AsyncMock
-
+from aiogithubapi import GitHubAPI
 from awesomeversion import AwesomeVersion
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.core import HomeAssistant
@@ -57,6 +57,10 @@ pytestmark = pytest.mark.asyncio
 asyncio.set_event_loop_policy(HassEventLoopPolicy(False))
 # Disable fixtures overriding our beautiful policy
 asyncio.set_event_loop_policy = lambda policy: None
+
+# Disable sleep in tests
+_sleep = asyncio.sleep
+asyncio.sleep = lambda _: _sleep(0)
 
 
 @pytest.fixture()
@@ -114,7 +118,6 @@ def hacs(hass: HomeAssistant):
         manifest={"domain": DOMAIN, "version": "0.0.0", "requirements": ["hacs_frontend==1"]},
     )
     hacs_obj.common = HacsCommon()
-    hacs_obj.githubapi = AsyncMock()
     hacs_obj.data = AsyncMock()
     hacs_obj.queue = QueueManager()
     hacs_obj.core = HacsCore()
@@ -124,6 +127,13 @@ def hacs(hass: HomeAssistant):
     hacs_obj.core.ha_version = AwesomeVersion(HAVERSION)
     hacs_obj.version = hacs_obj.integration.version
     hacs_obj.configuration.token = TOKEN
+
+    ## New GitHub client
+    hacs_obj.githubapi = GitHubAPI(
+        token=hacs_obj.configuration.token,
+        session=hacs_obj.session,
+        **{"client_name": "HACS/pytest"},
+    )
 
     hass.data[DOMAIN] = hacs_obj
 

@@ -55,6 +55,16 @@ class HacsIntegrationRepository(HacsRepository):
         if self.content.path.remote == "custom_components":
             name = get_first_directory_in_directory(self.tree, "custom_components")
             if name is None:
+                if (
+                    self.data.full_name == "home-assistant/addons"
+                    or "repository.json" in self.treefiles
+                    or "repository.yaml" in self.treefiles
+                    or "repository.yml" in self.treefiles
+                ):
+                    raise HacsException(
+                        "The repository does not seem to be a integration, "
+                        "but an add-on repository. HACS does not manage add-ons."
+                    )
                 raise HacsException(
                     f"Repository structure for {self.ref.replace('tags/','')} is not compliant"
                 )

@@ -55,7 +55,6 @@ async def test_device_info_entry_type(hacs: HacsBase, hass: HomeAssistant):
     assert isinstance(entry_type, DeviceEntryType)
 
 
-
 @pytest.mark.asyncio
 async def test_sensor_update_event(hacs: HacsBase, hass: HomeAssistant):
     sensor = await sensor_setup(hacs, hass)

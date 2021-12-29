@@ -1,7 +1,9 @@
 """The QueueManager class."""
+from __future__ import annotations
 
 import asyncio
 import time
+from typing import Coroutine
 
 from ..exceptions import HacsExecutionStillInProgress
 from .logger import get_hacs_logger
@@ -13,7 +15,7 @@ class QueueManager:
     """The QueueManager class."""
 
     running = False
-    queue = []
+    queue: list[Coroutine] = []
 
     @property
     def pending_tasks(self) -> int:
@@ -27,13 +29,13 @@ class QueueManager:
 
     def clear(self) -> None:
         """Clear the queue."""
-        self.queue.clear()
+        self.queue = []
 
-    def add(self, task) -> None:
+    def add(self, task: Coroutine) -> None:
         """Add a task to the queue."""
         self.queue.append(task)
 
-    async def execute(self, number_of_tasks=None) -> None:
+    async def execute(self, number_of_tasks: int | None = None) -> None:
         """Execute the tasks in the queue."""
         if self.running:
             _LOGGER.debug("Execution is allreay running")

@@ -8,7 +8,6 @@ from custom_components.hacs.base import HacsBase
 
 @pytest.mark.asyncio
 async def test_setup_frontend(hacs: HacsBase):
-    await hacs.tasks.async_load()
     task = hacs.tasks.get("setup_frontend")
 
     assert task
@@ -32,7 +31,6 @@ async def test_setup_frontend(hacs: HacsBase):
 
 @pytest.mark.asyncio
 async def test_setup_frontend_dev(hacs: HacsBase, caplog: pytest.LogCaptureFixture):
-    await hacs.tasks.async_load()
     task = hacs.tasks.get("setup_frontend")
 
     assert task
@@ -41,6 +39,7 @@ async def test_setup_frontend_dev(hacs: HacsBase, caplog: pytest.LogCaptureFixtu
 
     hacs.hass.http = MagicMock()
     hacs.hass.components.frontend = MagicMock()
+
     await task.execute_task()
 
     assert hacs.hass.http.register_view.call_count == 1

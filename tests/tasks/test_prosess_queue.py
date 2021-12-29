@@ -1,5 +1,5 @@
 # pylint: disable=missing-function-docstring,missing-module-docstring, protected-access
-from unittest.mock import patch, AsyncMock
+from unittest.mock import AsyncMock, patch
 
 import pytest
 
@@ -7,8 +7,8 @@ from custom_components.hacs.base import HacsBase
 from custom_components.hacs.enums import HacsDisabledReason, HacsStage
 from custom_components.hacs.exceptions import HacsExecutionStillInProgress
 
-
 dummy_task = AsyncMock()
+
 
 @pytest.mark.asyncio
 async def test_prosess_queue_disabled(hacs: HacsBase, caplog: pytest.LogCaptureFixture):

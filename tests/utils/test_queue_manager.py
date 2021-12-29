@@ -7,8 +7,8 @@ import pytest
 from custom_components.hacs.exceptions import HacsExecutionStillInProgress
 from custom_components.hacs.utils.queue_manager import QueueManager
 
-
 dummy_task = AsyncMock()
+
 
 @pytest.mark.asyncio
 async def test_queue_manager(caplog: pytest.LogCaptureFixture) -> None:
@@ -23,7 +23,6 @@ async def test_queue_manager(caplog: pytest.LogCaptureFixture) -> None:
     queue_manager.add(dummy_task())
     assert queue_manager.has_pending_tasks
     assert queue_manager.pending_tasks == 1
-
 
     for _ in range(1, 5):
         queue_manager.add(dummy_task())

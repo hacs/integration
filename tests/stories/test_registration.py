@@ -83,6 +83,11 @@ async def test_registration(
             "The repository does not seem to be a integration, "
             "but an add-on repository. HACS does not manage add-ons.",
         ),
+        (
+            "some-user/addons",
+            "The repository does not seem to be a integration, "
+            "but an add-on repository. HACS does not manage add-ons.",
+        ),
         ("some-user/some-invalid-repo", "Repository structure for main is not compliant"),
     ),
 )
@@ -119,6 +124,9 @@ async def test_registration_issues(
                         "home-assistant/core": [],
                         "home-assistant/addons": [
                             {"path": "repository.json", "type": "blob"},
+                        ],
+                        "some-user/addons": [
+                            {"path": "repository.yaml", "type": "blob"},
                         ],
                         "some-user/some-invalid-repo": [
                             {"path": "setup.py", "type": "blob"},

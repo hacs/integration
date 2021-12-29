@@ -56,7 +56,8 @@ class HacsIntegrationRepository(HacsRepository):
             name = get_first_directory_in_directory(self.tree, "custom_components")
             if name is None:
                 if (
-                    "repository.json" in self.treefiles
+                    self.data.full_name == "home-assistant/addons"
+                    or "repository.json" in self.treefiles
                     or "repository.yaml" in self.treefiles
                     or "repository.yml" in self.treefiles
                 ):

@@ -11,7 +11,7 @@ from awesomeversion import AwesomeVersion
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ServiceNotFound
-from homeassistant.helpers.aiohttp_client import async_create_clientsession
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.loader import Integration
 from homeassistant.runner import HassEventLoopPolicy
 import pytest
@@ -109,7 +109,7 @@ def hacs(hass: HomeAssistant):
     hacs_obj.hass = hass
     hacs_obj.tasks = HacsTaskManager(hacs=hacs_obj, hass=hass)
     hacs_obj.validation = ValidationManager(hacs=hacs_obj, hass=hass)
-    hacs_obj.session = async_create_clientsession(hass)
+    hacs_obj.session = async_get_clientsession(hass)
     hacs_obj.repositories = HacsRepositories()
 
     hacs_obj.integration = Integration(

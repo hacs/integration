@@ -45,10 +45,11 @@ class HacsTask:
         start_time = monotonic()
 
         try:
-            if task := getattr(self, "execute", None):
-                await self.hass.async_add_executor_job(task)
-            elif task := getattr(self, "async_execute", None):
+            if task := getattr(self, "async_execute", None):
                 await task()  # pylint: disable=not-callable
+            elif task := getattr(self, "execute", None):
+                await self.hass.async_add_executor_job(task)
+
         except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.task_logger(self.hacs.log.error, f"failed: {exception}")
 

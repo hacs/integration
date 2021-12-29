@@ -15,7 +15,7 @@ from homeassistant.components.lovelace.system_health import system_health_info
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED, __version__ as HAVERSION
 from homeassistant.core import CoreState, HomeAssistant
-from homeassistant.helpers.aiohttp_client import async_create_clientsession
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
 import voluptuous as vol
@@ -73,7 +73,9 @@ async def async_initialize_integration(
 
     await hacs.async_set_stage(None)
 
-    hacs.log.info(STARTUP.format(version=integration.version))
+    hacs.log.info(STARTUP, integration.version)
+
+    clientsession = async_get_clientsession(hass)
 
     hacs.integration = integration
     hacs.version = integration.version
@@ -81,7 +83,7 @@ async def async_initialize_integration(
     hacs.queue = QueueManager()
     hacs.data = HacsData(hacs=hacs)
     hacs.system.running = True
-    hacs.session = async_create_clientsession(hass)
+    hacs.session = clientsession
     hacs.tasks = HacsTaskManager(hacs=hacs, hass=hass)
     hacs.validation = ValidationManager(hacs=hacs, hass=hass)
 
@@ -100,13 +102,10 @@ async def async_initialize_integration(
 
     await hacs.tasks.async_load()
 
-    # Setup session for API clients
-    session = async_create_clientsession(hacs.hass)
-
     ## Legacy GitHub client
     hacs.github = GitHub(
         hacs.configuration.token,
-        session,
+        clientsession,
         headers={
             "User-Agent": f"HACS/{hacs.version}",
             "Accept": ACCEPT_HEADERS["preview"],
@@ -116,7 +115,7 @@ async def async_initialize_integration(
     ## New GitHub client
     hacs.githubapi = GitHubAPI(
         token=hacs.configuration.token,
-        session=session,
+        session=clientsession,
         **{"client_name": f"HACS/{hacs.version}"},
     )
 

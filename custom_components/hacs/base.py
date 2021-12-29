@@ -484,6 +484,12 @@ class HacsBase:
             if repository_full_name != HacsGitHubRepo.INTEGRATION:
                 raise HacsExpectedException(f"Skipping {repository_full_name}")
 
+        if repository_full_name == "home-assistant/core":
+            raise HacsExpectedException(
+                "You can not add homeassistant/core, to use core integrations "
+                "check the Home Assistant documentation for how to add them."
+            )
+
         if category not in RERPOSITORY_CLASSES:
             raise HacsException(f"{category} is not a valid repository category.")
 

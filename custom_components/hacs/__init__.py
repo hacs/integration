@@ -94,7 +94,7 @@ async def async_initialize_integration(
     except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
         # If this happens, the users YAML is not valid, we assume YAML mode
         pass
-    hacs.log.debug(f"Configuration type: {hacs.configuration.config_type}")
+    hacs.log.debug("Configuration type: %s", hacs.configuration.config_type)
     hacs.core.config_path = hacs.hass.config.path()
 
     if hacs.core.ha_version is None:
@@ -171,9 +171,15 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     """Handle removal of an entry."""
     hacs: HacsBase = hass.data[DOMAIN]
 
+    # Clear out pending queue
+    hacs.queue.clear()
+
     for task in hacs.recuring_tasks:
         # Cancel all pending tasks
         task()
+
+    # Store data
+    await hacs.data.async_write()
 
     try:
         if hass.data.get("frontend_panels", {}).get("hacs"):

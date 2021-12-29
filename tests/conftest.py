@@ -103,7 +103,7 @@ def hass(event_loop, tmpdir):
 
 
 @pytest.fixture
-def hacs(hass: HomeAssistant):
+async def hacs(hass: HomeAssistant):
     """Fixture to provide a HACS object."""
     hacs_obj = HacsBase()
     hacs_obj.hass = hass
@@ -135,6 +135,9 @@ def hacs(hass: HomeAssistant):
         session=hacs_obj.session,
         **{"client_name": "HACS/pytest"},
     )
+
+    await hacs_obj.tasks.async_load()
+    hacs_obj.queue.clear()
 
     hass.data[DOMAIN] = hacs_obj
 

@@ -46,7 +46,7 @@ class ValidationManager:
                 self._validatiors[task.slug] = task
 
         await asyncio.gather(*[_load_module(task) for task in validator_modules])
-        self.hacs.log.debug("Loaded %s validators", len(self.validatiors))
+        self.hacs.log.debug("Loaded %s validators for %s", len(self.validatiors), repository)
 
     async def async_run_repository_checks(self, repository: HacsRepository) -> None:
         """Run all validators for a repository."""
@@ -54,6 +54,11 @@ class ValidationManager:
             return
 
         await self.async_load(repository)
+        total = len([x for x in self.validatiors if self.hacs.system.action or not x.action_only])
+
+        if total == 0:
+            # No validators, so we are done
+            return
 
         await asyncio.gather(
             *[
@@ -66,10 +71,7 @@ class ValidationManager:
             ]
         )
 
-        total = len([x for x in self.validatiors if self.hacs.system.action or not x.action_only])
-        failed = len([x for x in self.validatiors if x.failed])
-
-        if failed != 0:
+        if (failed := len([x for x in self.validatiors if x.failed])) != 0:
             repository.logger.error("%s %s/%s checks failed", repository, failed, total)
             if self.hacs.system.action:
                 exit(1)

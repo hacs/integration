@@ -46,7 +46,7 @@ class ValidationManager:
                 self._validatiors[task.slug] = task
 
         await asyncio.gather(*[_load_module(task) for task in validator_modules])
-        self.hacs.log.info("Loaded %s validators", len(self.validatiors))
+        self.hacs.log.debug("Loaded %s validators", len(self.validatiors))
 
     async def async_run_repository_checks(self, repository: HacsRepository) -> None:
         """Run all validators for a repository."""

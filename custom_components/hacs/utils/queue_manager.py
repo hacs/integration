@@ -5,6 +5,8 @@ import asyncio
 import time
 from typing import Coroutine
 
+from homeassistant.core import HomeAssistant
+
 from ..exceptions import HacsExecutionStillInProgress
 from .logger import get_hacs_logger
 
@@ -16,6 +18,9 @@ class QueueManager:
 
     running = False
     queue: list[Coroutine] = []
+
+    def __init__(self, hass: HomeAssistant) -> None:
+        self.hass = hass
 
     @property
     def pending_tasks(self) -> int:
@@ -33,7 +38,7 @@ class QueueManager:
 
     def add(self, task: Coroutine) -> None:
         """Add a task to the queue."""
-        self.queue.append(task)
+        self.queue.append(self.hass.loop.create_task(task))
 
     async def execute(self, number_of_tasks: int | None = None) -> None:
         """Execute the tasks in the queue."""

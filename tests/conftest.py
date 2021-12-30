@@ -91,8 +91,6 @@ def hass(event_loop, tmpdir):
     orig_exception_handler = event_loop.get_exception_handler()
     event_loop.set_exception_handler(exc_handle)
 
-    hass_obj.http = MagicMock()
-
     yield hass_obj
 
     event_loop.run_until_complete(hass_obj.async_stop(force=True))
@@ -120,7 +118,7 @@ async def hacs(hass: HomeAssistant):
     )
     hacs_obj.common = HacsCommon()
     hacs_obj.data = AsyncMock()
-    hacs_obj.queue = QueueManager()
+    hacs_obj.queue = QueueManager(hass=hass)
     hacs_obj.core = HacsCore()
     hacs_obj.system = HacsSystem()
 

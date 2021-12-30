@@ -456,7 +456,7 @@ class HacsBase:
         """Call a GitHub API method"""
         try:
             return await method(*args, **kwargs)
-        except BaseException as exception:
+        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.exception_handler(exception)
         return None
 

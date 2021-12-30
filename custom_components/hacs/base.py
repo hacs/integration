@@ -555,16 +555,17 @@ class HacsBase:
             )
         )
 
+        self.status.startup = False
+        await self.async_set_stage(HacsStage.RUNNING)
+
         self.hass.bus.async_fire("hacs/reload", {"force": True})
         await self.recurring_tasks_installed()
 
         if queue_task := self.tasks.get("prosess_queue"):
             await queue_task.execute_task()
 
-        self.status.startup = False
         self.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
-        await self.async_set_stage(HacsStage.RUNNING)
 
     async def handle_critical_repositories_startup(self) -> None:
         """Handled critical repositories during startup."""

@@ -12,7 +12,10 @@ from custom_components.hacs.enums import HacsDisabledReason
 from custom_components.hacs.exceptions import HacsException
 
 
-def test_exception_handler_githubauthenticationexception(hacs: HacsBase, caplog: pytest.LogCaptureFixture):
+def test_exception_handler_githubauthenticationexception(
+    hacs: HacsBase,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
     assert not hacs.system.disabled
 
     try:
@@ -25,7 +28,10 @@ def test_exception_handler_githubauthenticationexception(hacs: HacsBase, caplog:
     assert "GitHub authentication failed" in caplog.text
 
 
-def test_exception_handler_githubratelimitexception(hacs: HacsBase, caplog: pytest.LogCaptureFixture):
+def test_exception_handler_githubratelimitexception(
+    hacs: HacsBase,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
     assert not hacs.system.disabled
 
     try:
@@ -38,14 +44,18 @@ def test_exception_handler_githubratelimitexception(hacs: HacsBase, caplog: pyte
     assert "GitHub API ratelimited" in caplog.text
 
 
-def test_exception_handler_githubnotmodifiedexception(hacs: HacsBase):
+def test_exception_handler_githubnotmodifiedexception(hacs: HacsBase) -> None:
     try:
         raise GitHubNotModifiedException()
     except BaseException as exception:
         with pytest.raises(GitHubNotModifiedException):
             hacs.exception_handler(exception)
 
-def test_exception_handler_githubexception(hacs: HacsBase, caplog: pytest.LogCaptureFixture):
+
+def test_exception_handler_githubexception(
+    hacs: HacsBase,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
     try:
         raise GitHubException()
     except BaseException as exception:
@@ -54,7 +64,7 @@ def test_exception_handler_githubexception(hacs: HacsBase, caplog: pytest.LogCap
             assert "GitHub API error" in caplog.text
 
 
-def test_exception_handler_baseexception(hacs: HacsBase):
+def test_exception_handler_baseexception(hacs: HacsBase) -> None:
     try:
         raise BaseException()
     except BaseException as exception:

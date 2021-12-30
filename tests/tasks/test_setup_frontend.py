@@ -1,8 +1,8 @@
 # pylint: disable=missing-function-docstring,missing-module-docstring, protected-access
 from unittest.mock import AsyncMock, MagicMock, patch
+
 from aiohttp.client import request
 from aresponses import ResponsesMockServer
-
 import pytest
 
 from custom_components.hacs.base import HacsBase
@@ -15,8 +15,11 @@ async def test_setup_frontend(hacs: HacsBase):
 
     assert task
 
-    with patch("homeassistant.components.http.HomeAssistantHTTP.register_view", return_value=MagicMock()) as mock_register_view, patch(
-        "homeassistant.components.http.HomeAssistantHTTP.register_static_path", return_value=MagicMock()
+    with patch(
+        "homeassistant.components.http.HomeAssistantHTTP.register_view", return_value=MagicMock()
+    ) as mock_register_view, patch(
+        "homeassistant.components.http.HomeAssistantHTTP.register_static_path",
+        return_value=MagicMock(),
     ) as mock_register_static_path, patch(
         "homeassistant.components.frontend.async_register_built_in_panel", return_value=AsyncMock()
     ) as mock_async_register_built_in_panel:
@@ -35,7 +38,9 @@ async def test_setup_frontend(hacs: HacsBase):
 
 
 @pytest.mark.asyncio
-async def test_setup_frontend_dev(hacs: HacsBase, caplog: pytest.LogCaptureFixture, aresponses: ResponsesMockServer):
+async def test_setup_frontend_dev(
+    hacs: HacsBase, caplog: pytest.LogCaptureFixture, aresponses: ResponsesMockServer
+):
     task = hacs.tasks.get("setup_frontend")
 
     assert task
@@ -46,9 +51,7 @@ async def test_setup_frontend_dev(hacs: HacsBase, caplog: pytest.LogCaptureFixtu
 
     assert "Frontend development mode enabled. Do not run in production!" in caplog.text
 
-
     view = HacsFrontendDev()
-
 
     aresponses.add(
         "lorem.ipsum",
@@ -57,7 +60,7 @@ async def test_setup_frontend_dev(hacs: HacsBase, caplog: pytest.LogCaptureFixtu
         aresponses.Response(body="dev_server_response"),
     )
 
-    resp = await view.get(MagicMock(app = {"hass": hacs.hass}), "index.html")
+    resp = await view.get(MagicMock(app={"hass": hacs.hass}), "index.html")
 
     assert resp.headers["Content-Type"] == "application/javascript"
-    assert resp.body == b'dev_server_response'
+    assert resp.body == b"dev_server_response"

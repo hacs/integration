@@ -780,7 +780,7 @@ class HacsBase:
         if isinstance(exception, GitHubNotModifiedException):
             raise exception
 
-        elif isinstance(exception, GitHubException):
+        if isinstance(exception, GitHubException):
             self.log.error("GitHub API error - %s", exception)
 
         elif isinstance(exception, BaseException):

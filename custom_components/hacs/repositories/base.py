@@ -929,7 +929,7 @@ class HacsRepository:
                 self.logger.error("%s %s", self, exception)
             if not ignore_issues:
                 self.validate.errors.append("Repository does not exist.")
-                raise HacsException(exception) from None
+                self.hacs.exception_handler(exception)
 
         # Make sure the repository is not archived.
         if self.data.archived and not ignore_issues:

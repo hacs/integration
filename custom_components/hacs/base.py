@@ -435,13 +435,16 @@ class HacsBase:
 
         return 0
 
-    async def async_github_get_hacs_default_file(self, filename: str) -> dict[str, Any]:
+    async def async_github_get_hacs_default_file(self, filename: str) -> list:
         """Get the content of a default file."""
         response = await self.async_github_api_method(
             method=self.githubapi.repos.contents.get,
             repository=HacsGitHubRepo.DEFAULT,
             path=filename,
         )
+        if response is None:
+            return []
+
         return json.loads(decode_content(response.data.content))
 
     async def async_github_api_method(
@@ -453,20 +456,8 @@ class HacsBase:
         """Call a GitHub API method"""
         try:
             return await method(*args, **kwargs)
-        except GitHubAuthenticationException as exception:
-            self.log.error("GitHub authentication failed - %s", exception)
-            self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
-        except GitHubRatelimitException as exception:
-            self.log.error("GitHub API ratelimited - %s", exception)
-            self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
-        except GitHubNotModifiedException as exception:
-            raise exception
-        except GitHubException as exception:
-            self.log.error("GitHub API error - %s", exception)
-            raise HacsException(exception) from exception
         except BaseException as exception:
-            self.log.exception(exception)
-            raise HacsException(exception) from exception
+            self.exception_handler(exception)
         return None
 
     async def async_register_repository(
@@ -521,7 +512,7 @@ class HacsBase:
                 self.common.skip.append(repository.data.full_name)
                 raise HacsException(
                     f"Validation for {repository_full_name} failed with {exception}."
-                ) from None
+                ) from exception
 
         if repository_id is not None:
             repository.data.id = repository_id
@@ -766,10 +757,33 @@ class HacsBase:
                 raise HacsException(
                     f"Got status code {request.status} when trying to download {url}"
                 )
-            except Exception as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
                 self.log.debug("Download failed - %s", exception)
                 tries_left -= 1
                 await asyncio.sleep(1)
                 continue
 
         return None
+
+    def exception_handler(self, exception: BaseException) -> None:
+        """Handle exceptions."""
+        if isinstance(exception, GitHubAuthenticationException):
+            self.log.error("GitHub authentication failed - %s", exception)
+            self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
+            return
+
+        if isinstance(exception, GitHubRatelimitException):
+            self.log.error("GitHub API ratelimited - %s", exception)
+            self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
+            return
+
+        if isinstance(exception, GitHubNotModifiedException):
+            raise exception
+
+        if isinstance(exception, GitHubException):
+            self.log.error("GitHub API error - %s", exception)
+
+        elif isinstance(exception, BaseException):
+            self.log.exception(exception)
+
+        raise HacsException(exception)

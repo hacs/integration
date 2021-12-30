@@ -457,8 +457,20 @@ class HacsBase:
         """Call a GitHub API method"""
         try:
             return await method(*args, **kwargs)
+        except GitHubAuthenticationException as exception:
+            self.log.error("GitHub authentication failed - %s", exception)
+            self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
+        except GitHubRatelimitException as exception:
+            self.log.error("GitHub API ratelimited - %s", exception)
+            self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
+        except GitHubNotModifiedException as exception:
+            raise exception
+        except GitHubException as exception:
+            self.log.error("GitHub API error - %s", exception)
+            raise HacsException(exception) from exception
         except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-            self.exception_handler(exception)
+            self.log.exception(exception)
+            raise HacsException(exception) from exception
         return None
 
     async def async_register_repository(
@@ -766,26 +778,3 @@ class HacsBase:
                 continue
 
         return None
-
-    def exception_handler(self, exception: BaseException) -> None:
-        """Handle exceptions."""
-        if isinstance(exception, GitHubAuthenticationException):
-            self.log.error("GitHub authentication failed - %s", exception)
-            self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
-            return
-
-        if isinstance(exception, GitHubRatelimitException):
-            self.log.error("GitHub API ratelimited - %s", exception)
-            self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
-            return
-
-        if isinstance(exception, GitHubNotModifiedException):
-            raise exception
-
-        if isinstance(exception, GitHubException):
-            self.log.error("GitHub API error - %s", exception)
-
-        elif isinstance(exception, BaseException):
-            self.log.exception(exception)
-
-        raise HacsException(exception)

@@ -37,9 +37,9 @@ class HacsData:
         self.hacs = hacs
         self.content = {}
 
-    async def async_write(self):
+    async def async_write(self, force: bool = False) -> None:
         """Write content to the store files."""
-        if self.hacs.status.background_task or self.hacs.system.disabled:
+        if not force and (self.hacs.status.background_task or self.hacs.system.disabled):
             return
 
         self.logger.debug("Saving data")

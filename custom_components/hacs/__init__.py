@@ -179,7 +179,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
         task()
 
     # Store data
-    await hacs.data.async_write()
+    await hacs.data.async_write(force=True)
 
     try:
         if hass.data.get("frontend_panels", {}).get("hacs"):

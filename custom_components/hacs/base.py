@@ -40,6 +40,7 @@ from .enums import (
 from .exceptions import (
     HacsException,
     HacsExpectedException,
+    HacsRepositoryArchivedException,
     HacsRepositoryExistException,
 )
 from .repositories import RERPOSITORY_CLASSES
@@ -506,7 +507,7 @@ class HacsBase:
                     repository.logger.info("%s Validation completed", repository)
                 else:
                     repository.logger.info("%s Registration completed", repository)
-            except HacsRepositoryExistException:
+            except (HacsRepositoryExistException, HacsRepositoryArchivedException):
                 return
             except AIOGitHubAPIException as exception:
                 self.common.skip.append(repository.data.full_name)

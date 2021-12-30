@@ -772,12 +772,12 @@ class HacsBase:
             self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
             return
 
-        elif isinstance(exception, GitHubRatelimitException):
+        if isinstance(exception, GitHubRatelimitException):
             self.log.error("GitHub API ratelimited - %s", exception)
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
             return
 
-        elif isinstance(exception, GitHubNotModifiedException):
+        if isinstance(exception, GitHubNotModifiedException):
             raise exception
 
         elif isinstance(exception, GitHubException):

@@ -559,7 +559,7 @@ class HacsRepository:
                 validate.errors.append(f"No assets found for release '{self.ref}'")
                 return
 
-            download_queue = QueueManager()
+            download_queue = QueueManager(hass=self.hacs.hass)
 
             for content in contents or []:
                 download_queue.add(self.async_download_zip_file(content, validate))
@@ -606,7 +606,7 @@ class HacsRepository:
         if not contents:
             raise HacsException("No content to download")
 
-        download_queue = QueueManager()
+        download_queue = QueueManager(hass=self.hacs.hass)
 
         for content in contents:
             if self.data.content_in_root and self.data.filename:

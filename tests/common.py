@@ -9,6 +9,7 @@ import os
 
 from homeassistant import auth, config_entries, core as ha
 from homeassistant.auth import auth_store
+from homeassistant.components.http import HomeAssistantHTTP
 from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE
 from homeassistant.helpers import storage
 from homeassistant.helpers.device_registry import DeviceRegistry
@@ -143,6 +144,21 @@ async def async_test_home_assistant(loop, tmpdir):
 
     # Mock async_start
     orig_start = hass.async_start
+
+    hass.http = HomeAssistantHTTP(
+        hass,
+        server_host=None,
+        server_port=8123,
+        ssl_certificate=None,
+        ssl_peer_certificate=None,
+        ssl_key=None,
+        cors_origins=[],
+        use_x_forwarded_for=False,
+        trusted_proxies=[],
+        login_threshold=3,
+        is_ban_enabled=False,
+        ssl_profile="modern",
+    )
 
     async def mock_async_start():
         """Start the mocking."""

@@ -593,7 +593,7 @@ class HacsBase:
     async def handle_critical_repositories(self) -> None:
         """Handled critical repositories during runtime."""
         # Get critical repositories
-        critical_queue = QueueManager()
+        critical_queue = QueueManager(hass=self.hass)
         instored = []
         critical = []
         was_installed = False

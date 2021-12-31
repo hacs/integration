@@ -427,7 +427,7 @@ class HacsBase:
             response = await self.async_github_api_method(self.githubapi.rate_limit)
             if ((limit := response.data.resources.core.remaining or 0) - 1000) >= 15:
                 return math.floor((limit - 1000) / 15)
-            self.log.error(
+            self.log.info(
                 "GitHub API ratelimited - %s remaining", response.data.resources.core.remaining
             )
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
@@ -461,7 +461,7 @@ class HacsBase:
             self.log.error("GitHub authentication failed - %s", exception)
             self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
         except GitHubRatelimitException as exception:
-            self.log.error("GitHub API ratelimited - %s", exception)
+            self.log.info("GitHub API ratelimited - %s", exception)
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
         except GitHubNotModifiedException as exception:
             raise exception

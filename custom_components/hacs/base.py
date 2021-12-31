@@ -452,25 +452,30 @@ class HacsBase:
         self,
         method: Callable[[], Awaitable[TV]],
         *args,
+        raise_exception: bool = True,
         **kwargs,
     ) -> TV | None:
         """Call a GitHub API method"""
+        _exception = None
+
         try:
             return await method(*args, **kwargs)
         except GitHubAuthenticationException as exception:
-            self.log.error("GitHub authentication failed - %s", exception)
             self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
+            _exception = exception
         except GitHubRatelimitException as exception:
-            self.log.info("GitHub API ratelimited - %s", exception)
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
+            _exception = exception
         except GitHubNotModifiedException as exception:
             raise exception
         except GitHubException as exception:
-            self.log.error("GitHub API error - %s", exception)
-            raise HacsException(exception) from exception
+            _exception = exception
         except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.log.exception(exception)
-            raise HacsException(exception) from exception
+            _exception = exception
+
+        if raise_exception and _exception is not None:
+            raise HacsException(_exception)
         return None
 
     async def async_register_repository(

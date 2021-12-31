@@ -620,11 +620,13 @@ class HacsRepository:
         try:
             response = await self.hacs.async_github_api_method(
                 method=self.hacs.githubapi.repos.contents.get,
+                raise_exception=False,
                 repository=self.data.full_name,
                 path=RepositoryFile.HACS_JSON,
                 **{"params": {"ref": ref or version_to_download(self)}},
             )
-            return json.loads(decode_content(response.data.content))
+            if response:
+                return json.loads(decode_content(response.data.content))
         except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             pass
 
@@ -650,11 +652,12 @@ class HacsRepository:
         try:
             response = await self.hacs.async_github_api_method(
                 method=self.hacs.githubapi.repos.contents.get,
+                raise_exception=False,
                 repository=self.data.full_name,
                 path=info_files[0],
             )
-
-            return render_template(
+            if response:
+                return render_template(
                 decode_content(response.data.content)
                 .replace("<svg", "<disabled")
                 .replace("</svg", "</disabled"),

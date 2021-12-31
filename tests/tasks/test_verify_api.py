@@ -61,7 +61,6 @@ async def test_verify_api_ratelimited_exception(hacs: HacsBase, caplog: pytest.L
 
     await task.execute_task()
     assert "Can update 0 repositories" in caplog.text
-    assert "GitHub API ratelimited -" in caplog.text
     assert hacs.system.disabled
     assert hacs.system.disabled_reason == HacsDisabledReason.RATE_LIMIT
 
@@ -81,7 +80,6 @@ async def test_verify_api_authentication_exception(
     hacs.githubapi.rate_limit.side_effect = GitHubAuthenticationException
     await task.execute_task()
     assert "Can update 0 repositories" in caplog.text
-    assert "GitHub authentication failed -" in caplog.text
     assert hacs.system.disabled
     assert hacs.system.disabled_reason == HacsDisabledReason.INVALID_TOKEN
 

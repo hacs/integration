@@ -658,11 +658,11 @@ class HacsRepository:
             )
             if response:
                 return render_template(
-                decode_content(response.data.content)
-                .replace("<svg", "<disabled")
-                .replace("</svg", "</disabled"),
-                self,
-            )
+                    decode_content(response.data.content)
+                    .replace("<svg", "<disabled")
+                    .replace("</svg", "</disabled"),
+                    self,
+                )
         except BaseException as exc:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.logger.error(exc)
 

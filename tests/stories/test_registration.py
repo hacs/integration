@@ -11,6 +11,7 @@ from custom_components.hacs.exceptions import HacsException
 
 from tests.sample_data import (
     category_test_treefiles,
+    integration_manifest,
     release_data,
     repository_data,
     response_rate_limit_header,
@@ -54,6 +55,17 @@ async def test_registration(
         "get",
         aresponses.Response(
             body=json.dumps(category_test_treefiles(category)),
+            headers=response_rate_limit_header,
+        ),
+    )
+
+    content = base64.b64encode(json.dumps(integration_manifest).encode("utf-8"))
+    aresponses.add(
+        "api.github.com",
+        "/repos/test/test/contents/custom_components/test/manifest.json",
+        "get",
+        aresponses.Response(
+            body=json.dumps({"content": content.decode("utf-8")}),
             headers=response_rate_limit_header,
         ),
     )

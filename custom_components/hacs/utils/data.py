@@ -9,6 +9,7 @@ from ..base import HacsBase
 from ..enums import HacsGitHubRepo
 from ..repositories.base import HacsManifest, HacsRepository
 from .logger import get_hacs_logger
+from .path import is_safe
 from .store import (
     async_load_from_store,
     async_save_to_store,
@@ -228,6 +229,10 @@ class HacsData:
         repository.repository_manifest = HacsManifest.from_dict(
             repository_data.get("repository_manifest", {})
         )
+
+        if repository.localpath is not None and is_safe(self.hacs, repository.localpath):
+            # Set local path
+            repository.content.path.local = repository.localpath
 
         if repository.data.installed:
             repository.status.first_install = False

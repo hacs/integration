@@ -79,9 +79,6 @@ class HacsIntegrationRepository(HacsRepository):
                 self.data.manifest_name = manifest["name"]
                 self.data.config_flow = manifest.get("config_flow", False)
 
-                # Set local path
-                self.content.path.local = self.localpath
-
             except KeyError as exception:
                 self.validate.errors.append(
                     f"Missing expected key '{exception}' in { RepositoryFile.MAINIFEST_JSON}"
@@ -89,6 +86,9 @@ class HacsIntegrationRepository(HacsRepository):
                 self.hacs.log.error(
                     "Missing expected key '%s' in '%s'", exception, RepositoryFile.MAINIFEST_JSON
                 )
+
+        # Set local path
+        self.content.path.local = self.localpath
 
         # Handle potential errors
         if self.validate.errors:
@@ -117,9 +117,6 @@ class HacsIntegrationRepository(HacsRepository):
                 self.data.domain = manifest["domain"]
                 self.data.manifest_name = manifest["name"]
                 self.data.config_flow = manifest.get("config_flow", False)
-
-                # Set local path
-                self.content.path.local = self.localpath
 
             except KeyError as exception:
                 self.validate.errors.append(
@@ -150,15 +147,11 @@ class HacsIntegrationRepository(HacsRepository):
         if not manifest_path in (x.full_path for x in self.tree):
             raise HacsException(f"No {RepositoryFile.MAINIFEST_JSON} file found '{manifest_path}'")
 
-        try:
-            response = await self.hacs.async_github_api_method(
-                method=self.hacs.githubapi.repos.contents.get,
-                raise_exception=False,
-                repository=self.data.full_name,
-                path=manifest_path,
-                **{"params": {"ref": ref or version_to_download(self)}},
-            )
-            if response:
-                return json.loads(decode_content(response.data.content))
-        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-            pass
+        response = await self.hacs.async_github_api_method(
+            method=self.hacs.githubapi.repos.contents.get,
+            repository=self.data.full_name,
+            path=manifest_path,
+            **{"params": {"ref": ref or version_to_download(self)}},
+        )
+        if response:
+            return json.loads(decode_content(response.data.content))

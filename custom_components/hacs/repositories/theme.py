@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 from ..enums import HacsCategory
 from ..exceptions import HacsException
+from ..utils.decorator import concurrent
 from .base import HacsRepository
 
 if TYPE_CHECKING:
@@ -68,9 +69,10 @@ class HacsThemeRepository(HacsRepository):
         self.update_filenames()
         self.content.path.local = self.localpath
 
+    @concurrent(concurrenttasks=10, backoff_time=5)
     async def update_repository(self, ignore_issues=False, force=False):
         """Update."""
-        if not await self.common_update(ignore_issues, force):
+        if not await self.common_update(ignore_issues, force) and not force:
             return
 
         # Get theme objects.

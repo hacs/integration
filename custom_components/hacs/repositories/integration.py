@@ -9,6 +9,7 @@ from homeassistant.loader import async_get_custom_components
 from ..enums import HacsCategory, HacsGitHubRepo, RepositoryFile
 from ..exceptions import HacsException
 from ..utils.decode import decode_content
+from ..utils.decorator import concurrent
 from ..utils.filters import get_first_directory_in_directory
 from ..utils.version import version_to_download
 from .base import HacsRepository
@@ -97,9 +98,10 @@ class HacsIntegrationRepository(HacsRepository):
                     self.logger.error("%s %s", self, error)
         return self.validate.success
 
+    @concurrent(concurrenttasks=10, backoff_time=5)
     async def update_repository(self, ignore_issues=False, force=False):
         """Update."""
-        if not await self.common_update(ignore_issues, force):
+        if not await self.common_update(ignore_issues, force) and not force:
             return
 
         if self.data.content_in_root:

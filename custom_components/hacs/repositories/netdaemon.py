@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 from ..enums import HacsCategory
 from ..exceptions import HacsException
 from ..utils import filters
+from ..utils.decorator import concurrent
 from .base import HacsRepository
 
 if TYPE_CHECKING:
@@ -61,9 +62,10 @@ class HacsNetdaemonRepository(HacsRepository):
                     self.logger.error("%s %s", self, error)
         return self.validate.success
 
+    @concurrent(concurrenttasks=10, backoff_time=5)
     async def update_repository(self, ignore_issues=False, force=False):
         """Update."""
-        if not await self.common_update(ignore_issues, force):
+        if not await self.common_update(ignore_issues, force) and not force:
             return
 
         # Get appdaemon objects.

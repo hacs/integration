@@ -267,7 +267,7 @@ async def hacs_repository_data(hass, connection, msg):
         elif action == "install":
             was_installed = repository.data.installed
             repository.data.selected_tag = data
-            await repository.update_repository()
+            await repository.update_repository(force=True)
             await repository.async_install()
             repository.state = None
             if not was_installed:
@@ -336,7 +336,7 @@ async def hacs_repository(hass, connection, msg):
 
         elif action == "uninstall":
             repository.data.new = False
-            await repository.update_repository(True)
+            await repository.update_repository(ignore_issues=True)
             await repository.uninstall()
 
         elif action == "hide":
@@ -347,15 +347,15 @@ async def hacs_repository(hass, connection, msg):
 
         elif action == "show_beta":
             repository.data.show_beta = True
-            await repository.update_repository()
+            await repository.update_repository(force=True)
 
         elif action == "hide_beta":
             repository.data.show_beta = False
-            await repository.update_repository()
+            await repository.update_repository(force=True)
 
         elif action == "toggle_beta":
             repository.data.show_beta = not repository.data.show_beta
-            await repository.update_repository()
+            await repository.update_repository(force=True)
 
         elif action == "delete":
             repository.data.show_beta = False
@@ -376,7 +376,7 @@ async def hacs_repository(hass, connection, msg):
                 repository.data.selected_tag = None
             else:
                 repository.data.selected_tag = msg["version"]
-            await repository.update_repository()
+            await repository.update_repository(force=True)
 
             hass.bus.async_fire("hacs/reload", {"force": True})
 

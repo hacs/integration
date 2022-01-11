@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.8, 3.9, "3.10"]
+        python-version: [3.9, "3.10"]
     steps:
       - name: 📥 Checkout the repository
         uses: actions/checkout@v2
@@ -35,7 +35,7 @@ jobs:
           python3 -m pytest
 
       - name: 📤 Upload coverage to Codecov
-        if: ${{ matrix.python-version == '3.8' }}
+        if: ${{ matrix.python-version == '3.9' }}
         run: |
           make coverage
           curl -sfSL https://codecov.io/bash | bash -

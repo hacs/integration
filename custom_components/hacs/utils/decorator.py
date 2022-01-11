@@ -28,6 +28,7 @@ def concurrent(
                 await function(*args, **kwargs)
                 if (
                     hacs is None
+                    or hacs.queue is None
                     or hacs.queue.has_pending_tasks
                     or "update" not in function.__name__
                 ):

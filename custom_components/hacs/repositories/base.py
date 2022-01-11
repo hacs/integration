@@ -602,7 +602,8 @@ class HacsRepository:
     async def download_content(self) -> None:
         """Download the content of a directory."""
         contents = self.gather_files_to_download()
-        self.logger.debug(self.data.filename)
+        if self.data.filename:
+            self.logger.debug(self.data.filename)
         if not contents:
             raise HacsException("No content to download")
 
@@ -810,7 +811,7 @@ class HacsRepository:
     async def async_install_repository(self) -> None:
         """Common installation steps of the repository."""
         persistent_directory = None
-        await self.update_repository()
+        await self.update_repository(force=True)
         if self.content.path.local is None:
             raise HacsException("repository.content.path.local is None")
         self.validate.errors.clear()
@@ -840,6 +841,9 @@ class HacsRepository:
         if self.data.installed and not self.content.single:
             backup = Backup(hacs=self.hacs, local_path=self.content.path.local)
             await self.hacs.hass.async_add_executor_job(backup.create)
+
+        self.hacs.log.debug("%s Local path is set to %s", self, self.content.path.local)
+        self.hacs.log.debug("%s Remote path is set to %s", self, self.content.path.remote)
 
         if self.data.zip_release and version != self.data.default_branch:
             await self.download_zip_files(self.validate)

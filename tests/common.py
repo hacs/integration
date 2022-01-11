@@ -63,7 +63,7 @@ def dummy_repository_base(hacs, repository=None):
     repository.data.published_tags = ["1", "2", "3"]
     repository.data.update_data(fixture("repository_data.json", asjson=True))
 
-    async def update_repository():
+    async def update_repository(*args, **kwargs):
         pass
 
     repository.update_repository = update_repository

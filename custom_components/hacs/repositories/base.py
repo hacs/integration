@@ -519,7 +519,7 @@ class HacsRepository:
             await self.common_update_data(ignore_issues=ignore_issues, force=force)
 
         except HacsException:
-            if not ignore_issues:
+            if not ignore_issues and not force:
                 return False
 
         if not self.data.installed and (current_etag == self.data.etag_repository) and not force:

@@ -518,6 +518,10 @@ class HacsRepository:
             self.data.full_name = self.hacs.common.renamed_repositories[self.data.full_name]
             await self.common_update_data(ignore_issues=ignore_issues, force=force)
 
+        except HacsException:
+            if not ignore_issues and not force:
+                return False
+
         if not self.data.installed and (current_etag == self.data.etag_repository) and not force:
             self.logger.debug("Did not update %s, content was not modified", self.data.full_name)
             return False
@@ -943,12 +947,12 @@ class HacsRepository:
             self.validate.errors.append("Repository is archived.")
             if self.data.full_name not in self.hacs.common.archived_repositories:
                 self.hacs.common.archived_repositories.append(self.data.full_name)
-            raise HacsRepositoryArchivedException("Repository is archived.")
+            raise HacsRepositoryArchivedException(f"{self} Repository is archived.")
 
         # Make sure the repository is not in the blacklist.
         if self.hacs.repositories.is_removed(self.data.full_name) and not ignore_issues:
-            self.validate.errors.append("Repository is in the blacklist.")
-            raise HacsException("Repository is in the blacklist.")
+            self.validate.errors.append("Repository has been requested to be removed.")
+            raise HacsException(f"{self} Repository has been requested to be removed.")
 
         # Get releases.
         try:

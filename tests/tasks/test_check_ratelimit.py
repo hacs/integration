@@ -16,7 +16,7 @@ async def test_check_ratelimit_not_running(hacs: HacsBase, caplog: pytest.LogCap
     assert task
 
     await task.execute_task()
-    assert "HacsTask<check_ratelimit> HACS is not running" in caplog.text
+    assert "HacsTask<check_ratelimit> HACS is not ratelimited" in caplog.text
 
 
 @pytest.mark.asyncio

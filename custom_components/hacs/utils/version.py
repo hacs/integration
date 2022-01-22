@@ -4,7 +4,11 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import TYPE_CHECKING
 
-from awesomeversion import AwesomeVersion, AwesomeVersionException, AwesomeVersionStrategy
+from awesomeversion import (
+    AwesomeVersion,
+    AwesomeVersionException,
+    AwesomeVersionStrategy,
+)
 
 if TYPE_CHECKING:
     from ..repositories.base import HacsRepository

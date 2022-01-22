@@ -563,7 +563,7 @@ class HacsBase:
             await self.handle_critical_repositories_startup()
             await self.async_load_default_repositories()
         except HacsException as exception:
-            self.log.error(
+            self.log.warning(
                 "Could not load default repositories: %s, retrying in 5 minuttes", exception
             )
             if not self.system.disabled:
@@ -589,7 +589,7 @@ class HacsBase:
         try:
             await self.recurring_tasks_installed()
         except HacsException as exception:
-            self.log.error(
+            self.log.warning(
                 "Could not run initial task for downloaded repositories: %s, retrying in 5 minuttes",
                 exception,
             )

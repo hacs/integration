@@ -152,12 +152,15 @@ async def async_test_home_assistant(loop, tmpdir):
         ssl_certificate=None,
         ssl_peer_certificate=None,
         ssl_key=None,
+        trusted_proxies=[],
+        ssl_profile="modern",
+    )
+
+    await hass.http.async_initialize(
         cors_origins=[],
         use_x_forwarded_for=False,
-        trusted_proxies=[],
         login_threshold=3,
         is_ban_enabled=False,
-        ssl_profile="modern",
     )
 
     async def mock_async_start():

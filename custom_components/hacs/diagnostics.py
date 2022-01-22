@@ -30,7 +30,7 @@ async def async_get_config_entry_diagnostics(
             "renamed_repositories": hacs.common.renamed_repositories,
             "archived_repositories": hacs.common.archived_repositories,
             "lovelace_mode": hacs.core.lovelace_mode,
-            "configuration": {}
+            "configuration": {},
         }
     }
 
@@ -44,7 +44,7 @@ async def async_get_config_entry_diagnostics(
         "python_script",
         "release_limit",
         "theme",
-        ):
+    ):
         data["hacs"]["configuration"][key] = getattr(hacs.configuration, key, None)
 
     data["repositories"] = [repo.data.to_json() for repo in hacs.repositories.list_downloaded]

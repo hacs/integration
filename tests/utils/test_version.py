@@ -48,4 +48,4 @@ def test_version_to_download(repository):
     repository.data.last_version = None
     assert version.version_to_download(repository) == "main"
 
-    assert version.version_left_higher_then_right("1", None) is False
+    assert version.version_left_higher_then_right("1", None) is None

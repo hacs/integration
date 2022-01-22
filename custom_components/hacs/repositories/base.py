@@ -417,11 +417,13 @@ class HacsRepository:
                         return True
                     return False
             if self.display_version_or_commit == "version":
-                if version_left_higher_then_right(
-                    self.display_available_version,
-                    self.display_installed_version,
-                ):
-                    return True
+                if (
+                    result := version_left_higher_then_right(
+                        self.display_available_version,
+                        self.display_installed_version,
+                    )
+                ) is not None:
+                    return result
             if self.display_installed_version != self.display_available_version:
                 return True
 

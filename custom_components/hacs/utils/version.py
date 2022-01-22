@@ -4,7 +4,11 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import TYPE_CHECKING
 
-from awesomeversion import AwesomeVersion, AwesomeVersionException
+from awesomeversion import (
+    AwesomeVersion,
+    AwesomeVersionException,
+    AwesomeVersionStrategy,
+)
 
 if TYPE_CHECKING:
     from ..repositories.base import HacsRepository
@@ -14,9 +18,17 @@ if TYPE_CHECKING:
 def version_left_higher_then_right(left: str, right: str) -> bool:
     """Return a bool if source is newer than target, will also be true if identical."""
     try:
-        return AwesomeVersion(left) > AwesomeVersion(right)
+        left_version = AwesomeVersion(left)
+        right_version = AwesomeVersion(right)
+        if (
+            left_version.strategy != AwesomeVersionStrategy.UNKNOWN
+            and right_version.strategy != AwesomeVersionStrategy.UNKNOWN
+        ):
+            return left_version > right_version
     except (AwesomeVersionException, AttributeError):
-        return False
+        pass
+
+    return None
 
 
 def version_left_higher_or_equal_then_right(left: str, right: str) -> bool:

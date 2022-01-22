@@ -1,7 +1,6 @@
 # pylint: disable=missing-function-docstring,missing-module-docstring, protected-access
 from unittest.mock import AsyncMock, MagicMock, patch
 
-from aiohttp.client import request
 from aresponses import ResponsesMockServer
 import pytest
 

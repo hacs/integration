@@ -26,6 +26,7 @@ from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import Integration
 
 from .const import TV
@@ -558,8 +559,16 @@ class HacsBase:
         self.status.background_task = True
         self.hass.bus.async_fire("hacs/status", {})
 
-        await self.handle_critical_repositories_startup()
-        await self.async_load_default_repositories()
+        try:
+            await self.handle_critical_repositories_startup()
+            await self.async_load_default_repositories()
+        except HacsException as exception:
+            self.log.warning(
+                "Could not load default repositories: %s, retrying in 5 minuttes", exception
+            )
+            if not self.system.disabled:
+                async_call_later(self.hass, timedelta(minutes=5), self.startup_tasks)
+            return
 
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
@@ -577,7 +586,16 @@ class HacsBase:
         await self.async_set_stage(HacsStage.RUNNING)
 
         self.hass.bus.async_fire("hacs/reload", {"force": True})
-        await self.recurring_tasks_installed()
+        try:
+            await self.recurring_tasks_installed()
+        except HacsException as exception:
+            self.log.warning(
+                "Could not run initial task for downloaded repositories: %s, retrying in 5 minuttes",
+                exception,
+            )
+            if not self.system.disabled:
+                async_call_later(self.hass, timedelta(minutes=5), self.startup_tasks)
+            return
 
         if queue_task := self.tasks.get("prosess_queue"):
             await queue_task.execute_task()

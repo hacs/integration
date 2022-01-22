@@ -1,0 +1,58 @@
+"""Diagnostics support for HACS."""
+from __future__ import annotations
+
+from typing import Any
+
+from aiogithubapi import GitHubException
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
+
+from .base import HacsBase
+from .const import DOMAIN
+
+
+async def async_get_config_entry_diagnostics(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+) -> dict[str, Any]:
+    """Return diagnostics for a config entry."""
+    hacs: HacsBase = hass.data[DOMAIN]
+
+    data = {
+        "hacs": {
+            "stage": hacs.stage,
+            "version": hacs.version,
+            "disabled_reason": hacs.system.disabled_reason,
+            "background_task": hacs.status.background_task,
+            "new": hacs.status.new,
+            "startup": hacs.status.startup,
+            "categories": hacs.common.categories,
+            "renamed_repositories": hacs.common.renamed_repositories,
+            "archived_repositories": hacs.common.archived_repositories,
+            "lovelace_mode": hacs.core.lovelace_mode,
+            "configuration": {},
+        }
+    }
+
+    for key in (
+        "appdaemon",
+        "country",
+        "debug",
+        "dev",
+        "experimental",
+        "netdaemon",
+        "python_script",
+        "release_limit",
+        "theme",
+    ):
+        data["hacs"]["configuration"][key] = getattr(hacs.configuration, key, None)
+
+    data["repositories"] = [repo.data.to_json() for repo in hacs.repositories.list_downloaded]
+
+    try:
+        rate_limit_response = await hacs.githubapi.rate_limit()
+        data["rate_limit"] = rate_limit_response.data.as_dict
+    except GitHubException as exception:
+        data["rate_limit"] = {"error": str(exception)}
+
+    return data

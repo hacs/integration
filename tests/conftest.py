@@ -34,6 +34,7 @@ from custom_components.hacs.repositories import (
     HacsThemeRepository,
 )
 from custom_components.hacs.tasks.manager import HacsTaskManager
+from custom_components.hacs.utils.configuration_schema import TOKEN as CONF_TOKEN
 from custom_components.hacs.utils.queue_manager import QueueManager
 from custom_components.hacs.validate.manager import ValidationManager
 
@@ -199,7 +200,7 @@ def config_entry() -> ConfigEntry:
         version=1,
         domain=DOMAIN,
         title="",
-        data={},
+        data={CONF_TOKEN: TOKEN},
         source="user",
         options={},
         unique_id="12345",

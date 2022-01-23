@@ -2,12 +2,15 @@
 from unittest.mock import MagicMock, patch
 
 from aiogithubapi import GitHubException, GitHubRateLimitModel, GitHubResponseModel
+from homeassistant.components.diagnostics import REDACTED
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 import pytest
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.diagnostics import async_get_config_entry_diagnostics
+
+from tests.common import TOKEN
 
 
 @pytest.mark.asyncio
@@ -20,6 +23,8 @@ async def test_diagnostics(hacs: HacsBase, hass: HomeAssistant, config_entry: Co
 
     assert diagnostics["hacs"]["version"] == "0.0.0"
     assert diagnostics["rate_limit"]["resources"]["core"]["remaining"] == 0
+    assert TOKEN not in str(diagnostics)
+    assert diagnostics["entry"]["data"]["token"] == REDACTED
 
 
 @pytest.mark.asyncio

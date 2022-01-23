@@ -684,7 +684,7 @@ class HacsRepository:
 
     async def uninstall(self) -> None:
         """Run uninstall tasks."""
-        self.logger.info("%s Uninstalling", self)
+        self.logger.info("%s Removing", self)
         if not await self.remove_local_directory():
             raise HacsException("Could not uninstall")
         self.data.installed = False

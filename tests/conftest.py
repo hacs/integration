@@ -8,6 +8,7 @@ from unittest.mock import AsyncMock
 
 from aiogithubapi import GitHubAPI
 from awesomeversion import AwesomeVersion
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ServiceNotFound
@@ -189,3 +190,11 @@ def repository_netdaemon(hacs):
     """Fixtrue for HACS netdaemon repository object"""
     repository_obj = HacsNetdaemonRepository(hacs, "test/test")
     yield dummy_repository_base(hacs, repository_obj)
+
+
+@pytest.fixture
+def config_entry() -> ConfigEntry:
+    """Fixture for a config entry."""
+    yield ConfigEntry(
+        version=1, domain=DOMAIN, title="", data={}, source="user", options={}, unique_id="12345"
+    )

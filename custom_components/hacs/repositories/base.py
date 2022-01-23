@@ -39,6 +39,7 @@ from ..utils.version import (
     version_left_higher_then_right,
     version_to_download,
 )
+from ..utils.workarounds import DOMAIN_OVERRIDES
 
 if TYPE_CHECKING:
     from ..base import HacsBase
@@ -725,8 +726,12 @@ class HacsRepository:
                 local_path = self.content.path.local
             elif self.data.category == "integration":
                 if not self.data.domain:
-                    self.logger.error("%s Missing domain", self)
-                    return False
+                    if domain := DOMAIN_OVERRIDES.get(self.data.full_name):
+                        self.data.domain = domain
+                        self.content.path.local = self.localpath
+                    else:
+                        self.logger.error("%s Missing domain", self)
+                        return False
                 local_path = self.content.path.local
             else:
                 local_path = self.content.path.local

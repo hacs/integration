@@ -1,4 +1,4 @@
-"""Workarounds for isssues that should not be fixed."""
+"""Workarounds for issues that should not be fixed."""
 
 
 DOMAIN_OVERRIDES = {

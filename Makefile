@@ -43,6 +43,10 @@ bump-frontend: ## Bump the HACS frontend
 update-base-repositories: ## Update stored base repositories
 	@python3 manage/update_default_repositories.py;
 
+clear-storage:
+	rm -rf config/.storage/hacs
+	rm config/.storage/hacs*
+
 homeassistant-install: ## Install the latest dev version of Home Assistant
 	python3 -m pip --disable-pip-version-check install -U "pip>=8.0.3,<20.3";
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel;

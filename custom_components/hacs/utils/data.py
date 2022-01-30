@@ -4,6 +4,7 @@ from datetime import datetime
 import os
 
 from homeassistant.core import callback
+from homeassistant.util import json as json_util
 
 from ..base import HacsBase
 from ..enums import HacsGitHubRepo
@@ -120,15 +121,20 @@ class HacsData:
 
     async def restore(self):
         """Restore saved data."""
-        hacs = await async_load_from_store(self.hacs.hass, "hacs")
+        self.hacs.status.new = False
+        hacs = await async_load_from_store(self.hacs.hass, "hacs") or {}
         repositories = await async_load_from_store(self.hacs.hass, "repositories") or {}
 
         if not hacs and not repositories:
             # Assume new install
             self.hacs.status.new = True
-            return True
+            self.logger.info("Loading base repository information")
+            repositories = await self.hacs.hass.async_add_executor_job(
+                json_util.load_json,
+                f"{self.hacs.core.config_path}/custom_components/hacs/utils/default.repositories",
+            )
+
         self.logger.info("Restore started")
-        self.hacs.status.new = False
 
         # Hacs
         self.hacs.configuration.frontend_mode = hacs.get("view", "Grid")

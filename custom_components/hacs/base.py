@@ -762,6 +762,9 @@ class HacsBase:
             repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
                 self.repositories.mark_default(repository)
+                if self.status.new:
+                    # Force update for new installations
+                    self.queue.add(repository.common_update())
                 continue
             self.queue.add(
                 self.async_register_repository(

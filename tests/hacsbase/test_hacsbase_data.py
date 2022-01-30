@@ -27,7 +27,7 @@ async def test_hacs_data_async_write2(hacs):
 
 
 @pytest.mark.asyncio
-async def test_hacs_data_restore_write_new(hacs):
+async def test_hacs_data_restore_write_new(hacs, caplog):
     data = HacsData(hacs)
     await data.restore()
     with patch(
@@ -37,10 +37,11 @@ async def test_hacs_data_restore_write_new(hacs):
     ):
         await data.async_write()
     assert mock_async_save_to_store.called
+    assert "Loading base repository information" in caplog.text
 
 
 @pytest.mark.asyncio
-async def test_hacs_data_restore_write_not_new(hacs):
+async def test_hacs_data_restore_write_not_new(hacs, caplog):
     data = HacsData(hacs)
 
     async def _mocked_loads(hass, key):
@@ -99,3 +100,4 @@ async def test_hacs_data_restore_write_not_new(hacs):
         await data.async_write()
     assert mock_async_save_to_store.called
     assert mock_async_save_to_store_default_encoder.called
+    assert "Loading base repository information" not in caplog.text

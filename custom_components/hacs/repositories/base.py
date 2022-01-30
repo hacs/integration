@@ -530,11 +530,12 @@ class HacsRepository:
             return False
 
         # Update last updated
-        self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)
+        if self.repository_object:
+            self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)
 
-        # Update last available commit
-        await self.repository_object.set_last_commit()
-        self.data.last_commit = self.repository_object.last_commit
+            # Update last available commit
+            await self.repository_object.set_last_commit()
+            self.data.last_commit = self.repository_object.last_commit
 
         # Get the content of hacs.json
         if RepositoryFile.HACS_JSON in [x.filename for x in self.tree]:
@@ -909,6 +910,8 @@ class HacsRepository:
 
     async def get_tree(self, ref: str):
         """Return the repository tree."""
+        if self.repository_object is None:
+            raise HacsException("No repository_object")
         try:
             tree = await self.repository_object.get_tree(ref)
             return tree
@@ -917,6 +920,8 @@ class HacsRepository:
 
     async def get_releases(self, prerelease=False, returnlimit=5):
         """Return the repository releases."""
+        if self.repository_object is None:
+            raise HacsException("No repository_object")
         try:
             releases = await self.repository_object.get_releases(prerelease, returnlimit)
             return releases
@@ -996,7 +1001,7 @@ class HacsRepository:
             for treefile in self.tree:
                 self.treefiles.append(treefile.full_path)
         except (AIOGitHubAPIException, HacsException) as exception:
-            if not self.hacs.status.startup:
+            if not self.hacs.status.startup and not ignore_issues:
                 self.logger.error("%s %s", self, exception)
             if not ignore_issues:
                 raise HacsException(exception) from None

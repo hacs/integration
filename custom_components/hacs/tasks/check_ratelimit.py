@@ -6,7 +6,7 @@ from datetime import timedelta
 from homeassistant.core import HomeAssistant
 
 from ..base import HacsBase
-from ..enums import HacsDisabledReason, HacsStage
+from ..enums import HacsDisabledReason
 from .base import HacsTask
 
 

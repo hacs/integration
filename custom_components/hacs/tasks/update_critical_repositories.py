@@ -26,7 +26,7 @@ async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
 class Task(HacsTask):
     """Hacs update critical task."""
 
-    schedule = timedelta(minutes=30)
+    schedule = timedelta(hours=2)
     stages = [HacsStage.RUNNING]
 
     async def async_execute(self) -> None:

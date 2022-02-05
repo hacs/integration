@@ -49,9 +49,6 @@ class Task(HacsTask):
             repository = self.hacs.repositories.get_by_full_name(repo)
             if repository is not None:
                 self.hacs.repositories.mark_default(repository)
-                if self.hacs.status.new:
-                    # Force update for new installations
-                    self.hacs.queue.add(repository.common_update())
                 continue
             self.hacs.queue.add(
                 self.hacs.async_register_repository(

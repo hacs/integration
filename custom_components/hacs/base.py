@@ -184,7 +184,7 @@ class HacsRepositories:
     """HACS Repositories."""
 
     _default_repositories: set[str] = field(default_factory=set)
-    _repositories: list[str] = field(default_factory=list)
+    _repositories: list[HacsRepository] = field(default_factory=list)
     _repositories_by_full_name: dict[str, str] = field(default_factory=dict)
     _repositories_by_id: dict[str, str] = field(default_factory=dict)
     _removed_repositories: list[RemovedRepository] = field(default_factory=list)
@@ -554,225 +554,22 @@ class HacsBase:
         self.repositories.register(repository, default)
 
     async def startup_tasks(self, _event=None) -> None:
-        """Tasks that are started after startup."""
+        """Tasks that are started after setup."""
         await self.async_set_stage(HacsStage.STARTUP)
         self.status.background_task = True
+        self.status.startup = False
+
         self.hass.bus.async_fire("hacs/status", {})
 
-        try:
-            await self.handle_critical_repositories_startup()
-            await self.async_load_default_repositories()
-        except HacsException as exception:
-            self.log.warning(
-                "Could not load default repositories: %s, retrying in 5 minuttes", exception
-            )
-            if not self.system.disabled:
-                async_call_later(self.hass, timedelta(minutes=5), self.startup_tasks)
-            return
-
-        self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.recurring_tasks_installed, timedelta(hours=2)
-            )
-        )
-
-        self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.recurring_tasks_all, timedelta(hours=25)
-            )
-        )
-
-        self.status.startup = False
         await self.async_set_stage(HacsStage.RUNNING)
 
         self.hass.bus.async_fire("hacs/reload", {"force": True})
-        try:
-            await self.recurring_tasks_installed()
-        except HacsException as exception:
-            self.log.warning(
-                "Could not run initial task for downloaded repositories: %s, retrying in 5 minuttes",
-                exception,
-            )
-            if not self.system.disabled:
-                async_call_later(self.hass, timedelta(minutes=5), self.startup_tasks)
-            return
 
         if queue_task := self.tasks.get("prosess_queue"):
             await queue_task.execute_task()
 
         self.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
-
-    async def handle_critical_repositories_startup(self) -> None:
-        """Handled critical repositories during startup."""
-        alert = False
-        critical = await async_load_from_store(self.hass, "critical")
-        if not critical:
-            return
-        for repo in critical:
-            if not repo["acknowledged"]:
-                alert = True
-        if alert:
-            self.log.critical("URGENT!: Check the HACS panel!")
-            self.hass.components.persistent_notification.create(
-                title="URGENT!", message="**Check the HACS panel!**"
-            )
-
-    async def handle_critical_repositories(self) -> None:
-        """Handled critical repositories during runtime."""
-        # Get critical repositories
-        critical_queue = QueueManager(hass=self.hass)
-        instored = []
-        critical = []
-        was_installed = False
-
-        try:
-            critical = await self.async_github_get_hacs_default_file("critical")
-        except GitHubNotModifiedException:
-            return
-        except GitHubException:
-            pass
-
-        if not critical:
-            self.log.debug("No critical repositories")
-            return
-
-        stored_critical = await async_load_from_store(self.hass, "critical")
-
-        for stored in stored_critical or []:
-            instored.append(stored["repository"])
-
-        stored_critical = []
-
-        for repository in critical:
-            removed_repo = self.repositories.removed_repository(repository["repository"])
-            removed_repo.removal_type = "critical"
-            repo = self.repositories.get_by_full_name(repository["repository"])
-
-            stored = {
-                "repository": repository["repository"],
-                "reason": repository["reason"],
-                "link": repository["link"],
-                "acknowledged": True,
-            }
-            if repository["repository"] not in instored:
-                if repo is not None and repo.installed:
-                    self.log.critical(
-                        "Removing repository %s, it is marked as critical",
-                        repository["repository"],
-                    )
-                    was_installed = True
-                    stored["acknowledged"] = False
-                    # Remove from HACS
-                    critical_queue.add(repo.uninstall())
-                    repo.remove()
-
-            stored_critical.append(stored)
-            removed_repo.update_data(stored)
-
-        # Uninstall
-        await critical_queue.execute()
-
-        # Save to FS
-        await async_save_to_store(self.hass, "critical", stored_critical)
-
-        # Restart HASS
-        if was_installed:
-            self.log.critical("Resarting Home Assistant")
-            self.hass.async_create_task(self.hass.async_stop(100))
-
-    async def recurring_tasks_installed(self, _notarealarg=None) -> None:
-        """Recurring tasks for installed repositories."""
-        self.log.debug("Starting recurring background task for installed repositories")
-        self.status.background_task = True
-        self.hass.bus.async_fire("hacs/status", {})
-
-        for repository in self.repositories.list_all:
-            if self.status.startup and repository.data.full_name == HacsGitHubRepo.INTEGRATION:
-                continue
-            if repository.data.installed and repository.data.category in self.common.categories:
-                self.queue.add(repository.update_repository())
-
-        await self.handle_critical_repositories()
-        self.status.background_task = False
-        self.hass.bus.async_fire("hacs/status", {})
-        await self.data.async_write()
-        self.log.debug("Recurring background task for installed repositories done")
-
-    async def recurring_tasks_all(self, _notarealarg=None) -> None:
-        """Recurring tasks for all repositories."""
-        self.log.debug("Starting recurring background task for all repositories")
-        self.status.background_task = True
-        self.hass.bus.async_fire("hacs/status", {})
-
-        for repository in self.repositories.list_all:
-            if repository.data.category in self.common.categories:
-                self.queue.add(repository.common_update())
-
-        await self.async_load_default_repositories()
-        self.status.background_task = False
-        await self.data.async_write()
-        self.hass.bus.async_fire("hacs/status", {})
-        self.hass.bus.async_fire("hacs/repository", {"action": "reload"})
-        self.log.debug("Recurring background task for all repositories done")
-
-    async def async_load_default_repositories(self) -> None:
-        """Load known repositories."""
-        need_to_save = False
-        self.log.info("Loading known repositories")
-
-        for item in await self.async_github_get_hacs_default_file(HacsCategory.REMOVED):
-            removed = self.repositories.removed_repository(item["repository"])
-            removed.update_data(item)
-
-        for category in self.common.categories or []:
-            self.queue.add(self.async_get_category_repositories(HacsCategory(category)))
-
-        if queue_task := self.tasks.get("prosess_queue"):
-            await queue_task.execute_task()
-
-        for removed in self.repositories.list_removed:
-            if (repository := self.repositories.get_by_full_name(removed.repository)) is None:
-                continue
-            if repository.data.installed and removed.removal_type != "critical":
-                self.log.warning(
-                    "You have '%s' installed with HACS "
-                    "this repository has been removed from HACS, please consider removing it. "
-                    "Removal reason (%s)",
-                    repository.data.full_name,
-                    removed.reason,
-                )
-            else:
-                need_to_save = True
-                repository.remove()
-
-        if need_to_save:
-            await self.data.async_write()
-
-    async def async_get_category_repositories(self, category: HacsCategory) -> None:
-        """Get repositories from category."""
-        repositories = await self.async_github_get_hacs_default_file(category)
-        for repo in repositories:
-            if self.common.renamed_repositories.get(repo):
-                repo = self.common.renamed_repositories[repo]
-            if self.repositories.is_removed(repo):
-                continue
-            if repo in self.common.archived_repositories:
-                continue
-            repository = self.repositories.get_by_full_name(repo)
-            if repository is not None:
-                self.repositories.mark_default(repository)
-                if self.status.new:
-                    # Force update for new installations
-                    self.queue.add(repository.common_update())
-                continue
-            self.queue.add(
-                self.async_register_repository(
-                    repository_full_name=repo,
-                    category=category,
-                    default=True,
-                )
-            )
 
     async def async_download_file(self, url: str) -> bytes | None:
         """Download files, and return the content."""

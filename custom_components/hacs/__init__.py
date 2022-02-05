@@ -164,7 +164,7 @@ async def async_setup(hass: HomeAssistant, config: dict[str, Any]) -> bool:
 
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Set up this integration using UI."""
-    config_entry.add_update_listener(async_reload_entry)
+    config_entry.async_on_unload(config_entry.add_update_listener(async_reload_entry))
     return await async_initialize_integration(hass=hass, config_entry=config_entry)
 
 
@@ -191,7 +191,9 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 
     unload_ok = await hass.config_entries.async_unload_platforms(config_entry, PLATFORMS)
 
+    await hacs.async_set_stage(None)
     hacs.disable_hacs(HacsDisabledReason.REMOVED)
+
     hass.data.pop(DOMAIN, None)
 
     return unload_ok

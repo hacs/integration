@@ -79,6 +79,7 @@ async def async_initialize_integration(
 
     hacs.integration = integration
     hacs.version = integration.version
+    hacs.configuration.dev = integration.version == "0.0.0"
     hacs.hass = hass
     hacs.queue = QueueManager(hass=hass)
     hacs.data = HacsData(hacs=hacs)

@@ -1,14 +1,11 @@
 """"Hacs base setup task."""
 from __future__ import annotations
 
-
 from homeassistant.core import HomeAssistant
 
-from ..utils.store import async_load_from_store
-
-from ..enums import HacsStage
-
 from ..base import HacsBase
+from ..enums import HacsStage
+from ..utils.store import async_load_from_store
 from .base import HacsTask
 
 

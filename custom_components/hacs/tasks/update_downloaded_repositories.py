@@ -5,9 +5,8 @@ from datetime import timedelta
 
 from homeassistant.core import HomeAssistant
 
-from ..enums import HacsGitHubRepo, HacsStage
-
 from ..base import HacsBase
+from ..enums import HacsGitHubRepo, HacsStage
 from .base import HacsTask
 
 

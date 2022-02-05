@@ -4,11 +4,13 @@ from __future__ import annotations
 from datetime import timedelta
 
 from aiogithubapi import GitHubNotModifiedException
-
 from homeassistant.core import HomeAssistant
 
 from custom_components.hacs.utils.queue_manager import QueueManager
-from custom_components.hacs.utils.store import async_load_from_store, async_save_to_store
+from custom_components.hacs.utils.store import (
+    async_load_from_store,
+    async_save_to_store,
+)
 
 from ..base import HacsBase
 from ..enums import HacsStage
@@ -64,7 +66,7 @@ class Task(HacsTask):
                 "acknowledged": True,
             }
             if repository["repository"] not in instored:
-                if repo is not None and repo.installed:
+                if repo is not None and repo.data.installed:
                     self.hacs.log.critical(
                         "Removing repository %s, it is marked as critical",
                         repository["repository"],

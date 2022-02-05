@@ -19,7 +19,7 @@ async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
 class Task(HacsTask):
     """Hacs update removed task."""
 
-    schedule = timedelta(hours=1)
+    schedule = timedelta(hours=2)
     stages = [HacsStage.STARTUP]
 
     async def async_execute(self) -> None:

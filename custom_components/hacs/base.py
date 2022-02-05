@@ -184,7 +184,7 @@ class HacsRepositories:
     """HACS Repositories."""
 
     _default_repositories: set[str] = field(default_factory=set)
-    _repositories: list[str] = field(default_factory=list)
+    _repositories: list[HacsRepository] = field(default_factory=list)
     _repositories_by_full_name: dict[str, str] = field(default_factory=dict)
     _repositories_by_id: dict[str, str] = field(default_factory=dict)
     _removed_repositories: list[RemovedRepository] = field(default_factory=list)

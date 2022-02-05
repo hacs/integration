@@ -2,7 +2,7 @@
 import pytest
 
 from custom_components.hacs.base import HacsBase
-from custom_components.hacs.enums import HacsCategory
+from custom_components.hacs.enums import HacsCategory, HacsStage
 from custom_components.hacs.repositories.base import HacsRepository
 
 
@@ -31,6 +31,8 @@ async def test_update_downloaded_repositories_skip_hacs_on_startup(
 ):
     await hacs.tasks.async_load()
     task = hacs.tasks.get("update_downloaded_repositories")
+
+    hacs.status.startup = True
 
     repository.data.category = HacsCategory.INTEGRATION
     repository.data.installed = True

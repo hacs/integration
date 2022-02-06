@@ -65,7 +65,6 @@ class HacsTaskManager:
 
     async def async_execute_runtume_tasks(self) -> None:
         """Execute the the execute methods of each runtime task if the stage matches."""
-        self.hacs.status.background_task = True
         await asyncio.gather(
             *(
                 task.execute_task()
@@ -73,4 +72,3 @@ class HacsTaskManager:
                 if task.stages is not None and self.hacs.stage in task.stages
             )
         )
-        self.hacs.status.background_task = False

@@ -128,7 +128,6 @@ async def hacs(hass: HomeAssistant):
     hacs_obj.core.ha_version = AwesomeVersion(HAVERSION)
     hacs_obj.version = hacs_obj.integration.version
     hacs_obj.configuration.token = TOKEN
-    hacs_obj.status.background_task = False
 
     ## New GitHub client
     hacs_obj.githubapi = GitHubAPI(

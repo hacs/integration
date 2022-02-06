@@ -20,7 +20,6 @@ async def test_hacs_data_async_write1(hacs, repository):
 @pytest.mark.asyncio
 async def test_hacs_data_async_write2(hacs):
     data = HacsData(hacs)
-    hacs.status.background_task = False
     hacs.system.disabled_reason = None
     hacs.repositories = HacsRepositories()
     await data.async_write()

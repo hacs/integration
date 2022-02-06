@@ -159,7 +159,6 @@ class HacsStatus:
 
     startup: bool = True
     new: bool = False
-    background_task: bool = False
     reloading_data: bool = False
     upgrading_all: bool = False
 
@@ -556,7 +555,6 @@ class HacsBase:
     async def startup_tasks(self, _event=None) -> None:
         """Tasks that are started after setup."""
         await self.async_set_stage(HacsStage.STARTUP)
-        self.status.background_task = True
         self.status.startup = False
 
         self.hass.bus.async_fire("hacs/status", {})
@@ -568,7 +566,6 @@ class HacsBase:
         if queue_task := self.tasks.get("prosess_queue"):
             await queue_task.execute_task()
 
-        self.status.background_task = False
         self.hass.bus.async_fire("hacs/status", {})
 
     async def async_download_file(self, url: str) -> bytes | None:

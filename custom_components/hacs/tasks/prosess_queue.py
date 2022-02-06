@@ -35,11 +35,7 @@ class Task(HacsTask):
             f"Can update {can_update} repositories, items in queue {self.hacs.queue.pending_tasks}",
         )
         if can_update != 0:
-            self.hacs.status.background_task = True
-            self.hass.bus.async_fire("hacs/status", {})
             try:
                 await self.hacs.queue.execute(can_update)
             except HacsExecutionStillInProgress:
                 pass
-            self.hacs.status.background_task = False
-            self.hass.bus.async_fire("hacs/status", {})

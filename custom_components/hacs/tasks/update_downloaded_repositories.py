@@ -24,8 +24,6 @@ class Task(HacsTask):
     async def async_execute(self) -> None:
         """Execute the task."""
         self.hacs.log.debug("Starting recurring background task for installed repositories")
-        self.hacs.status.background_task = True
-        self.hass.bus.async_fire("hacs/status", {})
 
         for repository in self.hacs.repositories.list_all:
             if self.hacs.status.startup and repository.data.full_name == HacsGitHubRepo.INTEGRATION:
@@ -36,7 +34,5 @@ class Task(HacsTask):
             ):
                 self.hacs.queue.add(repository.update_repository())
 
-        self.hacs.status.background_task = False
-        self.hass.bus.async_fire("hacs/status", {})
         await self.hacs.data.async_write()
         self.hacs.log.debug("Recurring background task for installed repositories done")

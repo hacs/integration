@@ -91,42 +91,6 @@ async def test_sensor_update_event(hacs: HacsBase, hass: HomeAssistant):
 
 
 @pytest.mark.asyncio
-async def test_sensor_update_event_background_task(hacs: HacsBase, hass: HomeAssistant):
-    sensor = await sensor_setup(hacs, hass)
-
-    repository = HacsIntegrationRepository(hacs, "test/one")
-    repository.data.update_data(
-        {
-            "id": "123",
-            "installed": True,
-            "installed_version": "1",
-            "last_version": "2",
-        }
-    )
-    hacs.repositories.register(repository)
-
-    repository = HacsIntegrationRepository(hacs, "test/two")
-    repository.data.update_data(
-        {
-            "id": "321",
-            "installed": True,
-            "installed_version": "1",
-            "last_version": "1",
-        }
-    )
-    hacs.repositories.register(repository)
-
-    hacs.common.categories = {"integration"}
-    assert sensor.state is None
-    hacs.status.background_task = True
-
-    hass.bus.async_fire("hacs/status", {})
-
-    await hass.async_block_till_done()
-    assert sensor.state is None
-
-
-@pytest.mark.asyncio
 async def test_sensor_update_manual(hacs: HacsBase, hass: HomeAssistant):
     sensor = await sensor_setup(hacs, hass)
 

@@ -458,7 +458,7 @@ async def hacs_status(hass, connection, msg):
             msg["id"],
             {
                 "startup": hacs.status.startup,
-                "background_task": hacs.status.background_task,
+                "background_task": False,
                 "lovelace_mode": hacs.core.lovelace_mode,
                 "reloading_data": hacs.status.reloading_data,
                 "upgrading_all": hacs.status.upgrading_all,

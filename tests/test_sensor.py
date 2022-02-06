@@ -84,7 +84,7 @@ async def test_sensor_update_event(hacs: HacsBase, hass: HomeAssistant):
     hacs.common.categories = {"integration"}
     assert sensor.state is None
 
-    hass.bus.async_fire("hacs/status", {})
+    hass.bus.async_fire("hacs/repository", {})
 
     await hass.async_block_till_done()
     assert sensor.state == 1

@@ -66,8 +66,6 @@ class HACSSensor(SensorEntity):
     @callback
     def _update(self) -> None:
         """Update the sensor."""
-        if self.hacs.status.background_task:
-            return
 
         repositories = [
             repository

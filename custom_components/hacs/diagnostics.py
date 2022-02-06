@@ -26,7 +26,6 @@ async def async_get_config_entry_diagnostics(
             "stage": hacs.stage,
             "version": hacs.version,
             "disabled_reason": hacs.system.disabled_reason,
-            "background_task": hacs.status.background_task,
             "new": hacs.status.new,
             "startup": hacs.status.startup,
             "categories": hacs.common.categories,

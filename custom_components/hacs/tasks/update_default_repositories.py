@@ -1,5 +1,6 @@
 """"Hacs base setup task."""
 from __future__ import annotations
+import asyncio
 
 from datetime import timedelta
 
@@ -26,11 +27,12 @@ class Task(HacsTask):
         """Execute the task."""
         self.hacs.log.info("Loading known repositories")
 
-        for category in self.hacs.common.categories or []:
-            self.hacs.queue.add(self.async_get_category_repositories(HacsCategory(category)))
-
-        if queue_task := self.hacs.tasks.get("prosess_queue"):
-            await queue_task.execute_task()
+        await asyncio.gather(
+            *[
+                self.async_get_category_repositories(HacsCategory(category))
+                for category in self.hacs.common.categories or []
+            ]
+        )
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""

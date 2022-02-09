@@ -91,6 +91,7 @@ class HacsData:
             "name": repository.data.name,
             "new": repository.data.new,
             "repository_manifest": repository_manifest,
+            "releases": repository.data.releases,
             "selected_tag": repository.data.selected_tag,
             "show_beta": repository.data.show_beta,
             "stars": repository.data.stargazers_count,
@@ -219,6 +220,7 @@ class HacsData:
         repository.data.domain = repository_data.get("domain", None)
         repository.data.stargazers_count = repository_data.get("stars", 0)
         repository.releases.last_release = repository_data.get("last_release_tag")
+        repository.data.releases = repository_data.get("releases")
         repository.data.hide = repository_data.get("hide", False)
         repository.data.installed = repository_data.get("installed", False)
         repository.data.new = repository_data.get("new", True)

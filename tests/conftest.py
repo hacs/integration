@@ -85,7 +85,8 @@ def hass(event_loop, tmpdir):
 
     def exc_handle(loop, context):
         """Handle exceptions by rethrowing them, which will fail the test."""
-        exceptions.append(context["exception"])
+        if exception := context.get("exception"):
+            exceptions.append(exception)
         orig_exception_handler(loop, context)
 
     exceptions = []

@@ -245,4 +245,8 @@ class HacsData:
         if repository.data.installed:
             repository.status.first_install = False
 
+        if full_name == HacsGitHubRepo.INTEGRATION:
+            repository.data.installed_version = self.hacs.version
+            repository.data.installed = True
+
         return True

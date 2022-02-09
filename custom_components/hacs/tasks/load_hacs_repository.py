@@ -32,9 +32,12 @@ class Task(HacsTask):
                 repository = self.hacs.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
             if repository is None:
                 raise HacsException("Unknown error")
+
             repository.data.installed = True
             repository.data.installed_version = self.hacs.integration.version
             repository.data.new = False
+            repository.data.releases = True
+
             self.hacs.repository = repository.repository_object
             self.hacs.repositories.mark_default(repository)
         except HacsException as exception:

@@ -58,6 +58,7 @@ class HacsIntegrationRepository(HacsRepository):
             if name is None:
                 if (
                     self.data.full_name == "home-assistant/addons"
+                    or self.data.full_name.startswith("hassio-addons/")
                     or "repository.json" in self.treefiles
                     or "repository.yaml" in self.treefiles
                     or "repository.yml" in self.treefiles

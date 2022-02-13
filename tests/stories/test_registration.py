@@ -7,7 +7,11 @@ import pytest
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.enums import HacsCategory
-from custom_components.hacs.exceptions import HacsException
+from custom_components.hacs.exceptions import (
+    AddonRepositoryException,
+    HacsException,
+    HomeAssistantCoreRepositoryException,
+)
 
 from tests.sample_data import (
     category_test_treefiles,
@@ -85,21 +89,10 @@ async def test_registration(
 @pytest.mark.parametrize(
     "repository_full_name,expected_message",
     (
-        (
-            "home-assistant/core",
-            "You can not add homeassistant/core, to use core integrations "
-            "check the Home Assistant documentation for how to add them.",
-        ),
-        (
-            "home-assistant/addons",
-            "The repository does not seem to be a integration, "
-            "but an add-on repository. HACS does not manage add-ons.",
-        ),
-        (
-            "some-user/addons",
-            "The repository does not seem to be a integration, "
-            "but an add-on repository. HACS does not manage add-ons.",
-        ),
+        ("home-assistant/core", HomeAssistantCoreRepositoryException.exception_message),
+        ("home-assistant/addons", AddonRepositoryException.exception_message),
+        ("hassio-addons/some-addon", AddonRepositoryException.exception_message),
+        ("some-user/addons", AddonRepositoryException.exception_message),
         ("some-user/some-invalid-repo", "Repository structure for main is not compliant"),
     ),
 )
@@ -135,6 +128,9 @@ async def test_registration_issues(
                     "tree": {
                         "home-assistant/core": [],
                         "home-assistant/addons": [
+                            {"path": "repository.json", "type": "blob"},
+                        ],
+                        "hassio-addons/some-addon": [
                             {"path": "repository.json", "type": "blob"},
                         ],
                         "some-user/addons": [

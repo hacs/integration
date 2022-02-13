@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import asyncio
 from dataclasses import asdict, dataclass, field
-from datetime import timedelta
 import gzip
 import json
 import logging
@@ -26,7 +25,6 @@ from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import Integration
 
 from .const import TV
@@ -39,16 +37,17 @@ from .enums import (
     LovelaceMode,
 )
 from .exceptions import (
+    AddonRepositoryException,
     HacsException,
     HacsExpectedException,
     HacsRepositoryArchivedException,
     HacsRepositoryExistException,
+    HomeAssistantCoreRepositoryException,
 )
 from .repositories import RERPOSITORY_CLASSES
 from .utils.decode import decode_content
 from .utils.logger import get_hacs_logger
 from .utils.queue_manager import QueueManager
-from .utils.store import async_load_from_store, async_save_to_store
 
 if TYPE_CHECKING:
     from .repositories.base import HacsRepository
@@ -494,10 +493,12 @@ class HacsBase:
                 raise HacsExpectedException(f"Skipping {repository_full_name}")
 
         if repository_full_name == "home-assistant/core":
-            raise HacsExpectedException(
-                "You can not add homeassistant/core, to use core integrations "
-                "check the Home Assistant documentation for how to add them."
-            )
+            raise HomeAssistantCoreRepositoryException()
+
+        if repository_full_name == "home-assistant/addons" or repository_full_name.startswith(
+            "hassio-addons/"
+        ):
+            raise AddonRepositoryException()
 
         if category not in RERPOSITORY_CLASSES:
             raise HacsException(f"{category} is not a valid repository category.")

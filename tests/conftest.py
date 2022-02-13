@@ -6,7 +6,8 @@ import os
 from pathlib import Path
 from unittest.mock import AsyncMock
 
-from aiogithubapi import GitHubAPI
+from aiogithubapi import GitHubAPI, GitHub
+from aiogithubapi.const import ACCEPT_HEADERS
 from awesomeversion import AwesomeVersion
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import __version__ as HAVERSION
@@ -129,6 +130,16 @@ async def hacs(hass: HomeAssistant):
     hacs_obj.core.ha_version = AwesomeVersion(HAVERSION)
     hacs_obj.version = hacs_obj.integration.version
     hacs_obj.configuration.token = TOKEN
+
+    ## Old GitHub client
+    hacs_obj.github = GitHub(
+        token=hacs_obj.configuration.token,
+        session=hacs_obj.session,
+        headers={
+            "User-Agent": "HACS/pytest",
+            "Accept": ACCEPT_HEADERS["preview"],
+        },
+    )
 
     ## New GitHub client
     hacs_obj.githubapi = GitHubAPI(

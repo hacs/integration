@@ -364,9 +364,9 @@ async def hacs_repository(hass, connection, msg):
         elif action == "release_notes":
             data = [
                 {
-                    "name": x.attributes["name"],
-                    "body": x.attributes["body"],
-                    "tag": x.attributes["tag_name"],
+                    "name": x.name,
+                    "body": x.body,
+                    "tag": x.tag_name,
                 }
                 for x in repository.releases.objects
             ]

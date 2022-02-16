@@ -1,7 +1,7 @@
 """Helpers: Download: gather_files_to_reload."""
 # pylint: disable=missing-docstring
+from aiogithubapi.models.release import GitHubReleaseModel
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
-from aiogithubapi.objects.repository.release import AIOGitHubAPIRepositoryRelease
 
 
 def test_gather_files_to_download(repository):
@@ -83,7 +83,7 @@ def test_gather_plugin_files_from_release(repository_plugin):
     repository = repository_plugin
     repository.data.file_name = "test.js"
     repository.data.releases = True
-    release = AIOGitHubAPIRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.js"}]})
+    release = GitHubReleaseModel({"tag_name": "3", "assets": [{"name": "test.js"}]})
     repository.releases.objects = [release]
     files = [x.name for x in repository.gather_files_to_download()]
     assert "test.js" in files
@@ -94,9 +94,7 @@ def test_gather_plugin_files_from_release_multiple(repository_plugin):
     repository.data.file_name = "test.js"
     repository.data.releases = True
     repository.releases.objects = [
-        AIOGitHubAPIRepositoryRelease(
-            {"tag_name": "3", "assets": [{"name": "test.js"}, {"name": "test.png"}]}
-        )
+        GitHubReleaseModel({"tag_name": "3", "assets": [{"name": "test.js"}, {"name": "test.png"}]})
     ]
     files = [x.name for x in repository.gather_files_to_download()]
     assert "test.js" in files
@@ -109,7 +107,7 @@ def test_gather_zip_release(repository_plugin):
     repository.data.zip_release = True
     repository.data.filename = "test.zip"
     repository.releases.objects = [
-        AIOGitHubAPIRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.zip"}]})
+        GitHubReleaseModel({"tag_name": "3", "assets": [{"name": "test.zip"}]})
     ]
     files = [x.name for x in repository.gather_files_to_download()]
     assert "test.zip" in files

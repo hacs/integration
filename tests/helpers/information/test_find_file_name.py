@@ -1,7 +1,7 @@
 """Helpers: Install: find_file_name."""
 # pylint: disable=missing-docstring
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
-from aiogithubapi.objects.repository.release import AIOGitHubAPIRepositoryRelease
+from aiogithubapi.models.release import GitHubReleaseModel
 
 
 def test_find_file_name_base(repository_plugin):
@@ -46,7 +46,7 @@ def test_find_file_name_different_name(repository_plugin):
 
 def test_find_file_release(repository_plugin):
     repository_plugin.releases.objects = [
-        AIOGitHubAPIRepositoryRelease({"tag_name": "3", "assets": [{"name": "test.js"}]})
+        GitHubReleaseModel({"tag_name": "3", "assets": [{"name": "test.js"}]})
     ]
     repository_plugin.update_filenames()
     assert repository_plugin.data.file_name == "test.js"
@@ -54,9 +54,7 @@ def test_find_file_release(repository_plugin):
 
 
 def test_find_file_release_no_asset(repository_plugin):
-    repository_plugin.releases.objects = [
-        AIOGitHubAPIRepositoryRelease({"tag_name": "3", "assets": []})
-    ]
+    repository_plugin.releases.objects = [GitHubReleaseModel({"tag_name": "3", "assets": []})]
     repository_plugin.tree = [
         AIOGitHubAPIRepositoryTreeContent({"path": "test.js", "type": "blob"}, "test/test", "main")
     ]

@@ -1014,7 +1014,9 @@ class HacsRepository:
             for release in releaseobjects or []:
                 if ref == release.tag_name:
                     for asset in release.assets or []:
-                        files.append(asset)
+                        files.append(
+                            FileInformation(asset.browser_download_url, asset.name, asset.name)
+                        )
             if files:
                 return files
 

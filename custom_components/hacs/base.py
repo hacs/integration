@@ -592,10 +592,18 @@ class HacsBase:
                 raise HacsException(
                     f"Got status code {request.status} when trying to download {url}"
                 )
+            except asyncio.TimeoutError:
+                self.log.error(
+                    "A timeout of 60! seconds was encountered while downloading %s, "
+                    "check the network on the host running Home Assistant",
+                    url,
+                )
+                return None
             except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
                 self.log.debug("Download failed - %s", exception)
                 tries_left -= 1
                 await asyncio.sleep(1)
                 continue
 
+        self.log.error("Download from %s failed", url)
         return None

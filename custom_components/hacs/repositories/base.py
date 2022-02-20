@@ -582,7 +582,7 @@ class HacsRepository:
     async def async_download_zip_file(self, content, validate) -> None:
         """Download ZIP archive from repository release."""
         try:
-            filecontent = await self.hacs.async_download_file(content.download_url)
+            filecontent = await self.hacs.async_download_file(content.browser_download_url)
 
             if filecontent is None:
                 validate.errors.append(f"[{content.name}] was not downloaded")

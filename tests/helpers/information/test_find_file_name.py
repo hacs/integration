@@ -1,7 +1,7 @@
 """Helpers: Install: find_file_name."""
 # pylint: disable=missing-docstring
-from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from aiogithubapi.models.release import GitHubReleaseModel
+from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 
 
 def test_find_file_name_base(repository_plugin):

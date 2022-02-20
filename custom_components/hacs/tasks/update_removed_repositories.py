@@ -42,6 +42,8 @@ class Task(HacsTask):
         for removed in self.hacs.repositories.list_removed:
             if (repository := self.hacs.repositories.get_by_full_name(removed.repository)) is None:
                 continue
+            if repository.data.full_name in self.hacs.common.ignored_repositories:
+                continue
             if repository.data.installed and removed.removal_type != "critical":
                 self.hacs.log.warning(
                     "You have '%s' installed with HACS "

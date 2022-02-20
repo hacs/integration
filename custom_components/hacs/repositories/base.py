@@ -11,7 +11,11 @@ import tempfile
 from typing import TYPE_CHECKING, Any, List, Optional
 import zipfile
 
-from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPINotModifiedException, GitHubReleaseModel
+from aiogithubapi import (
+    AIOGitHubAPIException,
+    AIOGitHubAPINotModifiedException,
+    GitHubReleaseModel,
+)
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 import attr
 from homeassistant.helpers.json import JSONEncoder
@@ -958,9 +962,11 @@ class HacsRepository:
             raise HacsRepositoryArchivedException(f"{self} Repository is archived.")
 
         # Make sure the repository is not in the blacklist.
-        if self.hacs.repositories.is_removed(self.data.full_name) and not ignore_issues:
-            self.validate.errors.append("Repository has been requested to be removed.")
-            raise HacsException(f"{self} Repository has been requested to be removed.")
+        if self.hacs.repositories.is_removed(self.data.full_name):
+            removed = self.hacs.repositories.removed_repository(self.data.full_name)
+            if removed.removal_type != "remove" and not ignore_issues:
+                self.validate.errors.append("Repository has been requested to be removed.")
+                raise HacsException(f"{self} Repository has been requested to be removed.")
 
         # Get releases.
         try:

@@ -149,6 +149,7 @@ class HacsCommon:
     categories: set[str] = field(default_factory=set)
     renamed_repositories: dict[str, str] = field(default_factory=dict)
     archived_repositories: list[str] = field(default_factory=list)
+    ignored_repositories: list[str] = field(default_factory=list)
     skip: list[str] = field(default_factory=list)
 
 

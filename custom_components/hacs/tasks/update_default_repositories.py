@@ -1,7 +1,7 @@
 """"Hacs base setup task."""
 from __future__ import annotations
-import asyncio
 
+import asyncio
 from datetime import timedelta
 
 from homeassistant.core import HomeAssistant

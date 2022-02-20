@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 from unittest.mock import AsyncMock
 
-from aiogithubapi import GitHubAPI, GitHub
+from aiogithubapi import GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
 from awesomeversion import AwesomeVersion
 from homeassistant.config_entries import ConfigEntry

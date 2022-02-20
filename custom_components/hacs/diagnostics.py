@@ -31,6 +31,7 @@ async def async_get_config_entry_diagnostics(
             "categories": hacs.common.categories,
             "renamed_repositories": hacs.common.renamed_repositories,
             "archived_repositories": hacs.common.archived_repositories,
+            "ignored_repositories": hacs.common.ignored_repositories,
             "lovelace_mode": hacs.core.lovelace_mode,
             "configuration": {},
         },

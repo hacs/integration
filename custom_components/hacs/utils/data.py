@@ -56,6 +56,7 @@ class HacsData:
                 "onboarding_done": self.hacs.configuration.onboarding_done,
                 "archived_repositories": self.hacs.common.archived_repositories,
                 "renamed_repositories": self.hacs.common.renamed_repositories,
+                "ignored_repositories": self.hacs.common.ignored_repositories,
             },
         )
         await self._async_store_content_and_repos()
@@ -142,6 +143,7 @@ class HacsData:
         self.hacs.configuration.frontend_compact = hacs.get("compact", False)
         self.hacs.configuration.onboarding_done = hacs.get("onboarding_done", False)
         self.hacs.common.archived_repositories = []
+        self.hacs.common.ignored_repositories = []
         self.hacs.common.renamed_repositories = {}
 
         # Clear out doubble renamed values
@@ -155,6 +157,11 @@ class HacsData:
         for entry in hacs.get("archived_repositories", []):
             if entry not in self.hacs.common.archived_repositories:
                 self.hacs.common.archived_repositories.append(entry)
+
+        # Clear out doubble ignored values
+        for entry in hacs.get("ignored_repositories", []):
+            if entry not in self.hacs.common.ignored_repositories:
+                self.hacs.common.ignored_repositories.append(entry)
 
         hass = self.hacs.hass
         stores = {}

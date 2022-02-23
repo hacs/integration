@@ -15,7 +15,7 @@ https://github.com/hacs/integration/releases/tag/1.0.0
 ## Useful links
 
 - [General documentation](https://hacs.xyz/)
-- [Configuration](https://hacs.xyz/docs/configuration/start)
+- [Configuration](https://hacs.xyz/docs/configuration/basic)
 - [FAQ](https://hacs.xyz/docs/faq/what)
 - [GitHub](https://github.com/hacs)
 - [Discord](https://discord.gg/apgchf8)

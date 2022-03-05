@@ -26,6 +26,7 @@ from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
+from homeassistant.util import dt
 
 from .const import TV
 from .enums import (
@@ -425,10 +426,13 @@ class HacsBase:
         """Helper to calculate the number of repositories we can fetch data for."""
         try:
             response = await self.async_github_api_method(self.githubapi.rate_limit)
-            if ((limit := response.data.resources.core.remaining or 0) - 1000) >= 15:
-                return math.floor((limit - 1000) / 15)
+            if ((limit := response.data.resources.core.remaining or 0) - 1000) >= 10:
+                return math.floor((limit - 1000) / 10)
+            reset = dt.as_local(dt.utc_from_timestamp(response.data.resources.core.reset))
             self.log.info(
-                "GitHub API ratelimited - %s remaining", response.data.resources.core.remaining
+                "GitHub API ratelimited - %s remaining (%s)",
+                response.data.resources.core.remaining,
+                f"{reset.hour}:{reset.minute}:{reset.second}",
             )
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
         except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except

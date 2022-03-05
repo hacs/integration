@@ -575,36 +575,27 @@ class HacsBase:
         if url is None:
             return None
 
-        tries_left = 5
-
         if "tags/" in url:
             url = url.replace("tags/", "")
 
         self.log.debug("Downloading %s", url)
 
-        while tries_left > 0:
-            try:
-                request = await self.session.get(url=url, timeout=ClientTimeout(total=60))
+        try:
+            request = await self.session.get(url=url, timeout=ClientTimeout(total=60))
 
-                # Make sure that we got a valid result
-                if request.status == 200:
-                    return await request.read()
+            # Make sure that we got a valid result
+            if request.status == 200:
+                return await request.read()
 
-                raise HacsException(
-                    f"Got status code {request.status} when trying to download {url}"
-                )
-            except asyncio.TimeoutError:
-                self.log.error(
-                    "A timeout of 60! seconds was encountered while downloading %s, "
-                    "check the network on the host running Home Assistant",
-                    url,
-                )
-                return None
-            except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-                self.log.debug("Download failed - %s", exception)
-                tries_left -= 1
-                await asyncio.sleep(1)
-                continue
+            raise HacsException(f"Got status code {request.status} when trying to download {url}")
+        except asyncio.TimeoutError:
+            self.log.error(
+                "A timeout of 60! seconds was encountered while downloading %s, "
+                "check the network on the host running Home Assistant. This is "
+                "not a problem with HACS but how your host communicates with GitHub",
+                url,
+            )
+        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            self.log.exception("Download failed - %s", exception)
 
-        self.log.error("Download from %s failed", url)
         return None

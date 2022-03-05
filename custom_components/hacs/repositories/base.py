@@ -706,7 +706,11 @@ class HacsRepository:
         """Get the content of the info.md file."""
 
         def _info_file_variants() -> tuple[str, ...]:
-            name: str = "readme" if self.data.render_readme else "info"
+            name: str = (
+                "readme"
+                if self.data.render_readme or self.hacs.configuration.experimental
+                else "info"
+            )
             return (
                 f"{name.upper()}.md",
                 f"{name}.md",

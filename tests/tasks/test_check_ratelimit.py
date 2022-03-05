@@ -8,7 +8,7 @@ from custom_components.hacs.enums import HacsDisabledReason, HacsStage
 
 
 @pytest.mark.asyncio
-async def test_check_ratelimit_not_running(hacs: HacsBase, caplog: pytest.LogCaptureFixture):
+async def test_check_ratelimit_not_running(hacs: HacsBase):
     hacs.stage = HacsStage.WAITING
     await hacs.tasks.async_load()
     task = hacs.tasks.get("check_ratelimit")
@@ -16,19 +16,6 @@ async def test_check_ratelimit_not_running(hacs: HacsBase, caplog: pytest.LogCap
     assert task
 
     await task.execute_task()
-    assert "HacsTask<check_ratelimit> HACS is not ratelimited" in caplog.text
-
-
-@pytest.mark.asyncio
-async def test_check_ratelimit_not_ratelimited(hacs: HacsBase, caplog: pytest.LogCaptureFixture):
-    hacs.stage = HacsStage.RUNNING
-    await hacs.tasks.async_load()
-    task = hacs.tasks.get("check_ratelimit")
-
-    assert task
-
-    await task.execute_task()
-    assert "HacsTask<check_ratelimit> HACS is not ratelimited" in caplog.text
 
 
 @pytest.mark.asyncio

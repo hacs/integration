@@ -29,26 +29,21 @@ class Task(HacsTask):
             self.task_logger(self.hacs.log.debug, "Queue is already running")
             return
 
-        async def _handle(update: int):
+        async def _handle_queue():
+            if not self.hacs.queue.has_pending_tasks:
+                return
+            can_update = await self.hacs.async_can_update()
             self.task_logger(
                 self.hacs.log.debug,
-                f"Can update {update} repositories, "
+                f"Can update {can_update} repositories, "
                 f"items in queue {self.hacs.queue.pending_tasks}",
             )
-            if update != 0:
+            if can_update != 0:
                 try:
-                    await self.hacs.queue.execute(update)
+                    await self.hacs.queue.execute(can_update)
                 except HacsExecutionStillInProgress:
                     return
 
-            if not self.hacs.queue.has_pending_tasks:
-                return
+                await _handle_queue()
 
-            _can_update = await self.hacs.async_can_update()
-
-            if _can_update != 0:
-                await _handle(_can_update)
-
-        can_update = await self.hacs.async_can_update()
-        if can_update != 0:
-            await _handle(can_update)
+        await _handle_queue()

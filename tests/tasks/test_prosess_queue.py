@@ -79,7 +79,6 @@ async def test_prosess_queue_ratelimted(hacs: HacsBase, caplog: pytest.LogCaptur
     with patch("custom_components.hacs.base.HacsBase.async_can_update", return_value=0):
         await task.execute_task()
 
-    assert "Can update 0 repositories, items in queue 1" in caplog.text
     assert hacs.queue.has_pending_tasks
 
 

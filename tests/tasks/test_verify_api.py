@@ -22,7 +22,7 @@ async def test_verify_api_everything_is_good(hacs: HacsBase, caplog: pytest.LogC
     assert task
 
     response = GitHubResponseModel(MagicMock(headers={}))
-    response.data = GitHubRateLimitModel({"resources": {"core": {"remaining": 5000}}})
+    response.data = GitHubRateLimitModel({"resources": {"core": {"remaining": 5000, "reset": 0}}})
     hacs.githubapi.rate_limit.return_value = response
     await task.execute_task()
     assert "Can update" in caplog.text
@@ -39,11 +39,11 @@ async def test_verify_api_ratelimited_value(hacs: HacsBase, caplog: pytest.LogCa
     assert not hacs.system.disabled
 
     response = GitHubResponseModel(MagicMock(headers={}))
-    response.data = GitHubRateLimitModel({"resources": {"core": {"remaining": 0}}})
+    response.data = GitHubRateLimitModel({"resources": {"core": {"remaining": 0, "reset": 0}}})
     hacs.githubapi.rate_limit.return_value = response
     await task.execute_task()
     assert "Can update 0 repositories" in caplog.text
-    assert "GitHub API ratelimited - 0 remaining" in caplog.text
+    assert "GitHub API ratelimited - 0 remaining (0:0:0)" in caplog.text
     assert hacs.system.disabled
     assert hacs.system.disabled_reason == HacsDisabledReason.RATE_LIMIT
 

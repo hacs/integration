@@ -652,7 +652,13 @@ class HacsRepository:
 
         url = f"{BASE_API_URL}/repos/{self.data.full_name}/zipball/{ref}"
 
-        filecontent = await self.hacs.async_download_file(url)
+        filecontent = await self.hacs.async_download_file(
+            url,
+            headers={
+                "Authorization": f"token {self.hacs.configuration.token}",
+                "User-Agent": f"HACS/{self.hacs.version}",
+            },
+        )
         if filecontent is None:
             raise HacsException(f"[{self}] Failed to download zipball")
 
@@ -672,6 +678,13 @@ class HacsRepository:
 
             zip_file.extractall(self.content.path.local, extractable)
 
+        def cleanup_temp_dir():
+            """Cleanup temp_dir."""
+            if os.path.exists(temp_dir):
+                self.logger.debug("Cleaning up %s", temp_dir)
+                shutil.rmtree(temp_dir)
+
+        await self.hacs.hass.async_add_executor_job(cleanup_temp_dir)
         self.logger.info("[%s] Content was extracted to %s", self, self.content.path.local)
 
     async def async_get_hacs_json(self, ref: str = None) -> dict[str, Any] | None:

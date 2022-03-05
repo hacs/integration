@@ -613,12 +613,6 @@ class HacsRepository:
 
     async def download_content(self) -> None:
         """Download the content of a directory."""
-        contents = self.gather_files_to_download()
-        if self.data.filename:
-            self.logger.debug(self.data.filename)
-        if not contents:
-            raise HacsException("No content to download")
-
         if self.hacs.configuration.experimental:
             if (
                 not self.data.zip_release
@@ -632,6 +626,12 @@ class HacsRepository:
                     return
                 except HacsException as exception:
                     self.logger.exception(exception)
+
+        contents = self.gather_files_to_download()
+        if self.data.filename:
+            self.logger.debug(self.data.filename)
+        if not contents:
+            raise HacsException("No content to download")
 
         download_queue = QueueManager(hass=self.hacs.hass)
 

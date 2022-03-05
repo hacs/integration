@@ -425,8 +425,8 @@ class HacsBase:
         """Helper to calculate the number of repositories we can fetch data for."""
         try:
             response = await self.async_github_api_method(self.githubapi.rate_limit)
-            if ((limit := response.data.resources.core.remaining or 0) - 1000) >= 15:
-                return math.floor((limit - 1000) / 15)
+            if ((limit := response.data.resources.core.remaining or 0) - 1000) >= 10:
+                return math.floor((limit - 1000) / 10)
             self.log.info(
                 "GitHub API ratelimited - %s remaining", response.data.resources.core.remaining
             )

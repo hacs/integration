@@ -16,11 +16,10 @@ _LOGGER = get_hacs_logger()
 class QueueManager:
     """The QueueManager class."""
 
-    running = False
-    queue: list[Coroutine] = []
-
     def __init__(self, hass: HomeAssistant) -> None:
         self.hass = hass
+        self.queue: list[Coroutine] = []
+        self.running = False
 
     @property
     def pending_tasks(self) -> int:
@@ -38,7 +37,7 @@ class QueueManager:
 
     def add(self, task: Coroutine) -> None:
         """Add a task to the queue."""
-        self.queue.append(self.hass.loop.create_task(task))
+        self.queue.append(task)
 
     async def execute(self, number_of_tasks: int | None = None) -> None:
         """Execute the tasks in the queue."""

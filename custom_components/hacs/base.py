@@ -570,7 +570,7 @@ class HacsBase:
 
         self.hass.bus.async_fire("hacs/status", {})
 
-    async def async_download_file(self, url: str) -> bytes | None:
+    async def async_download_file(self, url: str, *, headers: dict | None = None) -> bytes | None:
         """Download files, and return the content."""
         if url is None:
             return None
@@ -581,7 +581,11 @@ class HacsBase:
         self.log.debug("Downloading %s", url)
 
         try:
-            request = await self.session.get(url=url, timeout=ClientTimeout(total=60))
+            request = await self.session.get(
+                url=url,
+                timeout=ClientTimeout(total=60),
+                headers=headers,
+            )
 
             # Make sure that we got a valid result
             if request.status == 200:

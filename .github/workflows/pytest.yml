@@ -17,21 +17,23 @@ jobs:
         python-version: [3.9, "3.10"]
     steps:
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.0.0
 
       - name: 🛠️ Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v3.0.0
         with:
           python-version: ${{ matrix.python-version }}
+          cache: 'pip'
 
       - name: 📦 Install dependencies
-        run:  make init
+        run: |
+          make init
+          python3 -m pip install pytest pytest-cov
 
       - name: 🏃 Run tests
         env:
           PYTEST: true
         run: |
-          python3 -m pip install pytest pytest-cov
           python3 -m pytest
 
       - name: 📤 Upload coverage to Codecov

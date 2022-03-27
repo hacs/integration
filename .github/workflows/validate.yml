@@ -15,13 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     name: With hassfest
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v3
+    - name: 📥 Checkout the repository
+      uses: actions/checkout@v3.0.0
 
-    - name: Hassfest validation
+    - name: 🏃 Hassfest validation
       uses: "home-assistant/actions/hassfest@master"
 
-    - name: Discord notification
+    - name: 📨 Discord notification
       if: ${{ github.event_name == 'schedule' && failure() }}
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
@@ -33,16 +33,16 @@ jobs:
     runs-on: ubuntu-latest
     name: With HACS Action
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v3
+    - name: 📥 Checkout the repository
+      uses: actions/checkout@v3.0.0
 
-    - name: HACS validation
+    - name: 🏃 HACS validation
       uses: hacs/action@main
       with:
         category: integration
         comment: false
 
-    - name: Discord notification
+    - name: 📨 Discord notification
       if: ${{ github.event_name == 'schedule' && failure() }}
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.0.0
 
       - name: 📋 Copy sample configuration for Home Assistant
         run: |
@@ -68,14 +68,14 @@ jobs:
           echo "hacs:" >> ./test_configuration/configuration.yaml
           echo "  token: CHANGE_ME" >> ./test_configuration/configuration.yaml
 
-      - name: 👷 Setup Home Assistant
+      - name: 🛠️ Setup Home Assistant
         id: homeassistant
         uses: ludeeus/setup-homeassistant@main
         with:
           tag: ${{ matrix.channel }}
           config-dir: test_configuration
 
-      - name: Discord notification
+      - name: 📨 Discord notification
         if: ${{ github.event_name == 'schedule' && failure() }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}

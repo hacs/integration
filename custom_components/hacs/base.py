@@ -24,6 +24,7 @@ from aiogithubapi import (
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 from homeassistant.util import dt
@@ -98,7 +99,7 @@ class HacsConfiguration:
     appdaemon_path: str = "appdaemon/apps/"
     appdaemon: bool = False
     config: dict[str, Any] = field(default_factory=dict)
-    config_entry: dict[str, str] = field(default_factory=dict)
+    config_entry: ConfigEntry | None = None
     config_type: ConfigurationType | None = None
     country: str = "ALL"
     debug: bool = False
@@ -284,6 +285,20 @@ class HacsRepositories:
         if repository_full_name is not None:
             return repository_full_name in self._repositories_by_full_name
         return False
+
+    def is_downloaded(
+        self,
+        repository_id: str | None = None,
+        repository_full_name: str | None = None,
+    ) -> bool:
+        """Check if a repository is registered."""
+        if repository_id is not None:
+            repo = self.get_by_id(repository_id)
+        if repository_full_name is not None:
+            repo = self.get_by_full_name(repository_full_name)
+        if repo is None:
+            return False
+        return repo.data.installed
 
     def get_by_id(self, repository_id: str | None) -> HacsRepository | None:
         """Get repository by id."""
@@ -607,3 +622,21 @@ class HacsBase:
             self.log.exception("Download failed - %s", exception)
 
         return None
+
+    async def async_recreate_entities(self) -> None:
+        """Recreate entities."""
+        if (
+            self.configuration == ConfigurationType.YAML
+            or self.core.ha_version < "2022.4.0.dev0"
+            or not self.configuration.experimental
+        ):
+            return
+
+        platforms = ["sensor", "update"]
+
+        await self.hass.config_entries.async_unload_platforms(
+            entry=self.configuration.config_entry,
+            platforms=platforms,
+        )
+
+        self.hass.config_entries.async_setup_platforms(self.configuration.config_entry, platforms)

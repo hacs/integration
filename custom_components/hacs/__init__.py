@@ -21,7 +21,7 @@ from homeassistant.loader import async_get_integration
 import voluptuous as vol
 
 from .base import HacsBase
-from .const import DOMAIN, PLATFORMS, STARTUP
+from .const import DOMAIN, STARTUP
 from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
 from .tasks.manager import HacsTaskManager
 from .utils.configuration_schema import hacs_config_combined
@@ -189,7 +189,11 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     except AttributeError:
         pass
 
-    unload_ok = await hass.config_entries.async_unload_platforms(config_entry, PLATFORMS)
+    platforms = ["sensor"]
+    if hacs.core.ha_version >= "2022.4.0.dev0" and hacs.configuration.experimental:
+        platforms.append("update")
+
+    unload_ok = await hass.config_entries.async_unload_platforms(config_entry, platforms)
 
     await hacs.async_set_stage(None)
     hacs.disable_hacs(HacsDisabledReason.REMOVED)

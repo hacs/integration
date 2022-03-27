@@ -11,10 +11,10 @@ on:
 jobs:
   matrix:
     runs-on: ubuntu-latest
-    name: Run ${{ matrix.checks }}
+    name: Run ${{ matrix.check }}
     strategy:
       matrix:
-        checks:
+        check:
           - pyupgrade
           - black
           - codespell
@@ -24,53 +24,55 @@ jobs:
           - check-ast
           - mixed-line-ending
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
+      - name: 📥 Checkout the repository
+        uses: actions/checkout@v3.0.0
 
-      - name: Set up Python
-        uses: actions/setup-python@v3
+      - name: 🛠️ Set up Python
+        uses: actions/setup-python@v3.0.0
         id: python
         with:
           python-version: "3.x"
+          cache: 'pip'
 
-      - name: Install pre-commit
+      - name: 📦 Install pre-commit
         run: |
           python3 -m pip install pre-commit
           pre-commit install-hooks --config .github/pre-commit-config.yaml
 
-      - name: Run the check (${{ matrix.checks }})
-        run: pre-commit run --hook-stage manual ${{ matrix.checks }} --all-files --config .github/pre-commit-config.yaml
+      - name: 🏃 Run the check (${{ matrix.check }})
+        run: pre-commit run --hook-stage manual ${{ matrix.check }} --all-files --config .github/pre-commit-config.yaml
 
   lint-custom:
     runs-on: ubuntu-latest
     name: With bellybutton
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v3
+    - name: 📥 Checkout the repository
+      uses: actions/checkout@v3.0.0
 
-    - name: Set up Python
-      uses: actions/setup-python@v3
+    - name: 🛠️ Set up Python
+      uses: actions/setup-python@v3.0.0
       with:
         python-version: "3.x"
+        cache: 'pip'
 
-    - name: Install dependencies
-      run: make requirements
+    - name: 📦 Install dependencies
+      run:  make requirements
 
-    - name: Add problem matcher
+    - name: ✅ Add problem matcher
       run: echo "::add-matcher::.github/matchers/bellybutton.json"
 
-    - name: Validation
+    - name: 🏃 Run validation
       run: bellybutton lint
 
   lint-json:
     runs-on: ubuntu-latest
     name: With JQ
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v3
+    - name: 📥 Checkout the repository
+      uses: actions/checkout@v3.0.0
 
-    - name: Install dependencies
-      run: make requirements
+    - name: 📦 Install dependencies
+      run:  make requirements
 
-    - name: Validation
+    - name: 🏃 Run validation
       run: jq -r -e -c . tests/fixtures/*.json

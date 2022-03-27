@@ -2,9 +2,11 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
   schedule:
     - cron: '0 4 * * *'
 
@@ -12,38 +14,27 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - name: 📥 Checkout the repository
+      uses: actions/checkout@v3.0.0
       with:
         fetch-depth: 2
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
+    - name: 🔁 Initialize CodeQL
+      uses: github/codeql-action/init@v1.1.5
       with:
         languages: python
 
-    # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
-    # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
+    - name: 🛠️ Autobuild
+      uses: github/codeql-action/autobuild@v1.1.5
 
-    # ℹ️ Command-line programs to run using the OS shell.
-    # 📚 https://git.io/JvXDl
+    - name: 🏃 Run CodeQL Analysis
+      uses: github/codeql-action/analyze@v1.1.5
 
-    # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
-    #    and modify them (or add more) to build your code if your project
-    #    uses a compiled language
-
-    #- run: |
-    #   make bootstrap
-    #   make release
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
-
-    - name: Discord notification
+    - name: 📨 Discord notification
       if: ${{ github.event_name == 'schedule' && failure() }}
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}

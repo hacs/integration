@@ -10,6 +10,8 @@ jobs:
   release_zip_file:
     name: Publish HACS zip file asset
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to upload release assets
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -46,11 +48,8 @@ jobs:
           zip hacs.zip -r ./
 
       - name: Upload zip to release
-        uses: svenstaro/upload-release-action@v1-release
+        uses: softprops/action-gh-release@v0.1.14
         if: ${{ github.event_name == 'release' }}
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ github.workspace }}/custom_components/hacs/hacs.zip
-          asset_name: hacs.zip
-          tag: ${{ github.ref }}
-          overwrite: true
+          files: ${{ github.workspace }}/custom_components/hacs/hacs.zip
+

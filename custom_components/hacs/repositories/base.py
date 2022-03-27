@@ -19,9 +19,11 @@ from aiogithubapi import (
 from aiogithubapi.const import BASE_API_URL
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 import attr
+from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.json import JSONEncoder
 
-from ..enums import HacsCategory, RepositoryFile
+from ..const import DOMAIN
+from ..enums import ConfigurationType, HacsCategory, RepositoryFile
 from ..exceptions import (
     HacsException,
     HacsNotModifiedException,
@@ -777,6 +779,8 @@ class HacsRepository:
             {"id": 1337, "action": "uninstall", "repository": self.data.full_name},
         )
 
+        await self.async_remove_entity_device()
+
     async def remove_local_directory(self) -> None:
         """Check the local directory."""
 
@@ -1169,3 +1173,20 @@ class HacsRepository:
 
         except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.validate.errors.append(f"Download was not completed [{exception}]")
+
+    async def async_remove_entity_device(self) -> None:
+        """Remove the entity device."""
+        if (
+            self.hacs.configuration == ConfigurationType.YAML
+            or self.hacs.core.ha_version < "2022.4.0.dev0"
+            or not self.hacs.configuration.experimental
+        ):
+            return
+
+        device_registry: dr.DeviceRegistry = dr.async_get(hass=self.hacs.hass)
+        device = device_registry.async_get_device(identifiers={(DOMAIN, str(self.data.id))})
+
+        if device is None:
+            return
+
+        device_registry.async_remove_device(device_id=device.id)

@@ -4,20 +4,19 @@ from unittest.mock import patch
 import pytest
 
 from custom_components.hacs.base import HacsBase
-from custom_components.hacs.const import PLATFORMS
 from custom_components.hacs.enums import ConfigurationType
 
 
 @pytest.mark.asyncio
-async def test_setup_sensor(hacs: HacsBase):
+async def test_setup_sensor_platform(hacs: HacsBase):
     await hacs.tasks.async_load()
-    task = hacs.tasks.get("setup_sensor")
+    task = hacs.tasks.get("setup_sensor_platform")
 
     assert task
 
     hacs.configuration.config_type = ConfigurationType.YAML
     with patch(
-        "custom_components.hacs.tasks.setup_sensor.async_load_platform"
+        "custom_components.hacs.tasks.setup_sensor_platform.async_load_platform"
     ) as mock_async_load_platform:
         await task.execute_task()
         assert mock_async_load_platform.call_count == 1
@@ -28,4 +27,4 @@ async def test_setup_sensor(hacs: HacsBase):
     ) as mock_async_setup_platforms:
         await task.execute_task()
         assert mock_async_setup_platforms.call_count == 1
-        assert mock_async_setup_platforms.call_args[0][1] == PLATFORMS
+        assert mock_async_setup_platforms.call_args[0][1] == ["sensor"]

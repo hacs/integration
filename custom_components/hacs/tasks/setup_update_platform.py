@@ -1,13 +1,13 @@
-""""Starting setup task: Sensor"."""
+""""Starting setup task: Update"."""
 from __future__ import annotations
 
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.discovery import async_load_platform
 
 from ..base import HacsBase
-from ..const import DOMAIN, PLATFORMS
 from ..enums import ConfigurationType, HacsStage
 from .base import HacsTask
+
+UPDATE_DOMAIN = "update"
 
 
 async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
@@ -16,17 +16,17 @@ async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
 
 
 class Task(HacsTask):
-    """Setup the HACS sensor platform."""
+    """Setup the HACS update platform."""
 
-    stages = [HacsStage.SETUP]
+    stages = [HacsStage.RUNNING]
 
     async def async_execute(self) -> None:
         """Execute the task."""
         if self.hacs.configuration.config_type == ConfigurationType.YAML:
-            self.hass.async_create_task(
-                async_load_platform(self.hass, "sensor", DOMAIN, {}, self.hacs.configuration.config)
+            self.task_logger(
+                self.hacs.log.info, "Update entities are only supported when using UI configuration"
             )
-        else:
+        elif self.hacs.core.ha_version >= "2022.4.0.dev0" and self.hacs.configuration.experimental:
             self.hass.config_entries.async_setup_platforms(
-                self.hacs.configuration.config_entry, PLATFORMS
+                self.hacs.configuration.config_entry, [UPDATE_DOMAIN]
             )

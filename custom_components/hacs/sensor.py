@@ -22,7 +22,7 @@ class HACSSensor(HacsSystemEntity, SensorEntity):
     """HACS Sensor class."""
 
     _attr_name = "hacs"
-    _attr_unit_of_measurement = "pending update(s)"
+    _attr_native_unit_of_measurement = "pending update(s)"
     _attr_native_value = None
 
     @callback

@@ -23,7 +23,7 @@ async def async_setup_entry(hass, _config_entry, async_add_devices):
 class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
     """Update entities for repositories downloaded with HACS."""
 
-    _attr_supported_features = 1
+    _attr_supported_features = 1 | 16
 
     @property
     def name(self) -> str | None:
@@ -35,18 +35,6 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         return self.repository.display_available_version
 
     @property
-    def release_summary(self) -> str | None:
-        """Return the release summary."""
-        if self.repository.pending_restart:
-            return "🔴 Restart of Home Assistant required 🔴 "
-        if self.repository.pending_update:
-            if self.repository.data.category == HacsCategory.INTEGRATION:
-                return "🟡 You need to restart Home Assistant manually after updating."
-            if self.repository.data.category == HacsCategory.PLUGIN:
-                return "🟡 You manually clear the frontend cache after updating."
-        return None
-
-    @property
     def release_url(self) -> str:
         """Return the URL of the release page."""
         if self.repository.display_version_or_commit == "commit":
@@ -54,9 +42,16 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         return f"https://github.com/{self.repository.data.full_name}/releases/{self.latest_version}"
 
     @property
-    def current_version(self) -> str:
-        """Return latest version of the entity."""
+    def installed_version(self) -> str:
+        """Return downloaded version of the entity."""
         return self.repository.display_installed_version
+
+    @property
+    def release_summary(self) -> str | None:
+        """Return the release summary."""
+        if self.repository.pending_restart:
+            return "<ha-alert alert-type='error'>Restart of Home Assistant required</ha-alert>"
+        return None
 
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:
         """Install an update."""
@@ -64,3 +59,27 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
             self.repository.data.selected_tag = self.latest_version
             await self.repository.update_repository(force=True)
         await self.repository.async_install()
+
+    async def async_release_notes(self) -> str | None:
+        """Return the release notes."""
+        release_notes = ""
+        if self.repository.pending_restart:
+            return None
+
+        if len(self.repository.releases.objects) > 0:
+            release = self.repository.releases.objects[0]
+            release_notes += release.body
+
+        if self.repository.pending_update:
+            if self.repository.data.category == HacsCategory.INTEGRATION:
+                release_notes += (
+                    "<ha-alert alert-type='warning'>You need to restart"
+                    " Home Assistant manually after updating.</ha-alert>\n\n"
+                )
+            if self.repository.data.category == HacsCategory.PLUGIN:
+                release_notes += (
+                    "<ha-alert alert-type='warning'>You need to manually"
+                    " clear the frontend cache after updating.</ha-alert>\n\n"
+                )
+
+        return release_notes

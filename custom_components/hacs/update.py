@@ -32,7 +32,9 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
     @property
     def latest_version(self) -> str:
         """Return latest version of the entity."""
-        return self.repository.display_available_version
+        if self.repository.pending_update:
+            return self.repository.display_available_version
+        return self.installed_version
 
     @property
     def release_url(self) -> str:
@@ -40,6 +42,11 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         if self.repository.display_version_or_commit == "commit":
             return f"https://github.com/{self.repository.data.full_name}"
         return f"https://github.com/{self.repository.data.full_name}/releases/{self.latest_version}"
+
+    @property
+    def current_version(self) -> str:
+        """Return downloaded version of the entity."""
+        return self.repository.display_installed_version
 
     @property
     def installed_version(self) -> str:

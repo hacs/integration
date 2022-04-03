@@ -82,6 +82,18 @@ class HacsNetdaemonRepository(HacsRepository):
         # Set local path
         self.content.path.local = self.localpath
 
+        # Signal entities to refresh
+        if self.data.installed:
+            self.hacs.hass.bus.async_fire(
+                "hacs/repository",
+                {
+                    "id": 1337,
+                    "action": "update",
+                    "repository": self.data.full_name,
+                    "repository_id": self.data.id,
+                },
+            )
+
     async def async_post_installation(self):
         """Run post installation steps."""
         try:

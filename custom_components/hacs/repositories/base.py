@@ -776,7 +776,12 @@ class HacsRepository:
         self.data.installed_commit = None
         self.hacs.hass.bus.async_fire(
             "hacs/repository",
-            {"id": 1337, "action": "uninstall", "repository": self.data.full_name},
+            {
+                "id": 1337,
+                "action": "uninstall",
+                "repository": self.data.full_name,
+                "repository_id": self.data.id,
+            },
         )
 
         await self.async_remove_entity_device()
@@ -886,7 +891,12 @@ class HacsRepository:
         self.data.new = False
         self.hacs.hass.bus.async_fire(
             "hacs/repository",
-            {"id": 1337, "action": "install", "repository": self.data.full_name},
+            {
+                "id": 1337,
+                "action": "install",
+                "repository": self.data.full_name,
+                "repository_id": self.data.id,
+            },
         )
         self.logger.info("Post installation steps completed")
 
@@ -1178,7 +1188,7 @@ class HacsRepository:
         """Remove the entity device."""
         if (
             self.hacs.configuration == ConfigurationType.YAML
-            or self.hacs.core.ha_version < "2022.4.0.dev0"
+            or not self.hacs.core.ha_version >= "2022.4.0.dev0"
             or not self.hacs.configuration.experimental
         ):
             return

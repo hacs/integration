@@ -69,6 +69,18 @@ class HacsPluginRepository(HacsRepository):
         if self.content.path.remote == "release":
             self.content.single = True
 
+        # Signal entities to refresh
+        if self.data.installed:
+            self.hacs.hass.bus.async_fire(
+                "hacs/repository",
+                {
+                    "id": 1337,
+                    "action": "update",
+                    "repository": self.data.full_name,
+                    "repository_id": self.data.id,
+                },
+            )
+
     async def get_package_content(self):
         """Get package content."""
         try:

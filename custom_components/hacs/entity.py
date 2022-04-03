@@ -1,7 +1,7 @@
 """HACS Base entities."""
 from __future__ import annotations
 
-from homeassistant.core import callback
+from homeassistant.core import callback, Event
 from homeassistant.helpers.entity import Entity
 
 from custom_components.hacs.enums import HacsGitHubRepo
@@ -35,6 +35,7 @@ def system_info(hacs: HacsBase) -> dict:
 class HacsBaseEntity(Entity):
     """Base HACS entity."""
 
+    repository: HacsRepository | None = None
     _attr_should_poll = False
 
     def __init__(self, hacs: HacsBase) -> None:
@@ -44,7 +45,11 @@ class HacsBaseEntity(Entity):
     async def async_added_to_hass(self) -> None:
         """Register for status events."""
         self.async_on_remove(
-            self.hass.bus.async_listen("hacs/repository", self._update_and_write_state)
+            self.hass.bus.async_listen(
+                event_type="hacs/repository",
+                event_filter=self._filter_events,
+                listener=self._update_and_write_state,
+            )
         )
 
     @callback
@@ -56,8 +61,16 @@ class HacsBaseEntity(Entity):
         self._update()
 
     @callback
+    def _filter_events(self, event: Event) -> bool:
+        """Filter the events."""
+        if self.repository is None:
+            # System entities
+            return True
+        return event.data.get("repository_id") == self.repository.data.id
+
+    @callback
     def _update_and_write_state(self, *_) -> None:
-        """Update the sensor and write state."""
+        """Update the entity and write state."""
         self._update()
         self.async_write_ha_state()
 

@@ -127,6 +127,18 @@ class HacsIntegrationRepository(HacsRepository):
         # Set local path
         self.content.path.local = self.localpath
 
+        # Signal entities to refresh
+        if self.data.installed:
+            self.hacs.hass.bus.async_fire(
+                "hacs/repository",
+                {
+                    "id": 1337,
+                    "action": "update",
+                    "repository": self.data.full_name,
+                    "repository_id": self.data.id,
+                },
+            )
+
     async def reload_custom_components(self):
         """Reload custom_components (and config flows)in HA."""
         self.logger.info("Reloading custom_component cache")

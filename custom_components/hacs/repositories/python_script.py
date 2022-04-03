@@ -86,6 +86,18 @@ class HacsPythonScriptRepository(HacsRepository):
         # Update name
         self.update_filenames()
 
+        # Signal entities to refresh
+        if self.data.installed:
+            self.hacs.hass.bus.async_fire(
+                "hacs/repository",
+                {
+                    "id": 1337,
+                    "action": "update",
+                    "repository": self.data.full_name,
+                    "repository_id": self.data.id,
+                },
+            )
+
     def update_filenames(self) -> None:
         """Get the filename to target."""
         for treefile in self.tree:

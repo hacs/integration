@@ -60,6 +60,17 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
             return "<ha-alert alert-type='error'>Restart of Home Assistant required</ha-alert>"
         return None
 
+    @property
+    def entity_picture(self) -> str | None:
+        """Return the entity picture to use in the frontend."""
+        if (
+            self.repository.data.category != HacsCategory.INTEGRATION
+            or self.repository.data.domain is None
+        ):
+            return None
+
+        return f"https://brands.home-assistant.io/_/{self.repository.data.domain}/icon.png"
+
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:
         """Install an update."""
         if self.repository.display_version_or_commit == "version":

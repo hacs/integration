@@ -627,7 +627,7 @@ class HacsBase:
         """Recreate entities."""
         if (
             self.configuration == ConfigurationType.YAML
-            or self.core.ha_version < "2022.4.0.dev0"
+            or not self.core.ha_version >= "2022.4.0.dev0"
             or not self.configuration.experimental
         ):
             return

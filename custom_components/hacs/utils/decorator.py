@@ -25,7 +25,7 @@ def concurrent(
             hacs: HacsBase = getattr(args[0], "hacs", None)
 
             async with max_concurrent:
-                await function(*args, **kwargs)
+                result = await function(*args, **kwargs)
                 if (
                     hacs is None
                     or hacs.queue is None
@@ -33,6 +33,8 @@ def concurrent(
                     or "update" not in function.__name__
                 ):
                     await asyncio.sleep(backoff_time)
+
+                return result
 
         return wrapper
 

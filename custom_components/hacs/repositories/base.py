@@ -877,7 +877,10 @@ class HacsRepository:
         """Run install steps."""
         await self._async_pre_install()
         self.logger.info("Running installation steps")
-        await self.async_install_repository()
+        try:
+            await self.async_install_repository()
+        except HacsException:
+            return
         self.logger.info("Installation steps completed")
         await self._async_post_install()
 
@@ -947,6 +950,8 @@ class HacsRepository:
                 self.logger.error(error)
             if self.data.installed and not self.content.single:
                 await self.hacs.hass.async_add_executor_job(backup.restore)
+                await self.hacs.hass.async_add_executor_job(backup.cleanup)
+            raise HacsException()
 
         if self.data.installed and not self.content.single:
             await self.hacs.hass.async_add_executor_job(backup.cleanup)

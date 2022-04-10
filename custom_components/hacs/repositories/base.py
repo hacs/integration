@@ -947,6 +947,8 @@ class HacsRepository:
                 self.logger.error(error)
             if self.data.installed and not self.content.single:
                 await self.hacs.hass.async_add_executor_job(backup.restore)
+                await self.hacs.hass.async_add_executor_job(backup.cleanup)
+            raise HacsException("Could not download, see log for details")
 
         if self.data.installed and not self.content.single:
             await self.hacs.hass.async_add_executor_job(backup.cleanup)

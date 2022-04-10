@@ -42,15 +42,15 @@ class QueueManager:
     async def execute(self, number_of_tasks: int | None = None) -> None:
         """Execute the tasks in the queue."""
         if self.running:
-            _LOGGER.debug("Execution is allreay running")
+            _LOGGER.debug("<QueueManager> Execution is allreay running")
             raise HacsExecutionStillInProgress
         if len(self.queue) == 0:
-            _LOGGER.debug("The queue is empty")
+            _LOGGER.debug("<QueueManager> The queue is empty")
             return
 
         self.running = True
 
-        _LOGGER.debug("Checking out tasks to execute")
+        _LOGGER.debug("<QueueManager> Checking out tasks to execute")
         local_queue = []
 
         if number_of_tasks:
@@ -63,16 +63,16 @@ class QueueManager:
         for task in local_queue:
             self.queue.remove(task)
 
-        _LOGGER.debug("Starting queue execution for %s tasks", len(local_queue))
+        _LOGGER.debug("<QueueManager> Starting queue execution for %s tasks", len(local_queue))
         start = time.time()
         await asyncio.gather(*local_queue)
         end = time.time() - start
 
         _LOGGER.debug(
-            "Queue execution finished for %s tasks finished in %.2f seconds",
+            "<QueueManager> Queue execution finished for %s tasks finished in %.2f seconds",
             len(local_queue),
             end,
         )
         if self.has_pending_tasks:
-            _LOGGER.debug("%s tasks remaining in the queue", len(self.queue))
+            _LOGGER.debug("<QueueManager> %s tasks remaining in the queue", len(self.queue))
         self.running = False

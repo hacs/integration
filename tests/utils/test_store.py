@@ -65,7 +65,10 @@ async def test_store_store(hass: HomeAssistant, caplog: pytest.LogCaptureFixture
 
         await async_save_to_store(hass, "test", {})
         assert not async_save_mock.called
-        assert "Did not store data for 'hacs.test'. Content did not change" in caplog.text
+        assert (
+            "<HACSStore async_save_to_store> Did not store data for 'hacs.test'. Content did not change"
+            in caplog.text
+        )
 
         await async_save_to_store(hass, "test", {"test": "test"})
         assert async_save_mock.call_count == 1

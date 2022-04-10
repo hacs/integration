@@ -26,7 +26,7 @@ async def test_prosess_queue_disabled(hacs: HacsBase, caplog: pytest.LogCaptureF
 
     await task.execute_task()
 
-    assert "HacsTask<prosess_queue> Skipping task, HACS is disabled rate_limit" in caplog.text
+    assert "<HacsTask prosess_queue> Skipping task, HACS is disabled rate_limit" in caplog.text
 
 
 @pytest.mark.asyncio
@@ -40,7 +40,7 @@ async def test_prosess_queue_no_pending_tasks(hacs: HacsBase, caplog: pytest.Log
     assert task
 
     await task.execute_task()
-    assert "HacsTask<prosess_queue> Nothing in the queue" in caplog.text
+    assert "<HacsTask prosess_queue> Nothing in the queue" in caplog.text
     assert not hacs.queue.has_pending_tasks
 
 
@@ -58,7 +58,7 @@ async def test_prosess_queue_running(hacs: HacsBase, caplog: pytest.LogCaptureFi
     assert task
 
     await task.execute_task()
-    assert "HacsTask<prosess_queue> Queue is already running" in caplog.text
+    assert "<HacsTask prosess_queue> Queue is already running" in caplog.text
 
     assert hacs.queue.has_pending_tasks
 

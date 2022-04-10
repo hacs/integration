@@ -26,7 +26,7 @@ def update_repository_from_storage(repository, storage_data):
     if repository.data.installed:
         return
 
-    repository.logger.debug("%s Should be installed but is not... Fixing that!", repository)
+    repository.logger.debug("%s Should be installed but is not... Fixing that!", repository.string)
     repository.data.installed = True
 
 
@@ -44,7 +44,7 @@ class HacsData:
         if not force and self.hacs.system.disabled:
             return
 
-        self.logger.debug("Saving data")
+        self.logger.debug("<HacsData async_write> Saving data")
 
         # Hacs
         await async_save_to_store(
@@ -130,13 +130,13 @@ class HacsData:
         if not hacs and not repositories:
             # Assume new install
             self.hacs.status.new = True
-            self.logger.info("Loading base repository information")
+            self.logger.info("<HacsData restore> Loading base repository information")
             repositories = await self.hacs.hass.async_add_executor_job(
                 json_util.load_json,
                 f"{self.hacs.core.config_path}/custom_components/hacs/utils/default.repositories",
             )
 
-        self.logger.info("Restore started")
+        self.logger.info("<HacsData restore> Restore started")
 
         # Hacs
         self.hacs.configuration.frontend_mode = hacs.get("view", "Grid")
@@ -172,7 +172,9 @@ class HacsData:
             for entry, repo_data in repositories.items():
                 if entry == "0":
                     # Ignore repositories with ID 0
-                    self.logger.debug("Found repository with ID %s - %s", entry, repo_data)
+                    self.logger.debug(
+                        "<HacsData restore> Found repository with ID %s - %s", entry, repo_data
+                    )
                     continue
                 if self.async_restore_repository(entry, repo_data):
                     stores[entry] = get_store_for_key(hass, f"hacs/{entry}.hacs")
@@ -189,9 +191,11 @@ class HacsData:
                         )
 
             await hass.async_add_executor_job(_load_from_storage)
-            self.logger.info("Restore done")
+            self.logger.info("<HacsData restore> Restore done")
         except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-            self.logger.critical(f"[{exception}] Restore Failed!", exc_info=exception)
+            self.logger.critical(
+                f"<HacsData restore> [{exception}] Restore Failed!", exc_info=exception
+            )
             return False
         return True
 
@@ -214,7 +218,7 @@ class HacsData:
     def async_restore_repository(self, entry, repository_data):
         full_name = repository_data["full_name"]
         if not (repository := self.hacs.repositories.get_by_full_name(full_name)):
-            self.logger.error(f"Did not find {full_name} ({entry})")
+            self.logger.error(f"<HacsData restore> Did not find {full_name} ({entry})")
             return False
         # Restore repository attributes
         self.hacs.repositories.set_repository_id(repository, entry)

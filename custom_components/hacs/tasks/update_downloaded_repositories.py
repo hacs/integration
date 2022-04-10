@@ -23,11 +23,15 @@ class Task(HacsTask):
 
     async def async_execute(self) -> None:
         """Execute the task."""
-        self.hacs.log.debug("Starting recurring background task for installed repositories")
+        self.task_logger(
+            self.hacs.log.debug, "Starting recurring background task for installed repositories"
+        )
 
         for repository in self.hacs.repositories.list_downloaded:
             if repository.data.category in self.hacs.common.categories:
                 self.hacs.queue.add(repository.update_repository())
 
         await self.hacs.data.async_write()
-        self.hacs.log.debug("Recurring background task for installed repositories done")
+        self.task_logger(
+            self.hacs.log.debug, "Recurring background task for installed repositories done"
+        )

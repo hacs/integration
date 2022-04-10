@@ -542,9 +542,9 @@ class HacsBase:
                         )
                     return repository.validate.errors
                 if self.system.action:
-                    repository.logger.info("%s Validation completed", repository)
+                    repository.logger.info("%s Validation completed", repository.string)
                 else:
-                    repository.logger.info("%s Registration completed", repository)
+                    repository.logger.info("%s Registration completed", repository.string)
             except (HacsRepositoryExistException, HacsRepositoryArchivedException):
                 return
             except AIOGitHubAPIException as exception:

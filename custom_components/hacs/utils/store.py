@@ -74,7 +74,7 @@ async def async_save_to_store(hass, key, data):
         await get_store_for_key(hass, key).async_save(data)
         return
     _LOGGER.debug(
-        "Did not store data for '%s'. Content did not change",
+        "<HACSStore async_save_to_store> Did not store data for '%s'. Content did not change",
         get_store_key(key),
     )
 

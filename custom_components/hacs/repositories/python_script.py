@@ -55,7 +55,7 @@ class HacsPythonScriptRepository(HacsRepository):
         if self.validate.errors:
             for error in self.validate.errors:
                 if not self.hacs.status.startup:
-                    self.logger.error("%s %s", self, error)
+                    self.logger.error("%s %s", self.string, error)
         return self.validate.success
 
     async def async_post_registration(self):

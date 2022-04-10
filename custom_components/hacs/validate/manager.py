@@ -70,8 +70,8 @@ class ValidationManager:
         failed = len([x for x in self.validatiors if x.failed])
 
         if failed != 0:
-            repository.logger.error("%s %s/%s checks failed", repository, failed, total)
+            repository.logger.error("%s %s/%s checks failed", repository.string, failed, total)
             if self.hacs.system.action:
                 exit(1)
         else:
-            repository.logger.debug("%s All (%s) checks passed", repository, total)
+            repository.logger.debug("%s All (%s) checks passed", repository.string, total)

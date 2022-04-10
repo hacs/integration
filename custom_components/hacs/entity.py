@@ -1,7 +1,7 @@
 """HACS Base entities."""
 from __future__ import annotations
 
-from homeassistant.core import callback, Event
+from homeassistant.core import Event, callback
 from homeassistant.helpers.entity import Entity
 
 from custom_components.hacs.enums import HacsGitHubRepo

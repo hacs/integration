@@ -37,7 +37,7 @@ async def test_check_ratelimit(hacs: HacsBase, caplog: pytest.LogCaptureFixture)
     ):
         await task.execute_task()
 
-    assert "HacsTask<check_ratelimit> Ratelimit indicate we can update 1" in caplog.text
+    assert "<HacsTask check_ratelimit> Ratelimit indicate we can update 1" in caplog.text
     assert not hacs.system.disabled
     assert hacs.system.disabled_reason is None
 
@@ -55,4 +55,4 @@ async def test_check_ratelimit_exception(hacs: HacsBase, caplog: pytest.LogCaptu
         side_effect=Exception("lore_ipsum"),
     ):
         await task.execute_task()
-        assert "HacsTask<check_ratelimit> failed: lore_ipsum" in caplog.text
+        assert "<HacsTask check_ratelimit> failed: lore_ipsum" in caplog.text

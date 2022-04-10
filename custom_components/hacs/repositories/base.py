@@ -312,6 +312,11 @@ class HacsRepository:
 
     def __str__(self) -> str:
         """Return a string representation of the repository."""
+        return self.string
+
+    @property
+    def string(self) -> str:
+        """Return a string representation of the repository."""
         return f"<{self.data.category.title()} {self.data.full_name}>"
 
     @property
@@ -480,7 +485,7 @@ class HacsRepository:
         self.validate.errors.clear()
 
         # Make sure the repository exist.
-        self.logger.debug("%s Checking repository.", self)
+        self.logger.debug("%s Checking repository.", self.string)
         await self.common_update_data(ignore_issues=ignore_issues)
 
         # Get the content of hacs.json
@@ -500,9 +505,7 @@ class HacsRepository:
                 self.data.update_data(self.repository_object.attributes)
                 self.data.etag_repository = etag
             except HacsNotModifiedException:
-                self.logger.debug(
-                    "Did not update %s, content was not modified", self.data.full_name
-                )
+                self.logger.debug("%s Did not update, content was not modified", self.string)
                 return
 
         # Set topics
@@ -517,7 +520,7 @@ class HacsRepository:
     @concurrent(concurrenttasks=10, backoff_time=5)
     async def common_update(self, ignore_issues=False, force=False) -> bool:
         """Common information update steps of the repository."""
-        self.logger.debug("%s Getting repository information", self)
+        self.logger.debug("%s Getting repository information", self.string)
 
         # Attach repository
         current_etag = self.data.etag_repository
@@ -532,7 +535,7 @@ class HacsRepository:
                 return False
 
         if not self.data.installed and (current_etag == self.data.etag_repository) and not force:
-            self.logger.debug("Did not update %s, content was not modified", self.data.full_name)
+            self.logger.debug("%s Did not update, content was not modified", self.string)
             return False
 
         # Update last updated
@@ -564,7 +567,9 @@ class HacsRepository:
             target_ref = self.ref.split("/")[1]
 
             for release in self.releases.objects:
-                self.logger.debug("%s ref: %s --- tag: %s", self, target_ref, release.tag_name)
+                self.logger.debug(
+                    "%s ref: %s --- tag: %s", self.string, target_ref, release.tag_name
+                )
                 if release.tag_name == target_ref:
                     contents = release.assets
                     break
@@ -601,11 +606,11 @@ class HacsRepository:
             def cleanup_temp_dir():
                 """Cleanup temp_dir."""
                 if os.path.exists(temp_dir):
-                    self.logger.debug("Cleaning up %s", temp_dir)
+                    self.logger.debug("%s Cleaning up %s", self.string, temp_dir)
                     shutil.rmtree(temp_dir)
 
             if result:
-                self.logger.info("%s Download of %s completed", self, content.name)
+                self.logger.info("%s Download of %s completed", self.string, content.name)
                 await self.hacs.hass.async_add_executor_job(cleanup_temp_dir)
                 return
 
@@ -622,7 +627,7 @@ class HacsRepository:
                 and self.data.category == HacsCategory.INTEGRATION
                 and self.content.path.remote
             ):
-                self.logger.info("[%s] Trying experimental download", self)
+                self.logger.info("%s Trying experimental download", self.string)
                 try:
                     await self.download_repository_zip()
                     return
@@ -631,7 +636,7 @@ class HacsRepository:
 
         contents = self.gather_files_to_download()
         if self.data.filename:
-            self.logger.debug(self.data.filename)
+            self.logger.debug("%s %s", self.string, self.data.filename)
         if not contents:
             raise HacsException("No content to download")
 
@@ -683,11 +688,11 @@ class HacsRepository:
         def cleanup_temp_dir():
             """Cleanup temp_dir."""
             if os.path.exists(temp_dir):
-                self.logger.debug("Cleaning up %s", temp_dir)
+                self.logger.debug("%s Cleaning up %s", self.string, temp_dir)
                 shutil.rmtree(temp_dir)
 
         await self.hacs.hass.async_add_executor_job(cleanup_temp_dir)
-        self.logger.info("[%s] Content was extracted to %s", self, self.content.path.local)
+        self.logger.info("%s Content was extracted to %s", self.string, self.content.path.local)
 
     async def async_get_hacs_json(self, ref: str = None) -> dict[str, Any] | None:
         """Get the content of the hacs.json file."""
@@ -742,20 +747,20 @@ class HacsRepository:
                     self,
                 )
         except BaseException as exc:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-            self.logger.error(exc)
+            self.logger.error("%s %s", self.string, exc)
 
         return ""
 
     def remove(self) -> None:
         """Run remove tasks."""
-        self.logger.info("%s Starting removal", self)
+        self.logger.info("%s Starting removal", self.string)
 
         if self.hacs.repositories.is_registered(repository_id=str(self.data.id)):
             self.hacs.repositories.unregister(self)
 
     async def uninstall(self) -> None:
         """Run uninstall tasks."""
-        self.logger.info("%s Removing", self)
+        self.logger.info("%s Removing", self.string)
         if not await self.remove_local_directory():
             raise HacsException("Could not uninstall")
         self.data.installed = False
@@ -807,7 +812,7 @@ class HacsRepository:
                         self.data.domain = domain
                         self.content.path.local = self.localpath
                     else:
-                        self.logger.error("%s Missing domain", self)
+                        self.logger.error("%s Missing domain", self.string)
                         return False
                 local_path = self.content.path.local
             else:
@@ -815,9 +820,9 @@ class HacsRepository:
 
             if os.path.exists(local_path):
                 if not is_safe(self.hacs, local_path):
-                    self.logger.error("%s Path %s is blocked from removal", self, local_path)
+                    self.logger.error("%s Path %s is blocked from removal", self.string, local_path)
                     return False
-                self.logger.debug("%s Removing %s", self, local_path)
+                self.logger.debug("%s Removing %s", self.string, local_path)
 
                 if self.data.category in ["python_script"]:
                     os.remove(local_path)
@@ -828,11 +833,11 @@ class HacsRepository:
                     await sleep(1)
             else:
                 self.logger.debug(
-                    "%s Presumed local content path %s does not exist", self, local_path
+                    "%s Presumed local content path %s does not exist", self.string, local_path
                 )
 
         except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-            self.logger.debug("%s Removing %s failed with %s", self, local_path, exception)
+            self.logger.debug("%s Removing %s failed with %s", self.string, local_path, exception)
             return False
         return True
 
@@ -869,16 +874,16 @@ class HacsRepository:
 
     async def _async_pre_install(self) -> None:
         """Run pre install steps."""
-        self.logger.info("Running pre installation steps")
+        self.logger.info("%s Running pre installation steps", self.string)
         await self.async_pre_install()
-        self.logger.info("Pre installation steps completed")
+        self.logger.info("%s Pre installation steps completed", self.string)
 
     async def async_install(self) -> None:
         """Run install steps."""
         await self._async_pre_install()
-        self.logger.info("Running installation steps")
+        self.logger.info("%s Running installation steps", self.string)
         await self.async_install_repository()
-        self.logger.info("Installation steps completed")
+        self.logger.info("%s Installation steps completed", self.string)
         await self._async_post_install()
 
     async def async_post_installation(self) -> None:
@@ -886,7 +891,7 @@ class HacsRepository:
 
     async def _async_post_install(self) -> None:
         """Run post install steps."""
-        self.logger.info("Running post installation steps")
+        self.logger.info("%s Running post installation steps", self.string)
         await self.async_post_installation()
         self.data.new = False
         self.hacs.hass.bus.async_fire(
@@ -898,7 +903,7 @@ class HacsRepository:
                 "repository_id": self.data.id,
             },
         )
-        self.logger.info("Post installation steps completed")
+        self.logger.info("%s Post installation steps completed", self.string)
 
     async def async_install_repository(self) -> None:
         """Common installation steps of the repository."""
@@ -934,8 +939,8 @@ class HacsRepository:
             backup = Backup(hacs=self.hacs, local_path=self.content.path.local)
             await self.hacs.hass.async_add_executor_job(backup.create)
 
-        self.hacs.log.debug("%s Local path is set to %s", self, self.content.path.local)
-        self.hacs.log.debug("%s Remote path is set to %s", self, self.content.path.remote)
+        self.hacs.log.debug("%s Local path is set to %s", self.string, self.content.path.local)
+        self.hacs.log.debug("%s Remote path is set to %s", self.string, self.content.path.remote)
 
         if self.data.zip_release and version != self.data.default_branch:
             await self.download_zip_files(self.validate)
@@ -944,7 +949,7 @@ class HacsRepository:
 
         if self.validate.errors:
             for error in self.validate.errors:
-                self.logger.error(error)
+                self.logger.error("%s %s", self.string, error)
             if self.data.installed and not self.content.single:
                 await self.hacs.hass.async_add_executor_job(backup.restore)
                 await self.hacs.hass.async_add_executor_job(backup.cleanup)
@@ -1028,7 +1033,7 @@ class HacsRepository:
             raise HacsRepositoryExistException from None
         except (AIOGitHubAPIException, HacsException) as exception:
             if not self.hacs.status.startup:
-                self.logger.error("%s %s", self, exception)
+                self.logger.error("%s %s", self.string, exception)
             if not ignore_issues:
                 self.validate.errors.append("Repository does not exist.")
                 raise HacsException(exception) from exception
@@ -1071,7 +1076,9 @@ class HacsRepository:
                         downloads = next(iter(assets)).download_count
                         self.data.downloads = downloads
 
-        self.hacs.log.debug("%s Running checks against %s", self, self.ref.replace("tags/", ""))
+        self.hacs.log.debug(
+            "%s Running checks against %s", self.string, self.ref.replace("tags/", "")
+        )
 
         try:
             self.tree = await self.get_tree(self.ref)
@@ -1082,7 +1089,7 @@ class HacsRepository:
                 self.treefiles.append(treefile.full_path)
         except (AIOGitHubAPIException, HacsException) as exception:
             if not self.hacs.status.startup and not ignore_issues:
-                self.logger.error("%s %s", self, exception)
+                self.logger.error("%s %s", self.string, exception)
             if not ignore_issues:
                 raise HacsException(exception) from None
 
@@ -1150,7 +1157,7 @@ class HacsRepository:
     async def dowload_repository_content(self, content: FileInformation) -> None:
         """Download content."""
         try:
-            self.logger.debug("Downloading %s", content.name)
+            self.logger.debug("%s Downloading %s", self.string, content.name)
 
             filecontent = await self.hacs.async_download_file(content.download_url)
 
@@ -1179,7 +1186,7 @@ class HacsRepository:
 
             result = await self.hacs.async_save_file(local_file_path, filecontent)
             if result:
-                self.logger.info("Download of %s completed", content.name)
+                self.logger.info("%s Download of %s completed", self.string, content.name)
                 return
             self.validate.errors.append(f"[{content.name}] was not downloaded.")
 

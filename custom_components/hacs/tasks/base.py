@@ -31,7 +31,7 @@ class HacsTask:
 
     def task_logger(self, handler: Handler, msg: str) -> None:
         """Log message from task"""
-        handler("HacsTask<%s> %s", self.slug, msg)
+        handler("<HacsTask %s> %s", self.slug, msg)
 
     async def execute_task(self, *_, **__) -> None:
         """Execute the task defined in subclass."""
@@ -55,5 +55,5 @@ class HacsTask:
 
         else:
             self.hacs.log.debug(
-                "HacsTask<%s> took %.3f seconds to complete", self.slug, monotonic() - start_time
+                "<HacsTask %s> took %.3f seconds to complete", self.slug, monotonic() - start_time
             )

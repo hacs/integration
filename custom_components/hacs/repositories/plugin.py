@@ -49,7 +49,7 @@ class HacsPluginRepository(HacsRepository):
         if self.validate.errors:
             for error in self.validate.errors:
                 if not self.hacs.status.startup:
-                    self.logger.error("%s %s", self, error)
+                    self.logger.error("%s %s", self.string, error)
         return self.validate.success
 
     @concurrent(concurrenttasks=10, backoff_time=5)

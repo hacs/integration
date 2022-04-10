@@ -51,7 +51,7 @@ class HacsTaskManager:
 
             if task.schedule is not None and schedule_tasks:
                 self.hacs.log.debug(
-                    "Scheduling HacsTask<%s> to run every %s", task.slug, task.schedule
+                    "Scheduling <HacsTask %s> to run every %s", task.slug, task.schedule
                 )
                 self.hacs.recuring_tasks.append(
                     self.hacs.hass.helpers.event.async_track_time_interval(

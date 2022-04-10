@@ -23,7 +23,13 @@ async def async_setup_entry(hass, _config_entry, async_add_devices):
 class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
     """Update entities for repositories downloaded with HACS."""
 
-    _attr_supported_features = 1 | 16
+    @property
+    def supported_features(self) -> int | None:
+        """Return the supported features of the entity."""
+        features = 16
+        if self.repository.can_download:
+            features = features | 1
+        return features
 
     @property
     def name(self) -> str | None:
@@ -50,6 +56,8 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
     @property
     def release_summary(self) -> str | None:
         """Return the release summary."""
+        if not self.repository.can_download:
+            return f"<ha-alert alert-type='warning'>Requires Home Assistant {self.repository.data.homeassistant}</ha-alert>"
         if self.repository.pending_restart:
             return "<ha-alert alert-type='error'>Restart of Home Assistant required</ha-alert>"
         return None
@@ -74,7 +82,7 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
 
     async def async_release_notes(self) -> str | None:
         """Return the release notes."""
-        if self.repository.pending_restart:
+        if self.repository.pending_restart or not self.repository.can_download:
             return None
 
         release_notes = ""

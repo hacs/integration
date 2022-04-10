@@ -27,14 +27,13 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
 
     @property
     def name(self) -> str | None:
+        """Return the name."""
         return f"{self.repository.display_name} update"
 
     @property
     def latest_version(self) -> str:
         """Return latest version of the entity."""
-        if self.repository.pending_update:
-            return self.repository.display_available_version
-        return self.installed_version
+        return self.repository.display_available_version
 
     @property
     def release_url(self) -> str:
@@ -42,11 +41,6 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         if self.repository.display_version_or_commit == "commit":
             return f"https://github.com/{self.repository.data.full_name}"
         return f"https://github.com/{self.repository.data.full_name}/releases/{self.latest_version}"
-
-    @property
-    def current_version(self) -> str:
-        """Return downloaded version of the entity."""
-        return self.repository.display_installed_version
 
     @property
     def installed_version(self) -> str:
@@ -80,10 +74,10 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
 
     async def async_release_notes(self) -> str | None:
         """Return the release notes."""
-        release_notes = ""
         if self.repository.pending_restart:
             return None
 
+        release_notes = ""
         if len(self.repository.releases.objects) > 0:
             release = self.repository.releases.objects[0]
             release_notes += release.body
@@ -91,13 +85,13 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         if self.repository.pending_update:
             if self.repository.data.category == HacsCategory.INTEGRATION:
                 release_notes += (
-                    "<ha-alert alert-type='warning'>You need to restart"
+                    "\n\n<ha-alert alert-type='warning'>You need to restart"
                     " Home Assistant manually after updating.</ha-alert>\n\n"
                 )
             if self.repository.data.category == HacsCategory.PLUGIN:
                 release_notes += (
-                    "<ha-alert alert-type='warning'>You need to manually"
+                    "\n\n<ha-alert alert-type='warning'>You need to manually"
                     " clear the frontend cache after updating.</ha-alert>\n\n"
                 )
 
-        return release_notes
+        return release_notes.replace("\n#", "\n\n#")

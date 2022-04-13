@@ -598,30 +598,42 @@ class HacsBase:
             url = url.replace("tags/", "")
 
         self.log.debug("Downloading %s", url)
+        timeouts = 0
 
-        try:
-            request = await self.session.get(
-                url=url,
-                timeout=ClientTimeout(total=60),
-                headers=headers,
-            )
+        while timeouts < 5:
+            try:
+                request = await self.session.get(
+                    url=url,
+                    timeout=ClientTimeout(total=60),
+                    headers=headers,
+                )
 
-            # Make sure that we got a valid result
-            if request.status == 200:
-                return await request.read()
+                # Make sure that we got a valid result
+                if request.status == 200:
+                    return await request.read()
 
-            raise HacsException(f"Got status code {request.status} when trying to download {url}")
-        except asyncio.TimeoutError:
-            self.log.error(
-                "A timeout of 60! seconds was encountered while downloading %s, "
-                "check the network on the host running Home Assistant. This is "
-                "not a problem with HACS but how your host communicates with GitHub",
-                url,
-            )
-        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-            self.log.exception("Download failed - %s", exception)
+                raise HacsException(
+                    f"Got status code {request.status} when trying to download {url}"
+                )
+            except asyncio.TimeoutError:
+                self.log.warning(
+                    "A timeout of 60! seconds was encountered while downloading %s, "
+                    "using over 60 seconds to download a single file is not normal. "
+                    "This is not a problem with HACS but how your host communicates with GitHub. "
+                    "Retrying up to 5 times to mask/hide your host/network problems to "
+                    "stop the flow of issues opened about it. "
+                    "Tries left %s",
+                    url,
+                    (4 - timeouts),
+                )
+                timeouts += 1
+                await asyncio.sleep(1)
+                continue
 
-        return None
+            except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+                self.log.exception("Download failed - %s", exception)
+
+            return None
 
     async def async_recreate_entities(self) -> None:
         """Recreate entities."""

@@ -867,6 +867,8 @@ class HacsRepository:
 
     async def async_post_registration(self) -> None:
         """Run post registration steps."""
+        if not self.hacs.system.action:
+            return
         await self.hacs.validation.async_run_repository_checks(self)
 
     async def async_pre_install(self) -> None:

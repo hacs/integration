@@ -10,7 +10,10 @@ async def async_setup_validator(repository: HacsRepository) -> Validator:
 
 
 class Validator(ActionValidationBase):
+    """Validate the repository."""
+
     async def async_validate(self):
+        """Validate the repository."""
         filenames = [x.filename.lower() for x in self.repository.tree]
         if "readme" in filenames:
             pass

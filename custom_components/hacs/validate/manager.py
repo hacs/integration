@@ -10,7 +10,7 @@ from homeassistant.core import HomeAssistant
 
 from custom_components.hacs.repositories.base import HacsRepository
 
-from .base import ValidationBase
+from .base import ActionValidationBase
 
 if TYPE_CHECKING:
     from ..base import HacsBase
@@ -23,10 +23,10 @@ class ValidationManager:
         """Initialize the setup manager class."""
         self.hacs = hacs
         self.hass = hass
-        self._validatiors: dict[str, ValidationBase] = {}
+        self._validatiors: dict[str, ActionValidationBase] = {}
 
     @property
-    def validatiors(self) -> dict[str, ValidationBase]:
+    def validatiors(self) -> dict[str, ActionValidationBase]:
         """Return all list of all tasks."""
         return list(self._validatiors.values())
 
@@ -50,7 +50,7 @@ class ValidationManager:
 
     async def async_run_repository_checks(self, repository: HacsRepository) -> None:
         """Run all validators for a repository."""
-        if not self.hacs.system.running:
+        if not self.hacs.system.action:
             return
 
         await self.async_load(repository)
@@ -59,19 +59,17 @@ class ValidationManager:
             *[
                 validator.execute_validation()
                 for validator in self.validatiors or []
-                if (self.hacs.system.action or not validator.action_only)
-                and (
+                if (
                     validator.category == "common" or validator.category == repository.data.category
                 )
             ]
         )
 
-        total = len([x for x in self.validatiors if self.hacs.system.action or not x.action_only])
+        total = len(self.validatiors)
         failed = len([x for x in self.validatiors if x.failed])
 
         if failed != 0:
             repository.logger.error("%s %s/%s checks failed", repository.string, failed, total)
-            if self.hacs.system.action:
-                exit(1)
+            exit(1)
         else:
             repository.logger.debug("%s All (%s) checks passed", repository.string, total)

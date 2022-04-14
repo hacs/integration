@@ -273,8 +273,8 @@ class RepositoryReleases:
 class RepositoryPath:
     """RepositoryPath."""
 
-    local = None
-    remote = None
+    local: str | None = None
+    remote: str | None = None
 
 
 class RepositoryContent:
@@ -624,8 +624,7 @@ class HacsRepository:
             if (
                 not self.data.zip_release
                 and not self.data.file_name
-                and self.data.category == HacsCategory.INTEGRATION
-                and self.content.path.remote
+                and self.content.path.remote is not None
             ):
                 self.logger.info("%s Trying experimental download", self.string)
                 try:

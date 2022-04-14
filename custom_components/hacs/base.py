@@ -26,7 +26,7 @@ from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE
+from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.loader import Integration
@@ -724,7 +724,7 @@ class HacsBase:
         ):
             return
 
-        platforms = ["sensor", "update"]
+        platforms = [Platform.SENSOR, Platform.UPDATE]
 
         await self.hass.config_entries.async_unload_platforms(
             entry=self.configuration.config_entry,

@@ -74,6 +74,7 @@ class HacsData:
         await async_save_to_store(self.hacs.hass, "repositories", self.content)
 
     async def async_store_repository_data(self, repository: HacsRepository):
+        """Store the repository data."""
         repository_manifest = repository.repository_manifest.manifest
         data = {
             "authors": repository.data.authors,
@@ -194,7 +195,7 @@ class HacsData:
             self.logger.info("<HacsData restore> Restore done")
         except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.logger.critical(
-                f"<HacsData restore> [{exception}] Restore Failed!", exc_info=exception
+                "<HacsData restore> [%s] Restore Failed!", exception, exc_info=exception
             )
             return False
         return True
@@ -216,9 +217,10 @@ class HacsData:
 
     @callback
     def async_restore_repository(self, entry, repository_data):
+        """Restore repository."""
         full_name = repository_data["full_name"]
         if not (repository := self.hacs.repositories.get_by_full_name(full_name)):
-            self.logger.error(f"<HacsData restore> Did not find {full_name} ({entry})")
+            self.logger.error("<HacsData restore> Did not find %s (%s)", full_name, entry)
             return False
         # Restore repository attributes
         self.hacs.repositories.set_repository_id(repository, entry)

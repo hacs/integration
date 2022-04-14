@@ -63,6 +63,7 @@ jobs:
       - name: 📋 Copy sample configuration for Home Assistant
         run: |
           mkdir ./test_configuration
+          bash manage/install_frontend
           cp -r ./custom_components ./test_configuration
           echo "default_config:" >> ./test_configuration/configuration.yaml
           echo "hacs:" >> ./test_configuration/configuration.yaml

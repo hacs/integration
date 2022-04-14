@@ -65,7 +65,10 @@ class QueueManager:
 
         _LOGGER.debug("<QueueManager> Starting queue execution for %s tasks", len(local_queue))
         start = time.time()
-        await asyncio.gather(*local_queue)
+        result = await asyncio.gather(*local_queue, return_exceptions=True)
+        for entry in result:
+            if isinstance(entry, Exception):
+                _LOGGER.error("<QueueManager> %s", entry)
         end = time.time() - start
 
         _LOGGER.debug(

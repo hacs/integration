@@ -618,7 +618,6 @@ class HacsBase:
                     )
                     break
 
-        await self.async_get_all_category_repositories()
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
                 self.async_get_all_category_repositories, timedelta(hours=3)
@@ -658,6 +657,7 @@ class HacsBase:
         self.async_dispatch(HacsDispatchEvent.STATUS, {})
 
         await self.async_handle_removed_repositories()
+        await self.async_get_all_category_repositories()
         await self.async_update_downloaded_repositories()
 
         self.set_stage(HacsStage.RUNNING)
@@ -755,7 +755,7 @@ class HacsBase:
         if self.configuration.netdaemon:
             self.enable_hacs_category(HacsCategory.NETDAEMON)
 
-    async def async_get_all_category_repositories(self) -> None:
+    async def async_get_all_category_repositories(self, _=None) -> None:
         """Get all category repositories."""
         self.log.info("Loading known repositories")
         await asyncio.gather(
@@ -786,6 +786,7 @@ class HacsBase:
                     # Force update for new installations
                     self.queue.add(repository.common_update())
                 continue
+
             self.queue.add(
                 self.async_register_repository(
                     repository_full_name=repo,
@@ -794,7 +795,7 @@ class HacsBase:
                 )
             )
 
-    async def async_update_all_repositories(self) -> None:
+    async def async_update_all_repositories(self, _=None) -> None:
         """Update all repositories."""
         self.log.debug("Starting recurring background task for all repositories")
 
@@ -806,7 +807,7 @@ class HacsBase:
         self.async_dispatch(HacsDispatchEvent.REPOSITORY, {"action": "reload"})
         self.log.debug("Recurring background task for all repositories done")
 
-    async def async_check_rate_limit(self) -> None:
+    async def async_check_rate_limit(self, _=None) -> None:
         """Check rate limit."""
         if not self.system.disabled or self.system.disabled_reason != HacsDisabledReason.RATE_LIMIT:
             return
@@ -818,7 +819,7 @@ class HacsBase:
             self.enable_hacs()
             await self.async_prosess_queue()
 
-    async def async_prosess_queue(self) -> None:
+    async def async_prosess_queue(self, _=None) -> None:
         """Process the queue."""
         if not self.queue.has_pending_tasks:
             self.log.debug("Nothing in the queue")
@@ -846,7 +847,7 @@ class HacsBase:
 
         await _handle_queue()
 
-    async def async_handle_removed_repositories(self) -> None:
+    async def async_handle_removed_repositories(self, _=None) -> None:
         """Handle removed repositories."""
         need_to_save = False
         self.log.info("Loading removed repositories")
@@ -882,7 +883,7 @@ class HacsBase:
         if need_to_save:
             await self.data.async_write()
 
-    async def async_update_downloaded_repositories(self) -> None:
+    async def async_update_downloaded_repositories(self, _=None) -> None:
         """Execute the task."""
         self.log.info("Starting recurring background task for downloaded repositories")
 
@@ -893,7 +894,7 @@ class HacsBase:
         await self.data.async_write()
         self.log.debug("Recurring background task for downloaded repositories done")
 
-    async def async_handle_critical_repositories(self) -> None:
+    async def async_handle_critical_repositories(self, _=None) -> None:
         """Handle critical repositories."""
         critical_queue = QueueManager(hass=self.hass)
         instored = []

@@ -39,7 +39,7 @@ class HacsData:
         self.hacs = hacs
         self.content = {}
 
-    async def async_force_write(self):
+    async def async_force_write(self, _=None):
         """Force write."""
         await self.async_write(force=True)
 

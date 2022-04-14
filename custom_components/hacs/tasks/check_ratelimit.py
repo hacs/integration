@@ -34,3 +34,4 @@ class Task(HacsTask):
         self.task_logger(self.hacs.log.debug, f"Ratelimit indicate we can update {can_update}")
         if can_update > 0:
             self.hacs.enable_hacs()
+            await self.hacs.tasks.get("prosess_queue").execute_task()

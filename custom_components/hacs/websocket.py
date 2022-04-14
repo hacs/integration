@@ -13,37 +13,27 @@ import voluptuous as vol
 
 from custom_components.hacs.const import DOMAIN
 
-from ..base import HacsBase
-from ..enums import HacsDispatchEvent, HacsStage
-from ..exceptions import HacsException
-from ..utils import regex
-from ..utils.store import async_load_from_store, async_save_to_store
-from .base import HacsTask
+from .base import HacsBase
+from .enums import HacsDispatchEvent
+from .exceptions import HacsException
+from .utils import regex
+from .utils.store import async_load_from_store, async_save_to_store
 
 
-async def async_setup_task(hacs: HacsBase, hass: HomeAssistant) -> Task:
-    """Set up this task."""
-    return Task(hacs=hacs, hass=hass)
-
-
-class Task(HacsTask):
-    """Setup the HACS websocket API."""
-
-    stages = [HacsStage.SETUP]
-
-    async def async_execute(self) -> None:
-        """Execute the task."""
-        async_register_command(self.hass, hacs_settings)
-        async_register_command(self.hass, hacs_config)
-        async_register_command(self.hass, hacs_repositories)
-        async_register_command(self.hass, hacs_repository)
-        async_register_command(self.hass, hacs_repository_data)
-        async_register_command(self.hass, hacs_status)
-        async_register_command(self.hass, hacs_removed)
-        async_register_command(self.hass, acknowledge_critical_repository)
-        async_register_command(self.hass, get_critical_repositories)
-        async_register_command(self.hass, hacs_repository_ignore)
-        async_register_command(self.hass, hacs_subscribe)
+@callback
+def async_register_websocket_commands(hass: HomeAssistant) -> None:
+    """Register_commands."""
+    async_register_command(hass, hacs_settings)
+    async_register_command(hass, hacs_config)
+    async_register_command(hass, hacs_repositories)
+    async_register_command(hass, hacs_repository)
+    async_register_command(hass, hacs_repository_data)
+    async_register_command(hass, hacs_status)
+    async_register_command(hass, hacs_removed)
+    async_register_command(hass, acknowledge_critical_repository)
+    async_register_command(hass, get_critical_repositories)
+    async_register_command(hass, hacs_repository_ignore)
+    async_register_command(hass, hacs_subscribe)
 
 
 @websocket_api.websocket_command(

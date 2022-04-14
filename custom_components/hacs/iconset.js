@@ -8,7 +8,6 @@ const hacsIcons = {
 window.customIcons = window.customIcons || {};
 window.customIconsets = window.customIconsets || {};
 
-// For Home Assistant > 2021.11
 window.customIcons["hacs"] = {
   getIcon: async (iconName) => (
     { path: hacsIcons[iconName]?.path }
@@ -19,11 +18,4 @@ window.customIcons["hacs"] = {
       keywords: content.keywords,
     })
     )
-};
-
-// LEGACY For Home Assistant < 2021.11
-window.customIconsets["hacs"] = async () => {
-  return {
-    path: hacsIcons.hacs.path
-  };
 };

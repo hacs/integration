@@ -1,6 +1,7 @@
 # pylint: disable=missing-function-docstring,missing-module-docstring, protected-access
 from unittest.mock import patch
 
+from awesomeversion import AwesomeVersion
 import pytest
 
 from custom_components.hacs.base import HacsBase
@@ -10,6 +11,7 @@ from custom_components.hacs.enums import ConfigurationType
 @pytest.mark.asyncio
 async def test_setup_update_platform(hacs: HacsBase, caplog: pytest.LogCaptureFixture):
     await hacs.tasks.async_load()
+    hacs.core.ha_version = AwesomeVersion("2022.4.0")
     task = hacs.tasks.get("setup_update_platform")
 
     assert task

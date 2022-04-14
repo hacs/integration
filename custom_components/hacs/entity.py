@@ -3,19 +3,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from homeassistant.core import HomeAssistant, callback
+from homeassistant.core import callback
 from homeassistant.helpers.device_registry import DeviceEntryType
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
-from homeassistant.helpers.update_coordinator import (
-    CoordinatorEntity,
-    DataUpdateCoordinator,
-)
+from homeassistant.helpers.entity import Entity
 
 from .const import DOMAIN, HACS_SYSTEM_ID, NAME_SHORT
 from .enums import HacsDispatchEvent, HacsGitHubRepo
 
 if TYPE_CHECKING:
-    from .base import HacsBase, HacsRepositories
+    from .base import HacsBase
     from .repositories.base import HacsRepository
 
 
@@ -32,16 +29,14 @@ def system_info(hacs: HacsBase) -> dict:
     }
 
 
-class HacsBaseEntity(CoordinatorEntity):
+class HacsBaseEntity(Entity):
     """Base HACS entity."""
 
-    coordinator: HacsEntityDataUpdateCoordinator
     repository: HacsRepository | None = None
     _attr_should_poll = False
 
     def __init__(self, hacs: HacsBase) -> None:
         """Initialize."""
-        super().__init__(coordinator=hacs.coordinator)
         self.hacs = hacs
 
     async def async_added_to_hass(self) -> None:
@@ -122,23 +117,3 @@ class HacsRepositoryEntity(HacsBaseEntity):
         if data.get("repository_id") == self.repository.data.id:
             self._update()
             self.async_write_ha_state()
-
-
-class HacsEntityDataUpdateCoordinator(DataUpdateCoordinator):
-    """HACS Entity DataUpdateCoordinator."""
-
-    data: HacsRepositories
-
-    def __init__(self, hass: HomeAssistant, hacs: HacsBase) -> None:
-        """Initialize."""
-        super().__init__(
-            hass=hass,
-            logger=hacs.log,
-            name="HACS Entity Coordinator",
-            update_interval=None,
-        )
-        self.hacs = hacs
-
-    async def _async_update_data(self) -> HacsRepositories:
-        """Update data."""
-        self.data = self.hacs.repositories.list_all

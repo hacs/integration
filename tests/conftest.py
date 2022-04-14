@@ -26,7 +26,6 @@ from custom_components.hacs.base import (
     HacsSystem,
 )
 from custom_components.hacs.const import DOMAIN
-from custom_components.hacs.entity import HacsEntityDataUpdateCoordinator
 from custom_components.hacs.repositories import (
     HacsAppdaemonRepository,
     HacsIntegrationRepository,
@@ -125,7 +124,6 @@ async def hacs(hass: HomeAssistant):
     hacs_obj.data = AsyncMock()
     hacs_obj.queue = QueueManager(hass=hass)
     hacs_obj.core = HacsCore()
-    hacs_obj.coordinator = HacsEntityDataUpdateCoordinator(hass=hass, hacs=hacs_obj)
     hacs_obj.system = HacsSystem()
 
     hacs_obj.core.config_path = hass.config.path()

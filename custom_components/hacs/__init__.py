@@ -32,7 +32,6 @@ from .utils.configuration_schema import hacs_config_combined
 from .utils.data import HacsData
 from .utils.queue_manager import QueueManager
 from .utils.version import version_left_higher_or_equal_then_right
-from .validate.manager import ValidationManager
 from .websocket import async_register_websocket_commands
 
 CONFIG_SCHEMA = vol.Schema({DOMAIN: hacs_config_combined()}, extra=vol.ALLOW_EXTRA)
@@ -91,7 +90,6 @@ async def async_initialize_integration(
     hacs.data = HacsData(hacs=hacs)
     hacs.system.running = True
     hacs.session = clientsession
-    hacs.validation = ValidationManager(hacs=hacs, hass=hass)
 
     hacs.core.lovelace_mode = LovelaceMode.YAML
     try:

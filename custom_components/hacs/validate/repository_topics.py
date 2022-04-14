@@ -10,6 +10,9 @@ async def async_setup_validator(repository: HacsRepository) -> Validator:
 
 
 class Validator(ActionValidationBase):
-    def validate(self):
+    """Validate the repository."""
+
+    async def async_validate(self):
+        """Validate the repository."""
         if not self.repository.data.topics:
             raise ValidationException("The repository has no topics")

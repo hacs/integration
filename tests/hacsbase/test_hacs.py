@@ -25,8 +25,7 @@ async def test_hacs(hacs, repository, tmpdir):
     assert hacs.repositories.get_by_full_name("test/test").data.id == "1337"
     assert hacs.repositories.is_registered(repository_id="1337")
 
-    if queue_task := hacs.tasks.get("prosess_queue"):
-        await queue_task.execute_task()
+    await hacs.async_prosess_queue()
 
 
 @pytest.mark.asyncio
@@ -59,5 +58,5 @@ async def test_add_remove_repository(hacs, repository, tmpdir):
 @pytest.mark.asyncio
 async def test_set_stage(hacs):
     assert hacs.stage == None
-    await hacs.async_set_stage(HacsStage.RUNNING)
+    hacs.set_stage(HacsStage.RUNNING)
     assert hacs.stage == HacsStage.RUNNING

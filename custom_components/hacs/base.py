@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 from dataclasses import asdict, dataclass, field
+from datetime import timedelta
 import gzip
 import json
 import logging
@@ -25,6 +26,7 @@ from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.loader import Integration
@@ -43,6 +45,7 @@ from .enums import (
 from .exceptions import (
     AddonRepositoryException,
     HacsException,
+    HacsExecutionStillInProgress,
     HacsExpectedException,
     HacsRepositoryArchivedException,
     HacsRepositoryExistException,
@@ -52,10 +55,10 @@ from .repositories import RERPOSITORY_CLASSES
 from .utils.decode import decode_content
 from .utils.logger import get_hacs_logger
 from .utils.queue_manager import QueueManager
+from .utils.store import async_load_from_store, async_save_to_store
 
 if TYPE_CHECKING:
     from .repositories.base import HacsRepository
-    from .tasks.manager import HacsTaskManager
     from .utils.data import HacsData
     from .validate.manager import ValidationManager
 
@@ -356,7 +359,6 @@ class HacsBase:
     stage: HacsStage | None = None
     status = HacsStatus()
     system = HacsSystem()
-    tasks: HacsTaskManager | None = None
     validation: ValidationManager | None = None
     version: str | None = None
 
@@ -365,7 +367,7 @@ class HacsBase:
         """Return the HACS integration dir."""
         return self.integration.file_path
 
-    async def async_set_stage(self, stage: HacsStage | None) -> None:
+    def set_stage(self, stage: HacsStage | None) -> None:
         """Set HACS stage."""
         if stage and self.stage == stage:
             return
@@ -374,7 +376,6 @@ class HacsBase:
         if stage is not None:
             self.log.info("Stage changed: %s", self.stage)
             self.async_dispatch(HacsDispatchEvent.STAGE, {"stage": self.stage})
-            await self.tasks.async_execute_runtume_tasks()
 
     def disable_hacs(self, reason: HacsDisabledReason) -> None:
         """Disable HACS."""
@@ -578,17 +579,93 @@ class HacsBase:
 
     async def startup_tasks(self, _=None) -> None:
         """Tasks that are started after setup."""
-        await self.async_set_stage(HacsStage.STARTUP)
-        self.status.startup = False
+        self.set_stage(HacsStage.STARTUP)
 
+        try:
+            repository = self.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
+            if repository is None:
+                await self.async_register_repository(
+                    repository_full_name=HacsGitHubRepo.INTEGRATION,
+                    category=HacsCategory.INTEGRATION,
+                    default=True,
+                )
+                repository = self.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
+            if repository is None:
+                raise HacsException("Unknown error")
+
+            repository.data.installed = True
+            repository.data.installed_version = self.integration.version
+            repository.data.new = False
+            repository.data.releases = True
+
+            self.repository = repository.repository_object
+            self.repositories.mark_default(repository)
+        except HacsException as exception:
+            if "403" in str(exception):
+                self.log.critical(
+                    "GitHub API is ratelimited, or the token is wrong.",
+                )
+            else:
+                self.log.critical("Could not load HACS! - %s", exception)
+            self.disable_hacs(HacsDisabledReason.LOAD_HACS)
+
+        if critical := await async_load_from_store(self.hass, "critical"):
+            for repo in critical:
+                if not repo["acknowledged"]:
+                    self.log.critical("URGENT!: Check the HACS panel!")
+                    self.hass.components.persistent_notification.create(
+                        title="URGENT!", message="**Check the HACS panel!**"
+                    )
+                    break
+
+        self.recuring_tasks.append(
+            self.hass.helpers.event.async_track_time_interval(
+                self.async_get_all_category_repositories, timedelta(hours=3)
+            )
+        )
+        self.recuring_tasks.append(
+            self.hass.helpers.event.async_track_time_interval(
+                self.async_update_all_repositories, timedelta(hours=25)
+            )
+        )
+        self.recuring_tasks.append(
+            self.hass.helpers.event.async_track_time_interval(
+                self.async_check_rate_limit, timedelta(minutes=5)
+            )
+        )
+        self.recuring_tasks.append(
+            self.hass.helpers.event.async_track_time_interval(
+                self.async_prosess_queue, timedelta(minutes=10)
+            )
+        )
+        self.recuring_tasks.append(
+            self.hass.helpers.event.async_track_time_interval(
+                self.async_update_downloaded_repositories, timedelta(hours=2)
+            )
+        )
+        self.recuring_tasks.append(
+            self.hass.helpers.event.async_track_time_interval(
+                self.async_handle_critical_repositories, timedelta(hours=2)
+            )
+        )
+
+        self.hass.bus.async_listen_once(
+            EVENT_HOMEASSISTANT_FINAL_WRITE, self.data.async_force_write
+        )
+
+        self.status.startup = False
         self.async_dispatch(HacsDispatchEvent.STATUS, {})
 
-        await self.async_set_stage(HacsStage.RUNNING)
+        await self.async_handle_removed_repositories()
+        await self.async_get_all_category_repositories()
+        await self.async_update_downloaded_repositories()
+
+        self.set_stage(HacsStage.RUNNING)
 
         self.async_dispatch(HacsDispatchEvent.RELOAD, {"force": True})
 
-        if queue_task := self.tasks.get("prosess_queue"):
-            await queue_task.execute_task()
+        await self.async_handle_critical_repositories()
+        await self.async_prosess_queue()
 
         self.async_dispatch(HacsDispatchEvent.STATUS, {})
 
@@ -677,3 +754,204 @@ class HacsBase:
             self.enable_hacs_category(HacsCategory.APPDAEMON)
         if self.configuration.netdaemon:
             self.enable_hacs_category(HacsCategory.NETDAEMON)
+
+    async def async_get_all_category_repositories(self, _=None) -> None:
+        """Get all category repositories."""
+        self.log.info("Loading known repositories")
+        await asyncio.gather(
+            *[
+                self.async_get_category_repositories(HacsCategory(category))
+                for category in self.common.categories or []
+            ]
+        )
+
+    async def async_get_category_repositories(self, category: HacsCategory) -> None:
+        """Get repositories from category."""
+        try:
+            repositories = await self.async_github_get_hacs_default_file(category)
+        except HacsException:
+            return
+
+        for repo in repositories:
+            if self.common.renamed_repositories.get(repo):
+                repo = self.common.renamed_repositories[repo]
+            if self.repositories.is_removed(repo):
+                continue
+            if repo in self.common.archived_repositories:
+                continue
+            repository = self.repositories.get_by_full_name(repo)
+            if repository is not None:
+                self.repositories.mark_default(repository)
+                if self.status.new and self.configuration.dev:
+                    # Force update for new installations
+                    self.queue.add(repository.common_update())
+                continue
+
+            self.queue.add(
+                self.async_register_repository(
+                    repository_full_name=repo,
+                    category=category,
+                    default=True,
+                )
+            )
+
+    async def async_update_all_repositories(self, _=None) -> None:
+        """Update all repositories."""
+        self.log.debug("Starting recurring background task for all repositories")
+
+        for repository in self.repositories.list_all:
+            if repository.data.category in self.common.categories:
+                self.queue.add(repository.common_update())
+
+        await self.data.async_write()
+        self.async_dispatch(HacsDispatchEvent.REPOSITORY, {"action": "reload"})
+        self.log.debug("Recurring background task for all repositories done")
+
+    async def async_check_rate_limit(self, _=None) -> None:
+        """Check rate limit."""
+        if not self.system.disabled or self.system.disabled_reason != HacsDisabledReason.RATE_LIMIT:
+            return
+
+        self.log.debug("Checking if ratelimit has lifted")
+        can_update = await self.async_can_update()
+        self.log.debug("Ratelimit indicate we can update %s", can_update)
+        if can_update > 0:
+            self.enable_hacs()
+            await self.async_prosess_queue()
+
+    async def async_prosess_queue(self, _=None) -> None:
+        """Process the queue."""
+        if not self.queue.has_pending_tasks:
+            self.log.debug("Nothing in the queue")
+            return
+        if self.queue.running:
+            self.log.debug("Queue is already running")
+            return
+
+        async def _handle_queue():
+            if not self.queue.has_pending_tasks:
+                return
+            can_update = await self.async_can_update()
+            self.log.debug(
+                "Can update %s repositories, " "items in queue %s",
+                can_update,
+                self.queue.pending_tasks,
+            )
+            if can_update != 0:
+                try:
+                    await self.queue.execute(can_update)
+                except HacsExecutionStillInProgress:
+                    return
+
+                await _handle_queue()
+
+        await _handle_queue()
+
+    async def async_handle_removed_repositories(self, _=None) -> None:
+        """Handle removed repositories."""
+        need_to_save = False
+        self.log.info("Loading removed repositories")
+
+        try:
+            removed_repositories = await self.async_github_get_hacs_default_file(
+                HacsCategory.REMOVED
+            )
+        except HacsException:
+            return
+
+        for item in removed_repositories:
+            removed = self.repositories.removed_repository(item["repository"])
+            removed.update_data(item)
+
+        for removed in self.repositories.list_removed:
+            if (repository := self.repositories.get_by_full_name(removed.repository)) is None:
+                continue
+            if repository.data.full_name in self.common.ignored_repositories:
+                continue
+            if repository.data.installed and removed.removal_type != "critical":
+                self.log.warning(
+                    "You have '%s' installed with HACS "
+                    "this repository has been removed from HACS, please consider removing it. "
+                    "Removal reason (%s)",
+                    repository.data.full_name,
+                    removed.reason,
+                )
+            else:
+                need_to_save = True
+                repository.remove()
+
+        if need_to_save:
+            await self.data.async_write()
+
+    async def async_update_downloaded_repositories(self, _=None) -> None:
+        """Execute the task."""
+        self.log.info("Starting recurring background task for downloaded repositories")
+
+        for repository in self.repositories.list_downloaded:
+            if repository.data.category in self.common.categories:
+                self.queue.add(repository.update_repository())
+
+        await self.data.async_write()
+        self.log.debug("Recurring background task for downloaded repositories done")
+
+    async def async_handle_critical_repositories(self, _=None) -> None:
+        """Handle critical repositories."""
+        critical_queue = QueueManager(hass=self.hass)
+        instored = []
+        critical = []
+        was_installed = False
+
+        try:
+            critical = await self.async_github_get_hacs_default_file("critical")
+        except GitHubNotModifiedException:
+            return
+        except HacsException:
+            pass
+
+        if not critical:
+            self.log.debug("No critical repositories")
+            return
+
+        stored_critical = await async_load_from_store(self.hass, "critical")
+
+        for stored in stored_critical or []:
+            instored.append(stored["repository"])
+
+        stored_critical = []
+
+        for repository in critical:
+            removed_repo = self.repositories.removed_repository(repository["repository"])
+            removed_repo.removal_type = "critical"
+            repo = self.repositories.get_by_full_name(repository["repository"])
+
+            stored = {
+                "repository": repository["repository"],
+                "reason": repository["reason"],
+                "link": repository["link"],
+                "acknowledged": True,
+            }
+            if repository["repository"] not in instored:
+                if repo is not None and repo.data.installed:
+                    self.log.critical(
+                        "Removing repository %s, it is marked as critical",
+                        repository["repository"],
+                    )
+                    was_installed = True
+                    stored["acknowledged"] = False
+                    # Remove from HACS
+                    critical_queue.add(repo.uninstall())
+                    repo.remove()
+
+            stored_critical.append(stored)
+            removed_repo.update_data(stored)
+
+        # Uninstall
+        await critical_queue.execute()
+
+        # Save to FS
+        await async_save_to_store(self.hass, "critical", stored_critical)
+
+        # Restart HASS
+        if was_installed:
+            self.log.critical("Resarting Home Assistant")
+            self.hass.async_create_task(self.hass.async_stop(100))

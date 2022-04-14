@@ -39,6 +39,10 @@ class HacsData:
         self.hacs = hacs
         self.content = {}
 
+    async def async_force_write(self, _=None):
+        """Force write."""
+        await self.async_write(force=True)
+
     async def async_write(self, force: bool = False) -> None:
         """Write content to the store files."""
         if not force and self.hacs.system.disabled:

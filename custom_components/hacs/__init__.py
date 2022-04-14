@@ -28,7 +28,6 @@ from custom_components.hacs.frontend import async_register_frontend
 from .base import HacsBase
 from .const import DOMAIN, MINIMUM_HA_VERSION, STARTUP
 from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
-from .tasks.manager import HacsTaskManager
 from .utils.configuration_schema import hacs_config_combined
 from .utils.data import HacsData
 from .utils.queue_manager import QueueManager
@@ -78,7 +77,7 @@ async def async_initialize_integration(
 
     integration = await async_get_integration(hass, DOMAIN)
 
-    await hacs.async_set_stage(None)
+    hacs.set_stage(None)
 
     hacs.log.info(STARTUP, integration.version)
 
@@ -92,7 +91,6 @@ async def async_initialize_integration(
     hacs.data = HacsData(hacs=hacs)
     hacs.system.running = True
     hacs.session = clientsession
-    hacs.tasks = HacsTaskManager(hacs=hacs, hass=hass)
     hacs.validation = ValidationManager(hacs=hacs, hass=hass)
 
     hacs.core.lovelace_mode = LovelaceMode.YAML
@@ -107,8 +105,6 @@ async def async_initialize_integration(
 
     if hacs.core.ha_version is None:
         hacs.core.ha_version = AwesomeVersion(HAVERSION)
-
-    await hacs.tasks.async_load()
 
     ## Legacy GitHub client
     hacs.github = GitHub(
@@ -137,7 +133,6 @@ async def async_initialize_integration(
         ):
             if os.path.exists(location):
                 hacs.log.critical(
-                    hacs.log.critical,
                     "This cannot be used with custom_updater. "
                     "To use this you need to remove custom_updater form %s",
                     location,
@@ -185,14 +180,14 @@ async def async_initialize_integration(
                     hacs.configuration.config_entry, [Platform.SENSOR]
                 )
 
-        await hacs.async_set_stage(HacsStage.SETUP)
+        hacs.set_stage(HacsStage.SETUP)
         if hacs.system.disabled:
             return False
 
         # Schedule startup tasks
         async_at_start(hass=hass, at_start_cb=hacs.startup_tasks)
 
-        await hacs.async_set_stage(HacsStage.WAITING)
+        hacs.set_stage(HacsStage.WAITING)
         hacs.log.info("Setup complete, waiting for Home Assistant before startup tasks starts")
 
         return not hacs.system.disabled
@@ -253,7 +248,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 
     unload_ok = await hass.config_entries.async_unload_platforms(config_entry, platforms)
 
-    await hacs.async_set_stage(None)
+    hacs.set_stage(None)
     hacs.disable_hacs(HacsDisabledReason.REMOVED)
 
     hass.data.pop(DOMAIN, None)

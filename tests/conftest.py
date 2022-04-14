@@ -34,7 +34,6 @@ from custom_components.hacs.repositories import (
     HacsPythonScriptRepository,
     HacsThemeRepository,
 )
-from custom_components.hacs.tasks.manager import HacsTaskManager
 from custom_components.hacs.utils.configuration_schema import TOKEN as CONF_TOKEN
 from custom_components.hacs.utils.queue_manager import QueueManager
 from custom_components.hacs.validate.manager import ValidationManager
@@ -109,7 +108,6 @@ async def hacs(hass: HomeAssistant):
     """Fixture to provide a HACS object."""
     hacs_obj = HacsBase()
     hacs_obj.hass = hass
-    hacs_obj.tasks = HacsTaskManager(hacs=hacs_obj, hass=hass)
     hacs_obj.validation = ValidationManager(hacs=hacs_obj, hass=hass)
     hacs_obj.session = async_get_clientsession(hass)
     hacs_obj.repositories = HacsRepositories()
@@ -148,7 +146,6 @@ async def hacs(hass: HomeAssistant):
         **{"client_name": "HACS/pytest"},
     )
 
-    await hacs_obj.tasks.async_load()
     hacs_obj.queue.clear()
 
     hass.data[DOMAIN] = hacs_obj

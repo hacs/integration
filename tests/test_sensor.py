@@ -5,6 +5,7 @@ from homeassistant.helpers.device_registry import DeviceEntryType
 import pytest
 
 from custom_components.hacs.base import HacsBase
+from custom_components.hacs.enums import HacsDispatchEvent
 from custom_components.hacs.repositories import HacsIntegrationRepository
 from custom_components.hacs.sensor import (
     HACSSensor,
@@ -74,7 +75,7 @@ async def test_sensor_update_event(hacs: HacsBase, hass: HomeAssistant):
     hacs.common.categories = {"integration"}
     assert sensor.state is None
 
-    hass.bus.async_fire("hacs/repository", {})
+    hacs.async_dispatch(HacsDispatchEvent.REPOSITORY, {})
 
     await hass.async_block_till_done()
     assert sensor.state == 1
@@ -114,10 +115,10 @@ async def test_sensor_update_manual(hacs: HacsBase, hass: HomeAssistant):
 
 
 @pytest.mark.asyncio
-async def test_setup_platform(hass: HomeAssistant):
+async def test_setup_platform(hass: HomeAssistant, hacs: HacsBase):
     await async_setup_platform(hass, {}, mock_setup)
 
 
 @pytest.mark.asyncio
-async def test_setup_entry(hass: HomeAssistant):
+async def test_setup_entry(hass: HomeAssistant, hacs: HacsBase):
     await async_setup_entry(hass, {}, mock_setup)

@@ -6,14 +6,15 @@ import sys
 from aiogithubapi import AIOGitHubAPIException
 from homeassistant.components import websocket_api
 from homeassistant.components.websocket_api import async_register_command
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 import homeassistant.helpers.config_validation as cv
+from homeassistant.helpers.dispatcher import async_dispatcher_connect
 import voluptuous as vol
 
 from custom_components.hacs.const import DOMAIN
 
 from ..base import HacsBase
-from ..enums import HacsStage
+from ..enums import HacsDispatchEvent, HacsStage
 from ..exceptions import HacsException
 from ..utils import regex
 from ..utils.store import async_load_from_store, async_save_to_store
@@ -42,6 +43,7 @@ class Task(HacsTask):
         async_register_command(self.hass, acknowledge_critical_repository)
         async_register_command(self.hass, get_critical_repositories)
         async_register_command(self.hass, hacs_repository_ignore)
+        async_register_command(self.hass, hacs_subscribe)
 
 
 @websocket_api.websocket_command(
@@ -230,17 +232,19 @@ async def hacs_repository_data(hass, connection, msg):
                 if registration is not None:
                     raise HacsException(registration)
             except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-                hass.bus.async_fire(
-                    "hacs/error",
+                hacs.async_dispatch(
+                    HacsDispatchEvent.ERROR,
                     {
                         "action": "add_repository",
                         "exception": str(sys.exc_info()[0].__name__),
                         "message": str(exception),
                     },
                 )
+
         else:
-            hass.bus.async_fire(
-                "hacs/error",
+
+            hacs.async_dispatch(
+                HacsDispatchEvent.ERROR,
                 {
                     "action": "add_repository",
                     "message": f"Repository '{repo_id}' exists in the store.",
@@ -252,7 +256,7 @@ async def hacs_repository_data(hass, connection, msg):
         repository = hacs.repositories.get_by_id(repo_id)
 
     if repository is None:
-        hass.bus.async_fire("hacs/repository", {})
+        hacs.async_dispatch(HacsDispatchEvent.REPOSITORY, {})
         return
 
     hacs.log.debug("Running %s for %s", action, repository.data.full_name)
@@ -273,7 +277,7 @@ async def hacs_repository_data(hass, connection, msg):
             await repository.async_install()
             repository.state = None
             if not was_installed:
-                hass.bus.async_fire("hacs/reload", {"force": True})
+                hacs.async_dispatch(HacsDispatchEvent.RELOAD, {"force": True})
                 await hacs.async_recreate_entities()
 
         elif action == "add":
@@ -293,7 +297,7 @@ async def hacs_repository_data(hass, connection, msg):
 
     if message is not None:
         hacs.log.error(message)
-        hass.bus.async_fire("hacs/error", {"message": str(message)})
+        hacs.async_dispatch(HacsDispatchEvent.ERROR, {"message": str(message)})
 
     await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"], {}))
@@ -332,7 +336,7 @@ async def hacs_repository(hass, connection, msg):
             was_installed = repository.data.installed
             await repository.async_install()
             if not was_installed:
-                hass.bus.async_fire("hacs/reload", {"force": True})
+                hacs.async_dispatch(HacsDispatchEvent.RELOAD, {"force": True})
                 await hacs.async_recreate_entities()
 
         elif action == "not_new":
@@ -382,7 +386,7 @@ async def hacs_repository(hass, connection, msg):
                 repository.data.selected_tag = msg["version"]
             await repository.update_repository(force=True)
 
-            hass.bus.async_fire("hacs/reload", {"force": True})
+            hacs.async_dispatch(HacsDispatchEvent.RELOAD, {"force": True})
 
         else:
             hacs.log.error(f"WS action '{action}' is not valid")
@@ -398,7 +402,7 @@ async def hacs_repository(hass, connection, msg):
 
     if message is not None:
         hacs.log.error(message)
-        hass.bus.async_fire("hacs/error", {"message": str(message)})
+        hacs.async_dispatch(HacsDispatchEvent.ERROR, {"message": str(message)})
 
     if repository:
         repository.state = None
@@ -446,7 +450,7 @@ async def hacs_settings(hass, connection, msg):
                 repo.data.new = False
     else:
         hacs.log.error("WS action '%s' is not valid", action)
-    hass.bus.async_fire("hacs/config", {})
+    hacs.async_dispatch(HacsDispatchEvent.CONFIG, {})
     await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"], {}))
 
@@ -487,4 +491,32 @@ async def hacs_repository_ignore(hass, connection, msg):
     """Ignore a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     hacs.common.ignored_repositories.append(msg["repository"])
+    connection.send_message(websocket_api.result_message(msg["id"]))
+
+
+@websocket_api.websocket_command(
+    {
+        vol.Required("type"): "hacs/subscribe",
+        vol.Required("signal"): str,
+    }
+)
+@websocket_api.require_admin
+@websocket_api.async_response
+async def hacs_subscribe(
+    hass: HomeAssistant,
+    connection: websocket_api.ActiveConnection,
+    msg: dict,
+) -> None:
+    """Handle websocket subscriptions."""
+
+    @callback
+    def forward_messages(data: dict | None = None):
+        """Forward events to websocket."""
+        connection.send_message(websocket_api.event_message(msg["id"], data))
+
+    connection.subscriptions[msg["id"]] = async_dispatcher_connect(
+        hass,
+        msg["signal"],
+        forward_messages,
+    )
     connection.send_message(websocket_api.result_message(msg["id"]))

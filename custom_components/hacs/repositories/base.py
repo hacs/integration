@@ -23,7 +23,7 @@ from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.json import JSONEncoder
 
 from ..const import DOMAIN
-from ..enums import ConfigurationType, HacsCategory, RepositoryFile
+from ..enums import ConfigurationType, HacsCategory, HacsDispatchEvent, RepositoryFile
 from ..exceptions import (
     HacsException,
     HacsNotModifiedException,
@@ -779,8 +779,8 @@ class HacsRepository:
 
         self.data.installed_version = None
         self.data.installed_commit = None
-        self.hacs.hass.bus.async_fire(
-            "hacs/repository",
+        self.hacs.async_dispatch(
+            HacsDispatchEvent.REPOSITORY,
             {
                 "id": 1337,
                 "action": "uninstall",
@@ -844,6 +844,7 @@ class HacsRepository:
     async def async_pre_registration(self) -> None:
         """Run pre registration steps."""
 
+    @concurrent(concurrenttasks=10)
     async def async_registration(self, ref=None) -> None:
         """Run registration steps."""
         await self.async_pre_registration()
@@ -894,8 +895,8 @@ class HacsRepository:
         self.logger.info("%s Running post installation steps", self.string)
         await self.async_post_installation()
         self.data.new = False
-        self.hacs.hass.bus.async_fire(
-            "hacs/repository",
+        self.hacs.async_dispatch(
+            HacsDispatchEvent.REPOSITORY,
             {
                 "id": 1337,
                 "action": "install",

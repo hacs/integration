@@ -126,9 +126,7 @@ class RepositoryData:
         default = RepositoryData()
         return attr.asdict(
             self,
-            filter=lambda attr, value: attr.name != "_storage_data"
-            and attr.name != "last_fetched"
-            and default.__getattribute__(attr.name) != value,
+            filter=lambda attr, _: attr.name != "_storage_data" and attr.name != "last_fetched",
         )
 
     @staticmethod

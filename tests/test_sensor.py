@@ -38,16 +38,6 @@ async def test_sensor_data(hacs: HacsBase, hass: HomeAssistant):
 
 
 @pytest.mark.asyncio
-async def test_device_info_entry_type_pre_2021_12(hacs: HacsBase, hass: HomeAssistant):
-    # LEGACY can be removed when min HA version is 2021.12
-    hacs.core.ha_version = "2021.12.0"
-    sensor = await sensor_setup(hacs, hass)
-    entry_type = sensor.device_info["entry_type"]
-    assert entry_type == "service"
-    assert isinstance(entry_type, str)
-
-
-@pytest.mark.asyncio
 async def test_device_info_entry_type(hacs: HacsBase, hass: HomeAssistant):
     sensor = await sensor_setup(hacs, hass)
     entry_type = sensor.device_info["entry_type"]

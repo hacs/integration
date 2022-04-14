@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from homeassistant.core import Event, callback
+from homeassistant.helpers.device_registry import DeviceEntryType
 from homeassistant.helpers.entity import Entity
 
 from custom_components.hacs.enums import HacsGitHubRepo
@@ -13,23 +14,15 @@ from .repositories.base import HacsRepository
 
 def system_info(hacs: HacsBase) -> dict:
     """Return system info."""
-    info = {
+    return {
         "identifiers": {(DOMAIN, HACS_SYSTEM_ID)},
         "name": NAME_SHORT,
         "manufacturer": "hacs.xyz",
         "model": "",
         "sw_version": str(hacs.version),
         "configuration_url": "homeassistant://hacs",
+        "entry_type": DeviceEntryType.SERVICE,
     }
-    # LEGACY can be removed when min HA version is 2021.12
-    if hacs.core.ha_version >= "2021.12.0b0":
-        # pylint: disable=import-outside-toplevel
-        from homeassistant.helpers.device_registry import DeviceEntryType
-
-        info["entry_type"] = DeviceEntryType.SERVICE
-    else:
-        info["entry_type"] = "service"
-    return info
 
 
 class HacsBaseEntity(Entity):
@@ -98,6 +91,7 @@ class HacsRepositoryEntity(HacsBaseEntity):
 
     @property
     def available(self) -> bool:
+        """Return True if entity is available."""
         return self.hacs.repositories.is_downloaded(repository_id=str(self.repository.data.id))
 
     @property
@@ -106,7 +100,7 @@ class HacsRepositoryEntity(HacsBaseEntity):
         if self.repository.data.full_name == HacsGitHubRepo.INTEGRATION:
             return system_info(self.hacs)
 
-        info = {
+        return {
             "identifiers": {(DOMAIN, str(self.repository.data.id))},
             "name": self.repository.display_name,
             "model": self.repository.data.category,
@@ -114,13 +108,5 @@ class HacsRepositoryEntity(HacsBaseEntity):
                 author.replace("@", "") for author in self.repository.data.authors
             ),
             "configuration_url": "homeassistant://hacs",
+            "entry_type": DeviceEntryType.SERVICE,
         }
-        # LEGACY can be removed when min HA version is 2021.12
-        if self.hacs.core.ha_version >= "2021.12.0b0":
-            # pylint: disable=import-outside-toplevel
-            from homeassistant.helpers.device_registry import DeviceEntryType
-
-            info["entry_type"] = DeviceEntryType.SERVICE
-        else:
-            info["entry_type"] = "service"
-        return info

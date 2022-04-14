@@ -123,57 +123,19 @@ class RepositoryData:
 
     def to_json(self):
         """Export to json."""
+        default = RepositoryData()
         return attr.asdict(
             self,
-            filter=lambda attr, _: attr.name != "_storage_data" and attr.name != "last_fetched",
+            filter=lambda attr, value: attr.name != "_storage_data"
+            and attr.name != "last_fetched"
+            and default.__getattribute__(attr.name) != value,
         )
-
-    def memorize_storage(self, data) -> None:
-        """Memorize the storage data."""
-        self._storage_data = data
-
-    def export_data(self) -> Optional[dict]:
-        """Export to json if the data has changed.
-
-        Returns the data to export if the data needs
-        to be written.
-
-        Returns None if the data has not changed.
-        """
-        export = json.loads(json.dumps(self.to_json(), cls=JSONEncoder))
-        return None if self._storage_data == export else export
 
     @staticmethod
     def create_from_dict(source: dict):
         """Set attributes from dicts."""
         data = RepositoryData()
-        for key in source:
-            if key not in data.__dict__:
-                continue
-            if key == "pushed_at":
-                if source[key] == "":
-                    continue
-                if "Z" in source[key]:
-                    setattr(
-                        data,
-                        key,
-                        datetime.strptime(source[key], "%Y-%m-%dT%H:%M:%SZ"),
-                    )
-                else:
-                    setattr(
-                        data,
-                        key,
-                        datetime.strptime(source[key], "%Y-%m-%dT%H:%M:%S"),
-                    )
-            elif key == "id":
-                setattr(data, key, str(source[key]))
-            elif key == "country":
-                if isinstance(source[key], str):
-                    setattr(data, key, [source[key]])
-                else:
-                    setattr(data, key, source[key])
-            else:
-                setattr(data, key, source[key])
+        data.update_data(source)
         return data
 
     def update_data(self, data: dict):
@@ -201,6 +163,9 @@ class RepositoryData:
                     setattr(self, key, data[key])
             else:
                 setattr(self, key, data[key])
+
+
+DEFAULT_DATA = RepositoryData().to_json()
 
 
 @attr.s(auto_attribs=True)

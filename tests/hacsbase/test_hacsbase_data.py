@@ -58,7 +58,7 @@ async def test_hacs_data_restore_write_not_new(hacs, caplog):
                 },
             }
         elif key == "hacs":
-            return {"view": "Grid", "compact": False, "onboarding_done": True}
+            return {}
         elif key == "renamed_repositories":
             return {}
         else:

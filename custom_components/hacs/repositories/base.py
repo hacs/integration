@@ -882,10 +882,22 @@ class HacsRepository:
     async def async_install(self) -> None:
         """Run install steps."""
         await self._async_pre_install()
+        self.hacs.async_dispatch(
+            HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+            {"repository": self.data.full_name, "progress": 30},
+        )
         self.logger.info("%s Running installation steps", self.string)
         await self.async_install_repository()
+        self.hacs.async_dispatch(
+            HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+            {"repository": self.data.full_name, "progress": 90},
+        )
         self.logger.info("%s Installation steps completed", self.string)
         await self._async_post_install()
+        self.hacs.async_dispatch(
+            HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+            {"repository": self.data.full_name, "progress": False},
+        )
 
     async def async_post_installation(self) -> None:
         """Run post install steps."""
@@ -923,6 +935,11 @@ class HacsRepository:
         else:
             self.ref = f"tags/{version}"
 
+        self.hacs.async_dispatch(
+            HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+            {"repository": self.data.full_name, "progress": 40},
+        )
+
         if self.data.installed and self.data.category == "netdaemon":
             persistent_directory = BackupNetDaemon(hacs=self.hacs, repository=self)
             await self.hacs.hass.async_add_executor_job(persistent_directory.create)
@@ -943,10 +960,20 @@ class HacsRepository:
         self.hacs.log.debug("%s Local path is set to %s", self.string, self.content.path.local)
         self.hacs.log.debug("%s Remote path is set to %s", self.string, self.content.path.remote)
 
+        self.hacs.async_dispatch(
+            HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+            {"repository": self.data.full_name, "progress": 50},
+        )
+
         if self.data.zip_release and version != self.data.default_branch:
             await self.download_zip_files(self.validate)
         else:
             await self.download_content()
+
+        self.hacs.async_dispatch(
+            HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+            {"repository": self.data.full_name, "progress": 70},
+        )
 
         if self.validate.errors:
             for error in self.validate.errors:
@@ -955,6 +982,11 @@ class HacsRepository:
                 await self.hacs.hass.async_add_executor_job(backup.restore)
                 await self.hacs.hass.async_add_executor_job(backup.cleanup)
             raise HacsException("Could not download, see log for details")
+
+        self.hacs.async_dispatch(
+            HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+            {"repository": self.data.full_name, "progress": 80},
+        )
 
         if self.data.installed and not self.content.single:
             await self.hacs.hass.async_add_executor_job(backup.cleanup)

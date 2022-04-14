@@ -4,11 +4,13 @@ from __future__ import annotations
 from typing import Any
 
 from homeassistant.components.update import UpdateEntity
+from homeassistant.core import callback
+from homeassistant.helpers.dispatcher import async_dispatcher_connect
 
 from .base import HacsBase
 from .const import DOMAIN
 from .entity import HacsRepositoryEntity
-from .enums import HacsCategory
+from .enums import HacsCategory, HacsDispatchEvent
 
 
 async def async_setup_entry(hass, _config_entry, async_add_devices):
@@ -26,7 +28,7 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
     @property
     def supported_features(self) -> int | None:
         """Return the supported features of the entity."""
-        features = 16
+        features = 4 | 16
         if self.repository.can_download:
             features = features | 1
         return features
@@ -76,9 +78,12 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:
         """Install an update."""
         if self.repository.display_version_or_commit == "version":
+            self._update_in_progress(progress=10)
             self.repository.data.selected_tag = self.latest_version
             await self.repository.update_repository(force=True)
+            self._update_in_progress(progress=20)
         await self.repository.async_install()
+        self._update_in_progress(progress=False)
 
     async def async_release_notes(self) -> str | None:
         """Return the release notes."""
@@ -103,3 +108,27 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
                 )
 
         return release_notes.replace("\n#", "\n\n#")
+
+    async def async_added_to_hass(self) -> None:
+        """Register for status events."""
+        await super().async_added_to_hass()
+        self.async_on_remove(
+            async_dispatcher_connect(
+                self.hass,
+                HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+                self._update_download_progress,
+            )
+        )
+
+    @callback
+    def _update_download_progress(self, data: dict) -> None:
+        """Update the download progress."""
+        if data["repository"] != self.repository.data.full_name:
+            return
+        self._update_in_progress(progress=data["progress"])
+
+    @callback
+    def _update_in_progress(self, progress: int | bool) -> None:
+        """Update the download progress."""
+        self._attr_in_progress = progress
+        self.async_write_ha_state()

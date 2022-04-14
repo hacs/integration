@@ -13,10 +13,11 @@ from aiogithubapi.const import ACCEPT_HEADERS
 from awesomeversion import AwesomeVersion
 from homeassistant.components.lovelace.system_health import system_health_info
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
-from homeassistant.const import EVENT_HOMEASSISTANT_STARTED, __version__ as HAVERSION
-from homeassistant.core import CoreState, HomeAssistant
+from homeassistant.const import __version__ as HAVERSION
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.event import async_call_later
+from homeassistant.helpers.start import async_at_start
 from homeassistant.loader import async_get_integration
 import voluptuous as vol
 
@@ -128,11 +129,8 @@ async def async_initialize_integration(
         if hacs.system.disabled:
             return False
 
-        # Setup startup tasks
-        if hacs.hass.state == CoreState.running:
-            async_call_later(hacs.hass, 5, hacs.startup_tasks)
-        else:
-            hacs.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, hacs.startup_tasks)
+        # Schedule startup tasks
+        async_at_start(hass=hass, at_start_cb=hacs.startup_tasks)
 
         await hacs.async_set_stage(HacsStage.WAITING)
         hacs.log.info("Setup complete, waiting for Home Assistant before startup tasks starts")

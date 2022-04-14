@@ -31,7 +31,6 @@ from homeassistant.loader import Integration
 from homeassistant.util import dt
 
 from .const import TV
-from .entity import HacsEntityDataUpdateCoordinator
 from .enums import (
     ConfigurationType,
     HacsCategory,
@@ -341,7 +340,6 @@ class HacsBase:
 
     common = HacsCommon()
     configuration = HacsConfiguration()
-    coordinator: HacsEntityDataUpdateCoordinator | None = None
     core = HacsCore()
     data: HacsData | None = None
     frontend_version: str | None = None

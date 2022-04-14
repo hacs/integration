@@ -7,7 +7,7 @@ from homeassistant.core import callback
 from homeassistant.util import json as json_util
 
 from ..base import HacsBase
-from ..enums import HacsGitHubRepo
+from ..enums import HacsDispatchEvent, HacsGitHubRepo
 from ..repositories.base import HacsManifest, HacsRepository
 from .logger import get_hacs_logger
 from .path import is_safe
@@ -60,8 +60,8 @@ class HacsData:
             },
         )
         await self._async_store_content_and_repos()
-        for event in ("hacs/repository", "hacs/config"):
-            self.hacs.hass.bus.async_fire(event, {})
+        for event in (HacsDispatchEvent.REPOSITORY, HacsDispatchEvent.CONFIG):
+            self.hacs.async_dispatch(event, {})
 
     async def _async_store_content_and_repos(self):  # bb: ignore
         """Store the main repos file and each repo that is out of date."""

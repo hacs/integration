@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ..enums import HacsCategory
+from ..enums import HacsCategory, HacsDispatchEvent
 from ..exceptions import HacsException
 from ..utils.decorator import concurrent
 from .base import HacsRepository
@@ -88,8 +88,8 @@ class HacsPythonScriptRepository(HacsRepository):
 
         # Signal entities to refresh
         if self.data.installed:
-            self.hacs.hass.bus.async_fire(
-                "hacs/repository",
+            self.hacs.async_dispatch(
+                HacsDispatchEvent.REPOSITORY,
                 {
                     "id": 1337,
                     "action": "update",

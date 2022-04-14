@@ -25,15 +25,18 @@ from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.loader import Integration
 from homeassistant.util import dt
 
 from .const import TV
+from .entity import HacsEntityDataUpdateCoordinator
 from .enums import (
     ConfigurationType,
     HacsCategory,
     HacsDisabledReason,
+    HacsDispatchEvent,
     HacsGitHubRepo,
     HacsStage,
     LovelaceMode,
@@ -338,6 +341,7 @@ class HacsBase:
 
     common = HacsCommon()
     configuration = HacsConfiguration()
+    coordinator: HacsEntityDataUpdateCoordinator | None = None
     core = HacsCore()
     data: HacsData | None = None
     frontend_version: str | None = None
@@ -371,7 +375,7 @@ class HacsBase:
         self.stage = stage
         if stage is not None:
             self.log.info("Stage changed: %s", self.stage)
-            self.hass.bus.async_fire("hacs/stage", {"stage": self.stage})
+            self.async_dispatch(HacsDispatchEvent.STAGE, {"stage": self.stage})
             await self.tasks.async_execute_runtume_tasks()
 
     def disable_hacs(self, reason: HacsDisabledReason) -> None:
@@ -563,14 +567,15 @@ class HacsBase:
 
         else:
             if self.hass is not None and ((check and repository.data.new) or self.status.new):
-                self.hass.bus.async_fire(
-                    "hacs/repository",
+                self.async_dispatch(
+                    HacsDispatchEvent.REPOSITORY,
                     {
                         "action": "registration",
                         "repository": repository.data.full_name,
                         "repository_id": repository.data.id,
                     },
                 )
+
         self.repositories.register(repository, default)
 
     async def startup_tasks(self, _=None) -> None:
@@ -578,16 +583,16 @@ class HacsBase:
         await self.async_set_stage(HacsStage.STARTUP)
         self.status.startup = False
 
-        self.hass.bus.async_fire("hacs/status", {})
+        self.async_dispatch(HacsDispatchEvent.STATUS, {})
 
         await self.async_set_stage(HacsStage.RUNNING)
 
-        self.hass.bus.async_fire("hacs/reload", {"force": True})
+        self.async_dispatch(HacsDispatchEvent.RELOAD, {"force": True})
 
         if queue_task := self.tasks.get("prosess_queue"):
             await queue_task.execute_task()
 
-        self.hass.bus.async_fire("hacs/status", {})
+        self.async_dispatch(HacsDispatchEvent.STATUS, {})
 
     async def async_download_file(self, url: str, *, headers: dict | None = None) -> bytes | None:
         """Download files, and return the content."""
@@ -652,3 +657,8 @@ class HacsBase:
         )
 
         self.hass.config_entries.async_setup_platforms(self.configuration.config_entry, platforms)
+
+    @callback
+    def async_dispatch(self, signal: HacsDispatchEvent, data: dict | None = None) -> None:
+        """Dispatch a signal with data."""
+        async_dispatcher_send(self.hass, signal, data)

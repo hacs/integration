@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 from typing import TYPE_CHECKING
 
+from ..enums import HacsCategory, HacsDispatchEvent
 from ..exceptions import HacsException
 from ..utils.decorator import concurrent
 from .base import HacsRepository
@@ -21,7 +22,7 @@ class HacsPluginRepository(HacsRepository):
         self.data.full_name = full_name
         self.data.full_name_lower = full_name.lower()
         self.data.file_name = None
-        self.data.category = "plugin"
+        self.data.category = HacsCategory.PLUGIN
         self.content.path.local = self.localpath
 
     @property
@@ -71,8 +72,8 @@ class HacsPluginRepository(HacsRepository):
 
         # Signal entities to refresh
         if self.data.installed:
-            self.hacs.hass.bus.async_fire(
-                "hacs/repository",
+            self.hacs.async_dispatch(
+                HacsDispatchEvent.REPOSITORY,
                 {
                     "id": 1337,
                     "action": "update",

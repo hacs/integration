@@ -23,6 +23,7 @@ import voluptuous as vol
 
 from .base import HacsBase
 from .const import DOMAIN, STARTUP
+from .entity import HacsEntityDataUpdateCoordinator
 from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
 from .tasks.manager import HacsTaskManager
 from .utils.configuration_schema import hacs_config_combined
@@ -79,6 +80,7 @@ async def async_initialize_integration(
     clientsession = async_get_clientsession(hass)
 
     hacs.integration = integration
+    hacs.coordinator = HacsEntityDataUpdateCoordinator(hass=hass, hacs=hacs)
     hacs.version = integration.version
     hacs.configuration.dev = integration.version == "0.0.0"
     hacs.hass = hass

@@ -6,6 +6,7 @@ from datetime import timedelta
 from homeassistant.core import HomeAssistant
 
 from ..base import HacsBase
+from ..enums import HacsDispatchEvent
 from .base import HacsTask
 
 
@@ -30,5 +31,5 @@ class Task(HacsTask):
                 self.hacs.queue.add(repository.common_update())
 
         await self.hacs.data.async_write()
-        self.hass.bus.async_fire("hacs/repository", {"action": "reload"})
+        self.hacs.async_dispatch(HacsDispatchEvent.REPOSITORY, {"action": "reload"})
         self.task_logger(self.hacs.log.debug, "Recurring background task for all repositories done")

@@ -17,4 +17,4 @@ async def test_setup_websocket_api(hacs: HacsBase):
         "custom_components.hacs.tasks.setup_websocket_api.async_register_command"
     ) as mock_async_register_command:
         await task.execute_task()
-        assert mock_async_register_command.call_count == 10
+        assert mock_async_register_command.call_count == 11

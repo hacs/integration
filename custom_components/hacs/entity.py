@@ -1,15 +1,22 @@
 """HACS Base entities."""
 from __future__ import annotations
 
-from homeassistant.core import Event, callback
+from typing import TYPE_CHECKING, Any
+
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.device_registry import DeviceEntryType
-from homeassistant.helpers.entity import Entity
+from homeassistant.helpers.dispatcher import async_dispatcher_connect
+from homeassistant.helpers.update_coordinator import (
+    CoordinatorEntity,
+    DataUpdateCoordinator,
+)
 
-from custom_components.hacs.enums import HacsGitHubRepo
-
-from .base import HacsBase
 from .const import DOMAIN, HACS_SYSTEM_ID, NAME_SHORT
-from .repositories.base import HacsRepository
+from .enums import HacsDispatchEvent, HacsGitHubRepo
+
+if TYPE_CHECKING:
+    from .base import HacsBase, HacsRepositories
+    from .repositories.base import HacsRepository
 
 
 def system_info(hacs: HacsBase) -> dict:
@@ -25,23 +32,25 @@ def system_info(hacs: HacsBase) -> dict:
     }
 
 
-class HacsBaseEntity(Entity):
+class HacsBaseEntity(CoordinatorEntity):
     """Base HACS entity."""
 
+    coordinator: HacsEntityDataUpdateCoordinator
     repository: HacsRepository | None = None
     _attr_should_poll = False
 
     def __init__(self, hacs: HacsBase) -> None:
         """Initialize."""
+        super().__init__(coordinator=hacs.coordinator)
         self.hacs = hacs
 
     async def async_added_to_hass(self) -> None:
         """Register for status events."""
         self.async_on_remove(
-            self.hass.bus.async_listen(
-                event_type="hacs/repository",
-                event_filter=self._filter_events,
-                listener=self._update_and_write_state,
+            async_dispatcher_connect(
+                self.hass,
+                HacsDispatchEvent.REPOSITORY,
+                self._update_and_write_state,
             )
         )
 
@@ -54,15 +63,7 @@ class HacsBaseEntity(Entity):
         self._update()
 
     @callback
-    def _filter_events(self, event: Event) -> bool:
-        """Filter the events."""
-        if self.repository is None:
-            # System entities
-            return True
-        return event.data.get("repository_id") == self.repository.data.id
-
-    @callback
-    def _update_and_write_state(self, *_) -> None:
+    def _update_and_write_state(self, _: Any) -> None:
         """Update the entity and write state."""
         self._update()
         self.async_write_ha_state()
@@ -83,7 +84,11 @@ class HacsSystemEntity(HacsBaseEntity):
 class HacsRepositoryEntity(HacsBaseEntity):
     """Base repository entity."""
 
-    def __init__(self, hacs: HacsBase, repository: HacsRepository) -> None:
+    def __init__(
+        self,
+        hacs: HacsBase,
+        repository: HacsRepository,
+    ) -> None:
         """Initialize."""
         super().__init__(hacs=hacs)
         self.repository = repository
@@ -110,3 +115,30 @@ class HacsRepositoryEntity(HacsBaseEntity):
             "configuration_url": "homeassistant://hacs",
             "entry_type": DeviceEntryType.SERVICE,
         }
+
+    @callback
+    def _update_and_write_state(self, data: dict) -> None:
+        """Update the entity and write state."""
+        if data.get("repository_id") == self.repository.data.id:
+            self._update()
+            self.async_write_ha_state()
+
+
+class HacsEntityDataUpdateCoordinator(DataUpdateCoordinator):
+    """HACS Entity DataUpdateCoordinator."""
+
+    data: HacsRepositories
+
+    def __init__(self, hass: HomeAssistant, hacs: HacsBase) -> None:
+        """Initialize."""
+        super().__init__(
+            hass=hass,
+            logger=hacs.log,
+            name="HACS Entity Coordinator",
+            update_interval=None,
+        )
+        self.hacs = hacs
+
+    async def _async_update_data(self) -> HacsRepositories:
+        """Update data."""
+        self.data = self.hacs.repositories.list_all

@@ -573,7 +573,7 @@ class HacsBase:
                 )
         self.repositories.register(repository, default)
 
-    async def startup_tasks(self, _event=None) -> None:
+    async def startup_tasks(self, _=None) -> None:
         """Tasks that are started after setup."""
         await self.async_set_stage(HacsStage.STARTUP)
         self.status.startup = False

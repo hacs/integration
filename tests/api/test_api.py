@@ -3,7 +3,7 @@ import os
 from homeassistant.core import HomeAssistant
 import pytest
 
-from custom_components.hacs.tasks.setup_websocket_api import (
+from custom_components.hacs.websocket import (
     acknowledge_critical_repository,
     get_critical_repositories,
     hacs_config,

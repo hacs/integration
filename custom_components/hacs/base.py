@@ -660,3 +660,20 @@ class HacsBase:
     def async_dispatch(self, signal: HacsDispatchEvent, data: dict | None = None) -> None:
         """Dispatch a signal with data."""
         async_dispatcher_send(self.hass, signal, data)
+
+    def set_active_categories(self) -> None:
+        """Set the active categories."""
+        self.common.categories = set()
+        for category in (HacsCategory.INTEGRATION, HacsCategory.PLUGIN):
+            self.enable_hacs_category(HacsCategory(category))
+
+        if HacsCategory.PYTHON_SCRIPT in self.hass.config.components:
+            self.enable_hacs_category(HacsCategory.PYTHON_SCRIPT)
+
+        if self.hass.services.has_service("frontend", "reload_themes"):
+            self.enable_hacs_category(HacsCategory.THEME)
+
+        if self.configuration.appdaemon:
+            self.enable_hacs_category(HacsCategory.APPDAEMON)
+        if self.configuration.netdaemon:
+            self.enable_hacs_category(HacsCategory.NETDAEMON)

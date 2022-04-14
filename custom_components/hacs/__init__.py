@@ -6,6 +6,7 @@ https://hacs.xyz/
 """
 from __future__ import annotations
 
+import os
 from typing import Any
 
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
@@ -13,22 +14,27 @@ from aiogithubapi.const import ACCEPT_HEADERS
 from awesomeversion import AwesomeVersion
 from homeassistant.components.lovelace.system_health import system_health_info
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
-from homeassistant.const import __version__ as HAVERSION
+from homeassistant.const import Platform, __version__ as HAVERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.discovery import async_load_platform
 from homeassistant.helpers.event import async_call_later
 from homeassistant.helpers.start import async_at_start
 from homeassistant.loader import async_get_integration
 import voluptuous as vol
 
+from custom_components.hacs.frontend import async_register_frontend
+
 from .base import HacsBase
-from .const import DOMAIN, STARTUP
+from .const import DOMAIN, MINIMUM_HA_VERSION, STARTUP
 from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
 from .tasks.manager import HacsTaskManager
 from .utils.configuration_schema import hacs_config_combined
 from .utils.data import HacsData
 from .utils.queue_manager import QueueManager
+from .utils.version import version_left_higher_or_equal_then_right
 from .validate.manager import ValidationManager
+from .websocket import async_register_websocket_commands
 
 CONFIG_SCHEMA = vol.Schema({DOMAIN: hacs_config_combined()}, extra=vol.ALLOW_EXTRA)
 
@@ -124,6 +130,60 @@ async def async_initialize_integration(
     async def async_startup():
         """HACS startup tasks."""
         hacs.enable_hacs()
+
+        for location in (
+            hass.config.path("custom_components/custom_updater.py"),
+            hass.config.path("custom_components/custom_updater/__init__.py"),
+        ):
+            if os.path.exists(location):
+                hacs.log.critical(
+                    hacs.log.critical,
+                    "This cannot be used with custom_updater. "
+                    "To use this you need to remove custom_updater form %s",
+                    location,
+                )
+
+                hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
+                return False
+
+        if not version_left_higher_or_equal_then_right(
+            hacs.core.ha_version.string,
+            MINIMUM_HA_VERSION,
+        ):
+            hacs.log.critical(
+                "You need HA version %s or newer to use this integration.",
+                MINIMUM_HA_VERSION,
+            )
+            hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
+            return False
+
+        if not await hacs.data.restore():
+            hacs.disable_hacs(HacsDisabledReason.RESTORE)
+            return False
+
+        can_update = await hacs.async_can_update()
+        hacs.log.debug("Can update %s repositories", can_update)
+
+        hacs.set_active_categories()
+
+        async_register_websocket_commands(hass)
+        async_register_frontend(hass, hacs)
+
+        if hacs.configuration.config_type == ConfigurationType.YAML:
+            hass.async_create_task(
+                async_load_platform(hass, Platform.SENSOR, DOMAIN, {}, hacs.configuration.config)
+            )
+            hacs.log.info("Update entities are only supported when using UI configuration")
+
+        else:
+            if hacs.core.ha_version >= "2022.4.0.dev0" and hacs.configuration.experimental:
+                hass.config_entries.async_setup_platforms(
+                    hacs.configuration.config_entry, [Platform.SENSOR, Platform.UPDATE]
+                )
+            else:
+                hass.config_entries.async_setup_platforms(
+                    hacs.configuration.config_entry, [Platform.SENSOR]
+                )
 
         await hacs.async_set_stage(HacsStage.SETUP)
         if hacs.system.disabled:

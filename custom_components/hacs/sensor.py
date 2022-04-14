@@ -6,6 +6,7 @@ from homeassistant.core import callback
 
 from .const import DOMAIN
 from .entity import HacsSystemEntity
+from .enums import ConfigurationType
 
 
 async def async_setup_platform(hass, _config, async_add_entities, _discovery_info=None):
@@ -35,14 +36,19 @@ class HACSSensor(HacsSystemEntity, SensorEntity):
             if repository.pending_update
         ]
         self._attr_native_value = len(repositories)
-        self._attr_extra_state_attributes = {
-            "repositories": [
-                {
-                    "name": repository.data.full_name,
-                    "display_name": repository.display_name,
-                    "installed_version": repository.display_installed_version,
-                    "available_version": repository.display_available_version,
-                }
-                for repository in repositories
-            ]
-        }
+        if (
+            self.hacs.configuration.config_type == ConfigurationType.YAML
+            and self.hacs.core.ha_version < "2022.4.0.dev0"
+            and not self.hacs.configuration.experimental
+        ):
+            self._attr_extra_state_attributes = {
+                "repositories": [
+                    {
+                        "name": repository.data.full_name,
+                        "display_name": repository.display_name,
+                        "installed_version": repository.display_installed_version,
+                        "available_version": repository.display_available_version,
+                    }
+                    for repository in repositories
+                ]
+            }

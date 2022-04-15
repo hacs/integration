@@ -51,21 +51,34 @@ if TYPE_CHECKING:
 
 
 TOPIC_FILTER = (
-    "hacs",
-    "home-assistant",
-    "homeassistant",
-    "hass",
-    "theme",
-    "themes",
-    "hacktoberfest",
-    "hassio",
     "custom-card",
+    "custom-component",
+    "custom-components",
+    "customcomponents",
+    "hacktoberfest",
+    "hacs-default",
+    "hacs-integration",
+    "hacs",
+    "hass",
+    "hassio",
+    "home-assistant",
+    "home-automation",
+    "homeassistant-components",
+    "homeassistant-integration",
+    "homeassistant-sensor",
+    "homeassistant",
+    "homeautomation",
+    "integration",
     "lovelace",
     "python",
     "sensor",
-    "custom-component",
-    "custom-components",
-    "integration",
+    "theme",
+    "themes",
+    "custom-cards",
+    "home-assistant-frontend",
+    "home-assistant-hacs",
+    "home-assistant-custom",
+    "lovelace-ui",
 )
 
 
@@ -270,9 +283,10 @@ class HacsRepository:
             return self.repository_manifest.name
 
         if self.data.category == "integration":
-            if self.integration_manifest:
-                if "name" in self.integration_manifest:
-                    return self.integration_manifest["name"]
+            if self.data.manifest_name is not None:
+                return self.data.manifest_name
+            if "name" in self.integration_manifest:
+                return self.integration_manifest["name"]
 
         return self.data.full_name.split("/")[-1].replace("-", " ").replace("_", " ").title()
 
@@ -282,9 +296,10 @@ class HacsRepository:
         if self.data.installed:
             return False
         configuration = self.hacs.configuration.country.lower()
-        manifest = [entry.lower() for entry in self.repository_manifest.country or []]
         if configuration == "all":
             return False
+
+        manifest = [entry.lower() for entry in self.repository_manifest.country or []]
         if not manifest:
             return False
         return configuration not in manifest

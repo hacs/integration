@@ -22,8 +22,7 @@ DEFAULT_BASE_REPOSITORY_DATA = (
     ("full_name", ""),
     ("last_updated", 0),
     ("hide", False),
-    ("name", None),
-    ("new", True),
+    ("new", False),
     ("stargazers_count", 0),
     ("topics", []),
 )
@@ -35,7 +34,6 @@ DEFAULT_EXTENDED_REPOSITORY_DATA = (
     ("description", ""),
     ("first_install", False),
     ("installed_commit", None),
-    ("installed_version", None),
     ("installed", False),
     ("last_commit", None),
     ("last_version", None),
@@ -116,6 +114,14 @@ class HacsData:
 
         if repository.data.last_fetched:
             data["last_fetched"] = repository.data.last_fetched.timestamp()
+
+        if repository.ignored_by_country_configuration:
+            data = {
+                "repository_manifest:": {"country": repository.repository_manifest.country},
+                "etag_repository": repository.data.etag_repository,
+                "full_name": repository.data.full_name,
+                "category": repository.data.category,
+            }
 
         self.content[str(repository.data.id)] = data
 
@@ -218,13 +224,14 @@ class HacsData:
         repository.data.releases = repository_data.get("releases", False)
         repository.data.hide = repository_data.get("hide", False)
         repository.data.installed = repository_data.get("installed", False)
-        repository.data.new = repository_data.get("new", True)
+        repository.data.new = repository_data.get("new", False)
         repository.data.selected_tag = repository_data.get("selected_tag")
         repository.data.show_beta = repository_data.get("show_beta", False)
         repository.data.last_version = repository_data.get("last_release_tag")
         repository.data.last_commit = repository_data.get("last_commit")
         repository.data.installed_version = repository_data.get("version_installed")
         repository.data.installed_commit = repository_data.get("installed_commit")
+        repository.data.manifest_name = repository_data.get("manifest_name")
 
         if last_fetched := repository_data.get("last_fetched"):
             repository.data.last_fetched = datetime.fromtimestamp(last_fetched)

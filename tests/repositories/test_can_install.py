@@ -2,12 +2,12 @@
 # pylint: disable=missing-docstring
 from awesomeversion import AwesomeVersion
 
-from custom_components.hacs.repositories.base import HacsRepository
+from custom_components.hacs.repositories.base import HacsRepository, HacsManifest
 
 
 def test_hacs_can_install(hacs):
     repository = HacsRepository(hacs)
-    repository.repository_manifest = {"test": "test"}
+    repository.repository_manifest = HacsManifest.from_dict({"test": "test"})
     repository.data.releases = True
 
     hacs.core.ha_version = AwesomeVersion("1.0.0")

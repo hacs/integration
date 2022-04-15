@@ -49,16 +49,6 @@ async def async_load_from_store(hass, key):
     return await get_store_for_key(hass, key).async_load() or {}
 
 
-async def async_save_to_store_default_encoder(hass, key, data):
-    """Generate store json safe data to the filesystem.
-
-    The data is expected to be encodable with the default
-    python json encoder. It should have already been passed through
-    JSONEncoder if needed.
-    """
-    await _get_store_for_key(hass, key, None).async_save(data)
-
-
 async def async_save_to_store(hass, key, data):
     """Generate dynamic data to store and save it to the filesystem.
 

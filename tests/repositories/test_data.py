@@ -13,11 +13,3 @@ def test_data_structure():
     data = RepositoryData.create_from_dict(repository_data)
     assert data.stargazers_count == 999
     assert isinstance(data.to_json(), dict)
-
-
-def test_data_update():
-    data = RepositoryData.create_from_dict({})
-    data.update_data({"fork": True})
-    data.update_data({"pushed_at": ""})
-    data.update_data({"pushed_at": "1970-01-01T00:00:00"})
-    assert data.pushed_at == "1970-01-01T00:00:00"

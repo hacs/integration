@@ -32,9 +32,6 @@ def test_manifest_structure():
     assert isinstance(manifest.persistent_directory, (str, type(None)))
     assert manifest.persistent_directory is None
 
-    assert isinstance(manifest.iot_class, (str, type(None)))
-    assert manifest.iot_class is None
-
     assert isinstance(manifest.hacs, (str, type(None)))
     assert not manifest.hacs
 

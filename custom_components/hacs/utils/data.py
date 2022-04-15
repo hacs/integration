@@ -115,14 +115,6 @@ class HacsData:
         if repository.data.last_fetched:
             data["last_fetched"] = repository.data.last_fetched.timestamp()
 
-        if repository.ignored_by_country_configuration:
-            data = {
-                "repository_manifest:": {"country": repository.repository_manifest.country},
-                "etag_repository": repository.data.etag_repository,
-                "full_name": repository.data.full_name,
-                "category": repository.data.category,
-            }
-
         self.content[str(repository.data.id)] = data
 
     async def restore(self):

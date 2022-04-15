@@ -212,7 +212,7 @@ class HacsData:
             repository.content.path.local = repository.localpath
 
         if repository.data.installed:
-            repository.status.first_install = False
+            repository.data.first_install = False
 
         if full_name == HacsGitHubRepo.INTEGRATION:
             repository.data.installed_version = self.hacs.version

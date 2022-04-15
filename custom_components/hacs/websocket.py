@@ -145,7 +145,7 @@ async def hacs_repositories(hass, connection, msg):
                     "domain": repo.data.domain,
                     "downloads": repo.data.downloads,
                     "file_name": repo.data.file_name,
-                    "first_install": repo.status.first_install,
+                    "first_install": repo.data.first_install,
                     "full_name": repo.data.full_name,
                     "hide_default_branch": repo.repository_manifest.hide_default_branch,
                     "hide": repo.data.hide,
@@ -169,7 +169,7 @@ async def hacs_repositories(hass, connection, msg):
                     "status_description": repo.display_status_description,
                     "status": repo.display_status,
                     "topics": repo.data.topics,
-                    "updated_info": repo.status.updated_info,
+                    "updated_info": repo.updated_info,
                     "version_or_commit": repo.display_version_or_commit,
                 }
                 for repo in hacs.repositories.list_all
@@ -316,7 +316,7 @@ async def hacs_repository(hass, connection, msg):
 
         if action == "update":
             await repository.update_repository(ignore_issues=True, force=True)
-            repository.status.updated_info = True
+            repository.updated_info = True
 
         elif action == "install":
             repository.data.new = False

@@ -8,7 +8,7 @@ import os
 import pathlib
 import shutil
 import tempfile
-from typing import TYPE_CHECKING, Any, List, Tuple
+from typing import TYPE_CHECKING, Any, List
 import zipfile
 
 from aiogithubapi import (
@@ -207,20 +207,6 @@ class HacsManifest:
         return manifest_data
 
 
-class RepositoryStatus:
-    """Repository status."""
-
-    hide = False
-    installed = False
-    last_updated = None
-    new = True
-    selected_tag = None
-    show_beta = False
-    track = True
-    updated_info = False
-    first_install = True
-
-
 class RepositoryReleases:
     """RepositoyReleases."""
 
@@ -259,7 +245,7 @@ class HacsRepository:
         self.content = RepositoryContent()
         self.content.path = RepositoryPath()
         self.repository_object: AIOGitHubAPIRepository | None = None
-        self.status = RepositoryStatus()
+        self.updated_info = False
         self.state = None
         self.force_branch = False
         self.integration_manifest = {}

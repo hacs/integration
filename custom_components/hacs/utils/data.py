@@ -16,13 +16,36 @@ DEFAULT_BASE_REPOSITORY_DATA = (
     ("authors", []),
     ("category", ""),
     ("description", ""),
-    ("domain", ""),
+    ("domain", None),
     ("downloads", 0),
     ("etag_repository", None),
     ("full_name", ""),
     ("last_updated", 0),
+    ("hide", False),
     ("name", None),
     ("new", True),
+    ("stargazers_count", 0),
+    ("topics", []),
+)
+
+DEFAULT_EXTENDED_REPOSITORY_DATA = (
+    ("archived", False),
+    ("config_flow", False),
+    ("default_branch", None),
+    ("description", ""),
+    ("first_install", False),
+    ("installed_commit", None),
+    ("installed_version", None),
+    ("installed", False),
+    ("last_commit", None),
+    ("last_version", None),
+    ("manifest_name", None),
+    ("open_issues", 0),
+    ("published_tags", []),
+    ("pushed_at", ""),
+    ("releases", False),
+    ("selected_tag", None),
+    ("show_beta", False),
     ("stargazers_count", 0),
     ("topics", []),
 )
@@ -86,7 +109,9 @@ class HacsData:
                 data[key] = value
 
         if repository.data.installed:
-            data.update(repository.data.to_json())
+            for key, default_value in DEFAULT_EXTENDED_REPOSITORY_DATA:
+                if (value := repository.data.__getattribute__(key)) != default_value:
+                    data[key] = value
             data["version_installed"] = repository.data.installed_version
 
         if repository.data.last_fetched:
@@ -185,7 +210,7 @@ class HacsData:
         repository.data.topics = [
             topic for topic in repository_data.get("topics", []) if topic not in TOPIC_FILTER
         ]
-        repository.data.domain = repository_data.get("domain", None)
+        repository.data.domain = repository_data.get("domain")
         repository.data.stargazers_count = repository_data.get(
             "stargazers_count"
         ) or repository_data.get("stars", 0)

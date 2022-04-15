@@ -88,7 +88,7 @@ class RepositoryData:
     config_flow: bool = False
     default_branch: str = None
     description: str = ""
-    domain: str = ""
+    domain: str = None
     downloads: int = 0
     etag_repository: str = None
     file_name: str = ""
@@ -109,7 +109,6 @@ class RepositoryData:
     published_tags: List[str] = []
     pushed_at: str = ""
     releases: bool = False
-    render_readme: bool = False
     selected_tag: str = None
     show_beta: bool = False
     stargazers_count: int = 0
@@ -124,10 +123,7 @@ class RepositoryData:
 
     def to_json(self):
         """Export to json."""
-        return attr.asdict(
-            self,
-            filter=lambda attr, _: attr.name != "last_fetched",
-        )
+        return attr.asdict(self, filter=lambda attr, value: attr.name != "last_fetched")
 
     @staticmethod
     def create_from_dict(source: dict):
@@ -659,7 +655,7 @@ class HacsRepository:
         def _info_file_variants() -> tuple[str, ...]:
             name: str = (
                 "readme"
-                if self.data.render_readme or self.hacs.configuration.experimental
+                if self.repository_manifest.render_readme or self.hacs.configuration.experimental
                 else "info"
             )
             return (

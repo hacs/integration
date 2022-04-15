@@ -591,7 +591,7 @@ class HacsBase:
                 raise HacsException("Unknown error")
 
             repository.data.installed = True
-            repository.data.installed_version = self.integration.version
+            repository.data.installed_version = self.integration.version.string
             repository.data.new = False
             repository.data.releases = True
 

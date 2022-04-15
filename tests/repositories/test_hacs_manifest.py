@@ -35,9 +35,6 @@ def test_manifest_structure():
     assert isinstance(manifest.iot_class, (str, type(None)))
     assert manifest.iot_class is None
 
-    assert isinstance(manifest.render_readme, bool)
-    assert not manifest.render_readme
-
     assert isinstance(manifest.hacs, (str, type(None)))
     assert not manifest.hacs
 

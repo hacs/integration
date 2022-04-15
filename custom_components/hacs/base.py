@@ -800,7 +800,6 @@ class HacsBase:
             if repository.data.category in self.common.categories:
                 self.queue.add(repository.common_update())
 
-        await self.data.async_write()
         self.async_dispatch(HacsDispatchEvent.REPOSITORY, {"action": "reload"})
         self.log.debug("Recurring background task for all repositories done")
 
@@ -827,6 +826,7 @@ class HacsBase:
 
         async def _handle_queue():
             if not self.queue.has_pending_tasks:
+                await self.data.async_write()
                 return
             can_update = await self.async_can_update()
             self.log.debug(
@@ -888,7 +888,6 @@ class HacsBase:
             if repository.data.category in self.common.categories:
                 self.queue.add(repository.update_repository())
 
-        await self.data.async_write()
         self.log.debug("Recurring background task for downloaded repositories done")
 
     async def async_handle_critical_repositories(self, _=None) -> None:

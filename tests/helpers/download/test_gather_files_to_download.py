@@ -104,8 +104,8 @@ def test_gather_plugin_files_from_release_multiple(repository_plugin):
 def test_gather_zip_release(repository_plugin):
     repository = repository_plugin
     repository.data.file_name = "test.zip"
-    repository.data.zip_release = True
-    repository.data.filename = "test.zip"
+    repository.repository_manifest.zip_release = True
+    repository.repository_manifest.filename = "test.zip"
     repository.releases.objects = [
         GitHubReleaseModel({"tag_name": "3", "assets": [{"name": "test.zip"}]})
     ]
@@ -136,7 +136,7 @@ def test_single_file_repo(repository):
 
 def test_gather_content_in_root_theme(repository_theme):
     repository = repository_theme
-    repository.data.content_in_root = True
+    repository.repository_manifest.content_in_root = True
     repository.content.path.remote = ""
     repository.data.file_name = "test.yaml"
     repository.tree = [

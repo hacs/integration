@@ -10,7 +10,6 @@ from custom_components.hacs.utils.store import (
     async_load_from_store,
     async_remove_store,
     async_save_to_store,
-    async_save_to_store_default_encoder,
     get_store_for_key,
 )
 
@@ -72,6 +71,3 @@ async def test_store_store(hass: HomeAssistant, caplog: pytest.LogCaptureFixture
 
         await async_save_to_store(hass, "test", {"test": "test"})
         assert async_save_mock.call_count == 1
-
-        await async_save_to_store_default_encoder(hass, "test", {"test": "test"})
-        assert async_save_mock.call_count == 2

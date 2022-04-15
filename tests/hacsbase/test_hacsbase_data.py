@@ -29,11 +29,7 @@ async def test_hacs_data_async_write2(hacs):
 async def test_hacs_data_restore_write_new(hacs, caplog):
     data = HacsData(hacs)
     await data.restore()
-    with patch(
-        "custom_components.hacs.utils.data.async_save_to_store"
-    ) as mock_async_save_to_store, patch(
-        "custom_components.hacs.utils.data.async_save_to_store_default_encoder"
-    ):
+    with patch("custom_components.hacs.utils.data.async_save_to_store") as mock_async_save_to_store:
         await data.async_write()
     assert mock_async_save_to_store.called
     assert "Loading base repository information" in caplog.text
@@ -50,6 +46,7 @@ async def test_hacs_data_restore_write_not_new(hacs, caplog):
                     "category": "integration",
                     "full_name": "hacs/integration",
                     "installed": True,
+                    "show_beta": True,
                 },
                 "202226247": {
                     "category": "integration",
@@ -58,24 +55,15 @@ async def test_hacs_data_restore_write_not_new(hacs, caplog):
                 },
             }
         elif key == "hacs":
-            return {"view": "Grid", "compact": False, "onboarding_done": True}
+            return {}
         elif key == "renamed_repositories":
             return {}
         else:
             raise ValueError(f"No mock for {key}")
 
-    def _mocked_load(*_):
-        return {
-            "category": "integration",
-            "show_beta": True,
-        }
-
     with patch("os.path.exists", return_value=True), patch(
         "custom_components.hacs.utils.data.async_load_from_store",
         side_effect=_mocked_loads,
-    ), patch(
-        "custom_components.hacs.utils.store.HACSStore.load",
-        side_effect=_mocked_load,
     ):
         await data.restore()
 
@@ -88,15 +76,7 @@ async def test_hacs_data_restore_write_not_new(hacs, caplog):
     assert hacs.repositories.get_by_id("172733314").data.show_beta is True
     assert hacs.repositories.get_by_id("172733314").data.installed is True
 
-    assert hacs.repositories.get_by_id("202226247").data.show_beta is True
-    assert hacs.repositories.get_by_id("202226247").data.installed is True
-
-    with patch(
-        "custom_components.hacs.utils.data.async_save_to_store"
-    ) as mock_async_save_to_store, patch(
-        "custom_components.hacs.utils.data.async_save_to_store_default_encoder"
-    ) as mock_async_save_to_store_default_encoder:
+    with patch("custom_components.hacs.utils.data.async_save_to_store") as mock_async_save_to_store:
         await data.async_write()
     assert mock_async_save_to_store.called
-    assert mock_async_save_to_store_default_encoder.called
     assert "Loading base repository information" not in caplog.text

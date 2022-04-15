@@ -53,7 +53,7 @@ class HacsThemeRepository(HacsRepository):
                 f"Repository structure for {self.ref.replace('tags/','')} is not compliant"
             )
 
-        if self.data.content_in_root:
+        if self.repository_manifest.content_in_root:
             self.content.path.remote = ""
 
         # Handle potential errors
@@ -76,7 +76,7 @@ class HacsThemeRepository(HacsRepository):
             return
 
         # Get theme objects.
-        if self.data.content_in_root:
+        if self.repository_manifest.content_in_root:
             self.content.path.remote = ""
 
         # Update name

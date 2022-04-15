@@ -36,7 +36,7 @@ class HacsNetdaemonRepository(HacsRepository):
 
         # Custom step 1: Validate content.
         if self.repository_manifest:
-            if self.data.content_in_root:
+            if self.repository_manifest.content_in_root:
                 self.content.path.remote = ""
 
         if self.content.path.remote == "apps":
@@ -70,7 +70,7 @@ class HacsNetdaemonRepository(HacsRepository):
 
         # Get appdaemon objects.
         if self.repository_manifest:
-            if self.data.content_in_root:
+            if self.repository_manifest.content_in_root:
                 self.content.path.remote = ""
 
         if self.content.path.remote == "apps":

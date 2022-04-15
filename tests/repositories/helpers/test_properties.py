@@ -13,7 +13,7 @@ def test_repository_helpers_properties_can_be_installed(hacs):
 def test_repository_helpers_properties_pending_update(hacs):
     repository = HacsRepository(hacs)
     repository.hacs.core.ha_version = AwesomeVersion("0.109.0")
-    repository.data.homeassistant = "0.110.0"
+    repository.repository_manifest.homeassistant = "0.110.0"
     repository.data.releases = True
     assert not repository.pending_update
 

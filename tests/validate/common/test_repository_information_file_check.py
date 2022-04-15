@@ -40,7 +40,7 @@ async def test_has_info_md_file(repository):
 
 @pytest.mark.asyncio
 async def test_has_readme_file(repository):
-    repository.data.render_readme = True
+    repository.repository_manifest.render_readme = True
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent({"path": "readme", "type": "file"}, "test/test", "main")
     ]
@@ -51,7 +51,7 @@ async def test_has_readme_file(repository):
 
 @pytest.mark.asyncio
 async def test_has_readme_md_file(repository):
-    repository.data.render_readme = True
+    repository.repository_manifest.render_readme = True
     repository.tree = [
         AIOGitHubAPIRepositoryTreeContent(
             {"path": "readme.md", "type": "file"}, "test/test", "main"

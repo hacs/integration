@@ -110,13 +110,10 @@ class HacsConfiguration:
     debug: bool = False
     dev: bool = False
     experimental: bool = False
-    frontend_compact: bool = False
-    frontend_mode: str = "Grid"
     frontend_repo_url: str = ""
     frontend_repo: str = ""
     netdaemon_path: str = "netdaemon/apps/"
     netdaemon: bool = False
-    onboarding_done: bool = False
     plugin_path: str = "www/community/"
     python_script_path: str = "python_scripts/"
     python_script: bool = False
@@ -594,7 +591,7 @@ class HacsBase:
                 raise HacsException("Unknown error")
 
             repository.data.installed = True
-            repository.data.installed_version = self.integration.version
+            repository.data.installed_version = self.integration.version.string
             repository.data.new = False
             repository.data.releases = True
 

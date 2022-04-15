@@ -50,7 +50,7 @@ class HacsIntegrationRepository(HacsRepository):
         await self.common_validate()
 
         # Custom step 1: Validate content.
-        if self.data.content_in_root:
+        if self.repository_manifest.content_in_root:
             self.content.path.remote = ""
 
         if self.content.path.remote == "custom_components":
@@ -100,7 +100,7 @@ class HacsIntegrationRepository(HacsRepository):
         if not await self.common_update(ignore_issues, force) and not force:
             return
 
-        if self.data.content_in_root:
+        if self.repository_manifest.content_in_root:
             self.content.path.remote = ""
 
         if self.content.path.remote == "custom_components":
@@ -150,7 +150,7 @@ class HacsIntegrationRepository(HacsRepository):
         """Get the content of the manifest.json file."""
         manifest_path = (
             "manifest.json"
-            if self.data.content_in_root
+            if self.repository_manifest.content_in_root
             else f"{self.content.path.remote}/{RepositoryFile.MAINIFEST_JSON}"
         )
 

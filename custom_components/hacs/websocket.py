@@ -85,9 +85,6 @@ async def hacs_config(hass, connection, msg):
         websocket_api.result_message(
             msg["id"],
             {
-                "frontend_mode": hacs.configuration.frontend_mode,
-                "frontend_compact": hacs.configuration.frontend_compact,
-                "onboarding_done": hacs.configuration.onboarding_done,
                 "version": hacs.version,
                 "frontend_expected": hacs.frontend_version,
                 "frontend_running": hacs.frontend_version,
@@ -141,18 +138,18 @@ async def hacs_repositories(hass, connection, msg):
                     "can_install": repo.can_download,
                     "category": repo.data.category,
                     "config_flow": repo.data.config_flow,
-                    "country": repo.data.country,
+                    "country": repo.repository_manifest.country,
                     "custom": not hacs.repositories.is_default(str(repo.data.id)),
                     "default_branch": repo.data.default_branch,
                     "description": repo.data.description,
                     "domain": repo.data.domain,
                     "downloads": repo.data.downloads,
                     "file_name": repo.data.file_name,
-                    "first_install": repo.status.first_install,
+                    "first_install": repo.data.first_install,
                     "full_name": repo.data.full_name,
-                    "hide_default_branch": repo.data.hide_default_branch,
+                    "hide_default_branch": repo.repository_manifest.hide_default_branch,
                     "hide": repo.data.hide,
-                    "homeassistant": repo.data.homeassistant,
+                    "homeassistant": repo.repository_manifest.homeassistant,
                     "id": repo.data.id,
                     "info": None,
                     "installed_version": repo.display_installed_version,
@@ -172,7 +169,7 @@ async def hacs_repositories(hass, connection, msg):
                     "status_description": repo.display_status_description,
                     "status": repo.display_status,
                     "topics": repo.data.topics,
-                    "updated_info": repo.status.updated_info,
+                    "updated_info": repo.updated_info,
                     "version_or_commit": repo.display_version_or_commit,
                 }
                 for repo in hacs.repositories.list_all
@@ -319,7 +316,7 @@ async def hacs_repository(hass, connection, msg):
 
         if action == "update":
             await repository.update_repository(ignore_issues=True, force=True)
-            repository.status.updated_info = True
+            repository.updated_info = True
 
         elif action == "install":
             repository.data.new = False
@@ -415,22 +412,7 @@ async def hacs_settings(hass, connection, msg):
     action = msg["action"]
     hacs.log.debug("WS action '%s'", action)
 
-    if action == "set_fe_grid":
-        hacs.configuration.frontend_mode = "Grid"
-
-    elif action == "onboarding_done":
-        hacs.configuration.onboarding_done = True
-
-    elif action == "set_fe_table":
-        hacs.configuration.frontend_mode = "Table"
-
-    elif action == "set_fe_compact_true":
-        hacs.configuration.frontend_compact = False
-
-    elif action == "set_fe_compact_false":
-        hacs.configuration.frontend_compact = True
-
-    elif action == "clear_new":
+    if action == "clear_new":
         for repo in hacs.repositories.list_all:
             if repo.data.new and repo.data.category in msg.get("categories", []):
                 hacs.log.debug(

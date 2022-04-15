@@ -66,7 +66,7 @@ class HacsAppdaemonRepository(HacsRepository):
 
         # Get appdaemon objects.
         if self.repository_manifest:
-            if self.data.content_in_root:
+            if self.repository_manifest.content_in_root:
                 self.content.path.remote = ""
 
         if self.content.path.remote == "apps":

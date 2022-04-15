@@ -8,7 +8,7 @@ import os
 import pathlib
 import shutil
 import tempfile
-from typing import TYPE_CHECKING, Any, List, Optional
+from typing import TYPE_CHECKING, Any, List
 import zipfile
 
 from aiogithubapi import (
@@ -20,10 +20,9 @@ from aiogithubapi.const import BASE_API_URL
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 import attr
 from homeassistant.helpers import device_registry as dr
-from homeassistant.helpers.json import JSONEncoder
 
 from ..const import DOMAIN
-from ..enums import ConfigurationType, HacsCategory, HacsDispatchEvent, RepositoryFile
+from ..enums import ConfigurationType, HacsDispatchEvent, RepositoryFile
 from ..exceptions import (
     HacsException,
     HacsNotModifiedException,
@@ -51,6 +50,38 @@ if TYPE_CHECKING:
     from ..base import HacsBase
 
 
+TOPIC_FILTER = (
+    "custom-card",
+    "custom-component",
+    "custom-components",
+    "customcomponents",
+    "hacktoberfest",
+    "hacs-default",
+    "hacs-integration",
+    "hacs",
+    "hass",
+    "hassio",
+    "home-assistant",
+    "home-automation",
+    "homeassistant-components",
+    "homeassistant-integration",
+    "homeassistant-sensor",
+    "homeassistant",
+    "homeautomation",
+    "integration",
+    "lovelace",
+    "python",
+    "sensor",
+    "theme",
+    "themes",
+    "custom-cards",
+    "home-assistant-frontend",
+    "home-assistant-hacs",
+    "home-assistant-custom",
+    "lovelace-ui",
+)
+
+
 class FileInformation:
     """FileInformation."""
 
@@ -67,52 +98,34 @@ class RepositoryData:
     archived: bool = False
     authors: List[str] = []
     category: str = ""
-    content_in_root: bool = False
-    country: List[str] = []
     config_flow: bool = False
     default_branch: str = None
     description: str = ""
-    domain: str = ""
-    domains: List[str] = []
+    domain: str = None
     downloads: int = 0
     etag_repository: str = None
     file_name: str = ""
-    filename: str = ""
     first_install: bool = False
-    fork: bool = False
     full_name: str = ""
-    hacs: str = None  # Minimum HACS version
     hide: bool = False
-    hide_default_branch: bool = False
-    homeassistant: str = None  # Minimum Home Assistant version
     id: int = 0
-    iot_class: str = None
-    installed: bool = False
     installed_commit: str = None
     installed_version: str = None
-    open_issues: int = 0
+    installed: bool = False
     last_commit: str = None
-    last_version: str = None
+    last_fetched: datetime = None
     last_updated: str = 0
+    last_version: str = None
     manifest_name: str = None
     new: bool = True
-    last_fetched: datetime = None
-    persistent_directory: str = None
+    open_issues: int = 0
+    published_tags: List[str] = []
     pushed_at: str = ""
     releases: bool = False
-    render_readme: bool = False
-    published_tags: List[str] = []
     selected_tag: str = None
     show_beta: bool = False
     stargazers_count: int = 0
     topics: List[str] = []
-    zip_release: bool = False
-    _storage_data: Optional[dict] = None
-
-    @property
-    def stars(self):
-        """Return the stargazers count."""
-        return self.stargazers_count or 0
 
     @property
     def name(self):
@@ -123,57 +136,13 @@ class RepositoryData:
 
     def to_json(self):
         """Export to json."""
-        return attr.asdict(
-            self,
-            filter=lambda attr, _: attr.name != "_storage_data" and attr.name != "last_fetched",
-        )
-
-    def memorize_storage(self, data) -> None:
-        """Memorize the storage data."""
-        self._storage_data = data
-
-    def export_data(self) -> Optional[dict]:
-        """Export to json if the data has changed.
-
-        Returns the data to export if the data needs
-        to be written.
-
-        Returns None if the data has not changed.
-        """
-        export = json.loads(json.dumps(self.to_json(), cls=JSONEncoder))
-        return None if self._storage_data == export else export
+        return attr.asdict(self, filter=lambda attr, value: attr.name != "last_fetched")
 
     @staticmethod
     def create_from_dict(source: dict):
         """Set attributes from dicts."""
         data = RepositoryData()
-        for key in source:
-            if key not in data.__dict__:
-                continue
-            if key == "pushed_at":
-                if source[key] == "":
-                    continue
-                if "Z" in source[key]:
-                    setattr(
-                        data,
-                        key,
-                        datetime.strptime(source[key], "%Y-%m-%dT%H:%M:%SZ"),
-                    )
-                else:
-                    setattr(
-                        data,
-                        key,
-                        datetime.strptime(source[key], "%Y-%m-%dT%H:%M:%S"),
-                    )
-            elif key == "id":
-                setattr(data, key, str(source[key]))
-            elif key == "country":
-                if isinstance(source[key], str):
-                    setattr(data, key, [source[key]])
-                else:
-                    setattr(data, key, source[key])
-            else:
-                setattr(data, key, source[key])
+        data.update_data(source)
         return data
 
     def update_data(self, data: dict):
@@ -199,6 +168,9 @@ class RepositoryData:
                     setattr(self, key, [data[key]])
                 else:
                     setattr(self, key, data[key])
+            elif key == "topics":
+                setattr(self, key, [topic for topic in data[key] if topic not in TOPIC_FILTER])
+
             else:
                 setattr(self, key, data[key])
 
@@ -207,19 +179,17 @@ class RepositoryData:
 class HacsManifest:
     """HacsManifest class."""
 
-    name: str = None
     content_in_root: bool = False
-    zip_release: bool = False
-    filename: str = None
-    manifest: dict = {}
-    hacs: str = None
-    hide_default_branch: bool = False
-    domains: List[str] = []
     country: List[str] = []
-    homeassistant: str = None
+    filename: str = None
+    hacs: str = None  # Minimum HACS version
+    hide_default_branch: bool = False
+    homeassistant: str = None  # Minimum Home Assistant version
+    manifest: dict = {}
+    name: str = None
     persistent_directory: str = None
-    iot_class: str = None
     render_readme: bool = False
+    zip_release: bool = False
 
     def to_dict(self):
         """Export to json."""
@@ -232,30 +202,18 @@ class HacsManifest:
             raise HacsException("Missing manifest data")
 
         manifest_data = HacsManifest()
+        manifest_data.manifest = {
+            k: v
+            for k, v in manifest.items()
+            if k in manifest_data.__dict__ and v != manifest_data.__getattribute__(k)
+        }
 
-        manifest_data.manifest = manifest
-
-        if country := manifest.get("country"):
-            if isinstance(country, str):
-                manifest["country"] = [country]
-
-        for key in manifest:
-            setattr(manifest_data, key, manifest[key])
+        for key, value in manifest_data.manifest.items():
+            if key == "country" and isinstance(value, str):
+                setattr(manifest_data, key, [value])
+            elif key in manifest_data.__dict__:
+                setattr(manifest_data, key, value)
         return manifest_data
-
-
-class RepositoryStatus:
-    """Repository status."""
-
-    hide = False
-    installed = False
-    last_updated = None
-    new = True
-    selected_tag = None
-    show_beta = False
-    track = True
-    updated_info = False
-    first_install = True
 
 
 class RepositoryReleases:
@@ -263,7 +221,6 @@ class RepositoryReleases:
 
     last_release = None
     last_release_object = None
-    last_release_object_downloads = None
     published_tags = []
     objects: list[GitHubReleaseModel] = []
     releases = False
@@ -297,7 +254,7 @@ class HacsRepository:
         self.content = RepositoryContent()
         self.content.path = RepositoryPath()
         self.repository_object: AIOGitHubAPIRepository | None = None
-        self.status = RepositoryStatus()
+        self.updated_info = False
         self.state = None
         self.force_branch = False
         self.integration_manifest = {}
@@ -326,9 +283,10 @@ class HacsRepository:
             return self.repository_manifest.name
 
         if self.data.category == "integration":
-            if self.integration_manifest:
-                if "name" in self.integration_manifest:
-                    return self.integration_manifest["name"]
+            if self.data.manifest_name is not None:
+                return self.data.manifest_name
+            if "name" in self.integration_manifest:
+                return self.integration_manifest["name"]
 
         return self.data.full_name.split("/")[-1].replace("-", " ").replace("_", " ").title()
 
@@ -338,9 +296,10 @@ class HacsRepository:
         if self.data.installed:
             return False
         configuration = self.hacs.configuration.country.lower()
-        manifest = [entry.lower() for entry in self.repository_manifest.country or []]
         if configuration == "all":
             return False
+
+        manifest = [entry.lower() for entry in self.repository_manifest.country or []]
         if not manifest:
             return False
         return configuration not in manifest
@@ -444,11 +403,11 @@ class HacsRepository:
     @property
     def can_download(self) -> bool:
         """Return True if we can download."""
-        if self.data.homeassistant is not None:
+        if self.repository_manifest.homeassistant is not None:
             if self.data.releases:
                 if not version_left_higher_or_equal_then_right(
                     self.hacs.core.ha_version.string,
-                    self.data.homeassistant,
+                    self.repository_manifest.homeassistant,
                 ):
                     return False
         return True
@@ -461,8 +420,8 @@ class HacsRepository:
     @property
     def should_try_releases(self) -> bool:
         """Return a boolean indicating whether to download releases or not."""
-        if self.data.zip_release:
-            if self.data.filename.endswith(".zip"):
+        if self.repository_manifest.zip_release:
+            if self.repository_manifest.filename.endswith(".zip"):
                 if self.ref != self.data.default_branch:
                     return True
         if self.ref == self.data.default_branch:
@@ -510,9 +469,6 @@ class HacsRepository:
 
         # Set topics
         self.data.topics = self.data.topics
-
-        # Set stargazers_count
-        self.data.stargazers_count = self.data.stargazers_count
 
         # Set description
         self.data.description = self.data.description
@@ -597,7 +553,7 @@ class HacsRepository:
                 return
 
             temp_dir = await self.hacs.hass.async_add_executor_job(tempfile.mkdtemp)
-            temp_file = f"{temp_dir}/{self.data.filename}"
+            temp_file = f"{temp_dir}/{self.repository_manifest.filename}"
 
             result = await self.hacs.async_save_file(temp_file, filecontent)
             with zipfile.ZipFile(temp_file, "r") as zip_file:
@@ -622,7 +578,7 @@ class HacsRepository:
         """Download the content of a directory."""
         if self.hacs.configuration.experimental:
             if (
-                not self.data.zip_release
+                not self.repository_manifest.zip_release
                 and not self.data.file_name
                 and self.content.path.remote is not None
             ):
@@ -634,16 +590,16 @@ class HacsRepository:
                     self.logger.exception(exception)
 
         contents = self.gather_files_to_download()
-        if self.data.filename:
-            self.logger.debug("%s %s", self.string, self.data.filename)
+        if self.repository_manifest.filename:
+            self.logger.debug("%s %s", self.string, self.repository_manifest.filename)
         if not contents:
             raise HacsException("No content to download")
 
         download_queue = QueueManager(hass=self.hacs.hass)
 
         for content in contents:
-            if self.data.content_in_root and self.data.filename:
-                if content.name != self.data.filename:
+            if self.repository_manifest.content_in_root and self.repository_manifest.filename:
+                if content.name != self.repository_manifest.filename:
                     continue
             download_queue.add(self.dowload_repository_content(content))
 
@@ -669,7 +625,7 @@ class HacsRepository:
             raise HacsException(f"[{self}] Failed to download zipball")
 
         temp_dir = await self.hacs.hass.async_add_executor_job(tempfile.mkdtemp)
-        temp_file = f"{temp_dir}/{self.data.filename}"
+        temp_file = f"{temp_dir}/{self.repository_manifest.filename}"
         result = await self.hacs.async_save_file(temp_file, filecontent)
         if not result:
             raise HacsException("Could not save ZIP file")
@@ -714,7 +670,7 @@ class HacsRepository:
         def _info_file_variants() -> tuple[str, ...]:
             name: str = (
                 "readme"
-                if self.data.render_readme or self.hacs.configuration.experimental
+                if self.repository_manifest.render_readme or self.hacs.configuration.experimental
                 else "info"
             )
             return (
@@ -945,11 +901,13 @@ class HacsRepository:
             persistent_directory = BackupNetDaemon(hacs=self.hacs, repository=self)
             await self.hacs.hass.async_add_executor_job(persistent_directory.create)
 
-        elif self.data.persistent_directory:
-            if os.path.exists(f"{self.content.path.local}/{self.data.persistent_directory}"):
+        elif self.repository_manifest.persistent_directory:
+            if os.path.exists(
+                f"{self.content.path.local}/{self.repository_manifest.persistent_directory}"
+            ):
                 persistent_directory = Backup(
                     hacs=self.hacs,
-                    local_path=f"{self.content.path.local}/{self.data.persistent_directory}",
+                    local_path=f"{self.content.path.local}/{self.repository_manifest.persistent_directory}",
                     backup_path=tempfile.gettempdir() + "/hacs_persistent_directory/",
                 )
                 await self.hacs.hass.async_add_executor_job(persistent_directory.create)
@@ -966,7 +924,7 @@ class HacsRepository:
             {"repository": self.data.full_name, "progress": 50},
         )
 
-        if self.data.zip_release and version != self.data.default_branch:
+        if self.repository_manifest.zip_release and version != self.data.default_branch:
             await self.download_zip_files(self.validate)
         else:
             await self.download_content()
@@ -1175,8 +1133,8 @@ class HacsRepository:
             if files:
                 return files
 
-        if self.data.content_in_root:
-            if not self.data.filename:
+        if self.repository_manifest.content_in_root:
+            if not self.repository_manifest.filename:
                 if category == "theme":
                     tree = filter_content_return_one_of_type(self.tree, "", "yaml", "full_path")
 
@@ -1205,7 +1163,7 @@ class HacsRepository:
 
             else:
                 _content_path = content.path
-                if not self.data.content_in_root:
+                if not self.repository_manifest.content_in_root:
                     _content_path = _content_path.replace(f"{self.content.path.remote}", "")
 
                 local_directory = f"{self.content.path.local}/{_content_path}"

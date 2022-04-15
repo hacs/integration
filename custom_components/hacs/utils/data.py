@@ -7,11 +7,10 @@ from homeassistant.util import json as json_util
 
 from ..base import HacsBase
 from ..enums import HacsDispatchEvent, HacsGitHubRepo
-from ..repositories.base import HacsManifest, HacsRepository
+from ..repositories.base import TOPIC_FILTER, HacsManifest, HacsRepository
 from .logger import get_hacs_logger
 from .path import is_safe
 from .store import async_load_from_store, async_save_to_store
-
 
 DEFAULT_BASE_REPOSITORY_DATA = (
     ("authors", []),
@@ -179,10 +178,12 @@ class HacsData:
         self.hacs.repositories.set_repository_id(repository, entry)
         repository.data.authors = repository_data.get("authors", [])
         repository.data.description = repository_data.get("description", "")
-        repository.releases.last_release_object_downloads = repository_data.get("downloads", 0)
+        repository.data.downloads = repository_data.get("downloads", 0)
         repository.data.last_updated = repository_data.get("last_updated", 0)
         repository.data.etag_repository = repository_data.get("etag_repository")
-        repository.data.topics = repository_data.get("topics", [])
+        repository.data.topics = [
+            topic for topic in repository_data.get("topics", []) if topic not in TOPIC_FILTER
+        ]
         repository.data.domain = repository_data.get("domain", None)
         repository.data.stargazers_count = repository_data.get(
             "stargazers_count"

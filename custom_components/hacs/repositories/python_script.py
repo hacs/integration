@@ -38,7 +38,7 @@ class HacsPythonScriptRepository(HacsRepository):
         await self.common_validate()
 
         # Custom step 1: Validate content.
-        if self.data.content_in_root:
+        if self.repository_manifest.content_in_root:
             self.content.path.remote = ""
 
         compliant = False
@@ -70,7 +70,7 @@ class HacsPythonScriptRepository(HacsRepository):
             return
 
         # Get python_script objects.
-        if self.data.content_in_root:
+        if self.repository_manifest.content_in_root:
             self.content.path.remote = ""
 
         compliant = False

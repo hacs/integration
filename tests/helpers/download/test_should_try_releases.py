@@ -32,8 +32,8 @@ def test_no_releases(repository):
 
 def test_zip_release(repository):
     repository.data.releases = False
-    repository.data.zip_release = True
-    repository.data.filename = "test.zip"
+    repository.repository_manifest.zip_release = True
+    repository.repository_manifest.filename = "test.zip"
     assert repository.should_try_releases
 
     # Select a branch

@@ -59,7 +59,7 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
     def release_summary(self) -> str | None:
         """Return the release summary."""
         if not self.repository.can_download:
-            return f"<ha-alert alert-type='warning'>Requires Home Assistant {self.repository.data.homeassistant}</ha-alert>"
+            return f"<ha-alert alert-type='warning'>Requires Home Assistant {self.repository.repository_manifest.homeassistant}</ha-alert>"
         if self.repository.pending_restart:
             return "<ha-alert alert-type='error'>Restart of Home Assistant required</ha-alert>"
         return None

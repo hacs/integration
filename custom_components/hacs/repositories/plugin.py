@@ -95,11 +95,13 @@ class HacsPluginRepository(HacsRepository):
 
     def update_filenames(self) -> None:
         """Get the filename to target."""
-        possible_locations = ("",) if self.data.content_in_root else ("release", "dist", "")
+        possible_locations = (
+            ("",) if self.repository_manifest.content_in_root else ("release", "dist", "")
+        )
 
         # Handler for plug requirement 3
-        if self.data.filename:
-            valid_filenames = (self.data.filename,)
+        if self.repository_manifest.filename:
+            valid_filenames = (self.repository_manifest.filename,)
         else:
             valid_filenames = (
                 f"{self.data.name.replace('lovelace-', '')}.js",

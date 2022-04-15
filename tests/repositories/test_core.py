@@ -29,13 +29,13 @@ def test_hacs_repository_core_can_install_legacy(hacs):
     repository.hacs.core.ha_version = AwesomeVersion("1.0.0")
     repository.data.releases = True
 
-    repository.data.homeassistant = "1.1.0"
+    repository.repository_manifest.homeassistant = "1.1.0"
     assert not repository.can_download
 
-    repository.data.homeassistant = "1.0.0"
+    repository.repository_manifest.homeassistant = "1.0.0"
     assert repository.can_download
 
-    repository.data.homeassistant = "0.1.0"
+    repository.repository_manifest.homeassistant = "0.1.0"
     assert repository.can_download
 
 
@@ -44,11 +44,11 @@ def test_hacs_repository_core_can_install_manifest(hacs):
     repository.hacs.core.ha_version = AwesomeVersion("1.0.0")
     repository.data.releases = True
 
-    repository.data.homeassistant = "1.1.0"
+    repository.repository_manifest.homeassistant = "1.1.0"
     assert not repository.can_download
 
-    repository.data.homeassistant = "1.0.0"
+    repository.repository_manifest.homeassistant = "1.0.0"
     assert repository.can_download
 
-    repository.data.homeassistant = "0.1.0"
+    repository.repository_manifest.homeassistant = "0.1.0"
     assert repository.can_download

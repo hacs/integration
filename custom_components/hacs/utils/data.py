@@ -16,6 +16,7 @@ DEFAULT_BASE_REPOSITORY_DATA = (
     ("authors", []),
     ("category", ""),
     ("description", ""),
+    ("domain", ""),
     ("downloads", 0),
     ("etag_repository", None),
     ("full_name", ""),

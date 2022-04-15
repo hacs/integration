@@ -73,20 +73,17 @@ class RepositoryData:
     default_branch: str = None
     description: str = ""
     domain: str = ""
-    domains: List[str] = []
     downloads: int = 0
     etag_repository: str = None
     file_name: str = ""
     filename: str = ""
     first_install: bool = False
-    fork: bool = False
     full_name: str = ""
     hacs: str = None  # Minimum HACS version
     hide: bool = False
     hide_default_branch: bool = False
     homeassistant: str = None  # Minimum Home Assistant version
     id: int = 0
-    iot_class: str = None
     installed: bool = False
     installed_commit: str = None
     installed_version: str = None
@@ -107,7 +104,6 @@ class RepositoryData:
     stargazers_count: int = 0
     topics: List[str] = []
     zip_release: bool = False
-    _storage_data: Optional[dict] = None
 
     @property
     def stars(self):
@@ -123,10 +119,9 @@ class RepositoryData:
 
     def to_json(self):
         """Export to json."""
-        default = RepositoryData()
         return attr.asdict(
             self,
-            filter=lambda attr, _: attr.name != "_storage_data" and attr.name != "last_fetched",
+            filter=lambda attr, _: attr.name != "last_fetched",
         )
 
     @staticmethod
@@ -177,11 +172,9 @@ class HacsManifest:
     manifest: dict = {}
     hacs: str = None
     hide_default_branch: bool = False
-    domains: List[str] = []
     country: List[str] = []
     homeassistant: str = None
     persistent_directory: str = None
-    iot_class: str = None
     render_readme: bool = False
 
     def to_dict(self):
@@ -203,7 +196,8 @@ class HacsManifest:
                 manifest["country"] = [country]
 
         for key in manifest:
-            setattr(manifest_data, key, manifest[key])
+            if key in manifest_data.__dict__:
+                setattr(manifest_data, key, manifest[key])
         return manifest_data
 
 

@@ -17,10 +17,9 @@ def test_data_structure():
 
 def test_data_update():
     data = RepositoryData.create_from_dict({})
-    assert not data.fork
     data.update_data({"fork": True})
     data.update_data({"pushed_at": "1970-01-01T00:00:00"})
     data.update_data({"country": ""})
-    data.update_data({"country": [""]})
+    data.update_data({"country": ["NO"]})
     data.update_data({"pushed_at": ""})
-    assert data.fork
+    assert data.country == ["NO"]

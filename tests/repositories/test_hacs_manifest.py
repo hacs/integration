@@ -23,9 +23,6 @@ def test_manifest_structure():
     assert isinstance(manifest.filename, (str, type(None)))
     assert manifest.filename is None
 
-    assert isinstance(manifest.domains, list)
-    assert not manifest.domains
-
     assert isinstance(manifest.country, list)
     assert not manifest.country
 

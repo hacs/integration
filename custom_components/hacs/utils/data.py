@@ -80,25 +80,21 @@ class HacsData:
             },
         )
         await self._async_store_content_and_repos()
-        for event in (HacsDispatchEvent.REPOSITORY, HacsDispatchEvent.CONFIG):
-            self.hacs.async_dispatch(event, {})
 
-    async def _async_store_content_and_repos(self):  # bb: ignore
+    async def _async_store_content_and_repos(self, _=None):  # bb: ignore
         """Store the main repos file and each repo that is out of date."""
         # Repositories
         self.content = {}
-
-        await asyncio.gather(
-            *(
+        for repository in self.hacs.repositories.list_all:
+            if repository.data.category in self.hacs.common.categories:
                 self.async_store_repository_data(repository)
-                for repository in self.hacs.repositories.list_all
-                if repository.data.category in self.hacs.common.categories
-            )
-        )
 
         await async_save_to_store(self.hacs.hass, "repositories", self.content)
+        for event in (HacsDispatchEvent.REPOSITORY, HacsDispatchEvent.CONFIG):
+            self.hacs.async_dispatch(event, {})
 
-    async def async_store_repository_data(self, repository: HacsRepository):
+    @callback
+    def async_store_repository_data(self, repository: HacsRepository) -> dict:
         """Store the repository data."""
         data = {"repository_manifest": repository.repository_manifest.manifest}
 

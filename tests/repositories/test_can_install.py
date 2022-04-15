@@ -2,7 +2,7 @@
 # pylint: disable=missing-docstring
 from awesomeversion import AwesomeVersion
 
-from custom_components.hacs.repositories.base import HacsRepository, HacsManifest
+from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
 
 
 def test_hacs_can_install(hacs):

@@ -25,7 +25,7 @@ from aiogithubapi import (
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
-from homeassistant.config_entries import ConfigEntry
+from homeassistant.config_entries import ConfigEntry, ConfigEntryState
 from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
@@ -382,6 +382,14 @@ class HacsBase:
         self.system.disabled_reason = reason
         if reason != HacsDisabledReason.REMOVED:
             self.log.error("HACS is disabled - %s", reason)
+
+        if (
+            reason == HacsDisabledReason.INVALID_TOKEN
+            and self.configuration.config_type == ConfigurationType.CONFIG_ENTRY
+        ):
+            self.configuration.config_entry.state = ConfigEntryState.SETUP_ERROR
+            self.configuration.config_entry.reason = "Authentication failed"
+            self.hass.add_job(self.configuration.config_entry.async_start_reauth, self.hass)
 
     def enable_hacs(self) -> None:
         """Enable HACS."""
@@ -754,6 +762,8 @@ class HacsBase:
 
     async def async_get_all_category_repositories(self, _=None) -> None:
         """Get all category repositories."""
+        if self.system.disabled:
+            return
         self.log.info("Loading known repositories")
         await asyncio.gather(
             *[
@@ -764,6 +774,8 @@ class HacsBase:
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""
+        if self.system.disabled:
+            return
         try:
             repositories = await self.async_github_get_hacs_default_file(category)
         except HacsException:
@@ -794,6 +806,8 @@ class HacsBase:
 
     async def async_update_all_repositories(self, _=None) -> None:
         """Update all repositories."""
+        if self.system.disabled:
+            return
         self.log.debug("Starting recurring background task for all repositories")
 
         for repository in self.repositories.list_all:
@@ -817,6 +831,9 @@ class HacsBase:
 
     async def async_prosess_queue(self, _=None) -> None:
         """Process the queue."""
+        if self.system.disabled:
+            self.log.debug("HACS is disabled")
+            return
         if not self.queue.has_pending_tasks:
             self.log.debug("Nothing in the queue")
             return
@@ -846,6 +863,8 @@ class HacsBase:
 
     async def async_handle_removed_repositories(self, _=None) -> None:
         """Handle removed repositories."""
+        if self.system.disabled:
+            return
         need_to_save = False
         self.log.info("Loading removed repositories")
 
@@ -882,6 +901,8 @@ class HacsBase:
 
     async def async_update_downloaded_repositories(self, _=None) -> None:
         """Execute the task."""
+        if self.system.disabled:
+            return
         self.log.info("Starting recurring background task for downloaded repositories")
 
         for repository in self.repositories.list_downloaded:

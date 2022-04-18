@@ -19,7 +19,6 @@ from homeassistant.util.unit_system import METRIC_SYSTEM
 
 from custom_components.hacs.repositories.base import HacsRepository
 from custom_components.hacs.utils.logger import get_hacs_logger
-from custom_components.hacs.utils.version import version_to_download
 
 from tests.async_mock import AsyncMock, Mock, patch
 
@@ -58,7 +57,7 @@ def dummy_repository_base(hacs, repository=None):
     repository.data.domain = "test"
     repository.data.last_version = "3"
     repository.data.selected_tag = "3"
-    repository.ref = version_to_download(repository)
+    repository.ref = repository.version_to_download()
     repository.integration_manifest = {"config_flow": False, "domain": "test"}
     repository.data.published_tags = ["1", "2", "3"]
     repository.data.update_data(fixture("repository_data.json", asjson=True))

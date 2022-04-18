@@ -42,7 +42,6 @@ from ..utils.validate import Validate
 from ..utils.version import (
     version_left_higher_or_equal_then_right,
     version_left_higher_then_right,
-    version_to_download,
 )
 from ..utils.workarounds import DOMAIN_OVERRIDES
 
@@ -657,7 +656,7 @@ class HacsRepository:
                 raise_exception=False,
                 repository=self.data.full_name,
                 path=RepositoryFile.HACS_JSON,
-                **{"params": {"ref": ref or version_to_download(self)}},
+                **{"params": {"ref": ref or self.version_to_download()}},
             )
             if response:
                 return json.loads(decode_content(response.data.content))
@@ -886,7 +885,7 @@ class HacsRepository:
         if not self.can_download:
             raise HacsException("The version of Home Assistant is not compatible with this version")
 
-        version = version_to_download(self)
+        version = self.version_to_download()
         if version == self.data.default_branch:
             self.ref = version
         else:
@@ -1060,7 +1059,7 @@ class HacsRepository:
             self.data.releases = False
 
         if not self.force_branch:
-            self.ref = version_to_download(self)
+            self.ref = self.version_to_download()
         if self.data.releases:
             for release in self.releases.objects or []:
                 if release.tag_name == self.ref:
@@ -1201,3 +1200,21 @@ class HacsRepository:
             return
 
         device_registry.async_remove_device(device_id=device.id)
+
+    def version_to_download(self) -> str:
+        """Determine which version to download."""
+        if self.data.last_version is not None:
+            if self.data.selected_tag is not None:
+                if self.data.selected_tag == self.data.last_version:
+                    self.data.selected_tag = None
+                    return self.data.last_version
+                return self.data.selected_tag
+            return self.data.last_version
+
+        if self.data.selected_tag is not None:
+            if self.data.selected_tag == self.data.default_branch:
+                return self.data.default_branch
+            if self.data.selected_tag in self.data.published_tags:
+                return self.data.selected_tag
+
+        return self.data.default_branch or "main"

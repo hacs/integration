@@ -197,8 +197,12 @@ async def async_initialize_integration(
         except AIOGitHubAPIException:
             startup_result = False
         if not startup_result:
-            hacs.log.info("Could not setup HACS, trying again in 15 min")
-            async_call_later(hass, 900, async_try_startup)
+            if (
+                hacs.configuration.config_type == ConfigurationType.YAML
+                or hacs.system.disabled_reason != HacsDisabledReason.INVALID_TOKEN
+            ):
+                hacs.log.info("Could not setup HACS, trying again in 15 min")
+                async_call_later(hass, 900, async_try_startup)
             return
         hacs.enable_hacs()
 
@@ -216,7 +220,9 @@ async def async_setup(hass: HomeAssistant, config: dict[str, Any]) -> bool:
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Set up this integration using UI."""
     config_entry.async_on_unload(config_entry.add_update_listener(async_reload_entry))
-    return await async_initialize_integration(hass=hass, config_entry=config_entry)
+    setup_result = await async_initialize_integration(hass=hass, config_entry=config_entry)
+    hacs: HacsBase = hass.data[DOMAIN]
+    return setup_result and not hacs.system.disabled
 
 
 async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:

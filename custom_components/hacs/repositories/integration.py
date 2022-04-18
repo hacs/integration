@@ -11,7 +11,6 @@ from ..exceptions import AddonRepositoryException, HacsException
 from ..utils.decode import decode_content
 from ..utils.decorator import concurrent
 from ..utils.filters import get_first_directory_in_directory
-from ..utils.version import version_to_download
 from .base import HacsRepository
 
 if TYPE_CHECKING:
@@ -161,7 +160,7 @@ class HacsIntegrationRepository(HacsRepository):
             method=self.hacs.githubapi.repos.contents.get,
             repository=self.data.full_name,
             path=manifest_path,
-            **{"params": {"ref": ref or version_to_download(self)}},
+            **{"params": {"ref": ref or self.version_to_download()}},
         )
         if response:
             return json.loads(decode_content(response.data.content))

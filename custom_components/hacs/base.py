@@ -970,5 +970,5 @@ class HacsBase:
 
         # Restart HASS
         if was_installed:
-            self.log.critical("Resarting Home Assistant")
+            self.log.critical("Restarting Home Assistant")
             self.hass.async_create_task(self.hass.async_stop(100))

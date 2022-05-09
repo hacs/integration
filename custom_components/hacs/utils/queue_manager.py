@@ -42,7 +42,7 @@ class QueueManager:
     async def execute(self, number_of_tasks: int | None = None) -> None:
         """Execute the tasks in the queue."""
         if self.running:
-            _LOGGER.debug("<QueueManager> Execution is allreay running")
+            _LOGGER.debug("<QueueManager> Execution is already running")
             raise HacsExecutionStillInProgress
         if len(self.queue) == 0:
             _LOGGER.debug("<QueueManager> The queue is empty")

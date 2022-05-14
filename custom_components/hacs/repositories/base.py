@@ -1188,7 +1188,6 @@ class HacsRepository:
         """Remove the entity device."""
         if (
             self.hacs.configuration == ConfigurationType.YAML
-            or not self.hacs.core.ha_version >= "2022.4.0.dev0"
             or not self.hacs.configuration.experimental
         ):
             return

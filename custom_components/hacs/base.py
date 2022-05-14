@@ -722,11 +722,7 @@ class HacsBase:
 
     async def async_recreate_entities(self) -> None:
         """Recreate entities."""
-        if (
-            self.configuration == ConfigurationType.YAML
-            or not self.core.ha_version >= "2022.4.0.dev0"
-            or not self.configuration.experimental
-        ):
+        if self.configuration == ConfigurationType.YAML or not self.configuration.experimental:
             return
 
         platforms = [Platform.SENSOR, Platform.UPDATE]

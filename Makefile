@@ -57,6 +57,6 @@ homeassistant-install-old: ## Install the oldest version of Home Assistant
 	python3 -m pip --disable-pip-version-check install -U "pip>=8.0.3,<20.3";
 	python3 -m pip --disable-pip-version-check install -U setuptools wheel;
 	python3 -m pip --disable-pip-version-check \
-		install --upgrade git+https://github.com/home-assistant/home-assistant.git@2022.3.0;
+		install --upgrade git+https://github.com/home-assistant/home-assistant.git@2022.4.0;
 
 homeassistant-update: homeassistant-install ## Alias for 'homeassistant-install'

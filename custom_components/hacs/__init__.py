@@ -169,7 +169,7 @@ async def async_initialize_integration(
             hacs.log.info("Update entities are only supported when using UI configuration")
 
         else:
-            if hacs.core.ha_version >= "2022.4.0.dev0" and hacs.configuration.experimental:
+            if hacs.configuration.experimental:
                 hass.config_entries.async_setup_platforms(
                     hacs.configuration.config_entry, [Platform.SENSOR, Platform.UPDATE]
                 )
@@ -247,7 +247,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
         pass
 
     platforms = ["sensor"]
-    if hacs.core.ha_version >= "2022.4.0.dev0" and hacs.configuration.experimental:
+    if hacs.configuration.experimental:
         platforms.append("update")
 
     unload_ok = await hass.config_entries.async_unload_platforms(config_entry, platforms)

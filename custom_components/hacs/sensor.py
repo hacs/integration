@@ -38,7 +38,6 @@ class HACSSensor(HacsSystemEntity, SensorEntity):
         self._attr_native_value = len(repositories)
         if (
             self.hacs.configuration.config_type == ConfigurationType.YAML
-            and self.hacs.core.ha_version < "2022.4.0.dev0"
             and not self.hacs.configuration.experimental
         ):
             self._attr_extra_state_attributes = {

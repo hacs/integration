@@ -11,13 +11,13 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 import voluptuous as vol
 
-from custom_components.hacs.const import DOMAIN
-
 from .base import HacsBase
+from .const import DOMAIN
 from .enums import HacsDispatchEvent
 from .exceptions import HacsException
 from .utils import regex
 from .utils.store import async_load_from_store, async_save_to_store
+from .utils.version import version_left_higher_then_right
 
 
 @callback
@@ -295,6 +295,7 @@ async def hacs_repository_data(hass, connection, msg):
         vol.Required("type"): "hacs/repository",
         vol.Optional("action"): cv.string,
         vol.Optional("repository"): cv.string,
+        vol.Optional("data"): dict,
     }
 )
 @websocket_api.require_admin
@@ -307,6 +308,7 @@ async def hacs_repository(hass, connection, msg):
 
     repo_id = msg.get("repository")
     action = msg.get("action")
+    msg_data = msg.get("data", {})
     if repo_id is None or action is None:
         return
 
@@ -364,6 +366,8 @@ async def hacs_repository(hass, connection, msg):
                     "tag": x.tag_name,
                 }
                 for x in repository.releases.objects
+                if not (current := msg_data.get("current_version"))
+                or version_left_higher_then_right(x.tag_name, current)
             ]
 
         elif action == "set_version":

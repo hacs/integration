@@ -37,9 +37,6 @@ coverage: ## Display coverage report
 update: ## Pull main from hacs/integration
 	git pull upstream main;
 
-bump-frontend: ## Bump the HACS frontend
-	@bash manage/bump_frontend;
-
 update-base-repositories: ## Update stored base repositories
 	@python3 manage/update_default_repositories.py;
 

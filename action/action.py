@@ -126,6 +126,7 @@ async def validate_repository(repository, category, ref=None):
         hacs = HacsBase()
         hacs.hass = HomeAssistant()
         hacs.session = session
+        hacs.system.action = True
         hacs.configuration.token = TOKEN
         hacs.core.config_path = None
         hacs.validation = ValidationManager(hacs=hacs, hass=hacs.hass)

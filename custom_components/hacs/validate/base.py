@@ -46,6 +46,6 @@ class ActionValidationBase:
             self.hacs.log.error("<Validation %s> failed:  %s", self.slug, exception)
 
         else:
-            self.hacs.log.debug(
+            self.hacs.log.info(
                 "<Validation %s> took %.3f seconds to complete", self.slug, monotonic() - start_time
             )

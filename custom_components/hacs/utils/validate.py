@@ -4,6 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from awesomeversion import AwesomeVersion
+from homeassistant.helpers.config_validation import url as url_validator
 import voluptuous as vol
 
 from ..const import LOCALE
@@ -53,4 +54,16 @@ HACS_MANIFEST_JSON_SCHEMA = vol.Schema(
         vol.Required("name"): str,
     },
     extra=vol.PREVENT_EXTRA,
+)
+
+INTEGRATION_MANIFEST_JSON_SCHEMA = vol.Schema(
+    {
+        vol.Required("codeowners"): list,
+        vol.Required("documentation"): url_validator,
+        vol.Required("domain"): str,
+        vol.Required("issue_tracker"): url_validator,
+        vol.Required("name"): str,
+        vol.Required("version"): vol.Coerce(AwesomeVersion),
+    },
+    extra=vol.ALLOW_EXTRA,
 )

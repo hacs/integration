@@ -4,6 +4,7 @@ from voluptuous.error import Invalid
 
 from custom_components.hacs.utils.validate import (
     HACS_MANIFEST_JSON_SCHEMA as hacs_json_schema,
+    INTEGRATION_MANIFEST_JSON_SCHEMA as integration_json_schema,
 )
 
 
@@ -69,3 +70,21 @@ def test_hacs_manufest_json_schema():
 
     with pytest.raises(Invalid, match="Value 'False' is not a string or list."):
         hacs_json_schema({"name": "My awesome thing", "country": False})
+
+
+def test_integration_json_schema():
+    """Test integration manifest."""
+    base_data = {
+        "issue_tracker": "https://hacs.xyz/",
+        "name": "My awesome thing",
+        "version": "1.2",
+        "domain": "myawesomething",
+        "codeowners": ["test"],
+        "documentation": "https://hacs.xyz/",
+    }
+
+    assert integration_json_schema(base_data)["version"] == AwesomeVersion(1.2)
+    assert integration_json_schema(base_data) == base_data
+
+    with pytest.raises(Invalid, match="expected str for dictionary value"):
+        integration_json_schema({**base_data, "domain": None})

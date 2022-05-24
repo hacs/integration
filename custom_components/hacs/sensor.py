@@ -38,7 +38,7 @@ class HACSSensor(HacsSystemEntity, SensorEntity):
         self._attr_native_value = len(repositories)
         if (
             self.hacs.configuration.config_type == ConfigurationType.YAML
-            and not self.hacs.configuration.experimental
+            or not self.hacs.configuration.experimental
         ):
             self._attr_extra_state_attributes = {
                 "repositories": [

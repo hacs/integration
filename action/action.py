@@ -134,31 +134,30 @@ async def preflight():
 
 async def validate_repository(githubapi, session, repository, category, ref=None):
     """Validate."""
-    async with aiohttp.ClientSession() as session:
-        hacs = HacsBase()
-        hacs.hass = HomeAssistant()
-        hacs.session = session
-        hacs.system.action = True
-        hacs.configuration.token = TOKEN
-        hacs.core.config_path = None
-        hacs.validation = ValidationManager(hacs=hacs, hass=hacs.hass)
+    hacs = HacsBase()
+    hacs.hass = HomeAssistant()
+    hacs.session = session
+    hacs.system.action = True
+    hacs.configuration.token = TOKEN
+    hacs.core.config_path = None
+    hacs.validation = ValidationManager(hacs=hacs, hass=hacs.hass)
 
-        ## Legacy GitHub client
-        hacs.github = GitHub(
-            hacs.configuration.token,
-            session,
-            headers=HACS_ACTION_GITHUB_API_HEADERS,
+    ## Legacy GitHub client
+    hacs.github = GitHub(
+        hacs.configuration.token,
+        session,
+        headers=HACS_ACTION_GITHUB_API_HEADERS,
+    )
+
+    ## New GitHub client
+    hacs.githubapi = githubapi
+
+    try:
+        await hacs.async_register_repository(
+            repository_full_name=repository, category=category, ref=ref
         )
-
-        ## New GitHub client
-        hacs.githubapi = githubapi
-
-        try:
-            await hacs.async_register_repository(
-                repository_full_name=repository, category=category, ref=ref
-            )
-        except HacsException as exception:
-            error(exception)
+    except HacsException as exception:
+        error(exception)
 
 
 LOOP = asyncio.get_event_loop()

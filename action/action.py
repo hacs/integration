@@ -18,7 +18,7 @@ from custom_components.hacs.utils.decode import decode_content
 from custom_components.hacs.utils.logger import get_hacs_logger
 from custom_components.hacs.validate.manager import ValidationManager
 
-TOKEN = os.getenv("INPUT_GITHUB_TOKEN", os.getenv("ACTIONS_RUNTIME_TOKEN"))
+TOKEN = os.getenv("INPUT_GITHUB_TOKEN")
 GITHUB_WORKSPACE = os.getenv("GITHUB_WORKSPACE")
 GITHUB_ACTOR = os.getenv("GITHUB_ACTOR")
 GITHUB_EVENT_PATH = os.getenv("GITHUB_EVENT_PATH")

@@ -12,16 +12,9 @@ async def async_setup_validator(repository: HacsRepository) -> Validator:
 class Validator(ActionValidationBase):
     """Validate the repository."""
 
+    more_info = "https://hacs.xyz/docs/publish/include#check-repository"
+
     async def async_validate(self):
         """Validate the repository."""
-        filenames = [x.filename.lower() for x in self.repository.tree]
-        if "readme" in filenames:
-            pass
-        elif "readme.md" in filenames:
-            pass
-        elif "info" in filenames:
-            pass
-        elif "info.md" in filenames:
-            pass
-        else:
-            raise ValidationException("The repository has no information file")
+        if not self.repository.data.topics:
+            raise ValidationException("The repository has no topics")

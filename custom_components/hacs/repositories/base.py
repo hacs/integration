@@ -107,6 +107,7 @@ class RepositoryData:
     first_install: bool = False
     full_name: str = ""
     hide: bool = False
+    has_issues: bool = True
     id: int = 0
     installed_commit: str = None
     installed_version: str = None

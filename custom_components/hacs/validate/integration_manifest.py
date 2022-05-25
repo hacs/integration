@@ -2,12 +2,10 @@ from __future__ import annotations
 
 from voluptuous.error import Invalid
 
-from ..repositories.integration import HacsIntegrationRepository
-
-from ..utils.validate import INTEGRATION_MANIFEST_JSON_SCHEMA
-
-from ..enums import RepositoryFile
+from ..enums import HacsCategory, RepositoryFile
 from ..repositories.base import HacsRepository
+from ..repositories.integration import HacsIntegrationRepository
+from ..utils.validate import INTEGRATION_MANIFEST_JSON_SCHEMA
 from .base import ActionValidationBase, ValidationException
 
 
@@ -20,8 +18,8 @@ class Validator(ActionValidationBase):
     """Validate the repository."""
 
     repository: HacsIntegrationRepository
-
-    category = "integration"
+    more_info = "https://hacs.xyz/docs/publish/include#check-manifest"
+    categories = [HacsCategory.INTEGRATION]
 
     async def async_validate(self):
         """Validate the repository."""

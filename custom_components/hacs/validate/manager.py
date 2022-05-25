@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 from importlib import import_module
+import os
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -26,7 +27,7 @@ class ValidationManager:
         self._validatiors: dict[str, ActionValidationBase] = {}
 
     @property
-    def validatiors(self) -> dict[str, ActionValidationBase]:
+    def validatiors(self) -> list[ActionValidationBase]:
         """Return all list of all tasks."""
         return list(self._validatiors.values())
 
@@ -46,7 +47,6 @@ class ValidationManager:
                 self._validatiors[task.slug] = task
 
         await asyncio.gather(*[_load_module(task) for task in validator_modules])
-        self.hacs.log.info("Loaded %s validators for %s", len(self.validatiors), repository)
 
     async def async_run_repository_checks(self, repository: HacsRepository) -> None:
         """Run all validators for a repository."""
@@ -55,15 +55,16 @@ class ValidationManager:
 
         await self.async_load(repository)
 
-        await asyncio.gather(
-            *[
-                validator.execute_validation()
-                for validator in self.validatiors or []
-                if (
-                    validator.category == "common" or validator.category == repository.data.category
-                )
-            ]
-        )
+        validators = [
+            validator
+            for validator in self.validatiors or []
+            if (
+                (not validator.categories or repository.data.category in validator.categories)
+                and validator.slug not in os.getenv("INPUT_IGNORE", "").split(" ")
+            )
+        ]
+
+        await asyncio.gather(*[validator.execute_validation() for validator in validators])
 
         total = len(self.validatiors)
         failed = len([x for x in self.validatiors if x.failed])

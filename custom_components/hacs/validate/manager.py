@@ -47,7 +47,6 @@ class ValidationManager:
                 self._validatiors[task.slug] = task
 
         await asyncio.gather(*[_load_module(task) for task in validator_modules])
-        self.hacs.log.info("%s Loaded %s validators", repository.string, len(self.validatiors))
 
     async def async_run_repository_checks(self, repository: HacsRepository) -> None:
         """Run all validators for a repository."""
@@ -56,16 +55,16 @@ class ValidationManager:
 
         await self.async_load(repository)
 
-        await asyncio.gather(
-            *[
-                validator.execute_validation()
-                for validator in self.validatiors or []
-                if (
-                    (not validator.categories or repository.data.category in validator.categories)
-                    and validator.slug not in os.getenv("INPUT_IGNORE", "").split(" ")
-                )
-            ]
-        )
+        validators = [
+            validator
+            for validator in self.validatiors or []
+            if (
+                (not validator.categories or repository.data.category in validator.categories)
+                and validator.slug not in os.getenv("INPUT_IGNORE", "").split(" ")
+            )
+        ]
+
+        await asyncio.gather(*[validator.execute_validation() for validator in validators])
 
         total = len(self.validatiors)
         failed = len([x for x in self.validatiors if x.failed])

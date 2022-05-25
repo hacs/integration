@@ -1,6 +1,6 @@
 import pytest
 
-from custom_components.hacs.validate.repository_description import Validator
+from custom_components.hacs.validate.description import Validator
 
 
 @pytest.mark.asyncio

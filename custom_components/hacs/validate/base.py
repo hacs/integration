@@ -4,6 +4,7 @@ from __future__ import annotations
 from time import monotonic
 from typing import TYPE_CHECKING
 
+from ..enums import HacsCategory
 from ..exceptions import HacsException
 
 if TYPE_CHECKING:
@@ -17,7 +18,8 @@ class ValidationException(HacsException):
 class ActionValidationBase:
     """Base class for action validation."""
 
-    category: str = "common"
+    categories: list[HacsCategory] = []
+    more_info: str = "https://hacs.xyz/docs/publish/action"
 
     def __init__(self, repository: HacsRepository) -> None:
         self.hacs = repository.hacs
@@ -43,7 +45,12 @@ class ActionValidationBase:
             await self.async_validate()
         except ValidationException as exception:
             self.failed = True
-            self.hacs.log.error("<Validation %s> failed:  %s", self.slug, exception)
+            self.hacs.log.error(
+                "<Validation %s> failed:  %s (More info: %s)",
+                self.slug,
+                exception,
+                self.more_info,
+            )
 
         else:
             self.hacs.log.info(

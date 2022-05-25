@@ -90,9 +90,17 @@ async def preflight():
     event_data = get_event_data()
     ref: str | None = None
 
+    hacs = HacsBase()
+    hacs.hass = HomeAssistant()
+    hacs.system.action = True
+    hacs.configuration.token = TOKEN
+    hacs.core.config_path = None
+
     async with aiohttp.ClientSession() as session:
-        githubapi = GitHubAPI(
-            token=TOKEN,
+        hacs.session = session
+        hacs.validation = ValidationManager(hacs=hacs, hass=hacs.hass)
+        hacs.githubapi = GitHubAPI(
+            token=hacs.configuration.token,
             session=session,
             **{"client_name": "HACS/Action"},
         )
@@ -102,7 +110,7 @@ async def preflight():
             category = CATEGORY
         elif GITHUB_REPOSITORY == HacsGitHubRepo.DEFAULT:
             category = chose_category()
-            repository = await chose_repository(githubapi, category)
+            repository = await chose_repository(hacs.githubapi, category)
             logger.info(f"Actor: {GITHUB_ACTOR}")
         else:
             category = CATEGORY.lower()
@@ -126,31 +134,21 @@ async def preflight():
             error("No category found, use env CATEGORY to set this.")
 
         if ref is None and GITHUB_REPOSITORY != HacsGitHubRepo.DEFAULT:
-            repo = await githubapi.repos.get(repository)
+            repo = await hacs.githubapi.repos.get(repository)
             ref = repo.data.default_branch
 
-        await validate_repository(githubapi, session, repository, category, ref)
+        await validate_repository(hacs, repository, category, ref)
 
 
-async def validate_repository(githubapi, session, repository, category, ref=None):
+async def validate_repository(hacs, repository, category, ref=None):
     """Validate."""
-    hacs = HacsBase()
-    hacs.hass = HomeAssistant()
-    hacs.session = session
-    hacs.system.action = True
-    hacs.configuration.token = TOKEN
-    hacs.core.config_path = None
-    hacs.validation = ValidationManager(hacs=hacs, hass=hacs.hass)
 
     ## Legacy GitHub client
     hacs.github = GitHub(
         hacs.configuration.token,
-        session,
+        hacs.session,
         headers=HACS_ACTION_GITHUB_API_HEADERS,
     )
-
-    ## New GitHub client
-    hacs.githubapi = githubapi
 
     try:
         await hacs.async_register_repository(

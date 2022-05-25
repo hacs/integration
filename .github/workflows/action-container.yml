@@ -1,0 +1,32 @@
+name: "Build the action container"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/action-container.yml'
+      - 'custom_components/*'
+      - 'action/*'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2.0.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v3.0.0
+        with:
+          context: ./action
+          push: true
+          tags: "ghcr.io/${{ github.repository_owner }}/action:main"

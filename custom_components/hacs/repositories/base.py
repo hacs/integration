@@ -512,7 +512,10 @@ class HacsRepository:
         if RepositoryFile.HACS_JSON in [x.filename for x in self.tree]:
             if manifest := await self.async_get_hacs_json():
                 self.repository_manifest = HacsManifest.from_dict(manifest)
-                self.data.update_data(self.repository_manifest.to_dict())
+                self.data.update_data(
+                    self.repository_manifest.to_dict(),
+                    action=self.hacs.system.action,
+                )
 
         # Update "info.md"
         self.additional_info = await self.async_get_info_file_contents()
@@ -1023,7 +1026,10 @@ class HacsRepository:
                     self.data.full_name
                 ] = repository_object.full_name
                 raise HacsRepositoryExistException
-            self.data.update_data(repository_object.attributes)
+            self.data.update_data(
+                repository_object.attributes,
+                action=self.hacs.system.action,
+            )
             self.data.etag_repository = etag
         except HacsNotModifiedException:
             return

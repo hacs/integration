@@ -32,9 +32,6 @@ class HacsThemeRepository(HacsRepository):
 
     async def async_post_installation(self):
         """Run post installation steps."""
-        if self.hacs.system.action:
-            await self.hacs.validation.async_run_repository_checks(self)
-            return
         try:
             await self.hacs.hass.services.async_call("frontend", "reload_themes", {})
         except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
@@ -71,6 +68,9 @@ class HacsThemeRepository(HacsRepository):
         # Set name
         self.update_filenames()
         self.content.path.local = self.localpath
+
+        if self.hacs.system.action:
+            await self.hacs.validation.async_run_repository_checks(self)
 
     @concurrent(concurrenttasks=10, backoff_time=5)
     async def update_repository(self, ignore_issues=False, force=False):

@@ -215,7 +215,7 @@ class HacsData:
         repository.data.new = repository_data.get("new", False)
         repository.data.selected_tag = repository_data.get("selected_tag")
         repository.data.show_beta = repository_data.get("show_beta", False)
-        repository.data.last_version = repository_data.get("last_release_tag")
+        repository.data.last_version = repository_data.get("last_version")
         repository.data.last_commit = repository_data.get("last_commit")
         repository.data.installed_version = repository_data.get("version_installed")
         repository.data.installed_commit = repository_data.get("installed_commit")

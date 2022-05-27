@@ -17,4 +17,4 @@ class Validator(ActionValidationBase):
     async def async_validate(self):
         """Validate the repository."""
         if not self.repository.data.topics:
-            raise ValidationException("The repository has no topics")
+            raise ValidationException("The repository has no valid topics")

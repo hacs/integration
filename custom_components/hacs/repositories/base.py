@@ -139,13 +139,13 @@ class RepositoryData:
         return attr.asdict(self, filter=lambda attr, value: attr.name != "last_fetched")
 
     @staticmethod
-    def create_from_dict(source: dict):
+    def create_from_dict(source: dict, action: bool = False) -> RepositoryData:
         """Set attributes from dicts."""
         data = RepositoryData()
-        data.update_data(source)
+        data.update_data(source, action)
         return data
 
-    def update_data(self, data: dict):
+    def update_data(self, data: dict, action: bool = False) -> None:
         """Update data of the repository."""
         for key in data:
             if key not in self.__dict__:
@@ -168,7 +168,7 @@ class RepositoryData:
                     setattr(self, key, [data[key]])
                 else:
                     setattr(self, key, data[key])
-            elif key == "topics":
+            elif key == "topics" and not action:
                 setattr(self, key, [topic for topic in data[key] if topic not in TOPIC_FILTER])
 
             else:
@@ -451,7 +451,10 @@ class HacsRepository:
         if RepositoryFile.HACS_JSON in [x.filename for x in self.tree]:
             if manifest := await self.async_get_hacs_json():
                 self.repository_manifest = HacsManifest.from_dict(manifest)
-                self.data.update_data(self.repository_manifest.to_dict())
+                self.data.update_data(
+                    self.repository_manifest.to_dict(),
+                    action=self.hacs.system.action,
+                )
 
     async def common_registration(self) -> None:
         """Common registration steps of the repository."""
@@ -461,7 +464,10 @@ class HacsRepository:
                 self.repository_object, etag = await self.async_get_legacy_repository_object(
                     etag=None if self.data.installed else self.data.etag_repository,
                 )
-                self.data.update_data(self.repository_object.attributes)
+                self.data.update_data(
+                    self.repository_object.attributes,
+                    action=self.hacs.system.action,
+                )
                 self.data.etag_repository = etag
             except HacsNotModifiedException:
                 self.logger.debug("%s Did not update, content was not modified", self.string)

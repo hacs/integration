@@ -55,7 +55,7 @@ class ValidationManager:
 
         await self.async_load(repository)
 
-        validators = [
+        validatiors = [
             validator
             for validator in self.validatiors or []
             if (
@@ -64,13 +64,13 @@ class ValidationManager:
             )
         ]
 
-        await asyncio.gather(*[validator.execute_validation() for validator in validators])
+        await asyncio.gather(*[validator.execute_validation() for validator in validatiors])
 
-        total = len(self.validatiors)
-        failed = len([x for x in self.validatiors if x.failed])
+        total = len(validatiors)
+        failed = len([x for x in validatiors if x.failed])
 
         if failed != 0:
             repository.logger.error("%s %s/%s checks failed", repository.string, failed, total)
             exit(1)
         else:
-            repository.logger.debug("%s All (%s) checks passed", repository.string, total)
+            repository.logger.info("%s All (%s) checks passed", repository.string, total)

@@ -46,7 +46,7 @@ class ActionValidationBase:
         except ValidationException as exception:
             self.failed = True
             self.hacs.log.error(
-                "<Validation %s> failed:  %s (More info: %s)",
+                "<Validation %s> failed:  %s (More info: %s )",
                 self.slug,
                 exception,
                 self.more_info,

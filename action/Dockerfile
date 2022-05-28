@@ -20,8 +20,6 @@ RUN \
     \
     && apk del --no-cache .build-deps > /dev/null 2>&1 \
     \
-    &&  python3 -m pip --disable-pip-version-check uninstall -y setuptools wheel \
-    \
     && rm -rf /var/cache/apk/* \
     \
     && find /usr/local \( -type d -a -name test -o -name tests -o -name '__pycache__' \) -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) -exec rm -rf '{}' \;

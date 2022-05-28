@@ -70,9 +70,9 @@ class HacsIntegrationRepository(HacsRepository):
         if manifest := await self.async_get_integration_manifest():
             try:
                 self.integration_manifest = manifest
-                self.data.authors = manifest["codeowners"]
+                self.data.authors = manifest.get("codeowners", [])
                 self.data.domain = manifest["domain"]
-                self.data.manifest_name = manifest["name"]
+                self.data.manifest_name = manifest.get("name")
                 self.data.config_flow = manifest.get("config_flow", False)
 
             except KeyError as exception:
@@ -110,9 +110,9 @@ class HacsIntegrationRepository(HacsRepository):
         if manifest := await self.async_get_integration_manifest():
             try:
                 self.integration_manifest = manifest
-                self.data.authors = manifest["codeowners"]
+                self.data.authors = manifest.get("codeowners", [])
                 self.data.domain = manifest["domain"]
-                self.data.manifest_name = manifest["name"]
+                self.data.manifest_name = manifest.get("name")
                 self.data.config_flow = manifest.get("config_flow", False)
 
             except KeyError as exception:

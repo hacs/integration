@@ -3,7 +3,7 @@ FROM ghcr.io/ludeeus/alpine/python:3.10
 WORKDIR /hacs
 
 RUN \
-    apk add --no-cache --virtual .build-deps \
+    apk add --no-cache \
         libffi-dev \
         gcc \
         musl-dev \
@@ -15,8 +15,6 @@ RUN \
     && python3 -m pip --disable-pip-version-check install homeassistant aiogithubapi \
     \
     && bash /hacs/manage/install_frontend \
-    \
-    && apk del --no-cache .build-deps > /dev/null 2>&1 \
     \
     && rm -rf /var/cache/apk/* \
     \

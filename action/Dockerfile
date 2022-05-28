@@ -6,7 +6,7 @@ RUN \
     apk add --no-cache \
         libffi-dev \
     \
-    &&  apk add --no-cache --virtual .build_deps \
+    &&  apk add --no-cache --virtual .build-deps \
         gcc \
         musl-dev \
     \
@@ -19,6 +19,8 @@ RUN \
     && bash /hacs/manage/install_frontend \
     \
     && apk del --no-cache .build-deps > /dev/null 2>&1 \
+    \
+    &&  python3 -m pip --disable-pip-version-check uninstall -y setuptools wheel \
     \
     && rm -rf /var/cache/apk/* \
     \

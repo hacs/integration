@@ -19,6 +19,7 @@ class ActionValidationBase:
     """Base class for action validation."""
 
     categories: list[HacsCategory] = []
+    allow_fork: bool = True
     more_info: str = "https://hacs.xyz/docs/publish/action"
 
     def __init__(self, repository: HacsRepository) -> None:

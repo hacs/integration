@@ -13,6 +13,7 @@ class Validator(ActionValidationBase):
     """Validate the repository."""
 
     more_info = "https://hacs.xyz/docs/publish/include#check-repository"
+    allow_fork = False
 
     async def async_validate(self):
         """Validate the repository."""

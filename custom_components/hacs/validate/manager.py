@@ -9,8 +9,8 @@ from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
 
-from custom_components.hacs.repositories.base import HacsRepository
-
+from ..enums import HacsGitHubRepo
+from ..repositories.base import HacsRepository
 from .base import ActionValidationBase
 
 if TYPE_CHECKING:
@@ -55,12 +55,18 @@ class ValidationManager:
 
         await self.async_load(repository)
 
+        is_pull_from_fork = os.getenv("GITHUB_REPOSITORY") not in (
+            HacsGitHubRepo.DEFAULT,
+            repository.data.full_name,
+        )
+
         validatiors = [
             validator
             for validator in self.validatiors or []
             if (
                 (not validator.categories or repository.data.category in validator.categories)
                 and validator.slug not in os.getenv("INPUT_IGNORE", "").split(" ")
+                and (not is_pull_from_fork or validator.allow_fork)
             )
         ]
 

@@ -903,7 +903,7 @@ class HacsBase:
 
         for repository in self.repositories.list_downloaded:
             if repository.data.category in self.common.categories:
-                self.queue.add(repository.update_repository())
+                self.queue.add(repository.update_repository(ignore_issues=True))
 
         self.log.debug("Recurring background task for downloaded repositories done")
 

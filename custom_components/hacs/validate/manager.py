@@ -55,9 +55,9 @@ class ValidationManager:
 
         await self.async_load(repository)
 
-        is_pull_from_fork = os.getenv("GITHUB_REPOSITORY") not in (
-            HacsGitHubRepo.DEFAULT,
-            repository.data.full_name,
+        is_pull_from_fork = (
+            not os.getenv("INPUT_REPOSITORY")
+            and os.getenv("GITHUB_REPOSITORY") != repository.data.full_name
         )
 
         validatiors = [

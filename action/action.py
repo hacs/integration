@@ -158,5 +158,4 @@ async def validate_repository(hacs, repository, category, ref=None):
         error(exception)
 
 
-LOOP = asyncio.get_event_loop()
-LOOP.run_until_complete(preflight())
+asyncio.run(preflight())

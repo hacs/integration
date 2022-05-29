@@ -1,7 +1,6 @@
 """Base class for validation."""
 from __future__ import annotations
 
-from time import monotonic
 from typing import TYPE_CHECKING
 
 from ..enums import HacsCategory
@@ -37,9 +36,6 @@ class ActionValidationBase:
 
     async def execute_validation(self, *_, **__) -> None:
         """Execute the task defined in subclass."""
-        self.hacs.log.info("<Validation %s> Starting validation", self.slug)
-
-        start_time = monotonic()
         self.failed = False
 
         try:
@@ -54,6 +50,4 @@ class ActionValidationBase:
             )
 
         else:
-            self.hacs.log.info(
-                "<Validation %s> took %.3f seconds to complete", self.slug, monotonic() - start_time
-            )
+            self.hacs.log.info("<Validation %s> completed", self.slug)

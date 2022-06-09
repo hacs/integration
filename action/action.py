@@ -119,7 +119,7 @@ async def preflight():
                 ref = head["ref"]
                 repository = head["repo"]["full_name"]
             else:
-                print(event_data)
+                ref = event_data["ref"].split("/")[-1]
                 repository = GITHUB_REPOSITORY
 
         logger.info(f"Category: {category}")

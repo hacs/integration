@@ -33,14 +33,10 @@ jobs:
     runs-on: ubuntu-latest
     name: With HACS Action
     steps:
-    - name: 📥 Checkout the repository
-      uses: actions/checkout@v3.0.2
-
     - name: 🏃 HACS validation
       uses: hacs/action@main
       with:
         category: integration
-        comment: false
 
     - name: 📨 Discord notification
       if: ${{ github.event_name == 'schedule' && failure() }}

@@ -34,14 +34,13 @@ jobs:
     runs-on: ubuntu-latest
     name: With HACS Action
     steps:
-    - name: 📥 Checkout the repository
-      uses: actions/checkout@v3.0.2
+    - name: Dump GitHub context
+      run: cat "$GITHUB_EVENT_PATH"
 
     - name: 🏃 HACS validation
-      uses: hacs/action@main
+      uses: hacs/action@debug
       with:
         category: integration
-        comment: false
 
     - name: 📨 Discord notification
       if: ${{ github.event_name == 'schedule' && failure() }}

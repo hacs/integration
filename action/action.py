@@ -119,11 +119,13 @@ async def preflight():
                 ref = head["ref"]
                 repository = head["repo"]["full_name"]
             else:
-                ref = event_data["ref"].split("/")[-1]
                 repository = GITHUB_REPOSITORY
+                if event_data.get("ref") is not None:
+                    # For push events
+                    ref = event_data["ref"]
 
         logger.info(f"Category: {category}")
-        logger.info(f"Repository: {repository}")
+        logger.info(f"Repository: {repository}{f'@{ref}' if ref else ''}")
 
         if TOKEN is None:
             error("No GitHub token found, use env GITHUB_TOKEN to set this.")

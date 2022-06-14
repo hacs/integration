@@ -1,7 +1,9 @@
 name: "Build the action container"
 
 on:
-  workflow_dispatch:
+  release:
+    types:
+      - published
   push:
     branches:
       - main
@@ -26,9 +28,21 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            ghcr.io/${{ github.repository_owner }}
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=sha
+
       - name: Build and push
         uses: docker/build-push-action@v3.0.0
         with:
           context: ./action
           push: true
-          tags: "ghcr.io/${{ github.repository_owner }}/action:main"
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

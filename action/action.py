@@ -124,6 +124,10 @@ async def preflight():
                     # For push events
                     ref = event_data["ref"]
 
+                    # For tag events
+                    if ref.startswith("refs/tags/"):
+                        ref = ref.split("/")[-1]
+
         logger.info(f"Category: {category}")
         logger.info(f"Repository: {repository}{f'@{ref}' if ref else ''}")
 

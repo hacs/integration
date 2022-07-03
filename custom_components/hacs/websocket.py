@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import sys
+from typing import Any
 
 from aiogithubapi import AIOGitHubAPIException
 from homeassistant.components import websocket_api
@@ -444,8 +445,6 @@ async def hacs_status(hass, connection, msg):
                 "startup": hacs.status.startup,
                 "background_task": False,
                 "lovelace_mode": hacs.core.lovelace_mode,
-                "reloading_data": hacs.status.reloading_data,
-                "upgrading_all": hacs.status.upgrading_all,
                 "disabled": hacs.system.disabled,
                 "disabled_reason": hacs.system.disabled_reason,
                 "has_pending_tasks": hacs.queue.has_pending_tasks,
@@ -496,3 +495,41 @@ async def hacs_subscribe(
         forward_messages,
     )
     connection.send_message(websocket_api.result_message(msg["id"]))
+
+
+@websocket_api.websocket_command(
+    {
+        vol.Required("type"): "hacs/info",
+    }
+)
+@websocket_api.require_admin
+@websocket_api.async_response
+async def hacs_info(
+    hass: HomeAssistant,
+    connection: websocket_api.ActiveConnection,
+    msg: dict[str, Any],
+) -> None:
+    """Return information about HACS."""
+    hacs: HacsBase = hass.data.get(DOMAIN)
+    connection.send_message(
+        websocket_api.result_message(
+            msg["id"],
+            {
+                "categories": hacs.common.categories,
+                "count_repositories_all": len(hacs.repositories.list_all),
+                "count_repositories_downloaded": len(hacs.repositories.list_downloaded),
+                "country": hacs.configuration.country,
+                "debug": hacs.configuration.debug,
+                "dev": hacs.configuration.dev,
+                "disabled_reason": hacs.system.disabled_reason,
+                "experimental": hacs.configuration.experimental,
+                "frontend_expected": hacs.frontend_version,
+                "frontend_running": hacs.frontend_version,
+                "has_pending_tasks": hacs.queue.has_pending_tasks,
+                "lovelace_mode": hacs.core.lovelace_mode,
+                "stage": hacs.stage,
+                "startup": hacs.status.startup,
+                "version": hacs.version,
+            },
+        )
+    )

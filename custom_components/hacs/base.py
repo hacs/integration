@@ -163,8 +163,6 @@ class HacsStatus:
 
     startup: bool = True
     new: bool = False
-    reloading_data: bool = False
-    upgrading_all: bool = False
 
 
 @dataclass

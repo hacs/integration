@@ -18,11 +18,11 @@ import homeassistant.util.dt as date_util
 from homeassistant.util.unit_system import METRIC_SYSTEM
 
 from custom_components.hacs.repositories.base import HacsRepository
-from custom_components.hacs.utils.logger import get_hacs_logger
+from custom_components.hacs.utils.logger import LOGGER
 
 from tests.async_mock import AsyncMock, Mock, patch
 
-_LOGGER = get_hacs_logger()
+_LOGGER = LOGGER
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 INSTANCES = []
 
@@ -53,7 +53,7 @@ def dummy_repository_base(hacs, repository=None):
     repository.hacs = hacs
     repository.hacs.hass = hacs.hass
     repository.hacs.core.config_path = hacs.hass.config.path()
-    repository.logger = get_hacs_logger()
+    repository.logger = LOGGER
     repository.data.domain = "test"
     repository.data.last_version = "3"
     repository.data.selected_tag = "3"

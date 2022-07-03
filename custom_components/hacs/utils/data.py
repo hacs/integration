@@ -8,7 +8,7 @@ from homeassistant.util import json as json_util
 from ..base import HacsBase
 from ..enums import HacsDispatchEvent, HacsGitHubRepo
 from ..repositories.base import TOPIC_FILTER, HacsManifest, HacsRepository
-from .logger import get_hacs_logger
+from .logger import LOGGER
 from .path import is_safe
 from .store import async_load_from_store, async_save_to_store
 
@@ -54,7 +54,7 @@ class HacsData:
 
     def __init__(self, hacs: HacsBase):
         """Initialize."""
-        self.logger = get_hacs_logger()
+        self.logger = LOGGER
         self.hacs = hacs
         self.content = {}
 

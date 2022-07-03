@@ -33,7 +33,7 @@ from ..utils.decode import decode_content
 from ..utils.decorator import concurrent
 from ..utils.filters import filter_content_return_one_of_type
 from ..utils.json import json_loads
-from ..utils.logger import get_hacs_logger
+from ..utils.logger import LOGGER
 from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
 from ..utils.store import async_remove_store
@@ -265,7 +265,7 @@ class HacsRepository:
         self.tree = []
         self.treefiles = []
         self.ref = None
-        self.logger = get_hacs_logger()
+        self.logger = LOGGER
 
     def __str__(self) -> str:
         """Return a string representation of the repository."""

@@ -8,9 +8,9 @@ from typing import Coroutine
 from homeassistant.core import HomeAssistant
 
 from ..exceptions import HacsExecutionStillInProgress
-from .logger import get_hacs_logger
+from .logger import LOGGER
 
-_LOGGER = get_hacs_logger()
+_LOGGER = LOGGER
 
 
 class QueueManager:

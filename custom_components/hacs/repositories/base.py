@@ -37,7 +37,6 @@ from ..utils.logger import LOGGER
 from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
 from ..utils.store import async_remove_store
-from ..utils.template import render_template
 from ..utils.validate import Validate
 from ..utils.version import (
     version_left_higher_or_equal_then_right,
@@ -704,11 +703,10 @@ class HacsRepository:
                 path=info_files[0],
             )
             if response:
-                return render_template(
+                return (
                     decode_content(response.data.content)
                     .replace("<svg", "<disabled")
-                    .replace("</svg", "</disabled"),
-                    self,
+                    .replace("</svg", "</disabled")
                 )
         except BaseException as exc:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.logger.error("%s %s", self.string, exc)

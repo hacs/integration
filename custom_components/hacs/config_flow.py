@@ -14,7 +14,7 @@ from .base import HacsBase
 from .const import CLIENT_ID, DOMAIN, MINIMUM_HA_VERSION
 from .enums import ConfigurationType
 from .utils.configuration_schema import RELEASE_LIMIT, hacs_config_option_schema
-from .utils.logger import get_hacs_logger
+from .utils.logger import LOGGER
 
 
 class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
@@ -28,7 +28,7 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self._errors = {}
         self.device = None
         self.activation = None
-        self.log = get_hacs_logger()
+        self.log = LOGGER
         self._progress_task = None
         self._login_device = None
         self._reauth = False

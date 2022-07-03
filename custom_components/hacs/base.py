@@ -53,7 +53,7 @@ from .exceptions import (
 from .repositories import RERPOSITORY_CLASSES
 from .utils.decode import decode_content
 from .utils.json import json_loads
-from .utils.logger import get_hacs_logger
+from .utils.logger import LOGGER
 from .utils.queue_manager import QueueManager
 from .utils.store import async_load_from_store, async_save_to_store
 
@@ -347,7 +347,7 @@ class HacsBase:
     githubapi: GitHubAPI | None = None
     hass: HomeAssistant | None = None
     integration: Integration | None = None
-    log: logging.Logger = get_hacs_logger()
+    log: logging.Logger = LOGGER
     queue: QueueManager | None = None
     recuring_tasks = []
     repositories: HacsRepositories = HacsRepositories()

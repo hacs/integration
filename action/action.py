@@ -15,7 +15,7 @@ from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.enums import HacsGitHubRepo
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.utils.decode import decode_content
-from custom_components.hacs.utils.logger import get_hacs_logger
+from custom_components.hacs.utils.logger import LOGGER
 from custom_components.hacs.validate.manager import ValidationManager
 
 TOKEN = os.getenv("INPUT_GITHUB_TOKEN")
@@ -44,11 +44,10 @@ logging.basicConfig(
     format="::%(levelname)s:: %(message)s",
     level=logging.DEBUG,
 )
-logger = get_hacs_logger()
 
 
 def error(error: str):
-    logger.error(error)
+    LOGGER.error(error)
     exit(1)
 
 
@@ -111,7 +110,7 @@ async def preflight():
         elif GITHUB_REPOSITORY == HacsGitHubRepo.DEFAULT:
             category = chose_category()
             repository = await chose_repository(hacs.githubapi, category)
-            logger.info(f"Actor: {GITHUB_ACTOR}")
+            LOGGER.info(f"Actor: {GITHUB_ACTOR}")
         else:
             category = CATEGORY.lower()
             if event_data.get("pull_request") is not None:
@@ -128,8 +127,8 @@ async def preflight():
                     if ref.startswith("refs/tags/"):
                         ref = ref.split("/")[-1]
 
-        logger.info(f"Category: {category}")
-        logger.info(f"Repository: {repository}{f'@{ref}' if ref else ''}")
+        LOGGER.info(f"Category: {category}")
+        LOGGER.info(f"Repository: {repository}{f'@{ref}' if ref else ''}")
 
         if TOKEN is None:
             error("No GitHub token found, use env GITHUB_TOKEN to set this.")

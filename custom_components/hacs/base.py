@@ -5,7 +5,6 @@ import asyncio
 from dataclasses import asdict, dataclass, field
 from datetime import timedelta
 import gzip
-import json
 import logging
 import math
 import os
@@ -53,6 +52,7 @@ from .exceptions import (
 )
 from .repositories import RERPOSITORY_CLASSES
 from .utils.decode import decode_content
+from .utils.json import json_loads
 from .utils.logger import get_hacs_logger
 from .utils.queue_manager import QueueManager
 from .utils.store import async_load_from_store, async_save_to_store
@@ -473,7 +473,7 @@ class HacsBase:
         if response is None:
             return []
 
-        return json.loads(decode_content(response.data.content))
+        return json_loads(decode_content(response.data.content))
 
     async def async_github_api_method(
         self,

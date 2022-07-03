@@ -1,12 +1,12 @@
 """Class for plugins in HACS."""
 from __future__ import annotations
 
-import json
 from typing import TYPE_CHECKING
 
 from ..enums import HacsCategory, HacsDispatchEvent
 from ..exceptions import HacsException
 from ..utils.decorator import concurrent
+from ..utils.json import json_loads
 from .base import HacsRepository
 
 if TYPE_CHECKING:
@@ -86,7 +86,7 @@ class HacsPluginRepository(HacsRepository):
         """Get package content."""
         try:
             package = await self.repository_object.get_contents("package.json", self.ref)
-            package = json.loads(package.content)
+            package = json_loads(package.content)
 
             if package:
                 self.data.authors = package["author"]

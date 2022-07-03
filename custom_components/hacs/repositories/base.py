@@ -3,7 +3,6 @@ from __future__ import annotations
 
 from asyncio import sleep
 from datetime import datetime
-import json
 import os
 import pathlib
 import shutil
@@ -33,6 +32,7 @@ from ..utils.backup import Backup, BackupNetDaemon
 from ..utils.decode import decode_content
 from ..utils.decorator import concurrent
 from ..utils.filters import filter_content_return_one_of_type
+from ..utils.json import json_loads
 from ..utils.logger import get_hacs_logger
 from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
@@ -669,7 +669,7 @@ class HacsRepository:
                 **{"params": {"ref": ref or self.version_to_download()}},
             )
             if response:
-                return json.loads(decode_content(response.data.content))
+                return json_loads(decode_content(response.data.content))
         except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             pass
 

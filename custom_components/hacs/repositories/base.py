@@ -8,7 +8,7 @@ import os
 import pathlib
 import shutil
 import tempfile
-from typing import TYPE_CHECKING, Any, List
+from typing import TYPE_CHECKING, Any
 import zipfile
 
 from aiogithubapi import (
@@ -95,7 +95,7 @@ class RepositoryData:
     """RepositoryData class."""
 
     archived: bool = False
-    authors: List[str] = []
+    authors: list[str] = []
     category: str = ""
     config_flow: bool = False
     default_branch: str = None
@@ -119,13 +119,13 @@ class RepositoryData:
     manifest_name: str = None
     new: bool = True
     open_issues: int = 0
-    published_tags: List[str] = []
+    published_tags: list[str] = []
     pushed_at: str = ""
     releases: bool = False
     selected_tag: str = None
     show_beta: bool = False
     stargazers_count: int = 0
-    topics: List[str] = []
+    topics: list[str] = []
 
     @property
     def name(self):
@@ -180,7 +180,7 @@ class HacsManifest:
     """HacsManifest class."""
 
     content_in_root: bool = False
-    country: List[str] = []
+    country: list[str] = []
     filename: str = None
     hacs: str = None  # Minimum HACS version
     hide_default_branch: bool = False

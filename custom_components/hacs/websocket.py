@@ -35,6 +35,8 @@ def async_register_websocket_commands(hass: HomeAssistant) -> None:
     async_register_command(hass, get_critical_repositories)
     async_register_command(hass, hacs_repository_ignore)
     async_register_command(hass, hacs_subscribe)
+    async_register_command(hass, hacs_info)
+    async_register_command(hass, hacs_repositories_clear_new)
 
 
 @websocket_api.websocket_command(
@@ -516,15 +518,11 @@ async def hacs_info(
             msg["id"],
             {
                 "categories": hacs.common.categories,
-                "count_repositories_all": len(hacs.repositories.list_all),
-                "count_repositories_downloaded": len(hacs.repositories.list_downloaded),
                 "country": hacs.configuration.country,
                 "debug": hacs.configuration.debug,
                 "dev": hacs.configuration.dev,
                 "disabled_reason": hacs.system.disabled_reason,
                 "experimental": hacs.configuration.experimental,
-                "frontend_expected": hacs.frontend_version,
-                "frontend_running": hacs.frontend_version,
                 "has_pending_tasks": hacs.queue.has_pending_tasks,
                 "lovelace_mode": hacs.core.lovelace_mode,
                 "stage": hacs.stage,
@@ -533,3 +531,33 @@ async def hacs_info(
             },
         )
     )
+
+
+@websocket_api.websocket_command(
+    {
+        vol.Required("type"): "hacs/repositories/clear_new",
+        vol.Optional("categories"): cv.ensure_list,
+    }
+)
+@websocket_api.require_admin
+@websocket_api.async_response
+async def hacs_repositories_clear_new(
+    hass: HomeAssistant,
+    connection: websocket_api.ActiveConnection,
+    msg: dict[str, Any],
+) -> None:
+    """Clear new repositories for spesific categories."""
+    hacs: HacsBase = hass.data.get(DOMAIN)
+
+    action = msg["action"]
+
+    for repo in hacs.repositories.list_all:
+        if repo.data.new and repo.data.category in msg.get("categories", []):
+            hacs.log.debug(
+                "Clearing new flag from '%s'",
+                repo.data.full_name,
+            )
+            repo.data.new = False
+    hacs.async_dispatch(HacsDispatchEvent.REPOSITORY)
+    await hacs.data.async_write()
+    connection.send_message(websocket_api.result_message(msg["id"]))

@@ -705,6 +705,7 @@ class HacsRepository:
             )
             if response:
                 return render_template(
+                    self.hacs,
                     decode_content(response.data.content)
                     .replace("<svg", "<disabled")
                     .replace("</svg", "</disabled"),

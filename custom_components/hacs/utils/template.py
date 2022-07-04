@@ -7,10 +7,14 @@ from jinja2 import Template
 
 if TYPE_CHECKING:
     from ..repositories.base import HacsRepository
+    from ..base import HacsBase
 
 
-def render_template(content: str, context: HacsRepository) -> str:
+def render_template(hacs: HacsBase, content: str, context: HacsRepository) -> str:
     """Render templates in content."""
+    if hacs.configuration.experimental:
+        # Do not render for experimental
+        return content
     # Fix None issues
     if context.releases.last_release_object is not None:
         prerelease = context.releases.last_release_object.prerelease

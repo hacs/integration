@@ -1,18 +1,18 @@
 """Register info websocket commands."""
 from __future__ import annotations
+
 import sys
 from typing import TYPE_CHECKING, Any
-from homeassistant.core import HomeAssistant
-from homeassistant.components import websocket_api
-import homeassistant.helpers.config_validation as cv
 
+from homeassistant.components import websocket_api
+from homeassistant.core import HomeAssistant
+import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 
 from custom_components.hacs.utils import regex
 
-from ..enums import HacsDispatchEvent
-
 from ..const import DOMAIN
+from ..enums import HacsDispatchEvent
 
 if TYPE_CHECKING:
     from ..base import HacsBase
@@ -73,6 +73,7 @@ async def hacs_repositories_list(
     {
         vol.Required("type"): "hacs/repositories/clear_new",
         vol.Optional("categories"): cv.ensure_list,
+        vol.Optional("repository"): cv.string,
     }
 )
 @websocket_api.require_admin
@@ -85,13 +86,18 @@ async def hacs_repositories_clear_new(
     """Clear new repositories for spesific categories."""
     hacs: HacsBase = hass.data.get(DOMAIN)
 
-    for repo in hacs.repositories.list_all:
-        if repo.data.new and repo.data.category in msg.get("categories", []):
-            hacs.log.debug(
-                "Clearing new flag from '%s'",
-                repo.data.full_name,
-            )
-            repo.data.new = False
+    if repo := msg.get("repository"):
+        repository = hacs.repositories.get_by_id(repo)
+        repository.data.new = False
+
+    else:
+        for repo in hacs.repositories.list_all:
+            if repo.data.new and repo.data.category in msg.get("categories", []):
+                hacs.log.debug(
+                    "Clearing new flag from '%s'",
+                    repo.data.full_name,
+                )
+                repo.data.new = False
     hacs.async_dispatch(HacsDispatchEvent.REPOSITORY, {})
     await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"]))
@@ -172,5 +178,30 @@ async def hacs_repositories_add(
                 "message": f"Repository '{repository}' exists in the store.",
             },
         )
+
+    connection.send_message(websocket_api.result_message(msg["id"], {}))
+
+
+@websocket_api.websocket_command(
+    {
+        vol.Required("type"): "hacs/repositories/remove",
+        vol.Required("repository"): cv.string,
+    }
+)
+@websocket_api.require_admin
+@websocket_api.async_response
+async def hacs_repositories_remove(
+    hass: HomeAssistant,
+    connection: websocket_api.ActiveConnection,
+    msg: dict[str, Any],
+):
+    """Remove custom repositoriy."""
+    hacs: HacsBase = hass.data.get(DOMAIN)
+    hacs.log.warning(connection.context)
+    hacs.log.warning(msg)
+    repository = hacs.repositories.get_by_id(msg["repository"])
+
+    repository.remove()
+    await hacs.data.async_write()
 
     connection.send_message(websocket_api.result_message(msg["id"], {}))

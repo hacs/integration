@@ -9,19 +9,24 @@ from homeassistant.helpers.dispatcher import async_dispatcher_connect
 import voluptuous as vol
 
 from ..const import DOMAIN
-from .repository import (
-    hacs_repository_info,
-    hacs_repository_download,
-    hacs_repository_ignore,
-    hacs_repository_state,
-    hacs_repository_version,
-)
 from .critical import hacs_critical_acknowledge, hacs_critical_list
 from .repositories import (
-    hacs_repositories_list,
     hacs_repositories_add,
     hacs_repositories_clear_new,
+    hacs_repositories_list,
     hacs_repositories_removed,
+    hacs_repositories_remove,
+)
+from .repository import (
+    hacs_repository_download,
+    hacs_repository_ignore,
+    hacs_repository_info,
+    hacs_repository_state,
+    hacs_repository_version,
+    hacs_repository_beta,
+    hacs_repository_refresh,
+    hacs_repository_release_notes,
+    hacs_repository_remove,
 )
 
 if TYPE_CHECKING:
@@ -33,17 +38,25 @@ def async_register_websocket_commands(hass: HomeAssistant) -> None:
     """Register_commands."""
     websocket_api.async_register_command(hass, hacs_info)
     websocket_api.async_register_command(hass, hacs_subscribe)
+
     websocket_api.async_register_command(hass, hacs_repository_info)
     websocket_api.async_register_command(hass, hacs_repository_download)
     websocket_api.async_register_command(hass, hacs_repository_ignore)
     websocket_api.async_register_command(hass, hacs_repository_state)
     websocket_api.async_register_command(hass, hacs_repository_version)
+    websocket_api.async_register_command(hass, hacs_repository_beta)
+    websocket_api.async_register_command(hass, hacs_repository_refresh)
+    websocket_api.async_register_command(hass, hacs_repository_release_notes)
+    websocket_api.async_register_command(hass, hacs_repository_remove)
+
     websocket_api.async_register_command(hass, hacs_critical_acknowledge)
     websocket_api.async_register_command(hass, hacs_critical_list)
+
     websocket_api.async_register_command(hass, hacs_repositories_list)
     websocket_api.async_register_command(hass, hacs_repositories_add)
     websocket_api.async_register_command(hass, hacs_repositories_clear_new)
     websocket_api.async_register_command(hass, hacs_repositories_removed)
+    websocket_api.async_register_command(hass, hacs_repositories_remove)
 
 
 @websocket_api.websocket_command(

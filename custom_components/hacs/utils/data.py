@@ -210,7 +210,6 @@ class HacsData:
         ) or repository_data.get("stars", 0)
         repository.releases.last_release = repository_data.get("last_release_tag")
         repository.data.releases = repository_data.get("releases", False)
-        repository.data.hide = repository_data.get("hide", False)
         repository.data.installed = repository_data.get("installed", False)
         repository.data.new = repository_data.get("new", False)
         repository.data.selected_tag = repository_data.get("selected_tag")

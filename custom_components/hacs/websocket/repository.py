@@ -98,7 +98,8 @@ async def hacs_repository_ignore(
 ):
     """Ignore a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    hacs.common.ignored_repositories.append(msg["repository"])
+    repository = hacs.repositories.get_by_id(msg["repository"])
+    hacs.common.ignored_repositories.append(repository.data.full_name)
 
     await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"]))
@@ -120,7 +121,7 @@ async def hacs_repository_state(
 ):
     """Set the state of a repository"""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    repository = hacs.repositories.get_by_full_name(msg["repository"])
+    repository = hacs.repositories.get_by_id(msg["repository"])
 
     repository.state = msg["state"]
 
@@ -144,7 +145,7 @@ async def hacs_repository_version(
 ):
     """Set the version of a repository"""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    repository = hacs.repositories.get_by_full_name(msg["repository"])
+    repository = hacs.repositories.get_by_id(msg["repository"])
 
     if msg["version"] == repository.data.default_branch:
         repository.data.selected_tag = None
@@ -174,7 +175,7 @@ async def hacs_repository_beta(
 ):
     """Show or hide beta versions of a repository"""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    repository = hacs.repositories.get_by_full_name(msg["repository"])
+    repository = hacs.repositories.get_by_id(msg["repository"])
 
     repository.data.show_beta = msg["show_beta"]
 
@@ -201,7 +202,7 @@ async def hacs_repository_download(
 ):
     """Set the version of a repository"""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    repository = hacs.repositories.get_by_full_name(msg["repository"])
+    repository = hacs.repositories.get_by_id(msg["repository"])
 
     was_installed = repository.data.installed
     if version := msg.get("version"):
@@ -233,7 +234,7 @@ async def hacs_repository_remove(
 ):
     """Remove a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    repository = hacs.repositories.get_by_full_name(msg["repository"])
+    repository = hacs.repositories.get_by_id(msg["repository"])
 
     repository.data.new = False
     await repository.update_repository(ignore_issues=True, force=True)
@@ -258,7 +259,7 @@ async def hacs_repository_refresh(
 ):
     """Refresh a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    repository = hacs.repositories.get_by_full_name(msg["repository"])
+    repository = hacs.repositories.get_by_id(msg["repository"])
 
     await repository.update_repository(ignore_issues=True, force=True)
     await hacs.data.async_write()
@@ -281,7 +282,7 @@ async def hacs_repository_release_notes(
 ):
     """Return release notes."""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    repository = hacs.repositories.get_by_full_name(msg["repository"])
+    repository = hacs.repositories.get_by_id(msg["repository"])
 
     connection.send_message(
         websocket_api.result_message(

@@ -39,6 +39,10 @@ async def hacs_repositories_list(
             [
                 {
                     "authors": repo.data.authors,
+                    "available_version": repo.display_available_version,
+                    "installed_version": repo.display_installed_version,
+                    "config_flow": repo.data.config_flow,
+                    "can_download": repo.can_download,
                     "category": repo.data.category,
                     "country": repo.repository_manifest.country,
                     "custom": not hacs.repositories.is_default(str(repo.data.id)),

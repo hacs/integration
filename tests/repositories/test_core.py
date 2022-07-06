@@ -15,8 +15,6 @@ def test_hacs_repository_core_mostly_defaults(hacs):
 
     assert repository.display_name == "Repository"
     assert repository.display_status == "new"
-    assert repository.display_status_description == "This is a newly added repository."
-    assert repository.main_action == "INSTALL"
     assert repository.display_version_or_commit == "commit"
     assert repository.display_available_version == ""
     assert repository.display_installed_version == ""

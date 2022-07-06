@@ -6,8 +6,8 @@ from typing import TYPE_CHECKING
 from jinja2 import Template
 
 if TYPE_CHECKING:
-    from ..repositories.base import HacsRepository
     from ..base import HacsBase
+    from ..repositories.base import HacsRepository
 
 
 def render_template(hacs: HacsBase, content: str, context: HacsRepository) -> str:

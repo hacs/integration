@@ -320,18 +320,6 @@ class HacsRepository:
         return status
 
     @property
-    def display_status_description(self) -> str:
-        """Return display_status_description."""
-        description = {
-            "default": "Not installed.",
-            "pending-restart": "Restart pending.",
-            "pending-upgrade": "Upgrade pending.",
-            "installed": "No action required.",
-            "new": "This is a newly added repository.",
-        }
-        return description[self.display_status]
-
-    @property
     def display_installed_version(self) -> str:
         """Return display_authors"""
         if self.data.installed_version is not None:
@@ -363,18 +351,6 @@ class HacsRepository:
         else:
             version_or_commit = "commit"
         return version_or_commit
-
-    @property
-    def main_action(self) -> str:
-        """Return the main action."""
-        actions = {
-            "new": "INSTALL",
-            "default": "INSTALL",
-            "installed": "REINSTALL",
-            "pending-restart": "REINSTALL",
-            "pending-upgrade": "UPGRADE",
-        }
-        return actions[self.display_status]
 
     @property
     def pending_update(self) -> bool:

@@ -7,7 +7,7 @@ import homeassistant.helpers.config_validation as cv
 
 import voluptuous as vol
 
-from custom_components.hacs.enums import HacsDispatchEvent
+from ..enums import HacsDispatchEvent
 
 from ..const import DOMAIN
 
@@ -75,7 +75,6 @@ async def hacs_repository_info(
                 "selected_tag": repository.data.selected_tag,
                 "stars": repository.data.stargazers_count,
                 "state": repository.state,
-                "status_description": repository.display_status_description,
                 "status": repository.display_status,
                 "topics": repository.data.topics,
                 "version_or_commit": repository.display_version_or_commit,
@@ -100,6 +99,8 @@ async def hacs_repository_ignore(
     """Ignore a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     hacs.common.ignored_repositories.append(msg["repository"])
+
+    await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"]))
 
 
@@ -120,7 +121,9 @@ async def hacs_repository_state(
     """Set the state of a repositorty"""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_full_name(msg["repository"])
+
     repository.state = msg["state"]
+
     await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"], {}))
 
@@ -142,9 +145,11 @@ async def hacs_repository_version(
     """Set the version of a repositorty"""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_full_name(msg["repository"])
+
     repository.data.selected_tag = msg["version"]
     await repository.update_repository(force=True)
     repository.state = None
+
     await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"], {}))
 
@@ -166,6 +171,7 @@ async def hacs_repository_download(
     """Set the version of a repositorty"""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_full_name(msg["repository"])
+
     was_installed = repository.data.installed
     repository.data.selected_tag = msg["version"]
     await repository.update_repository(force=True)
@@ -174,5 +180,6 @@ async def hacs_repository_download(
     if not was_installed:
         hacs.async_dispatch(HacsDispatchEvent.RELOAD, {"force": True})
         await hacs.async_recreate_entities()
+
     await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"], {}))

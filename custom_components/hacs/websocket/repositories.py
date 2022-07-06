@@ -58,7 +58,6 @@ async def hacs_repositories_list(
                     "pending_upgrade": repo.pending_update,
                     "stars": repo.data.stargazers_count,
                     "state": repo.state,
-                    "status_description": repo.display_status_description,
                     "status": repo.display_status,
                     "topics": repo.data.topics,
                 }

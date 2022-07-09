@@ -93,7 +93,10 @@ async def test_registration(
         ("home-assistant/addons", AddonRepositoryException.exception_message),
         ("hassio-addons/some-addon", AddonRepositoryException.exception_message),
         ("some-user/addons", AddonRepositoryException.exception_message),
-        ("some-user/some-invalid-repo", "Repository structure for main is not compliant"),
+        (
+            "some-user/some-invalid-repo",
+            "<Integration some-user/some-invalid-repo> Repository structure for main is not compliant",
+        ),
     ),
 )
 async def test_registration_issues(

@@ -54,6 +54,7 @@ from .repositories import RERPOSITORY_CLASSES
 from .utils.decode import decode_content
 from .utils.json import json_loads
 from .utils.logger import LOGGER
+from .utils.platform_setup import async_setup_entity_platforms
 from .utils.queue_manager import QueueManager
 from .utils.store import async_load_from_store, async_save_to_store
 
@@ -730,7 +731,9 @@ class HacsBase:
             platforms=platforms,
         )
 
-        self.hass.config_entries.async_setup_platforms(self.configuration.config_entry, platforms)
+        await async_setup_entity_platforms(
+            self, self.hass, self.configuration.config_entry, platforms
+        )
 
     @callback
     def async_dispatch(self, signal: HacsDispatchEvent, data: dict | None = None) -> None:

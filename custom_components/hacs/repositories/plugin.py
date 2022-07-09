@@ -95,10 +95,6 @@ class HacsPluginRepository(HacsRepository):
 
     def update_filenames(self) -> None:
         """Get the filename to target."""
-        possible_locations = (
-            ("",) if self.repository_manifest.content_in_root else ("release", "dist", "")
-        )
-
         # Handler for plug requirement 3
         if self.repository_manifest.filename:
             valid_filenames = (self.repository_manifest.filename,)
@@ -110,25 +106,25 @@ class HacsPluginRepository(HacsRepository):
                 f"{self.data.name}-bundle.js",
             )
 
-        for location in possible_locations:
-            if location == "release":
-                if not self.releases.objects:
-                    continue
+        if not self.repository_manifest.content_in_root:
+            if self.releases.objects:
                 release = self.releases.objects[0]
-                if not release.assets:
-                    continue
-                asset = release.assets[0]
-                for filename in valid_filenames:
-                    if filename == asset.name:
-                        self.data.file_name = filename
-                        self.content.path.remote = "release"
-                        break
-
-            else:
-                for filename in valid_filenames:
-                    if f"{location+'/' if location else ''}{filename}" in [
-                        x.full_path for x in self.tree
+                if release.assets:
+                    if assetnames := [
+                        filename
+                        for filename in valid_filenames
+                        for asset in release.assets
+                        if filename == asset.name
                     ]:
-                        self.data.file_name = filename.split("/")[-1]
-                        self.content.path.remote = location
-                        break
+                        self.data.file_name = assetnames[0]
+                        self.content.path.remote = "release"
+                        return
+
+        for location in ("",) if self.repository_manifest.content_in_root else ("dist", ""):
+            for filename in valid_filenames:
+                if f"{location+'/' if location else ''}{filename}" in [
+                    x.full_path for x in self.tree
+                ]:
+                    self.data.file_name = filename.split("/")[-1]
+                    self.content.path.remote = location
+                    break

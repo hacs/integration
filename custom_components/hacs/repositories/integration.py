@@ -62,7 +62,7 @@ class HacsIntegrationRepository(HacsRepository):
                 ):
                     raise AddonRepositoryException()
                 raise HacsException(
-                    f"Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                    f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
                 )
             self.content.path.remote = f"custom_components/{name}"
 

@@ -52,7 +52,7 @@ class HacsNetdaemonRepository(HacsRepository):
                 break
         if not compliant:
             raise HacsException(
-                f"Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
             )
 
         # Handle potential errors

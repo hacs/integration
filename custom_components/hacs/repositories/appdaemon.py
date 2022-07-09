@@ -40,11 +40,11 @@ class HacsAppdaemonRepository(HacsRepository):
             addir = await self.repository_object.get_contents("apps", self.ref)
         except AIOGitHubAPIException:
             raise HacsException(
-                f"Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
             ) from None
 
         if not isinstance(addir, list):
-            self.validate.errors.append("Repository structure not compliant")
+            self.validate.errors.append(f"{self.string} Repository structure not compliant")
 
         self.content.path.remote = addir[0].path
         self.content.objects = await self.repository_object.get_contents(

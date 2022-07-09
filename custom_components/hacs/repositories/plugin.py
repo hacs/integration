@@ -40,7 +40,7 @@ class HacsPluginRepository(HacsRepository):
 
         if self.content.path.remote is None:
             raise HacsException(
-                f"Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
             )
 
         if self.content.path.remote == "release":
@@ -64,7 +64,7 @@ class HacsPluginRepository(HacsRepository):
 
         if self.content.path.remote is None:
             self.validate.errors.append(
-                f"Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
             )
 
         if self.content.path.remote == "release":

@@ -619,7 +619,10 @@ class HacsRepository:
             extractable = []
             for path in zip_file.filelist:
                 filename = "/".join(path.filename.split("/")[1:])
-                if filename.startswith(self.content.path.remote):
+                if (
+                    filename.startswith(self.content.path.remote)
+                    and filename != self.content.path.remote
+                ):
                     path.filename = filename.replace(self.content.path.remote, "")
                     extractable.append(path)
 

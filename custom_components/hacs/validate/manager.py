@@ -9,7 +9,6 @@ from typing import TYPE_CHECKING
 
 from homeassistant.core import HomeAssistant
 
-from ..enums import HacsGitHubRepo
 from ..repositories.base import HacsRepository
 from .base import ActionValidationBase
 

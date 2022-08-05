@@ -24,9 +24,6 @@ async def hacs_critical_list(
     msg: dict[str, Any],
 ):
     """List critical repositories."""
-    critical = await async_load_from_store(hass, "critical")
-    if not critical:
-        critical = []
     connection.send_message(
         websocket_api.result_message(
             msg["id"],

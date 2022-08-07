@@ -29,7 +29,6 @@ from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMod
 from .frontend import async_register_frontend
 from .utils.configuration_schema import hacs_config_combined
 from .utils.data import HacsData
-from .utils.platform_setup import async_setup_entity_platforms
 from .utils.queue_manager import QueueManager
 from .utils.version import version_left_higher_or_equal_then_right
 from .websocket import async_register_websocket_commands
@@ -169,9 +168,7 @@ async def async_initialize_integration(
             hacs.log.info("Update entities are only supported when using UI configuration")
 
         else:
-            await async_setup_entity_platforms(
-                hacs,
-                hass,
+            hass.config_entries.async_setup_platforms(
                 config_entry,
                 [Platform.SENSOR, Platform.UPDATE]
                 if hacs.configuration.experimental

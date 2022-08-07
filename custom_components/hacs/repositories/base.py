@@ -19,11 +19,9 @@ from aiogithubapi.const import BASE_API_URL
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 import attr
 from homeassistant.helpers import device_registry as dr
-from homeassistant.components.repairs import async_create_issue
-from homeassistant.components.repairs.models import IssueSeverity
 
 from ..const import DOMAIN
-from ..enums import ConfigurationType, HacsCategory, HacsDispatchEvent, RepositoryFile
+from ..enums import ConfigurationType, HacsDispatchEvent, RepositoryFile
 from ..exceptions import (
     HacsException,
     HacsNotModifiedException,
@@ -854,21 +852,6 @@ class HacsRepository:
         """Run post install steps."""
         self.logger.info("%s Running post installation steps", self.string)
         await self.async_post_installation()
-        if (
-            self.data.category == HacsCategory.INTEGRATION
-            and self.hacs.configuration.experimental
-            and not self.data.new
-            and not self.data.config_flow
-        ):
-            async_create_issue(
-                self.hacs.hass,
-                DOMAIN,
-                "restart_required",
-                is_fixable=False,
-                issue_domain=DOMAIN,
-                severity=IssueSeverity.WARNING,
-                translation_key="restart_required",
-            )
         self.data.new = False
         self.hacs.async_dispatch(
             HacsDispatchEvent.REPOSITORY,

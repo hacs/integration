@@ -4,6 +4,10 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 from homeassistant.loader import async_get_custom_components
+from homeassistant.components.repairs import async_create_issue
+from homeassistant.components.repairs.models import IssueSeverity
+
+from ..const import DOMAIN
 
 from ..enums import HacsCategory, HacsDispatchEvent, HacsGitHubRepo, RepositoryFile
 from ..exceptions import AddonRepositoryException, HacsException
@@ -41,7 +45,17 @@ class HacsIntegrationRepository(HacsRepository):
                 await self.reload_custom_components()
             if self.data.first_install:
                 self.pending_restart = False
-                return
+                if self.hacs.configuration.experimental:
+                    async_create_issue(
+                        self.hacs.hass,
+                        DOMAIN,
+                        "restart_required",
+                        is_fixable=False,
+                        issue_domain=DOMAIN,
+                        severity=IssueSeverity.WARNING,
+                        translation_key="restart_required",
+                    )
+            return
         self.pending_restart = True
 
     async def validate_repository(self):

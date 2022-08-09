@@ -14,6 +14,7 @@ from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE
 from homeassistant.helpers import storage
 from homeassistant.helpers.device_registry import DeviceRegistry
 from homeassistant.helpers.entity_registry import EntityRegistry
+from homeassistant.components.repairs.issue_registry import IssueRegistry
 import homeassistant.util.dt as date_util
 from homeassistant.util.unit_system import METRIC_SYSTEM
 
@@ -133,6 +134,7 @@ async def async_test_home_assistant(loop, tmpdir):
         "custom_components": {},
         "device_registry": DeviceRegistry(hass),
         "entity_registry": EntityRegistry(hass),
+        "issue_registry": IssueRegistry(hass),
     }
 
     hass.config_entries = config_entries.ConfigEntries(hass, {})

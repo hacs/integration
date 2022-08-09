@@ -39,26 +39,27 @@ class HacsIntegrationRepository(HacsRepository):
 
     async def async_post_installation(self):
         """Run post installation steps."""
+        self.pending_restart = True
         if self.data.config_flow:
             if self.data.full_name != HacsGitHubRepo.INTEGRATION:
                 await self.reload_custom_components()
             if self.data.first_install:
                 self.pending_restart = False
-            elif self.hacs.configuration.experimental:
-                async_create_issue(
-                    hass=self.hacs.hass,
-                    domain=DOMAIN,
-                    issue_id=f"restart_required_{self.data.id}_{self.ref}",
-                    is_fixable=True,
-                    issue_domain=DOMAIN,
-                    severity=IssueSeverity.WARNING,
-                    translation_key="restart_required",
-                    translation_placeholders={
-                        "name": self.display_name,
-                    },
-                )
-            return
-        self.pending_restart = True
+
+        if self.pending_restart and self.hacs.configuration.experimental:
+            self.logger.debug("%s Creating restart_required issue", self.string)
+            async_create_issue(
+                hass=self.hacs.hass,
+                domain=DOMAIN,
+                issue_id=f"restart_required_{self.data.id}_{self.ref}",
+                is_fixable=True,
+                issue_domain=self.data.domain or DOMAIN,
+                severity=IssueSeverity.WARNING,
+                translation_key="restart_required",
+                translation_placeholders={
+                    "name": self.display_name,
+                },
+            )
 
     async def validate_repository(self):
         """Validate."""

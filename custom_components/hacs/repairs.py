@@ -1,6 +1,7 @@
 """Repairs platform for HACS."""
 
 from __future__ import annotations
+from typing import Any
 
 import voluptuous as vol
 
@@ -47,6 +48,8 @@ async def async_create_fix_flow(
     hass: HomeAssistant,
     issue_id: str,
     data: dict[str, str | int | float | None] | None = None,
+    *args: Any,
+    **kwargs: Any,
 ) -> RepairsFlow | None:
     """Create flow."""
     if issue_id.startswith("restart_required"):

@@ -26,12 +26,13 @@ from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
 from homeassistant.config_entries import ConfigEntry, ConfigEntryState
 from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
+from homeassistant.components.repairs import async_create_issue, IssueSeverity
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.loader import Integration
 from homeassistant.util import dt
 
-from .const import TV
+from .const import DOMAIN, TV
 from .enums import (
     ConfigurationType,
     HacsCategory,
@@ -877,14 +878,30 @@ class HacsBase:
                 continue
             if repository.data.full_name in self.common.ignored_repositories:
                 continue
-            if repository.data.installed and removed.removal_type != "critical":
-                self.log.warning(
-                    "You have '%s' installed with HACS "
-                    "this repository has been removed from HACS, please consider removing it. "
-                    "Removal reason (%s)",
-                    repository.data.full_name,
-                    removed.reason,
-                )
+            if repository.data.installed:
+                if removed.removal_type != "critical":
+                    if self.configuration.experimental:
+                        async_create_issue(
+                            hass=self.hacs.hass,
+                            domain=DOMAIN,
+                            issue_id=f"removed_{self.data.id}",
+                            is_fixable=False,
+                            issue_domain=DOMAIN,
+                            severity=IssueSeverity.WARNING,
+                            translation_key="removed",
+                            translation_placeholders={
+                                "name": repository.data.full_name,
+                                "reason": removed.reason,
+                                "repositry_id": repository.data.id,
+                            },
+                        )
+                    self.log.warning(
+                        "You have '%s' installed with HACS "
+                        "this repository has been removed from HACS, please consider removing it. "
+                        "Removal reason (%s)",
+                        repository.data.full_name,
+                        removed.reason,
+                    )
             else:
                 need_to_save = True
                 repository.remove()

@@ -1082,7 +1082,7 @@ class HacsRepository:
                 and self.ref is not None
                 and str(exception).startswith("GitHub returned 404")
             ):
-                # Handle tags/branches beeing deleted.
+                # Handle tags/branches being deleted.
                 self.data.selected_tag = None
                 self.ref = self.version_to_download()
                 self.logger.warning(

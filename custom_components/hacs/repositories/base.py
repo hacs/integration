@@ -993,7 +993,12 @@ class HacsRepository:
             releases.append(release)
         return releases
 
-    async def common_update_data(self, ignore_issues: bool = False, force: bool = False) -> None:
+    async def common_update_data(
+        self,
+        ignore_issues: bool = False,
+        force: bool = False,
+        retry=False,
+    ) -> None:
         """Common update data."""
         releases = []
         try:
@@ -1072,6 +1077,20 @@ class HacsRepository:
             for treefile in self.tree:
                 self.treefiles.append(treefile.full_path)
         except (AIOGitHubAPIException, HacsException) as exception:
+            if (
+                not retry
+                and self.ref is not None
+                and str(exception).startswith("GitHub returned 404")
+            ):
+                # Handle tags/branches being deleted.
+                self.data.selected_tag = None
+                self.ref = self.version_to_download()
+                self.logger.warning(
+                    "%s Selected version/branch %s has been removed, falling back to default",
+                    self.string,
+                    self.ref,
+                )
+                return await self.common_update_data(ignore_issues, force, True)
             if not self.hacs.status.startup and not ignore_issues:
                 self.logger.error("%s %s", self.string, exception)
             if not ignore_issues:

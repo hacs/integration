@@ -17,6 +17,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.loader import Integration
 from homeassistant.runner import HassEventLoopPolicy
 import pytest
+import pytest_asyncio
 
 from custom_components.hacs.base import (
     HacsBase,
@@ -103,7 +104,7 @@ def hass(event_loop, tmpdir):
         raise ex
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def hacs(hass: HomeAssistant):
     """Fixture to provide a HACS object."""
     hacs_obj = HacsBase()

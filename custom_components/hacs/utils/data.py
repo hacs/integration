@@ -3,10 +3,11 @@ import asyncio
 from datetime import datetime
 
 from homeassistant.core import callback
+from homeassistant.exceptions import HomeAssistantError
 from homeassistant.util import json as json_util
 
 from ..base import HacsBase
-from ..enums import HacsDispatchEvent, HacsGitHubRepo
+from ..enums import HacsDisabledReason, HacsDispatchEvent, HacsGitHubRepo
 from ..repositories.base import TOPIC_FILTER, HacsManifest, HacsRepository
 from .logger import LOGGER
 from .path import is_safe
@@ -116,8 +117,21 @@ class HacsData:
     async def restore(self):
         """Restore saved data."""
         self.hacs.status.new = False
-        hacs = await async_load_from_store(self.hacs.hass, "hacs") or {}
-        repositories = await async_load_from_store(self.hacs.hass, "repositories") or {}
+        try:
+            hacs = await async_load_from_store(self.hacs.hass, "hacs") or {}
+        except HomeAssistantError:
+            hacs = {}
+
+        try:
+            repositories = await async_load_from_store(self.hacs.hass, "repositories") or {}
+        except HomeAssistantError as exception:
+            self.hacs.log.error(
+                "Could not read %s, restore the file from a backup - %s",
+                self.hacs.hass.config.path(".storage/hacs.repositories"),
+                exception,
+            )
+            self.hacs.disable_hacs(HacsDisabledReason.RESTORE)
+            return False
 
         if not hacs and not repositories:
             # Assume new install

@@ -26,4 +26,4 @@ class Validator(ActionValidationBase):
                 if [ignore for ignore in IGNORED if ignore in line]:
                     continue
                 return
-        raise ValidationException("The repository does not have issues enabled")
+        raise ValidationException("The repository does not have images in the Readme file")

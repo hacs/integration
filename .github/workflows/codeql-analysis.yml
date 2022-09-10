@@ -24,15 +24,15 @@ jobs:
         fetch-depth: 2
 
     - name: 🔁 Initialize CodeQL
-      uses: github/codeql-action/init@v2.1.21
+      uses: github/codeql-action/init@v2.1.22
       with:
         languages: python
 
     - name: 🛠️ Autobuild
-      uses: github/codeql-action/autobuild@v2.1.21
+      uses: github/codeql-action/autobuild@v2.1.22
 
     - name: 🏃 Run CodeQL Analysis
-      uses: github/codeql-action/analyze@v2.1.21
+      uses: github/codeql-action/analyze@v2.1.22
 
     - name: 📨 Discord notification
       if: ${{ github.event_name == 'schedule' && failure() }}

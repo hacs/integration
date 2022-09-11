@@ -186,8 +186,8 @@ class HacsRepositories:
 
     _default_repositories: set[str] = field(default_factory=set)
     _repositories: list[HacsRepository] = field(default_factory=list)
-    _repositories_by_full_name: dict[str, str] = field(default_factory=dict)
-    _repositories_by_id: dict[str, str] = field(default_factory=dict)
+    _repositories_by_full_name: dict[str, HacsRepository] = field(default_factory=dict)
+    _repositories_by_id: dict[str, HacsRepository] = field(default_factory=dict)
     _removed_repositories: list[RemovedRepository] = field(default_factory=list)
 
     @property
@@ -212,8 +212,15 @@ class HacsRepositories:
         if repo_id == "0":
             return
 
-        if self.is_registered(repository_id=repo_id):
-            return
+        if registered_repo := self._repositories_by_id.get(repo_id):
+            if registered_repo.data.full_name == repository.data.full_name:
+                return
+
+            self.unregister(registered_repo)
+
+            registered_repo.data.full_name = repository.data.full_name
+            registered_repo.data.new = False
+            repository = registered_repo
 
         if repository not in self._repositories:
             self._repositories.append(repository)
@@ -561,11 +568,6 @@ class HacsBase:
 
         if repository_id is not None:
             repository.data.id = repository_id
-
-        if str(repository.data.id) != "0" and (
-            exists := self.repositories.get_by_id(repository.data.id)
-        ):
-            self.repositories.unregister(exists)
 
         else:
             if self.hass is not None and ((check and repository.data.new) or self.status.new):

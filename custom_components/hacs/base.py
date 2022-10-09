@@ -26,9 +26,9 @@ from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
 from homeassistant.config_entries import ConfigEntry, ConfigEntryState
 from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
-from homeassistant.components.repairs import async_create_issue, IssueSeverity
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
+from homeassistant.helpers.issue_registry import async_create_issue, IssueSeverity
 from homeassistant.loader import Integration
 from homeassistant.util import dt
 

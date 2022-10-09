@@ -3,8 +3,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from homeassistant.components.repairs import async_create_issue
-from homeassistant.components.repairs.models import IssueSeverity
+from homeassistant.helpers.issue_registry import async_create_issue, IssueSeverity
 from homeassistant.loader import async_get_custom_components
 
 from ..const import DOMAIN

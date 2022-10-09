@@ -884,7 +884,7 @@ class HacsBase:
                 if removed.removal_type != "critical":
                     if self.configuration.experimental:
                         async_create_issue(
-                            hass=self.hacs.hass,
+                            hass=self.hass,
                             domain=DOMAIN,
                             issue_id=f"removed_{self.data.id}",
                             is_fixable=False,

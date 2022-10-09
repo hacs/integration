@@ -18,7 +18,7 @@ from aiogithubapi import (
 from aiogithubapi.const import BASE_API_URL
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 import attr
-from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers import device_registry as dr, issue_registry as ir
 
 from ..const import DOMAIN
 from ..enums import ConfigurationType, HacsDispatchEvent, RepositoryFile
@@ -734,6 +734,7 @@ class HacsRepository:
         )
 
         await self.async_remove_entity_device()
+        ir.async_delete_issue(self.hacs.hass, DOMAIN, f"removed_{self.data.id}")
 
     async def remove_local_directory(self) -> None:
         """Check the local directory."""

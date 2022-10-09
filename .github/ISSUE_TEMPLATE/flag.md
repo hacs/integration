@@ -2,7 +2,7 @@
 name: Not in use (to be removed)
 about: Use "Request for repository removal" instead
 title: ''
-labels: flag]
+labels: flag
 assignees: ludeeus
 
 ---

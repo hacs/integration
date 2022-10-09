@@ -1,8 +1,12 @@
 """Sensor platform for HACS."""
 from __future__ import annotations
+from typing import TYPE_CHECKING
 
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.core import callback
+
+if TYPE_CHECKING:
+    from .base import HacsBase
 
 from .const import DOMAIN
 from .entity import HacsSystemEntity
@@ -16,6 +20,10 @@ async def async_setup_platform(hass, _config, async_add_entities, _discovery_inf
 
 async def async_setup_entry(hass, _config_entry, async_add_devices):
     """Setup sensor platform."""
+    hacs: HacsBase = hass.data.get(DOMAIN)
+    if hacs.configuration.experimental:
+        return
+
     async_add_devices([HACSSensor(hacs=hass.data.get(DOMAIN))])
 
 

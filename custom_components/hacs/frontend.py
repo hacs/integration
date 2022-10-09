@@ -8,8 +8,11 @@ from homeassistant.components.http import HomeAssistantView
 from homeassistant.core import HomeAssistant, callback
 
 from .const import DOMAIN
-from .hacs_frontend import locate_dir
-from .hacs_frontend.version import VERSION as FE_VERSION
+from .hacs_frontend import locate_dir, VERSION as FE_VERSION
+from .hacs_frontend_experimental import (
+    locate_dir as experimental_locate_dir,
+    VERSION as EXPERIMENTAL_FE_VERSION,
+)
 
 URL_BASE = "/hacsfiles"
 
@@ -30,6 +33,11 @@ def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
             "<HacsFrontend> Frontend development mode enabled. Do not run in production!"
         )
         hass.http.register_view(HacsFrontendDev())
+    elif hacs.configuration.experimental:
+        hacs.log.info("<HacsFrontend> Using experimental frontend")
+        hass.http.register_static_path(
+            f"{URL_BASE}/frontend", experimental_locate_dir(), cache_headers=False
+        )
     else:
         #
         hass.http.register_static_path(f"{URL_BASE}/frontend", locate_dir(), cache_headers=False)
@@ -56,7 +64,9 @@ def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
         cache_headers=use_cache,
     )
 
-    hacs.frontend_version = FE_VERSION
+    hacs.frontend_version = (
+        FE_VERSION if not hacs.configuration.experimental else EXPERIMENTAL_FE_VERSION
+    )
 
     # Add to sidepanel if needed
     if DOMAIN not in hass.data.get("frontend_panels", {}):
@@ -70,7 +80,7 @@ def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
                     "name": "hacs-frontend",
                     "embed_iframe": True,
                     "trust_external": False,
-                    "js_url": f"/hacsfiles/frontend/entrypoint.js?hacstag={FE_VERSION}",
+                    "js_url": f"/hacsfiles/frontend/entrypoint.js?hacstag={hacs.frontend_version}",
                 }
             },
             require_admin=True,

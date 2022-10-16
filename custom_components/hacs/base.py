@@ -886,7 +886,7 @@ class HacsBase:
                         async_create_issue(
                             hass=self.hass,
                             domain=DOMAIN,
-                            issue_id=f"removed_{self.data.id}",
+                            issue_id=f"removed_{repository.data.id}",
                             is_fixable=False,
                             issue_domain=DOMAIN,
                             severity=IssueSeverity.WARNING,

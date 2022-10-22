@@ -29,7 +29,7 @@ async def hacs_repository_info(
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
 ) -> None:
-    """Return information about HACS."""
+    """Return information about a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_id(msg["repository_id"])
     if repository is None:
@@ -39,6 +39,10 @@ async def hacs_repository_info(
     if not repository.updated_info:
         await repository.update_repository(ignore_issues=True, force=True)
         repository.updated_info = True
+
+    if repository.data.new:
+        repository.data.new = False
+        await hacs.data.async_write()
 
     connection.send_message(
         websocket_api.result_message(
@@ -68,7 +72,7 @@ async def hacs_repository_info(
                 "last_updated": repository.data.last_updated,
                 "local_path": repository.content.path.local,
                 "name": repository.display_name,
-                "new": repository.data.new,
+                "new": False,
                 "pending_upgrade": repository.pending_update,
                 "releases": repository.data.published_tags,
                 "ref": repository.ref,

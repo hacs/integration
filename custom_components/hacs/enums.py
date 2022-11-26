@@ -1,16 +1,30 @@
 """Helper constants."""
 # pylint: disable=missing-class-docstring
-from enum import Enum
+import sys
+
+if sys.version_info.minor >= 11:
+    # Needs Python 3.11
+    from enum import StrEnum  ## pylint: disable=no-name-in-module
+else:
+    try:
+        # https://github.com/home-assistant/core/blob/dev/homeassistant/backports/enum.py
+        # Considered internal to Home Assistant, can be removed whenever.
+        from homeassistant.backports.enum import StrEnum
+    except ImportError:
+        from enum import Enum
+
+        class StrEnum(str, Enum):
+            pass
 
 
-class HacsGitHubRepo(str, Enum):
+class HacsGitHubRepo(StrEnum):
     """HacsGitHubRepo."""
 
     DEFAULT = "hacs/default"
     INTEGRATION = "hacs/integration"
 
 
-class HacsCategory(str, Enum):
+class HacsCategory(StrEnum):
     APPDAEMON = "appdaemon"
     INTEGRATION = "integration"
     LOVELACE = "lovelace"
@@ -24,7 +38,7 @@ class HacsCategory(str, Enum):
         return str(self.value)
 
 
-class HacsDispatchEvent(str, Enum):
+class HacsDispatchEvent(StrEnum):
     """HacsDispatchEvent."""
 
     CONFIG = "hacs_dispatch_config"
@@ -37,19 +51,19 @@ class HacsDispatchEvent(str, Enum):
     STATUS = "hacs_dispatch_status"
 
 
-class RepositoryFile(str, Enum):
+class RepositoryFile(StrEnum):
     """Repository file names."""
 
     HACS_JSON = "hacs.json"
     MAINIFEST_JSON = "manifest.json"
 
 
-class ConfigurationType(str, Enum):
+class ConfigurationType(StrEnum):
     YAML = "yaml"
     CONFIG_ENTRY = "config_entry"
 
 
-class LovelaceMode(str, Enum):
+class LovelaceMode(StrEnum):
     """Lovelace Modes."""
 
     STORAGE = "storage"
@@ -58,7 +72,7 @@ class LovelaceMode(str, Enum):
     YAML = "yaml"
 
 
-class HacsStage(str, Enum):
+class HacsStage(StrEnum):
     SETUP = "setup"
     STARTUP = "startup"
     WAITING = "waiting"
@@ -66,7 +80,7 @@ class HacsStage(str, Enum):
     BACKGROUND = "background"
 
 
-class HacsDisabledReason(str, Enum):
+class HacsDisabledReason(StrEnum):
     RATE_LIMIT = "rate_limit"
     REMOVED = "removed"
     INVALID_TOKEN = "invalid_token"

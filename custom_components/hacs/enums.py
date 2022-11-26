@@ -1,9 +1,11 @@
 """Helper constants."""
 # pylint: disable=missing-class-docstring
-try:
+import sys
+
+if sys.version_info.minor >= 11:
     # Needs Python 3.11
-    from enum import StrEnum
-except ImportError:
+    from enum import StrEnum  ## pylint: disable=no-name-in-module
+else:
     try:
         # https://github.com/home-assistant/core/blob/dev/homeassistant/backports/enum.py
         # Considered internal to Home Assistant, can be removed whenever.

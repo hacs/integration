@@ -989,7 +989,7 @@ class HacsBase:
 
     @callback
     def async_setup_frontend_endpoint_plugin(self) -> None:
-        """Setup the http endpoints for plugins if its not allready handled."""
+        """Setup the http endpoints for plugins if its not already handled."""
         if self.status.active_frontend_endpoint_plugin or not os.path.exists(
             self.hass.config.path("www/community")
         ):
@@ -1013,7 +1013,7 @@ class HacsBase:
 
     @callback
     def async_setup_frontend_endpoint_themes(self) -> None:
-        """Setup the http endpoints for themes if its not allready handled."""
+        """Setup the http endpoints for themes if its not already handled."""
         if (
             self.configuration.experimental
             or self.status.active_frontend_endpoint_theme

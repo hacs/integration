@@ -37,6 +37,8 @@ class HacsThemeRepository(HacsRepository):
         except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             pass
 
+        self.hacs.async_setup_frontend_endpoint_themes()
+
     async def validate_repository(self):
         """Validate."""
         # Run common validation steps.

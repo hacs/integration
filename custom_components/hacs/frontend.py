@@ -7,14 +7,13 @@ from aiohttp import web
 from homeassistant.components.http import HomeAssistantView
 from homeassistant.core import HomeAssistant, callback
 
-from .const import DOMAIN
+from .const import DOMAIN, URL_BASE
 from .hacs_frontend import locate_dir, VERSION as FE_VERSION
 from .hacs_frontend_experimental import (
     locate_dir as experimental_locate_dir,
     VERSION as EXPERIMENTAL_FE_VERSION,
 )
 
-URL_BASE = "/hacsfiles"
 
 if TYPE_CHECKING:
     from .base import HacsBase
@@ -24,8 +23,8 @@ if TYPE_CHECKING:
 def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
     """Register the frontend."""
 
-    # Register themes
-    hass.http.register_static_path(f"{URL_BASE}/themes", hass.config.path("themes"))
+    # Setup themes endpoint if needed
+    hacs.async_setup_frontend_endpoint_themes()
 
     # Register frontend
     if hacs.configuration.frontend_repo_url:
@@ -50,20 +49,6 @@ def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
         hass.data["frontend_extra_module_url"] = set()
     hass.data["frontend_extra_module_url"].add(f"{URL_BASE}/iconset.js")
 
-    # Register www/community for all other files
-    use_cache = hacs.core.lovelace_mode == "storage"
-    hacs.log.info(
-        "<HacsFrontend> %s mode, cache for /hacsfiles/: %s",
-        hacs.core.lovelace_mode,
-        use_cache,
-    )
-
-    hass.http.register_static_path(
-        URL_BASE,
-        hass.config.path("www/community"),
-        cache_headers=use_cache,
-    )
-
     hacs.frontend_version = (
         FE_VERSION if not hacs.configuration.experimental else EXPERIMENTAL_FE_VERSION
     )
@@ -85,6 +70,9 @@ def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
             },
             require_admin=True,
         )
+
+    # Setup plugin endpoint if needed
+    hacs.async_setup_frontend_endpoint_plugin()
 
 
 class HacsFrontendDev(HomeAssistantView):

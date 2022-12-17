@@ -8,6 +8,8 @@ DOMAIN = "hacs"
 CLIENT_ID = "395a8e669c5de9f7c6e8"
 MINIMUM_HA_VERSION = "0.0.0"
 
+URL_BASE = "/hacsfiles"
+
 TV = TypeVar("TV")
 
 PACKAGE_NAME = "custom_components.hacs"

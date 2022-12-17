@@ -53,6 +53,10 @@ class HacsPluginRepository(HacsRepository):
                     self.logger.error("%s %s", self.string, error)
         return self.validate.success
 
+    async def async_post_installation(self):
+        """Run post installation steps."""
+        self.hacs.async_setup_frontend_endpoint_plugin()
+
     @concurrent(concurrenttasks=10, backoff_time=5)
     async def update_repository(self, ignore_issues=False, force=False):
         """Update."""

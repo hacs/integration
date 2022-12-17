@@ -32,7 +32,7 @@ from homeassistant.helpers.issue_registry import async_create_issue, IssueSeveri
 from homeassistant.loader import Integration
 from homeassistant.util import dt
 
-from .const import DOMAIN, TV
+from .const import DOMAIN, TV, URL_BASE
 from .enums import (
     ConfigurationType,
     HacsCategory,
@@ -164,6 +164,8 @@ class HacsStatus:
 
     startup: bool = True
     new: bool = False
+    active_frontend_endpoint_plugin: bool = False
+    active_frontend_endpoint_theme: bool = False
 
 
 @dataclass
@@ -984,3 +986,43 @@ class HacsBase:
         if was_installed:
             self.log.critical("Restarting Home Assistant")
             self.hass.async_create_task(self.hass.async_stop(100))
+
+    @callback
+    def async_setup_frontend_endpoint_plugin(self) -> None:
+        """Setup the http endpoints for plugins if its not already handled."""
+        if self.status.active_frontend_endpoint_plugin or not os.path.exists(
+            self.hass.config.path("www/community")
+        ):
+            return
+
+        self.log.info("Setting up plugin endpoint")
+        use_cache = self.core.lovelace_mode == "storage"
+        self.log.info(
+            "<HacsFrontend> %s mode, cache for /hacsfiles/: %s",
+            self.core.lovelace_mode,
+            use_cache,
+        )
+
+        self.hass.http.register_static_path(
+            URL_BASE,
+            self.hass.config.path("www/community"),
+            cache_headers=use_cache,
+        )
+
+        self.status.active_frontend_endpoint_plugin = True
+
+    @callback
+    def async_setup_frontend_endpoint_themes(self) -> None:
+        """Setup the http endpoints for themes if its not already handled."""
+        if (
+            self.configuration.experimental
+            or self.status.active_frontend_endpoint_theme
+            or not os.path.exists(self.hass.config.path("themes"))
+        ):
+            return
+
+        self.log.info("Setting up themes endpoint")
+        # Register themes
+        self.hass.http.register_static_path(f"{URL_BASE}/themes", self.hass.config.path("themes"))
+
+        self.status.active_frontend_endpoint_theme = True

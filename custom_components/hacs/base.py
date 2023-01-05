@@ -633,7 +633,7 @@ class HacsBase:
         )
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
-                self.async_update_all_repositories, timedelta(hours=25)
+                self.async_update_all_repositories, timedelta(hours=96)
             )
         )
         self.recuring_tasks.append(
@@ -648,7 +648,7 @@ class HacsBase:
         )
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
-                self.async_update_downloaded_repositories, timedelta(hours=2)
+                self.async_update_downloaded_repositories, timedelta(hours=48)
             )
         )
         self.recuring_tasks.append(

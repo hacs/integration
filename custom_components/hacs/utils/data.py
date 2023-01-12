@@ -98,16 +98,7 @@ class HacsData:
     @callback
     def async_store_repository_data(self, repository: HacsRepository) -> dict:
         """Store the repository data."""
-        data = {}
-
-        if self.hacs.configuration.experimental and not repository.data.installed:
-            for key, default in EXPORTED_BASE_DATA:
-                if (value := getattr(repository.data, key, default)) != default:
-                    data[key] = value
-            self.content[str(repository.data.id)] = data
-            return
-
-        data["repository_manifest"] = repository.repository_manifest.manifest
+        data = {"repository_manifest": repository.repository_manifest.manifest}
 
         for key, default in (
             EXPORTED_DOWNLOADED_REPOSITORY_DATA

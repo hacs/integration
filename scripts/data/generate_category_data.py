@@ -11,8 +11,8 @@ from aiogithubapi import GitHub, GitHubAPI
 from aiohttp import ClientSession
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.json import JSONEncoder
-from config.custom_components.hacs.data_client import HacsDataClient
 
+from config.custom_components.hacs.data_client import HacsDataClient
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.exceptions import HacsExecutionStillInProgress

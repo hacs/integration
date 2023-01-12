@@ -16,7 +16,7 @@ jobs:
       contents: write
     steps:
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v3.2.0
+        uses: actions/checkout@v3.3.0
 
       - name: 🛠️ Set up Python
         uses: actions/setup-python@v4.4.0
@@ -37,7 +37,7 @@ jobs:
         run: ${{ github.workspace }}/manage/install_frontend
 
       - name: 📤 Upload zip to action
-        uses: actions/upload-artifact@v3.1.1
+        uses: actions/upload-artifact@v3.1.2
         if: ${{ github.event_name == 'push' }}
         with:
           name: hacs

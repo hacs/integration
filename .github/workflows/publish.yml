@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   release_zip_file:
     name: Publish HACS zip file asset

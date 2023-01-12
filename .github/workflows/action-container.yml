@@ -12,6 +12,10 @@ on:
       - 'custom_components/**'
       - 'action/**'
 
+concurrency:
+  group: container-build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build

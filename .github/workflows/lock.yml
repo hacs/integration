@@ -7,6 +7,10 @@ on:
 concurrency:
   group: lock
 
+concurrency:
+  group: lock-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lock:
     runs-on: ubuntu-latest

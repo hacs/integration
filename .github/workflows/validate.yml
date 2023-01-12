@@ -10,6 +10,10 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate-hassfest:
     runs-on: ubuntu-latest

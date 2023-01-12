@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   matrix:
     runs-on: ubuntu-latest

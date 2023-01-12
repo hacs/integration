@@ -166,7 +166,7 @@ class AdjustedHacs(HacsBase):
             if can_update == 0:
                 self.log.info("Can't do anything, sleeping for 1 min.")
                 await asyncio.sleep(60)
-                return
+                await _handle_queue()
 
             try:
                 await self.queue.execute(round(can_update / 3))

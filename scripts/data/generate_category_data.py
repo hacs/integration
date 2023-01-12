@@ -165,7 +165,7 @@ class AdjustedHacs(HacsBase):
             )
             if can_update != 0:
                 try:
-                    await self.queue.execute(round(can_update / 6))
+                    await self.queue.execute(round(can_update / 3))
                 except HacsExecutionStillInProgress:
                     return
 

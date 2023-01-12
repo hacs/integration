@@ -1,4 +1,6 @@
 """Data handler for HACS."""
+from __future__ import annotations
+
 import asyncio
 from datetime import datetime
 
@@ -186,17 +188,19 @@ class HacsData:
             return False
         return True
 
-    async def register_unknown_repositories(self, repositories):
+    async def register_unknown_repositories(self, repositories, category: str | None = None):
         """Registry any unknown repositories."""
         register_tasks = [
             self.hacs.async_register_repository(
                 repository_full_name=repo_data["full_name"],
-                category=repo_data["category"],
+                category=repo_data.get("category", category),
                 check=False,
                 repository_id=entry,
             )
             for entry, repo_data in repositories.items()
-            if entry != "0" and not self.hacs.repositories.is_registered(repository_id=entry)
+            if entry != "0"
+            and not self.hacs.repositories.is_registered(repository_id=entry)
+            and repo_data.get("category", category) is not None
         ]
         if register_tasks:
             await asyncio.gather(*register_tasks)
@@ -238,7 +242,7 @@ class HacsData:
             repository.data.last_fetched = datetime.fromtimestamp(last_fetched)
 
         repository.repository_manifest = HacsManifest.from_dict(
-            repository_data.get("repository_manifest", {})
+            repository_data.get("manifest") or repository_data.get("repository_manifest") or {}
         )
 
         if repository.localpath is not None and is_safe(self.hacs, repository.localpath):

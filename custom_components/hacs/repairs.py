@@ -1,13 +1,14 @@
 """Repairs platform for HACS."""
 
 from __future__ import annotations
-from typing import Any
 
-import voluptuous as vol
+from typing import Any
 
 from homeassistant import data_entry_flow
 from homeassistant.components.repairs import RepairsFlow
 from homeassistant.core import HomeAssistant
+import voluptuous as vol
+
 from custom_components.hacs.base import HacsBase
 
 from .const import DOMAIN

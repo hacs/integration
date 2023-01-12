@@ -497,7 +497,7 @@ class HacsRepository:
         self.additional_info = await self.async_get_info_file_contents()
 
         # Set last fetch attribute
-        self.data.last_fetched = datetime.now()
+        self.data.last_fetched = datetime.utcnow()
 
         return True
 

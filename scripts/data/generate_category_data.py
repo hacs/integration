@@ -14,8 +14,10 @@ from homeassistant.helpers.json import JSONEncoder
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
+from custom_components.hacs.exceptions import HacsExecutionStillInProgress
 from custom_components.hacs.repositories.base import HacsRepository
 from custom_components.hacs.utils.data import HacsData
+from custom_components.hacs.utils.decorator import concurrent
 from custom_components.hacs.utils.queue_manager import QueueManager
 
 log_handler = logging.getLogger("custom_components.hacs")
@@ -118,6 +120,11 @@ class AdjustedHacs(HacsBase):
             **{"client_name": "HACS/Generator"},
         )
 
+    @concurrent(concurrenttasks=10, backoff_time=2)
+    async def update_repository(self, repository: HacsRepository, force: bool) -> None:
+        """Update a repository."""
+        await repository.common_update(force=force)
+
     async def get_removed_list(self) -> set[str]:
         """Get removed list."""
         response = await self.session.get("https://data-v2.hacs.xyz/removed/repositories.json")
@@ -146,7 +153,25 @@ class AdjustedHacs(HacsBase):
         )
         self.queue.clear()
         await self.get_category_repositories(category, force, removed)
-        await self.queue.execute()
+
+        async def _handle_queue():
+            if not self.queue.pending_tasks:
+                return
+            can_update = await self.async_can_update()
+            self.log.debug(
+                "Can update %s repositories, %s items in queue",
+                can_update,
+                self.queue.pending_tasks,
+            )
+            if can_update != 0:
+                try:
+                    await self.queue.execute(round(can_update / 6))
+                except HacsExecutionStillInProgress:
+                    return
+
+                await _handle_queue()
+
+        await _handle_queue()
 
         self.data.content = {}
         for repository in self.repositories.list_all:
@@ -171,7 +196,7 @@ class AdjustedHacs(HacsBase):
                 continue
             repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
-                self.queue.add(repository.common_update(force=force))
+                self.queue.add(self.update_repository(repository=repository, force=force))
                 continue
 
             self.queue.add(

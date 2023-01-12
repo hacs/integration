@@ -163,13 +163,17 @@ class AdjustedHacs(HacsBase):
                 can_update,
                 self.queue.pending_tasks,
             )
-            if can_update != 0:
-                try:
-                    await self.queue.execute(round(can_update / 3))
-                except HacsExecutionStillInProgress:
-                    return
+            if can_update == 0:
+                self.log.info("Can't do anything, sleeping for 1 min.")
+                await asyncio.sleep(60)
+                return
 
-                await _handle_queue()
+            try:
+                await self.queue.execute(round(can_update / 3))
+            except HacsExecutionStillInProgress:
+                return
+
+            await _handle_queue()
 
         await _handle_queue()
 

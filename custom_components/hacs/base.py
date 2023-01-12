@@ -33,6 +33,7 @@ from homeassistant.loader import Integration
 from homeassistant.util import dt
 
 from .const import DOMAIN, TV, URL_BASE
+from .data_client import HacsDataClient
 from .enums import (
     ConfigurationType,
     HacsCategory,
@@ -350,6 +351,7 @@ class HacsBase:
     configuration = HacsConfiguration()
     core = HacsCore()
     data: HacsData | None = None
+    data_client: HacsDataClient | None = None
     frontend_version: str | None = None
     github: GitHub | None = None
     githubapi: GitHubAPI | None = None

@@ -25,6 +25,7 @@ import voluptuous as vol
 
 from .base import HacsBase
 from .const import DOMAIN, MINIMUM_HA_VERSION, STARTUP
+from .data_client import HacsDataClient
 from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
 from .frontend import async_register_frontend
 from .utils.configuration_schema import hacs_config_combined
@@ -87,6 +88,7 @@ async def async_initialize_integration(
     hacs.hass = hass
     hacs.queue = QueueManager(hass=hass)
     hacs.data = HacsData(hacs=hacs)
+    hacs.data_client = HacsDataClient(session=clientsession)
     hacs.system.running = True
     hacs.session = clientsession
 

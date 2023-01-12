@@ -124,7 +124,20 @@ class AdjustedHacs(HacsBase):
         )
 
     @concurrent(concurrenttasks=10, backoff_time=2)
-    async def update_repository(self, repository: HacsRepository) -> None:
+    async def concurrent_register_repository(
+        self,
+        repository_full_name: str,
+        category: str,
+    ) -> None:
+        """Register a repository."""
+        await self.async_register_repository(
+            repository_full_name=repository_full_name,
+            category=category,
+            default=True,
+        )
+
+    @concurrent(concurrenttasks=10, backoff_time=2)
+    async def concurrent_update_repository(self, repository: HacsRepository) -> None:
         """Update a repository."""
         await repository.common_update()
 
@@ -190,14 +203,13 @@ class AdjustedHacs(HacsBase):
                 continue
             repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
-                self.queue.add(self.update_repository(repository=repository))
+                self.queue.add(self.concurrent_update_repository(repository=repository))
                 continue
 
             self.queue.add(
-                self.async_register_repository(
+                self.concurrent_register_repository(
                     repository_full_name=repo,
                     category=category,
-                    default=True,
                 )
             )
 

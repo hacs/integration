@@ -36,6 +36,7 @@ REPOSITORY_KEYS_TO_EXPORT = (
     # If keys are added, the action need to be re-run with force
     ("description", ""),
     ("downloads", 0),
+    ("domain", None),
     ("etag_repository", None),
     ("full_name", ""),
     ("last_commit", None),

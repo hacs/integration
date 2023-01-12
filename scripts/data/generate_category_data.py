@@ -124,9 +124,9 @@ class AdjustedHacs(HacsBase):
         )
 
     @concurrent(concurrenttasks=10, backoff_time=2)
-    async def update_repository(self, repository: HacsRepository, force: bool) -> None:
+    async def update_repository(self, repository: HacsRepository) -> None:
         """Update a repository."""
-        await repository.common_update(force=force)
+        await repository.common_update()
 
     async def generate_data_for_category(
         self,
@@ -137,11 +137,11 @@ class AdjustedHacs(HacsBase):
         removed = await self.data_client.get_repositories("removed")
         await self.data.register_base_data(
             category,
-            await self.data_client.get_data(category),
+            {} if force else await self.data_client.get_data(category),
             removed,
         )
         self.queue.clear()
-        await self.get_category_repositories(category, force, removed)
+        await self.get_category_repositories(category, removed)
 
         async def _handle_queue():
             if not self.queue.pending_tasks:
@@ -179,7 +179,6 @@ class AdjustedHacs(HacsBase):
     async def get_category_repositories(
         self,
         category: str,
-        force: bool,
         removed: list[str],
     ) -> None:
         """Get repositories from category."""
@@ -191,7 +190,7 @@ class AdjustedHacs(HacsBase):
                 continue
             repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
-                self.queue.add(self.update_repository(repository=repository, force=force))
+                self.queue.add(self.update_repository(repository=repository))
                 continue
 
             self.queue.add(

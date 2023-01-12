@@ -783,7 +783,7 @@ class HacsBase:
 
     async def async_get_category_repositories_experimental(self, category: str) -> None:
         """Update all category repositories."""
-        self.log.info("Fetching updateded content for %s", category)
+        self.log.info("Fetching updated content for %s", category)
         category_data = await self.data_client.get_data(category)
 
         await self.data.register_unknown_repositories(category_data, category)

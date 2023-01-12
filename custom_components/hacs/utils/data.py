@@ -15,7 +15,6 @@ from .logger import LOGGER
 from .path import is_safe
 from .store import async_load_from_store, async_save_to_store
 
-
 EXPORTED_BASE_DATA = (("new", False),)
 
 EXPORTED_REPOSITORY_DATA = EXPORTED_BASE_DATA + (

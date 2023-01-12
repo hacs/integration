@@ -147,32 +147,35 @@ class RepositoryData:
 
     def update_data(self, data: dict, action: bool = False) -> None:
         """Update data of the repository."""
-        for key in data:
+        for key, value in data.items():
             if key not in self.__dict__:
                 continue
-            if key == "pushed_at":
-                if data[key] == "":
+
+            if key == "last_fetched" and isinstance(value, float):
+                setattr(self, key, datetime.fromtimestamp(value))
+            elif key == "pushed_at":
+                if value == "":
                     continue
-                if "Z" in data[key]:
+                if "Z" in value:
                     setattr(
                         self,
                         key,
-                        datetime.strptime(data[key], "%Y-%m-%dT%H:%M:%SZ"),
+                        datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ"),
                     )
                 else:
-                    setattr(self, key, datetime.strptime(data[key], "%Y-%m-%dT%H:%M:%S"))
+                    setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S"))
             elif key == "id":
-                setattr(self, key, str(data[key]))
+                setattr(self, key, str(value))
             elif key == "country":
-                if isinstance(data[key], str):
-                    setattr(self, key, [data[key]])
+                if isinstance(value, str):
+                    setattr(self, key, [value])
                 else:
-                    setattr(self, key, data[key])
+                    setattr(self, key, value)
             elif key == "topics" and not action:
-                setattr(self, key, [topic for topic in data[key] if topic not in TOPIC_FILTER])
+                setattr(self, key, [topic for topic in value if topic not in TOPIC_FILTER])
 
             else:
-                setattr(self, key, data[key])
+                setattr(self, key, value)
 
 
 @attr.s(auto_attribs=True)

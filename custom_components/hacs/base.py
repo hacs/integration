@@ -266,7 +266,7 @@ class HacsRepositories:
 
         self._default_repositories.add(repo_id)
 
-    def set_repository_id(self, repository, repo_id):
+    def set_repository_id(self, repository: HacsRepository, repo_id: str):
         """Update a repository id."""
         existing_repo_id = str(repository.data.id)
         if existing_repo_id == repo_id:
@@ -628,16 +628,28 @@ class HacsBase:
                     )
                     break
 
+        if not self.configuration.experimental:
+            self.recuring_tasks.append(
+                self.hass.helpers.event.async_track_time_interval(
+                    self.async_update_downloaded_repositories, timedelta(hours=48)
+                )
+            )
+            self.recuring_tasks.append(
+                self.hass.helpers.event.async_track_time_interval(
+                    self.async_update_all_repositories,
+                    timedelta(hours=96),
+                )
+            )
+
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
-                self.async_get_all_category_repositories, timedelta(hours=3)
+                self.async_get_all_category_repositories_experimental
+                if self.configuration.experimental
+                else self.async_get_all_category_repositories,
+                timedelta(hours=24 if self.configuration.experimental else 3),
             )
         )
-        self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_update_all_repositories, timedelta(hours=96)
-            )
-        )
+
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
                 self.async_check_rate_limit, timedelta(minutes=5)
@@ -648,11 +660,7 @@ class HacsBase:
                 self.async_prosess_queue, timedelta(minutes=10)
             )
         )
-        self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_update_downloaded_repositories, timedelta(hours=48)
-            )
-        )
+
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
                 self.async_handle_critical_repositories, timedelta(hours=2)
@@ -667,7 +675,10 @@ class HacsBase:
         self.async_dispatch(HacsDispatchEvent.STATUS, {})
 
         await self.async_handle_removed_repositories()
-        await self.async_get_all_category_repositories()
+        if self.configuration.experimental:
+            await self.async_get_all_category_repositories_experimental()
+        else:
+            await self.async_get_all_category_repositories()
         await self.async_update_downloaded_repositories()
 
         self.set_stage(HacsStage.RUNNING)
@@ -771,6 +782,34 @@ class HacsBase:
                 for category in self.common.categories or []
             ]
         )
+
+    async def async_get_all_category_repositories_experimental(self, _=None) -> None:
+        """Get all category repositories."""
+        if self.system.disabled:
+            return
+        self.log.info("Fetching known repositories")
+        for category in self.common.categories or []:
+            category_data = await self.data_client.get_data(category)
+
+            await self.data.register_unknown_repositories(category_data, category)
+
+            for repo_id, repo_data in category_data.items():
+                repo = repo_data["full_name"]
+                if self.common.renamed_repositories.get(repo):
+                    repo = self.common.renamed_repositories[repo]
+                if self.repositories.is_removed(repo):
+                    continue
+                if repo in self.common.archived_repositories:
+                    continue
+                if repository := self.repositories.get_by_full_name(repo):
+                    self.repositories.set_repository_id(repository, repo_id)
+                    self.repositories.mark_default(repository)
+                    if repository.data.last_fetched is None or (
+                        repository.data.last_fetched.timestamp() < repo_data["last_fetched"]
+                    ):
+                        repository.data.update_data(repo_data)
+                else:
+                    self.log.warning("%s - %s", repo, repo_data)
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""

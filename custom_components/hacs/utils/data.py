@@ -15,7 +15,10 @@ from .logger import LOGGER
 from .path import is_safe
 from .store import async_load_from_store, async_save_to_store
 
-DEFAULT_BASE_REPOSITORY_DATA = (
+
+EXPORTED_BASE_DATA = (("new", False),)
+
+EXPORTED_REPOSITORY_DATA = EXPORTED_BASE_DATA + (
     ("authors", []),
     ("category", ""),
     ("description", ""),
@@ -23,18 +26,17 @@ DEFAULT_BASE_REPOSITORY_DATA = (
     ("downloads", 0),
     ("etag_repository", None),
     ("full_name", ""),
-    ("last_updated", 0),
     ("hide", False),
+    ("last_updated", 0),
     ("new", False),
     ("stargazers_count", 0),
     ("topics", []),
 )
 
-DEFAULT_EXTENDED_REPOSITORY_DATA = (
+EXPORTED_DOWNLOADED_REPOSITORY_DATA = EXPORTED_REPOSITORY_DATA + (
     ("archived", False),
     ("config_flow", False),
     ("default_branch", None),
-    ("description", ""),
     ("first_install", False),
     ("installed_commit", None),
     ("installed", False),
@@ -47,8 +49,6 @@ DEFAULT_EXTENDED_REPOSITORY_DATA = (
     ("releases", False),
     ("selected_tag", None),
     ("show_beta", False),
-    ("stargazers_count", 0),
-    ("topics", []),
 )
 
 
@@ -99,18 +99,27 @@ class HacsData:
     @callback
     def async_store_repository_data(self, repository: HacsRepository) -> dict:
         """Store the repository data."""
-        data = {"repository_manifest": repository.repository_manifest.manifest}
+        data = {}
 
-        for key, default_value in DEFAULT_BASE_REPOSITORY_DATA:
-            if (value := repository.data.__getattribute__(key)) != default_value:
+        if self.hacs.configuration.experimental and not repository.data.installed:
+            for key, default in EXPORTED_BASE_DATA:
+                if (value := getattr(repository.data, key, default)) != default:
+                    data[key] = value
+            self.content[str(repository.data.id)] = data
+            return
+
+        data["repository_manifest"] = repository.repository_manifest.manifest
+
+        for key, default in (
+            EXPORTED_DOWNLOADED_REPOSITORY_DATA
+            if repository.data.installed
+            else EXPORTED_REPOSITORY_DATA
+        ):
+            if (value := getattr(repository.data, key, default)) != default:
                 data[key] = value
 
-        if repository.data.installed:
-            for key, default_value in DEFAULT_EXTENDED_REPOSITORY_DATA:
-                if (value := repository.data.__getattribute__(key)) != default_value:
-                    data[key] = value
+        if repository.data.installed_version:
             data["version_installed"] = repository.data.installed_version
-
         if repository.data.last_fetched:
             data["last_fetched"] = repository.data.last_fetched.timestamp()
 
@@ -138,6 +147,8 @@ class HacsData:
         if not hacs and not repositories:
             # Assume new install
             self.hacs.status.new = True
+            if self.hacs.configuration.experimental:
+                return True
             self.logger.info("<HacsData restore> Loading base repository information")
             repositories = await self.hacs.hass.async_add_executor_job(
                 json_util.load_json,
@@ -208,9 +219,10 @@ class HacsData:
     @callback
     def async_restore_repository(self, entry, repository_data):
         """Restore repository."""
-        full_name = repository_data["full_name"]
-        if not (repository := self.hacs.repositories.get_by_full_name(full_name)):
-            self.logger.error("<HacsData restore> Did not find %s (%s)", full_name, entry)
+        full_name = repository_data.get("full_name")
+        if full_name is None or not (
+            repository := self.hacs.repositories.get_by_full_name(full_name)
+        ):
             return
         # Restore repository attributes
         self.hacs.repositories.set_repository_id(repository, entry)

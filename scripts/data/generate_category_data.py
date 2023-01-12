@@ -12,6 +12,7 @@ from aiohttp import ClientSession
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.json import JSONEncoder
 
+from config.custom_components.hacs.data_client import HacsDataClient
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.exceptions import HacsExecutionStillInProgress
@@ -108,6 +109,7 @@ class AdjustedHacs(HacsBase):
         self.configuration.token = token
         self.configuration.experimental = True
         self.data = AdjustedHacsData(hacs=self)
+        self.data_client = HacsDataClient(session=session)
 
         self.github = GitHub(
             token,
@@ -125,30 +127,16 @@ class AdjustedHacs(HacsBase):
         """Update a repository."""
         await repository.common_update(force=force)
 
-    async def get_removed_list(self) -> set[str]:
-        """Get removed list."""
-        response = await self.session.get("https://data-v2.hacs.xyz/removed/repositories.json")
-        response.raise_for_status()
-
-        return set(await response.json())
-
-    async def get_base_category_data(self, category: str) -> dict[str, dict[str, Any]]:
-        """Get base data."""
-        response = await self.session.get(f"https://data-v2.hacs.xyz/{category}/data.json")
-        response.raise_for_status()
-
-        return await response.json()
-
     async def generate_data_for_category(
         self,
         category: str,
         force: bool,
     ) -> dict[str, dict[str, Any]]:
         """Generate data for category."""
-        removed = await self.get_removed_list()
+        removed = await self.data_client.get_repositories("removed")
         await self.data.register_base_data(
             category,
-            await self.get_base_category_data(category),
+            await self.data_client.get_data(category),
             removed,
         )
         self.queue.clear()

@@ -181,6 +181,8 @@ class AdjustedHacs(HacsBase):
         for repository in self.repositories.list_all:
             if repository.data.category != category:
                 continue
+            if repository.data.archived:
+                continue
             self.data.async_store_repository_data(repository)
 
         return self.data.content

@@ -1,15 +1,14 @@
 """Generate HACS compliant data."""
-from datetime import datetime
-import os
-import json
-import sys
-import logging
 import asyncio
+from datetime import datetime
+import json
+import logging
+import os
+import sys
 from typing import Any
 
-from aiohttp import ClientSession
 from aiogithubapi import GitHub, GitHubAPI
-
+from aiohttp import ClientSession
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.json import JSONEncoder
 
@@ -18,7 +17,6 @@ from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.repositories.base import HacsRepository
 from custom_components.hacs.utils.data import HacsData
 from custom_components.hacs.utils.queue_manager import QueueManager
-
 
 log_handler = logging.getLogger("custom_components.hacs")
 log_handler.setLevel(logging.DEBUG)
@@ -31,7 +29,7 @@ log_handler.addHandler(stream_handler)
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
 
 REPOSITORY_KEYS_TO_EXPORT = (
-    # Keys can not be removed from this list untill v3
+    # Keys can not be removed from this list until v3
     # If keys are added, the action need to be re-run with force
     ("description", ""),
     ("downloads", 0),
@@ -48,7 +46,7 @@ REPOSITORY_KEYS_TO_EXPORT = (
 )
 
 HACS_MANIFEST_KEYS_TO_EXPORT = (
-    # Keys can not be removed from this list untill v3
+    # Keys can not be removed from this list until v3
     # If keys are added, the action need to be re-run with force
     ("country", []),
     ("name", None),

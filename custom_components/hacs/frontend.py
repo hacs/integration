@@ -8,12 +8,11 @@ from homeassistant.components.http import HomeAssistantView
 from homeassistant.core import HomeAssistant, callback
 
 from .const import DOMAIN, URL_BASE
-from .hacs_frontend import locate_dir, VERSION as FE_VERSION
+from .hacs_frontend import VERSION as FE_VERSION, locate_dir
 from .hacs_frontend_experimental import (
-    locate_dir as experimental_locate_dir,
     VERSION as EXPERIMENTAL_FE_VERSION,
+    locate_dir as experimental_locate_dir,
 )
-
 
 if TYPE_CHECKING:
     from .base import HacsBase

@@ -818,8 +818,6 @@ class HacsBase:
                         repository.repository_manifest.update_data(
                             {**dict(HACS_MANIFEST_KEYS_TO_EXPORT), **manifest}
                         )
-            else:
-                self.log.warning("%s - %s", repo, repo_data)
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""

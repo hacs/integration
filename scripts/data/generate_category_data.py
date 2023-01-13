@@ -32,7 +32,7 @@ log_handler.setLevel(logging.DEBUG)
 
 stream_handler = logging.StreamHandler(sys.stdout)
 stream_handler.setLevel(logging.DEBUG)
-stream_handler.setFormatter(logging.Formatter("%(levelname)s%(asctime)s - %(message)s"))
+stream_handler.setFormatter(logging.Formatter("%(levelname)s%(message)s"))
 log_handler.addHandler(stream_handler)
 
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")

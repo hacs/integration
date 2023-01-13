@@ -44,7 +44,6 @@ REPOSITORY_KEYS_TO_EXPORT = (
     ("last_version", None),
     ("manifest_name", None),
     ("open_issues", 0),
-    ("pushed_at", ""),
     ("stargazers_count", 0),
     ("topics", []),
 )

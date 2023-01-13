@@ -222,7 +222,7 @@ class AdjustedHacs(HacsBase):
         current = await self.data_client.get_data(category)
 
         for repo_id, repo_data in updated_data.items():
-            if repo_data.get("etag_repository") != current.get(repo_id).get("etag_repository"):
+            if repo_data.get("etag_repository") != current.get(repo_id, {}).get("etag_repository"):
                 updated += 1
 
         print(

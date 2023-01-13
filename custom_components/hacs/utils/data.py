@@ -44,7 +44,6 @@ EXPORTED_DOWNLOADED_REPOSITORY_DATA = EXPORTED_REPOSITORY_DATA + (
     ("manifest_name", None),
     ("open_issues", 0),
     ("published_tags", []),
-    ("pushed_at", ""),
     ("releases", False),
     ("selected_tag", None),
     ("show_beta", False),

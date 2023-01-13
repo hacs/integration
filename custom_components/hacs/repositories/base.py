@@ -120,7 +120,6 @@ class RepositoryData:
     new: bool = True
     open_issues: int = 0
     published_tags: list[str] = []
-    pushed_at: str = ""
     releases: bool = False
     selected_tag: str = None
     show_beta: bool = False
@@ -153,17 +152,6 @@ class RepositoryData:
 
             if key == "last_fetched" and isinstance(value, float):
                 setattr(self, key, datetime.fromtimestamp(value))
-            elif key == "pushed_at":
-                if value == "":
-                    continue
-                if "Z" in value:
-                    setattr(
-                        self,
-                        key,
-                        datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ"),
-                    )
-                else:
-                    setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S"))
             elif key == "id":
                 setattr(self, key, str(value))
             elif key == "country":
@@ -451,6 +439,9 @@ class HacsRepository:
             except HacsNotModifiedException:
                 self.logger.debug("%s Did not update, content was not modified", self.string)
                 return
+
+        if self.repository_object:
+            self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)
 
         # Set topics
         self.data.topics = self.data.topics

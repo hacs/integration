@@ -21,12 +21,18 @@ from custom_components.hacs.utils.data import HacsData
 from custom_components.hacs.utils.decorator import concurrent
 from custom_components.hacs.utils.queue_manager import QueueManager
 
+
+logging.addLevelName(logging.DEBUG, "")
+logging.addLevelName(logging.INFO, "")
+logging.addLevelName(logging.ERROR, "::error::")
+logging.addLevelName(logging.WARNING, "::warning::")
+
 log_handler = logging.getLogger("custom_components.hacs")
 log_handler.setLevel(logging.DEBUG)
 
 stream_handler = logging.StreamHandler(sys.stdout)
 stream_handler.setLevel(logging.DEBUG)
-stream_handler.setFormatter(logging.Formatter("%(asctime)s - %(message)s"))
+stream_handler.setFormatter(logging.Formatter("%(levelname)s%(message)s"))
 log_handler.addHandler(stream_handler)
 
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
@@ -44,7 +50,6 @@ REPOSITORY_KEYS_TO_EXPORT = (
     ("last_version", None),
     ("manifest_name", None),
     ("open_issues", 0),
-    ("pushed_at", ""),
     ("stargazers_count", 0),
     ("topics", []),
 )
@@ -123,10 +128,23 @@ class AdjustedHacs(HacsBase):
             **{"client_name": "HACS/Generator"},
         )
 
-    @concurrent(concurrenttasks=10, backoff_time=2)
-    async def update_repository(self, repository: HacsRepository, force: bool) -> None:
+    @concurrent(concurrenttasks=10)
+    async def concurrent_register_repository(
+        self,
+        repository_full_name: str,
+        category: str,
+    ) -> None:
+        """Register a repository."""
+        await self.async_register_repository(
+            repository_full_name=repository_full_name,
+            category=category,
+            default=True,
+        )
+
+    @concurrent(concurrenttasks=10, backoff_time=0.1)
+    async def concurrent_update_repository(self, repository: HacsRepository) -> None:
         """Update a repository."""
-        await repository.common_update(force=force)
+        await repository.common_update()
 
     async def generate_data_for_category(
         self,
@@ -137,11 +155,11 @@ class AdjustedHacs(HacsBase):
         removed = await self.data_client.get_repositories("removed")
         await self.data.register_base_data(
             category,
-            await self.data_client.get_data(category),
+            {} if force else await self.data_client.get_data(category),
             removed,
         )
         self.queue.clear()
-        await self.get_category_repositories(category, force, removed)
+        await self.get_category_repositories(category, removed)
 
         async def _handle_queue():
             if not self.queue.pending_tasks:
@@ -158,7 +176,7 @@ class AdjustedHacs(HacsBase):
                 await _handle_queue()
 
             try:
-                await self.queue.execute(round(can_update / 3))
+                await self.queue.execute(round(can_update / (6 if force else 3)) or 1)
             except HacsExecutionStillInProgress:
                 return
 
@@ -179,11 +197,14 @@ class AdjustedHacs(HacsBase):
     async def get_category_repositories(
         self,
         category: str,
-        force: bool,
         removed: list[str],
     ) -> None:
         """Get repositories from category."""
         repositories = await self.async_github_get_hacs_default_file(category)
+
+        if category == "integration":
+            # hacs/integration i not in the default file, but it's still needed
+            repositories.append("hacs/integration")
 
         for repo in repositories:
             if repo in removed:
@@ -191,16 +212,36 @@ class AdjustedHacs(HacsBase):
                 continue
             repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
-                self.queue.add(self.update_repository(repository=repository, force=force))
+                self.queue.add(self.concurrent_update_repository(repository=repository))
                 continue
 
             self.queue.add(
-                self.async_register_repository(
+                self.concurrent_register_repository(
                     repository_full_name=repo,
                     category=category,
-                    default=True,
                 )
             )
+
+    async def summarize_data(self, category: str, updated_data: dict[str, dict[str, Any]]):
+        """Summarize data."""
+        updated = 0
+        current = await self.data_client.get_data(category)
+
+        for repo_id, repo_data in updated_data.items():
+            if repo_data.get("etag_repository") != current.get(repo_id, {}).get("etag_repository"):
+                updated += 1
+
+        print(
+            json.dumps(
+                {
+                    "rate_limit": (await self.githubapi.rate_limit()).data.resources.core.as_dict,
+                    "current_count": len(current.keys()),
+                    "new_count": len(updated_data.keys()),
+                    "changed": updated,
+                },
+                indent=2,
+            )
+        )
 
 
 async def generate_category_data(category: str):
@@ -235,7 +276,7 @@ async def generate_category_data(category: str):
                 separators=(",", ":"),
             )
 
-        print((await hacs.githubapi.rate_limit()).data.resources.core.as_dict)
+        await hacs.summarize_data(category, data)
 
 
 if __name__ == "__main__":

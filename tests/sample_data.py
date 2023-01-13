@@ -8,7 +8,6 @@ repository_data = {
     "full_name": "test/test",
     "fork": False,
     "description": "Sample description for repository.",
-    "pushed_at": "1970-01-01T00:00:00Z",
     "stargazers_count": 999,
     "archived": False,
     "topics": ["topic1", "topic2"],

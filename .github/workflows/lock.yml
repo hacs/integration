@@ -5,7 +5,8 @@ on:
     - cron: "0 * * * *"
 
 concurrency:
-  group: lock
+  group: lock-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lock:

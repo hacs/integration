@@ -123,7 +123,7 @@ class AdjustedHacs(HacsBase):
             **{"client_name": "HACS/Generator"},
         )
 
-    @concurrent(concurrenttasks=10, backoff_time=2)
+    @concurrent(concurrenttasks=10, backoff_time=0.1)
     async def concurrent_register_repository(
         self,
         repository_full_name: str,
@@ -136,7 +136,7 @@ class AdjustedHacs(HacsBase):
             default=True,
         )
 
-    @concurrent(concurrenttasks=10, backoff_time=2)
+    @concurrent(concurrenttasks=10, backoff_time=0.1)
     async def concurrent_update_repository(self, repository: HacsRepository) -> None:
         """Update a repository."""
         await repository.common_update()

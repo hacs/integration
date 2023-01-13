@@ -32,6 +32,11 @@ from homeassistant.helpers.issue_registry import IssueSeverity, async_create_iss
 from homeassistant.loader import Integration
 from homeassistant.util import dt
 
+from custom_components.hacs.repositories.base import (
+    HACS_MANIFEST_KEYS_TO_EXPORT,
+    REPOSITORY_KEYS_TO_EXPORT,
+)
+
 from .const import DOMAIN, TV, URL_BASE
 from .data_client import HacsDataClient
 from .enums import (
@@ -802,7 +807,11 @@ class HacsBase:
                 if repository.data.last_fetched is None or (
                     repository.data.last_fetched.timestamp() < repo_data["last_fetched"]
                 ):
-                    repository.data.update_data(repo_data)
+                    repository.data.update_data({**dict(REPOSITORY_KEYS_TO_EXPORT), **repo_data})
+                    if (manifest := repo_data.get("manifest")) is not None:
+                        repository.repository_manifest.update_data(
+                            {**dict(HACS_MANIFEST_KEYS_TO_EXPORT), **manifest}
+                        )
             else:
                 self.log.warning("%s - %s", repo, repo_data)
 

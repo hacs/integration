@@ -16,7 +16,11 @@ from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.data_client import HacsDataClient
 from custom_components.hacs.exceptions import HacsExecutionStillInProgress
-from custom_components.hacs.repositories.base import HacsRepository
+from custom_components.hacs.repositories.base import (
+    HACS_MANIFEST_KEYS_TO_EXPORT,
+    REPOSITORY_KEYS_TO_EXPORT,
+    HacsRepository,
+)
 from custom_components.hacs.utils.data import HacsData
 from custom_components.hacs.utils.decorator import concurrent
 from custom_components.hacs.utils.queue_manager import QueueManager
@@ -35,30 +39,6 @@ stream_handler.setFormatter(logging.Formatter("%(levelname)s%(message)s"))
 log_handler.addHandler(stream_handler)
 
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
-
-REPOSITORY_KEYS_TO_EXPORT = (
-    # Keys can not be removed from this list until v3
-    # If keys are added, the action need to be re-run with force
-    ("description", ""),
-    ("downloads", 0),
-    ("domain", None),
-    ("etag_repository", None),
-    ("full_name", ""),
-    ("last_commit", None),
-    ("last_updated", 0),
-    ("last_version", None),
-    ("manifest_name", None),
-    ("open_issues", 0),
-    ("stargazers_count", 0),
-    ("topics", []),
-)
-
-HACS_MANIFEST_KEYS_TO_EXPORT = (
-    # Keys can not be removed from this list until v3
-    # If keys are added, the action need to be re-run with force
-    ("country", []),
-    ("name", None),
-)
 
 
 class AdjustedHacsData(HacsData):

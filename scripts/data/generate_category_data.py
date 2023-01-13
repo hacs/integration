@@ -94,7 +94,7 @@ class AdjustedHacs(HacsBase):
         self.configuration.token = token
         self.configuration.experimental = True
         self.data = AdjustedHacsData(hacs=self)
-        self.data_client = HacsDataClient(session=session)
+        self.data_client = HacsDataClient(session=session, client_name="HACS/Generator")
 
         self.github = GitHub(
             token,

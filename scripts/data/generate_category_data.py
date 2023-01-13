@@ -231,7 +231,7 @@ class AdjustedHacs(HacsBase):
                     "rate_limit": (await self.githubapi.rate_limit()).data.resources.core.as_dict,
                     "current_count": len(current.keys()),
                     "new_count": len(updated_data.keys()),
-                    "updated": updated,
+                    "changed": updated,
                 },
                 indent=2,
             )

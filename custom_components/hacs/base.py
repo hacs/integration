@@ -918,9 +918,12 @@ class HacsBase:
         self.log.info("Loading removed repositories")
 
         try:
-            removed_repositories = await self.async_github_get_hacs_default_file(
-                HacsCategory.REMOVED
-            )
+            if self.configuration.experimental:
+                removed_repositories = await self.data_client.get_data("removed")
+            else:
+                removed_repositories = await self.async_github_get_hacs_default_file(
+                    HacsCategory.REMOVED
+                )
         except HacsException:
             return
 

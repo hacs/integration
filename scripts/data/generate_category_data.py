@@ -21,12 +21,17 @@ from custom_components.hacs.utils.data import HacsData
 from custom_components.hacs.utils.decorator import concurrent
 from custom_components.hacs.utils.queue_manager import QueueManager
 
+
+logging.addLevelName(logging.DEBUG, "notice")
+logging.addLevelName(logging.ERROR, "error")
+logging.addLevelName(logging.WARNING, "warning")
+
 log_handler = logging.getLogger("custom_components.hacs")
 log_handler.setLevel(logging.DEBUG)
 
 stream_handler = logging.StreamHandler(sys.stdout)
 stream_handler.setLevel(logging.DEBUG)
-stream_handler.setFormatter(logging.Formatter("%(asctime)s - %(message)s"))
+stream_handler.setFormatter(logging.Formatter("::%(levelname)s::%(asctime)s - %(message)s"))
 log_handler.addHandler(stream_handler)
 
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")

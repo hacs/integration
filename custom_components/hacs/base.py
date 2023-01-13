@@ -32,6 +32,11 @@ from homeassistant.helpers.issue_registry import IssueSeverity, async_create_iss
 from homeassistant.loader import Integration
 from homeassistant.util import dt
 
+from custom_components.hacs.repositories.base import (
+    HACS_MANIFEST_KEYS_TO_EXPORT,
+    REPOSITORY_KEYS_TO_EXPORT,
+)
+
 from .const import DOMAIN, TV, URL_BASE
 from .data_client import HacsDataClient
 from .enums import (
@@ -266,7 +271,7 @@ class HacsRepositories:
 
         self._default_repositories.add(repo_id)
 
-    def set_repository_id(self, repository, repo_id):
+    def set_repository_id(self, repository: HacsRepository, repo_id: str):
         """Update a repository id."""
         existing_repo_id = str(repository.data.id)
         if existing_repo_id == repo_id:
@@ -548,8 +553,6 @@ class HacsBase:
         if check:
             try:
                 await repository.async_registration(ref)
-                if self.status.new:
-                    repository.data.new = False
                 if repository.validate.errors:
                     self.common.skip.append(repository.data.full_name)
                     if not self.status.startup:
@@ -570,6 +573,9 @@ class HacsBase:
                 raise HacsException(
                     f"Validation for {repository_full_name} failed with {exception}."
                 ) from exception
+
+        if self.status.new:
+            repository.data.new = False
 
         if repository_id is not None:
             repository.data.id = repository_id
@@ -628,16 +634,32 @@ class HacsBase:
                     )
                     break
 
+        if not self.configuration.experimental:
+            self.recuring_tasks.append(
+                self.hass.helpers.event.async_track_time_interval(
+                    self.async_update_downloaded_repositories, timedelta(hours=48)
+                )
+            )
+            self.recuring_tasks.append(
+                self.hass.helpers.event.async_track_time_interval(
+                    self.async_update_all_repositories,
+                    timedelta(hours=96),
+                )
+            )
+
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
-                self.async_get_all_category_repositories, timedelta(hours=3)
+                self.async_update_downloaded_custom_repositories, timedelta(hours=48)
             )
         )
+
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
-                self.async_update_all_repositories, timedelta(hours=96)
+                self.async_get_all_category_repositories,
+                timedelta(hours=6 if self.configuration.experimental else 3),
             )
         )
+
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
                 self.async_check_rate_limit, timedelta(minutes=5)
@@ -648,11 +670,7 @@ class HacsBase:
                 self.async_prosess_queue, timedelta(minutes=10)
             )
         )
-        self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_update_downloaded_repositories, timedelta(hours=48)
-            )
-        )
+
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
                 self.async_handle_critical_repositories, timedelta(hours=2)
@@ -767,10 +785,39 @@ class HacsBase:
         self.log.info("Loading known repositories")
         await asyncio.gather(
             *[
-                self.async_get_category_repositories(HacsCategory(category))
+                self.async_get_category_repositories_experimental(category)
+                if self.configuration.experimental
+                else self.async_get_category_repositories(HacsCategory(category))
                 for category in self.common.categories or []
             ]
         )
+
+    async def async_get_category_repositories_experimental(self, category: str) -> None:
+        """Update all category repositories."""
+        self.log.info("Fetching updated content for %s", category)
+        category_data = await self.data_client.get_data(category)
+
+        await self.data.register_unknown_repositories(category_data, category)
+
+        for repo_id, repo_data in category_data.items():
+            repo = repo_data["full_name"]
+            if self.common.renamed_repositories.get(repo):
+                repo = self.common.renamed_repositories[repo]
+            if self.repositories.is_removed(repo):
+                continue
+            if repo in self.common.archived_repositories:
+                continue
+            if repository := self.repositories.get_by_full_name(repo):
+                self.repositories.set_repository_id(repository, repo_id)
+                self.repositories.mark_default(repository)
+                if repository.data.last_fetched is None or (
+                    repository.data.last_fetched.timestamp() < repo_data["last_fetched"]
+                ):
+                    repository.data.update_data({**dict(REPOSITORY_KEYS_TO_EXPORT), **repo_data})
+                    if (manifest := repo_data.get("manifest")) is not None:
+                        repository.repository_manifest.update_data(
+                            {**dict(HACS_MANIFEST_KEYS_TO_EXPORT), **manifest}
+                        )
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""
@@ -869,9 +916,12 @@ class HacsBase:
         self.log.info("Loading removed repositories")
 
         try:
-            removed_repositories = await self.async_github_get_hacs_default_file(
-                HacsCategory.REMOVED
-            )
+            if self.configuration.experimental:
+                removed_repositories = await self.data_client.get_data("removed")
+            else:
+                removed_repositories = await self.async_github_get_hacs_default_file(
+                    HacsCategory.REMOVED
+                )
         except HacsException:
             return
 
@@ -926,6 +976,21 @@ class HacsBase:
                 self.queue.add(repository.update_repository(ignore_issues=True))
 
         self.log.debug("Recurring background task for downloaded repositories done")
+
+    async def async_update_downloaded_custom_repositories(self, _=None) -> None:
+        """Execute the task."""
+        if self.system.disabled or not self.configuration.experimental:
+            return
+        self.log.info("Starting recurring background task for downloaded custom repositories")
+
+        for repository in self.repositories.list_downloaded:
+            if (
+                repository.data.category in self.common.categories
+                and not self.repositories.is_default(repository.data.id)
+            ):
+                self.queue.add(repository.update_repository(ignore_issues=True))
+
+        self.log.debug("Recurring background task for downloaded custom repositories done")
 
     async def async_handle_critical_repositories(self, _=None) -> None:
         """Handle critical repositories."""

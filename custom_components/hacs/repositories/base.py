@@ -77,7 +77,33 @@ TOPIC_FILTER = (
     "home-assistant-frontend",
     "home-assistant-hacs",
     "home-assistant-custom",
+    "home-assistant-sensor",
     "lovelace-ui",
+)
+
+
+REPOSITORY_KEYS_TO_EXPORT = (
+    # Keys can not be removed from this list until v3
+    # If keys are added, the action need to be re-run with force
+    ("description", ""),
+    ("downloads", 0),
+    ("domain", None),
+    ("etag_repository", None),
+    ("full_name", ""),
+    ("last_commit", None),
+    ("last_updated", 0),
+    ("last_version", None),
+    ("manifest_name", None),
+    ("open_issues", 0),
+    ("stargazers_count", 0),
+    ("topics", []),
+)
+
+HACS_MANIFEST_KEYS_TO_EXPORT = (
+    # Keys can not be removed from this list until v3
+    # If keys are added, the action need to be re-run with force
+    ("country", []),
+    ("name", None),
 )
 
 
@@ -146,21 +172,24 @@ class RepositoryData:
 
     def update_data(self, data: dict, action: bool = False) -> None:
         """Update data of the repository."""
-        for key in data:
+        for key, value in data.items():
             if key not in self.__dict__:
                 continue
+
+            if key == "last_fetched" and isinstance(value, float):
+                setattr(self, key, datetime.fromtimestamp(value))
             elif key == "id":
-                setattr(self, key, str(data[key]))
+                setattr(self, key, str(value))
             elif key == "country":
-                if isinstance(data[key], str):
-                    setattr(self, key, [data[key]])
+                if isinstance(value, str):
+                    setattr(self, key, [value])
                 else:
-                    setattr(self, key, data[key])
+                    setattr(self, key, value)
             elif key == "topics" and not action:
-                setattr(self, key, [topic for topic in data[key] if topic not in TOPIC_FILTER])
+                setattr(self, key, [topic for topic in value if topic not in TOPIC_FILTER])
 
             else:
-                setattr(self, key, data[key])
+                setattr(self, key, value)
 
 
 @attr.s(auto_attribs=True)
@@ -202,6 +231,20 @@ class HacsManifest:
             elif key in manifest_data.__dict__:
                 setattr(manifest_data, key, value)
         return manifest_data
+
+    def update_data(self, data: dict) -> None:
+        """Update the manifest data."""
+        for key, value in data.items():
+            if key not in self.__dict__:
+                continue
+
+            if key == "country":
+                if isinstance(value, str):
+                    setattr(self, key, [value])
+                else:
+                    setattr(self, key, value)
+            else:
+                setattr(self, key, value)
 
 
 class RepositoryReleases:

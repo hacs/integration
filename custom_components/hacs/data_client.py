@@ -11,9 +11,10 @@ from .exceptions import HacsException
 class HacsDataClient:
     """HACS Data client."""
 
-    def __init__(self, session: ClientSession) -> None:
+    def __init__(self, session: ClientSession, client_name: str) -> None:
         """Initialize."""
-        self.session = session
+        self._client_name = client_name
+        self._session = session
 
     async def _do_request(
         self,
@@ -23,9 +24,10 @@ class HacsDataClient:
         """Do request."""
         endpoint = "/".join([v for v in [section, filename] if v is not None])
         try:
-            response = await self.session.get(
+            response = await self._session.get(
                 f"https://data-v2.hacs.xyz/{endpoint}",
                 timeout=ClientTimeout(total=60),
+                headers={"User-Agent": self._client_name},
             )
             response.raise_for_status()
         except Exception as exception:

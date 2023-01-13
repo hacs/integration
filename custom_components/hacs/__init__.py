@@ -88,7 +88,10 @@ async def async_initialize_integration(
     hacs.hass = hass
     hacs.queue = QueueManager(hass=hass)
     hacs.data = HacsData(hacs=hacs)
-    hacs.data_client = HacsDataClient(session=clientsession)
+    hacs.data_client = HacsDataClient(
+        session=clientsession,
+        client_name=f"HACS/{integration.version}",
+    )
     hacs.system.running = True
     hacs.session = clientsession
 

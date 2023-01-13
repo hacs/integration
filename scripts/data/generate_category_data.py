@@ -216,6 +216,27 @@ class AdjustedHacs(HacsBase):
                 )
             )
 
+    async def summarize_data(self, category: str, updated_data: dict[str, dict[str, Any]]):
+        """Summarize data."""
+        updated = 0
+        current = await self.data_client.get_data(category)
+
+        for repo_id, repo_data in updated_data.items():
+            if repo_data.get("etag_repository") != current.get(repo_id).get("etag_repository"):
+                updated += 1
+
+        print(
+            json.dumps(
+                {
+                    "rate_limit": (await self.githubapi.rate_limit()).data.resources.core.as_dict,
+                    "current_count": len(current.keys()),
+                    "new_count": len(updated_data.keys()),
+                    "updated": updated,
+                },
+                indent=2,
+            )
+        )
+
 
 async def generate_category_data(category: str):
     """Generate data."""
@@ -249,7 +270,7 @@ async def generate_category_data(category: str):
                 separators=(",", ":"),
             )
 
-        print((await hacs.githubapi.rate_limit()).data.resources.core.as_dict)
+        await hacs.summarize_data(category, data)
 
 
 if __name__ == "__main__":

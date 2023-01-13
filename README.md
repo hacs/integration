@@ -1,9 +1,5 @@
 # HACS (Home Assistant Community Store)
 
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/hacs/integration.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hacs/integration/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/hacs/integration.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/hacs/integration/context:python)
-[![Downloads for latest release](https://img.shields.io/github/downloads/hacs/integration/latest/total.svg)](https://github.com/hacs/integration/releases/latest)
-
 _Manage (Install, track, upgrade) and discover custom elements for Home Assistant directly from the UI._
 
 ![gif](https://raw.githubusercontent.com/hacs/documentation/master/static/img/demo.gif)

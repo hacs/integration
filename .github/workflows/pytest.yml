@@ -23,16 +23,20 @@ jobs:
       - name: 📥 Checkout the repository
         uses: actions/checkout@v3.3.0
 
-      - name: 🛠️ Set up Python ${{ matrix.python-version }}
+      - name: 🛠️ Set up Python
         uses: actions/setup-python@v4.4.0
+        id: python
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.x"
           cache: 'pip'
+          cache-dependency-path: |
+            requirements_base.txt
+            requirements_test.txt
 
-      - name: 📦 Install dependencies
+      - name: 📦 Install requirements
         run: |
-          make init
-          python3 -m pip install pytest pytest-cov
+          python3 -m pip install -r requirements_test.txt
+          bash manage/install_frontend
 
       - name: 🏃 Run tests
         env:
@@ -58,12 +62,15 @@ jobs:
         with:
           python-version: "3.9"
           cache: 'pip'
+          cache-dependency-path: |
+            requirements_base.txt
+            requirements_test.txt
 
       - name: 📦 Install dependencies
         run: |
-          make init
-          python3 -m pip install pytest pytest-cov
+          python3 -m pip install -r requirements_test.txt
           make homeassistant-install-old
+          bash manage/install_frontend
 
       - name: 🏃 Run tests
         env:

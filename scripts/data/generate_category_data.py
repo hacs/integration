@@ -122,7 +122,7 @@ class AdjustedHacs(HacsBase):
             **{"client_name": "HACS/Generator"},
         )
 
-    @concurrent(concurrenttasks=10, backoff_time=0.1)
+    @concurrent(concurrenttasks=10)
     async def concurrent_register_repository(
         self,
         repository_full_name: str,

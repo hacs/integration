@@ -36,7 +36,6 @@ jobs:
         id: python
         with:
           python-version: "3.x"
-          cache: 'pip'
 
       - name: 📦 Install pre-commit
         run: |
@@ -55,12 +54,16 @@ jobs:
 
     - name: 🛠️ Set up Python
       uses: actions/setup-python@v4.4.0
+      id: python
       with:
         python-version: "3.x"
         cache: 'pip'
+        cache-dependency-path: |
+          requirements_base.txt
+          requirements_lint.txt
 
-    - name: 📦 Install dependencies
-      run:  make requirements
+    - name: 📦 Install requirements
+      run: python3 -m pip install -r requirements_lint.txt
 
     - name: ✅ Add problem matcher
       run: echo "::add-matcher::.github/matchers/bellybutton.json"
@@ -74,9 +77,6 @@ jobs:
     steps:
     - name: 📥 Checkout the repository
       uses: actions/checkout@v3.3.0
-
-    - name: 📦 Install dependencies
-      run:  make requirements
 
     - name: 🏃 Run validation
       run: jq -r -e -c . tests/fixtures/*.json

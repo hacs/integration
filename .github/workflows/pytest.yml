@@ -34,7 +34,9 @@ jobs:
             requirements_test.txt
 
       - name: 📦 Install requirements
-        run: python3 -m pip install -r requirements_test.txt
+        run: |
+          python3 -m pip install -r requirements_test.txt
+          bash manage/install_frontend
 
       - name: 🏃 Run tests
         env:

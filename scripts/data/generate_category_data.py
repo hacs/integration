@@ -197,6 +197,10 @@ class AdjustedHacs(HacsBase):
         """Get repositories from category."""
         repositories = await self.async_github_get_hacs_default_file(category)
 
+        if category == "integration":
+            # hacs/integration i not in the default file, but it's still needed
+            repositories.append("hacs/integration")
+
         for repo in repositories:
             if repo in removed:
                 self.log.info("Skipping %s as it's removed from HACS", repo)

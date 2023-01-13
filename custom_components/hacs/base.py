@@ -649,6 +649,12 @@ class HacsBase:
 
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
+                self.async_update_downloaded_custom_repositories, timedelta(hours=48)
+            )
+        )
+
+        self.recuring_tasks.append(
+            self.hass.helpers.event.async_track_time_interval(
                 self.async_get_all_category_repositories,
                 timedelta(hours=6 if self.configuration.experimental else 3),
             )
@@ -969,6 +975,21 @@ class HacsBase:
                 self.queue.add(repository.update_repository(ignore_issues=True))
 
         self.log.debug("Recurring background task for downloaded repositories done")
+
+    async def async_update_downloaded_custom_repositories(self, _=None) -> None:
+        """Execute the task."""
+        if self.system.disabled or not self.configuration.experimental:
+            return
+        self.log.info("Starting recurring background task for downloaded custom repositories")
+
+        for repository in self.repositories.list_downloaded:
+            if (
+                repository.data.category in self.common.categories
+                and not self.repositories.is_default(repository.data.id)
+            ):
+                self.queue.add(repository.update_repository(ignore_issues=True))
+
+        self.log.debug("Recurring background task for downloaded custom repositories done")
 
     async def async_handle_critical_repositories(self, _=None) -> None:
         """Handle critical repositories."""

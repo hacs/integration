@@ -21,7 +21,6 @@ from custom_components.hacs.utils.data import HacsData
 from custom_components.hacs.utils.decorator import concurrent
 from custom_components.hacs.utils.queue_manager import QueueManager
 
-
 logging.addLevelName(logging.DEBUG, "")
 logging.addLevelName(logging.INFO, "")
 logging.addLevelName(logging.ERROR, "::error::")

@@ -12,7 +12,7 @@ on:
           - "False"
           - "True"
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "0 */1 * * *"
 
 concurrency:
   group: category-data
@@ -82,6 +82,14 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.CF_R2_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CF_R2_SECRET_ACCESS_KEY }}
+
+      - name: Bust CloudFlare cache
+        run: |
+          curl --silent --show-error --fail -X POST \
+            "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CF_BUST_CACHE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"files": ["https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/data.json", "https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/repositories.json"]}'
 
       - name: Discord notification
         if: ${{ github.event_name == 'schedule' && failure() }}

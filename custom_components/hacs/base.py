@@ -53,6 +53,7 @@ from .exceptions import (
     HacsException,
     HacsExecutionStillInProgress,
     HacsExpectedException,
+    HacsNotModifiedException,
     HacsRepositoryArchivedException,
     HacsRepositoryExistException,
     HomeAssistantCoreRepositoryException,
@@ -795,7 +796,14 @@ class HacsBase:
     async def async_get_category_repositories_experimental(self, category: str) -> None:
         """Update all category repositories."""
         self.log.info("Fetching updated content for %s", category)
-        category_data = await self.data_client.get_data(category)
+        try:
+            category_data = await self.data_client.get_data(category)
+        except HacsNotModifiedException:
+            self.log.info("No updates for %s", category)
+            return
+        except HacsException as exception:
+            self.log.error("Could not update %s - %s", category, exception)
+            return
 
         await self.data.register_unknown_repositories(category_data, category)
 

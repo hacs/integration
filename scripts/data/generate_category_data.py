@@ -128,13 +128,14 @@ class AdjustedHacs(HacsBase):
     async def generate_data_for_category(
         self,
         category: str,
+        current_data: dict[str, dict[str, Any]],
         force: bool,
     ) -> dict[str, dict[str, Any]]:
         """Generate data for category."""
         removed = await self.data_client.get_repositories("removed")
         await self.data.register_base_data(
             category,
-            {} if force else await self.data_client.get_data(category),
+            {} if force else current_data,
             removed,
         )
         self.queue.clear()
@@ -201,20 +202,25 @@ class AdjustedHacs(HacsBase):
                 )
             )
 
-    async def summarize_data(self, category: str, updated_data: dict[str, dict[str, Any]]):
+    async def summarize_data(
+        self,
+        current_data: dict[str, dict[str, Any]],
+        updated_data: dict[str, dict[str, Any]],
+    ):
         """Summarize data."""
         updated = 0
-        current = await self.data_client.get_data(category)
 
         for repo_id, repo_data in updated_data.items():
-            if repo_data.get("etag_repository") != current.get(repo_id, {}).get("etag_repository"):
+            if repo_data.get("etag_repository") != current_data.get(repo_id, {}).get(
+                "etag_repository"
+            ):
                 updated += 1
 
         print(
             json.dumps(
                 {
                     "rate_limit": (await self.githubapi.rate_limit()).data.resources.core.as_dict,
-                    "current_count": len(current.keys()),
+                    "current_count": len(current_data.keys()),
                     "new_count": len(updated_data.keys()),
                     "changed": updated,
                 },
@@ -228,8 +234,10 @@ async def generate_category_data(category: str):
     async with ClientSession() as session:
         hacs = AdjustedHacs(session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
         os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
-        data = await hacs.generate_data_for_category(
+        current_data = await hacs.data_client.get_data(category)
+        updated_data = await hacs.generate_data_for_category(
             category,
+            current_data,
             force=os.environ.get("FORCE_REPOSITORY_UPDATE") == "True",
         )
 
@@ -239,7 +247,7 @@ async def generate_category_data(category: str):
             encoding="utf-8",
         ) as data_file:
             json.dump(
-                data,
+                updated_data,
                 data_file,
                 cls=JSONEncoder,
                 separators=(",", ":"),
@@ -250,12 +258,12 @@ async def generate_category_data(category: str):
             encoding="utf-8",
         ) as repositories_file:
             json.dump(
-                [v["full_name"] for v in data.values()],
+                [v["full_name"] for v in updated_data.values()],
                 repositories_file,
                 separators=(",", ":"),
             )
 
-        await hacs.summarize_data(category, data)
+        await hacs.summarize_data(current_data, updated_data)
 
 
 if __name__ == "__main__":

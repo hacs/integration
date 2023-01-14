@@ -1045,7 +1045,11 @@ class HacsRepository:
                 self.hacs.common.renamed_repositories[
                     self.data.full_name
                 ] = repository_object.full_name
-                raise HacsRepositoryExistException
+                if not self.hacs.system.generator:
+                    raise HacsRepositoryExistException
+                self.logger.error(
+                    "%s Repository has been renamed - %s", self.string, repository_object.full_name
+                )
             self.data.update_data(
                 repository_object.attributes,
                 action=self.hacs.system.action,

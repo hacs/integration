@@ -183,6 +183,7 @@ class HacsSystem:
     running: bool = False
     stage = HacsStage.SETUP
     action: bool = False
+    generator: bool = False
 
     @property
     def disabled(self) -> bool:
@@ -567,7 +568,11 @@ class HacsBase:
                     repository.logger.info("%s Validation completed", repository.string)
                 else:
                     repository.logger.info("%s Registration completed", repository.string)
-            except (HacsRepositoryExistException, HacsRepositoryArchivedException):
+            except (HacsRepositoryExistException, HacsRepositoryArchivedException) as exception:
+                if self.system.generator:
+                    repository.logger.error(
+                        "%s Registration Failed - %s", repository.string, exception
+                    )
                 return
             except AIOGitHubAPIException as exception:
                 self.common.skip.append(repository.data.full_name)

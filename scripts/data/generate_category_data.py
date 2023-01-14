@@ -89,6 +89,7 @@ class AdjustedHacs(HacsBase):
         super().__init__()
         self.hass = HomeAssistant()
         self.queue = QueueManager(self.hass)
+        self.system.generator = True
         self.session = session
         self.core.config_path = None
         self.configuration.token = token

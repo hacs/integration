@@ -172,12 +172,14 @@ class HacsData:
                 )
                 or {}
             )
-            if self.hacs.configuration.experimental:
+            if data and self.hacs.configuration.experimental:
                 for category, entries in data.get("repositories", {}).items():
                     for repository in entries:
                         repositories[repository["id"]] = {"category": category, **repository}
             else:
-                repositories = data
+                repositories = (
+                    data or await async_load_from_store(self.hacs.hass, "repositories") or {}
+                )
         except HomeAssistantError as exception:
             self.hacs.log.error(
                 "Could not read %s, restore the file from a backup - %s",

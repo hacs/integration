@@ -90,6 +90,20 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         if self.repository.pending_restart or not self.repository.can_download:
             return None
 
+        if (
+            self.hacs.configuration.experimental
+            and self.latest_version not in self.repository.data.published_tags
+        ):
+            releases = await self.repository.get_releases(
+                prerelease=self.repository.data.show_beta,
+                returnlimit=self.hacs.configuration.release_limit,
+            )
+            if releases:
+                self.repository.data.releases = True
+                self.repository.releases.objects = releases
+                self.repository.data.published_tags = [x.tag_name for x in releases]
+                self.repository.data.last_version = next(iter(self.repository.data.published_tags))
+
         release_notes = ""
         if len(self.repository.releases.objects) > 0:
             release = self.repository.releases.objects[0]

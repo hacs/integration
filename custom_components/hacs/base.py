@@ -668,7 +668,7 @@ class HacsBase:
             EVENT_HOMEASSISTANT_FINAL_WRITE, self.data.async_force_write
         )
 
-        self.log.debug("There are %s scheduled recuring tasks", len(self.recuring_tasks))
+        self.log.debug("There are %s scheduled recurring tasks", len(self.recuring_tasks))
 
         self.status.startup = False
         self.async_dispatch(HacsDispatchEvent.STATUS, {})

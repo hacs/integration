@@ -71,6 +71,7 @@ jobs:
           fi
 
       - name: Validate output with JQ
+        if: steps.updated.outputs.updated == 'true'
         run: |
           jq -c . outputdata/${{ matrix.category }}/data.json
           jq -c . outputdata/${{ matrix.category }}/repositories.json

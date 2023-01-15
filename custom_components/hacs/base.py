@@ -1013,8 +1013,11 @@ class HacsBase:
         was_installed = False
 
         try:
-            critical = await self.async_github_get_hacs_default_file("critical")
-        except GitHubNotModifiedException:
+            if self.configuration.experimental:
+                critical = await self.data_client.get_data("critical")
+            else:
+                critical = await self.async_github_get_hacs_default_file("critical")
+        except (GitHubNotModifiedException, HacsNotModifiedException):
             return
         except HacsException:
             pass

@@ -482,6 +482,7 @@ class HacsRepository:
 
         if self.repository_object:
             self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)
+            self.data.last_fetched = datetime.utcnow()
 
         # Set topics
         self.data.topics = self.data.topics

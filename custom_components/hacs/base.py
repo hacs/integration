@@ -173,6 +173,7 @@ class HacsStatus:
     new: bool = False
     active_frontend_endpoint_plugin: bool = False
     active_frontend_endpoint_theme: bool = False
+    inital_fetch_done: bool = False
 
 
 @dataclass
@@ -602,34 +603,7 @@ class HacsBase:
     async def startup_tasks(self, _=None) -> None:
         """Tasks that are started after setup."""
         self.set_stage(HacsStage.STARTUP)
-
-        try:
-            repository = self.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
-            if repository is None:
-                await self.async_register_repository(
-                    repository_full_name=HacsGitHubRepo.INTEGRATION,
-                    category=HacsCategory.INTEGRATION,
-                    default=True,
-                )
-                repository = self.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
-            if repository is None:
-                raise HacsException("Unknown error")
-
-            repository.data.installed = True
-            repository.data.installed_version = self.integration.version.string
-            repository.data.new = False
-            repository.data.releases = True
-
-            self.repository = repository.repository_object
-            self.repositories.mark_default(repository)
-        except HacsException as exception:
-            if "403" in str(exception):
-                self.log.critical(
-                    "GitHub API is ratelimited, or the token is wrong.",
-                )
-            else:
-                self.log.critical("Could not load HACS! - %s", exception)
-            self.disable_hacs(HacsDisabledReason.LOAD_HACS)
+        await self.async_load_hacs_from_github()
 
         if critical := await async_load_from_store(self.hass, "critical"):
             for repo in critical:
@@ -650,6 +624,13 @@ class HacsBase:
                 self.hass.helpers.event.async_track_time_interval(
                     self.async_update_all_repositories,
                     timedelta(hours=96),
+                )
+            )
+        else:
+            self.recuring_tasks.append(
+                self.hass.helpers.event.async_track_time_interval(
+                    self.async_load_hacs_from_github,
+                    timedelta(hours=48),
                 )
             )
 
@@ -686,6 +667,8 @@ class HacsBase:
         self.hass.bus.async_listen_once(
             EVENT_HOMEASSISTANT_FINAL_WRITE, self.data.async_force_write
         )
+
+        self.log.debug("There are %s scheduled recurring tasks", len(self.recuring_tasks))
 
         self.status.startup = False
         self.async_dispatch(HacsDispatchEvent.STATUS, {})
@@ -784,6 +767,42 @@ class HacsBase:
         if self.configuration.netdaemon:
             self.enable_hacs_category(HacsCategory.NETDAEMON)
 
+    async def async_load_hacs_from_github(self, _=None) -> None:
+        """Load HACS from GitHub."""
+        if self.configuration.experimental and self.status.inital_fetch_done:
+            return
+
+        try:
+            repository = self.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
+            if repository is None:
+                await self.async_register_repository(
+                    repository_full_name=HacsGitHubRepo.INTEGRATION,
+                    category=HacsCategory.INTEGRATION,
+                    default=True,
+                )
+                repository = self.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
+            elif self.configuration.experimental and not self.status.startup:
+                self.log.error("Scheduling update of hacs/integration")
+                self.queue.add(repository.common_update())
+            if repository is None:
+                raise HacsException("Unknown error")
+
+            repository.data.installed = True
+            repository.data.installed_version = self.integration.version.string
+            repository.data.new = False
+            repository.data.releases = True
+
+            self.repository = repository.repository_object
+            self.repositories.mark_default(repository)
+        except HacsException as exception:
+            if "403" in str(exception):
+                self.log.critical(
+                    "GitHub API is ratelimited, or the token is wrong.",
+                )
+            else:
+                self.log.critical("Could not load HACS! - %s", exception)
+            self.disable_hacs(HacsDisabledReason.LOAD_HACS)
+
     async def async_get_all_category_repositories(self, _=None) -> None:
         """Get all category repositories."""
         if self.system.disabled:
@@ -831,6 +850,9 @@ class HacsBase:
                         repository.repository_manifest.update_data(
                             {**dict(HACS_MANIFEST_KEYS_TO_EXPORT), **manifest}
                         )
+
+        if category == "integration":
+            self.status.inital_fetch_done = True
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""

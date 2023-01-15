@@ -61,6 +61,15 @@ jobs:
           DATA_GENERATOR_TOKEN: ${{ secrets.DATA_GENERATOR_TOKEN }}
           FORCE_REPOSITORY_UPDATE: ${{ inputs.forceRepositoryUpdate }}
 
+      - name: Check if updated
+        id: updated
+        run: |
+          if test -f "outputdata/${{ matrix.category }}/data.json"; then
+            echo "updated=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "updated=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Validate output with JQ
         run: |
           jq -c . outputdata/${{ matrix.category }}/data.json
@@ -68,6 +77,7 @@ jobs:
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
+        if: steps.updated.outputs.updated == 'true'
         with:
           name: ${{ matrix.category }}
           path: outputdata/${{ matrix.category }}
@@ -75,6 +85,7 @@ jobs:
           retention-days: 7
 
       - name: Upload to R2
+        if: steps.updated.outputs.updated == 'true'
         run: |
           aws s3 sync \
             outputdata/${{ matrix.category }} \
@@ -85,6 +96,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CF_R2_SECRET_ACCESS_KEY }}
 
       - name: Bust Cloudflare cache
+        if: steps.updated.outputs.updated == 'true'
         run: |
           curl --silent --show-error --fail -X POST \
             "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \

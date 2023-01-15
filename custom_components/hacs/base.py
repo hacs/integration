@@ -173,6 +173,7 @@ class HacsStatus:
     new: bool = False
     active_frontend_endpoint_plugin: bool = False
     active_frontend_endpoint_theme: bool = False
+    inital_fetch_done: bool = False
 
 
 @dataclass
@@ -599,9 +600,10 @@ class HacsBase:
 
         self.repositories.register(repository, default)
 
-    async def startup_tasks(self, _=None) -> None:
-        """Tasks that are started after setup."""
-        self.set_stage(HacsStage.STARTUP)
+    async def async_load_hacs_from_github(self, _=None) -> None:
+        """Load HACS from GitHub."""
+        if self.configuration.experimental and self.status.inital_fetch_done:
+            return
 
         try:
             repository = self.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
@@ -612,6 +614,9 @@ class HacsBase:
                     default=True,
                 )
                 repository = self.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
+            elif self.configuration.experimental and not self.status.startup:
+                self.log.error("Scheduling update of hacs/integration")
+                self.queue.add(repository.common_update())
             if repository is None:
                 raise HacsException("Unknown error")
 
@@ -630,6 +635,11 @@ class HacsBase:
             else:
                 self.log.critical("Could not load HACS! - %s", exception)
             self.disable_hacs(HacsDisabledReason.LOAD_HACS)
+
+    async def startup_tasks(self, _=None) -> None:
+        """Tasks that are started after setup."""
+        self.set_stage(HacsStage.STARTUP)
+        await self.async_load_hacs_from_github()
 
         if critical := await async_load_from_store(self.hass, "critical"):
             for repo in critical:
@@ -650,6 +660,13 @@ class HacsBase:
                 self.hass.helpers.event.async_track_time_interval(
                     self.async_update_all_repositories,
                     timedelta(hours=96),
+                )
+            )
+        else:
+            self.recuring_tasks.append(
+                self.hass.helpers.event.async_track_time_interval(
+                    self.async_load_hacs_from_github,
+                    timedelta(hours=48),
                 )
             )
 
@@ -686,6 +703,8 @@ class HacsBase:
         self.hass.bus.async_listen_once(
             EVENT_HOMEASSISTANT_FINAL_WRITE, self.data.async_force_write
         )
+
+        self.log.debug("There are %s scheduled recuring tasks", len(self.recuring_tasks))
 
         self.status.startup = False
         self.async_dispatch(HacsDispatchEvent.STATUS, {})
@@ -831,6 +850,9 @@ class HacsBase:
                         repository.repository_manifest.update_data(
                             {**dict(HACS_MANIFEST_KEYS_TO_EXPORT), **manifest}
                         )
+
+        if category == "integration":
+            self.status.inital_fetch_done = True
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""

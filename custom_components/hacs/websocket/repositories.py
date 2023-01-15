@@ -68,11 +68,7 @@ async def hacs_repositories_list(
                 for repo in hacs.repositories.list_all
                 if repo.data.category in msg.get("categories", hacs.common.categories)
                 and not repo.ignored_by_country_configuration
-                and (
-                    not hacs.configuration.experimental
-                    or not hacs.repositories.is_default(str(repo.data.id))
-                    or repo.data.last_fetched
-                )
+                and (not hacs.configuration.experimental or repo.data.last_fetched)
             ],
         )
     )

@@ -854,6 +854,18 @@ class HacsBase:
         if category == "integration":
             self.status.inital_fetch_done = True
 
+        if self.stage == HacsStage.STARTUP:
+            for repository in self.repositories.list_all:
+                if (
+                    repository.data.category == category
+                    and not repository.data.installed
+                    and not self.repositories.is_default(repository.data.id)
+                ):
+                    repository.logger.debug(
+                        "%s Unregister stale custom repository", repository.string
+                    )
+                    self.repositories.unregister(repository)
+
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""
         if self.system.disabled:

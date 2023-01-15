@@ -28,10 +28,12 @@ jobs:
           python-version: "3.x"
 
       - name: 🔢 Get version
+        if: ${{ github.event_name == 'release' }}
         id: version
         uses: home-assistant/actions/helpers/version@master
 
       - name: 🔢 Set version number
+        if: ${{ github.event_name == 'release' }}
         run: |
           sed -i "/MINIMUM_HA_VERSION = /c\MINIMUM_HA_VERSION = \"$(jq .homeassistant -r ${{ github.workspace }}/hacs.json)\"" ${{ github.workspace }}/custom_components/hacs/const.py
           python3 ${{ github.workspace }}/manage/update_manifest.py --version ${{ steps.version.outputs.version }}

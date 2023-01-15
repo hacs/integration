@@ -66,7 +66,8 @@ async def hacs_repositories_list(
                     "topics": repo.data.topics,
                 }
                 for repo in hacs.repositories.list_all
-                if repo.data.category in (msg.get("categories") or hacs.common.categories)
+                if repo.data.full_name
+                and repo.data.category in msg.get("categories", hacs.common.categories)
                 and not repo.ignored_by_country_configuration
             ],
         )

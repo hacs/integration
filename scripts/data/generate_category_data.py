@@ -207,15 +207,15 @@ class AdjustedHacs(HacsBase):
         self,
         current_data: dict[str, dict[str, Any]],
         updated_data: dict[str, dict[str, Any]],
-    ):
+    ) -> int:
         """Summarize data."""
-        updated = 0
+        changed = 0
 
         for repo_id, repo_data in updated_data.items():
             if repo_data.get("etag_repository") != current_data.get(repo_id, {}).get(
                 "etag_repository"
             ):
-                updated += 1
+                changed += 1
 
         print(
             json.dumps(
@@ -223,11 +223,12 @@ class AdjustedHacs(HacsBase):
                     "rate_limit": (await self.githubapi.rate_limit()).data.resources.core.as_dict,
                     "current_count": len(current_data.keys()),
                     "new_count": len(updated_data.keys()),
-                    "changed": updated,
+                    "changed": changed,
                 },
                 indent=2,
             )
         )
+        return changed
 
 
 async def generate_category_data(category: str):
@@ -235,12 +236,19 @@ async def generate_category_data(category: str):
     async with ClientSession() as session:
         hacs = AdjustedHacs(session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
         os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
+        force = os.environ.get("FORCE_REPOSITORY_UPDATE") == "True"
+
         current_data = await hacs.data_client.get_data(category)
         updated_data = await hacs.generate_data_for_category(
             category,
             current_data,
-            force=os.environ.get("FORCE_REPOSITORY_UPDATE") == "True",
+            force=force,
         )
+
+        changed = await hacs.summarize_data(current_data, updated_data)
+        if not force and changed == 0:
+            print("No changes, exiting")
+            return
 
         with open(
             os.path.join(OUTPUT_DIR, category, "data.json"),
@@ -263,8 +271,6 @@ async def generate_category_data(category: str):
                 repositories_file,
                 separators=(",", ":"),
             )
-
-        await hacs.summarize_data(current_data, updated_data)
 
 
 if __name__ == "__main__":

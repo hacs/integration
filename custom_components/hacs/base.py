@@ -980,7 +980,7 @@ class HacsBase:
 
     async def async_update_downloaded_repositories(self, _=None) -> None:
         """Execute the task."""
-        if self.system.disabled:
+        if self.system.disabled or self.configuration.experimental:
             return
         self.log.info("Starting recurring background task for downloaded repositories")
 

@@ -642,8 +642,7 @@ class HacsBase:
 
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
-                self.async_get_all_category_repositories,
-                timedelta(hours=6 if self.configuration.experimental else 3),
+                self.async_get_all_category_repositories, timedelta(hours=6)
             )
         )
 
@@ -660,7 +659,7 @@ class HacsBase:
 
         self.recuring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
-                self.async_handle_critical_repositories, timedelta(hours=2)
+                self.async_handle_critical_repositories, timedelta(hours=6)
             )
         )
 

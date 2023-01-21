@@ -48,14 +48,21 @@ def repository_has_missing_keys(
     """Check if repository has missing keys."""
     retval = False
 
-    if repository.data.last_commit is None and repository.data.last_version is None:
-        retval = True
+    def _do_log(msg: str) -> None:
         repository.logger.log(
             logging.WARNING if stage == "update" else logging.ERROR,
-            "%s[%s] Missing version data",
+            "%s[%s] %s",
             repository.string,
             stage,
+            msg,
         )
+
+    if repository.data.last_commit is None and repository.data.last_version is None:
+        retval = True
+        _do_log("Missing version data")
+    if repository.data.category == "integration" and repository.data.domain is None:
+        retval = True
+        _do_log("Missing domain")
 
     return retval
 

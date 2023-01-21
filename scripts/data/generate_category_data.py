@@ -104,8 +104,8 @@ class AdjustedHacsData(HacsData):
             else datetime.utcnow().timestamp()
         )
 
-        self.content[str(repository.data.id)] = data
-        repository_has_missing_keys(repository, "store")
+        if not repository_has_missing_keys(repository, "store"):
+            self.content[str(repository.data.id)] = data
 
 
 class AdjustedHacs(HacsBase):

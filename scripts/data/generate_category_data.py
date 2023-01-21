@@ -5,7 +5,7 @@ import json
 import logging
 import os
 import sys
-from typing import Any
+from typing import Any, Literal
 
 from aiogithubapi import GitHub, GitHubAPI
 from aiohttp import ClientSession
@@ -41,6 +41,25 @@ log_handler.addHandler(stream_handler)
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
 
 
+def repository_has_missing_keys(
+    repository: HacsRepository,
+    stage: Literal["update"] | Literal["store"],
+) -> bool:
+    """Check if repository has missing keys."""
+    retval = False
+
+    if repository.data.last_commit is None and repository.data.last_version is None:
+        retval = True
+        repository.logger.log(
+            logging.WARNING if stage == "update" else logging.ERROR,
+            "%s[%s] Missing version data",
+            repository.string,
+            stage,
+        )
+
+    return retval
+
+
 class AdjustedHacsData(HacsData):
     """Extended HACS data."""
 
@@ -54,7 +73,9 @@ class AdjustedHacsData(HacsData):
         await self.register_unknown_repositories(repositories, category)
         for entry, repo_data in repositories.items():
             if repo_data["full_name"] in removed:
-                self.hacs.log.info("Skipping %s as it's removed from HACS", repo_data["full_name"])
+                self.hacs.log.warning(
+                    "Skipping %s as it's removed from HACS", repo_data["full_name"]
+                )
                 continue
             self.async_restore_repository(entry, repo_data)
 
@@ -77,6 +98,7 @@ class AdjustedHacsData(HacsData):
         )
 
         self.content[str(repository.data.id)] = data
+        repository_has_missing_keys(repository, "store")
 
 
 class AdjustedHacs(HacsBase):
@@ -124,6 +146,9 @@ class AdjustedHacs(HacsBase):
     @concurrent(concurrenttasks=10, backoff_time=0.1)
     async def concurrent_update_repository(self, repository: HacsRepository) -> None:
         """Update a repository."""
+        if repository_has_missing_keys(repository, "update"):
+            # If we have missing keys, force a full update by setting the etag to None
+            repository.data.etag_repository = None
         await repository.common_update()
 
     async def generate_data_for_category(
@@ -189,7 +214,7 @@ class AdjustedHacs(HacsBase):
 
         for repo in repositories:
             if repo in removed:
-                self.log.info("Skipping %s as it's removed from HACS", repo)
+                self.log.warning("Skipping %s as it's removed from HACS", repo)
                 continue
             repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
@@ -212,9 +237,7 @@ class AdjustedHacs(HacsBase):
         changed = 0
 
         for repo_id, repo_data in updated_data.items():
-            if repo_data.get("etag_repository") != current_data.get(repo_id, {}).get(
-                "etag_repository"
-            ):
+            if repo_data.get("last_fetched") != current_data.get(repo_id, {}).get("last_fetched"):
                 changed += 1
 
         print(

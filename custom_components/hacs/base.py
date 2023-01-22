@@ -818,11 +818,11 @@ class HacsBase:
 
     async def async_get_category_repositories_experimental(self, category: str) -> None:
         """Update all category repositories."""
-        self.log.info("Fetching updated content for %s", category)
+        self.log.debug("Fetching updated content for %s", category)
         try:
             category_data = await self.data_client.get_data(category)
         except HacsNotModifiedException:
-            self.log.info("No updates for %s", category)
+            self.log.debug("No updates for %s", category)
             return
         except HacsException as exception:
             self.log.error("Could not update %s - %s", category, exception)
@@ -940,7 +940,7 @@ class HacsBase:
                 return
             can_update = await self.async_can_update()
             self.log.debug(
-                "Can update %s repositories, " "items in queue %s",
+                "Can update %s repositories, items in queue %s",
                 can_update,
                 self.queue.pending_tasks,
             )

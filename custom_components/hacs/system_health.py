@@ -30,9 +30,6 @@ async def system_health_info(hass):
         "GitHub Web": system_health.async_check_can_reach_url(
             hass, "https://github.com/", GITHUB_STATUS
         ),
-        "HACS Data": system_health.async_check_can_reach_url(
-            hass, "https://data-v2.hacs.xyz/data.json", CLOUDFLARE_STATUS
-        ),
         "GitHub API Calls Remaining": response.data.resources.core.remaining,
         "Installed Version": hacs.version,
         "Stage": hacs.stage,
@@ -42,5 +39,10 @@ async def system_health_info(hass):
 
     if hacs.system.disabled:
         data["Disabled"] = hacs.system.disabled_reason
+
+    if hacs.configuration.experimental:
+        data["HACS Data"] = system_health.async_check_can_reach_url(
+            hass, "https://data-v2.hacs.xyz/data.json", CLOUDFLARE_STATUS
+        )
 
     return data

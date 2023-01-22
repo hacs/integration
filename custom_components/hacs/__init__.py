@@ -158,8 +158,9 @@ async def async_initialize_integration(
             hacs.disable_hacs(HacsDisabledReason.RESTORE)
             return False
 
-        can_update = await hacs.async_can_update()
-        hacs.log.debug("Can update %s repositories", can_update)
+        if not hacs.configuration.experimental:
+            can_update = await hacs.async_can_update()
+            hacs.log.debug("Can update %s repositories", can_update)
 
         hacs.set_active_categories()
 

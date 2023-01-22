@@ -1210,7 +1210,7 @@ class HacsRepository:
                 files.append(FileInformation(path.download_url, path.full_path, path.filename))
         return files
 
-    @concurrent(concurrenttasks=1, backoff_time=0)
+    @concurrent(concurrenttasks=10, backoff_time=1)
     async def dowload_repository_content(self, content: FileInformation) -> None:
         """Download content."""
         try:

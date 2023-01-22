@@ -202,8 +202,6 @@ async def hacs_repositories_remove(
 ):
     """Remove custom repositoriy."""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    hacs.log.warning(connection.context)
-    hacs.log.warning(msg)
     repository = hacs.repositories.get_by_id(msg["repository"])
 
     repository.remove()

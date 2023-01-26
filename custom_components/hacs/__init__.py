@@ -174,7 +174,7 @@ async def async_initialize_integration(
             hacs.log.info("Update entities are only supported when using UI configuration")
 
         else:
-            hass.config_entries.async_setup_platforms(
+            await hass.config_entries.async_forward_entry_setups(
                 config_entry,
                 [Platform.SENSOR, Platform.UPDATE]
                 if hacs.configuration.experimental

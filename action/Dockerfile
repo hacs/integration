@@ -12,11 +12,11 @@ RUN \
     \
     && git clone --quiet --depth 1 https://github.com/hacs/integration.git /hacs \
     \
-    && python3 -m pip --disable-pip-version-check install setuptools wheel \
+    && bash /hacs/scripts/install/pip_packages setuptools wheel \
     \
-    && python3 -m pip --disable-pip-version-check install homeassistant aiogithubapi \
+    && bash /hacs/scripts/install/pip_packages homeassistant aiogithubapi \
     \
-    && bash /hacs/manage/install_frontend \
+    && bash /hacs/scripts/install/frontend \
     \
     && apk del --no-cache .build-deps > /dev/null 2>&1 \
     \

@@ -47,14 +47,8 @@ jobs:
 
       - name: Install dependencies
         run:  |
-          bash manage/install_frontend
-          pip3 install \
-            --disable-pip-version-check install \
-            --ignore-installed \
-            --constraint constraints.txt \
-            --requirement requirements_generate_data.txt \
-            --use-deprecated=legacy-resolver
-
+          scripts/install/frontend
+          scripts/install/pip_packages --requirement requirements_generate_data.txt
 
       - name: Generate ${{ matrix.category }} data
         run: python3 -m scripts.data.generate_category_data ${{ matrix.category }}

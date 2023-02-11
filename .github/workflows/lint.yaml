@@ -39,7 +39,7 @@ jobs:
 
       - name: 📦 Install pre-commit
         run: |
-          python3 -m pip install pre-commit
+          scripts/install/pip_packages pre-commit
           pre-commit install-hooks --config .github/pre-commit-config.yaml
 
       - name: 🏃 Run the check (${{ matrix.check }})
@@ -63,7 +63,7 @@ jobs:
           requirements_lint.txt
 
     - name: 📦 Install requirements
-      run: python3 -m pip install -r requirements_lint.txt
+      run: scripts/install/pip_packages --requirement requirements_lint.txt
 
     - name: ✅ Add problem matcher
       run: echo "::add-matcher::.github/matchers/bellybutton.json"

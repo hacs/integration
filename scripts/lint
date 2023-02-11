@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+pre-commit install-hooks --config .github/pre-commit-config.yaml;
+pre-commit run --hook-stage manual --all-files --config .github/pre-commit-config.yaml;
+
+bellybutton lint
+
+vulture . --min-confidence 75 --ignore-names policy

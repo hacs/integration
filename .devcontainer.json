@@ -1,19 +1,18 @@
 {
-  "name": "HACS Integration Development",
+  "name": "hacs/integration",
   "image": "mcr.microsoft.com/vscode/devcontainers/python:0-3.10-bullseye",
-  "postCreateCommand": "make init",
-  "context": "..",
-  "appPort": [
-    "9123:8123"
-  ],
-  "extensions": [
-    "ms-python.python",
-    "github.vscode-pull-request-github",
-    "ryanluker.vscode-coverage-gutters",
-    "ms-python.vscode-pylance",
-    "GitHub.copilot"
+  "postCreateCommand": "scripts/setup",
+  "forwardPorts": [
+    8123
   ],
   "customizations": {
+    "extensions": [
+      "ms-python.python",
+      "github.vscode-pull-request-github",
+      "ryanluker.vscode-coverage-gutters",
+      "ms-python.vscode-pylance",
+      "GitHub.copilot"
+    ],
     "vscode": {
       "settings": {
         "python.defaultInterpreterPath": "/usr/local/bin/python",

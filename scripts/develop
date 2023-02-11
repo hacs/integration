@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if [ ! -f "configuration.yaml" ]; then
+  echo "Creating default configuration."
+  echo "
+default_config:
+frontend:
+  themes: !include_dir_merge_named themes
+logger:
+  default: info
+  logs:
+    custom_components.hacs: debug
+    # aiogithubapi: debug
+    # awesomeversion: debug
+" >> "configuration.yaml"
+fi
+
+echo "Installing HACS frontend"
+bash "scripts/install/frontend"
+
+# Start Home Assistant
+hass -c . --debug

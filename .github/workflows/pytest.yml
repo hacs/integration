@@ -35,8 +35,8 @@ jobs:
 
       - name: 📦 Install requirements
         run: |
-          python3 -m pip install -r requirements_test.txt
-          bash manage/install_frontend
+          scripts/install/frontend
+          scripts/install/pip_packages --requirement requirements_test.txt
 
       - name: 🏃 Run tests
         env:
@@ -47,7 +47,7 @@ jobs:
       - name: 📤 Upload coverage to Codecov
         if: ${{ matrix.python-version == '3.9' }}
         run: |
-          make coverage
+          scripts/coverage
           curl -sfSL https://codecov.io/bash | bash -
 
   legacy:
@@ -68,9 +68,9 @@ jobs:
 
       - name: 📦 Install dependencies
         run: |
-          python3 -m pip install -r requirements_test.txt
-          make homeassistant-install-old
-          bash manage/install_frontend
+          scripts/install/pip_packages --requirement requirements_test.txt
+          scripts/install/core
+          scripts/install/frontend
 
       - name: 🏃 Run tests
         env:

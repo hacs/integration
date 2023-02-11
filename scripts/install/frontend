@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/../.."
+
+FRONTEND_VERSION="20220906112053"
+EXPERIMENTAL_FRONTEND_VERSION="20230127100107"
+
+rm -rf ./custom_components/hacs/hacs_frontend_experimental
+scripts/install/pip_packages --target=./custom_components/hacs "hacs_frontend==${EXPERIMENTAL_FRONTEND_VERSION}"
+rm -rf ./custom_components/hacs/*.dist-info
+mv ./custom_components/hacs/hacs_frontend ./custom_components/hacs/hacs_frontend_experimental
+
+rm -rf ./custom_components/hacs/hacs_frontend
+scripts/install/pip_packages --target=./custom_components/hacs "hacs_frontend==${FRONTEND_VERSION}"
+rm -rf ./custom_components/hacs/*.dist-info

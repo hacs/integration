@@ -4,7 +4,6 @@ import os
 from pathlib import Path
 import sys
 
-
 MANIFEST_FILE = Path(f"{os.getcwd()}/custom_components/hacs/manifest.json")
 
 

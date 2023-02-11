@@ -31,6 +31,8 @@ def render_template(hacs: HacsBase, content: str, context: HacsRepository) -> st
             version_available=context.releases.last_release,
             version_installed=context.display_installed_version,
         )
-    except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+    except (
+        BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+    ) as exception:
         context.logger.debug(exception)
     return content

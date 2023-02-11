@@ -241,7 +241,9 @@ class HacsData:
                 self.async_restore_repository(entry, repo_data)
 
             self.logger.info("<HacsData restore> Restore done")
-        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except (
+            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        ) as exception:
             self.logger.critical(
                 "<HacsData restore> [%s] Restore Failed!", exception, exc_info=exception
             )

@@ -1,0 +1,1 @@
+"""HACS update script."""

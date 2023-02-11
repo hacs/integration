@@ -9,7 +9,7 @@ def update():
     storage, to_store, old = None, {}, {}
     updated = 0
 
-    with open(f"{os.getcwd()}/config/.storage/hacs.repositories", encoding="utf-8") as storage_file:
+    with open(f"{os.getcwd()}/.storage/hacs.repositories", encoding="utf-8") as storage_file:
         storage = json.load(storage_file)
 
     with open(

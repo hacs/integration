@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/../.."
+
+bash scripts/install/pip_packages "homeassistant==${1:-$(jq -r .homeassistant hacs.json)}"

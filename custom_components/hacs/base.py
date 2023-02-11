@@ -457,7 +457,9 @@ class HacsBase:
 
         try:
             await self.hass.async_add_executor_job(_write_file)
-        except BaseException as error:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except (
+            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        ) as error:
             self.log.error("Could not write data to %s - %s", file_path, error)
             return False
 
@@ -476,7 +478,9 @@ class HacsBase:
                 f"{reset.hour}:{reset.minute}:{reset.second}",
             )
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
-        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except (
+            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        ) as exception:
             self.log.exception(exception)
 
         return 0
@@ -515,7 +519,9 @@ class HacsBase:
             raise exception
         except GitHubException as exception:
             _exception = exception
-        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except (
+            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        ) as exception:
             self.log.exception(exception)
             _exception = exception
 
@@ -726,7 +732,9 @@ class HacsBase:
                 await asyncio.sleep(1)
                 continue
 
-            except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            except (
+                BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            ) as exception:
                 self.log.exception("Download failed - %s", exception)
 
             return None

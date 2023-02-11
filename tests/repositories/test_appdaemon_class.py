@@ -5,7 +5,6 @@ from custom_components.hacs.exceptions import HacsException
 
 @pytest.mark.asyncio
 async def test_base(repository_appdaemon):
-
     assert repository_appdaemon.data.category == "appdaemon"
 
 

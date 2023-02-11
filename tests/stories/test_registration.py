@@ -151,7 +151,6 @@ async def test_registration_issues(
 
     assert hacs.repositories.get_by_full_name(repository_full_name) is None
     with pytest.raises(HacsException, match=expected_message):
-
         await hacs.async_register_repository(
             repository_full_name, HacsCategory.INTEGRATION, check=True
         )

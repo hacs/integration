@@ -164,7 +164,9 @@ async def hacs_repositories_add(
                 category=category,
             )
 
-        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except (
+            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        ) as exception:
             hacs.async_dispatch(
                 HacsDispatchEvent.ERROR,
                 {
@@ -175,7 +177,6 @@ async def hacs_repositories_add(
             )
 
     else:
-
         hacs.async_dispatch(
             HacsDispatchEvent.ERROR,
             {

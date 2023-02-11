@@ -61,7 +61,6 @@ async def test_store_store(hass: HomeAssistant, caplog: pytest.LogCaptureFixture
         "custom_components.hacs.utils.store.json_util.load_json",
         return_value={"version": VERSION_STORAGE, "data": {}},
     ):
-
         await async_save_to_store(hass, "test", {})
         assert not async_save_mock.called
         assert (

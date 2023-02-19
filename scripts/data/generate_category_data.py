@@ -156,7 +156,7 @@ class AdjustedHacs(HacsBase):
         if repository_has_missing_keys(repository, "update"):
             # If we have missing keys, force a full update by setting the etag to None
             repository.data.etag_repository = None
-        await repository.common_update()
+        await repository.common_update(force=repository.data.etag_repository is None)
 
     async def generate_data_for_category(
         self,

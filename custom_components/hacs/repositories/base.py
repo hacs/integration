@@ -746,9 +746,8 @@ class HacsRepository:
 
     def remove(self) -> None:
         """Run remove tasks."""
-        self.logger.info("%s Starting removal", self.string)
-
         if self.hacs.repositories.is_registered(repository_id=str(self.data.id)):
+            self.logger.info("%s Starting removal", self.string)
             self.hacs.repositories.unregister(self)
 
     async def uninstall(self) -> None:

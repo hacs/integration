@@ -772,7 +772,18 @@ class HacsBase:
         if self.configuration.appdaemon:
             self.enable_hacs_category(HacsCategory.APPDAEMON)
         if self.configuration.netdaemon:
-            self.enable_hacs_category(HacsCategory.NETDAEMON)
+            downloaded_netdaemon = [
+                x
+                for x in self.repositories.list_downloaded
+                if x.data.category == HacsCategory.NETDAEMON
+            ]
+            if len(downloaded_netdaemon) != 0:
+                self.log.warning(
+                    "NetDaemon in HACS is deprectaded. It will stop working in the future. "
+                    "Please remove all your current NetDaemon repositories from HACS "
+                    "and download them manually if you want to continue using them."
+                )
+                self.enable_hacs_category(HacsCategory.NETDAEMON)
 
     async def async_load_hacs_from_github(self, _=None) -> None:
         """Load HACS from GitHub."""

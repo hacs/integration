@@ -1119,6 +1119,9 @@ class HacsRepository:
                     if assets := release.assets:
                         downloads = next(iter(assets)).download_count
                         self.data.downloads = downloads
+        elif self.hacs.system.generator and self.repository_object:
+            await self.repository_object.set_last_commit()
+            self.data.last_commit = self.repository_object.last_commit
 
         self.hacs.log.debug(
             "%s Running checks against %s", self.string, self.ref.replace("tags/", "")

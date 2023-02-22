@@ -750,7 +750,9 @@ class HacsBase:
             entry=self.configuration.config_entry,
             platforms=platforms,
         )
-        self.hass.config_entries.async_setup_platforms(self.configuration.config_entry, platforms)
+        await self.hass.config_entries.async_forward_entry_setups(
+            self.configuration.config_entry, platforms
+        )
 
     @callback
     def async_dispatch(self, signal: HacsDispatchEvent, data: dict | None = None) -> None:

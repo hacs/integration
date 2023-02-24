@@ -7,7 +7,14 @@ import os
 import sys
 from typing import Any, Literal
 
-from aiogithubapi import GitHub, GitHubAPI
+from aiogithubapi import (
+    GitHub,
+    GitHubAPI,
+    GitHubException,
+    GitHubNotFoundException,
+    GitHubNotModifiedException,
+    GitHubReleaseModel,
+)
 from aiohttp import ClientSession
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.json import JSONEncoder
@@ -156,7 +163,42 @@ class AdjustedHacs(HacsBase):
         if repository_has_missing_keys(repository, "update"):
             # If we have missing keys, force a full update by setting the etag to None
             repository.data.etag_repository = None
-        await repository.common_update(force=repository.data.etag_repository is None)
+
+        if repository.data.last_version not in (None, ""):
+            try:
+                repository.logger.info("%s Fetching repository releases", repository.string)
+                response = await self.githubapi.generic(
+                    endpoint=f"/repos/{repository.data.full_name}/releases/latest",
+                    etag=repository.data.etag_releases,
+                )
+                response.data = GitHubReleaseModel(response.data) if response.data else None
+                repository.data.etag_releases = response.etag
+                if (releases := response.data) is not None:
+                    repository.data.releases = True
+                    repository.releases.objects = [releases]
+                    repository.data.published_tags = [
+                        x.tag_name for x in repository.releases.objects
+                    ]
+                    if (
+                        next_version := next(iter(repository.data.published_tags), None)
+                    ) != repository.data.last_version:
+                        repository.data.last_version = next_version
+                        repository.data.etag_repository = None
+
+            except GitHubNotModifiedException:
+                repository.data.releases = True
+                repository.logger.info("%s Release data is up to date", repository.string)
+            except GitHubNotFoundException:
+                repository.data.releases = False
+                repository.logger.info("%s No releases found", repository.string)
+            except GitHubException as exception:
+                repository.data.releases = False
+                repository.logger.warning("%s %s", repository.string, exception)
+
+        await repository.common_update(
+            force=repository.data.etag_repository is None,
+            skip_releases=repository.data.releases,
+        )
 
     async def generate_data_for_category(
         self,
@@ -244,7 +286,11 @@ class AdjustedHacs(HacsBase):
         changed = 0
 
         for repo_id, repo_data in updated_data.items():
-            if repo_data.get("last_fetched") != current_data.get(repo_id, {}).get("last_fetched"):
+            if repo_data.get("etag_releases") != current_data.get(repo_id, {}).get(
+                "etag_releases"
+            ) or repo_data.get("etag_repository") != current_data.get(repo_id, {}).get(
+                "etag_repository"
+            ):
                 changed += 1
 
         print(

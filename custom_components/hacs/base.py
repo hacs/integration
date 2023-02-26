@@ -870,6 +870,15 @@ class HacsBase:
                         repository.repository_manifest.update_data(
                             {**dict(HACS_MANIFEST_KEYS_TO_EXPORT), **manifest}
                         )
+                    self.async_dispatch(
+                        HacsDispatchEvent.REPOSITORY,
+                        {
+                            "id": 1337,
+                            "action": "update",
+                            "repository": repository.data.full_name,
+                            "repository_id": repository.data.id,
+                        },
+                    )
 
         if category == "integration":
             self.status.inital_fetch_done = True

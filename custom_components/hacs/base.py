@@ -160,9 +160,9 @@ class HacsCommon:
 
     categories: set[str] = field(default_factory=set)
     renamed_repositories: dict[str, str] = field(default_factory=dict)
-    archived_repositories: list[str] = field(default_factory=list)
-    ignored_repositories: list[str] = field(default_factory=list)
-    skip: list[str] = field(default_factory=list)
+    archived_repositories: set[str] = field(default_factory=set)
+    ignored_repositories: set[str] = field(default_factory=set)
+    skip: set[str] = field(default_factory=set)
 
 
 @dataclass
@@ -556,7 +556,7 @@ class HacsBase:
             try:
                 await repository.async_registration(ref)
                 if repository.validate.errors:
-                    self.common.skip.append(repository.data.full_name)
+                    self.common.skip.add(repository.data.full_name)
                     if not self.status.startup:
                         self.log.error("Validation for %s failed.", repository_full_name)
                     if self.system.action:
@@ -575,7 +575,7 @@ class HacsBase:
                     )
                 return
             except AIOGitHubAPIException as exception:
-                self.common.skip.append(repository.data.full_name)
+                self.common.skip.add(repository.data.full_name)
                 raise HacsException(
                     f"Validation for {repository_full_name} failed with {exception}."
                 ) from exception

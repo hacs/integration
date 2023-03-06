@@ -200,7 +200,7 @@ class HacsRepositories:
     _repositories: list[HacsRepository] = field(default_factory=list)
     _repositories_by_full_name: dict[str, HacsRepository] = field(default_factory=dict)
     _repositories_by_id: dict[str, HacsRepository] = field(default_factory=dict)
-    _removed_repositories: list[RemovedRepository] = field(default_factory=list)
+    _removed_repositories_by_full_name: dict[str, RemovedRepository] = field(default_factory=dict)
 
     @property
     def list_all(self) -> list[HacsRepository]:
@@ -210,7 +210,7 @@ class HacsRepositories:
     @property
     def list_removed(self) -> list[RemovedRepository]:
         """Return a list of removed repositories."""
-        return self._removed_repositories
+        return list(self._removed_repositories_by_full_name.values())
 
     @property
     def list_downloaded(self) -> list[HacsRepository]:
@@ -234,7 +234,7 @@ class HacsRepositories:
             registered_repo.data.new = False
             repository = registered_repo
 
-        if repository not in self._repositories:
+        if not registered_repo:
             self._repositories.append(repository)
 
         self._repositories_by_id[repo_id] = repository
@@ -333,22 +333,15 @@ class HacsRepositories:
 
     def is_removed(self, repository_full_name: str) -> bool:
         """Check if a repository is removed."""
-        return repository_full_name in (
-            repository.repository for repository in self._removed_repositories
-        )
+        return repository_full_name in self._removed_repositories_by_full_name
 
     def removed_repository(self, repository_full_name: str) -> RemovedRepository:
         """Get repository by full name."""
-        if self.is_removed(repository_full_name):
-            if removed := [
-                repository
-                for repository in self._removed_repositories
-                if repository.repository == repository_full_name
-            ]:
-                return removed[0]
+        if removed := self._removed_repositories_by_full_name.get(repository_full_name):
+            return removed
 
         removed = RemovedRepository(repository=repository_full_name)
-        self._removed_repositories.append(removed)
+        self._removed_repositories_by_full_name[repository_full_name] = removed
         return removed
 
 

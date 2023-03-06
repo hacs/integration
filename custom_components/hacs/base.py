@@ -197,7 +197,7 @@ class HacsRepositories:
     """HACS Repositories."""
 
     _default_repositories: set[str] = field(default_factory=set)
-    _repositories: list[HacsRepository] = field(default_factory=list)
+    _repositories: set[HacsRepository] = field(default_factory=set)
     _repositories_by_full_name: dict[str, HacsRepository] = field(default_factory=dict)
     _repositories_by_id: dict[str, HacsRepository] = field(default_factory=dict)
     _removed_repositories_by_full_name: dict[str, RemovedRepository] = field(default_factory=dict)
@@ -205,7 +205,7 @@ class HacsRepositories:
     @property
     def list_all(self) -> list[HacsRepository]:
         """Return a list of repositories."""
-        return self._repositories
+        return list(self._repositories)
 
     @property
     def list_removed(self) -> list[RemovedRepository]:
@@ -234,8 +234,8 @@ class HacsRepositories:
             registered_repo.data.new = False
             repository = registered_repo
 
-        if not registered_repo:
-            self._repositories.append(repository)
+        if repository not in self._repositories:
+            self._repositories.add(repository)
 
         self._repositories_by_id[repo_id] = repository
         self._repositories_by_full_name[repository.data.full_name_lower] = repository

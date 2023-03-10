@@ -1093,7 +1093,7 @@ class HacsRepository:
         if self.data.archived and not ignore_issues:
             self.validate.errors.append("Repository is archived.")
             if self.data.full_name not in self.hacs.common.archived_repositories:
-                self.hacs.common.archived_repositories.append(self.data.full_name)
+                self.hacs.common.archived_repositories.add(self.data.full_name)
             raise HacsRepositoryArchivedException(f"{self} Repository is archived.")
 
         # Make sure the repository is not in the blacklist.

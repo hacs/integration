@@ -103,7 +103,7 @@ async def hacs_repository_ignore(
     """Ignore a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_id(msg["repository"])
-    hacs.common.ignored_repositories.append(repository.data.full_name)
+    hacs.common.ignored_repositories.add(repository.data.full_name)
 
     await hacs.data.async_write()
     connection.send_message(websocket_api.result_message(msg["id"]))

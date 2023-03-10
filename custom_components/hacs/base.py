@@ -160,9 +160,9 @@ class HacsCommon:
 
     categories: set[str] = field(default_factory=set)
     renamed_repositories: dict[str, str] = field(default_factory=dict)
-    archived_repositories: list[str] = field(default_factory=list)
-    ignored_repositories: list[str] = field(default_factory=list)
-    skip: list[str] = field(default_factory=list)
+    archived_repositories: set[str] = field(default_factory=set)
+    ignored_repositories: set[str] = field(default_factory=set)
+    skip: set[str] = field(default_factory=set)
 
 
 @dataclass
@@ -197,20 +197,20 @@ class HacsRepositories:
     """HACS Repositories."""
 
     _default_repositories: set[str] = field(default_factory=set)
-    _repositories: list[HacsRepository] = field(default_factory=list)
+    _repositories: set[HacsRepository] = field(default_factory=set)
     _repositories_by_full_name: dict[str, HacsRepository] = field(default_factory=dict)
     _repositories_by_id: dict[str, HacsRepository] = field(default_factory=dict)
-    _removed_repositories: list[RemovedRepository] = field(default_factory=list)
+    _removed_repositories_by_full_name: dict[str, RemovedRepository] = field(default_factory=dict)
 
     @property
     def list_all(self) -> list[HacsRepository]:
         """Return a list of repositories."""
-        return self._repositories
+        return list(self._repositories)
 
     @property
     def list_removed(self) -> list[RemovedRepository]:
         """Return a list of removed repositories."""
-        return self._removed_repositories
+        return list(self._removed_repositories_by_full_name.values())
 
     @property
     def list_downloaded(self) -> list[HacsRepository]:
@@ -235,7 +235,7 @@ class HacsRepositories:
             repository = registered_repo
 
         if repository not in self._repositories:
-            self._repositories.append(repository)
+            self._repositories.add(repository)
 
         self._repositories_by_id[repo_id] = repository
         self._repositories_by_full_name[repository.data.full_name_lower] = repository
@@ -333,22 +333,15 @@ class HacsRepositories:
 
     def is_removed(self, repository_full_name: str) -> bool:
         """Check if a repository is removed."""
-        return repository_full_name in (
-            repository.repository for repository in self._removed_repositories
-        )
+        return repository_full_name in self._removed_repositories_by_full_name
 
     def removed_repository(self, repository_full_name: str) -> RemovedRepository:
         """Get repository by full name."""
-        if self.is_removed(repository_full_name):
-            if removed := [
-                repository
-                for repository in self._removed_repositories
-                if repository.repository == repository_full_name
-            ]:
-                return removed[0]
+        if removed := self._removed_repositories_by_full_name.get(repository_full_name):
+            return removed
 
         removed = RemovedRepository(repository=repository_full_name)
-        self._removed_repositories.append(removed)
+        self._removed_repositories_by_full_name[repository_full_name] = removed
         return removed
 
 
@@ -563,7 +556,7 @@ class HacsBase:
             try:
                 await repository.async_registration(ref)
                 if repository.validate.errors:
-                    self.common.skip.append(repository.data.full_name)
+                    self.common.skip.add(repository.data.full_name)
                     if not self.status.startup:
                         self.log.error("Validation for %s failed.", repository_full_name)
                     if self.system.action:
@@ -582,7 +575,7 @@ class HacsBase:
                     )
                 return
             except AIOGitHubAPIException as exception:
-                self.common.skip.append(repository.data.full_name)
+                self.common.skip.add(repository.data.full_name)
                 raise HacsException(
                     f"Validation for {repository_full_name} failed with {exception}."
                 ) from exception

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+declare frontend_dir
+
 set -e
 
 cd "$(dirname "$0")/.."
@@ -19,8 +21,15 @@ logger:
 " >> "configuration.yaml"
 fi
 
+while getopts u:a:f: flag
+do
+    case "${flag}" in
+        f) frontend_dir=${OPTARG};;
+    esac
+done
+
 echo "Installing HACS frontend"
-bash "scripts/install/frontend"
+[ -z "${frontend_dir}" ] && bash "scripts/install/frontend"
 
 # Start Home Assistant
-hass -c . --debug
+HACS_FRONTEND_DIR="$(readlink -f ${frontend_dir})" hass -c . --debug

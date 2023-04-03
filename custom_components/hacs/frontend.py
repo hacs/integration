@@ -1,10 +1,9 @@
 """"Starting setup task: Frontend"."""
 from __future__ import annotations
 
+import os
 from typing import TYPE_CHECKING
 
-from aiohttp import web
-from homeassistant.components.http import HomeAssistantView
 from homeassistant.core import HomeAssistant, callback
 
 from .const import DOMAIN, URL_BASE
@@ -26,11 +25,13 @@ def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
     hacs.async_setup_frontend_endpoint_themes()
 
     # Register frontend
-    if hacs.configuration.frontend_repo_url:
+    if hacs.configuration.dev and (frontend_path := os.getenv("HACS_FRONTEND_DIR")):
         hacs.log.warning(
             "<HacsFrontend> Frontend development mode enabled. Do not run in production!"
         )
-        hass.http.register_view(HacsFrontendDev())
+        hass.http.register_static_path(
+            f"{URL_BASE}/frontend", f"{frontend_path}/hacs_frontend", cache_headers=False
+        )
     elif hacs.configuration.experimental:
         hacs.log.info("<HacsFrontend> Using experimental frontend")
         hass.http.register_static_path(
@@ -72,23 +73,3 @@ def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
 
     # Setup plugin endpoint if needed
     hacs.async_setup_frontend_endpoint_plugin()
-
-
-class HacsFrontendDev(HomeAssistantView):
-    """Dev View Class for HACS."""
-
-    requires_auth = False
-    name = "hacs_files:frontend"
-    url = r"/hacsfiles/frontend/{requested_file:.+}"
-
-    async def get(self, request, requested_file):  # pylint: disable=unused-argument
-        """Handle HACS Web requests."""
-        hacs: HacsBase = request.app["hass"].data.get(DOMAIN)
-        requested = requested_file.split("/")[-1]
-        request = await hacs.session.get(f"{hacs.configuration.frontend_repo_url}/{requested}")
-        if request.status == 200:
-            result = await request.read()
-            response = web.Response(body=result)
-            response.headers["Content-Type"] = "application/javascript"
-
-            return response

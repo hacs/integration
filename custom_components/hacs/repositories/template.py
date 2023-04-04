@@ -46,6 +46,7 @@ class HacsTemplateRepository(HacsRepository):
             not self.data.file_name
             or "/" in self.data.file_name
             or not self.data.file_name.endswith(".jinja")
+            or self.data.file_name not in self.treefiles
         ):
             raise HacsException(
                 f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
@@ -61,6 +62,7 @@ class HacsTemplateRepository(HacsRepository):
     async def async_post_registration(self):
         """Registration."""
         # Set filenames
+        self.data.file_name = self.repository_manifest.filename
         self.content.path.local = self.localpath
 
         if self.hacs.system.action:
@@ -73,6 +75,7 @@ class HacsTemplateRepository(HacsRepository):
             return
 
         # Update filenames
+        self.data.file_name = self.repository_manifest.filename
         self.content.path.local = self.localpath
 
         # Signal entities to refresh

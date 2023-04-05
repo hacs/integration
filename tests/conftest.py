@@ -33,6 +33,7 @@ from custom_components.hacs.repositories import (
     HacsNetdaemonRepository,
     HacsPluginRepository,
     HacsPythonScriptRepository,
+    HacsTemplateRepository,
     HacsThemeRepository,
 )
 from custom_components.hacs.utils.configuration_schema import TOKEN as CONF_TOKEN
@@ -185,6 +186,13 @@ def repository_plugin(hacs):
 def repository_python_script(hacs):
     """Fixtrue for HACS python_script repository object"""
     repository_obj = HacsPythonScriptRepository(hacs, "test/test")
+    yield dummy_repository_base(hacs, repository_obj)
+
+
+@pytest.fixture
+def repository_template(hacs):
+    """Fixtrue for HACS template repository object"""
+    repository_obj = HacsTemplateRepository(hacs, "test/test")
     yield dummy_repository_base(hacs, repository_obj)
 
 

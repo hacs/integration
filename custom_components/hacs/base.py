@@ -546,7 +546,12 @@ class HacsBase:
             raise AddonRepositoryException()
 
         if category not in RERPOSITORY_CLASSES:
-            raise HacsException(f"{category} is not a valid repository category.")
+            self.log.warning(
+                "%s is not a valid repository category, %s will not be registered.",
+                category,
+                repository_full_name,
+            )
+            return
 
         if (renamed := self.common.renamed_repositories.get(repository_full_name)) is not None:
             repository_full_name = renamed

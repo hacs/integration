@@ -91,6 +91,8 @@ TOPIC_FILTER = (
     "sensor",
     "smart-home",
     "smarthome",
+    "template",
+    "templates",
     "theme",
     "themes",
 )
@@ -772,6 +774,8 @@ class HacsRepository:
                 await self.hacs.hass.services.async_call("frontend", "reload_themes", {})
             except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
                 pass
+        elif self.data.category == "template":
+            await self.hacs.hass.services.async_call("homeassistant", "reload_custom_templates", {})
 
         await async_remove_store(self.hacs.hass, f"hacs/{self.data.id}.hacs")
 
@@ -796,6 +800,8 @@ class HacsRepository:
         try:
             if self.data.category == "python_script":
                 local_path = f"{self.content.path.local}/{self.data.name}.py"
+            elif self.data.category == "template":
+                local_path = f"{self.content.path.local}/{self.data.file_name}"
             elif self.data.category == "theme":
                 path = (
                     f"{self.hacs.core.config_path}/"
@@ -823,7 +829,7 @@ class HacsRepository:
                     return False
                 self.logger.debug("%s Removing %s", self.string, local_path)
 
-                if self.data.category in ["python_script"]:
+                if self.data.category in ["python_script", "template"]:
                     os.remove(local_path)
                 else:
                     shutil.rmtree(local_path)

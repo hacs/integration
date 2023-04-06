@@ -31,6 +31,7 @@ class HacsCategory(StrEnum):
     PLUGIN = "plugin"  # Kept for legacy purposes
     NETDAEMON = "netdaemon"
     PYTHON_SCRIPT = "python_script"
+    TEMPLATE = "template"
     THEME = "theme"
     REMOVED = "removed"
 

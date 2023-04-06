@@ -8,6 +8,7 @@ from .integration import HacsIntegrationRepository
 from .netdaemon import HacsNetdaemonRepository
 from .plugin import HacsPluginRepository
 from .python_script import HacsPythonScriptRepository
+from .template import HacsTemplateRepository
 from .theme import HacsThemeRepository
 
 RERPOSITORY_CLASSES: dict[HacsCategory, HacsRepository] = {
@@ -17,4 +18,5 @@ RERPOSITORY_CLASSES: dict[HacsCategory, HacsRepository] = {
     HacsCategory.APPDAEMON: HacsAppdaemonRepository,
     HacsCategory.NETDAEMON: HacsNetdaemonRepository,
     HacsCategory.PLUGIN: HacsPluginRepository,
+    HacsCategory.TEMPLATE: HacsTemplateRepository,
 }

@@ -763,7 +763,7 @@ class HacsBase:
         for category in (HacsCategory.INTEGRATION, HacsCategory.PLUGIN):
             self.enable_hacs_category(HacsCategory(category))
 
-        if self.configuration.experimental and self.core.ha_version >= "2021.4.0b0":
+        if self.configuration.experimental and self.core.ha_version >= "2023.4.0b0":
             self.enable_hacs_category(HacsCategory.TEMPLATE)
 
         if HacsCategory.PYTHON_SCRIPT in self.hass.config.components:

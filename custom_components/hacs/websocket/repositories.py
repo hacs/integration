@@ -157,7 +157,10 @@ async def hacs_repositories_add(
     if renamed := hacs.common.renamed_repositories.get(repository):
         repository = renamed
 
-    if not hacs.repositories.get_by_full_name(repository):
+    if category not in hacs.common.categories:
+        hacs.log.error("%s is not a valid category for %s", category, repository)
+
+    elif not hacs.repositories.get_by_full_name(repository):
         try:
             await hacs.async_register_repository(
                 repository_full_name=repository,

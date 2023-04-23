@@ -6,7 +6,9 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-if [ ! -f "configuration.yaml" ]; then
+if [ ! -f "${PWD}/config/configuration.yaml" ]; then
+  mkdir -p "${PWD}/config"
+  hass --config "${PWD}/config" --script ensure_config
   echo "Creating default configuration."
   echo "
 default_config:
@@ -28,8 +30,15 @@ do
     esac
 done
 
-echo "Installing HACS frontend"
-[ -z "${frontend_dir}" ] && bash "scripts/install/frontend"
+
+if [[ -z "${frontend_dir}" ]]; then
+  echo "Installing HACS frontend"
+  bash "scripts/install/frontend"
+fi
+
+
+# Set the python path to include our custom_components directory
+export PYTHONPATH="${PYTHONPATH}:${PWD}/custom_components"
 
 # Start Home Assistant
-HACS_FRONTEND_DIR="$(readlink -f ${frontend_dir})" hass -c . --debug
+HACS_FRONTEND_DIR="$(readlink -f ${frontend_dir})" hass --config "${PWD}/config" --debug

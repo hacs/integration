@@ -25,7 +25,7 @@ from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
 from homeassistant.config_entries import ConfigEntry, ConfigEntryState
-from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
+from homeassistant.const import Platform
 from homeassistant.core import CALLBACK_TYPE, HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.event import async_track_time_interval
@@ -666,10 +666,6 @@ class HacsBase:
             )
         )
 
-        self.hass.bus.async_listen_once(
-            EVENT_HOMEASSISTANT_FINAL_WRITE, self.data.async_force_write
-        )
-
         self.log.debug("There are %s scheduled recurring tasks", len(self.recuring_tasks))
 
         self.status.startup = False
@@ -696,6 +692,7 @@ class HacsBase:
         self.recuring_tasks = []
 
         self.queue.clear()
+        await self.data.async_write(force=True)
         self.log.debug("Completed cleanup tasks")
 
     async def async_download_file(self, url: str, *, headers: dict | None = None) -> bytes | None:

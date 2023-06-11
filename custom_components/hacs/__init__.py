@@ -213,7 +213,14 @@ async def async_initialize_integration(
             return
         hacs.enable_hacs()
 
-    hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, hacs.async_cleanup_tasks)
+    if config_entry is None:
+        hacs.recuring_tasks.append(
+            hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, hacs.async_cleanup_tasks)
+        )
+    else:
+        config_entry.async_on_unload(
+            hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, hacs.async_cleanup_tasks)
+        )
 
     await async_try_startup()
 
@@ -239,9 +246,6 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     hacs: HacsBase = hass.data[DOMAIN]
 
     await hacs.async_cleanup_tasks()
-
-    # Store data
-    await hacs.data.async_write(force=True)
 
     try:
         if hass.data.get("frontend_panels", {}).get("hacs"):

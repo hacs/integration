@@ -33,6 +33,8 @@ concurrency:
 jobs:
   generate-matrix:
     name: Generate matrix
+    runs-on: ubuntu-latest
+    if: github.repository == 'hacs/integration'
     outputs:
       categories: ${{ steps.set-matrix.outputs.categories }}
     steps:

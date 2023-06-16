@@ -25,9 +25,10 @@ from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
 from homeassistant.config_entries import ConfigEntry, ConfigEntryState
-from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
-from homeassistant.core import HomeAssistant, callback
+from homeassistant.const import Platform
+from homeassistant.core import CALLBACK_TYPE, HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
+from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.issue_registry import IssueSeverity, async_create_issue
 from homeassistant.loader import Integration
 from homeassistant.util import dt
@@ -360,7 +361,7 @@ class HacsBase:
     integration: Integration | None = None
     log: logging.Logger = LOGGER
     queue: QueueManager | None = None
-    recuring_tasks = []
+    recuring_tasks: list[CALLBACK_TYPE] = []
     repositories: HacsRepositories = HacsRepositories()
     repository: AIOGitHubAPIRepository | None = None
     session: ClientSession | None = None
@@ -620,55 +621,49 @@ class HacsBase:
 
         if not self.configuration.experimental:
             self.recuring_tasks.append(
-                self.hass.helpers.event.async_track_time_interval(
-                    self.async_update_downloaded_repositories, timedelta(hours=48)
+                async_track_time_interval(
+                    self.hass, self.async_update_downloaded_repositories, timedelta(hours=48)
                 )
             )
             self.recuring_tasks.append(
-                self.hass.helpers.event.async_track_time_interval(
+                async_track_time_interval(
+                    self.hass,
                     self.async_update_all_repositories,
                     timedelta(hours=96),
                 )
             )
         else:
             self.recuring_tasks.append(
-                self.hass.helpers.event.async_track_time_interval(
+                async_track_time_interval(
+                    self.hass,
                     self.async_load_hacs_from_github,
                     timedelta(hours=48),
                 )
             )
 
         self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_update_downloaded_custom_repositories, timedelta(hours=48)
+            async_track_time_interval(
+                self.hass, self.async_update_downloaded_custom_repositories, timedelta(hours=48)
             )
         )
 
         self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_get_all_category_repositories, timedelta(hours=6)
+            async_track_time_interval(
+                self.hass, self.async_get_all_category_repositories, timedelta(hours=6)
             )
         )
 
         self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_check_rate_limit, timedelta(minutes=5)
-            )
+            async_track_time_interval(self.hass, self.async_check_rate_limit, timedelta(minutes=5))
         )
         self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_prosess_queue, timedelta(minutes=10)
-            )
+            async_track_time_interval(self.hass, self.async_prosess_queue, timedelta(minutes=10))
         )
 
         self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_handle_critical_repositories, timedelta(hours=6)
+            async_track_time_interval(
+                self.hass, self.async_handle_critical_repositories, timedelta(hours=6)
             )
-        )
-
-        self.hass.bus.async_listen_once(
-            EVENT_HOMEASSISTANT_FINAL_WRITE, self.data.async_force_write
         )
 
         self.log.debug("There are %s scheduled recurring tasks", len(self.recuring_tasks))
@@ -688,6 +683,17 @@ class HacsBase:
         await self.async_prosess_queue()
 
         self.async_dispatch(HacsDispatchEvent.STATUS, {})
+
+    async def async_cleanup_tasks(self, _=None) -> None:
+        """HACS cleanup tasks."""
+        self.log.debug("Running cleanup tasks")
+        for task in self.recuring_tasks:
+            task()
+        self.recuring_tasks = []
+
+        self.queue.clear()
+        await self.data.async_write(force=True)
+        self.log.debug("Completed cleanup tasks")
 
     async def async_download_file(self, url: str, *, headers: dict | None = None) -> bytes | None:
         """Download files, and return the content."""
@@ -1071,7 +1077,7 @@ class HacsBase:
 
     async def async_handle_critical_repositories(self, _=None) -> None:
         """Handle critical repositories."""
-        critical_queue = QueueManager(hass=self.hass)
+        critical_queue = QueueManager()
         instored = []
         critical = []
         was_installed = False

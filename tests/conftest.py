@@ -122,7 +122,7 @@ async def hacs(hass: HomeAssistant):
     )
     hacs_obj.common = HacsCommon()
     hacs_obj.data = AsyncMock()
-    hacs_obj.queue = QueueManager(hass=hass)
+    hacs_obj.queue = QueueManager()
     hacs_obj.core = HacsCore()
     hacs_obj.system = HacsSystem()
 

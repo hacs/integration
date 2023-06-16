@@ -382,6 +382,7 @@ async def generate_category_data(category: str, repository_name: str = None):
                 [v["full_name"] for v in updated_data.values()],
                 repositories_file,
                 separators=(",", ":"),
+                sort_keys=True,
             )
 
         with open(
@@ -393,6 +394,7 @@ async def generate_category_data(category: str, repository_name: str = None):
                 current_data,
                 data_file,
                 cls=JSONEncoder,
+                sort_keys=True,
                 indent=2,
             )
 
@@ -405,6 +407,7 @@ async def generate_category_data(category: str, repository_name: str = None):
                 updated_data,
                 data_file,
                 cls=JSONEncoder,
+                sort_keys=True,
                 indent=2,
             )
 

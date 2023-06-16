@@ -9,6 +9,7 @@ from aresponses import ResponsesMockServer
 
 from scripts.data.generate_category_data import generate_category_data, OUTPUT_DIR
 
+from tests.conftest import hacs
 from tests.sample_data import repository_data, tree_files_base, integration_manifest
 
 BASE_HEADERS = {"Content-Type": "application/json"}
@@ -166,12 +167,15 @@ async def test_generate_category_data(
     aresponses: ResponsesMockServer,
 ):
     """Test behaviour."""
-    repositories = ["test/first", "test/second"]
+    repositories = [
+        {"full_name": "test/first", "id": 999999998},
+        {"full_name": "test/second", "id": 999999999},
+    ]
     current_data = {
-        "999999999": {
+        f"{repositories[0]['id']}": {
             "manifest": {"name": "test"},
             "description": "Old contents",
-            "full_name": "test/first",
+            "full_name": repositories[0]["full_name"],
             "last_commit": "123",
             "etag_repository": "231",
             "stargazers_count": 992,
@@ -212,7 +216,11 @@ async def test_generate_category_data(
         "get",
         aresponses.Response(
             body=json.dumps(
-                {"content": b64encode(json.dumps(repositories).encode("utf-8")).decode("utf-8")}
+                {
+                    "content": b64encode(
+                        json.dumps([x["full_name"] for x in repositories]).encode("utf-8")
+                    ).decode("utf-8")
+                }
             ),
             headers=BASE_HEADERS,
         ),
@@ -221,14 +229,14 @@ async def test_generate_category_data(
     for repo in repositories:
         aresponses.add(
             "api.github.com",
-            f"/repos/{repo}",
+            f"/repos/{repo['full_name']}",
             "get",
             aresponses.Response(
                 body=json.dumps(
                     {
                         **repository_data,
-                        "id": 999999999 if repo == "test/first" else 999999998,
-                        "full_name": repo,
+                        "id": repo["id"],
+                        "full_name": repo["full_name"],
                     }
                 ),
                 headers=BASE_HEADERS,
@@ -237,7 +245,7 @@ async def test_generate_category_data(
 
         aresponses.add(
             "api.github.com",
-            f"/repos/{repo}/branches/main",
+            f"/repos/{repo['full_name']}/branches/main",
             "get",
             aresponses.Response(
                 body=json.dumps({"commit": {"sha": "1234567890123456789012345678901234567890"}}),
@@ -246,7 +254,7 @@ async def test_generate_category_data(
         )
         aresponses.add(
             "api.github.com",
-            f"/repos/{repo}/git/trees/main",
+            f"/repos/{repo['full_name']}/git/trees/main",
             "get",
             aresponses.Response(
                 body=json.dumps(
@@ -263,7 +271,7 @@ async def test_generate_category_data(
 
         aresponses.add(
             "api.github.com",
-            f"/repos/{repo}/branches/main",
+            f"/repos/{repo['full_name']}/branches/main",
             "get",
             aresponses.Response(
                 body=json.dumps({"commit": {"sha": "1234567890123456789012345678901234567890"}}),
@@ -272,7 +280,7 @@ async def test_generate_category_data(
         )
         aresponses.add(
             "api.github.com",
-            f"/repos/{repo}/releases",
+            f"/repos/{repo['full_name']}/releases",
             "get",
             aresponses.Response(
                 body=json.dumps([]),
@@ -281,7 +289,7 @@ async def test_generate_category_data(
         )
         aresponses.add(
             "api.github.com",
-            f"/repos/{repo}/contents/hacs.json",
+            f"/repos/{repo['full_name']}/contents/hacs.json",
             "get",
             aresponses.Response(
                 body=json.dumps(
@@ -297,7 +305,7 @@ async def test_generate_category_data(
 
         aresponses.add(
             "api.github.com",
-            f"/repos/{repo}/contents/readme.md",
+            f"/repos/{repo['full_name']}/contents/readme.md",
             "get",
             aresponses.Response(
                 body=json.dumps({"content": b64encode("".encode("utf-8")).decode("utf-8")}),
@@ -321,7 +329,7 @@ async def test_generate_category_data(
             "999999998": {
                 "manifest": {"name": "test"},
                 "description": "Sample description for repository.",
-                "full_name": "test/second",
+                "full_name": "test/first",
                 "last_commit": "1234567",
                 "stargazers_count": 999,
                 "topics": ["topic1", "topic2"],
@@ -330,7 +338,7 @@ async def test_generate_category_data(
             "999999999": {
                 "manifest": {"name": "test"},
                 "description": "Sample description for repository.",
-                "full_name": "test/first",
+                "full_name": "test/second",
                 "last_commit": "1234567",
                 "stargazers_count": 999,
                 "topics": ["topic1", "topic2"],

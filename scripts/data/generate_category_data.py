@@ -19,7 +19,7 @@ from aiohttp import ClientSession
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.json import JSONEncoder
 
-from custom_components.hacs.base import HacsBase
+from custom_components.hacs.base import HacsBase, HacsRepositories
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.data_client import HacsDataClient
 from custom_components.hacs.exceptions import HacsExecutionStillInProgress
@@ -125,6 +125,7 @@ class AdjustedHacs(HacsBase):
         super().__init__()
         self.hass = HomeAssistant()
         self.queue = QueueManager(self.hass)
+        self.repositories = HacsRepositories()
         self.system.generator = True
         self.session = session
         self.core.config_path = None

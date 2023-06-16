@@ -1,16 +1,15 @@
 """Test generate category data."""
-from unittest.mock import ANY
-import json
 from base64 import b64encode
-
-import pytest
+import json
+from unittest.mock import ANY
 
 from aresponses import ResponsesMockServer
+import pytest
 
-from scripts.data.generate_category_data import generate_category_data, OUTPUT_DIR
+from scripts.data.generate_category_data import OUTPUT_DIR, generate_category_data
 
 from tests.conftest import hacs
-from tests.sample_data import repository_data, tree_files_base, integration_manifest
+from tests.sample_data import integration_manifest, repository_data, tree_files_base
 
 BASE_HEADERS = {"Content-Type": "application/json"}
 RATE_LIMIT_HEADER = {
@@ -141,7 +140,7 @@ async def test_generate_category_data_single_repository(
 
     await generate_category_data("integration", "test/test")
 
-    with open(f"{OUTPUT_DIR}/integration/data.json", "r", encoding="utf-8") as file:
+    with open(f"{OUTPUT_DIR}/integration/data.json", encoding="utf-8") as file:
         data = json.loads(file.read())
         assert data == {
             "999999999": {
@@ -157,7 +156,7 @@ async def test_generate_category_data_single_repository(
             }
         }
 
-    with open(f"{OUTPUT_DIR}/integration/repositories.json", "r", encoding="utf-8") as file:
+    with open(f"{OUTPUT_DIR}/integration/repositories.json", encoding="utf-8") as file:
         data = json.loads(file.read())
         assert data == ["test/test"]
 
@@ -308,7 +307,7 @@ async def test_generate_category_data(
             f"/repos/{repo['full_name']}/contents/readme.md",
             "get",
             aresponses.Response(
-                body=json.dumps({"content": b64encode("".encode("utf-8")).decode("utf-8")}),
+                body=json.dumps({"content": b64encode(b"").decode("utf-8")}),
                 headers=BASE_HEADERS,
             ),
         )
@@ -323,7 +322,7 @@ async def test_generate_category_data(
 
     await generate_category_data("template")
 
-    with open(f"{OUTPUT_DIR}/template/data.json", "r", encoding="utf-8") as file:
+    with open(f"{OUTPUT_DIR}/template/data.json", encoding="utf-8") as file:
         data = json.loads(file.read())
         assert data == {
             "999999998": {
@@ -346,7 +345,7 @@ async def test_generate_category_data(
             },
         }
 
-    with open(f"{OUTPUT_DIR}/template/repositories.json", "r", encoding="utf-8") as file:
+    with open(f"{OUTPUT_DIR}/template/repositories.json", encoding="utf-8") as file:
         data = json.loads(file.read())
         assert "test/first" in data
         assert "test/second" in data

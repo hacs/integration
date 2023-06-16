@@ -1,4 +1,8 @@
 """Adds config flow for HACS."""
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from aiogithubapi import GitHubDeviceAPI, GitHubException
 from aiogithubapi.common.const import OAUTH_USER_LOGIN
 from awesomeversion import AwesomeVersion
@@ -11,14 +15,28 @@ from homeassistant.loader import async_get_integration
 import voluptuous as vol
 
 from .base import HacsBase
-from .const import CLIENT_ID, DOMAIN, MINIMUM_HA_VERSION
+from .const import CLIENT_ID, DOMAIN, LOCALE, MINIMUM_HA_VERSION
 from .enums import ConfigurationType
-from .utils.configuration_schema import RELEASE_LIMIT, hacs_config_option_schema
+from .utils.configuration_schema import (
+    APPDAEMON,
+    COUNTRY,
+    DEBUG,
+    EXPERIMENTAL,
+    NETDAEMON,
+    RELEASE_LIMIT,
+    SIDEPANEL_ICON,
+    SIDEPANEL_TITLE,
+)
 from .utils.logger import LOGGER
+
+if TYPE_CHECKING:
+    from homeassistant.core import HomeAssistant
 
 
 class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for HACS."""
+
+    hass: HomeAssistant
 
     VERSION = 1
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
@@ -32,6 +50,7 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self._progress_task = None
         self._login_device = None
         self._reauth = False
+        self._user_input = {}
 
     async def async_step_user(self, user_input):
         """Handle a flow initialized by the user."""
@@ -42,9 +61,11 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             return self.async_abort(reason="single_instance_allowed")
 
         if user_input:
-            if [x for x in user_input if not user_input[x]]:
+            if [x for x in user_input if x.startswith("acc_") and not user_input[x]]:
                 self._errors["base"] = "acc"
                 return await self._show_config_form(user_input)
+
+            self._user_input = user_input
 
             return await self.async_step_device(user_input)
 
@@ -112,24 +133,33 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                         "acc_untested", default=user_input.get("acc_untested", False)
                     ): bool,
                     vol.Required("acc_disable", default=user_input.get("acc_disable", False)): bool,
+                    vol.Optional(
+                        "experimental", default=user_input.get("experimental", True)
+                    ): bool,
                 }
             ),
             errors=self._errors,
         )
 
-    async def async_step_device_done(self, _user_input):
+    async def async_step_device_done(self, user_input: dict[str, bool] | None = None):
         """Handle device steps"""
         if self._reauth:
             existing_entry = self.hass.config_entries.async_get_entry(self.context["entry_id"])
             self.hass.config_entries.async_update_entry(
-                existing_entry, data={"token": self.activation.access_token}
+                existing_entry, data={**existing_entry.data, "token": self.activation.access_token}
             )
             await self.hass.config_entries.async_reload(existing_entry.entry_id)
             return self.async_abort(reason="reauth_successful")
 
-        return self.async_create_entry(title="", data={"token": self.activation.access_token})
+        return self.async_create_entry(
+            title="",
+            data={
+                "token": self.activation.access_token,
+                "experimental": self._user_input.get("experimental", False),
+            },
+        )
 
-    async def async_step_reauth(self, user_input=None):
+    async def async_step_reauth(self, _user_input=None):
         """Perform reauth upon an API authentication error."""
         return await self.async_step_reauth_confirm()
 
@@ -175,8 +205,15 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
         if hacs.configuration.config_type == ConfigurationType.YAML:
             schema = {vol.Optional("not_in_use", default=""): str}
         else:
-            schema = hacs_config_option_schema(self.config_entry.options)
-            del schema["frontend_repo"]
-            del schema["frontend_repo_url"]
+            schema = {
+                vol.Optional(SIDEPANEL_TITLE, default=hacs.configuration.sidepanel_title): str,
+                vol.Optional(SIDEPANEL_ICON, default=hacs.configuration.sidepanel_icon): str,
+                vol.Optional(RELEASE_LIMIT, default=hacs.configuration.release_limit): int,
+                vol.Optional(COUNTRY, default=hacs.configuration.country): vol.In(LOCALE),
+                vol.Optional(APPDAEMON, default=hacs.configuration.appdaemon): bool,
+                vol.Optional(NETDAEMON, default=hacs.configuration.netdaemon): bool,
+                vol.Optional(DEBUG, default=hacs.configuration.debug): bool,
+                vol.Optional(EXPERIMENTAL, default=hacs.configuration.experimental): bool,
+            }
 
         return self.async_show_form(step_id="user", data_schema=vol.Schema(schema))

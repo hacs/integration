@@ -12,12 +12,10 @@ on:
           - "False"
           - "True"
       category:
-        description: 'Select a single category'
+        description: 'Select a category'
         required: false
-        default: 'None'
         type: choice
         options:
-          - "None"
           - appdaemon
           - integration
           - plugin
@@ -40,7 +38,7 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          if [[ "${{ inputs.category }}" != ""  ]] && [[ "${{ inputs.category }}" != "None"  ]]; then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch"  ]] && [[ "${{ inputs.category }}" != ""  ]]; then
             echo "::set-output name=categories::['${{ inputs.category }}']"
           else
             echo "::set-output name=categories::['appdaemon','integration','plugin','python_script','template','theme']"

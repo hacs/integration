@@ -40,9 +40,9 @@ jobs:
       - id: set-matrix
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch"  ]] && [[ "${{ inputs.category }}" != "None"  ]] && [[ "${{ inputs.category }}" != ""  ]]; then
-            echo "::set-output name=categories::['${{ inputs.category }}']"
+            echo "categories=['${{ inputs.category }}']" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=categories::['appdaemon','integration','plugin','python_script','template','theme']"
+            echo "categories=['appdaemon','integration','plugin','python_script','template','theme']" >> $GITHUB_OUTPUT
           fi
   category-data:
     runs-on: ubuntu-latest

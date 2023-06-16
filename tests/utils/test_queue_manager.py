@@ -16,7 +16,7 @@ TIMEOUT = 60
 async def test_queue_manager_interface(hacs: HacsBase, caplog: pytest.LogCaptureFixture) -> None:
     """Test QueueManager interface."""
     dummy_task = AsyncMock()
-    queue_manager = QueueManager(hass=hacs.hass)
+    queue_manager = QueueManager()
 
     async def sleeper() -> None:
         await dummy_task.before_sleep()
@@ -67,7 +67,7 @@ async def test_queue_manager_clear(hacs: HacsBase) -> None:
     """Test clearing the queue."""
     range_count = 44
     mocker = AsyncMock()
-    queue_manager = QueueManager(hass=hacs.hass)
+    queue_manager = QueueManager()
 
     async def sleeper() -> None:
         await mocker.before_sleep()

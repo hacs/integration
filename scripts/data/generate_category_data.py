@@ -124,7 +124,7 @@ class AdjustedHacs(HacsBase):
         """Initialize."""
         super().__init__()
         self.hass = HomeAssistant()
-        self.queue = QueueManager(self.hass)
+        self.queue = QueueManager()
         self.system.generator = True
         self.session = session
         self.core.config_path = None

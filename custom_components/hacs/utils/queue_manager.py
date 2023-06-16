@@ -3,20 +3,16 @@ from __future__ import annotations
 
 import asyncio
 import time
-from typing import TYPE_CHECKING, Coroutine
+from typing import Coroutine
 
 from ..exceptions import HacsExecutionStillInProgress
 from .logger import LOGGER
-
-if TYPE_CHECKING:
-    from homeassistant.core import HomeAssistant
 
 
 class QueueManager:
     """The QueueManager class."""
 
-    def __init__(self, hass: HomeAssistant) -> None:
-        self.hass = hass
+    def __init__(self) -> None:
         self._queue: list[asyncio.Task] = []
         self._execution_group: asyncio.Future | None = None
         self._stopping = False

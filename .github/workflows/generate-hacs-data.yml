@@ -91,8 +91,6 @@ jobs:
         run: |
           jq -c . outputdata/${{ matrix.category }}/data.json
           jq -c . outputdata/${{ matrix.category }}/repositories.json
-          jq -c . outputdata/diff/${{ matrix.category }}_after.json
-          jq -c . outputdata/diff/${{ matrix.category }}_before.json
 
       - name: Generate diff
         if: steps.updated.outputs.updated == 'true'

@@ -1,4 +1,6 @@
 """Generate HACS compliant data."""
+from __future__ import annotations
+
 import asyncio
 from datetime import datetime
 import json
@@ -19,7 +21,7 @@ from aiohttp import ClientSession
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.json import JSONEncoder
 
-from custom_components.hacs.base import HacsBase
+from custom_components.hacs.base import HacsBase, HacsRepositories
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.data_client import HacsDataClient
 from custom_components.hacs.exceptions import HacsExecutionStillInProgress
@@ -125,6 +127,7 @@ class AdjustedHacs(HacsBase):
         super().__init__()
         self.hass = HomeAssistant()
         self.queue = QueueManager(self.hass)
+        self.repositories = HacsRepositories()
         self.system.generator = True
         self.session = session
         self.core.config_path = None
@@ -144,6 +147,12 @@ class AdjustedHacs(HacsBase):
             **{"client_name": "HACS/Generator"},
         )
 
+    async def async_can_update(self) -> int:
+        """Helper to calculate the number of repositories we can fetch data for."""
+        if not os.getenv("DATA_GENERATOR_TOKEN"):
+            return 10
+        return await super().async_can_update()
+
     @concurrent(concurrenttasks=10)
     async def concurrent_register_repository(
         self,
@@ -152,9 +161,7 @@ class AdjustedHacs(HacsBase):
     ) -> None:
         """Register a repository."""
         await self.async_register_repository(
-            repository_full_name=repository_full_name,
-            category=category,
-            default=True,
+            repository_full_name=repository_full_name, category=category, default=True
         )
 
     @concurrent(concurrenttasks=10, backoff_time=0.1)
@@ -203,18 +210,23 @@ class AdjustedHacs(HacsBase):
     async def generate_data_for_category(
         self,
         category: str,
+        repository_name: str | None,
         current_data: dict[str, dict[str, Any]],
         force: bool,
     ) -> dict[str, dict[str, Any]]:
         """Generate data for category."""
-        removed = await self.data_client.get_repositories("removed")
+        removed = (
+            []
+            if repository_name is not None
+            else await self.data_client.get_repositories("removed")
+        )
         await self.data.register_base_data(
             category,
             {} if force else current_data,
             removed,
         )
         self.queue.clear()
-        await self.get_category_repositories(category, removed)
+        await self.get_category_repositories(category, repository_name, removed)
 
         async def _handle_queue():
             if not self.queue.pending_tasks:
@@ -252,12 +264,19 @@ class AdjustedHacs(HacsBase):
     async def get_category_repositories(
         self,
         category: str,
+        repository_name: str | None,
         removed: list[str],
     ) -> None:
         """Get repositories from category."""
-        repositories = await self.async_github_get_hacs_default_file(category)
+        repositories = (
+            await self.async_github_get_hacs_default_file(category)
+            if repository_name is None
+            else []
+        )
 
-        if category == "integration":
+        if repository_name is not None:
+            repositories = [repository_name]
+        elif category == "integration":
             # hacs/integration i not in the default file, but it's still needed
             repositories.append("hacs/integration")
 
@@ -295,34 +314,50 @@ class AdjustedHacs(HacsBase):
 
         print(
             json.dumps(
-                {
-                    "rate_limit": (await self.githubapi.rate_limit()).data.resources.core.as_dict,
-                    "current_count": len(current_data.keys()),
-                    "new_count": len(updated_data.keys()),
-                    "changed": changed,
-                },
+                (
+                    {
+                        "rate_limit": (
+                            await self.githubapi.rate_limit()
+                        ).data.resources.core.as_dict,
+                        "current_count": len(current_data.keys()),
+                        "new_count": len(updated_data.keys()),
+                        "changed": changed,
+                    }
+                    if len(updated_data) > 1
+                    else updated_data
+                ),
                 indent=2,
             )
         )
         return changed
 
 
-async def generate_category_data(category: str):
+async def generate_category_data(category: str, repository_name: str = None):
     """Generate data."""
     async with ClientSession() as session:
         hacs = AdjustedHacs(session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
         os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
         force = os.environ.get("FORCE_REPOSITORY_UPDATE") == "True"
+        stored_data = await hacs.data_client.get_data(category)
+        current_data = (
+            next(
+                (
+                    {key: value}
+                    for key, value in stored_data.items()
+                    if value["full_name"] == repository_name
+                ),
+                {},
+            )
+            if repository_name is not None
+            else stored_data
+        )
 
-        current_data = await hacs.data_client.get_data(category)
         updated_data = await hacs.generate_data_for_category(
-            category,
-            current_data,
-            force=force,
+            category, repository_name, current_data, force=force
         )
 
         changed = await hacs.summarize_data(current_data, updated_data)
-        if not force and changed == 0:
+        if not force and changed == 0 and repository_name is None:
             print("No changes, exiting")
             return
 
@@ -350,4 +385,9 @@ async def generate_category_data(category: str):
 
 
 if __name__ == "__main__":
-    asyncio.run(generate_category_data(sys.argv[1]))
+    asyncio.run(
+        generate_category_data(
+            sys.argv[1],  # category
+            sys.argv[2] if len(sys.argv) > 2 else None,  # repository_name
+        )
+    )

@@ -95,7 +95,7 @@ jobs:
       - name: Generate diff
         if: steps.updated.outputs.updated == 'true'
         run: |
-          diff -u outputdata/diff/${{ matrix.category }}_before.json outputdata/diff/${{ matrix.category }}_after.json > outputdata/diff/${{ matrix.category }}.diff
+          diff -ua outputdata/diff/${{ matrix.category }}_before.json outputdata/diff/${{ matrix.category }}_after.json > outputdata/diff/${{ matrix.category }}.diff
 
       - name: Upload artifacts 1/2
         uses: actions/upload-artifact@v3

@@ -11,6 +11,19 @@ on:
         options:
           - "False"
           - "True"
+      category:
+        description: 'Select a single category'
+        required: false
+        default: 'None'
+        type: choice
+        options:
+          - "None"
+          - appdaemon
+          - integration
+          - plugin
+          - python_script
+          - template
+          - theme
   schedule:
     - cron: "0 */2 * * *"
 
@@ -18,19 +31,26 @@ concurrency:
   group: category-data
 
 jobs:
+  generate-matrix:
+    name: Generate matrix
+    outputs:
+      categories: ${{ steps.set-matrix.outputs.categories }}
+    steps:
+      - id: set-matrix
+        run: |
+        if [[ "${{ inputs.forceRepositoryUpdate }}" != "None"  ]]; then
+          echo "::set-output name=categories::['${{ inputs.forceRepositoryUpdate }}']"
+        else
+          echo "::set-output name=categories::['appdaemon','integration','plugin','python_script','template','theme']"
+        fi
   category-data:
     runs-on: ubuntu-latest
+    needs: generate-matrix
     if: github.repository == 'hacs/integration'
     name: Generate ${{ matrix.category }} data
     strategy:
       matrix:
-        category:
-          - appdaemon
-          - integration
-          - plugin
-          - python_script
-          - template
-          - theme
+        category: ${{ fromJSON( needs.generate-matrix.outputs.categories )}}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3.5.2

@@ -337,6 +337,7 @@ async def generate_category_data(category: str, repository_name: str = None):
     async with ClientSession() as session:
         hacs = AdjustedHacs(session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
         os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
+        os.makedirs(os.path.join(OUTPUT_DIR, "diff"), exist_ok=True)
         force = os.environ.get("FORCE_REPOSITORY_UPDATE") == "True"
         stored_data = await hacs.data_client.get_data(category)
         current_data = (
@@ -381,6 +382,30 @@ async def generate_category_data(category: str, repository_name: str = None):
                 [v["full_name"] for v in updated_data.values()],
                 repositories_file,
                 separators=(",", ":"),
+            )
+
+        with open(
+            os.path.join(OUTPUT_DIR, "diff", f"{category}_before.json"),
+            mode="w",
+            encoding="utf-8",
+        ) as data_file:
+            json.dump(
+                current_data,
+                data_file,
+                cls=JSONEncoder,
+                indent=2,
+            )
+
+        with open(
+            os.path.join(OUTPUT_DIR, "diff", f"{category}_after.json"),
+            mode="w",
+            encoding="utf-8",
+        ) as data_file:
+            json.dump(
+                updated_data,
+                data_file,
+                cls=JSONEncoder,
+                indent=2,
             )
 
 

@@ -92,12 +92,26 @@ jobs:
           jq -c . outputdata/${{ matrix.category }}/data.json
           jq -c . outputdata/${{ matrix.category }}/repositories.json
 
-      - name: Upload artifacts
+      - name: Generate diff
+        if: steps.updated.outputs.updated == 'true'
+        run: |
+          diff -u outputdata/diff/${{ matrix.category }}_after.json outputdata/diff/${{ matrix.category }}_before.json > outputdata/diff/${{ matrix.category }}.diff
+
+      - name: Upload artifacts 1/2
         uses: actions/upload-artifact@v3
         if: steps.updated.outputs.updated == 'true'
         with:
           name: ${{ matrix.category }}
           path: outputdata/${{ matrix.category }}
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload artifacts 2/2
+        uses: actions/upload-artifact@v3
+        if: steps.updated.outputs.updated == 'true'
+        with:
+          name: ${{ matrix.category }}
+          path: outputdata/diff/${{ matrix.category }}.diff
           if-no-files-found: error
           retention-days: 7
 

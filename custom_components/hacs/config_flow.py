@@ -134,7 +134,7 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     ): bool,
                     vol.Required("acc_disable", default=user_input.get("acc_disable", False)): bool,
                     vol.Optional(
-                        "experimental", default=user_input.get("experimental", True)
+                        "experimental", default=user_input.get("experimental", False)
                     ): bool,
                 }
             ),

@@ -155,6 +155,8 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             title="",
             data={
                 "token": self.activation.access_token,
+            },
+            options={
                 "experimental": self._user_input.get("experimental", False),
             },
         )

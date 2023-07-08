@@ -14,11 +14,7 @@ from aiogithubapi.const import ACCEPT_HEADERS
 from awesomeversion import AwesomeVersion
 from homeassistant.components.lovelace.system_health import system_health_info
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
-from homeassistant.const import (
-    EVENT_HOMEASSISTANT_STOP,
-    Platform,
-    __version__ as HAVERSION,
-)
+from homeassistant.const import Platform, __version__ as HAVERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.discovery import async_load_platform
@@ -92,7 +88,7 @@ async def async_initialize_integration(
     hacs.version = integration.version
     hacs.configuration.dev = integration.version == "0.0.0"
     hacs.hass = hass
-    hacs.queue = QueueManager()
+    hacs.queue = QueueManager(hass=hass)
     hacs.data = HacsData(hacs=hacs)
     hacs.data_client = HacsDataClient(
         session=clientsession,
@@ -215,15 +211,6 @@ async def async_initialize_integration(
             return
         hacs.enable_hacs()
 
-    if config_entry is None:
-        hacs.recuring_tasks.append(
-            hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, hacs.async_cleanup_tasks)
-        )
-    else:
-        config_entry.async_on_unload(
-            hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, hacs.async_cleanup_tasks)
-        )
-
     await async_try_startup()
 
     # Mischief managed!
@@ -265,7 +252,15 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     """Handle removal of an entry."""
     hacs: HacsBase = hass.data[DOMAIN]
 
-    await hacs.async_cleanup_tasks()
+    # Clear out pending queue
+    hacs.queue.clear()
+
+    for task in hacs.recuring_tasks:
+        # Cancel all pending tasks
+        task()
+
+    # Store data
+    await hacs.data.async_write(force=True)
 
     try:
         if hass.data.get("frontend_panels", {}).get("hacs"):

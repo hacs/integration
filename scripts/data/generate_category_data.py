@@ -358,7 +358,12 @@ async def generate_category_data(category: str, repository_name: str = None):
         )
 
         changed = await hacs.summarize_data(current_data, updated_data)
-        if not force and changed == 0 and repository_name is None:
+        if (
+            not force
+            and changed == 0
+            and repository_name is None
+            and len(current_data) == len(updated_data)
+        ):
             print("No changes, exiting")
             return
 

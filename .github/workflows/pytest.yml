@@ -77,3 +77,31 @@ jobs:
           PYTEST: true
         run: |
           python3 -m pytest
+
+  core_dev:
+    name: With pytest with Home Assistant dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout the repository
+        uses: actions/checkout@v3.5.3
+
+      - name: 🛠️ Set up Python 3.11
+        uses: actions/setup-python@v4.7.0
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+          cache-dependency-path: |
+            requirements_base.txt
+            requirements_test.txt
+
+      - name: 📦 Install dependencies
+        run: |
+          scripts/install/pip_packages --requirement requirements_test.txt
+          scripts/install/core_dev
+          scripts/install/frontend
+
+      - name: 🏃 Run tests
+        env:
+          PYTEST: true
+        run: |
+          python3 -m pytest

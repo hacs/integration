@@ -91,7 +91,11 @@ async def preflight():
     ref: str | None = None
 
     hacs = HacsBase()
-    hacs.hass = HomeAssistant()
+    try:
+        hacs.hass = HomeAssistant()  # pylint: disable=no-value-for-parameter
+    except TypeError:
+        hacs.hass = HomeAssistant("")  # pylint: disable=too-many-function-args
+
     hacs.system.action = True
     hacs.configuration.token = TOKEN
     hacs.core.config_path = None

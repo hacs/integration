@@ -9,7 +9,10 @@ import os
 
 from homeassistant import auth, config_entries, core as ha
 from homeassistant.auth import auth_store
-from homeassistant.components.http import HomeAssistantHTTP
+from homeassistant.components.http import (
+    CONFIG_SCHEMA as HTTP_CONFIG_SCHEMA,
+    async_setup as http_async_setup,
+)
 from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE
 from homeassistant.helpers import storage
 from homeassistant.helpers.device_registry import DeviceRegistry
@@ -73,7 +76,10 @@ def dummy_repository_base(hacs, repository=None):
 # pylint: disable=protected-access
 async def async_test_home_assistant(loop, tmpdir):
     """Return a Home Assistant object pointing at test config dir."""
-    hass = ha.HomeAssistant()
+    try:
+        hass = ha.HomeAssistant()  # pylint: disable=no-value-for-parameter
+    except TypeError:
+        hass = ha.HomeAssistant(tmpdir)  # pylint: disable=too-many-function-args
     store = auth_store.AuthStore(hass)
     hass.auth = auth.AuthManager(hass, store, {}, {})
     ensure_auth_manager_loaded(hass.auth)
@@ -146,23 +152,7 @@ async def async_test_home_assistant(loop, tmpdir):
     # Mock async_start
     orig_start = hass.async_start
 
-    hass.http = HomeAssistantHTTP(
-        hass,
-        server_host=None,
-        server_port=8123,
-        ssl_certificate=None,
-        ssl_peer_certificate=None,
-        ssl_key=None,
-        trusted_proxies=[],
-        ssl_profile="modern",
-    )
-
-    await hass.http.async_initialize(
-        cors_origins=[],
-        use_x_forwarded_for=False,
-        login_threshold=3,
-        is_ban_enabled=False,
-    )
+    await http_async_setup(hass, HTTP_CONFIG_SCHEMA({}))
 
     async def mock_async_start():
         """Start the mocking."""

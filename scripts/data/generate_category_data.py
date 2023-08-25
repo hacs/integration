@@ -125,7 +125,11 @@ class AdjustedHacs(HacsBase):
     def __init__(self, session: ClientSession, *, token: str | None = None):
         """Initialize."""
         super().__init__()
-        self.hass = HomeAssistant()
+        try:
+            self.hass = HomeAssistant()  # pylint: disable=no-value-for-parameter
+        except TypeError:
+            self.hass = HomeAssistant("")  # pylint: disable=too-many-function-args
+
         self.queue = QueueManager(self.hass)
         self.repositories = HacsRepositories()
         self.system.generator = True

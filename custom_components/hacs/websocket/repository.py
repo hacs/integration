@@ -31,13 +31,21 @@ async def hacs_repository_info(
 ) -> None:
     """Return information about a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    repository = hacs.repositories.get_by_id(msg["repository_id"])
+    repository_id = msg["repository_id"]
+    repository = hacs.repositories.get_by_id(repository_id)
     if repository is None:
-        connection.send_error(msg["id"], "repository_not_found", "Repository not found")
+        connection.send_error(
+            msg["id"],
+            "repository_not_found",
+            f"Repository with ID ({repository_id}) not found",
+        )
         return
 
     if not repository.updated_info:
-        await repository.update_repository(ignore_issues=True, force=True)
+        try:
+            await repository.update_repository(ignore_issues=True, force=True)
+        except Exception as exception:  # pylint: disable=broad-except
+            repository.logger.error("%s %s", repository.string, exception)
         repository.updated_info = True
 
     if repository.data.new:
@@ -102,7 +110,17 @@ async def hacs_repository_ignore(
 ):
     """Ignore a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    repository = hacs.repositories.get_by_id(msg["repository"])
+    repository_id = msg["repository"]
+    hacs.log.info("Ignoring %s", repository_id)
+    repository = hacs.repositories.get_by_id(repository_id)
+    if repository is None:
+        connection.send_error(
+            msg["id"],
+            "repository_not_found",
+            f"Repository with ID ({repository_id}) not found",
+        )
+        return
+
     hacs.common.ignored_repositories.add(repository.data.full_name)
 
     await hacs.data.async_write()
@@ -241,7 +259,10 @@ async def hacs_repository_remove(
     repository = hacs.repositories.get_by_id(msg["repository"])
 
     repository.data.new = False
-    await repository.update_repository(ignore_issues=True, force=True)
+    try:
+        await repository.update_repository(ignore_issues=True, force=True)
+    except Exception as exception:  # pylint: disable=broad-except
+        repository.logger.error("%s %s", repository.string, exception)
     await repository.uninstall()
 
     await hacs.data.async_write()

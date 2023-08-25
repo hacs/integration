@@ -286,6 +286,7 @@ class HacsData:
         repository.data.last_updated = repository_data.get("last_updated", 0)
         if self.hacs.system.generator:
             repository.data.etag_releases = repository_data.get("etag_releases")
+            repository.data.open_issues = repository_data.get("open_issues", 0)
         repository.data.etag_repository = repository_data.get("etag_repository")
         repository.data.topics = [
             topic for topic in repository_data.get("topics", []) if topic not in TOPIC_FILTER

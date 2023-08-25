@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v3.5.3
 
       - name: 🛠️ Set up Python
-        uses: actions/setup-python@v4.6.1
+        uses: actions/setup-python@v4.7.0
         id: python
         with:
           python-version: "3.x"
@@ -44,32 +44,6 @@ jobs:
 
       - name: 🏃 Run the check (${{ matrix.check }})
         run: pre-commit run --hook-stage manual ${{ matrix.check }} --all-files --config .github/pre-commit-config.yaml
-
-  lint-custom:
-    runs-on: ubuntu-latest
-    name: With bellybutton
-    steps:
-    - name: 📥 Checkout the repository
-      uses: actions/checkout@v3.5.3
-
-    - name: 🛠️ Set up Python
-      uses: actions/setup-python@v4.6.1
-      id: python
-      with:
-        python-version: "3.x"
-        cache: 'pip'
-        cache-dependency-path: |
-          requirements_base.txt
-          requirements_lint.txt
-
-    - name: 📦 Install requirements
-      run: scripts/install/pip_packages --requirement requirements_lint.txt
-
-    - name: ✅ Add problem matcher
-      run: echo "::add-matcher::.github/matchers/bellybutton.json"
-
-    - name: 🏃 Run validation
-      run: bellybutton lint
 
   lint-json:
     runs-on: ubuntu-latest

@@ -204,6 +204,9 @@ class HacsOptionsFlowHandler(config_entries.OptionsFlow):
         if hacs is None or hacs.configuration is None:
             return self.async_abort(reason="not_setup")
 
+        if hacs.queue.has_pending_tasks:
+            return self.async_abort(reason="pending_tasks")
+
         if hacs.configuration.config_type == ConfigurationType.YAML:
             schema = {vol.Optional("not_in_use", default=""): str}
         else:

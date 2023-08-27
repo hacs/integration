@@ -252,6 +252,10 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     """Handle removal of an entry."""
     hacs: HacsBase = hass.data[DOMAIN]
 
+    if hacs.queue.has_pending_tasks:
+        hacs.log.warning("Pending tasks, can not unload, try again later.")
+        return False
+
     # Clear out pending queue
     hacs.queue.clear()
 
@@ -285,5 +289,6 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 
 async def async_reload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> None:
     """Reload the HACS config entry."""
-    await async_unload_entry(hass, config_entry)
+    if not await async_unload_entry(hass, config_entry):
+        return
     await async_setup_entry(hass, config_entry)

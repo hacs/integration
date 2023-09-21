@@ -8,6 +8,7 @@ from homeassistant.helpers.config_validation import url as url_validator
 import voluptuous as vol
 
 from ..const import LOCALE
+from ..enums import BlueprintType
 
 
 @dataclass
@@ -42,6 +43,7 @@ def _country_validator(values) -> list[str]:
 
 HACS_MANIFEST_JSON_SCHEMA = vol.Schema(
     {
+        vol.Optional("blueprint_type"): vol.Coerce(BlueprintType),
         vol.Optional("content_in_root"): bool,
         vol.Optional("country"): _country_validator,
         vol.Optional("filename"): str,

@@ -24,6 +24,7 @@ EXPORTED_BASE_DATA = (
 
 EXPORTED_REPOSITORY_DATA = EXPORTED_BASE_DATA + (
     ("authors", []),
+    ("blueprint_type", None),
     ("category", ""),
     ("description", ""),
     ("domain", None),

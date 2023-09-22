@@ -31,7 +31,7 @@ class HacsBlueprintRepository(HacsRepository):
         if self.repository_manifest.blueprint_type is None or self.repository_owner is None:
             return None
 
-        return f"{self.hacs.core.config_path}/blueprints/{self.repository_manifest.blueprint_type}"
+        return f"{self.hacs.core.config_path}/blueprints/{self.repository_manifest.blueprint_type}/{self.repository_owner}"
 
     async def validate_repository(self):
         """Validate."""

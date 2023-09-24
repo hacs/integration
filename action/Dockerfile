@@ -1,4 +1,4 @@
-FROM ghcr.io/ludeeus/alpine/python:3.10
+FROM ghcr.io/ludeeus/alpine/python:3.11
 
 WORKDIR /hacs
 

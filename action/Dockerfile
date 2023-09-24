@@ -8,6 +8,7 @@ RUN \
     \
     &&  apk add --no-cache --virtual .build-deps \
         gcc \
+        git \
         musl-dev \
     \
     && git clone --quiet --depth 1 https://github.com/hacs/integration.git /hacs \

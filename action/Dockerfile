@@ -7,6 +7,7 @@ RUN \
         libffi-dev \
     \
     &&  apk add --no-cache --virtual .build-deps \
+        bash \
         gcc \
         git \
         musl-dev \

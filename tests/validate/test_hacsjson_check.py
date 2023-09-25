@@ -45,3 +45,22 @@ async def test_hacs_manifest_with_invalid_manifest(repository):
     check = Validator(repository)
     await check.execute_validation()
     assert check.failed
+
+@pytest.mark.asyncio
+async def test_hacs_manifest_with_missing_filename(repository, caplog):
+    repository.tree = [
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "hacs.json", "type": "file"}, "test/test", "main"
+        )
+    ]
+    repository.data.category = "integration"
+
+    async def _async_get_hacs_json(_):
+        return {"name": "test", "zip_release": True}
+
+    repository.async_get_hacs_json = _async_get_hacs_json
+
+    check = Validator(repository)
+    await check.execute_validation()
+    assert check.failed
+    assert "<Validation hacsjson> failed:  zip_release is True, but filename is not set (More info: https://hacs.xyz/docs/publish/include#check-hacs-manifest )" in caplog.text

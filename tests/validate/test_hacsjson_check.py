@@ -46,6 +46,7 @@ async def test_hacs_manifest_with_invalid_manifest(repository):
     await check.execute_validation()
     assert check.failed
 
+
 @pytest.mark.asyncio
 async def test_hacs_manifest_with_missing_filename(repository, caplog):
     repository.tree = [
@@ -63,4 +64,7 @@ async def test_hacs_manifest_with_missing_filename(repository, caplog):
     check = Validator(repository)
     await check.execute_validation()
     assert check.failed
-    assert "<Validation hacsjson> failed:  zip_release is True, but filename is not set (More info: https://hacs.xyz/docs/publish/include#check-hacs-manifest )" in caplog.text
+    assert (
+        "<Validation hacsjson> failed:  zip_release is True, but filename is not set (More info: https://hacs.xyz/docs/publish/include#check-hacs-manifest )"
+        in caplog.text
+    )

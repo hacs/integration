@@ -70,7 +70,7 @@ class HacsIntegrationRepository(HacsRepository):
 
         if self.repository_manifest.zip_release and not self.repository_manifest.filename:
             self.validate.errors.append(
-                f"zip_release is set to true, but filename is missing in { RepositoryFile.HACS_JSON}"
+                f"zip_release is set to true, but filename is missing in {RepositoryFile.HACS_JSON}"
             )
 
         if self.content.path.remote == "custom_components":

@@ -579,7 +579,16 @@ class HacsRepository:
             download_queue = QueueManager(hass=self.hacs.hass)
 
             for content in contents or []:
+                if (
+                    self.repository_manifest.zip_release
+                    and content.name != self.repository_manifest.filename
+                ):
+                    continue
                 download_queue.add(self.async_download_zip_file(content, validate))
+
+            if download_queue.pending_tasks == 0:
+                validate.errors.append("Nothing to download")
+                return
 
             await download_queue.execute()
         except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except

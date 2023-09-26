@@ -217,6 +217,13 @@ class HacsRepositories:
         """Return a list of downloaded repositories."""
         return [repo for repo in self._repositories if repo.data.installed]
 
+    def category_downloaded(self, category: HacsCategory) -> bool:
+        """Check if a given category has been downloaded."""
+        for repository in self.list_downloaded:
+            if repository.data.category == category:
+                return True
+        return False
+
     def register(self, repository: HacsRepository, default: bool = False) -> None:
         """Register a repository."""
         repo_id = str(repository.data.id)
@@ -766,21 +773,21 @@ class HacsBase:
         if self.configuration.experimental and self.core.ha_version >= "2023.4.0b0":
             self.enable_hacs_category(HacsCategory.TEMPLATE)
 
-        if HacsCategory.PYTHON_SCRIPT in self.hass.config.components:
+        if (
+            HacsCategory.PYTHON_SCRIPT in self.hass.config.components
+            or self.repositories.category_downloaded(HacsCategory.PYTHON_SCRIPT)
+        ):
             self.enable_hacs_category(HacsCategory.PYTHON_SCRIPT)
 
-        if self.hass.services.has_service("frontend", "reload_themes"):
+        if self.hass.services.has_service(
+            "frontend", "reload_themes"
+        ) or self.repositories.category_downloaded(HacsCategory.THEME):
             self.enable_hacs_category(HacsCategory.THEME)
 
         if self.configuration.appdaemon:
             self.enable_hacs_category(HacsCategory.APPDAEMON)
         if self.configuration.netdaemon:
-            downloaded_netdaemon = [
-                x
-                for x in self.repositories.list_downloaded
-                if x.data.category == HacsCategory.NETDAEMON
-            ]
-            if len(downloaded_netdaemon) != 0:
+            if self.repositories.category_downloaded(HacsCategory.NETDAEMON):
                 self.log.warning(
                     "NetDaemon in HACS is deprectaded. It will stop working in the future. "
                     "Please remove all your current NetDaemon repositories from HACS "

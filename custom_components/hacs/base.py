@@ -696,15 +696,23 @@ class HacsBase:
 
         self.async_dispatch(HacsDispatchEvent.STATUS, {})
 
-    async def async_download_file(self, url: str, *, headers: dict | None = None) -> bytes | None:
+    async def async_download_file(
+        self,
+        url: str,
+        *,
+        headers: dict | None = None,
+        keep_url: bool = False,
+        nolog: bool = False,
+        **_,
+    ) -> bytes | None:
         """Download files, and return the content."""
         if url is None:
             return None
 
-        if "tags/" in url:
+        if not keep_url and "tags/" in url:
             url = url.replace("tags/", "")
 
-        self.log.debug("Downloading %s", url)
+        self.log.debug("Trying to download %s", url)
         timeouts = 0
 
         while timeouts < 5:
@@ -740,7 +748,8 @@ class HacsBase:
             except (
                 BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             ) as exception:
-                self.log.exception("Download failed - %s", exception)
+                if not nolog:
+                    self.log.exception("Download failed - %s", exception)
 
             return None
 

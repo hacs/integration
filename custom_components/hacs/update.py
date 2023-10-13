@@ -31,6 +31,8 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         features = 4 | 16
         if self.repository.can_download:
             features = features | 1
+            if self.repository.data.releases:
+                features = features | 2
         return features
 
     @property
@@ -77,12 +79,18 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
 
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:
         """Install an update."""
+        self.repository.logger.info("Starting update, %s", version)
         if self.repository.display_version_or_commit == "version":
             self._update_in_progress(progress=10)
-            self.repository.data.selected_tag = self.latest_version
-            await self.repository.update_repository(force=True)
+            if not version:
+                await self.repository.update_repository(force=True)
+            else:
+                self.repository.ref = version
+            self.repository.data.selected_tag = version
+            self.repository.force_branch = version is not None
             self._update_in_progress(progress=20)
-        await self.repository.async_install()
+
+        await self.repository.async_install(version=version)
         self._update_in_progress(progress=False)
 
     async def async_release_notes(self) -> str | None:

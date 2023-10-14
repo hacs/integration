@@ -700,6 +700,7 @@ class HacsRepository:
             raise HacsException(f"[{self}] Failed to download zipball")
 
         temp_dir = await self.hacs.hass.async_add_executor_job(tempfile.mkdtemp)
+        tmp_extract = f"{temp_dir}/extracted"
         temp_file = f"{temp_dir}/{self.repository_manifest.filename}"
         result = await self.hacs.async_save_file(temp_file, filecontent)
         if not result:
@@ -716,6 +717,26 @@ class HacsRepository:
                     path.filename = filename.replace(self.content.path.remote, "")
                     extractable.append(path)
 
+                if filename == "hacs.json":
+                    path.filename = "hacs.json"
+                    zip_file.extract(path, tmp_extract)
+                    with open(f"{tmp_extract}/hacs.json", encoding="utf-8") as hacsfile:
+                        hacs_manifest = json_loads(hacsfile.read())
+                        if (
+                            hacs_version := hacs_manifest.get("hacs")
+                        ) and hacs_version > self.hacs.version:
+                            raise HacsException(
+                                f"This repository requires HACS version {hacs_manifest['hacs']}, you have {self.hacs.version}"
+                            )
+                        if (
+                            homeassistant_version := hacs_manifest["homeassistant"]
+                        ) and homeassistant_version > self.hacs.core.ha_version:
+                            raise HacsException(
+                                f"This repository requires Home Assistant version {hacs_manifest['homeassistant']}, you have {self.hacs.core.ha_version}"
+                            )
+
+            if len(extractable) == 0:
+                raise HacsException("No content to extract")
             zip_file.extractall(self.content.path.local, extractable)
 
         def cleanup_temp_dir():

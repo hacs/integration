@@ -375,7 +375,7 @@ class HacsBase:
     status = HacsStatus()
     system = HacsSystem()
     validation: ValidationManager | None = None
-    version: str | None = None
+    version: AwesomeVersion | None = None
 
     @property
     def integration_dir(self) -> pathlib.Path:

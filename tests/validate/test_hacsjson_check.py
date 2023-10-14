@@ -1,6 +1,7 @@
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 import pytest
 
+from custom_components.hacs.repositories.base import HacsManifest
 from custom_components.hacs.validate.hacsjson import Validator
 
 
@@ -57,7 +58,7 @@ async def test_hacs_manifest_with_missing_filename(repository, caplog):
     repository.data.category = "integration"
 
     async def _async_get_hacs_json(_):
-        return {"name": "test", "zip_release": True}
+        return {"name": "test", "zip_release": True, "hacs": "0.0.0"}
 
     repository.async_get_hacs_json = _async_get_hacs_json
 

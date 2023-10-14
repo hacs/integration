@@ -21,10 +21,10 @@ jobs:
         python-version: ["3.11"]
     steps:
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v4.1.0
 
       - name: 🛠️ Set up Python
-        uses: actions/setup-python@v4.7.0
+        uses: actions/setup-python@v4.7.1
         id: python
         with:
           python-version: ${{ matrix.python-version }}
@@ -45,7 +45,7 @@ jobs:
           python3 -m pytest
 
       - name: 📤 Upload coverage to Codecov
-        if: ${{ matrix.python-version == '3.9' }}
+        if: ${{ matrix.python-version == '3.11' }}
         run: |
           scripts/coverage
           curl -sfSL https://codecov.io/bash | bash -
@@ -55,10 +55,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v4.1.0
 
-      - name: 🛠️ Set up Python 3.9
-        uses: actions/setup-python@v4.7.0
+      - name: 🛠️ Set up Python 3.11
+        uses: actions/setup-python@v4.7.1
         with:
           python-version: "3.11"
           cache: 'pip'
@@ -83,10 +83,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v4.1.0
 
       - name: 🛠️ Set up Python 3.11
-        uses: actions/setup-python@v4.7.0
+        uses: actions/setup-python@v4.7.1
         with:
           python-version: "3.11"
           cache: 'pip'

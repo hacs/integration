@@ -45,7 +45,7 @@ jobs:
           python3 -m pytest
 
       - name: 📤 Upload coverage to Codecov
-        if: ${{ matrix.python-version == '3.9' }}
+        if: ${{ matrix.python-version == '3.11' }}
         run: |
           scripts/coverage
           curl -sfSL https://codecov.io/bash | bash -
@@ -57,7 +57,7 @@ jobs:
       - name: 📥 Checkout the repository
         uses: actions/checkout@v4.1.0
 
-      - name: 🛠️ Set up Python 3.9
+      - name: 🛠️ Set up Python 3.11
         uses: actions/setup-python@v4.7.1
         with:
           python-version: "3.11"

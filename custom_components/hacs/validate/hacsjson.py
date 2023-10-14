@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 from voluptuous.error import Invalid
+from voluptuous.humanize import humanize_error
 
-from ..enums import RepositoryFile
-from ..repositories.base import HacsRepository
+from ..enums import HacsCategory, RepositoryFile
+from ..repositories.base import HacsManifest, HacsRepository
 from ..utils.validate import HACS_MANIFEST_JSON_SCHEMA
 from .base import ActionValidationBase, ValidationException
 
@@ -25,6 +26,10 @@ class Validator(ActionValidationBase):
 
         content = await self.repository.async_get_hacs_json(self.repository.ref)
         try:
-            HACS_MANIFEST_JSON_SCHEMA(content)
+            hacsjson = HacsManifest.from_dict(HACS_MANIFEST_JSON_SCHEMA(content))
         except Invalid as exception:
-            raise ValidationException(exception) from exception
+            raise ValidationException(humanize_error(content, exception)) from exception
+
+        if self.repository.data.category == HacsCategory.INTEGRATION:
+            if hacsjson.zip_release and not hacsjson.filename:
+                raise ValidationException("zip_release is True, but filename is not set")

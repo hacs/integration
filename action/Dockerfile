@@ -1,4 +1,4 @@
-FROM ghcr.io/ludeeus/alpine/python:3.10
+FROM python:3.11-alpine
 
 WORKDIR /hacs
 
@@ -7,7 +7,9 @@ RUN \
         libffi-dev \
     \
     &&  apk add --no-cache --virtual .build-deps \
+        bash \
         gcc \
+        git \
         musl-dev \
     \
     && git clone --quiet --depth 1 https://github.com/hacs/integration.git /hacs \

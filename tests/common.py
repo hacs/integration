@@ -21,7 +21,7 @@ from homeassistant.helpers.issue_registry import IssueRegistry
 import homeassistant.util.dt as date_util
 from homeassistant.util.unit_system import METRIC_SYSTEM
 
-from custom_components.hacs.repositories.base import HacsRepository
+from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
 from custom_components.hacs.utils.logger import LOGGER
 
 from tests.async_mock import AsyncMock, Mock, patch
@@ -65,6 +65,7 @@ def dummy_repository_base(hacs, repository=None):
     repository.integration_manifest = {"config_flow": False, "domain": "test"}
     repository.data.published_tags = ["1", "2", "3"]
     repository.data.update_data(fixture("repository_data.json", asjson=True))
+    repository.hacs_manifest = HacsManifest.from_dict({})
 
     async def update_repository(*args, **kwargs):
         pass

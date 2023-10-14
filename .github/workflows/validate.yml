@@ -20,7 +20,7 @@ jobs:
     name: With hassfest
     steps:
     - name: 📥 Checkout the repository
-      uses: actions/checkout@v3.5.3
+      uses: actions/checkout@v4.1.0
 
     - name: 🏃 Hassfest validation
       uses: "home-assistant/actions/hassfest@master"
@@ -53,14 +53,15 @@ jobs:
 
   validata-hacs-data:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' }}
     name: Validate HACS data generation
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3.5.3
+        if: ${{ github.event_name == 'push' }}
+        uses: actions/checkout@v4.1.0
 
       - name: Set up Python
-        uses: actions/setup-python@v4.7.0
+        if: ${{ github.event_name == 'push' }}
+        uses: actions/setup-python@v4.7.1
         id: python
         with:
           python-version: "3.x"
@@ -70,16 +71,19 @@ jobs:
             requirements_generate_data.txt
 
       - name: Install dependencies
+        if: ${{ github.event_name == 'push' }}
         run:  |
           scripts/install/frontend
           scripts/install/pip_packages --requirement requirements_generate_data.txt
 
       - name: Generate data
+        if: ${{ github.event_name == 'push' }}
         run: python3 -m scripts.data.generate_category_data integration hacs/integration
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Validate output with JQ
+        if: ${{ github.event_name == 'push' }}
         run: |
           jq -c . outputdata/integration/data.json
           jq -c . outputdata/integration/repositories.json
@@ -88,11 +92,11 @@ jobs:
     name: With Home Assistant
     strategy:
       matrix:
-        channel: [stable, beta, dev, "2022.11.0"]
+        channel: [stable, beta, dev, "2023.6.0"]
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v4.1.0
 
       - name: 📋 Copy sample configuration for Home Assistant
         run: |

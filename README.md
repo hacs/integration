@@ -2,8 +2,6 @@
 
 _Manage (Install, track, upgrade) and discover custom elements for Home Assistant directly from the UI._
 
-![gif](https://raw.githubusercontent.com/hacs/documentation/master/static/img/demo.gif)
-
 ## What?
 
 HACS is a integration that gives the user a powerful UI to handle downloads of custom needs.

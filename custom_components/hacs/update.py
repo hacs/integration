@@ -4,7 +4,7 @@ from __future__ import annotations
 from typing import Any
 
 from homeassistant.components.update import UpdateEntity
-from homeassistant.core import callback
+from homeassistant.core import HomeAssistantError, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 
 from .base import HacsBase
@@ -25,15 +25,7 @@ async def async_setup_entry(hass, _config_entry, async_add_devices):
 class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
     """Update entities for repositories downloaded with HACS."""
 
-    @property
-    def supported_features(self) -> int | None:
-        """Return the supported features of the entity."""
-        features = 4 | 16
-        if self.repository.can_download:
-            features = features | 1
-            if self.repository.data.releases:
-                features = features | 2
-        return features
+    _attr_supported_features = 1 | 2 | 4 | 16
 
     @property
     def name(self) -> str | None:
@@ -77,8 +69,25 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
 
         return f"https://brands.home-assistant.io/_/{self.repository.data.domain}/icon.png"
 
+    def _ensure_capabilities(self, version: str | None, **kwargs: Any) -> None:
+        """Ensure that the entity has capabilities."""
+        if version is None:
+            if not self.repository.can_download:
+                raise HomeAssistantError(
+                    f"This {self.repository.data.category.value} is not available for download."
+                )
+            return
+        if (
+            self.repository.display_version_or_commit != "version"
+            or self.repository.repository_manifest.hide_default_branch
+        ):
+            raise HomeAssistantError(
+                f"This {self.repository.data.category.value} does not support version selection."
+            )
+
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:
         """Install an update."""
+        self._ensure_capabilities(version)
         self.repository.logger.info("Starting update, %s", version)
         if self.repository.display_version_or_commit == "version":
             self._update_in_progress(progress=10)

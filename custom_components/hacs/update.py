@@ -134,6 +134,11 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
                     "\n\n<ha-alert alert-type='warning'>You need to manually"
                     " clear the frontend cache after updating.</ha-alert>\n\n"
                 )
+            if self.repository.data.category == HacsCategory.BLUEPRINT:
+                release_notes += (
+                    "\n\n<ha-alert alert-type='warning'>You need to manually"
+                    " reload and adjust automations after updating.</ha-alert>\n\n"
+                )
 
         return release_notes.replace("\n#", "\n\n#")
 

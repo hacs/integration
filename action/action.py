@@ -32,6 +32,7 @@ CATEGORY = os.getenv("CATEGORY", os.getenv("INPUT_CATEGORY", ""))
 
 CATEGORIES = [
     "appdaemon",
+    "blueprint",
     "integration",
     "netdaemon",
     "plugin",

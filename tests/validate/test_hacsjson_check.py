@@ -19,9 +19,14 @@ async def test_hacs_manifest_no_manifest(repository):
 @pytest.mark.asyncio
 async def test_hacs_manifest_with_valid_manifest(repository):
     repository.tree = test_tree
+    repository.tree.append(
+        AIOGitHubAPIRepositoryTreeContent(
+            {"path": "docs/README.nb.md", "type": "file"}, "test/test", "main"
+        ),
+    )
 
     async def _async_get_hacs_json(_):
-        return {"name": "test"}
+        return {"name": "test", "documentation": {"en": "README.md", "nb": "docs/README.nb.md"}}
 
     repository.async_get_hacs_json = _async_get_hacs_json
 

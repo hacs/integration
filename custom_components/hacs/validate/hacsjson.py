@@ -36,7 +36,8 @@ class Validator(ActionValidationBase):
                 raise ValidationException("zip_release is True, but filename is not set")
 
         for language, filename in (hacsjson.documentation or {}).items():
-            raise ValidationException(
-                f"The '{filename}' file for the 'documentation[{language}]' key does not exist",
-                warning=True,
-            )
+            if filename not in files:
+                raise ValidationException(
+                    f"The '{filename}' file for the 'documentation[{language}]' key does not exist",
+                    warning=True,
+                )

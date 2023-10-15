@@ -64,16 +64,23 @@ async def test_hacs_manifest_with_missing_filename(repository, caplog):
 
 
 @pytest.mark.asyncio
-async def test_hacs_manifest_with_missing_documentation(repository, caplog):
+@pytest.mark.parametrize(
+    "documentation", [{"en": "HACS.md"}, {"en": "docs/README.md"}, {"sv": "docs/hacs/some_file.md"}]
+)
+async def test_hacs_manifest_with_missing_documentation(repository, caplog, documentation):
     repository.tree = test_tree
     repository.data.category = "integration"
 
     async def _async_get_hacs_json(_):
-        return {"name": "test", "documentation": "HACS.md"}
+        return {"name": "test", "documentation": documentation}
 
     repository.async_get_hacs_json = _async_get_hacs_json
 
     check = Validator(repository)
     await check.execute_validation()
     assert not check.failed
-    assert "failed:  The 'HACS.md' file for the 'documentation' key does not exist" in caplog.text
+    for language, filename in (documentation).items():
+        assert (
+            f"failed:  The '{filename}' file for the 'documentation[{language}]' key does not exist"
+            in caplog.text
+        )

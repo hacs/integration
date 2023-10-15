@@ -21,8 +21,8 @@ class Validator(ActionValidationBase):
 
     async def async_validate(self):
         """Validate the repository."""
-        root_files = [x.filename for x in self.repository.tree if "/" not in x.filename]
-        if RepositoryFile.HACS_JSON not in root_files:
+        files = [x.filename for x in self.repository.tree if "/" not in x.filename]
+        if RepositoryFile.HACS_JSON not in files:
             raise ValidationException(f"The repository has no '{RepositoryFile.HACS_JSON}' file")
 
         content = await self.repository.async_get_hacs_json(self.repository.ref)
@@ -35,8 +35,8 @@ class Validator(ActionValidationBase):
             if hacsjson.zip_release and not hacsjson.filename:
                 raise ValidationException("zip_release is True, but filename is not set")
 
-        if hacsjson.documentation not in root_files:
+        for language, filename in (hacsjson.documentation or {}).items():
             raise ValidationException(
-                f"The '{hacsjson.documentation}' file for the 'documentation' key does not exist",
+                f"The '{filename}' file for the 'documentation[{language}]' key does not exist",
                 warning=True,
             )

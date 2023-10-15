@@ -46,6 +46,7 @@ HACS_MANIFEST_JSON_SCHEMA = vol.Schema(
         vol.Optional("blueprint_type"): vol.Coerce(BlueprintType),
         vol.Optional("content_in_root"): bool,
         vol.Optional("country"): _country_validator,
+        vol.Optional("documentation"): str,
         vol.Optional("filename"): str,
         vol.Optional("hacs"): str,
         vol.Optional("hide_default_branch"): bool,

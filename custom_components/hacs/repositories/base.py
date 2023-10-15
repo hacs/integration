@@ -220,6 +220,7 @@ class HacsManifest:
     blueprint_type: str = None
     content_in_root: bool = False
     country: list[str] = []
+    documentation: str = "README.md"
     filename: str = None
     hacs: str = None  # Minimum HACS version
     hide_default_branch: bool = False

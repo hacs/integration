@@ -46,7 +46,7 @@ class ActionValidationBase:
         try:
             await self.async_validate()
         except ValidationException as exception:
-            self.failed = True
+            self.failed = not exception.warning
             self.hacs.log.log(
                 WARNING if exception.warning else ERROR,
                 "<Validation %s> failed:  %s (More info: %s )",

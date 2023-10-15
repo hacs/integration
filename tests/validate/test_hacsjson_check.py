@@ -75,5 +75,5 @@ async def test_hacs_manifest_with_missing_documentation(repository, caplog):
 
     check = Validator(repository)
     await check.execute_validation()
-    assert check.failed
+    assert not check.failed
     assert "failed:  The 'HACS.md' file for the 'documentation' key does not exist" in caplog.text

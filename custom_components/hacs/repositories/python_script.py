@@ -48,7 +48,8 @@ class HacsPythonScriptRepository(HacsRepository):
                 break
         if not compliant:
             raise HacsException(
-                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for "
+                f"{self.ref.replace('tags/','')} is not compliant"
             )
 
         # Handle potential errors
@@ -83,7 +84,8 @@ class HacsPythonScriptRepository(HacsRepository):
                 break
         if not compliant:
             raise HacsException(
-                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for "
+                f"{self.ref.replace('tags/','')} is not compliant"
             )
 
         # Update name

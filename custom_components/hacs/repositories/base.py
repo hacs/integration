@@ -2,7 +2,8 @@
 from __future__ import annotations
 
 from asyncio import sleep
-from datetime import datetime
+from contextlib import suppress
+from datetime import datetime, timezone
 import os
 import pathlib
 import shutil
@@ -10,11 +11,7 @@ import tempfile
 from typing import TYPE_CHECKING, Any
 import zipfile
 
-from aiogithubapi import (
-    AIOGitHubAPIException,
-    AIOGitHubAPINotModifiedException,
-    GitHubReleaseModel,
-)
+from aiogithubapi import AIOGitHubAPIException, AIOGitHubAPINotModifiedException, GitHubReleaseModel
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 import attr
 from homeassistant.helpers import device_registry as dr, issue_registry as ir
@@ -40,10 +37,7 @@ from ..utils.store import async_remove_store
 from ..utils.template import render_template
 from ..utils.url import archive_download, asset_download
 from ..utils.validate import Validate
-from ..utils.version import (
-    version_left_higher_or_equal_then_right,
-    version_left_higher_then_right,
-)
+from ..utils.version import version_left_higher_or_equal_then_right, version_left_higher_then_right
 from ..utils.workarounds import DOMAIN_OVERRIDES
 
 if TYPE_CHECKING:
@@ -383,24 +377,24 @@ class HacsRepository:
     def display_installed_version(self) -> str:
         """Return display_authors"""
         if self.data.installed_version is not None:
-            installed = self.data.installed_version
+            return str(self.data.installed_version)
+
+        if self.data.installed_commit is not None:
+            installed = self.data.installed_commit
         else:
-            if self.data.installed_commit is not None:
-                installed = self.data.installed_commit
-            else:
-                installed = ""
+            installed = ""
         return str(installed)
 
     @property
     def display_available_version(self) -> str:
         """Return display_authors"""
         if self.data.last_version is not None:
-            available = self.data.last_version
+            return str(self.data.last_version)
+
+        if self.data.last_commit is not None:
+            available = self.data.last_commit
         else:
-            if self.data.last_commit is not None:
-                available = self.data.last_commit
-            else:
-                available = ""
+            available = ""
         return str(available)
 
     @property
@@ -511,7 +505,7 @@ class HacsRepository:
 
         if self.repository_object:
             self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)
-            self.data.last_fetched = datetime.utcnow()
+            self.data.last_fetched = datetime.now(tz=timezone.utc)
 
         # Set topics
         self.data.topics = self.data.topics
@@ -565,7 +559,7 @@ class HacsRepository:
         self.additional_info = await self.async_get_info_file_contents()
 
         # Set last fetch attribute
-        self.data.last_fetched = datetime.utcnow()
+        self.data.last_fetched = datetime.now(tz=timezone.utc)
 
         return True
 
@@ -736,13 +730,16 @@ class HacsRepository:
                             hacs_version := hacs_manifest.get("hacs")
                         ) and hacs_version > self.hacs.version:
                             raise HacsException(
-                                f"This repository requires HACS version {hacs_manifest['hacs']}, you have {self.hacs.version}"
+                                "This repository requires HACS version "
+                                f"{hacs_manifest['hacs']}, you have {self.hacs.version}"
                             )
                         if (
                             homeassistant_version := hacs_manifest["homeassistant"]
                         ) and homeassistant_version > self.hacs.core.ha_version:
                             raise HacsException(
-                                f"This repository requires Home Assistant version {hacs_manifest['homeassistant']}, you have {self.hacs.core.ha_version}"
+                                "This repository requires Home Assistant version "
+                                f"{hacs_manifest['homeassistant']}"
+                                f", you have {self.hacs.core.ha_version}"
                             )
 
             if len(extractable) == 0:
@@ -834,10 +831,9 @@ class HacsRepository:
             else:
                 self.pending_restart = True
         elif self.data.category == "theme":
-            try:
+            with suppress(BaseException):
                 await self.hacs.hass.services.async_call("frontend", "reload_themes", {})
-            except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-                pass
+
         elif self.data.category == "template":
             await self.hacs.hass.services.async_call("homeassistant", "reload_custom_templates", {})
 

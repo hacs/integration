@@ -3,11 +3,7 @@ from __future__ import annotations
 
 from functools import lru_cache
 
-from awesomeversion import (
-    AwesomeVersion,
-    AwesomeVersionException,
-    AwesomeVersionStrategy,
-)
+from awesomeversion import AwesomeVersion, AwesomeVersionException
 
 
 @lru_cache(maxsize=1024)
@@ -16,10 +12,7 @@ def version_left_higher_then_right(left: str, right: str) -> bool | None:
     try:
         left_version = AwesomeVersion(left)
         right_version = AwesomeVersion(right)
-        if (
-            left_version.strategy != AwesomeVersionStrategy.UNKNOWN
-            and right_version.strategy != AwesomeVersionStrategy.UNKNOWN
-        ):
+        if left_version.valid and right_version.valid:
             return left_version > right_version
     except (AwesomeVersionException, AttributeError, KeyError):
         pass

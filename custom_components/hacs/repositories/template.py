@@ -49,7 +49,8 @@ class HacsTemplateRepository(HacsRepository):
             or self.data.file_name not in self.treefiles
         ):
             raise HacsException(
-                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for "
+                f"{self.ref.replace('tags/','')} is not compliant"
             )
 
         # Handle potential errors

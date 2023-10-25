@@ -19,40 +19,22 @@
     }
   },
   "customizations": {
-    "extensions": [
-      "ms-python.python",
-      "github.vscode-pull-request-github",
-      "ryanluker.vscode-coverage-gutters",
-      "ms-python.vscode-pylance",
-      "GitHub.copilot"
-    ],
     "vscode": {
       "settings": {
         "python.defaultInterpreterPath": "/usr/local/bin/python",
-        "python.linting.enabled": true,
-        "python.linting.pylintEnabled": true,
-        "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
-        "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
-        "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
-        "python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
-        "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
-        "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
-        "python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
-        "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
-        "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
         "files.eol": "\n",
         "editor.tabSize": 4,
-        "python.pythonPath": "/usr/local/python/bin/python",
+        "python.pythonPath": "/usr/local/bin/python",
         "python.analysis.autoSearchPaths": false,
-        "python.linting.pylintArgs": [
-          "--disable",
-          "import-error"
-        ],
-        "python.formatting.provider": "black",
         "editor.formatOnPaste": false,
-        "editor.formatOnSave": true,
-        "editor.formatOnType": true,
-        "files.trimTrailingWhitespace": true
+        "ruff.lint.run": "onSave",
+        "ruff.enable": true,
+        "files.trimTrailingWhitespace": true,
+        "ruff.interpreter": [
+          "/usr/local/bin/python"
+        ],
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true
       },
       "extensions": [
         "GitHub.copilot",
@@ -60,7 +42,8 @@
         "ms-python.python",
         "ms-python.vscode-pylance",
         "ms-vscode.makefile-tools",
-        "ryanluker.vscode-coverage-gutters"
+        "ryanluker.vscode-coverage-gutters",
+        "charliermarsh.ruff"
       ]
     }
   },

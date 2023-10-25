@@ -1,6 +1,7 @@
 """Class for netdaemon apps in HACS."""
 from __future__ import annotations
 
+from contextlib import suppress
 from typing import TYPE_CHECKING
 
 from ..enums import HacsCategory, HacsDispatchEvent
@@ -52,7 +53,8 @@ class HacsNetdaemonRepository(HacsRepository):
                 break
         if not compliant:
             raise HacsException(
-                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for "
+                f"{self.ref.replace('tags/','')} is not compliant"
             )
 
         # Handle potential errors
@@ -96,9 +98,7 @@ class HacsNetdaemonRepository(HacsRepository):
 
     async def async_post_installation(self):
         """Run post installation steps."""
-        try:
+        with suppress(BaseException):
             await self.hacs.hass.services.async_call(
                 "hassio", "addon_restart", {"addon": "c6a2317c_netdaemon"}
             )
-        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-            pass

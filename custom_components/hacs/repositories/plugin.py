@@ -40,7 +40,8 @@ class HacsPluginRepository(HacsRepository):
 
         if self.content.path.remote is None:
             raise HacsException(
-                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for "
+                f"{self.ref.replace('tags/','')} is not compliant"
             )
 
         if self.content.path.remote == "release":
@@ -68,7 +69,8 @@ class HacsPluginRepository(HacsRepository):
 
         if self.content.path.remote is None:
             self.validate.errors.append(
-                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for "
+                f"{self.ref.replace('tags/','')} is not compliant"
             )
 
         if self.content.path.remote == "release":
@@ -126,9 +128,10 @@ class HacsPluginRepository(HacsRepository):
 
         for location in ("",) if self.repository_manifest.content_in_root else ("dist", ""):
             for filename in valid_filenames:
-                if f"{location+'/' if location else ''}{filename}" in [
-                    x.full_path for x in self.tree
-                ]:
+                if (
+                    f"{location+'/' if location else ''}{filename}"
+                    in [x.full_path for x in self.tree]
+                ):
                     self.data.file_name = filename.split("/")[-1]
                     self.content.path.remote = location
                     break

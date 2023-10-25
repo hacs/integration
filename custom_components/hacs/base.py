@@ -442,9 +442,8 @@ class HacsBase:
             # Create gz for .js files
             if os.path.isfile(file_path):
                 if file_path.endswith(".js"):
-                    with open(file_path, "rb") as f_in:
-                        with gzip.open(file_path + ".gz", "wb") as f_out:
-                            shutil.copyfileobj(f_in, f_out)
+                    with open(file_path, "rb") as f_in, gzip.open(file_path + ".gz", "wb") as f_out:
+                        shutil.copyfileobj(f_in, f_out)
 
             # LEGACY! Remove with 2.0
             if "themes" in file_path and file_path.endswith(".yaml"):
@@ -598,16 +597,15 @@ class HacsBase:
         if repository_id is not None:
             repository.data.id = repository_id
 
-        else:
-            if self.hass is not None and ((check and repository.data.new) or self.status.new):
-                self.async_dispatch(
-                    HacsDispatchEvent.REPOSITORY,
-                    {
-                        "action": "registration",
-                        "repository": repository.data.full_name,
-                        "repository_id": repository.data.id,
-                    },
-                )
+        elif self.hass is not None and ((check and repository.data.new) or self.status.new):
+            self.async_dispatch(
+                HacsDispatchEvent.REPOSITORY,
+                {
+                    "action": "registration",
+                    "repository": repository.data.full_name,
+                    "repository_id": repository.data.id,
+                },
+            )
 
         self.repositories.register(repository, default)
 

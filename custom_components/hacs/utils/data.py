@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+from contextlib import suppress
 from datetime import datetime
 from typing import Any
 
@@ -160,10 +161,8 @@ class HacsData:
         repositories = {}
         hacs = {}
 
-        try:
+        with suppress(HomeAssistantError):
             hacs = await async_load_from_store(self.hacs.hass, "hacs") or {}
-        except HomeAssistantError:
-            pass
 
         try:
             data = (

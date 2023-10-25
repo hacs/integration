@@ -78,7 +78,8 @@ class HacsIntegrationRepository(HacsRepository):
                 ):
                     raise AddonRepositoryException()
                 raise HacsException(
-                    f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                    f"{self.string} Repository structure for "
+                    f"{self.ref.replace('tags/','')} is not compliant"
                 )
             self.content.path.remote = f"custom_components/{name}"
 
@@ -169,7 +170,7 @@ class HacsIntegrationRepository(HacsRepository):
             else f"{self.content.path.remote}/{RepositoryFile.MAINIFEST_JSON}"
         )
 
-        if not manifest_path in (x.full_path for x in self.tree):
+        if manifest_path not in (x.full_path for x in self.tree):
             raise HacsException(f"No {RepositoryFile.MAINIFEST_JSON} file found '{manifest_path}'")
 
         response = await self.hacs.async_github_api_method(

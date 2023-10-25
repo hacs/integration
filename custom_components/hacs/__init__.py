@@ -1,5 +1,4 @@
-"""
-HACS gives you a powerful UI to handle downloads of all your custom needs.
+"""HACS gives you a powerful UI to handle downloads of all your custom needs.
 
 For more details about this integration, please refer to the documentation at
 https://hacs.xyz/

@@ -31,7 +31,10 @@ class HacsBlueprintRepository(HacsRepository):
         if self.repository_manifest.blueprint_type is None or self.repository_owner is None:
             return None
 
-        return f"{self.hacs.core.config_path}/blueprints/{self.repository_manifest.blueprint_type}/{self.repository_owner}"
+        return (
+            f"{self.hacs.core.config_path}/blueprints/"
+            f"{self.repository_manifest.blueprint_type}/{self.repository_owner}"
+        )
 
     async def validate_repository(self):
         """Validate."""
@@ -49,7 +52,8 @@ class HacsBlueprintRepository(HacsRepository):
             or self.repository_manifest.blueprint_type is None
         ):
             raise HacsException(
-                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for "
+                f"{self.ref.replace('tags/','')} is not compliant"
             )
 
         # Handle potential errors

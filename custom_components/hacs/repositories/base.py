@@ -657,8 +657,9 @@ class HacsRepository:
         except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             validate.errors.append("Download was not completed")
 
-    async def download_content(self) -> None:
+    async def download_content(self, version: string | None = None) -> None:
         """Download the content of a directory."""
+        contents: list[FileInformation] | None = None
         if self.hacs.configuration.experimental:
             if (
                 not self.repository_manifest.zip_release
@@ -672,9 +673,15 @@ class HacsRepository:
                 except HacsException as exception:
                     self.logger.exception(exception)
 
-        contents = self.gather_files_to_download()
         if self.repository_manifest.filename:
             self.logger.debug("%s %s", self.string, self.repository_manifest.filename)
+
+        if self.content.path.remote == "release" and version is not None:
+            contents = await self.release_contents(version)
+
+        if not contents:
+            contents = self.gather_files_to_download()
+
         if not contents:
             raise HacsException("No content to download")
 
@@ -1036,6 +1043,7 @@ class HacsRepository:
 
         self.hacs.log.debug("%s Local path is set to %s", self.string, self.content.path.local)
         self.hacs.log.debug("%s Remote path is set to %s", self.string, self.content.path.remote)
+        self.hacs.log.debug("%s Version to install: %s", self.string, version_to_install)
 
         self.hacs.async_dispatch(
             HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
@@ -1045,7 +1053,7 @@ class HacsRepository:
         if self.repository_manifest.zip_release and version_to_install != self.data.default_branch:
             await self.download_zip_files(self.validate)
         else:
-            await self.download_content()
+            await self.download_content(version_to_install)
 
         self.hacs.async_dispatch(
             HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
@@ -1293,6 +1301,25 @@ class HacsRepository:
             if path.full_path.startswith(self.content.path.remote):
                 files.append(FileInformation(path.download_url, path.full_path, path.filename))
         return files
+
+    async def release_contents(self, version: str | None = None) -> list[FileInformation] | None:
+        """Gather the contents of a release."""
+        release = await self.hacs.async_github_api_method(
+            method=self.hacs.githubapi.generic,
+            endpoint=f"/repos/{self.data.full_name}/releases/tags/{version}",
+            raise_exception=False,
+        )
+        if release is None:
+            return None
+
+        return [
+            FileInformation(
+                url=asset.get("browser_download_url"),
+                path=asset.get("name"),
+                name=asset.get("name"),
+            )
+            for asset in release.data.get("assets", [])
+        ]
 
     @concurrent(concurrenttasks=10)
     async def dowload_repository_content(self, content: FileInformation) -> None:

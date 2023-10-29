@@ -11,6 +11,7 @@ from .base import HacsBase
 from .const import DOMAIN
 from .entity import HacsRepositoryEntity
 from .enums import HacsCategory, HacsDispatchEvent
+from .exceptions import HacsException
 
 
 async def async_setup_entry(hass, _config_entry, async_add_devices):
@@ -99,8 +100,14 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
             self.repository.force_branch = version is not None
             self._update_in_progress(progress=20)
 
-        await self.repository.async_install(version=version)
-        self._update_in_progress(progress=False)
+        try:
+            await self.repository.async_install(version=version)
+        except HacsException as exception:
+            raise HomeAssistantError(
+                f"{exception} for {version}" if version else exception
+            ) from exception
+        finally:
+            self._update_in_progress(progress=False)
 
     async def async_release_notes(self) -> str | None:
         """Return the release notes."""

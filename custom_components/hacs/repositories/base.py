@@ -1373,6 +1373,8 @@ class HacsRepository:
             if (filename := self.repository_manifest.documentation_file(language)) is None:
                 return None
 
-        return await self.hacs.async_download_file(
+        result = await self.hacs.async_download_file(
             f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/{filename}"
         )
+
+        return result.decode(encoding="utf-8") if result else None

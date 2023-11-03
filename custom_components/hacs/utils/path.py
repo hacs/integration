@@ -18,7 +18,4 @@ def is_safe(hacs: HacsBase, path: str | Path) -> bool:
         Path(f"{hacs.core.config_path}/{hacs.configuration.theme_path}").as_posix(),
         Path(f"{hacs.core.config_path}/custom_components/").as_posix(),
         Path(f"{hacs.core.config_path}/custom_templates/").as_posix(),
-        Path(f"{hacs.core.config_path}/blueprints/").as_posix(),
-        Path(f"{hacs.core.config_path}/blueprints/automation/").as_posix(),
-        Path(f"{hacs.core.config_path}/blueprints/script/").as_posix(),
     )

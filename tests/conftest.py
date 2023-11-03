@@ -29,7 +29,6 @@ from custom_components.hacs.base import (
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.repositories import (
     HacsAppdaemonRepository,
-    HacsBlueprintRepository,
     HacsIntegrationRepository,
     HacsNetdaemonRepository,
     HacsPluginRepository,
@@ -194,13 +193,6 @@ def repository_python_script(hacs):
 def repository_template(hacs):
     """Fixtrue for HACS template repository object"""
     repository_obj = HacsTemplateRepository(hacs, "test/test")
-    yield dummy_repository_base(hacs, repository_obj)
-
-
-@pytest.fixture
-def repository_blueprint(hacs):
-    """Fixtrue for HACS blueprint repository object"""
-    repository_obj = HacsBlueprintRepository(hacs, "test/test")
     yield dummy_repository_base(hacs, repository_obj)
 
 

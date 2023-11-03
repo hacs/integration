@@ -294,6 +294,34 @@ async def hacs_repository_refresh(
 
 @websocket_api.websocket_command(
     {
+        vol.Required("type"): "hacs/repository/documentation",
+        vol.Required("repository_id"): cv.string,
+        vol.Optional("language"): cv.string,
+    }
+)
+@websocket_api.require_admin
+@websocket_api.async_response
+async def hacs_repository_documentation(
+    hass: HomeAssistant,
+    connection: websocket_api.ActiveConnection,
+    msg: dict[str, Any],
+):
+    """Refresh a repository."""
+    repository_id = msg["repository_id"]
+    hacs: HacsBase = hass.data.get(DOMAIN)
+    repository = hacs.repositories.get_by_id(repository_id)
+    connection.send_message(
+        websocket_api.result_message(
+            msg["id"],
+            {
+                "content": await repository.get_documentation(language=msg.get("language")),
+            },
+        )
+    )
+
+
+@websocket_api.websocket_command(
+    {
         vol.Required("type"): "hacs/repository/release_notes",
         vol.Required("repository"): cv.string,
     }

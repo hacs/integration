@@ -235,6 +235,10 @@ class HacsManifest:
         """Export to json."""
         return attr.asdict(self)
 
+    def documentation_file(self, language: str | None) -> str | None:
+        """Return the filename for documentation."""
+        return self.documentation.get(language) or self.documentation.get("en")
+
     @staticmethod
     def from_dict(manifest: dict):
         """Set attributes from dicts."""
@@ -1370,3 +1374,21 @@ class HacsRepository:
                 return self.data.selected_tag
 
         return self.data.default_branch or "main"
+
+    async def get_documentation(
+        self,
+        *,
+        language: str | None = None,
+        **kwargs,
+    ) -> str | None:
+        """Get the documentation of the repository."""
+        version = self.data.installed_version if self.data.installed else self.data.last_version
+        if version is None:
+            return None
+
+        if (filename := self.repository_manifest.documentation_file(language)) is None:
+            return None
+
+        return await self.hacs.async_download_file(
+            f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/{filename}"
+        )

@@ -801,25 +801,7 @@ class HacsRepository:
         if not info_files:
             return ""
 
-        try:
-            response = await self.hacs.async_github_api_method(
-                method=self.hacs.githubapi.repos.contents.get,
-                raise_exception=False,
-                repository=self.data.full_name,
-                path=info_files[0],
-            )
-            if response:
-                return render_template(
-                    self.hacs,
-                    decode_content(response.data.content)
-                    .replace("<svg", "<disabled")
-                    .replace("</svg", "</disabled"),
-                    self,
-                )
-        except BaseException as exc:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-            self.logger.error("%s %s", self.string, exc)
-
-        return ""
+        return await self.get_documentation(filename=info_files[0]) or ""
 
     def remove(self) -> None:
         """Run remove tasks."""
@@ -1379,6 +1361,7 @@ class HacsRepository:
         self,
         *,
         language: str | None = None,
+        filename: str | None = None,
         **kwargs,
     ) -> str | None:
         """Get the documentation of the repository."""
@@ -1386,8 +1369,9 @@ class HacsRepository:
         if version is None:
             return None
 
-        if (filename := self.repository_manifest.documentation_file(language)) is None:
-            return None
+        if not filename and language:
+            if (filename := self.repository_manifest.documentation_file(language)) is None:
+                return None
 
         return await self.hacs.async_download_file(
             f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/{filename}"

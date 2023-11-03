@@ -1377,4 +1377,10 @@ class HacsRepository:
             f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/{filename}"
         )
 
-        return result.decode(encoding="utf-8") if result else None
+        return (
+            result.decode(encoding="utf-8")
+            .replace("<svg", "<disabled")
+            .replace("</svg", "</disabled")
+            if result
+            else None
+        )

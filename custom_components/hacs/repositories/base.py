@@ -37,7 +37,6 @@ from ..utils.logger import LOGGER
 from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
 from ..utils.store import async_remove_store
-from ..utils.template import render_template
 from ..utils.url import archive_download, asset_download
 from ..utils.validate import Validate
 from ..utils.version import (
@@ -1405,7 +1404,18 @@ class HacsRepository:
             return None
 
         if not filename and language:
-            if (filename := self.repository_manifest.documentation_file(language)) is None:
+            try:
+                result = await self.hacs.async_download_file(
+                    f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/hacs.json",
+                    nolog=True,
+                )
+                if result is None:
+                    return None
+                manifest = HacsManifest.from_dict(json_loads(result))
+            except Exception:  # pylint: disable=broad-except
+                return None
+
+            if (filename := manifest.documentation_file(language)) is None:
                 return None
 
         result = await self.hacs.async_download_file(

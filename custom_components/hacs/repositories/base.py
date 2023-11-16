@@ -1392,7 +1392,12 @@ class HacsRepository:
         **kwargs,
     ) -> str | None:
         """Get the documentation of the repository."""
-        version = self.data.installed_version if self.data.installed else self.data.last_version
+        version = (
+            (self.data.installed_version or self.data.installed_commit)
+            if self.data.installed
+            else (self.data.last_version or self.data.last_commit)
+        )
+        self.logger.debug("%s Getting documentation for %s", self.string, version)
         if version is None:
             return None
 
@@ -1401,7 +1406,8 @@ class HacsRepository:
                 return None
 
         result = await self.hacs.async_download_file(
-            f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/{filename}"
+            f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/{filename}",
+            nolog=True,
         )
 
         return (

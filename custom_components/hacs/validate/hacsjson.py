@@ -21,7 +21,7 @@ class Validator(ActionValidationBase):
 
     async def async_validate(self):
         """Validate the repository."""
-        files = [x.filename for x in self.repository.tree if "/" not in x.filename]
+        files = [x.filename for x in self.repository.tree]
         if RepositoryFile.HACS_JSON not in files:
             raise ValidationException(f"The repository has no '{RepositoryFile.HACS_JSON}' file")
 

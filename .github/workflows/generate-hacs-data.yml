@@ -54,13 +54,13 @@ jobs:
         category: ${{ fromJSON( needs.generate-matrix.outputs.categories )}}
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v4.1.1
 
       - name: Set up Python
         uses: actions/setup-python@v4.7.1
         id: python
         with:
-          python-version: "3.x"
+          python-version: "3.11"
           cache: 'pip'
           cache-dependency-path: |
             requirements_base.txt

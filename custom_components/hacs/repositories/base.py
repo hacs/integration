@@ -1392,6 +1392,9 @@ class HacsRepository:
         **kwargs,
     ) -> str | None:
         """Get the documentation of the repository."""
+        if language is None and filename is None:
+            return None
+
         version = (
             (self.data.installed_version or self.data.installed_commit)
             if self.data.installed

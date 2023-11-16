@@ -314,7 +314,7 @@ async def hacs_repository_documentation(
         websocket_api.result_message(
             msg["id"],
             {
-                "content": await repository.get_documentation(language=msg.get("language")),
+                "content": await repository.get_documentation(language=msg.get("language", "en")),
             },
         )
     )

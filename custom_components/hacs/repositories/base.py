@@ -1404,18 +1404,8 @@ class HacsRepository:
             return None
 
         if not filename and language:
-            try:
-                result = await self.hacs.async_download_file(
-                    f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/hacs.json",
-                    nolog=True,
-                )
-                if result is None:
-                    return None
-                manifest = HacsManifest.from_dict(json_loads(result))
-            except Exception:  # pylint: disable=broad-except
-                return None
-
-            if (filename := manifest.documentation_file(language)) is None:
+            hacs_json = await self.get_hacs_json(version=version)
+            if hacs_json is None or (filename := hacs_json.documentation_file(language)) is None:
                 return None
 
         result = await self.hacs.async_download_file(
@@ -1430,3 +1420,17 @@ class HacsRepository:
             if result
             else None
         )
+
+    async def get_hacs_json(self, *, version: str, **kwargs) -> HacsManifest | None:
+        """Get the hacs.json file of the repository."""
+        self.logger.debug("%s Getting hacs.json for %s", self.string, version)
+        try:
+            result = await self.hacs.async_download_file(
+                f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/hacs.json",
+                nolog=True,
+            )
+            if result is None:
+                return None
+            return HacsManifest.from_dict(json_loads(result))
+        except Exception:  # pylint: disable=broad-except
+            return None

@@ -53,9 +53,6 @@ EXPORTED_DOWNLOADED_REPOSITORY_DATA = EXPORTED_REPOSITORY_DATA + (
     ("show_beta", False),
 )
 
-SKIP_MANIFEST_KEYS = {"documentation"}
-
-
 class HacsData:
     """HacsData class."""
 
@@ -116,11 +113,7 @@ class HacsData:
     def async_store_repository_data(self, repository: HacsRepository) -> dict:
         """Store the repository data."""
         data = {
-            "repository_manifest": {
-                k: v
-                for k, v in repository.repository_manifest.manifest.items()
-                if k not in SKIP_MANIFEST_KEYS
-            }
+            "repository_manifest": repository.repository_manifest.manifest
         }
 
         for key, default in (

@@ -55,8 +55,6 @@ TOPIC_FILTER = (
     "app",
     "appdaemon-apps",
     "appdaemon",
-    "blueprint",
-    "blueprints",
     "custom-card",
     "custom-cards",
     "custom-component",
@@ -216,7 +214,6 @@ class RepositoryData:
 class HacsManifest:
     """HacsManifest class."""
 
-    blueprint_type: str = None
     content_in_root: bool = False
     country: list[str] = []
     documentation: dict[str, str] = {"en": "README.md"}
@@ -332,13 +329,6 @@ class HacsRepository:
     def string(self) -> str:
         """Return a string representation of the repository."""
         return f"<{self.data.category.title()} {self.data.full_name}>"
-
-    @property
-    def repository_owner(self) -> str | None:
-        """Return the owner of the repository."""
-        if not self.data.full_name:
-            return None
-        return self.data.full_name.split("/")[0].lower()
 
     @property
     def display_name(self) -> str:
@@ -859,8 +849,6 @@ class HacsRepository:
                 local_path = f"{self.content.path.local}/{self.data.name}.py"
             elif self.data.category == "template":
                 local_path = f"{self.content.path.local}/{self.data.file_name}"
-            elif self.data.category == "blueprint":
-                local_path = f"{self.content.path.local}/{self.data.file_name}"
             elif self.data.category == "theme":
                 path = (
                     f"{self.hacs.core.config_path}/"
@@ -888,7 +876,7 @@ class HacsRepository:
                     return False
                 self.logger.debug("%s Removing %s", self.string, local_path)
 
-                if self.data.category in ["python_script", "template", "blueprint"]:
+                if self.data.category in ["python_script", "template"]:
                     os.remove(local_path)
                 else:
                     shutil.rmtree(local_path)

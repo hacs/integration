@@ -24,6 +24,7 @@ async_download_file_response = {
     ("nb", "norwegian content", "3"),
     ("invalid", "english content", "3"),
     (None, None, "4"),
+    (None, None, "5"),
 ])
 @pytest.mark.asyncio
 async def test_websocket_repository_documentation(hacs: HacsBase,repository: HacsRepository, ws_client: WSClient, language: str, content: str, version: str):

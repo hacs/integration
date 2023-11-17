@@ -1,16 +1,12 @@
-
 import pytest
+
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.repositories.base import HacsRepository
 
 from tests.common import client_session_proxy
 
 
-
-@pytest.mark.parametrize("version,name", [
-    ("1.0.0", "Proxy integration"),
-    ("99.99.99", None)
-])
+@pytest.mark.parametrize("version,name", [("1.0.0", "Proxy integration"), ("99.99.99", None)])
 @pytest.mark.asyncio
 async def test_validate_repository(hacs: HacsBase, version: str, name: str | None):
     repository = HacsRepository(hacs=hacs)

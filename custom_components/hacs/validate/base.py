@@ -1,7 +1,6 @@
 """Base class for validation."""
 from __future__ import annotations
 
-from logging import ERROR, WARNING
 from typing import TYPE_CHECKING
 
 from ..enums import HacsCategory
@@ -13,10 +12,6 @@ if TYPE_CHECKING:
 
 class ValidationException(HacsException):
     """Raise when there is a validation issue."""
-
-    def __init__(self, message: str, *, warning: bool = False, **kwargs) -> None:
-        super().__init__(message)
-        self.warning = warning
 
 
 class ActionValidationBase:
@@ -46,9 +41,8 @@ class ActionValidationBase:
         try:
             await self.async_validate()
         except ValidationException as exception:
-            self.failed = not exception.warning
-            self.hacs.log.log(
-                WARNING if exception.warning else ERROR,
+            self.failed = True
+            self.hacs.log.error(
                 "<Validation %s> failed:  %s (More info: %s )",
                 self.slug,
                 exception,

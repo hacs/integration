@@ -83,7 +83,7 @@ async def test_hacs_manifest_with_missing_documentation(repository, caplog, docu
 
     check = Validator(repository)
     await check.execute_validation()
-    assert not check.failed
+    assert check.failed
     for language, filename in (documentation).items():
         assert (
             f"failed:  The '{filename}' file for the 'documentation[{language}]' key does not exist"

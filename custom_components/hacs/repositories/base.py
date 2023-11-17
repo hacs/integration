@@ -560,56 +560,23 @@ class HacsRepository:
 
     async def download_zip_files(self, validate: Validate) -> None:
         """Download ZIP archive from repository release."""
-        contents: list[DownloadableContent] = []
-        target_ref = self.ref.split("/")[1]
 
-        if self.repository_manifest.zip_release:
-            contents.append(
+        try:
+            await self.async_download_zip_file(
                 DownloadableContent(
                     name=self.repository_manifest.filename,
                     url=asset_download(
                         repository=self.data.full_name,
-                        version=target_ref,
+                        version=self.ref,
                         filenme=self.repository_manifest.filename,
                     ),
-                )
+                ),
+                validate,
             )
-        else:
-            for release in self.releases.objects:
-                self.logger.debug(
-                    "%s ref: %s --- tag: %s", self.string, target_ref, release.tag_name
-                )
-                if release.tag_name == target_ref and release.assets:
-                    contents = [
-                        DownloadableContent(
-                            name=asset.name,
-                            url=asset.browser_download_url,
-                        )
-                        for asset in release.assets
-                    ]
-                    break
-
-            if len(contents) == 0:
-                validate.errors.append(f"No assets found for release '{self.ref}'")
-                return
-
-        download_queue = QueueManager(hass=self.hacs.hass)
-        try:
-            for content in contents:
-                if (
-                    self.repository_manifest.zip_release
-                    and content["name"] != self.repository_manifest.filename
-                ):
-                    continue
-                download_queue.add(self.async_download_zip_file(content, validate))
-
-            if download_queue.pending_tasks == 0:
-                validate.errors.append("Nothing to download")
-                return
-
-            await download_queue.execute()
         except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-            validate.errors.append("Download was not completed")
+            validate.errors.append(
+                f"Download of {self.repository_manifest.filename} was not completed"
+            )
 
     async def async_download_zip_file(
         self,
@@ -621,7 +588,7 @@ class HacsRepository:
             filecontent = await self.hacs.async_download_file(content["url"])
 
             if filecontent is None:
-                validate.errors.append(f"[{content['name']}] was not downloaded")
+                validate.errors.append(f"Failed to download {content['url']}")
                 return
 
             temp_dir = await self.hacs.hass.async_add_executor_job(tempfile.mkdtemp)
@@ -706,7 +673,6 @@ class HacsRepository:
             raise HacsException(f"[{self}] Failed to download zipball")
 
         temp_dir = await self.hacs.hass.async_add_executor_job(tempfile.mkdtemp)
-        tmp_extract = f"{temp_dir}/extracted"
         temp_file = f"{temp_dir}/{self.repository_manifest.filename}"
         result = await self.hacs.async_save_file(temp_file, filecontent)
         if not result:
@@ -722,24 +688,6 @@ class HacsRepository:
                 ):
                     path.filename = filename.replace(self.content.path.remote, "")
                     extractable.append(path)
-
-                if filename == "hacs.json":
-                    path.filename = "hacs.json"
-                    zip_file.extract(path, tmp_extract)
-                    with open(f"{tmp_extract}/hacs.json", encoding="utf-8") as hacsfile:
-                        hacs_manifest = json_loads(hacsfile.read())
-                        if (
-                            hacs_version := hacs_manifest.get("hacs")
-                        ) and hacs_version > self.hacs.version:
-                            raise HacsException(
-                                f"This repository requires HACS version {hacs_manifest['hacs']}, you have {self.hacs.version}"
-                            )
-                        if (
-                            homeassistant_version := hacs_manifest["homeassistant"]
-                        ) and homeassistant_version > self.hacs.core.ha_version:
-                            raise HacsException(
-                                f"This repository requires Home Assistant version {hacs_manifest['homeassistant']}, you have {self.hacs.core.ha_version}"
-                            )
 
             if len(extractable) == 0:
                 raise HacsException("No content to extract")
@@ -1019,7 +967,7 @@ class HacsRepository:
             {"repository": self.data.full_name, "progress": 50},
         )
 
-        if self.repository_manifest.zip_release and version_to_install != self.data.default_branch:
+        if self.repository_manifest.zip_release and self.repository_manifest.filename:
             await self.download_zip_files(self.validate)
         else:
             await self.download_content(version_to_install)

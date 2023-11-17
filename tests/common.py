@@ -149,6 +149,7 @@ async def async_test_home_assistant(loop, tmpdir):
     hass.data = {
         "integrations": {},
         "custom_components": {},
+        "components": {},
         "device_registry": DeviceRegistry(hass),
         "entity_registry": EntityRegistry(hass),
         "issue_registry": IssueRegistry(hass),

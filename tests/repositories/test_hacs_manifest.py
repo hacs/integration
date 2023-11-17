@@ -7,7 +7,7 @@ from custom_components.hacs.repositories.base import HacsManifest
 
 
 def test_manifest_structure():
-    manifest = HacsManifest.from_dict({"name": "TEST", "documentation": {"en": "README.md"}})
+    manifest = HacsManifest.from_dict({"name": "TEST"})
 
     assert isinstance(manifest.manifest, dict)
 
@@ -37,9 +37,6 @@ def test_manifest_structure():
 
     assert isinstance(manifest.hide_default_branch, bool)
     assert not manifest.hide_default_branch
-
-    assert "documentation" not in manifest.manifest
-    assert manifest.documentation == {"en": "README.md"}
 
 
 def test_edge_pass_none():

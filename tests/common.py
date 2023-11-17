@@ -6,9 +6,15 @@ from contextlib import contextmanager
 import functools as ft
 import json
 import os
+from typing import Any
 
+from aiohttp import ClientWebSocketResponse
 from homeassistant import auth, config_entries, core as ha
-from homeassistant.auth import auth_store
+from homeassistant.auth import (
+    auth_store,
+    models as auth_models,
+    permissions as auth_permissions,
+)
 from homeassistant.components.http import (
     CONFIG_SCHEMA as HTTP_CONFIG_SCHEMA,
     async_setup as http_async_setup,
@@ -18,9 +24,11 @@ from homeassistant.helpers import storage
 from homeassistant.helpers.device_registry import DeviceRegistry
 from homeassistant.helpers.entity_registry import EntityRegistry
 from homeassistant.helpers.issue_registry import IssueRegistry
+from homeassistant.setup import async_setup_component
 import homeassistant.util.dt as date_util
 from homeassistant.util.unit_system import METRIC_SYSTEM
 
+from custom_components.hacs.base import HacsBase
 from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
 from custom_components.hacs.utils.logger import LOGGER
 
@@ -165,9 +173,9 @@ async def async_test_home_assistant(loop, tmpdir):
 
     hass.async_start = mock_async_start
 
-    @ha.callback
-    def clear_instance(event):
+    async def clear_instance(event):
         """Clear global instance."""
+        await hass.http.stop()
         INSTANCES.remove(hass)
 
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_CLOSE, clear_instance)
@@ -238,3 +246,62 @@ def mock_storage(data=None):
         autospec=True,
     ):
         yield data
+
+
+class MockOwner(auth_models.User):
+    """Mock a user in Home Assistant."""
+
+    def __init__(self):
+        """Initialize mock user."""
+        super().__init__(**{
+            "is_owner": True,
+            "is_active": True,
+            "name": "Mocked Owner User",
+            "system_generated": False,
+            "groups": [],
+            "perm_lookup": None,
+        })
+
+    @staticmethod
+    def create(hass: ha.HomeAssistant):
+        """Create a mock user."""
+        user = MockOwner()
+        ensure_auth_manager_loaded(hass.auth)
+        hass.auth._store._users[user.id] = user
+        return user
+
+class WSClient:
+    """WS Client to be used in testing."""
+
+    client: ClientWebSocketResponse | None = None
+
+    def __init__(self, hacs: HacsBase, token: str) -> None:
+        self.hacs = hacs
+        self.token = token
+        self.id = 0
+
+    async def _create_client(self) -> None:
+        if self.client is not None:
+            return
+
+        await async_setup_component(self.hacs.hass, "websocket_api", {})
+        await self.hacs.hass.http.start()
+        self.client = await self.hacs.session.ws_connect("http://localhost:8123/api/websocket")
+        auth_response = await self.client.receive_json()
+        assert auth_response["type"] == "auth_required"
+        await self.client.send_json({"type": "auth", "access_token": self.token})
+
+        auth_response = await self.client.receive_json()
+        assert auth_response["type"] == "auth_ok"
+
+    async def send_json(self, type: str, payload: dict[str, Any]) -> dict[str, Any]:
+        self.id += 1
+        await self._create_client()
+        await self.client.send_json({"id": self.id, "type": type, **payload})
+
+    async def receive_json(self) -> dict[str, Any]:
+        return await self.client.receive_json()
+
+    async def send_and_receive_json(self, type: str, payload: dict[str, Any]) -> dict[str, Any]:
+        await self.send_json(type=type, payload=payload)
+        return await self.client.receive_json()

@@ -1387,7 +1387,13 @@ class HacsRepository:
             if self.data.installed
             else (self.data.last_version or self.data.last_commit)
         )
-        self.logger.debug("%s Getting documentation for %s", self.string, version)
+        self.logger.debug(
+            "%s Getting documentation for version=%s,language=%s,filename=%s",
+            self.string,
+            version,
+            language,
+            filename,
+        )
         if version is None:
             return None
 
@@ -1411,7 +1417,7 @@ class HacsRepository:
 
     async def get_hacs_json(self, *, version: str, **kwargs) -> HacsManifest | None:
         """Get the hacs.json file of the repository."""
-        self.logger.debug("%s Getting hacs.json for %s", self.string, version)
+        self.logger.debug("%s Getting hacs.json for version=%s", self.string, version)
         try:
             result = await self.hacs.async_download_file(
                 f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/hacs.json",

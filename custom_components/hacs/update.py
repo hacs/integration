@@ -12,6 +12,7 @@ from .const import DOMAIN
 from .entity import HacsRepositoryEntity
 from .enums import HacsCategory, HacsDispatchEvent
 from .exceptions import HacsException
+from .repositories.base import HacsManifest
 
 
 async def async_setup_entry(hass, _config_entry, async_add_devices):
@@ -70,25 +71,41 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
 
         return f"https://brands.home-assistant.io/_/{self.repository.data.domain}/icon.png"
 
-    def _ensure_capabilities(self, version: str | None, **kwargs: Any) -> None:
+    async def _ensure_capabilities(self, version: str | None, **kwargs: Any) -> None:
         """Ensure that the entity has capabilities."""
+        target_manifest: HacsManifest | None = None
         if version is None:
             if not self.repository.can_download:
                 raise HomeAssistantError(
                     f"This {self.repository.data.category.value} is not available for download."
                 )
             return
+
+        if version == self.repository.data.last_version:
+            target_manifest = self.repository.repository_manifest
+        else:
+            target_manifest = await self.repository.get_hacs_json(version=version)
+
+        if target_manifest is None:
+            raise HomeAssistantError(
+                f"The version {version} for this {self.repository.data.category.value} can not be used with HACS."
+            )
+
+        self.repository.logger.warning("target_manifest: %s", target_manifest.to_dict())
+
         if (
-            self.repository.display_version_or_commit != "version"
-            or self.repository.repository_manifest.hide_default_branch
+            target_manifest.homeassistant is not None
+            and self.hacs.core.ha_version < target_manifest.homeassistant
         ):
             raise HomeAssistantError(
-                f"This {self.repository.data.category.value} does not support version selection."
+                f"This version requires Home Assistant {target_manifest.homeassistant} or newer."
             )
+        if target_manifest.hacs is not None and self.hacs.core.ha_version < target_manifest.hacs:
+            raise HomeAssistantError(f"This version requires HACS {target_manifest.hacs} or newer.")
 
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:
         """Install an update."""
-        self._ensure_capabilities(version)
+        await self._ensure_capabilities(version)
         self.repository.logger.info("Starting update, %s", version)
         if self.repository.display_version_or_commit == "version":
             self._update_in_progress(progress=10)
@@ -104,7 +121,7 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
             await self.repository.async_install(version=version)
         except HacsException as exception:
             raise HomeAssistantError(
-                f"{exception} for {version}" if version else exception
+                f"Downloading {self.repository.data.full_name} with version {version or self.repository.data.last_version or self.repository.data.last_commit} failed with ({exception})"
             ) from exception
         finally:
             self._update_in_progress(progress=False)

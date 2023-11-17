@@ -1,3 +1,5 @@
+import re
+
 from awesomeversion import AwesomeVersion
 import pytest
 from voluptuous.error import Invalid
@@ -59,6 +61,12 @@ def test_hacs_manufest_json_schema():
             "country": "NO",
             "homeassistant": "0.99.9",
             "persistent_directory": "userfiles",
+        }
+    )
+
+    assert hacs_json_schema(
+        {
+            "name": "My awesome thing",
         }
     )
 

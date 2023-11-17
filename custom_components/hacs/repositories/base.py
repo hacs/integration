@@ -37,7 +37,6 @@ from ..utils.logger import LOGGER
 from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
 from ..utils.store import async_remove_store
-from ..utils.template import render_template
 from ..utils.url import archive_download, asset_download
 from ..utils.validate import Validate
 from ..utils.version import (
@@ -793,25 +792,7 @@ class HacsRepository:
         if not info_files:
             return ""
 
-        try:
-            response = await self.hacs.async_github_api_method(
-                method=self.hacs.githubapi.repos.contents.get,
-                raise_exception=False,
-                repository=self.data.full_name,
-                path=info_files[0],
-            )
-            if response:
-                return render_template(
-                    self.hacs,
-                    decode_content(response.data.content)
-                    .replace("<svg", "<disabled")
-                    .replace("</svg", "</disabled"),
-                    self,
-                )
-        except BaseException as exc:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-            self.logger.error("%s %s", self.string, exc)
-
-        return ""
+        return await self.get_documentation(filename=info_files[0]) or ""
 
     def remove(self) -> None:
         """Run remove tasks."""
@@ -1384,3 +1365,54 @@ class HacsRepository:
                 return self.data.selected_tag
 
         return self.data.default_branch or "main"
+
+    async def get_documentation(
+        self,
+        *,
+        filename: str | None = None,
+        **kwargs,
+    ) -> str | None:
+        """Get the documentation of the repository."""
+        if filename is None:
+            return None
+
+        version = (
+            (self.data.installed_version or self.data.installed_commit)
+            if self.data.installed
+            else (self.data.last_version or self.data.last_commit)
+        )
+        self.logger.debug(
+            "%s Getting documentation for version=%s,filename=%s",
+            self.string,
+            version,
+            filename,
+        )
+        if version is None:
+            return None
+
+        result = await self.hacs.async_download_file(
+            f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/{filename}",
+            nolog=True,
+        )
+
+        return (
+            result.decode(encoding="utf-8")
+            .replace("<svg", "<disabled")
+            .replace("</svg", "</disabled")
+            if result
+            else None
+        )
+
+    async def get_hacs_json(self, *, version: str, **kwargs) -> HacsManifest | None:
+        """Get the hacs.json file of the repository."""
+        self.logger.debug("%s Getting hacs.json for version=%s", self.string, version)
+        try:
+            result = await self.hacs.async_download_file(
+                f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/hacs.json",
+                nolog=True,
+            )
+            if result is None:
+                return None
+            return HacsManifest.from_dict(json_loads(result))
+        except Exception:  # pylint: disable=broad-except
+            return None

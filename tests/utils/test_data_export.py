@@ -1,7 +1,8 @@
+import pytest
+
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
 from custom_components.hacs.utils.data import HacsData
-import pytest
 
 
 @pytest.mark.asyncio
@@ -21,8 +22,8 @@ async def test_exclude_manifest_keys(hacs: HacsBase, repository: HacsRepository)
 
     data.async_store_repository_data(repository)
     assert data.content[repository.data.id]["repository_manifest"] == {
-            "name": "test",
-            "content_in_root": True,
-            "filename": "my_super_awesome_thing.js",
-            "country": ["NO", "SE", "DK"],
-        }
+        "name": "test",
+        "content_in_root": True,
+        "filename": "my_super_awesome_thing.js",
+        "country": ["NO", "SE", "DK"],
+    }

@@ -4,10 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from awesomeversion import AwesomeVersion
-from homeassistant.helpers.config_validation import (
-    language as language_validator,
-    url as url_validator,
-)
+from homeassistant.helpers.config_validation import url as url_validator
 import voluptuous as vol
 
 from ..const import LOCALE
@@ -47,7 +44,6 @@ HACS_MANIFEST_JSON_SCHEMA = vol.Schema(
     {
         vol.Optional("content_in_root"): bool,
         vol.Optional("country"): _country_validator,
-        vol.Optional("documentation"): vol.Schema({language_validator: str}),
         vol.Optional("filename"): str,
         vol.Optional("hacs"): str,
         vol.Optional("hide_default_branch"): bool,

@@ -67,7 +67,6 @@ def test_hacs_manufest_json_schema():
     assert hacs_json_schema(
         {
             "name": "My awesome thing",
-            "documentation": {"en": "README.md"},
         }
     )
 
@@ -79,16 +78,6 @@ def test_hacs_manufest_json_schema():
 
     with pytest.raises(Invalid, match="Value 'False' is not a string or list."):
         hacs_json_schema({"name": "My awesome thing", "country": False})
-
-    with pytest.raises(
-        Invalid, match=re.escape("extra keys not allowed @ data['documentation']['invalid']")
-    ):
-        hacs_json_schema(
-            {
-                "name": "My awesome thing",
-                "documentation": {"invalid": "README.md"},
-            }
-        )
 
 
 def test_integration_json_schema():

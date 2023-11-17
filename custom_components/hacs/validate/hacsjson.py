@@ -34,10 +34,3 @@ class Validator(ActionValidationBase):
         if self.repository.data.category == HacsCategory.INTEGRATION:
             if hacsjson.zip_release and not hacsjson.filename:
                 raise ValidationException("zip_release is True, but filename is not set")
-
-        if content.get("documentation") is not None:
-            for language, filename in (hacsjson.documentation or {}).items():
-                if filename not in files:
-                    raise ValidationException(
-                        f"The '{filename}' file for the 'documentation[{language}]' key does not exist",
-                    )

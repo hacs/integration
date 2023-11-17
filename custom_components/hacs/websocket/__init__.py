@@ -19,7 +19,6 @@ from .repositories import (
 )
 from .repository import (
     hacs_repository_beta,
-    hacs_repository_documentation,
     hacs_repository_download,
     hacs_repository_ignore,
     hacs_repository_info,
@@ -41,7 +40,6 @@ def async_register_websocket_commands(hass: HomeAssistant) -> None:
     websocket_api.async_register_command(hass, hacs_subscribe)
 
     websocket_api.async_register_command(hass, hacs_repository_info)
-    websocket_api.async_register_command(hass, hacs_repository_documentation)
     websocket_api.async_register_command(hass, hacs_repository_download)
     websocket_api.async_register_command(hass, hacs_repository_ignore)
     websocket_api.async_register_command(hass, hacs_repository_state)

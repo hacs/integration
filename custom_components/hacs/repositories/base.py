@@ -1374,12 +1374,11 @@ class HacsRepository:
     async def get_documentation(
         self,
         *,
-        language: str | None = None,
         filename: str | None = None,
         **kwargs,
     ) -> str | None:
         """Get the documentation of the repository."""
-        if language is None and filename is None:
+        if filename is None:
             return None
 
         version = (
@@ -1388,19 +1387,13 @@ class HacsRepository:
             else (self.data.last_version or self.data.last_commit)
         )
         self.logger.debug(
-            "%s Getting documentation for version=%s,language=%s,filename=%s",
+            "%s Getting documentation for version=%s,filename=%s",
             self.string,
             version,
-            language,
             filename,
         )
         if version is None:
             return None
-
-        if not filename and language:
-            hacs_json = await self.get_hacs_json(version=version)
-            if hacs_json is None or (filename := hacs_json.documentation_file(language)) is None:
-                return None
 
         result = await self.hacs.async_download_file(
             f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/{filename}",

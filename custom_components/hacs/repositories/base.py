@@ -216,7 +216,6 @@ class HacsManifest:
 
     content_in_root: bool = False
     country: list[str] = []
-    documentation: dict[str, str] = {"en": "README.md"}
     filename: str = None
     hacs: str = None  # Minimum HACS version
     hide_default_branch: bool = False
@@ -230,10 +229,6 @@ class HacsManifest:
     def to_dict(self):
         """Export to json."""
         return attr.asdict(self)
-
-    def documentation_file(self, language: str | None) -> str | None:
-        """Return the filename for documentation."""
-        return self.documentation.get(language) or self.documentation.get("en")
 
     @staticmethod
     def from_dict(manifest: dict):

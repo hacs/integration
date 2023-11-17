@@ -53,6 +53,7 @@ EXPORTED_DOWNLOADED_REPOSITORY_DATA = EXPORTED_REPOSITORY_DATA + (
     ("show_beta", False),
 )
 
+
 class HacsData:
     """HacsData class."""
 
@@ -112,9 +113,7 @@ class HacsData:
     @callback
     def async_store_repository_data(self, repository: HacsRepository) -> dict:
         """Store the repository data."""
-        data = {
-            "repository_manifest": repository.repository_manifest.manifest
-        }
+        data = {"repository_manifest": repository.repository_manifest.manifest}
 
         for key, default in (
             EXPORTED_DOWNLOADED_REPOSITORY_DATA

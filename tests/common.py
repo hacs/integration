@@ -253,14 +253,16 @@ class MockOwner(auth_models.User):
 
     def __init__(self):
         """Initialize mock user."""
-        super().__init__(**{
-            "is_owner": True,
-            "is_active": True,
-            "name": "Mocked Owner User",
-            "system_generated": False,
-            "groups": [],
-            "perm_lookup": None,
-        })
+        super().__init__(
+            **{
+                "is_owner": True,
+                "is_active": True,
+                "name": "Mocked Owner User",
+                "system_generated": False,
+                "groups": [],
+                "perm_lookup": None,
+            }
+        )
 
     @staticmethod
     def create(hass: ha.HomeAssistant):
@@ -269,6 +271,7 @@ class MockOwner(auth_models.User):
         ensure_auth_manager_loaded(hass.auth)
         hass.auth._store._users[user.id] = user
         return user
+
 
 class WSClient:
     """WS Client to be used in testing."""

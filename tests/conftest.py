@@ -233,7 +233,7 @@ async def ws_client(hacs: HacsBase, hass: HomeAssistant) -> WSClient:
     """Owner authenticated Websocket client fixture."""
     auth_provider = HassAuthProvider(hass, hass.auth._store, {"type": "homeassistant"})
     hass.auth._providers[(auth_provider.type, auth_provider.id)] = auth_provider
-    owner =  MockOwner.create(hass)
+    owner = MockOwner.create(hass)
 
     credentials = Credentials(
         auth_provider_type=auth_provider.type,
@@ -243,6 +243,8 @@ async def ws_client(hacs: HacsBase, hass: HomeAssistant) -> WSClient:
 
     await auth_provider.async_initialize()
     await hass.auth.async_link_user(owner, credentials)
-    refresh_token = await hass.auth.async_create_refresh_token(owner, "https://hacs.xyz/testing", credential=credentials)
+    refresh_token = await hass.auth.async_create_refresh_token(
+        owner, "https://hacs.xyz/testing", credential=credentials
+    )
 
     return WSClient(hacs, hass.auth.async_create_access_token(refresh_token))

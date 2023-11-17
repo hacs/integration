@@ -4,7 +4,6 @@ from __future__ import annotations
 from ..enums import HacsCategory
 from .appdaemon import HacsAppdaemonRepository
 from .base import HacsRepository
-from .blueprint import HacsBlueprintRepository
 from .integration import HacsIntegrationRepository
 from .netdaemon import HacsNetdaemonRepository
 from .plugin import HacsPluginRepository
@@ -20,5 +19,4 @@ RERPOSITORY_CLASSES: dict[HacsCategory, HacsRepository] = {
     HacsCategory.NETDAEMON: HacsNetdaemonRepository,
     HacsCategory.PLUGIN: HacsPluginRepository,
     HacsCategory.TEMPLATE: HacsTemplateRepository,
-    HacsCategory.BLUEPRINT: HacsBlueprintRepository,
 }

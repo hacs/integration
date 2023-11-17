@@ -24,16 +24,8 @@ class HacsGitHubRepo(StrEnum):
     INTEGRATION = "hacs/integration"
 
 
-class BlueprintType(StrEnum):
-    """Blueprint types."""
-
-    AUTOMATION = "automation"
-    SCRIPT = "script"
-
-
 class HacsCategory(StrEnum):
     APPDAEMON = "appdaemon"
-    BLUEPRINT = "blueprint"
     INTEGRATION = "integration"
     LOVELACE = "lovelace"
     PLUGIN = "plugin"  # Kept for legacy purposes

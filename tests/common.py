@@ -31,6 +31,7 @@ from homeassistant.util.unit_system import METRIC_SYSTEM
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
 from custom_components.hacs.utils.logger import LOGGER
+from custom_components.hacs.websocket import async_register_websocket_commands
 
 from tests.async_mock import AsyncMock, Mock, patch
 
@@ -146,6 +147,7 @@ async def async_test_home_assistant(loop, tmpdir):
     hass.config.units = METRIC_SYSTEM
     hass.config.skip_pip = True
     hass.data = {
+        "integrations": {},
         "custom_components": {},
         "device_registry": DeviceRegistry(hass),
         "entity_registry": EntityRegistry(hass),
@@ -289,6 +291,7 @@ class WSClient:
 
         await async_setup_component(self.hacs.hass, "websocket_api", {})
         await self.hacs.hass.http.start()
+        async_register_websocket_commands(self.hacs.hass)
         self.client = await self.hacs.session.ws_connect("http://localhost:8123/api/websocket")
         auth_response = await self.client.receive_json()
         assert auth_response["type"] == "auth_required"

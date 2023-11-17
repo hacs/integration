@@ -2,13 +2,11 @@
 import json
 from unittest.mock import patch
 
-from homeassistant.components import websocket_api
 import pytest
 from yarl import URL
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.repositories.base import HacsRepository
-from custom_components.hacs.websocket.repository import hacs_repository_documentation
 
 from tests.common import WSClient
 
@@ -40,7 +38,6 @@ async def test_websocket_repository_documentation(
     version: str,
 ):
     """Test the repository_documentation websocket command."""
-    websocket_api.async_register_command(hacs.hass, hacs_repository_documentation)
     hacs.repositories.register(repository)
 
     repository.data.last_version = version

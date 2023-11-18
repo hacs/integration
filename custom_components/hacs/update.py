@@ -91,8 +91,6 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
                 f"The version {version} for this {self.repository.data.category.value} can not be used with HACS."
             )
 
-        self.repository.logger.warning("target_manifest: %s", target_manifest.to_dict())
-
         if (
             target_manifest.homeassistant is not None
             and self.hacs.core.ha_version < target_manifest.homeassistant

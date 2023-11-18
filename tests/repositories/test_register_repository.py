@@ -1,7 +1,8 @@
 import json
+from unittest.mock import ANY
+
 import pytest
 from pytest_snapshot.plugin import Snapshot
-from unittest.mock import ANY
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.enums import HacsCategory
@@ -31,8 +32,6 @@ async def test_register_repository(hacs: HacsBase, category: HacsCategory, snaps
     repo.data.last_fetched = None
     data.async_store_experimental_repository_data(repo)
     snapshot.assert_match(
-        json.dumps(
-            data.content, indent=4
-        ),
+        json.dumps(data.content, indent=4),
         f"{category.value}_test_register_repository.json",
     )

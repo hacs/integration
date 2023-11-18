@@ -29,9 +29,9 @@ from yarl import URL
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
+from custom_components.hacs.update import HacsRepositoryUpdateEntity
 from custom_components.hacs.utils.logger import LOGGER
 from custom_components.hacs.websocket import async_register_websocket_commands
-from custom_components.hacs.update import HacsRepositoryUpdateEntity
 
 from tests.async_mock import AsyncMock, Mock, patch
 
@@ -39,8 +39,9 @@ _LOGGER = LOGGER
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 INSTANCES = []
 
+
 def repository_update_entry(hacs: HacsBase, repository: HacsRepository):
-    entity= HacsRepositoryUpdateEntity(hacs=hacs, repository=repository)
+    entity = HacsRepositoryUpdateEntity(hacs=hacs, repository=repository)
     entity.hass = hacs.hass
     entity.entity_id = f"sensor.repository_{repository.data.id}"
     return entity
@@ -372,6 +373,9 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
             raise AssertionError(f"Missing fixture for proxy/{url.host}{url.path}")
 
         async def read(**kwargs):
+            if url.path.endswith(".zip"):
+                with open(fp, mode="rb") as fptr:
+                    return fptr.read()
             with open(fp, encoding="utf-8") as fptr:
                 return fptr.read().encode("utf-8")
 

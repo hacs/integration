@@ -45,6 +45,6 @@ async def test_download_repository(hacs: HacsBase, category: HacsCategory, snaps
     repo.data.last_fetched = None
     data.async_store_experimental_repository_data(repo)
     snapshot.assert_match(
-        json.dumps({"files": downloaded, "content": data.content}, indent=4),
+        json.dumps({"files": sorted(downloaded), "content": data.content}, indent=4),
         f"{category.value}_test_download_repository.json",
     )

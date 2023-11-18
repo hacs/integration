@@ -50,6 +50,6 @@ async def test_update_repository(
     assert len(downloaded) != 0
 
     snapshot.assert_match(
-        json.dumps({"files": downloaded, "content": data.content}, indent=4),
+        json.dumps({"files": sorted(downloaded), "content": data.content}, indent=4),
         f"{category.value}_test_update_repository.json",
     )

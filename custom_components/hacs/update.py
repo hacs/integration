@@ -124,6 +124,8 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
                 f"Downloading {self.repository.data.full_name} with version {version or self.repository.data.last_version or self.repository.data.last_commit} failed with ({exception})"
             ) from exception
         finally:
+            self.repository.data.selected_tag = None
+            self.repository.force_branch = False
             self._update_in_progress(progress=False)
 
     async def async_release_notes(self) -> str | None:

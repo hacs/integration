@@ -46,6 +46,7 @@ from tests.async_mock import MagicMock
 from tests.common import (
     TOKEN,
     MockOwner,
+    ResponseMocker,
     WSClient,
     async_test_home_assistant,
     dummy_repository_base,
@@ -76,6 +77,12 @@ asyncio.sleep = lambda _: _sleep(0)
 def connection():
     """Mock fixture for connection."""
     yield MagicMock()
+
+
+@pytest.fixture()
+def response_mocker():
+    """Mock fixture for responses."""
+    yield ResponseMocker()
 
 
 @pytest.fixture

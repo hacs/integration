@@ -5,7 +5,7 @@ import pytest
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.repositories.base import HacsRepository
 
-from tests.common import client_session_proxy
+from tests.common import MockedResponse, ResponseMocker, client_session_proxy
 
 
 @pytest.mark.parametrize(
@@ -21,11 +21,22 @@ from tests.common import client_session_proxy
     ],
 )
 @pytest.mark.asyncio
-async def test_validate_repository(hacs: HacsBase, data: dict[str, Any], result: str | None):
+async def test_validate_repository(
+    hacs: HacsBase,
+    data: dict[str, Any],
+    result: str | None,
+    response_mocker: ResponseMocker,
+):
     repository = HacsRepository(hacs=hacs)
     repository.data.full_name = "octocat/integration"
     for key, value in data.items():
         setattr(repository.data, key, value)
+
+    if result is None:
+        response_mocker.add(
+            f"https://raw.githubusercontent.com/octocat/integration/{data['last_version']}/README.md",
+            MockedResponse(status=404),
+        )
 
     hacs.session = await client_session_proxy(hacs.hass)
     docs = await repository.get_documentation(filename="README.md")

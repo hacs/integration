@@ -4,7 +4,7 @@ from __future__ import annotations
 import asyncio
 from contextlib import contextmanager
 import functools as ft
-import json
+import json as json_func
 import os
 from typing import Any
 
@@ -31,12 +31,19 @@ from custom_components.hacs.base import HacsBase
 from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
 from custom_components.hacs.utils.logger import LOGGER
 from custom_components.hacs.websocket import async_register_websocket_commands
+from custom_components.hacs.update import HacsRepositoryUpdateEntity
 
 from tests.async_mock import AsyncMock, Mock, patch
 
 _LOGGER = LOGGER
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 INSTANCES = []
+
+def repository_update_entry(hacs: HacsBase, repository: HacsRepository):
+    entity= HacsRepositoryUpdateEntity(hacs=hacs, repository=repository)
+    entity.hass = hacs.hass
+    entity.entity_id = f"sensor.repository_{repository.data.id}"
+    return entity
 
 
 def fixture(filename, asjson=True):
@@ -51,7 +58,7 @@ def fixture(filename, asjson=True):
         with open(path, encoding="utf-8") as fptr:
             _LOGGER.debug("Loading fixture from %s", path)
             if asjson:
-                return json.loads(fptr.read())
+                return json_func.loads(fptr.read())
             return fptr.read()
     except OSError as err:
         raise OSError(f"Missing fixture for {path.split('fixtures/')[1]}") from err
@@ -166,6 +173,7 @@ async def async_test_home_assistant(loop, tmpdir):
     orig_start = hass.async_start
 
     await http_async_setup(hass, HTTP_CONFIG_SCHEMA({}))
+    await async_setup_component(hass, "homeassistant", {})
 
     async def mock_async_start():
         """Start the mocking."""
@@ -230,7 +238,7 @@ def mock_storage(data=None):
         """Mock version of write data."""
         _LOGGER.info("Writing data to %s: %s", store.key, data_to_write)
         # To ensure that the data can be serialized
-        data[store.key] = json.loads(json.dumps(data_to_write, cls=store._encoder))
+        data[store.key] = json_func.loads(json_func.dumps(data_to_write, cls=store._encoder))
 
     async def mock_remove(store):
         """Remove data."""
@@ -339,30 +347,50 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
     response_mocker = ResponseMocker()
 
     async def _request(method: str, str_or_url: StrOrURL, *args, **kwargs):
-        url = URL(str_or_url)
-        fp = os.path.join(
-            os.path.dirname(__file__),
-            f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host == 'api.github.com' else ''}",
-        )
-        print(f"Using fixture {fp} for request to {url.host}")
-
         if (resp := response_mocker.get(str_or_url)) is not None:
+            LOGGER.info("Using mocked response for %s", str_or_url)
             if resp.exception:
                 raise resp.exception
             return resp
 
+        url = URL(str_or_url)
+        fixture_file = f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host in ('api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
+        fallback_file = f"fixtures/proxy/{url.host}/base/{url.path.split('/')[-1]}"
+        fp = os.path.join(
+            os.path.dirname(__file__),
+            fixture_file,
+        )
+        print(f"Using fixture {fp} for request to {url.host}")
+
+        if not os.path.exists(fp) and url.host in ("raw.githubusercontent.com", "data-v2.hacs.xyz"):
+            fp = os.path.join(
+                os.path.dirname(__file__),
+                fallback_file,
+            )
+
         if not os.path.exists(fp):
             raise AssertionError(f"Missing fixture for proxy/{url.host}{url.path}")
 
-        async def read():
+        async def read(**kwargs):
             with open(fp, encoding="utf-8") as fptr:
                 return fptr.read().encode("utf-8")
 
-        async def json():
+        async def json(**kwargs):
             with open(fp, encoding="utf-8") as fptr:
-                return json.loads(fptr.read())
+                return json_func.loads(fptr.read())
 
-        return AsyncMock(status=200, url=url, read=read, json=json)
+        return AsyncMock(
+            status=200,
+            url=url,
+            read=read,
+            json=json,
+            headers={
+                "X-RateLimit-Limit": "999",
+                "X-RateLimit-Remaining": "999",
+                "X-RateLimit-Reset": "999",
+                "Content-Type": "application/json",
+            },
+        )
 
     base._request = _request
 

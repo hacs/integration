@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+from awesomeversion import AwesomeVersion
 from contextlib import contextmanager
 import functools as ft
 import json as json_func
@@ -12,7 +13,7 @@ from aiohttp import ClientSession, ClientWebSocketResponse
 from aiohttp.typedefs import StrOrURL
 from homeassistant import auth, bootstrap, config_entries, core as ha
 from homeassistant.auth import auth_store, models as auth_models
-from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE, EVENT_HOMEASSISTANT_STOP
+from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE, EVENT_HOMEASSISTANT_STOP, __version__ as HAVERSION
 from homeassistant.helpers import (
     area_registry as ar,
     device_registry as dr,
@@ -311,7 +312,11 @@ class MockConfigEntry(config_entries.ConfigEntry):
     def add_to_hass(self, hass: ha.HomeAssistant) -> None:
         """Test helper to add entry to hass."""
         hass.config_entries._entries[self.entry_id] = self
-        hass.config_entries._domain_index.setdefault(self.domain, []).append(self.entry_id)
+
+        if AwesomeVersion(HAVERSION) >= "2023.10.0":
+            hass.config_entries._domain_index.setdefault(self.domain, []).append(self)
+        else:
+            hass.config_entries._domain_index.setdefault(self.domain, []).append(self.entry_id)
 
 
 class WSClient:

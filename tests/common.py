@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import asyncio
-from awesomeversion import AwesomeVersion
 from contextlib import contextmanager
 import functools as ft
 import json as json_func
@@ -11,9 +10,14 @@ from typing import Any, Iterable, Mapping
 
 from aiohttp import ClientSession, ClientWebSocketResponse
 from aiohttp.typedefs import StrOrURL
+from awesomeversion import AwesomeVersion
 from homeassistant import auth, bootstrap, config_entries, core as ha
 from homeassistant.auth import auth_store, models as auth_models
-from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE, EVENT_HOMEASSISTANT_STOP, __version__ as HAVERSION
+from homeassistant.const import (
+    EVENT_HOMEASSISTANT_CLOSE,
+    EVENT_HOMEASSISTANT_STOP,
+    __version__ as HAVERSION,
+)
 from homeassistant.helpers import (
     area_registry as ar,
     device_registry as dr,

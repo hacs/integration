@@ -1,25 +1,28 @@
 """Set up some common test helper things."""
 # pytest: disable=protected-access
 import asyncio
+from dataclasses import asdict
+from glob import iglob
+import json
 import logging
 import os
 from pathlib import Path
-from unittest.mock import AsyncMock
+from typing import Generator
+from unittest.mock import AsyncMock, patch
 
 from aiogithubapi import GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
 from awesomeversion import AwesomeVersion
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import ServiceNotFound
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.loader import Integration
 from homeassistant.runner import HassEventLoopPolicy
 import pytest
 import pytest_asyncio
+from pytest_snapshot.plugin import Snapshot
 
 from custom_components.hacs.base import (
     HacsBase,
@@ -38,8 +41,8 @@ from custom_components.hacs.repositories import (
     HacsTemplateRepository,
     HacsThemeRepository,
 )
-from custom_components.hacs.utils.configuration_schema import TOKEN as CONF_TOKEN
 from custom_components.hacs.utils.queue_manager import QueueManager
+from custom_components.hacs.utils.store import async_load_from_store
 from custom_components.hacs.validate.manager import ValidationManager
 
 from tests.async_mock import MagicMock
@@ -49,8 +52,12 @@ from tests.common import (
     ResponseMocker,
     WSClient,
     async_test_home_assistant,
+    client_session_proxy,
+    create_config_entry,
     dummy_repository_base,
     mock_storage as mock_storage,
+    recursive_remove_key,
+    setup_integration as common_setup_integration,
 )
 
 # Set default logger
@@ -79,17 +86,21 @@ def connection():
     yield MagicMock()
 
 
-@pytest.fixture()
-def response_mocker():
-    """Mock fixture for responses."""
-    yield ResponseMocker()
-
-
 @pytest.fixture
 def hass_storage():
     """Fixture to mock storage."""
     with mock_storage() as stored_data:
         yield stored_data
+
+
+@pytest.fixture(scope="session")
+def event_loop():
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+    yield loop
+    loop.close()
 
 
 @pytest.fixture
@@ -102,7 +113,7 @@ def hass(event_loop, tmpdir):
             exceptions.append(exception)
         orig_exception_handler(loop, context)
 
-    exceptions = []
+    exceptions: list[Exception] = []
     hass_obj = event_loop.run_until_complete(async_test_home_assistant(event_loop, tmpdir))
     orig_exception_handler = event_loop.get_exception_handler()
     event_loop.set_exception_handler(exc_handle)
@@ -111,8 +122,6 @@ def hass(event_loop, tmpdir):
 
     event_loop.run_until_complete(hass_obj.async_stop(force=True))
     for ex in exceptions:
-        if isinstance(ex, (ServiceNotFound, FileExistsError)):
-            continue
         raise ex
 
 
@@ -221,23 +230,66 @@ def repository_netdaemon(hacs):
     yield dummy_repository_base(hacs, repository_obj)
 
 
+class SnapshotFixture(Snapshot):
+    async def assert_hacs_data(self, hacs: HacsBase, filename: str):
+        pass
+
+
 @pytest.fixture
-def config_entry() -> ConfigEntry:
-    """Fixture for a config entry."""
-    args = {
-        "version": 1,
-        "domain": DOMAIN,
-        "title": "",
-        "data": {CONF_TOKEN: TOKEN},
-        "source": "user",
-        "options": {},
-        "unique_id": "12345",
-    }
-    # Core 2024.1 added minor_version
-    try:
-        return ConfigEntry(**{**args, "minor_version": 0})
-    except TypeError:
-        return ConfigEntry(**args)
+def snapshots(snapshot: Snapshot) -> SnapshotFixture:
+    """Fixture for a snapshot."""
+    snapshot.snapshot_dir = "tests/snapshots"
+
+    async def assert_hacs_data(hacs: HacsBase, filename: str):
+        await hacs.data.async_force_write()
+        downloaded = [
+            f.replace(f"{hacs.core.config_path}", "/config")
+            for f in iglob(f"{hacs.core.config_path}/**", recursive=True)
+            if os.path.isfile(f)
+        ]
+        data = {}
+        stored_data = await async_load_from_store(hacs.hass, "data")
+        for key, value in stored_data["repositories"].items():
+            data[key] = {}
+            for entry in value:
+                data[key][entry["id"]] = entry
+        snapshot.assert_match(
+            json.dumps(
+                recursive_remove_key(
+                    {
+                        "directory": sorted(downloaded),
+                        "data": data,
+                        "hacs": {
+                            "system": asdict(hacs.system),
+                            "status": asdict(hacs.status),
+                            "stage": hacs.stage,
+                            "configuration": {
+                                "experimental": hacs.configuration.experimental,
+                                "debug": hacs.configuration.debug,
+                                "dev": hacs.configuration.dev,
+                            },
+                        },
+                    },
+                    ("last_fetched"),
+                ),
+                indent=4,
+                sort_keys=True,
+            ),
+            filename,
+        )
+
+    snapshot.assert_hacs_data = assert_hacs_data
+    return snapshot
+
+
+@pytest_asyncio.fixture
+async def proxy_session(hass: HomeAssistant) -> Generator:
+    """Fixture for a proxy_session."""
+    mock_session = await client_session_proxy(hass)
+    with patch(
+        "homeassistant.helpers.aiohttp_client.async_get_clientsession", return_value=mock_session
+    ):
+        yield
 
 
 @pytest_asyncio.fixture
@@ -260,3 +312,15 @@ async def ws_client(hacs: HacsBase, hass: HomeAssistant) -> WSClient:
     )
 
     return WSClient(hacs, hass.auth.async_create_access_token(refresh_token))
+
+
+@pytest.fixture()
+def response_mocker(proxy_session: Generator) -> ResponseMocker:
+    """Mock fixture for responses."""
+    assert proxy_session is None
+    yield ResponseMocker()
+
+
+@pytest_asyncio.fixture
+async def setup_integration(hass: HomeAssistant) -> None:
+    await common_setup_integration(hass, create_config_entry())

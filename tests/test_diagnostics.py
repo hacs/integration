@@ -3,19 +3,19 @@ from unittest.mock import MagicMock, patch
 
 from aiogithubapi import GitHubException, GitHubRateLimitModel, GitHubResponseModel
 from homeassistant.components.diagnostics import REDACTED
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 import pytest
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.diagnostics import async_get_config_entry_diagnostics
 
-from tests.common import TOKEN
+from tests.common import TOKEN, create_config_entry
 
 
 @pytest.mark.asyncio
-async def test_diagnostics(hacs: HacsBase, hass: HomeAssistant, config_entry: ConfigEntry):
+async def test_diagnostics(hacs: HacsBase, hass: HomeAssistant):
     """Test the base result."""
+    config_entry = create_config_entry()
     response = GitHubResponseModel(MagicMock(headers={}))
     response.data = GitHubRateLimitModel({"resources": {"core": {"remaining": 0}}})
     with patch("aiogithubapi.github.GitHub.rate_limit", return_value=response):
@@ -28,10 +28,9 @@ async def test_diagnostics(hacs: HacsBase, hass: HomeAssistant, config_entry: Co
 
 
 @pytest.mark.asyncio
-async def test_diagnostics_with_exception(
-    hacs: HacsBase, hass: HomeAssistant, config_entry: ConfigEntry
-):
+async def test_diagnostics_with_exception(hacs: HacsBase, hass: HomeAssistant):
     """test the result with issues getting the ratelimit."""
+    config_entry = create_config_entry()
     with patch(
         "aiogithubapi.github.GitHub.rate_limit", side_effect=GitHubException("Something went wrong")
     ):

@@ -6,30 +6,34 @@ from contextlib import contextmanager
 import functools as ft
 import json as json_func
 import os
-from typing import Any
+from typing import Any, Iterable, Mapping
 
 from aiohttp import ClientSession, ClientWebSocketResponse
 from aiohttp.typedefs import StrOrURL
-from homeassistant import auth, config_entries, core as ha
+from homeassistant import auth, bootstrap, config_entries, core as ha
 from homeassistant.auth import auth_store, models as auth_models
-from homeassistant.components.http import (
-    CONFIG_SCHEMA as HTTP_CONFIG_SCHEMA,
-    async_setup as http_async_setup,
+from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE, EVENT_HOMEASSISTANT_STOP
+from homeassistant.helpers import (
+    area_registry as ar,
+    device_registry as dr,
+    entity,
+    entity_registry as er,
+    issue_registry as ir,
+    restore_state as rs,
+    storage,
 )
-from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE
-from homeassistant.helpers import storage
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.device_registry import DeviceRegistry
-from homeassistant.helpers.entity_registry import EntityRegistry
-from homeassistant.helpers.issue_registry import IssueRegistry
 from homeassistant.setup import async_setup_component
 import homeassistant.util.dt as date_util
 from homeassistant.util.unit_system import METRIC_SYSTEM
+import homeassistant.util.uuid as uuid_util
 from yarl import URL
 
 from custom_components.hacs.base import HacsBase
+from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
 from custom_components.hacs.update import HacsRepositoryUpdateEntity
+from custom_components.hacs.utils.configuration_schema import TOKEN as CONF_TOKEN
 from custom_components.hacs.utils.logger import LOGGER
 from custom_components.hacs.websocket import async_register_websocket_commands
 
@@ -38,6 +42,34 @@ from tests.async_mock import AsyncMock, Mock, patch
 _LOGGER = LOGGER
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 INSTANCES = []
+
+
+def recursive_remove_key(data: dict[str, Any], to_remove: Iterable[str]) -> dict[str, Any]:
+    if not isinstance(data, (Mapping, list)):
+        return data
+
+    if isinstance(data, list):
+        return [
+            recursive_remove_key(val, to_remove)
+            for val in sorted(data, key=lambda obj: getattr(obj, "id", 0))
+        ]
+
+    copy_data = {**data}
+    for key, value in copy_data.items():
+        if value is None:
+            continue
+        if isinstance(value, str) and not value:
+            continue
+        if key in to_remove:
+            copy_data[key] = None
+        elif isinstance(value, Mapping):
+            copy_data[key] = recursive_remove_key(value, to_remove)
+        elif isinstance(value, list):
+            copy_data[key] = [
+                recursive_remove_key(item, to_remove)
+                for item in sorted(value, key=lambda obj: getattr(obj, "id", 0))
+            ]
+    return copy_data
 
 
 def repository_update_entry(hacs: HacsBase, repository: HacsRepository):
@@ -146,49 +178,36 @@ async def async_test_home_assistant(loop, tmpdir):
     hass.async_create_task = async_create_task
 
     hass.config.location_name = "test home"
-    hass.config.config_dir = tmpdir
+    hass.config.config_dir = str(tmpdir)
     hass.config.latitude = 32.87336
     hass.config.longitude = -117.22743
     hass.config.elevation = 0
     hass.config.time_zone = date_util.get_time_zone("US/Pacific")
     hass.config.units = METRIC_SYSTEM
     hass.config.skip_pip = True
-    hass.data = {
-        "integrations": {},
-        "custom_components": {},
-        "preload_platforms": [],
-        "missing_platforms": [],
-        "components": {},
-        "device_registry": DeviceRegistry(hass),
-        "entity_registry": EntityRegistry(hass),
-        "issue_registry": IssueRegistry(hass),
-    }
+    hass.config.skip_pip_packages = []
+    hass.data = {"integrations": {}, "custom_components": {}, "components": {}}
+
+    entity.async_setup(hass)
+    await asyncio.gather(
+        ar.async_load(hass),
+        dr.async_load(hass),
+        er.async_load(hass),
+        ir.async_load(hass),
+        rs.async_load(hass),
+    )
+    hass.data[bootstrap.DATA_REGISTRIES_LOADED] = None
 
     hass.config_entries = config_entries.ConfigEntries(hass, {})
-    hass.config_entries._entries = {}
-    hass.config_entries._store._async_ensure_stop_listener = lambda: None
+    hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, hass.config_entries._async_shutdown)
 
     hass.state = ha.CoreState.running
-
-    # Mock async_start
-    orig_start = hass.async_start
-
-    await http_async_setup(hass, HTTP_CONFIG_SCHEMA({}))
     await async_setup_component(hass, "homeassistant", {})
-
-    async def mock_async_start():
-        """Start the mocking."""
-        # We only mock time during tests and we want to track tasks
-        with patch("homeassistant.core._async_create_timer"), patch.object(
-            hass, "async_stop_track_tasks"
-        ):
-            await orig_start()
-
-    hass.async_start = mock_async_start
 
     async def clear_instance(event):
         """Clear global instance."""
-        await hass.http.stop()
+        if hass.http and hass.http.runner.sites:
+            await hass.http.stop()
         INSTANCES.remove(hass)
 
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_CLOSE, clear_instance)
@@ -286,6 +305,15 @@ class MockOwner(auth_models.User):
         return user
 
 
+class MockConfigEntry(config_entries.ConfigEntry):
+    entry_id = uuid_util.random_uuid_hex()
+
+    def add_to_hass(self, hass: ha.HomeAssistant) -> None:
+        """Test helper to add entry to hass."""
+        hass.config_entries._entries[self.entry_id] = self
+        hass.config_entries._domain_index.setdefault(self.domain, []).append(self.entry_id)
+
+
 class WSClient:
     """WS Client to be used in testing."""
 
@@ -301,7 +329,6 @@ class WSClient:
             return
 
         await async_setup_component(self.hacs.hass, "websocket_api", {})
-        await self.hacs.hass.http.start()
         async_register_websocket_commands(self.hacs.hass)
         self.client = await self.hacs.session.ws_connect("http://localhost:8123/api/websocket")
         auth_response = await self.client.receive_json()
@@ -326,10 +353,33 @@ class WSClient:
 
 class MockedResponse:
     def __init__(self, **kwargs) -> None:
-        self.status = kwargs.get("status", 200)
-        self.read = kwargs.get("read", AsyncMock())
-        self.json = kwargs.get("json", AsyncMock())
+        self.kwargs = kwargs
         self.exception = kwargs.get("exception", None)
+
+    @property
+    def status(self):
+        return self.kwargs.get("status", 200)
+
+    @property
+    def url(self):
+        return self.kwargs.get("url", "http://127.0.0.1")
+
+    @property
+    def headers(self):
+        return self.kwargs.get("headers", {})
+
+    async def read(self, **kwargs):
+        if (content := self.kwargs.get("content")) is not None:
+            return content
+        return await self.kwargs.get("read", AsyncMock())()
+
+    async def json(self, **kwargs):
+        if (content := self.kwargs.get("content")) is not None:
+            return content
+        return await self.kwargs.get("json", AsyncMock())()
+
+    def raise_for_status(self):
+        return self.kwargs.get("raise_for_status")
 
 
 class ResponseMocker:
@@ -361,7 +411,6 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
             os.path.dirname(__file__),
             fixture_file,
         )
-        print(f"Using fixture {fp} for request to {url.host}")
 
         if not os.path.exists(fp) and url.host in ("raw.githubusercontent.com", "data-v2.hacs.xyz"):
             fp = os.path.join(
@@ -369,8 +418,10 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
                 fallback_file,
             )
 
+        print(f"Using fixture {fp} for request to {url.host}")
+
         if not os.path.exists(fp):
-            raise AssertionError(f"Missing fixture for proxy/{url.host}{url.path}")
+            raise Exception(f"Missing fixture for proxy/{url.host}{url.path}")
 
         async def read(**kwargs):
             if url.path.endswith(".zip"):
@@ -383,8 +434,7 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
             with open(fp, encoding="utf-8") as fptr:
                 return json_func.loads(fptr.read())
 
-        return AsyncMock(
-            status=200,
+        return MockedResponse(
             url=url,
             read=read,
             json=json,
@@ -399,3 +449,40 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
     base._request = _request
 
     return base
+
+
+def create_config_entry(
+    data: dict[str, Any] = None, options: dict[str, Any] = None
+) -> MockConfigEntry:
+    return MockConfigEntry(
+        version=1,
+        domain=DOMAIN,
+        title="",
+        data={CONF_TOKEN: TOKEN, **(data or {})},
+        source="user",
+        options={**(options or {})},
+        unique_id="12345",
+    )
+
+
+async def setup_integration(hass: ha.HomeAssistant, config_entry: MockConfigEntry) -> None:
+    mock_session = await client_session_proxy(hass)
+    with patch(
+        "homeassistant.helpers.aiohttp_client.async_get_clientsession", return_value=mock_session
+    ):
+        hass.data.pop("custom_components", None)
+        config_entry.add_to_hass(hass)
+        assert await hass.config_entries.async_setup(config_entry.entry_id)
+        await hass.async_block_till_done()
+
+    hacs: HacsBase = hass.data.get(DOMAIN)
+    for repository in hacs.repositories.list_all:
+        if repository.data.full_name != "hacs/integration":
+            repository.data.installed = False
+            repository.data.installed_version = None
+            repository.data.installed_commit = None
+    assert not hacs.system.disabled
+
+
+def get_hacs(hass: ha.HomeAssistant) -> HacsBase:
+    return hass.data[DOMAIN]

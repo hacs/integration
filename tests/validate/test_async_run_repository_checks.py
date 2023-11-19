@@ -1,12 +1,18 @@
+from typing import Generator
 from unittest.mock import patch
 
 import pytest
 
 from custom_components.hacs.base import HacsBase
+from custom_components.hacs.repositories.integration import HacsIntegrationRepository
 
 
 @pytest.mark.asyncio
-async def test_async_run_repository_checks(hacs: HacsBase, repository_integration):
+async def test_async_run_repository_checks(
+    hacs: HacsBase,
+    repository_integration: HacsIntegrationRepository,
+    proxy_session: Generator,
+):
     hacs.system.action = False
 
     await hacs.validation.async_run_repository_checks(repository_integration)

@@ -206,7 +206,7 @@ async def async_test_home_assistant(loop, tmpdir):
 
     async def clear_instance(event):
         """Clear global instance."""
-        if hass.http and hass.http.runner.sites:
+        if hass.http and hass.http.runner and hass.http.runner.sites:
             await hass.http.stop()
         INSTANCES.remove(hass)
 

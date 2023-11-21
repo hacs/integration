@@ -1327,7 +1327,7 @@ class HacsRepository:
         version = (
             (self.data.installed_version or self.data.installed_commit)
             if self.data.installed
-            else (self.data.last_version or self.data.last_commit)
+            else (self.data.last_version or self.data.last_commit or self.ref)
         )
         self.logger.debug(
             "%s Getting documentation for version=%s,filename=%s",

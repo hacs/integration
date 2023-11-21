@@ -40,6 +40,9 @@ async def test_update_repository_entity(
     await hass.config_entries.async_reload(hacs.configuration.config_entry.entry_id)
     await hass.async_block_till_done()
 
+    # Get a new HACS instance after reload
+    hacs = get_hacs(hass)
+
     er = async_get_entity_registry(hacs.hass)
 
     entity_id = er.async_get_entity_id("update", DOMAIN, repo.data.id)
@@ -78,9 +81,6 @@ async def test_update_repository_websocket(
 
     repo.data.installed = True
     repo.data.installed_version = from_version
-
-    await hass.config_entries.async_reload(hacs.configuration.config_entry.entry_id)
-    await hass.async_block_till_done()
 
     response = await ws_client.send_and_receive_json(
         "hacs/repository/download", {"repository": repo.data.id, "version": to_version}

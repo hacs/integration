@@ -1,16 +1,17 @@
 from glob import iglob
-import json
 import os
+from typing import Generator
 from unittest.mock import ANY
 
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity_registry import async_get as async_get_entity_registry
 import pytest
-from pytest_snapshot.plugin import Snapshot
 
-from custom_components.hacs.base import HacsBase
+from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.enums import HacsCategory
-from custom_components.hacs.utils.data import HacsData
 
-from tests.common import client_session_proxy, repository_update_entry
+from tests.common import get_hacs
+from tests.conftest import SnapshotFixture
 
 
 @pytest.mark.parametrize(
@@ -19,28 +20,39 @@ from tests.common import client_session_proxy, repository_update_entry
 )
 @pytest.mark.asyncio
 async def test_update_repository(
-    hacs: HacsBase, category: HacsCategory, from_version: str, to_version: str, snapshot: Snapshot
+    hass: HomeAssistant,
+    setup_integration: Generator,
+    category: HacsCategory,
+    from_version: str,
+    to_version: str,
+    snapshots: SnapshotFixture,
 ):
-    hacs.configuration.experimental = True
-    snapshot.snapshot_dir = "tests/snapshots"
-    data = HacsData(hacs)
-    hacs.session = await client_session_proxy(hacs.hass)
+    hacs = get_hacs(hass)
     full_name = f"octocat/{category.value}"
-
-    await hacs.async_register_repository(full_name, category)
     repo = hacs.repositories.get_by_full_name(full_name)
+
     assert repo is not None
+
     await repo.async_install(version=from_version)
     assert repo.data.installed is True
     assert repo.data.installed_version == from_version
 
-    entity = repository_update_entry(hacs, repo)
+    await hass.config_entries.async_reload(hacs.configuration.config_entry.entry_id)
 
-    await entity.async_install(version=to_version, backup=False)
+    await hass.async_block_till_done()
+
+    er = async_get_entity_registry(hacs.hass)
+
+    entity_id = er.async_get_entity_id("update", DOMAIN, repo.data.id)
+
+    await hass.services.async_call(
+        "update",
+        "install",
+        service_data={"entity_id": entity_id, "version": to_version, "backup": False},
+        blocking=True,
+    )
+
     assert repo.data.installed_version == to_version
-
-    repo.data.last_fetched = None
-    data.async_store_experimental_repository_data(repo)
 
     downloaded = [
         f.replace(f"{hacs.core.config_path}", "/config")
@@ -49,7 +61,4 @@ async def test_update_repository(
     ]
     assert len(downloaded) != 0
 
-    snapshot.assert_match(
-        json.dumps({"files": sorted(downloaded), "content": data.content}, indent=4),
-        f"{category.value}_test_update_repository.json",
-    )
+    await snapshots.assert_hacs_data(hacs, f"{category.value}_test_update_repository.json")

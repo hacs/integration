@@ -1,9 +1,9 @@
 import os
+from typing import Generator
 
 from homeassistant.core import HomeAssistant
 import pytest
 
-from custom_components.hacs.base import HacsBase
 from custom_components.hacs.enums import HacsCategory
 
 from tests.common import get_hacs
@@ -17,7 +17,7 @@ from tests.conftest import SnapshotFixture
 @pytest.mark.asyncio
 async def test_download_repository(
     hass: HomeAssistant,
-    setup_integration: HacsBase,
+    setup_integration: Generator,
     category: HacsCategory,
     snapshots: SnapshotFixture,
 ):

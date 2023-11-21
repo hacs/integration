@@ -77,13 +77,6 @@ def recursive_remove_key(data: dict[str, Any], to_remove: Iterable[str]) -> dict
     return copy_data
 
 
-def repository_update_entry(hacs: HacsBase, repository: HacsRepository):
-    entity = HacsRepositoryUpdateEntity(hacs=hacs, repository=repository)
-    entity.hass = hacs.hass
-    entity.entity_id = f"sensor.repository_{repository.data.id}"
-    return entity
-
-
 def fixture(filename, asjson=True):
     """Load a fixture."""
     filename = f"{filename}.json" if "." not in filename else filename
@@ -392,12 +385,14 @@ class MockedResponse:
 
 
 class ResponseMocker:
+    calls: list[dict[str, Any]] = []
     responses: dict[str, MockedResponse] = {}
 
     def add(self, url: str, response: MockedResponse) -> None:
         self.responses[url] = response
 
-    def get(self, url: str) -> MockedResponse:
+    def get(self, url: str, *args, **kwargs) -> MockedResponse:
+        self.calls.append({"url": url, "args": list(args), "kwargs": kwargs})
         return self.responses.pop(url, None)
 
 
@@ -407,7 +402,7 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
     response_mocker = ResponseMocker()
 
     async def _request(method: str, str_or_url: StrOrURL, *args, **kwargs):
-        if (resp := response_mocker.get(str_or_url)) is not None:
+        if (resp := response_mocker.get(str_or_url, args, kwargs)) is not None:
             LOGGER.info("Using mocked response for %s", str_or_url)
             if resp.exception:
                 raise resp.exception

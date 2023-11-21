@@ -37,10 +37,8 @@ from yarl import URL
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
-from custom_components.hacs.update import HacsRepositoryUpdateEntity
 from custom_components.hacs.utils.configuration_schema import TOKEN as CONF_TOKEN
 from custom_components.hacs.utils.logger import LOGGER
-from custom_components.hacs.websocket import async_register_websocket_commands
 
 from tests.async_mock import AsyncMock, Mock, patch
 
@@ -321,8 +319,8 @@ class WSClient:
 
     client: ClientWebSocketResponse | None = None
 
-    def __init__(self, hacs: HacsBase, token: str) -> None:
-        self.hacs = hacs
+    def __init__(self, hass: ha.HomeAssistant, token: str) -> None:
+        self.hass = hass
         self.token = token
         self.id = 0
 
@@ -330,9 +328,21 @@ class WSClient:
         if self.client is not None:
             return
 
-        await async_setup_component(self.hacs.hass, "websocket_api", {})
-        async_register_websocket_commands(self.hacs.hass)
-        self.client = await self.hacs.session.ws_connect("http://localhost:8123/api/websocket")
+        clientsession = async_get_clientsession(self.hass)
+
+        async def _async_close_websession(event: ha.Event) -> None:
+            """Close websession."""
+
+            await self.send_json("close", {})
+            await self.client.close()
+
+            clientsession.detach()
+
+        self.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, _async_close_websession)
+
+        self.client = await clientsession.ws_connect(
+            "ws://localhost:8123/api/websocket", timeout=1, autoclose=True
+        )
         auth_response = await self.client.receive_json()
         assert auth_response["type"] == "auth_required"
         await self.client.send_json({"type": "auth", "access_token": self.token})
@@ -399,9 +409,13 @@ class ResponseMocker:
 async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
     """Create a mocked client session."""
     base = async_get_clientsession(hass)
+    base_request = base._request
     response_mocker = ResponseMocker()
 
     async def _request(method: str, str_or_url: StrOrURL, *args, **kwargs):
+        if str_or_url.startswith("ws://"):
+            return await base_request(method, str_or_url, *args, **kwargs)
+
         if (resp := response_mocker.get(str_or_url, args, kwargs)) is not None:
             LOGGER.info("Using mocked response for %s", str_or_url)
             if resp.exception:

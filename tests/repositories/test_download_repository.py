@@ -4,7 +4,7 @@ from typing import Generator
 from homeassistant.core import HomeAssistant
 import pytest
 
-from tests.common import get_hacs
+from tests.common import WSClient, get_hacs
 from tests.conftest import SnapshotFixture
 
 
@@ -16,6 +16,7 @@ from tests.conftest import SnapshotFixture
 async def test_download_repository(
     hass: HomeAssistant,
     setup_integration: Generator,
+    ws_client: WSClient,
     repository_full_name: str,
     snapshots: SnapshotFixture,
 ):
@@ -29,7 +30,10 @@ async def test_download_repository(
 
     assert len(hacs.repositories.list_downloaded) == 1
 
-    await repo.async_install()
+    response = await ws_client.send_and_receive_json(
+        "hacs/repository/download", {"repository": repo.data.id}
+    )
+    assert response["success"] == True
 
     assert len(hacs.repositories.list_downloaded) == 2
 

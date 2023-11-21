@@ -293,7 +293,7 @@ async def proxy_session(hass: HomeAssistant) -> Generator:
 
 
 @pytest_asyncio.fixture
-async def ws_client(hacs: HacsBase, hass: HomeAssistant) -> WSClient:
+async def ws_client(hass: HomeAssistant) -> WSClient:
     """Owner authenticated Websocket client fixture."""
     auth_provider = HassAuthProvider(hass, hass.auth._store, {"type": "homeassistant"})
     hass.auth._providers[(auth_provider.type, auth_provider.id)] = auth_provider
@@ -311,7 +311,7 @@ async def ws_client(hacs: HacsBase, hass: HomeAssistant) -> WSClient:
         owner, "https://hacs.xyz/testing", credential=credentials
     )
 
-    return WSClient(hacs, hass.auth.async_create_access_token(refresh_token))
+    return WSClient(hass, hass.auth.async_create_access_token(refresh_token))
 
 
 @pytest.fixture()

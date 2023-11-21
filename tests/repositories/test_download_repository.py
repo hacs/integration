@@ -4,27 +4,24 @@ from typing import Generator
 from homeassistant.core import HomeAssistant
 import pytest
 
-from custom_components.hacs.enums import HacsCategory
-
 from tests.common import get_hacs
 from tests.conftest import SnapshotFixture
 
 
 @pytest.mark.parametrize(
-    "category",
-    ((HacsCategory.INTEGRATION), (HacsCategory.TEMPLATE)),
+    "repository_full_name",
+    (("hacs-test-org/integration-basic"), ("hacs-test-org/template-basic")),
 )
 @pytest.mark.asyncio
 async def test_download_repository(
     hass: HomeAssistant,
     setup_integration: Generator,
-    category: HacsCategory,
+    repository_full_name: str,
     snapshots: SnapshotFixture,
 ):
     hacs = get_hacs(hass)
-    full_name = f"octocat/{category.value}"
 
-    repo = hacs.repositories.get_by_full_name(full_name)
+    repo = hacs.repositories.get_by_full_name(repository_full_name)
     assert repo is not None
     assert repo.data.installed is False
 
@@ -39,4 +36,4 @@ async def test_download_repository(
     assert repo.data.installed is True
     assert os.path.isdir(repo.localpath)
 
-    await snapshots.assert_hacs_data(hacs, f"{category.value}_test_download_repository.json")
+    await snapshots.assert_hacs_data(hacs, f"{repository_full_name}/test_download_repository.json")

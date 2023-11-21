@@ -8,28 +8,29 @@ from homeassistant.helpers.entity_registry import async_get as async_get_entity_
 import pytest
 
 from custom_components.hacs.const import DOMAIN
-from custom_components.hacs.enums import HacsCategory
 
 from tests.common import get_hacs
 from tests.conftest import SnapshotFixture
 
 
 @pytest.mark.parametrize(
-    "category,from_version,to_version",
-    ((HacsCategory.INTEGRATION, "1.0.0", "2.0.0"), (HacsCategory.TEMPLATE, "1.0.0", "2.0.0")),
+    "repository_full_name,from_version,to_version",
+    (
+        ("hacs-test-org/integration-basic", "1.0.0", "2.0.0"),
+        ("hacs-test-org/template-basic", "1.0.0", "2.0.0"),
+    ),
 )
 @pytest.mark.asyncio
 async def test_update_repository(
     hass: HomeAssistant,
     setup_integration: Generator,
-    category: HacsCategory,
+    repository_full_name: str,
     from_version: str,
     to_version: str,
     snapshots: SnapshotFixture,
 ):
     hacs = get_hacs(hass)
-    full_name = f"octocat/{category.value}"
-    repo = hacs.repositories.get_by_full_name(full_name)
+    repo = hacs.repositories.get_by_full_name(repository_full_name)
 
     assert repo is not None
 
@@ -61,4 +62,4 @@ async def test_update_repository(
     ]
     assert len(downloaded) != 0
 
-    await snapshots.assert_hacs_data(hacs, f"{category.value}_test_update_repository.json")
+    await snapshots.assert_hacs_data(hacs, f"{repository_full_name}/test_update_repository.json")

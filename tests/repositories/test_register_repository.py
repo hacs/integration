@@ -1,5 +1,4 @@
 import json
-from unittest.mock import ANY
 
 import pytest
 from pytest_snapshot.plugin import Snapshot
@@ -12,20 +11,25 @@ from tests.common import client_session_proxy
 
 
 @pytest.mark.parametrize(
-    "category",
-    (HacsCategory.INTEGRATION, HacsCategory.TEMPLATE),
+    "repository_full_name,category",
+    (
+        ("hacs-test-org/integration-basic", HacsCategory.INTEGRATION),
+        ("hacs-test-org/template-basic", HacsCategory.TEMPLATE),
+    ),
 )
 @pytest.mark.asyncio
-async def test_register_repository(hacs: HacsBase, category: HacsCategory, snapshot: Snapshot):
+async def test_register_repository(
+    hacs: HacsBase, repository_full_name: str, category: HacsCategory, snapshot: Snapshot
+):
     snapshot.snapshot_dir = "tests/snapshots"
     data = HacsData(hacs)
     hacs.session = await client_session_proxy(hacs.hass)
 
-    full_name = f"octocat/{category.value}"
+    full_name = f"hacs-test-org/{category.value}"
 
-    assert hacs.repositories.get_by_full_name(full_name) is None
-    await hacs.async_register_repository(full_name, category)
-    repo = hacs.repositories.get_by_full_name(full_name)
+    assert hacs.repositories.get_by_full_name(repository_full_name) is None
+    await hacs.async_register_repository(repository_full_name, category)
+    repo = hacs.repositories.get_by_full_name(repository_full_name)
 
     assert repo is not None
 
@@ -33,5 +37,5 @@ async def test_register_repository(hacs: HacsBase, category: HacsCategory, snaps
     data.async_store_experimental_repository_data(repo)
     snapshot.assert_match(
         json.dumps(data.content, indent=4),
-        f"{category.value}_test_register_repository.json",
+        f"{repository_full_name}/test_register_repository.json",
     )

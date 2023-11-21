@@ -28,13 +28,13 @@ async def test_validate_repository(
     response_mocker: ResponseMocker,
 ):
     repository = HacsRepository(hacs=hacs)
-    repository.data.full_name = "octocat/integration"
+    repository.data.full_name = "hacs-test-org/integration-basic"
     for key, value in data.items():
         setattr(repository.data, key, value)
 
     if result is None:
         response_mocker.add(
-            f"https://raw.githubusercontent.com/octocat/integration/{data['last_version']}/README.md",
+            f"https://raw.githubusercontent.com/hacs-test-org/integration-basic/{data['last_version']}/README.md",
             MockedResponse(status=404),
         )
 

@@ -3,7 +3,6 @@
 import asyncio
 from dataclasses import asdict
 from glob import iglob
-import json
 import logging
 import os
 from pathlib import Path
@@ -18,7 +17,6 @@ from homeassistant.auth.providers.homeassistant import HassAuthProvider
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.json import ExtendedJSONEncoder
 from homeassistant.loader import Integration
 from homeassistant.runner import HassEventLoopPolicy
 import pytest

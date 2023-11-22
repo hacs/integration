@@ -7,7 +7,7 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Generator
+from typing import Any, Generator
 from unittest.mock import AsyncMock, patch
 
 from aiogithubapi import GitHub, GitHubAPI
@@ -18,6 +18,7 @@ from homeassistant.auth.providers.homeassistant import HassAuthProvider
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.json import ExtendedJSONEncoder
 from homeassistant.loader import Integration
 from homeassistant.runner import HassEventLoopPolicy
 import pytest
@@ -240,7 +241,11 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
     """Fixture for a snapshot."""
     snapshot.snapshot_dir = "tests/snapshots"
 
-    async def assert_hacs_data(hacs: HacsBase, filename: str):
+    async def assert_hacs_data(
+        hacs: HacsBase,
+        filename: str,
+        additional: dict[str, Any] | None = None,
+    ):
         await hacs.data.async_force_write()
         downloaded = [
             f.replace(f"{hacs.core.config_path}", "/config")
@@ -269,11 +274,13 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                                 "dev": hacs.configuration.dev,
                             },
                         },
+                        **(additional or {}),
                     },
                     ("last_fetched"),
                 ),
                 indent=4,
                 sort_keys=True,
+                cls=ExtendedJSONEncoder,
             ),
             filename,
         )

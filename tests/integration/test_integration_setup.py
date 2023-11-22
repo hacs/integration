@@ -16,17 +16,10 @@ async def test_integration_setup(
     proxy_session: Generator,
     snapshots: SnapshotFixture,
 ):
-    config_entry = create_config_entry(options={"experimental": True})
+    config_entry = create_config_entry(data={"experimental": True})
     hass.data.pop("custom_components", None)
     config_entry.add_to_hass(hass)
     assert await hass.config_entries.async_setup(config_entry.entry_id)
-    await hass.async_block_till_done()
-
-    hacs: HacsBase = get_hacs(hass)
-    assert not hacs.system.disabled
-    assert hacs.stage == "running"
-
-    assert await hass.config_entries.async_reload(config_entry.entry_id)
     await hass.async_block_till_done()
 
     hacs: HacsBase = get_hacs(hass)

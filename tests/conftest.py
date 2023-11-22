@@ -233,9 +233,12 @@ def repository_netdaemon(hacs):
 
 
 class SnapshotFixture(Snapshot):
-    recursive_remove_key = recursive_remove_key
-
-    async def assert_hacs_data(self, hacs: HacsBase, filename: str):
+    async def assert_hacs_data(
+        self,
+        hacs: HacsBase,
+        filename: str,
+        additional: dict[str, Any] | None = None,
+    ):
         pass
 
 

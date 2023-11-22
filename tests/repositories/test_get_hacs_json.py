@@ -3,10 +3,10 @@ import pytest
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.repositories.base import HacsRepository
 
-from tests.common import MockedResponse, ResponseMocker, client_session_proxy
+from tests.common import ResponseMocker, client_session_proxy
 
 
-@pytest.mark.parametrize("version,name", [("1.0.0", "Proxy manifest"), ("99.99.99", None)])
+@pytest.mark.parametrize("version,name", [("1.0.0", "Integration basic 1.0.0"), ("99.99.99", None)])
 @pytest.mark.asyncio
 async def test_validate_repository(
     hacs: HacsBase,
@@ -16,12 +16,6 @@ async def test_validate_repository(
 ):
     repository = HacsRepository(hacs=hacs)
     repository.data.full_name = "hacs-test-org/integration-basic"
-
-    if name is None:
-        response_mocker.add(
-            f"https://raw.githubusercontent.com/hacs-test-org/integration-basic/{version}/hacs.json",
-            MockedResponse(status=404),
-        )
 
     hacs.session = await client_session_proxy(hacs.hass)
     manifest = await repository.get_hacs_json(version=version)

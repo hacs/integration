@@ -424,17 +424,10 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
 
         url = URL(str_or_url)
         fixture_file = f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host in ('api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
-        fallback_file = f"fixtures/proxy/{url.host}/base/{url.path.split('/')[-1]}"
         fp = os.path.join(
             os.path.dirname(__file__),
             fixture_file,
         )
-
-        if not os.path.exists(fp) and url.host in ("raw.githubusercontent.com", "data-v2.hacs.xyz"):
-            fp = os.path.join(
-                os.path.dirname(__file__),
-                fallback_file,
-            )
 
         print(f"Using fixture {fp} for request to {url.host}")
 

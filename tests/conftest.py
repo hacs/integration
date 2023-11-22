@@ -58,6 +58,7 @@ from tests.common import (
     dummy_repository_base,
     mock_storage as mock_storage,
     recursive_remove_key,
+    safe_json_dumps,
     setup_integration as common_setup_integration,
 )
 
@@ -232,6 +233,8 @@ def repository_netdaemon(hacs):
 
 
 class SnapshotFixture(Snapshot):
+    recursive_remove_key = recursive_remove_key
+
     async def assert_hacs_data(self, hacs: HacsBase, filename: str):
         pass
 
@@ -259,7 +262,7 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
             for entry in value:
                 data[key][entry["id"]] = entry
         snapshot.assert_match(
-            json.dumps(
+            safe_json_dumps(
                 recursive_remove_key(
                     {
                         "directory": sorted(downloaded),
@@ -277,10 +280,7 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                         **(additional or {}),
                     },
                     ("last_fetched"),
-                ),
-                indent=4,
-                sort_keys=True,
-                cls=ExtendedJSONEncoder,
+                )
             ),
             filename,
         )

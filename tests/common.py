@@ -28,6 +28,7 @@ from homeassistant.helpers import (
     storage,
 )
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.json import ExtendedJSONEncoder
 from homeassistant.setup import async_setup_component
 import homeassistant.util.dt as date_util
 from homeassistant.util.unit_system import METRIC_SYSTEM
@@ -45,6 +46,15 @@ from tests.async_mock import AsyncMock, Mock, patch
 _LOGGER = LOGGER
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 INSTANCES = []
+
+
+def safe_json_dumps(data: dict | list) -> str:
+    return json_func.dumps(
+        data,
+        indent=4,
+        sort_keys=True,
+        cls=ExtendedJSONEncoder,
+    )
 
 
 def recursive_remove_key(data: dict[str, Any], to_remove: Iterable[str]) -> dict[str, Any]:

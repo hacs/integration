@@ -1,41 +1,44 @@
-import json
+from typing import Generator
 
+from homeassistant.core import HomeAssistant
 import pytest
-from pytest_snapshot.plugin import Snapshot
 
-from custom_components.hacs.base import HacsBase
 from custom_components.hacs.enums import HacsCategory
-from custom_components.hacs.utils.data import HacsData
 
-from tests.common import client_session_proxy
+from tests.common import WSClient, get_hacs, recursive_remove_key, safe_json_dumps
+from tests.conftest import SnapshotFixture
 
 
 @pytest.mark.parametrize(
     "repository_full_name,category",
-    (
-        ("hacs-test-org/integration-basic", HacsCategory.INTEGRATION),
-        ("hacs-test-org/template-basic", HacsCategory.TEMPLATE),
-    ),
+    (("hacs-test-org/integration-basic-custom", HacsCategory.INTEGRATION),),
 )
 @pytest.mark.asyncio
 async def test_register_repository(
-    hacs: HacsBase, repository_full_name: str, category: HacsCategory, snapshot: Snapshot
+    hass: HomeAssistant,
+    setup_integration: Generator,
+    repository_full_name: str,
+    category: HacsCategory,
+    snapshots: SnapshotFixture,
+    ws_client: WSClient,
 ):
-    snapshot.snapshot_dir = "tests/snapshots"
-    data = HacsData(hacs)
-    hacs.session = await client_session_proxy(hacs.hass)
-
-    full_name = f"hacs-test-org/{category.value}"
+    hacs = get_hacs(hass)
 
     assert hacs.repositories.get_by_full_name(repository_full_name) is None
-    await hacs.async_register_repository(repository_full_name, category)
-    repo = hacs.repositories.get_by_full_name(repository_full_name)
 
+    response = await ws_client.send_and_receive_json(
+        "hacs/repositories/add", {"repository": repository_full_name, "category": category.value}
+    )
+    assert response["success"] == True
+    repo = hacs.repositories.get_by_full_name(repository_full_name)
     assert repo is not None
 
-    repo.data.last_fetched = None
-    data.async_store_experimental_repository_data(repo)
-    snapshot.assert_match(
-        json.dumps(data.content, indent=4),
+    response = await ws_client.send_and_receive_json(
+        "hacs/repository/info", {"repository_id": repo.data.id}
+    )
+    assert response["success"] == True
+
+    snapshots.assert_match(
+        safe_json_dumps(recursive_remove_key(response["result"], ("last_updated", "local_path"))),
         f"{repository_full_name}/test_register_repository.json",
     )

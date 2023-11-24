@@ -7,6 +7,7 @@ import functools as ft
 import json as json_func
 import os
 from typing import Any, Iterable, Mapping
+from unittest.mock import AsyncMock, Mock, patch
 
 from aiohttp import ClientSession, ClientWebSocketResponse
 from aiohttp.typedefs import StrOrURL
@@ -40,8 +41,6 @@ from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
 from custom_components.hacs.utils.configuration_schema import TOKEN as CONF_TOKEN
 from custom_components.hacs.utils.logger import LOGGER
-
-from tests.async_mock import AsyncMock, Mock, patch
 
 _LOGGER = LOGGER
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -414,6 +413,55 @@ class ResponseMocker:
     def get(self, url: str, *args, **kwargs) -> MockedResponse:
         self.calls.append({"url": url, "args": list(args), "kwargs": kwargs})
         return self.responses.pop(url, None)
+
+
+class ProxyClientSession(ClientSession):
+    response_mocker = ResponseMocker()
+
+    async def _request(self, method: str, str_or_url: StrOrURL, *args, **kwargs):
+        if str_or_url.startswith("ws://"):
+            return await super()._request(method, str_or_url, *args, **kwargs)
+
+        if (resp := self.response_mocker.get(str_or_url, args, kwargs)) is not None:
+            LOGGER.info("Using mocked response for %s", str_or_url)
+            if resp.exception:
+                raise resp.exception
+            return resp
+
+        url = URL(str_or_url)
+        fixture_file = f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host in ('api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
+        fp = os.path.join(
+            os.path.dirname(__file__),
+            fixture_file,
+        )
+
+        print(f"Using fixture {fp} for request to {url.host}")
+
+        if not os.path.exists(fp):
+            raise Exception(f"Missing fixture for proxy/{url.host}{url.path}")
+
+        async def read(**kwargs):
+            if url.path.endswith(".zip"):
+                with open(fp, mode="rb") as fptr:
+                    return fptr.read()
+            with open(fp, encoding="utf-8") as fptr:
+                return fptr.read().encode("utf-8")
+
+        async def json(**kwargs):
+            with open(fp, encoding="utf-8") as fptr:
+                return json_func.loads(fptr.read())
+
+        return MockedResponse(
+            url=url,
+            read=read,
+            json=json,
+            headers={
+                "X-RateLimit-Limit": "999",
+                "X-RateLimit-Remaining": "999",
+                "X-RateLimit-Reset": "999",
+                "Content-Type": "application/json",
+            },
+        )
 
 
 async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:

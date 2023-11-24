@@ -1,11 +1,11 @@
 """Data Test Suite."""
+from unittest.mock import patch
+
 import pytest
 
 from custom_components.hacs.base import HacsRepositories
 from custom_components.hacs.enums import HacsGitHubRepo
 from custom_components.hacs.utils.data import HacsData
-
-from tests.async_mock import patch
 
 
 @pytest.mark.asyncio

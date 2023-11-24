@@ -7,10 +7,11 @@ import logging
 import os
 from pathlib import Path
 from typing import Any, Generator
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 from aiogithubapi import GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
+from aiohttp import ClientSession
 from awesomeversion import AwesomeVersion
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
@@ -44,7 +45,6 @@ from custom_components.hacs.utils.queue_manager import QueueManager
 from custom_components.hacs.utils.store import async_load_from_store
 from custom_components.hacs.validate.manager import ValidationManager
 
-from tests.async_mock import MagicMock
 from tests.common import (
     TOKEN,
     MockOwner,

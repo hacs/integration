@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 from contextlib import contextmanager
+from contextvars import ContextVar
 import functools as ft
 import json as json_func
 import os
@@ -34,6 +35,7 @@ from homeassistant.setup import async_setup_component
 import homeassistant.util.dt as date_util
 from homeassistant.util.unit_system import METRIC_SYSTEM
 import homeassistant.util.uuid as uuid_util
+import pytest
 from yarl import URL
 
 from custom_components.hacs.base import HacsBase
@@ -45,6 +47,7 @@ from custom_components.hacs.utils.logger import LOGGER
 _LOGGER = LOGGER
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 INSTANCES = []
+REQUEST_CONTEXT: ContextVar[pytest.FixtureRequest] = ContextVar("request_context", default=None)
 
 
 def safe_json_dumps(data: dict | list) -> str:
@@ -411,7 +414,10 @@ class ResponseMocker:
         self.responses[url] = response
 
     def get(self, url: str, *args, **kwargs) -> MockedResponse:
-        self.calls.append({"url": url, "args": list(args), "kwargs": kwargs})
+        data = {"url": url, "args": list(args), "kwargs": kwargs}
+        if (request := REQUEST_CONTEXT.get()) is not None:
+            data["_test_caller"] = request.node.name
+        self.calls.append(data)
         return self.responses.pop(url, None)
 
 

@@ -3,6 +3,7 @@
 import asyncio
 from dataclasses import asdict
 from glob import iglob
+import json
 import logging
 import os
 from pathlib import Path
@@ -11,7 +12,6 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 from aiogithubapi import GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
-from aiohttp import ClientSession
 from awesomeversion import AwesomeVersion
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
@@ -46,6 +46,7 @@ from custom_components.hacs.utils.store import async_load_from_store
 from custom_components.hacs.validate.manager import ValidationManager
 
 from tests.common import (
+    REQUEST_CONTEXT,
     TOKEN,
     MockOwner,
     ResponseMocker,
@@ -78,6 +79,12 @@ asyncio.set_event_loop_policy = lambda policy: None
 # Disable sleep in tests
 _sleep = asyncio.sleep
 asyncio.sleep = lambda _: _sleep(0)
+
+
+@pytest.fixture(autouse=True)
+def set_request_context(request: pytest.FixtureRequest):
+    """Set request context for every test."""
+    REQUEST_CONTEXT.set(request)
 
 
 @pytest.fixture()
@@ -332,3 +339,27 @@ def response_mocker(proxy_session: Generator) -> ResponseMocker:
 @pytest_asyncio.fixture
 async def setup_integration(hass: HomeAssistant) -> None:
     await common_setup_integration(hass, create_config_entry(options={"experimental": True}))
+
+
+def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
+    response_mocker = ResponseMocker()
+    calls = {}
+    if session.config.args[0] != "tests" or exitstatus != 0:
+        return
+
+    for call in response_mocker.calls:
+        if (_test_caller := call.get("_test_caller")) is None:
+            continue
+        if _test_caller not in calls:
+            calls[_test_caller] = {}
+        if (url := call.get("url")) not in calls[_test_caller]:
+            calls[_test_caller][url] = 0
+        calls[_test_caller][url] += 1
+
+    if session.config.option.snapshot_update:
+        with open("tests/output/proxy_calls.json", mode="w", encoding="utf-8") as file:
+            file.write(safe_json_dumps(calls))
+
+    with open("tests/output/proxy_calls.json", encoding="utf-8") as file:
+        current = json.load(file)
+        assert current == calls

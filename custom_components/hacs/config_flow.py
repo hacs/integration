@@ -94,6 +94,15 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     session=aiohttp_client.async_get_clientsession(self.hass),
                     **{"client_name": f"HACS/{integration.version}"},
                 )
+            if self._login_device:
+                return self.async_show_progress(
+                    step_id="device",
+                    progress_action="wait_for_device",
+                    description_placeholders={
+                        "url": OAUTH_USER_LOGIN,
+                        "code": self._login_device.user_code,
+                    },
+                )
             async_call_later(self.hass, 1, _wait_for_activation)
             try:
                 response = await self.device.register()

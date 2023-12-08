@@ -1,16 +1,23 @@
 """Adds config flow for HACS."""
 from __future__ import annotations
 
+import asyncio
+from contextlib import suppress
 from typing import TYPE_CHECKING
 
-from aiogithubapi import GitHubDeviceAPI, GitHubException
+from aiogithubapi import (
+    GitHubDeviceAPI,
+    GitHubException,
+    GitHubLoginDeviceModel,
+    GitHubLoginOauthModel,
+)
 from aiogithubapi.common.const import OAUTH_USER_LOGIN
 from awesomeversion import AwesomeVersion
-from homeassistant import config_entries
+from homeassistant.config_entries import ConfigFlow, OptionsFlow
 from homeassistant.const import __version__ as HAVERSION
 from homeassistant.core import callback
+from homeassistant.data_entry_flow import UnknownFlow
 from homeassistant.helpers import aiohttp_client
-from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
 import voluptuous as vol
 
@@ -33,23 +40,22 @@ if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
 
 
-class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
     """Config flow for HACS."""
 
-    hass: HomeAssistant
-
     VERSION = 1
-    CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
 
-    def __init__(self):
+    hass: HomeAssistant
+    activation_task: asyncio.Task | None = None
+    device: GitHubDeviceAPI | None = None
+
+    _registration: GitHubLoginDeviceModel | None = None
+    _activation: GitHubLoginOauthModel | None = None
+    _reauth: bool = False
+
+    def __init__(self) -> None:
         """Initialize."""
         self._errors = {}
-        self.device = None
-        self.activation = None
-        self.log = LOGGER
-        self._progress_task = None
-        self._login_device = None
-        self._reauth = False
         self._user_input = {}
 
     async def async_step_user(self, user_input):
@@ -72,45 +78,58 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         ## Initial form
         return await self._show_config_form(user_input)
 
+    @callback
+    def async_remove(self):
+        """Cleanup."""
+        if self.activation_task and not self.activation_task.done():
+            self.activation_task.cancel()
+
     async def async_step_device(self, _user_input):
-        """Handle device steps"""
+        """Handle device steps."""
 
-        async def _wait_for_activation(_=None):
-            if self._login_device is None or self._login_device.expires_in is None:
-                async_call_later(self.hass, 1, _wait_for_activation)
-                return
+        async def _wait_for_activation() -> None:
+            try:
+                response = await self.device.activation(device_code=self._registration.device_code)
+                self._activation = response.data
+            finally:
 
-            response = await self.device.activation(device_code=self._login_device.device_code)
-            self.activation = response.data
-            self.hass.async_create_task(
-                self.hass.config_entries.flow.async_configure(flow_id=self.flow_id)
-            )
+                async def _progress():
+                    with suppress(UnknownFlow):
+                        await self.hass.config_entries.flow.async_configure(flow_id=self.flow_id)
 
-        if not self.activation:
+                self.hass.async_create_task(_progress())
+
+        if not self.device:
             integration = await async_get_integration(self.hass, DOMAIN)
-            if not self.device:
-                self.device = GitHubDeviceAPI(
-                    client_id=CLIENT_ID,
-                    session=aiohttp_client.async_get_clientsession(self.hass),
-                    **{"client_name": f"HACS/{integration.version}"},
-                )
-            async_call_later(self.hass, 1, _wait_for_activation)
+            self.device = GitHubDeviceAPI(
+                client_id=CLIENT_ID,
+                session=aiohttp_client.async_get_clientsession(self.hass),
+                **{"client_name": f"HACS/{integration.version}"},
+            )
             try:
                 response = await self.device.register()
-                self._login_device = response.data
-                return self.async_show_progress(
-                    step_id="device",
-                    progress_action="wait_for_device",
-                    description_placeholders={
-                        "url": OAUTH_USER_LOGIN,
-                        "code": self._login_device.user_code,
-                    },
-                )
+                self._registration = response.data
             except GitHubException as exception:
-                self.log.error(exception)
-                return self.async_abort(reason="github")
+                LOGGER.exception(exception)
+                return self.async_abort(reason="could_not_register")
 
-        return self.async_show_progress_done(next_step_id="device_done")
+        if self.activation_task is None:
+            self.activation_task = self.hass.async_create_task(_wait_for_activation())
+
+        if self.activation_task.done():
+            if (exception := self.activation_task.exception()) is not None:
+                LOGGER.exception(exception)
+                return self.async_show_progress_done(next_step_id="could_not_register")
+            return self.async_show_progress_done(next_step_id="device_done")
+
+        return self.async_show_progress(
+            step_id="device",
+            progress_action="wait_for_device",
+            description_placeholders={
+                "url": OAUTH_USER_LOGIN,
+                "code": self._registration.user_code,
+            },
+        )
 
     async def _show_config_form(self, user_input):
         """Show the configuration form to edit location data."""
@@ -146,7 +165,7 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if self._reauth:
             existing_entry = self.hass.config_entries.async_get_entry(self.context["entry_id"])
             self.hass.config_entries.async_update_entry(
-                existing_entry, data={**existing_entry.data, "token": self.activation.access_token}
+                existing_entry, data={**existing_entry.data, "token": self._activation.access_token}
             )
             await self.hass.config_entries.async_reload(existing_entry.entry_id)
             return self.async_abort(reason="reauth_successful")
@@ -154,12 +173,16 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_create_entry(
             title="",
             data={
-                "token": self.activation.access_token,
+                "token": self._activation.access_token,
             },
             options={
                 "experimental": self._user_input.get("experimental", False),
             },
         )
+
+    async def async_step_could_not_register(self, _user_input=None):
+        """Handle issues that need transition await from progress step."""
+        return self.async_abort(reason="could_not_register")
 
     async def async_step_reauth(self, _user_input=None):
         """Perform reauth upon an API authentication error."""
@@ -181,7 +204,7 @@ class HacsFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return HacsOptionsFlowHandler(config_entry)
 
 
-class HacsOptionsFlowHandler(config_entries.OptionsFlow):
+class HacsOptionsFlowHandler(OptionsFlow):
     """HACS config flow options handler."""
 
     def __init__(self, config_entry):

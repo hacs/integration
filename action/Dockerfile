@@ -16,7 +16,7 @@ RUN \
     \
     && bash /hacs/scripts/install/pip_packages setuptools wheel \
     \
-    && bash /hacs/scripts/install/pip_packages homeassistant aiogithubapi \
+    && bash /hacs/scripts/install/pip_packages homeassistant aiogithubapi async-timeout \
     \
     && bash /hacs/scripts/install/frontend \
     \

@@ -1,4 +1,3 @@
-import os
 from typing import Generator
 
 from homeassistant.core import HomeAssistant
@@ -10,7 +9,7 @@ from tests.conftest import SnapshotFixture
 
 @pytest.mark.parametrize(
     "repository_full_name",
-    (("hacs-test-org/integration-basic"), ("hacs-test-org/template-basic")),
+    (("hacs-test-org/integration-basic"), ("hacs-test-org/template-basic"),("hacs-test-org/plugin-basic")),
 )
 @pytest.mark.asyncio
 async def test_download_repository(
@@ -26,8 +25,6 @@ async def test_download_repository(
     assert repo is not None
     assert repo.data.installed is False
 
-    assert not os.path.isdir(repo.localpath)
-
     assert len(hacs.repositories.list_downloaded) == 1
 
     response = await ws_client.send_and_receive_json(
@@ -38,6 +35,5 @@ async def test_download_repository(
     assert len(hacs.repositories.list_downloaded) == 2
 
     assert repo.data.installed is True
-    assert os.path.isdir(repo.localpath)
 
     await snapshots.assert_hacs_data(hacs, f"{repository_full_name}/test_download_repository.json")

@@ -12,7 +12,7 @@ from tests.conftest import SnapshotFixture
 
 @pytest.mark.parametrize(
     "repository_full_name,category",
-    (("hacs-test-org/integration-basic-custom", HacsCategory.INTEGRATION),),
+    (("hacs-test-org/integration-basic-custom", HacsCategory.INTEGRATION),("hacs-test-org/plugin-custom-dist", HacsCategory.PLUGIN),),
 )
 @pytest.mark.asyncio
 async def test_register_repository(

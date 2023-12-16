@@ -13,6 +13,7 @@ from tests.conftest import SnapshotFixture
         ("hacs-test-org/integration-basic"),
         ("hacs-test-org/template-basic"),
         ("hacs-test-org/plugin-basic"),
+        ("hacs-test-org/theme-basic"),
     ),
 )
 @pytest.mark.asyncio
@@ -30,6 +31,9 @@ async def test_download_repository(
     assert repo.data.installed is False
 
     assert len(hacs.repositories.list_downloaded) == 1
+
+    # workaround for local path bug in tests
+    repo.content.path.local = repo.localpath
 
     response = await ws_client.send_and_receive_json(
         "hacs/repository/download", {"repository": repo.data.id}

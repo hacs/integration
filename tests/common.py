@@ -13,7 +13,7 @@ from unittest.mock import AsyncMock, Mock, patch
 from aiohttp import ClientSession, ClientWebSocketResponse
 from aiohttp.typedefs import StrOrURL
 from awesomeversion import AwesomeVersion
-from homeassistant import auth, bootstrap, config_entries, core as ha
+from homeassistant import auth, bootstrap, config_entries, core as ha, config as ha_config
 from homeassistant.auth import auth_store, models as auth_models
 from homeassistant.const import (
     EVENT_HOMEASSISTANT_CLOSE,
@@ -48,6 +48,14 @@ _LOGGER = LOGGER
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 INSTANCES = []
 REQUEST_CONTEXT: ContextVar[pytest.FixtureRequest] = ContextVar("request_context", default=None)
+
+IGNORED_BASE_FILES = set([
+        "/config/automations.yaml",
+        "/config/configuration.yaml",
+        "/config/scenes.yaml",
+        "/config/scripts.yaml",
+        "/config/secrets.yaml",
+    ])
 
 
 def safe_json_dumps(data: dict | list) -> str:
@@ -219,6 +227,7 @@ async def async_test_home_assistant(loop, tmpdir):
         INSTANCES.remove(hass)
 
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_CLOSE, clear_instance)
+    await ha_config.async_ensure_config_exists(hass)
 
     return hass
 

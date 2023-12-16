@@ -14,6 +14,7 @@ test_data = (
     ("hacs-test-org/integration-basic", "1.0.0", "2.0.0"),
     ("hacs-test-org/template-basic", "1.0.0", "2.0.0"),
     ("hacs-test-org/plugin-basic", "1.0.0", "2.0.0"),
+    ("hacs-test-org/theme-basic", "1.0.0", "2.0.0"),
 )
 
 

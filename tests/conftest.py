@@ -46,6 +46,7 @@ from custom_components.hacs.utils.store import async_load_from_store
 from custom_components.hacs.validate.manager import ValidationManager
 
 from tests.common import (
+    IGNORED_BASE_FILES,
     REQUEST_CONTEXT,
     TOKEN,
     MockOwner,
@@ -273,7 +274,7 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
             safe_json_dumps(
                 recursive_remove_key(
                     {
-                        "directory": sorted(downloaded),
+                        "directory": sorted(f for f in downloaded if f not in IGNORED_BASE_FILES),
                         "data": data,
                         "hacs": {
                             "system": asdict(hacs.system),

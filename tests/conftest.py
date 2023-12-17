@@ -50,6 +50,7 @@ from tests.common import (
     REQUEST_CONTEXT,
     TOKEN,
     MockOwner,
+    ProxyClientSession,
     ResponseMocker,
     WSClient,
     async_test_home_assistant,
@@ -298,12 +299,14 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
     return snapshot
 
 
-@pytest_asyncio.fixture
+@pytest_asyncio.fixture(autouse=True)
 async def proxy_session(hass: HomeAssistant) -> Generator:
     """Fixture for a proxy_session."""
     mock_session = await client_session_proxy(hass)
     with patch(
         "homeassistant.helpers.aiohttp_client.async_get_clientsession", return_value=mock_session
+    ), patch("scripts.data.generate_category_data.ClientSession", ProxyClientSession), patch(
+        "aiohttp.ClientSession", ProxyClientSession
     ):
         yield
 

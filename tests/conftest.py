@@ -334,9 +334,8 @@ async def ws_client(hass: HomeAssistant) -> WSClient:
 
 
 @pytest.fixture()
-def response_mocker(proxy_session: Generator) -> ResponseMocker:
+def response_mocker() -> ResponseMocker:
     """Mock fixture for responses."""
-    assert proxy_session is None
     yield ResponseMocker()
 
 

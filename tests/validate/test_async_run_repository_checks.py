@@ -11,7 +11,6 @@ from custom_components.hacs.repositories.integration import HacsIntegrationRepos
 async def test_async_run_repository_checks(
     hacs: HacsBase,
     repository_integration: HacsIntegrationRepository,
-    proxy_session: Generator,
 ):
     hacs.system.action = False
 

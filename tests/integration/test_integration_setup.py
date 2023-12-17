@@ -13,7 +13,6 @@ from tests.conftest import SnapshotFixture
 @pytest.mark.asyncio
 async def test_integration_setup(
     hass: HomeAssistant,
-    proxy_session: Generator,
     snapshots: SnapshotFixture,
 ):
     config_entry = create_config_entry(data={"experimental": True})

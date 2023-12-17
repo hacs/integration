@@ -225,6 +225,8 @@ async def async_test_home_assistant(loop, tmpdir):
 
     hass.state = ha.CoreState.running
     await async_setup_component(hass, "homeassistant", {})
+    with patch("homeassistant.components.python_script.setup", return_value=True):
+        assert await async_setup_component(hass, "python_script", {})
 
     async def clear_instance(event):
         """Clear global instance."""

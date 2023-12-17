@@ -339,7 +339,7 @@ def response_mocker(proxy_session: Generator) -> ResponseMocker:
 
 @pytest_asyncio.fixture
 async def setup_integration(hass: HomeAssistant) -> None:
-    await common_setup_integration(hass, create_config_entry(options={"experimental": True}))
+    await common_setup_integration(hass, create_config_entry(options={"experimental": True, "appdaemon": True, "netdaemon": True}))
 
 
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int):

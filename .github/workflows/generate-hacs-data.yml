@@ -98,7 +98,7 @@ jobs:
           diff -u outputdata/diff/${{ matrix.category }}_before.json outputdata/diff/${{ matrix.category }}_after.json > outputdata/diff/${{ matrix.category }}.diff || true
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: steps.updated.outputs.updated == 'true'
         with:
           name: ${{ matrix.category }}

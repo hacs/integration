@@ -26,25 +26,15 @@ async def test_hacs_data_async_write2(hacs):
 
 
 @pytest.mark.asyncio
-async def test_hacs_data_restore_write_new(hacs, caplog):
-    data = HacsData(hacs)
-    await data.restore()
-    with patch("custom_components.hacs.utils.data.async_save_to_store") as mock_async_save_to_store:
-        await data.async_write()
-    assert mock_async_save_to_store.called
-    assert "Loading base repository information" in caplog.text
-
-
-@pytest.mark.asyncio
 async def test_hacs_data_restore_write_not_new(hacs, caplog):
     data = HacsData(hacs)
 
     async def _mocked_loads(hass, key):
         if key == "repositories":
             return {
-                "172733314": {
+                "1727333146": {
                     "category": "integration",
-                    "full_name": "hacs/integration",
+                    "full_name": "hacs/integration2",
                     "installed": True,
                     "show_beta": True,
                 },
@@ -55,6 +45,8 @@ async def test_hacs_data_restore_write_not_new(hacs, caplog):
                 },
             }
         elif key == "hacs":
+            return {}
+        elif key == "data":
             return {}
         elif key == "renamed_repositories":
             return {}
@@ -70,11 +62,11 @@ async def test_hacs_data_restore_write_not_new(hacs, caplog):
     assert hacs.repositories.get_by_id("202226247")
     assert hacs.repositories.get_by_full_name("shbatm/hacs-isy994")
 
-    assert hacs.repositories.get_by_id("172733314")
+    assert hacs.repositories.get_by_id("1727333146")
     assert hacs.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
 
-    assert hacs.repositories.get_by_id("172733314").data.show_beta is True
-    assert hacs.repositories.get_by_id("172733314").data.installed is True
+    assert hacs.repositories.get_by_id("1727333146").data.show_beta is True
+    assert hacs.repositories.get_by_id("1727333146").data.installed is True
 
     with patch("custom_components.hacs.utils.data.async_save_to_store") as mock_async_save_to_store:
         await data.async_write()

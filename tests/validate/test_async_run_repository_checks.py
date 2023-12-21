@@ -5,6 +5,7 @@ import pytest
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.repositories.integration import HacsIntegrationRepository
+from custom_components.hacs.validate.manager import ValidationManager
 
 
 @pytest.mark.asyncio
@@ -12,6 +13,7 @@ async def test_async_run_repository_checks(
     hacs: HacsBase,
     repository_integration: HacsIntegrationRepository,
 ):
+    hacs.validation = ValidationManager(hacs=hacs, hass=hacs.hass)
     hacs.system.action = False
 
     await hacs.validation.async_run_repository_checks(repository_integration)

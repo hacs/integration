@@ -6,32 +6,19 @@ from glob import iglob
 import json
 import logging
 import os
-from pathlib import Path
+import shutil
 from typing import Any, Generator
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import MagicMock, patch
 
-from aiogithubapi import GitHub, GitHubAPI
-from aiogithubapi.const import ACCEPT_HEADERS
-from awesomeversion import AwesomeVersion
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
-from homeassistant.const import __version__ as HAVERSION
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.loader import Integration
 from homeassistant.runner import HassEventLoopPolicy
 import pytest
 import pytest_asyncio
 from pytest_snapshot.plugin import Snapshot
 
-from custom_components.hacs.base import (
-    HacsBase,
-    HacsCommon,
-    HacsCore,
-    HacsRepositories,
-    HacsSystem,
-)
-from custom_components.hacs.const import DOMAIN
+from custom_components.hacs.base import HacsBase
 from custom_components.hacs.repositories import (
     HacsAppdaemonRepository,
     HacsIntegrationRepository,
@@ -41,14 +28,11 @@ from custom_components.hacs.repositories import (
     HacsTemplateRepository,
     HacsThemeRepository,
 )
-from custom_components.hacs.utils.queue_manager import QueueManager
 from custom_components.hacs.utils.store import async_load_from_store
-from custom_components.hacs.validate.manager import ValidationManager
 
 from tests.common import (
     IGNORED_BASE_FILES,
     REQUEST_CONTEXT,
-    TOKEN,
     MockOwner,
     ProxyClientSession,
     ResponseMocker,
@@ -57,6 +41,7 @@ from tests.common import (
     client_session_proxy,
     create_config_entry,
     dummy_repository_base,
+    get_hacs,
     mock_storage as mock_storage,
     recursive_remove_key,
     safe_json_dumps,
@@ -132,56 +117,13 @@ def hass(event_loop, tmpdir):
     event_loop.run_until_complete(hass_obj.async_stop(force=True))
     for ex in exceptions:
         raise ex
+    shutil.rmtree(hass_obj.config.config_dir)
 
 
-@pytest_asyncio.fixture
-async def hacs(hass: HomeAssistant):
+@pytest.fixture
+def hacs(hass: HomeAssistant):
     """Fixture to provide a HACS object."""
-    hacs_obj = HacsBase()
-    hacs_obj.hass = hass
-    hacs_obj.validation = ValidationManager(hacs=hacs_obj, hass=hass)
-    hacs_obj.session = async_get_clientsession(hass)
-    hacs_obj.repositories = HacsRepositories()
-
-    hacs_obj.integration = Integration(
-        hass=hass,
-        pkg_path="custom_components.hacs",
-        file_path=Path(hass.config.path("custom_components/hacs")),
-        manifest={"domain": DOMAIN, "version": "0.0.0", "requirements": ["hacs_frontend==1"]},
-    )
-    hacs_obj.common = HacsCommon()
-    hacs_obj.data = AsyncMock()
-    hacs_obj.queue = QueueManager(hass=hass)
-    hacs_obj.core = HacsCore()
-    hacs_obj.system = HacsSystem()
-
-    hacs_obj.core.config_path = hass.config.path()
-    hacs_obj.core.ha_version = AwesomeVersion(HAVERSION)
-    hacs_obj.version = hacs_obj.integration.version
-    hacs_obj.configuration.token = TOKEN
-
-    ## Old GitHub client
-    hacs_obj.github = GitHub(
-        token=hacs_obj.configuration.token,
-        session=hacs_obj.session,
-        headers={
-            "User-Agent": "HACS/pytest",
-            "Accept": ACCEPT_HEADERS["preview"],
-        },
-    )
-
-    ## New GitHub client
-    hacs_obj.githubapi = GitHubAPI(
-        token=hacs_obj.configuration.token,
-        session=hacs_obj.session,
-        **{"client_name": "HACS/pytest"},
-    )
-
-    hacs_obj.queue.clear()
-
-    hass.data[DOMAIN] = hacs_obj
-
-    yield hacs_obj
+    return get_hacs(hass)
 
 
 @pytest.fixture
@@ -339,18 +281,18 @@ def response_mocker() -> ResponseMocker:
     yield ResponseMocker()
 
 
-@pytest_asyncio.fixture
+@pytest_asyncio.fixture(autouse=True)
 async def setup_integration(hass: HomeAssistant) -> None:
-    await common_setup_integration(
-        hass,
-        create_config_entry(
-            options={
-                "experimental": True,
-                "appdaemon": True,
-                "netdaemon": True,
-            }
-        ),
+    config_entry = create_config_entry(
+        options={
+            "experimental": True,
+            "appdaemon": True,
+            "netdaemon": True,
+        }
     )
+    await common_setup_integration(hass, config_entry)
+    yield
+    await hass.config_entries.async_remove(config_entry.entry_id)
 
 
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int):

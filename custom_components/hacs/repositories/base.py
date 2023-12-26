@@ -37,7 +37,7 @@ from ..utils.logger import LOGGER
 from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
 from ..utils.store import async_remove_store
-from ..utils.url import archive_download, asset_download
+from ..utils.url import github_archive, github_release_asset
 from ..utils.validate import Validate
 from ..utils.version import (
     version_left_higher_or_equal_then_right,
@@ -565,10 +565,10 @@ class HacsRepository:
             await self.async_download_zip_file(
                 DownloadableContent(
                     name=self.repository_manifest.filename,
-                    url=asset_download(
+                    url=github_release_asset(
                         repository=self.data.full_name,
                         version=self.ref,
-                        filenme=self.repository_manifest.filename,
+                        filename=self.repository_manifest.filename,
                     ),
                 ),
                 validate,
@@ -659,14 +659,14 @@ class HacsRepository:
             raise HacsException("Missing required elements.")
 
         filecontent = await self.hacs.async_download_file(
-            archive_download(repository=self.data.full_name, version=ref, variant="tags"),
+            github_archive(repository=self.data.full_name, version=ref, variant="tags"),
             keep_url=True,
             nolog=True,
         )
 
         if filecontent is None:
             filecontent = await self.hacs.async_download_file(
-                archive_download(repository=self.data.full_name, version=ref, variant="heads"),
+                github_archive(repository=self.data.full_name, version=ref, variant="heads"),
                 keep_url=True,
             )
         if filecontent is None:

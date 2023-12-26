@@ -217,7 +217,15 @@ def repository_netdaemon(hacs):
 @pytest.fixture
 def config_entry() -> ConfigEntry:
     """Fixture for a config entry."""
-    args = {"version": 1, "domain": DOMAIN, "title": "", "data": {CONF_TOKEN: TOKEN}, "source": "user", "options": {}, "unique_id": "12345"}
+    args = {
+        "version": 1,
+        "domain": DOMAIN,
+        "title": "",
+        "data": {CONF_TOKEN: TOKEN},
+        "source": "user",
+        "options": {},
+        "unique_id": "12345",
+    }
     # Core 2024.1 added minor_version
     try:
         return ConfigEntry(**{**args, "minor_version": 0})

@@ -52,7 +52,7 @@ async def test_update_repository_entity(
     await hass.services.async_call(
         "update",
         "install",
-        service_data={"entity_id": entity_id, "version": to_version, "backup": False},
+        service_data={"entity_id": entity_id, "version": to_version},
         blocking=True,
     )
     assert repo.data.installed_version == to_version

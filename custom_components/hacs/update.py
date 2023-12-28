@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from homeassistant.components.update import UpdateEntity
+from homeassistant.components.update import UpdateEntity, UpdateEntityFeature
 from homeassistant.core import HomeAssistantError, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 
@@ -27,7 +27,12 @@ async def async_setup_entry(hass, _config_entry, async_add_devices):
 class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
     """Update entities for repositories downloaded with HACS."""
 
-    _attr_supported_features = 1 | 2 | 4 | 16
+    _attr_supported_features = (
+        UpdateEntityFeature.INSTALL
+        | UpdateEntityFeature.SPECIFIC_VERSION
+        | UpdateEntityFeature.PROGRESS
+        | UpdateEntityFeature.RELEASE_NOTES
+    )
 
     @property
     def name(self) -> str | None:

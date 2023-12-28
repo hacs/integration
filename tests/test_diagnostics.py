@@ -1,40 +1,51 @@
 """Test the diagnostics module."""
-from unittest.mock import MagicMock, patch
-
-from aiogithubapi import GitHubException, GitHubRateLimitModel, GitHubResponseModel
-from homeassistant.components.diagnostics import REDACTED
-from homeassistant.core import HomeAssistant
 import pytest
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.diagnostics import async_get_config_entry_diagnostics
 
-from tests.common import TOKEN, create_config_entry
+from tests.common import (
+    TOKEN,
+    MockedResponse,
+    ResponseMocker,
+    recursive_remove_key,
+    safe_json_dumps,
+)
+from tests.conftest import SnapshotFixture
 
 
 @pytest.mark.asyncio
-async def test_diagnostics(hacs: HacsBase, hass: HomeAssistant):
+async def test_diagnostics(hacs: HacsBase, snapshots: SnapshotFixture):
     """Test the base result."""
-    config_entry = create_config_entry()
-    response = GitHubResponseModel(MagicMock(headers={}))
-    response.data = GitHubRateLimitModel({"resources": {"core": {"remaining": 0}}})
-    with patch("aiogithubapi.github.GitHub.rate_limit", return_value=response):
-        diagnostics = await async_get_config_entry_diagnostics(hass, config_entry)
+    diagnostics = await async_get_config_entry_diagnostics(
+        hacs.hass, hacs.configuration.config_entry
+    )
 
-    assert diagnostics["hacs"]["version"] == "0.0.0"
-    assert diagnostics["rate_limit"]["resources"]["core"]["remaining"] == 0
     assert TOKEN not in str(diagnostics)
-    assert diagnostics["entry"]["data"]["token"] == REDACTED
+    snapshots.assert_match(
+        safe_json_dumps(
+            recursive_remove_key(diagnostics, ("entry_id", "last_updated", "categories", "local"))
+        ),
+        "diagnostics/base.json",
+    )
 
 
 @pytest.mark.asyncio
-async def test_diagnostics_with_exception(hacs: HacsBase, hass: HomeAssistant):
+async def test_diagnostics_with_exception(
+    hacs: HacsBase, snapshots: SnapshotFixture, response_mocker: ResponseMocker
+):
     """test the result with issues getting the ratelimit."""
-    config_entry = create_config_entry()
-    with patch(
-        "aiogithubapi.github.GitHub.rate_limit", side_effect=GitHubException("Something went wrong")
-    ):
-        diagnostics = await async_get_config_entry_diagnostics(hass, config_entry)
+    response_mocker.add(
+        "https://api.github.com/rate_limit",
+        MockedResponse(status=400, content="Something went wrong"),
+    )
+    diagnostics = await async_get_config_entry_diagnostics(
+        hacs.hass, hacs.configuration.config_entry
+    )
 
-    assert diagnostics["hacs"]["version"] == "0.0.0"
-    assert diagnostics["rate_limit"] == "Something went wrong"
+    snapshots.assert_match(
+        safe_json_dumps(
+            recursive_remove_key(diagnostics, ("entry_id", "last_updated", "categories", "local"))
+        ),
+        "diagnostics/exception.json",
+    )

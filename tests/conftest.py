@@ -322,17 +322,38 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
         if (_test_caller := call.get("_test_caller")) is None:
             continue
         if _test_caller not in calls:
-            calls[_test_caller] = {}
+            if call.get("_uses_setup_integration"):
+                calls[_test_caller] = {
+                    c: -1
+                    for c in [
+                        "https://data-v2.hacs.xyz/appdaemon/data.json",
+                        "https://data-v2.hacs.xyz/critical/data.json",
+                        "https://data-v2.hacs.xyz/integration/data.json",
+                        "https://data-v2.hacs.xyz/plugin/data.json",
+                        "https://data-v2.hacs.xyz/python_script/data.json",
+                        "https://data-v2.hacs.xyz/removed/data.json",
+                        "https://data-v2.hacs.xyz/template/data.json",
+                        "https://data-v2.hacs.xyz/theme/data.json",
+                    ]
+                }
+            else:
+                calls[_test_caller] = {}
         if (url := call.get("url")) not in calls[_test_caller]:
             calls[_test_caller][url] = 0
         calls[_test_caller][url] += 1
 
+    filtered_calls = {
+        k: v
+        for k, v in {t: {k: v for k, v in c.items() if v > 0} for t, c in calls.items()}.items()
+        if v
+    }
+
     if session.config.option.snapshot_update:
         with open("tests/output/proxy_calls.json", mode="w", encoding="utf-8") as file:
-            file.write(safe_json_dumps(calls))
+            file.write(safe_json_dumps(filtered_calls))
             return
 
     with open("tests/output/proxy_calls.json", encoding="utf-8") as file:
         current = json.load(file)
-        if current != calls:
-            raise AssertionError("API calls have changed, please run scripts/snapshot-update")
+        if current != filtered_calls:
+            raise AssertionError("API calls have changed, run scripts/snapshot-update")

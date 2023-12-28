@@ -34,7 +34,7 @@ async def test_integration_setup(
                         "entity_id": hass.states.get(entity.entity_id).entity_id,
                         "state": hass.states.get(entity.entity_id).state,
                         "attributes": hass.states.get(entity.entity_id).attributes,
-                        **entity.as_partial_dict(),
+                        **{k:v for k,v in entity.as_partial_dict.items() if k not in ("config_entry_id", "device_id", "id")},
                     }
                     for entity in er.async_entries_for_config_entry(
                         er.async_get(hass), config_entry.entry_id

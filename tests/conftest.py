@@ -121,7 +121,7 @@ def hass(event_loop, tmpdir):
 
 
 @pytest.fixture
-def hacs(hass: HomeAssistant):
+def hacs(hass: HomeAssistant, setup_integration: None)-> HacsBase:
     """Fixture to provide a HACS object."""
     return get_hacs(hass)
 
@@ -281,7 +281,7 @@ def response_mocker() -> ResponseMocker:
     yield ResponseMocker()
 
 
-@pytest_asyncio.fixture(autouse=True)
+@pytest_asyncio.fixture()
 async def setup_integration(hass: HomeAssistant) -> None:
     config_entry = create_config_entry(
         options={

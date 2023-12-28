@@ -13,6 +13,7 @@ from unittest.mock import MagicMock, patch
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import entity_registry as er
 from homeassistant.runner import HassEventLoopPolicy
 import pytest
 import pytest_asyncio
@@ -121,7 +122,7 @@ def hass(event_loop, tmpdir):
 
 
 @pytest.fixture
-def hacs(hass: HomeAssistant, setup_integration: None)-> HacsBase:
+def hacs(hass: HomeAssistant, setup_integration: None) -> HacsBase:
     """Fixture to provide a HACS object."""
     return get_hacs(hass)
 
@@ -213,13 +214,14 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
             data[key] = {}
             for entry in value:
                 data[key][entry["id"]] = entry
+
         snapshot.assert_match(
             safe_json_dumps(
                 recursive_remove_key(
                     {
-                        "directory": sorted(f for f in downloaded if f not in IGNORED_BASE_FILES),
-                        "data": data,
-                        "hacs": {
+                        "_directory": sorted(f for f in downloaded if f not in IGNORED_BASE_FILES),
+                        "_data": data,
+                        "_hacs": {
                             "system": asdict(hacs.system),
                             "status": asdict(hacs.status),
                             "stage": hacs.stage,
@@ -229,9 +231,24 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                                 "dev": hacs.configuration.dev,
                             },
                         },
+                        "_entities": sorted(
+                            (
+                                {
+                                    "entity_id": hacs.hass.states.get(entity.entity_id).entity_id,
+                                    "state": hacs.hass.states.get(entity.entity_id).state,
+                                    "attributes": hacs.hass.states.get(entity.entity_id).attributes,
+                                    **recursive_remove_key(entity.as_partial_dict, ("id",)),
+                                }
+                                for entity in er.async_entries_for_config_entry(
+                                    er.async_get(hacs.hass),
+                                    hacs.configuration.config_entry.entry_id,
+                                )
+                            ),
+                            key=lambda x: x["unique_id"],
+                        ),
                         **(additional or {}),
                     },
-                    ("last_fetched"),
+                    ("last_fetched", "config_entry_id", "device_id"),
                 )
             ),
             filename,

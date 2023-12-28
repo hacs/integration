@@ -1,6 +1,5 @@
 from homeassistant.components.websocket_api import DOMAIN as WEBSOCKET_DOMAIN
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import entity_registry as er
 import pytest
 
 from custom_components.hacs.base import HacsBase
@@ -28,20 +27,6 @@ async def test_integration_setup(
         hacs,
         f"test_integration_setup.json",
         {
-            "entities": sorted(
-                (
-                    {
-                        "entity_id": hass.states.get(entity.entity_id).entity_id,
-                        "state": hass.states.get(entity.entity_id).state,
-                        "attributes": hass.states.get(entity.entity_id).attributes,
-                        **{k:v for k,v in entity.as_partial_dict.items() if k not in ("config_entry_id", "device_id", "id")},
-                    }
-                    for entity in er.async_entries_for_config_entry(
-                        er.async_get(hass), config_entry.entry_id
-                    )
-                ),
-                key=lambda x: x["unique_id"],
-            ),
             "websocket_commands": [
                 command for command in hass.data[WEBSOCKET_DOMAIN] if command.startswith("hacs/")
             ],

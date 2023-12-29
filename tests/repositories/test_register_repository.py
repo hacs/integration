@@ -17,7 +17,6 @@ from tests.conftest import SnapshotFixture
         ("hacs-test-org/plugin-custom-dist", HacsCategory.PLUGIN),
     ),
 )
-@pytest.mark.asyncio
 async def test_register_repository(
     hass: HomeAssistant,
     setup_integration: Generator,
@@ -73,7 +72,6 @@ async def test_register_repository(
         ),
     ),
 )
-@pytest.mark.asyncio
 async def test_register_repository_failures(
     hass: HomeAssistant,
     setup_integration: Generator,

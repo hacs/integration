@@ -1,4 +1,3 @@
-from typing import Generator
 from unittest.mock import patch
 
 import pytest
@@ -8,7 +7,6 @@ from custom_components.hacs.repositories.integration import HacsIntegrationRepos
 from custom_components.hacs.validate.manager import ValidationManager
 
 
-@pytest.mark.asyncio
 async def test_async_run_repository_checks(
     hacs: HacsBase,
     repository_integration: HacsIntegrationRepository,

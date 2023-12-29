@@ -1,5 +1,4 @@
 """Test the diagnostics module."""
-import pytest
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.diagnostics import async_get_config_entry_diagnostics
@@ -14,7 +13,6 @@ from tests.common import (
 from tests.conftest import SnapshotFixture
 
 
-@pytest.mark.asyncio
 async def test_diagnostics(hacs: HacsBase, snapshots: SnapshotFixture):
     """Test the base result."""
     diagnostics = await async_get_config_entry_diagnostics(
@@ -32,7 +30,6 @@ async def test_diagnostics(hacs: HacsBase, snapshots: SnapshotFixture):
     )
 
 
-@pytest.mark.asyncio
 async def test_diagnostics_with_exception(
     hacs: HacsBase, snapshots: SnapshotFixture, response_mocker: ResponseMocker
 ):

@@ -1,11 +1,8 @@
-import pytest
-
 from custom_components.hacs.validate.brands import Validator
 
 from tests.common import MockedResponse, ResponseMocker
 
 
-@pytest.mark.asyncio
 async def test_added_to_brands(repository, response_mocker: ResponseMocker):
     response_mocker.add(
         "https://brands.home-assistant.io/domains.json",
@@ -17,7 +14,6 @@ async def test_added_to_brands(repository, response_mocker: ResponseMocker):
     assert not check.failed
 
 
-@pytest.mark.asyncio
 async def test_not_added_to_brands(repository, response_mocker: ResponseMocker):
     response_mocker.add(
         "https://brands.home-assistant.io/domains.json", MockedResponse(content={"custom": []})

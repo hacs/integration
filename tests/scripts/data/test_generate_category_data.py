@@ -2,7 +2,6 @@
 import json
 
 from homeassistant.core import HomeAssistant
-import pytest
 
 from scripts.data.generate_category_data import OUTPUT_DIR, generate_category_data
 
@@ -23,7 +22,6 @@ RATE_LIMIT_HEADER = {
 }
 
 
-@pytest.mark.asyncio
 async def test_generate_category_data_single_repository(
     hass: HomeAssistant,
     response_mocker: ResponseMocker,

@@ -7,7 +7,6 @@ from tests.common import ResponseMocker, client_session_proxy
 
 
 @pytest.mark.parametrize("version,name", [("1.0.0", "Integration basic 1.0.0"), ("99.99.99", None)])
-@pytest.mark.asyncio
 async def test_validate_repository(
     hacs: HacsBase,
     version: str,

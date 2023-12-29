@@ -20,7 +20,6 @@ from tests.common import ResponseMocker, client_session_proxy
         ({"installed": False, "last_version": "99.99.99"}, None),
     ],
 )
-@pytest.mark.asyncio
 async def test_validate_repository(
     hacs: HacsBase,
     data: dict[str, Any],

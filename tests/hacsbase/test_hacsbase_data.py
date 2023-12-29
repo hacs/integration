@@ -1,14 +1,11 @@
 """Data Test Suite."""
 from unittest.mock import patch
 
-import pytest
-
 from custom_components.hacs.base import HacsRepositories
 from custom_components.hacs.enums import HacsGitHubRepo
 from custom_components.hacs.utils.data import HacsData
 
 
-@pytest.mark.asyncio
 async def test_hacs_data_async_write1(hacs, repository):
     data = HacsData(hacs)
     repository.data.installed = True
@@ -17,7 +14,6 @@ async def test_hacs_data_async_write1(hacs, repository):
     await data.async_write()
 
 
-@pytest.mark.asyncio
 async def test_hacs_data_async_write2(hacs):
     data = HacsData(hacs)
     hacs.system.disabled_reason = None
@@ -25,7 +21,6 @@ async def test_hacs_data_async_write2(hacs):
     await data.async_write()
 
 
-@pytest.mark.asyncio
 async def test_hacs_data_restore_write_not_new(hacs, caplog):
     data = HacsData(hacs)
 

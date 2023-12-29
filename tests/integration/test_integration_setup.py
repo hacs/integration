@@ -1,6 +1,5 @@
 from homeassistant.components.websocket_api import DOMAIN as WEBSOCKET_DOMAIN
 from homeassistant.core import HomeAssistant
-import pytest
 
 from custom_components.hacs.base import HacsBase
 
@@ -8,7 +7,6 @@ from tests.common import create_config_entry, get_hacs
 from tests.conftest import SnapshotFixture
 
 
-@pytest.mark.asyncio
 async def test_integration_setup(
     hass: HomeAssistant,
     snapshots: SnapshotFixture,
@@ -25,7 +23,7 @@ async def test_integration_setup(
 
     await snapshots.assert_hacs_data(
         hacs,
-        f"test_integration_setup.json",
+        "test_integration_setup.json",
         {
             "websocket_commands": [
                 command for command in hass.data[WEBSOCKET_DOMAIN] if command.startswith("hacs/")

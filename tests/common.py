@@ -6,7 +6,6 @@ from contextlib import contextmanager
 from contextvars import ContextVar
 import functools as ft
 import json as json_func
-import logging
 import os
 from types import NoneType
 from typing import Any, Iterable
@@ -52,7 +51,6 @@ from custom_components.hacs.repositories.base import HacsManifest, HacsRepositor
 from custom_components.hacs.utils.configuration_schema import TOKEN as CONF_TOKEN
 from custom_components.hacs.utils.logger import LOGGER
 
-_LOGGER = logging.getLogger("tests")
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 INSTANCES = []
 REQUEST_CONTEXT: ContextVar[pytest.FixtureRequest] = ContextVar("request_context", default=None)
@@ -125,7 +123,6 @@ def fixture(filename, asjson=True):
     )
     try:
         with open(path, encoding="utf-8") as fptr:
-            _LOGGER.debug("Loading fixture from %s", path)
             if asjson:
                 return json_func.loads(fptr.read())
             return fptr.read()
@@ -283,19 +280,16 @@ def mock_storage(data=None):
             mock_data = data.get(store.key)
 
             if "data" not in mock_data or "version" not in mock_data:
-                _LOGGER.error('Mock data needs "version" and "data"')
                 raise ValueError('Mock data needs "version" and "data"')
 
             store._data = mock_data
 
         # Route through original load so that we trigger migration
         loaded = await orig_load(store)
-        _LOGGER.info("Loading data for %s: %s", store.key, loaded)
         return loaded
 
     def mock_write_data(store, path, data_to_write):
         """Mock version of write data."""
-        _LOGGER.info("Writing data to %s: %s", store.key, data_to_write)
         # To ensure that the data can be serialized
         data[store.key] = json_func.loads(json_func.dumps(data_to_write, cls=store._encoder))
 
@@ -475,8 +469,6 @@ class ProxyClientSession(ClientSession):
             fixture_file,
         )
 
-        _LOGGER.info("Using fixture %s for request to %s", fp, url.host)
-
         if not os.path.exists(fp):
             raise Exception(f"Missing fixture for proxy/{url.host}{url.path}")
 
@@ -526,8 +518,6 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
             os.path.dirname(__file__),
             fixture_file,
         )
-
-        _LOGGER.info("Using fixture %s for request to %s", fp, url.host)
 
         if not os.path.exists(fp):
             raise Exception(f"Missing fixture for proxy/{url.host}{url.path}")

@@ -10,13 +10,13 @@ from tests.conftest import SnapshotFixture
 @pytest.mark.parametrize(
     "repository_full_name",
     (
-        ("hacs-test-org/integration-basic"),
-        ("hacs-test-org/template-basic"),
-        ("hacs-test-org/plugin-basic"),
-        ("hacs-test-org/theme-basic"),
+        "hacs-test-org/appdaemon-basic",
+        "hacs-test-org/integration-basic",
+        "hacs-test-org/plugin-basic",
+        "hacs-test-org/template-basic",
+        "hacs-test-org/theme-basic",
     ),
 )
-@pytest.mark.asyncio
 async def test_download_repository(
     hass: HomeAssistant,
     setup_integration: Generator,

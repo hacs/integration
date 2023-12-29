@@ -51,7 +51,7 @@ from tests.common import (
 )
 
 # Set default logger
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 if "GITHUB_ACTION" in os.environ:
     logging.basicConfig(
         format="::%(levelname)s:: %(message)s",
@@ -59,10 +59,9 @@ if "GITHUB_ACTION" in os.environ:
     )
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+# pytestmark = pytest.mark.asyncio
 
 asyncio.set_event_loop_policy(HassEventLoopPolicy(False))
-# Disable fixtures overriding our beautiful policy
 asyncio.set_event_loop_policy = lambda policy: None
 
 # Disable sleep in tests

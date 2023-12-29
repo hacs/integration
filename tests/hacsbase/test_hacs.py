@@ -2,10 +2,9 @@
 import pytest
 
 from custom_components.hacs.base import HacsRepositories
-from custom_components.hacs.enums import HacsCategory, HacsStage
+from custom_components.hacs.enums import HacsCategory
 
 
-@pytest.mark.asyncio
 async def test_hacs(hacs, repository, tmpdir):
     hacs.hass.config.config_dir = tmpdir
 
@@ -34,7 +33,6 @@ async def test_hacs(hacs, repository, tmpdir):
     await hacs.async_prosess_queue()
 
 
-@pytest.mark.asyncio
 async def test_add_remove_repository(hacs, repository, tmpdir):
     hacs.hass.config.config_dir = tmpdir
 

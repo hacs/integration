@@ -1,4 +1,3 @@
-import os
 from typing import Generator
 
 from homeassistant.core import HomeAssistant
@@ -11,9 +10,10 @@ from tests.common import WSClient, get_hacs
 from tests.conftest import SnapshotFixture
 
 test_data = (
+    ("hacs-test-org/appdaemon-basic", "1.0.0", "2.0.0"),
     ("hacs-test-org/integration-basic", "1.0.0", "2.0.0"),
-    ("hacs-test-org/template-basic", "1.0.0", "2.0.0"),
     ("hacs-test-org/plugin-basic", "1.0.0", "2.0.0"),
+    ("hacs-test-org/template-basic", "1.0.0", "2.0.0"),
     ("hacs-test-org/theme-basic", "1.0.0", "2.0.0"),
 )
 
@@ -22,7 +22,6 @@ test_data = (
     "repository_full_name,from_version,to_version",
     test_data,
 )
-@pytest.mark.asyncio
 async def test_update_repository_entity(
     hass: HomeAssistant,
     setup_integration: Generator,
@@ -66,7 +65,6 @@ async def test_update_repository_entity(
     "repository_full_name,from_version,to_version",
     test_data,
 )
-@pytest.mark.asyncio
 async def test_update_repository_websocket(
     hass: HomeAssistant,
     setup_integration: Generator,

@@ -46,7 +46,7 @@ async def test_download_repository(
 
     await snapshots.assert_hacs_data(hacs, f"{repository_full_name}/test_download_repository.json")
 
-    #cleanup
+    # cleanup
     response = await ws_client.send_and_receive_json(
         "hacs/repository/remove", {"repository": repo.data.id}
     )

@@ -60,7 +60,7 @@ async def test_update_repository_entity(
         hacs, f"{repository_full_name}/test_update_repository_entity.json"
     )
 
-    #cleanup
+    # cleanup
     repo.data.installed = False
 
 
@@ -95,5 +95,5 @@ async def test_update_repository_websocket(
         hacs, f"{repository_full_name}/test_update_repository_websocket.json"
     )
 
-    #cleanup
+    # cleanup
     repo.data.installed = False

@@ -7,7 +7,8 @@ from contextvars import ContextVar
 import functools as ft
 import json as json_func
 import os
-from typing import Any, Iterable, Mapping
+from types import NoneType
+from typing import Any, Iterable
 from unittest.mock import AsyncMock, Mock, patch
 
 from aiohttp import ClientSession, ClientWebSocketResponse
@@ -74,31 +75,43 @@ def safe_json_dumps(data: dict | list) -> str:
 
 
 def recursive_remove_key(data: dict[str, Any], to_remove: Iterable[str]) -> dict[str, Any]:
-    if not isinstance(data, (Mapping, list)):
+    def _sort_list(entry):
+        if isinstance(entry, list):
+            if len(entry) == 0:
+                return entry
+            if isinstance(entry[0], str):
+                return sorted(entry)
+            if isinstance(entry[0], list):
+                return [_sort_list(item) for item in entry]
+        return sorted(
+            entry,
+            key=lambda obj: (getattr(obj, "id", None) or getattr(obj, "name", None) or 0)
+            if isinstance(obj, dict)
+            else obj,
+        )
+
+    if not isinstance(data, (dict, set, list)):
         return data
 
     if isinstance(data, list):
-        return [
-            recursive_remove_key(val, to_remove)
-            for val in sorted(data, key=lambda obj: getattr(obj, "id", 0))
-        ]
+        return [recursive_remove_key(item, to_remove) for item in _sort_list(data)]
 
-    copy_data = {**data}
-    for key, value in copy_data.items():
-        if value is None:
-            continue
-        if isinstance(value, str) and not value:
-            continue
+    returndata = {}
+    for key in sorted(data.keys()):
+        value = data[key]
         if key in to_remove:
-            copy_data[key] = None
-        elif isinstance(value, Mapping):
-            copy_data[key] = recursive_remove_key(value, to_remove)
-        elif isinstance(value, list):
-            copy_data[key] = [
-                recursive_remove_key(item, to_remove)
-                for item in sorted(value, key=lambda obj: getattr(obj, "id", 0))
-            ]
-    return copy_data
+            continue
+        elif isinstance(value, (str, bool, int, NoneType)):
+            returndata[key] = value
+        elif isinstance(value, dict):
+            returndata[key] = recursive_remove_key(
+                {k: value[k] for k in sorted(value.keys())}, to_remove
+            )
+        elif isinstance(value, (list, set)):
+            returndata[key] = [recursive_remove_key(item, to_remove) for item in _sort_list(value)]
+        else:
+            returndata[key] = type(value)
+    return returndata
 
 
 def fixture(filename, asjson=True):

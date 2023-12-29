@@ -23,9 +23,7 @@ async def test_diagnostics(hacs: HacsBase, snapshots: SnapshotFixture):
 
     assert TOKEN not in str(diagnostics)
     snapshots.assert_match(
-        safe_json_dumps(
-            recursive_remove_key(diagnostics, ("entry_id", "last_updated", "categories", "local"))
-        ),
+        safe_json_dumps(recursive_remove_key(diagnostics, ("entry_id", "last_updated", "local"))),
         "diagnostics/base.json",
     )
 
@@ -44,8 +42,6 @@ async def test_diagnostics_with_exception(
     )
 
     snapshots.assert_match(
-        safe_json_dumps(
-            recursive_remove_key(diagnostics, ("entry_id", "last_updated", "categories", "local"))
-        ),
+        safe_json_dumps(recursive_remove_key(diagnostics, ("entry_id", "last_updated", "local"))),
         "diagnostics/exception.json",
     )

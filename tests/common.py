@@ -446,7 +446,7 @@ class ResponseMocker:
     def get(self, url: str, *args, **kwargs) -> MockedResponse:
         data = {"url": url, "args": list(args), "kwargs": kwargs}
         if (request := REQUEST_CONTEXT.get()) is not None:
-            data["_test_caller"] = request.node.name
+            data["_test_caller"] = f"{request.node.location[0]}::{request.node.name}"
             data["_uses_setup_integration"] = request.node.name != "test_integration_setup" and (
                 "setup_integration" in request.fixturenames or "hacs" in request.fixturenames
             )

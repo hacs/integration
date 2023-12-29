@@ -1,6 +1,7 @@
 """Set up some common test helper things."""
 # pytest: disable=protected-access
 import asyncio
+from collections import OrderedDict
 from dataclasses import asdict
 from glob import iglob
 import json
@@ -342,11 +343,15 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
             calls[_test_caller][url] = 0
         calls[_test_caller][url] += 1
 
-    filtered_calls = {
-        k: v
-        for k, v in {t: {k: v for k, v in c.items() if v > 0} for t, c in calls.items()}.items()
-        if v
-    }
+    filtered_calls = OrderedDict(
+        {
+            k: v
+            for k, v in {
+                t: OrderedDict({k: v for k, v in c.items() if v != 0}) for t, c in calls.items()
+            }.items()
+            if v
+        }
+    )
 
     if session.config.option.snapshot_update:
         with open("tests/output/proxy_calls.json", mode="w", encoding="utf-8") as file:

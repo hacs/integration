@@ -60,6 +60,9 @@ async def test_update_repository_entity(
         hacs, f"{repository_full_name}/test_update_repository_entity.json"
     )
 
+    #cleanup
+    repo.data.installed = False
+
 
 @pytest.mark.parametrize(
     "repository_full_name,from_version,to_version",
@@ -91,3 +94,6 @@ async def test_update_repository_websocket(
     await snapshots.assert_hacs_data(
         hacs, f"{repository_full_name}/test_update_repository_websocket.json"
     )
+
+    #cleanup
+    repo.data.installed = False

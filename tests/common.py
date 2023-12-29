@@ -6,6 +6,7 @@ from contextlib import contextmanager
 from contextvars import ContextVar
 import functools as ft
 import json as json_func
+import logging
 import os
 from types import NoneType
 from typing import Any, Iterable
@@ -51,7 +52,7 @@ from custom_components.hacs.repositories.base import HacsManifest, HacsRepositor
 from custom_components.hacs.utils.configuration_schema import TOKEN as CONF_TOKEN
 from custom_components.hacs.utils.logger import LOGGER
 
-_LOGGER = LOGGER
+_LOGGER = logging.getLogger("tests")
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 INSTANCES = []
 REQUEST_CONTEXT: ContextVar[pytest.FixtureRequest] = ContextVar("request_context", default=None)
@@ -474,7 +475,7 @@ class ProxyClientSession(ClientSession):
             fixture_file,
         )
 
-        print(f"Using fixture {fp} for request to {url.host}")
+        _LOGGER.info("Using fixture %s for request to %s", fp, url.host)
 
         if not os.path.exists(fp):
             raise Exception(f"Missing fixture for proxy/{url.host}{url.path}")
@@ -526,7 +527,7 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
             fixture_file,
         )
 
-        print(f"Using fixture {fp} for request to {url.host}")
+        _LOGGER.info("Using fixture %s for request to %s", fp, url.host)
 
         if not os.path.exists(fp):
             raise Exception(f"Missing fixture for proxy/{url.host}{url.path}")

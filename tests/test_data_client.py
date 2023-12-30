@@ -1,4 +1,4 @@
-"""Test the diagnostics module."""
+"""Test the data_client module."""
 
 import asyncio
 from types import NoneType

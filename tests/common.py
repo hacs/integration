@@ -8,7 +8,7 @@ import functools as ft
 import json as json_func
 import os
 from types import NoneType
-from typing import Any, Iterable
+from typing import Any, Iterable, TypedDict
 from unittest.mock import AsyncMock, Mock, patch
 
 from aiohttp import ClientSession, ClientWebSocketResponse
@@ -47,6 +47,7 @@ from yarl import URL
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import DOMAIN
+from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
 from custom_components.hacs.utils.configuration_schema import TOKEN as CONF_TOKEN
 from custom_components.hacs.utils.logger import LOGGER
@@ -62,6 +63,35 @@ IGNORED_BASE_FILES = {
     "/config/scripts.yaml",
     "/config/secrets.yaml",
 }
+
+
+class CategoryTestData(TypedDict):
+    repository: str
+    category: str
+
+
+CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
+    CategoryTestData(
+        category=HacsCategory.APPDAEMON,
+        repository="hacs-test-org/appdaemon-basic",
+    ),
+    CategoryTestData(
+        category=HacsCategory.INTEGRATION,
+        repository="hacs-test-org/integration-basic",
+    ),
+    CategoryTestData(
+        category=HacsCategory.PLUGIN,
+        repository="hacs-test-org/plugin-basic",
+    ),
+    CategoryTestData(
+        category=HacsCategory.TEMPLATE,
+        repository="hacs-test-org/template-basic",
+    ),
+    CategoryTestData(
+        category=HacsCategory.THEME,
+        repository="hacs-test-org/theme-basic",
+    ),
+)
 
 
 def safe_json_dumps(data: dict | list) -> str:

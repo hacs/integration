@@ -2,10 +2,13 @@
 import json
 
 from homeassistant.core import HomeAssistant
+import pytest
 
 from scripts.data.generate_category_data import OUTPUT_DIR, generate_category_data
 
 from tests.common import (
+    CATEGORY_TEST_DATA,
+    CategoryTestData,
     MockedResponse,
     ResponseMocker,
     recursive_remove_key,
@@ -22,25 +25,33 @@ RATE_LIMIT_HEADER = {
 }
 
 
+@pytest.mark.parametrize(
+    "category_test_data",
+    CATEGORY_TEST_DATA,
+)
 async def test_generate_category_data_single_repository(
     hass: HomeAssistant,
     response_mocker: ResponseMocker,
     snapshots: SnapshotFixture,
+    category_test_data: CategoryTestData,
 ):
     """Test behaviour if single repository."""
     response_mocker.add(
-        "https://data-v2.hacs.xyz/integration/data.json", MockedResponse(content={})
+        f"https://data-v2.hacs.xyz/{category_test_data['category']}/data.json",
+        MockedResponse(content={}),
     )
-    await generate_category_data("integration", "hacs-test-org/integration-basic")
+    await generate_category_data(category_test_data["category"], category_test_data["repository"])
 
-    with open(f"{OUTPUT_DIR}/integration/data.json", encoding="utf-8") as file:
+    with open(f"{OUTPUT_DIR}/{category_test_data['category']}/data.json", encoding="utf-8") as file:
         snapshots.assert_match(
             safe_json_dumps(recursive_remove_key(json.loads(file.read()), ("last_fetched",))),
-            "scripts/data/generate_category_data/single/data.json",
+            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{category_test_data['repository']}/data.json",
         )
 
-    with open(f"{OUTPUT_DIR}/integration/repositories.json", encoding="utf-8") as file:
+    with open(
+        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8"
+    ) as file:
         snapshots.assert_match(
             safe_json_dumps(json.loads(file.read())),
-            "scripts/data/generate_category_data/single/repositories.json",
+            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{category_test_data['repository']}/repositories.json",
         )

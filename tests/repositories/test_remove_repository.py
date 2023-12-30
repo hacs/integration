@@ -46,7 +46,9 @@ async def test_remove_repository(
     for file in files:
         Path(repo.localpath, file).touch()
 
-    await snapshots.assert_hacs_data(hacs, f"{repository_full_name}/test_remove_repository_pre.json")
+    await snapshots.assert_hacs_data(
+        hacs, f"{repository_full_name}/test_remove_repository_pre.json"
+    )
 
     response = await ws_client.send_and_receive_json(
         "hacs/repository/remove", {"repository": repo.data.id}
@@ -62,4 +64,6 @@ async def test_remove_repository(
     else:
         assert not os.path.exists(repo.localpath)
 
-    await snapshots.assert_hacs_data(hacs, f"{repository_full_name}/test_remove_repository_post.json")
+    await snapshots.assert_hacs_data(
+        hacs, f"{repository_full_name}/test_remove_repository_post.json"
+    )

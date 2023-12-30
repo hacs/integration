@@ -97,6 +97,13 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
         version_update="2.0.0",
     ),
     CategoryTestData(
+        category=HacsCategory.PYTHON_SCRIPT,
+        repository="hacs-test-org/python_script-basic",
+        files=["example.py"],
+        version_base="1.0.0",
+        version_update="2.0.0",
+    ),
+    CategoryTestData(
         category=HacsCategory.TEMPLATE,
         repository="hacs-test-org/template-basic",
         files=["example.jinja"],
@@ -113,13 +120,18 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
 )
 
 
-def category_test_data_parametrized(*, skip_categories: list[HacsCategory] | None = None, **kwargs):
+def category_test_data_parametrized(
+    *,
+    skip_categories: list[HacsCategory] | None = None,
+    skip_reason: str | None = None,
+    **kwargs,
+):
     return (
         pytest.param(
             entry,
             marks=pytest.mark.skipif(
                 skip_categories and entry["category"] in skip_categories,
-                reason=f"Skipping {entry['category']}",
+                reason=f"Skipping {entry['category']} {skip_reason or ''}",
             ),
             id=entry["repository"],
         )

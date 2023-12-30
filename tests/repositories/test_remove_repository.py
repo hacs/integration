@@ -5,6 +5,8 @@ from typing import Generator
 from homeassistant.core import HomeAssistant
 import pytest
 
+from custom_components.hacs.enums import HacsCategory
+
 from tests.common import (
     CategoryTestData,
     WSClient,
@@ -14,7 +16,13 @@ from tests.common import (
 from tests.conftest import SnapshotFixture
 
 
-@pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
+@pytest.mark.parametrize(
+    "category_test_data",
+    category_test_data_parametrized(
+        skip_categories=[HacsCategory.PYTHON_SCRIPT],
+        skip_reason="bug in cleanup, using repo name instad of file name.",
+    ),
+)
 async def test_remove_repository(
     hass: HomeAssistant,
     setup_integration: Generator,
@@ -31,7 +39,7 @@ async def test_remove_repository(
 
     assert len(hacs.repositories.list_downloaded) == 2
 
-    if repo.data.category == "theme":
+    if repo.data.category in ("theme", "python_script"):
         repo.data.file_name = category_test_data["files"][0]
 
     # workaround for local path bug in tests

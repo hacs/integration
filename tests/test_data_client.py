@@ -2,7 +2,9 @@
 
 import asyncio
 from types import NoneType
+
 import pytest
+
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.exceptions import HacsException, HacsNotModifiedException
 

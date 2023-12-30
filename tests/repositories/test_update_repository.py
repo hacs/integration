@@ -6,37 +6,29 @@ import pytest
 
 from custom_components.hacs.const import DOMAIN
 
-from tests.common import WSClient, get_hacs
+from tests.common import (
+    CategoryTestData,
+    WSClient,
+    category_test_data_parametrized,
+    get_hacs,
+)
 from tests.conftest import SnapshotFixture
 
-test_data = (
-    ("hacs-test-org/appdaemon-basic", "1.0.0", "2.0.0"),
-    ("hacs-test-org/integration-basic", "1.0.0", "2.0.0"),
-    ("hacs-test-org/plugin-basic", "1.0.0", "2.0.0"),
-    ("hacs-test-org/template-basic", "1.0.0", "2.0.0"),
-    ("hacs-test-org/theme-basic", "1.0.0", "2.0.0"),
-)
 
-
-@pytest.mark.parametrize(
-    "repository_full_name,from_version,to_version",
-    test_data,
-)
+@pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
 async def test_update_repository_entity(
     hass: HomeAssistant,
     setup_integration: Generator,
-    repository_full_name: str,
-    from_version: str,
-    to_version: str,
+    category_test_data: CategoryTestData,
     snapshots: SnapshotFixture,
 ):
     hacs = get_hacs(hass)
-    repo = hacs.repositories.get_by_full_name(repository_full_name)
+    repo = hacs.repositories.get_by_full_name(category_test_data["repository"])
 
     assert repo is not None
 
     repo.data.installed = True
-    repo.data.installed_version = from_version
+    repo.data.installed_version = category_test_data["version_base"]
 
     await hass.config_entries.async_reload(hacs.configuration.config_entry.entry_id)
     await hass.async_block_till_done()
@@ -51,48 +43,44 @@ async def test_update_repository_entity(
     await hass.services.async_call(
         "update",
         "install",
-        service_data={"entity_id": entity_id, "version": to_version},
+        service_data={"entity_id": entity_id, "version": category_test_data["version_update"]},
         blocking=True,
     )
-    assert repo.data.installed_version == to_version
+    assert repo.data.installed_version == category_test_data["version_update"]
 
     await snapshots.assert_hacs_data(
-        hacs, f"{repository_full_name}/test_update_repository_entity.json"
+        hacs, f"{category_test_data['repository']}/test_update_repository_entity.json"
     )
 
     # cleanup
     repo.data.installed = False
 
 
-@pytest.mark.parametrize(
-    "repository_full_name,from_version,to_version",
-    test_data,
-)
+@pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
 async def test_update_repository_websocket(
     hass: HomeAssistant,
     setup_integration: Generator,
     ws_client: WSClient,
-    repository_full_name: str,
-    from_version: str,
-    to_version: str,
+    category_test_data: CategoryTestData,
     snapshots: SnapshotFixture,
 ):
     hacs = get_hacs(hass)
-    repo = hacs.repositories.get_by_full_name(repository_full_name)
+    repo = hacs.repositories.get_by_full_name(category_test_data["repository"])
 
     assert repo is not None
 
     repo.data.installed = True
-    repo.data.installed_version = from_version
+    repo.data.installed_version = category_test_data["version_base"]
 
     response = await ws_client.send_and_receive_json(
-        "hacs/repository/download", {"repository": repo.data.id, "version": to_version}
+        "hacs/repository/download",
+        {"repository": repo.data.id, "version": category_test_data["version_update"]},
     )
     assert response["success"] == True
-    assert repo.data.installed_version == to_version
+    assert repo.data.installed_version == category_test_data["version_update"]
 
     await snapshots.assert_hacs_data(
-        hacs, f"{repository_full_name}/test_update_repository_websocket.json"
+        hacs, f"{category_test_data['repository']}/test_update_repository_websocket.json"
     )
 
     # cleanup

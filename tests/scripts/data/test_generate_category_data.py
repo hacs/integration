@@ -7,10 +7,10 @@ import pytest
 from scripts.data.generate_category_data import OUTPUT_DIR, generate_category_data
 
 from tests.common import (
-    CATEGORY_TEST_DATA,
     CategoryTestData,
     MockedResponse,
     ResponseMocker,
+    category_test_data_parametrized,
     recursive_remove_key,
     safe_json_dumps,
 )
@@ -25,10 +25,7 @@ RATE_LIMIT_HEADER = {
 }
 
 
-@pytest.mark.parametrize(
-    "category_test_data",
-    CATEGORY_TEST_DATA,
-)
+@pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
 async def test_generate_category_data_single_repository(
     hass: HomeAssistant,
     response_mocker: ResponseMocker,

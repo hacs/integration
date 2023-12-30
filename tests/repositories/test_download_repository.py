@@ -3,30 +3,26 @@ from typing import Generator
 from homeassistant.core import HomeAssistant
 import pytest
 
-from tests.common import WSClient, get_hacs
+from tests.common import (
+    CategoryTestData,
+    WSClient,
+    category_test_data_parametrized,
+    get_hacs,
+)
 from tests.conftest import SnapshotFixture
 
 
-@pytest.mark.parametrize(
-    "repository_full_name",
-    (
-        "hacs-test-org/appdaemon-basic",
-        "hacs-test-org/integration-basic",
-        "hacs-test-org/plugin-basic",
-        "hacs-test-org/template-basic",
-        "hacs-test-org/theme-basic",
-    ),
-)
+@pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
 async def test_download_repository(
     hass: HomeAssistant,
     setup_integration: Generator,
     ws_client: WSClient,
-    repository_full_name: str,
+    category_test_data: CategoryTestData,
     snapshots: SnapshotFixture,
 ):
     hacs = get_hacs(hass)
 
-    repo = hacs.repositories.get_by_full_name(repository_full_name)
+    repo = hacs.repositories.get_by_full_name(category_test_data["repository"])
     assert repo is not None
     assert repo.data.installed is False
 
@@ -44,7 +40,9 @@ async def test_download_repository(
 
     assert repo.data.installed is True
 
-    await snapshots.assert_hacs_data(hacs, f"{repository_full_name}/test_download_repository.json")
+    await snapshots.assert_hacs_data(
+        hacs, f"{category_test_data['repository']}/test_download_repository.json"
+    )
 
     # cleanup
     repo.data.installed = False

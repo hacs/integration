@@ -68,30 +68,63 @@ IGNORED_BASE_FILES = {
 class CategoryTestData(TypedDict):
     repository: str
     category: str
+    files: list[str]
+    version_base: str
+    version_update: str
 
 
-CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
+_CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
     CategoryTestData(
         category=HacsCategory.APPDAEMON,
         repository="hacs-test-org/appdaemon-basic",
+        id="appdaemon",
+        files=["__init__.py", "example.py"],
+        version_base="1.0.0",
+        version_update="2.0.0",
     ),
     CategoryTestData(
         category=HacsCategory.INTEGRATION,
         repository="hacs-test-org/integration-basic",
+        files=["__init__.py", "manifest.json"],
+        version_base="1.0.0",
+        version_update="2.0.0",
     ),
     CategoryTestData(
         category=HacsCategory.PLUGIN,
         repository="hacs-test-org/plugin-basic",
+        files=["example.js", "example.js.gz"],
+        version_base="1.0.0",
+        version_update="2.0.0",
     ),
     CategoryTestData(
         category=HacsCategory.TEMPLATE,
         repository="hacs-test-org/template-basic",
+        files=["example.jinja"],
+        version_base="1.0.0",
+        version_update="2.0.0",
     ),
     CategoryTestData(
         category=HacsCategory.THEME,
         repository="hacs-test-org/theme-basic",
+        files=["example.yaml"],
+        version_base="1.0.0",
+        version_update="2.0.0",
     ),
 )
+
+
+def category_test_data_parametrized(*, skip_categories: list[HacsCategory] | None = None, **kwargs):
+    return (
+        pytest.param(
+            entry,
+            marks=pytest.mark.skipif(
+                skip_categories and entry["category"] in skip_categories,
+                reason=f"Skipping {entry['category']}",
+            ),
+            id=entry["repository"],
+        )
+        for entry in _CATEGORY_TEST_DATA
+    )
 
 
 def safe_json_dumps(data: dict | list) -> str:

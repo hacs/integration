@@ -11,7 +11,7 @@ from types import NoneType
 from typing import Any, Iterable, TypedDict
 from unittest.mock import AsyncMock, Mock, patch
 
-from aiohttp import ClientSession, ClientWebSocketResponse
+from aiohttp import ClientError, ClientSession, ClientWebSocketResponse
 from aiohttp.typedefs import StrOrURL
 from awesomeversion import AwesomeVersion
 from homeassistant import (
@@ -490,8 +490,9 @@ class MockedResponse:
             return content
         return await self.kwargs.get("json", AsyncMock())()
 
-    def raise_for_status(self):
-        return self.kwargs.get("raise_for_status")
+    def raise_for_status(self) -> None:
+        if self.status >= 300:
+            raise ClientError(self.status)
 
 
 class ResponseMocker:

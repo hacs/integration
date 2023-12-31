@@ -790,7 +790,7 @@ class HacsRepository:
 
         try:
             if self.data.category == "python_script":
-                local_path = f"{self.content.path.local}/{self.data.name}.py"
+                local_path = f"{self.content.path.local}/{self.data.file_name}"
             elif self.data.category == "template":
                 local_path = f"{self.content.path.local}/{self.data.file_name}"
             elif self.data.category == "theme":

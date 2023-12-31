@@ -1,11 +1,13 @@
 from typing import Generator
 from unittest.mock import patch
-from homeassistant import config_entries
+
 from aiogithubapi import GitHubException
+from homeassistant import config_entries
 from homeassistant.const import CONF_ACCESS_TOKEN
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType, UnknownFlow
 import pytest
+
 from custom_components.hacs.const import DOMAIN
 
 from tests.common import (

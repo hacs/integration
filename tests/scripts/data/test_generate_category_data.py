@@ -78,6 +78,6 @@ async def test_generate_category_data(
         f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8"
     ) as file:
         snapshots.assert_match(
-            safe_json_dumps(json.loads(file.read())),
+            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
             f"scripts/data/generate_category_data/{category_test_data['category']}/repositories.json",
         )

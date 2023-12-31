@@ -128,7 +128,9 @@ def category_test_data_parametrized(
     return (
         pytest.param(
             entry,
-            marks=[pytest.mark.xfail] if xfail_categories and entry["category"] in xfail_categories else [],
+            marks=[pytest.mark.xfail]
+            if xfail_categories and entry["category"] in xfail_categories
+            else [],
             id=entry["repository"],
         )
         for entry in _CATEGORY_TEST_DATA

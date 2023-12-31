@@ -85,7 +85,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
     CategoryTestData(
         category=HacsCategory.INTEGRATION,
         repository="hacs-test-org/integration-basic",
-        files=["__init__.py", "manifest.json"],
+        files=["__init__.py", "manifest.json", "module/__init__.py"],
         version_base="1.0.0",
         version_update="2.0.0",
     ),

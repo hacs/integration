@@ -5,8 +5,6 @@ from typing import Generator
 from homeassistant.core import HomeAssistant
 import pytest
 
-from custom_components.hacs.enums import HacsCategory
-
 from tests.common import (
     CategoryTestData,
     WSClient,
@@ -16,12 +14,7 @@ from tests.common import (
 from tests.conftest import SnapshotFixture
 
 
-@pytest.mark.parametrize(
-    "category_test_data",
-    category_test_data_parametrized(
-        xfail_categories=[HacsCategory.PYTHON_SCRIPT],
-    ),
-)
+@pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
 async def test_remove_repository(
     hass: HomeAssistant,
     setup_integration: Generator,
@@ -44,8 +37,8 @@ async def test_remove_repository(
     # workaround for local path bug in tests
     repo.content.path.local = repo.localpath
 
-    Path(repo.localpath).mkdir(parents=True, exist_ok=True)
     for file in category_test_data["files"]:
+        Path(repo.localpath, Path(file).parent).mkdir(parents=True, exist_ok=True)
         Path(repo.localpath, file).touch()
 
     await snapshots.assert_hacs_data(

@@ -122,17 +122,13 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
 
 def category_test_data_parametrized(
     *,
-    skip_categories: list[HacsCategory] | None = None,
-    skip_reason: str | None = None,
+    xfail_categories: list[HacsCategory] | None = None,
     **kwargs,
 ):
     return (
         pytest.param(
             entry,
-            marks=pytest.mark.skipif(
-                skip_categories and entry["category"] in skip_categories,
-                reason=f"Skipping {entry['category']} {skip_reason or ''}",
-            ),
+            marks=[pytest.mark.xfail] if xfail_categories and entry["category"] in xfail_categories else [],
             id=entry["repository"],
         )
         for entry in _CATEGORY_TEST_DATA

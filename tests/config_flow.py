@@ -109,7 +109,7 @@ async def test_full_user_flow_implementation(
 
 async def test_flow_with_remove_while_activating(
     hass: HomeAssistant,
-    mock_setup_entry: None,
+    _mock_setup_entry: None,
     response_mocker: ResponseMocker,
 ) -> None:
     """Test flow with user canceling while activating."""

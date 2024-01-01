@@ -103,7 +103,7 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
             raise HomeAssistantError(
                 f"This version requires Home Assistant {target_manifest.homeassistant} or newer."
             )
-        if target_manifest.hacs is not None and self.hacs.core.ha_version < target_manifest.hacs:
+        if target_manifest.hacs is not None and self.hacs.version < target_manifest.hacs:
             raise HomeAssistantError(f"This version requires HACS {target_manifest.hacs} or newer.")
 
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:

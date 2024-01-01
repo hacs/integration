@@ -1,6 +1,7 @@
 import json
 import re
 from typing import Generator
+from unittest.mock import patch
 
 from homeassistant.core import HomeAssistant, HomeAssistantError
 from homeassistant.helpers.entity_registry import async_get as async_get_entity_registry
@@ -262,6 +263,47 @@ async def test_update_repository_entity_download_failure(
             "update",
             "install",
             service_data={"entity_id": entity_id, "version": "2.0.0"},
+            blocking=True,
+        )
+
+    # cleanup
+    repo.data.installed = False
+
+
+async def test_update_repository_entity_no_version_and_cant_download(
+    hass: HomeAssistant,
+    setup_integration: Generator,
+    snapshots: SnapshotFixture,
+    response_mocker: ResponseMocker,
+):
+    hacs = get_hacs(hass)
+    repo = hacs.repositories.get_by_full_name("hacs-test-org/integration-basic")
+
+    assert repo is not None
+
+    repo.data.installed = True
+    repo.data.installed_version = "0.0.1"
+
+    await hass.config_entries.async_reload(hacs.configuration.config_entry.entry_id)
+    await hass.async_block_till_done()
+
+    # Get a new HACS instance after reload
+    hacs = get_hacs(hass)
+
+    er = async_get_entity_registry(hacs.hass)
+
+    entity_id = er.async_get_entity_id("update", DOMAIN, repo.data.id)
+
+    with patch(
+        "custom_components.hacs.repositories.base.HacsRepository.can_download", False
+    ), pytest.raises(
+        HomeAssistantError,
+        match="This integration is not available for download.",
+    ):
+        await hass.services.async_call(
+            "update",
+            "install",
+            service_data={"entity_id": entity_id},
             blocking=True,
         )
 

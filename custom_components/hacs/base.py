@@ -599,7 +599,7 @@ class HacsBase:
             repository.data.id = repository_id
 
         else:
-            if self.hass is not None and ((check and repository.data.new) or self.status.new):
+            if self.hass is not None and check and repository.data.new:
                 self.async_dispatch(
                     HacsDispatchEvent.REPOSITORY,
                     {
@@ -887,15 +887,6 @@ class HacsBase:
                         repository.repository_manifest.update_data(
                             {**dict(HACS_MANIFEST_KEYS_TO_EXPORT), **manifest}
                         )
-                    self.async_dispatch(
-                        HacsDispatchEvent.REPOSITORY,
-                        {
-                            "id": 1337,
-                            "action": "update",
-                            "repository": repository.data.full_name,
-                            "repository_id": repository.data.id,
-                        },
-                    )
 
         if category == "integration":
             self.status.inital_fetch_done = True
@@ -911,6 +902,16 @@ class HacsBase:
                         "%s Unregister stale custom repository", repository.string
                     )
                     self.repositories.unregister(repository)
+
+        self.async_dispatch(
+            HacsDispatchEvent.REPOSITORY,
+            {
+                "id": 1337,
+                "action": "update",
+                "repository": repository.data.full_name,
+                "repository_id": repository.data.id,
+            },
+        )
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""

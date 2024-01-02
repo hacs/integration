@@ -477,6 +477,7 @@ class MockedResponse:
     def __init__(self, **kwargs) -> None:
         self.kwargs = kwargs
         self.exception = kwargs.get("exception", None)
+        self.keep = kwargs.get("keep", False)
 
     @property
     def status(self):
@@ -500,6 +501,11 @@ class MockedResponse:
             return content
         return await self.kwargs.get("json", AsyncMock())()
 
+    async def text(self, **kwargs):
+        if (content := self.kwargs.get("content")) is not None:
+            return content
+        return await self.kwargs.get("text", AsyncMock())()
+
     def raise_for_status(self) -> None:
         if self.status >= 300:
             raise ClientError(self.status)
@@ -520,6 +526,9 @@ class ResponseMocker:
                 "setup_integration" in request.fixturenames or "hacs" in request.fixturenames
             )
         self.calls.append(data)
+        response = self.responses.get(url, None)
+        if response is not None and response.keep:
+            return response
         return self.responses.pop(url, None)
 
 
@@ -542,6 +551,8 @@ class ProxyClientSession(ClientSession):
             os.path.dirname(__file__),
             fixture_file,
         )
+
+        LOGGER.info("Using mocked response from %s", fixture_file)
 
         if not os.path.exists(fp):
             raise Exception(f"Missing fixture for proxy/{url.host}{url.path}")

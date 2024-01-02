@@ -903,15 +903,7 @@ class HacsBase:
                     )
                     self.repositories.unregister(repository)
 
-        self.async_dispatch(
-            HacsDispatchEvent.REPOSITORY,
-            {
-                "id": 1337,
-                "action": "update",
-                "repository": repository.data.full_name,
-                "repository_id": repository.data.id,
-            },
-        )
+        self.async_dispatch(HacsDispatchEvent.REPOSITORY, {})
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""

@@ -718,7 +718,7 @@ class HacsRepository:
         except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             pass
 
-    async def async_get_info_file_contents(self) -> str:
+    async def async_get_info_file_contents(self, *, version: str | None = None, **kwargs) -> str:
         """Get the content of the info.md file."""
 
         def _info_file_variants() -> tuple[str, ...]:
@@ -741,7 +741,7 @@ class HacsRepository:
         if not info_files:
             return ""
 
-        return await self.get_documentation(filename=info_files[0]) or ""
+        return await self.get_documentation(filename=info_files[0], version=version) or ""
 
     def remove(self) -> None:
         """Run remove tasks."""
@@ -1319,28 +1319,31 @@ class HacsRepository:
         self,
         *,
         filename: str | None = None,
+        version: str | None = None,
         **kwargs,
     ) -> str | None:
         """Get the documentation of the repository."""
         if filename is None:
             return None
 
-        version = (
-            (self.data.installed_version or self.data.installed_commit)
-            if self.data.installed
-            else (self.data.last_version or self.data.last_commit or self.ref)
-        )
+        if version is not None:
+            target_version = version
+        elif self.data.installed:
+            target_version = self.data.installed_version or self.data.installed_commit
+        else:
+            target_version = self.data.last_version or self.data.last_commit or self.ref
+
         self.logger.debug(
             "%s Getting documentation for version=%s,filename=%s",
             self.string,
-            version,
+            target_version,
             filename,
         )
-        if version is None:
+        if target_version is None:
             return None
 
         result = await self.hacs.async_download_file(
-            f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/{filename}",
+            f"https://raw.githubusercontent.com/{self.data.full_name}/{target_version}/{filename}",
             nolog=True,
         )
 

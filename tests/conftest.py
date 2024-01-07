@@ -9,12 +9,13 @@ import logging
 import os
 import shutil
 from typing import Any, Generator
-from unittest.mock import  MagicMock, patch
+from unittest.mock import MagicMock, patch
+
+from homeassistant import loader
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
-from homeassistant import loader
 from homeassistant.runner import HassEventLoopPolicy
 import pytest
 import pytest_asyncio
@@ -34,7 +35,6 @@ from custom_components.hacs.repositories import (
 from custom_components.hacs.utils.store import async_load_from_store
 
 from tests import _async_suggest_report_issue_mock_call_tracker
-
 from tests.common import (
     IGNORED_BASE_FILES,
     REQUEST_CONTEXT,
@@ -303,10 +303,11 @@ def response_mocker() -> ResponseMocker:
 
 @pytest_asyncio.fixture()
 async def setup_integration(hass: HomeAssistant) -> None:
-
     ## Assert the string to ensure the format did not change
     assert len(_async_suggest_report_issue_mock_call_tracker) == 0
-    loader.async_suggest_report_issue(hass, integration_domain=DOMAIN, module="custom_components.hacs") == "create a bug report at https://github.com/hacs/integration/issues"
+    loader.async_suggest_report_issue(
+        hass, integration_domain=DOMAIN, module="custom_components.hacs"
+    ) == "create a bug report at https://github.com/hacs/integration/issues"
     assert len(_async_suggest_report_issue_mock_call_tracker) == 1
     _async_suggest_report_issue_mock_call_tracker.clear()
     assert len(_async_suggest_report_issue_mock_call_tracker) == 0
@@ -321,8 +322,10 @@ async def setup_integration(hass: HomeAssistant) -> None:
     await common_setup_integration(hass, config_entry)
     yield
     await hass.config_entries.async_remove(config_entry.entry_id)
-    if (times :=len(_async_suggest_report_issue_mock_call_tracker)) != 0:
-        raise AssertionError(f"homeassistant.loader.async_suggest_report_issue has been called {times} called, check the log for more details.")
+    if (times := len(_async_suggest_report_issue_mock_call_tracker)) != 0:
+        raise AssertionError(
+            f"homeassistant.loader.async_suggest_report_issue has been called {times} called, check the log for more details."
+        )
 
 
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int):

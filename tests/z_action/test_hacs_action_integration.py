@@ -3,9 +3,10 @@ import base64
 import json
 import os
 from unittest import mock
+
 import pytest
 
-from tests.common import TOKEN, ResponseMocker, MockedResponse
+from tests.common import TOKEN, MockedResponse, ResponseMocker
 from tests.conftest import SnapshotFixture
 
 

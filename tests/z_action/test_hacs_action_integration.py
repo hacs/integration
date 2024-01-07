@@ -55,7 +55,10 @@ async def test_hacs_action_integration(
 
         await preflight()
 
+
+    splitlines = [f"<{l.rsplit(' <')[1]}" for l in caplog.text.split("\n") if " <" in l]
+
     snapshots.assert_match(
-        "\n".join(f"<{l.rsplit(' <')[1]}" for l in caplog.text.split("\n") if " <" in l),
+        "\n".join(splitlines[0:2] + sorted(splitlines[2:-3]) + splitlines[-3:]),
         f"action/integration/{key}.log",
     )

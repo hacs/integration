@@ -13,6 +13,18 @@ from .hacs_frontend_experimental import (
     locate_dir as experimental_locate_dir,
 )
 
+try:
+    from homeassistant.components.frontend import add_extra_js_url
+except ImportError:
+
+    def add_extra_js_url(hass: HomeAssistant, url: str, es5: bool = False) -> None:
+        hacs: HacsBase = hass.data.get(DOMAIN)
+        hacs.log.error("Could not import add_extra_js_url from frontend.")
+        if "frontend_extra_module_url" not in hass.data:
+            hass.data["frontend_extra_module_url"] = set()
+        hass.data["frontend_extra_module_url"].add(url)
+
+
 if TYPE_CHECKING:
     from .base import HacsBase
 
@@ -45,9 +57,7 @@ def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
     hass.http.register_static_path(
         f"{URL_BASE}/iconset.js", str(hacs.integration_dir / "iconset.js")
     )
-    if "frontend_extra_module_url" not in hass.data:
-        hass.data["frontend_extra_module_url"] = set()
-    hass.data["frontend_extra_module_url"].add(f"{URL_BASE}/iconset.js")
+    add_extra_js_url(hass, f"{URL_BASE}/iconset.js")
 
     hacs.frontend_version = (
         FE_VERSION if not hacs.configuration.experimental else EXPERIMENTAL_FE_VERSION

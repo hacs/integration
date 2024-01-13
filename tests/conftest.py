@@ -10,8 +10,8 @@ import os
 import shutil
 from typing import Any, Generator
 from unittest.mock import MagicMock, patch
-from awesomeversion import AwesomeVersion
 
+from awesomeversion import AwesomeVersion
 from homeassistant import loader
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
@@ -308,9 +308,12 @@ async def setup_integration(hass: HomeAssistant) -> None:
     ## Assert the string to ensure the format did not change
     if AwesomeVersion(HA_VERSION) >= "2023.11.0":
         assert len(_async_suggest_report_issue_mock_call_tracker) == 0
-        assert loader.async_suggest_report_issue(
-            hass, integration_domain=DOMAIN, module="custom_components.hacs"
-        ) == "create a bug report at https://github.com/hacs/integration/issues"
+        assert (
+            loader.async_suggest_report_issue(
+                hass, integration_domain=DOMAIN, module="custom_components.hacs"
+            )
+            == "create a bug report at https://github.com/hacs/integration/issues"
+        )
         assert len(_async_suggest_report_issue_mock_call_tracker) == 1
         _async_suggest_report_issue_mock_call_tracker.clear()
         assert len(_async_suggest_report_issue_mock_call_tracker) == 0

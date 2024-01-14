@@ -688,6 +688,9 @@ class HacsRepository:
                     and filename != self.content.path.remote
                 ):
                     path.filename = filename.replace(self.content.path.remote, "")
+                    if path.filename == "/":
+                        # Blank files is not valid, and will start to throw in Python 3.12
+                        continue
                     extractable.append(path)
 
             if len(extractable) == 0:

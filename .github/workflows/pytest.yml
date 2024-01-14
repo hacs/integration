@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   legacy:
-    name: With pytest with Home Assistant 2023.6.0
+    name: With pytest with Home Assistant (min. supported version)
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout the repository
@@ -42,7 +42,7 @@ jobs:
           python3 -m pytest
 
   dev:
-    name: With pytest with Home Assistant (${{ matrix.homeassistant-version }}) & (python-${{ matrix.python-version }})
+    name: With pytest with Home Assistant (${{ matrix.homeassistant-version }}) & Python (${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:

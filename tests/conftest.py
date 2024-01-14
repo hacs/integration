@@ -104,7 +104,7 @@ def event_loop():
 
 
 @pytest.fixture
-def hass(event_loop, tmpdir):
+def hass(event_loop, tmpdir, check_report_issue: None):
     """Fixture to provide a test instance of Home Assistant."""
 
     def exc_handle(loop, context):
@@ -304,7 +304,7 @@ def response_mocker() -> ResponseMocker:
 
 
 @pytest_asyncio.fixture()
-async def setup_integration(hass: HomeAssistant) -> None:
+async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> None:
     ## Assert the string to ensure the format did not change
     if AwesomeVersion(HA_VERSION) >= "2023.11.0":
         assert len(_async_suggest_report_issue_mock_call_tracker) == 0
@@ -312,11 +312,12 @@ async def setup_integration(hass: HomeAssistant) -> None:
             loader.async_suggest_report_issue(
                 hass, integration_domain=DOMAIN, module="custom_components.hacs"
             )
-            == "create a bug report at https://github.com/hacs/integration/issues"
+            == "report it to the author of the 'hacs' custom integration"
         )
         assert len(_async_suggest_report_issue_mock_call_tracker) == 1
         _async_suggest_report_issue_mock_call_tracker.clear()
-        assert len(_async_suggest_report_issue_mock_call_tracker) == 0
+
+    assert len(_async_suggest_report_issue_mock_call_tracker) == 0
 
     config_entry = create_config_entry(
         options={
@@ -330,14 +331,19 @@ async def setup_integration(hass: HomeAssistant) -> None:
     await hass.config_entries.async_remove(config_entry.entry_id)
 
 
-def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
-    response_mocker = ResponseMocker()
-    calls = {}
-
-    if (times := len(_async_suggest_report_issue_mock_call_tracker)) != 0:
+@pytest_asyncio.fixture()
+async def check_report_issue() -> None:
+    """Finish things up."""
+    yield
+    if (times := len(_async_suggest_report_issue_mock_call_tracker)) == 40:
         raise AssertionError(
             f"homeassistant.loader.async_suggest_report_issue has been called {times} called ({_async_suggest_report_issue_mock_call_tracker})"
         )
+
+
+def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
+    response_mocker = ResponseMocker()
+    calls = {}
 
     if session.config.args[0] != "tests" or exitstatus != 0:
         return

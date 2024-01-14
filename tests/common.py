@@ -418,7 +418,7 @@ class MockConfigEntry(config_entries.ConfigEntry):
         """Test helper to add entry to hass."""
         hass.config_entries._entries[self.entry_id] = self
 
-        if AwesomeVersion(HAVERSION) >= "2023.1.99":
+        if AwesomeVersion(HAVERSION) >= "2024.1.99":
             ## This was removed in https://github.com/home-assistant/core/pull/107590 (2024.01.13)
             pass
         elif AwesomeVersion(HAVERSION) >= "2023.10.0":

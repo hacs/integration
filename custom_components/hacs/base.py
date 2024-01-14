@@ -853,6 +853,7 @@ class HacsBase:
                 for category in self.common.categories or []
             ]
         )
+        self.async_dispatch(HacsDispatchEvent.REPOSITORY, {})
 
     async def async_get_category_repositories_experimental(self, category: str) -> None:
         """Update all category repositories."""
@@ -902,8 +903,6 @@ class HacsBase:
                         "%s Unregister stale custom repository", repository.string
                     )
                     self.repositories.unregister(repository)
-
-        self.async_dispatch(HacsDispatchEvent.REPOSITORY, {})
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""

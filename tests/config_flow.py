@@ -33,6 +33,7 @@ async def test_full_user_flow_implementation(
     _mock_setup_entry: None,
     response_mocker: ResponseMocker,
     snapshots: SnapshotFixture,
+    check_report_issue: None,
 ) -> None:
     """Test the full manual user flow from start to finish."""
     response_mocker.add(
@@ -111,6 +112,7 @@ async def test_flow_with_remove_while_activating(
     hass: HomeAssistant,
     _mock_setup_entry: None,
     response_mocker: ResponseMocker,
+    check_report_issue: None,
 ) -> None:
     """Test flow with user canceling while activating."""
     response_mocker.add(
@@ -170,6 +172,7 @@ async def test_flow_with_registration_failure(
     _mock_setup_entry: None,
     response_mocker: ResponseMocker,
     snapshots: SnapshotFixture,
+    check_report_issue: None,
 ) -> None:
     """Test flow with registration failure of the device."""
     response_mocker.add(
@@ -209,6 +212,7 @@ async def test_flow_with_activation_failure(
     _mock_setup_entry: None,
     response_mocker: ResponseMocker,
     snapshots: SnapshotFixture,
+    check_report_issue: None,
 ) -> None:
     """Test flow with activation failure of the device."""
     response_mocker.add(
@@ -266,6 +270,7 @@ async def test_already_configured(
     hass: HomeAssistant,
     _mock_setup_entry: None,
     snapshots: SnapshotFixture,
+    check_report_issue: None,
 ) -> None:
     """Test we abort if already configured."""
     result = await hass.config_entries.flow.async_init(

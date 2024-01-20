@@ -170,6 +170,10 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
             await self.hass.config_entries.async_reload(existing_entry.entry_id)
             return self.async_abort(reason="reauth_successful")
 
+        if self._async_current_entries():
+            # Dirty workaround with bad UX...
+            return self.async_abort(reason="single_instance_allowed")
+
         return self.async_create_entry(
             title="",
             data={

@@ -76,5 +76,42 @@
             "title": "YAML configuration is deprecated",
             "description": "YAML configuration of HACS is deprecated and will be removed in version 2.0.0, there will be no automatic import of this.\nPlease remove it from your configuration, restart Home Assistant and use the UI to configure it instead."
         }
+    },
+    "selector": {
+        "categories": {
+            "options": {
+                "appdaemon": "AppDaemon apps",
+                "integration": "Integration",
+                "netdaemon": "NetDaemon apps",
+                "plugin": "Plugin",
+                "python_script": "Python Script",
+                "template": "Template",
+                "theme": "Theme"
+            }
+        }
+    },
+    "services": {
+        "get_repositories": {
+            "name": "Get Repositories",
+            "description": "Get repositories based on the provided filters",
+            "fields": {
+                "downloaded": {
+                    "name": "Downloaded",
+                    "description": "Set this to true to only get downloaded repositories"
+                },
+                "new": {
+                    "name": "New",
+                    "description": "Set this to true to only get new repositories"
+                },
+                "pending_update": {
+                    "name": "Pending update",
+                    "description": "Set this to true to only get repositories with pending updates"
+                },
+                "categories": {
+                    "name": "Categories",
+                    "description": "Select the categories you want to filter by, if unset all categories will be used"
+                }
+            }
+        }
     }
 }

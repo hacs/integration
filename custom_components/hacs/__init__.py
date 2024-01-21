@@ -29,6 +29,7 @@ from .const import DOMAIN, MINIMUM_HA_VERSION, STARTUP
 from .data_client import HacsDataClient
 from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
 from .frontend import async_register_frontend
+from .services import async_register_hacs_services, async_unregister_hacs_services
 from .utils.configuration_schema import hacs_config_combined
 from .utils.data import HacsData
 from .utils.logger import LOGGER
@@ -168,6 +169,7 @@ async def async_initialize_integration(
 
         async_register_websocket_commands(hass)
         async_register_frontend(hass, hacs)
+        async_register_hacs_services(hass=hass)
 
         if hacs.configuration.config_type == ConfigurationType.YAML:
             hass.async_create_task(
@@ -278,6 +280,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
         platforms.append("update")
 
     unload_ok = await hass.config_entries.async_unload_platforms(config_entry, platforms)
+    async_unregister_hacs_services(hass)
 
     hacs.set_stage(None)
     hacs.disable_hacs(HacsDisabledReason.REMOVED)

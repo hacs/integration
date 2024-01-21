@@ -1,0 +1,33 @@
+get_repositories:
+  fields:
+    downloaded:
+      selector:
+        boolean:
+          default: true
+          required: false
+    new:
+      selector:
+        boolean:
+          default: true
+          required: false
+    pending_update:
+      selector:
+        boolean:
+          default: true
+          required: false
+    categories:
+      selector:
+        select:
+          translation_key: "categories"
+          multiple: true
+          sort: true
+          required: false
+          default: []
+          options:
+            - integration
+            - plugin
+            - template
+            - appdaemon
+            - netdaemon
+            - python_script
+            - theme

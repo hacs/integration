@@ -150,8 +150,9 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
 
         release_notes = ""
         if self.installed_version in self.repository.data.published_tags:
-            new_releases = dropwhile(lambda r: r.tag_name != self.installed_version, reversed(self.repository.releases.objects))
-            for release in reversed(list(new_releases)):
+            for release in self.repository.releases.objects:
+                if release.tag_name == self.installed_version:
+                    break
                 release_notes += f"# {release.tag_name}"
                 if release.tag_name != release.name:
                     release_notes += f"  - {release.name}"

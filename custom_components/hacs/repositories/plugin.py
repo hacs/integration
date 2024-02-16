@@ -126,12 +126,13 @@ class HacsPluginRepository(HacsRepository):
 
         all_paths = tuple(x.full_path for x in self.tree)
         for filename in valid_filenames:
-            if not content_in_root and f"dist/{filename}" in all_paths:
-                self.data.file_name = filename.split("/")[-1]
-                self.content.path.remote = "dist"
-                return
             if filename in all_paths:
                 self.data.file_name = filename
                 self.content.path.remote = ""
                 return
+            if not content_in_root and f"dist/{filename}" in all_paths:
+                self.data.file_name = filename.split("/")[-1]
+                self.content.path.remote = "dist"
+                return
+
 

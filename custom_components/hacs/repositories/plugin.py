@@ -99,9 +99,9 @@ class HacsPluginRepository(HacsRepository):
 
     def update_filenames(self) -> None:
         """Get the filename to target."""
-        # Handler for plug requirement 3
-        if self.repository_manifest.filename:
-            valid_filenames = (self.repository_manifest.filename,)
+        content_in_root = self.repository_manifest.content_in_root
+        if spesific_filename := self.repository_manifest.filename:
+            valid_filenames = (spesific_filename,)
         else:
             valid_filenames = (
                 f"{self.data.name.replace('lovelace-', '')}.js",
@@ -110,7 +110,7 @@ class HacsPluginRepository(HacsRepository):
                 f"{self.data.name}-bundle.js",
             )
 
-        if not self.repository_manifest.content_in_root:
+        if not content_in_root:
             if self.releases.objects:
                 release = self.releases.objects[0]
                 if release.assets:
@@ -124,11 +124,14 @@ class HacsPluginRepository(HacsRepository):
                         self.content.path.remote = "release"
                         return
 
-        for location in ("",) if self.repository_manifest.content_in_root else ("dist", ""):
-            for filename in valid_filenames:
-                if f"{location+'/' if location else ''}{filename}" in [
-                    x.full_path for x in self.tree
-                ]:
-                    self.data.file_name = filename.split("/")[-1]
-                    self.content.path.remote = location
-                    break
+        all_paths = tuple(x.full_path for x in self.tree)
+        for filename in valid_filenames:
+            if not content_in_root and f"dist/{filename}" in all_paths:
+                self.data.file_name = filename.split("/")[-1]
+                self.content.path.remote = "dist"
+                return
+            if filename in all_paths:
+                self.data.file_name = filename
+                self.content.path.remote = ""
+                return
+

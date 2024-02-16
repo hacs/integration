@@ -100,8 +100,8 @@ class HacsPluginRepository(HacsRepository):
     def update_filenames(self) -> None:
         """Get the filename to target."""
         content_in_root = self.repository_manifest.content_in_root
-        if spesific_filename := self.repository_manifest.filename:
-            valid_filenames = (spesific_filename,)
+        if specific_filename := self.repository_manifest.filename:
+            valid_filenames = (specific_filename,)
         else:
             valid_filenames = (
                 f"{self.data.name.replace('lovelace-', '')}.js",

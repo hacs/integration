@@ -134,5 +134,3 @@ class HacsPluginRepository(HacsRepository):
                 self.data.file_name = filename.split("/")[-1]
                 self.content.path.remote = "dist"
                 return
-
-

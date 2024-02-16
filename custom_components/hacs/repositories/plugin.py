@@ -124,7 +124,7 @@ class HacsPluginRepository(HacsRepository):
                         self.content.path.remote = "release"
                         return
 
-        all_paths = tuple(x.full_path for x in self.tree)
+        all_paths = {x.full_path for x in self.tree}
         for filename in valid_filenames:
             if filename in all_paths:
                 self.data.file_name = filename

@@ -307,7 +307,7 @@ async def async_test_home_assistant(loop, tmpdir):
     hass.config_entries = config_entries.ConfigEntries(hass, {})
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, hass.config_entries._async_shutdown)
 
-    hass.state = ha.CoreState.running
+    hass.set_state(ha.CoreState.running)
     await async_setup_component(hass, "homeassistant", {})
     with patch("homeassistant.components.python_script.setup", return_value=True):
         assert await async_setup_component(hass, "python_script", {})

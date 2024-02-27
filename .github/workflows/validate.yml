@@ -19,25 +19,23 @@ jobs:
     runs-on: ubuntu-latest
     name: With hassfest
     steps:
-    - name: 📥 Checkout the repository
-      uses: actions/checkout@v4.1.1
+      - name: 📥 Checkout the repository
+        uses: actions/checkout@v4.1.1
 
-    - name: 🏃 Hassfest validation
-      uses: "home-assistant/actions/hassfest@master"
+      - name: 🏃 Hassfest validation
+        uses: "home-assistant/actions/hassfest@master"
 
     - name: Test err
       run: exit 1
-
-
   validate-hacs:
     runs-on: ubuntu-latest
     name: With HACS Action
     if: ${{ github.event_name == 'schedule' }}
     steps:
-    - name: 🏃 HACS validation
-      uses: hacs/action@main
-      with:
-        category: integration
+      - name: 🏃 HACS validation
+        uses: hacs/action@main
+        with:
+          category: integration
 
   validate-hacs-local:
     runs-on: ubuntu-latest
@@ -60,7 +58,6 @@ jobs:
             --env INPUT_REPOSITORY=${{github.repository}} \
             --env INPUT_CATEGORY=integration \
             hacs/action:local
-
 
   validata-hacs-data:
     runs-on: ubuntu-latest
@@ -121,12 +118,11 @@ jobs:
           tag: ${{ matrix.channel }}
           config-dir: test_configuration
 
-
   notify_on_failure:
     runs-on: ubuntu-latest
     name: Trigger Discord notification when jobs fail
     needs: ["validate-hassfest", "validate-hacs", "validate-homeassistant"]
-    if: ${{ always() && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
+    if: ${{ always() && contains(join(needs.*.result, ','), 'failure')  }}
     steps:
       - name: Send notification
         run: |

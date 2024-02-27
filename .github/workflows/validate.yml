@@ -25,10 +25,14 @@ jobs:
     - name: 🏃 Hassfest validation
       uses: "home-assistant/actions/hassfest@master"
 
+    - name: Test err
+      run: exit 1
+
 
   validate-hacs:
     runs-on: ubuntu-latest
     name: With HACS Action
+    if: ${{ github.event_name == 'schedule' }}
     steps:
     - name: 🏃 HACS validation
       uses: hacs/action@main
@@ -47,7 +51,6 @@ jobs:
         run: |
           cd action
           docker build . \
-            --cache-from ghcr.io/hacs/action \
             -t hacs/action:local
 
       - name: Run Action

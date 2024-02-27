@@ -51,6 +51,7 @@ jobs:
       - name: Run Action
         run: |
           docker run --name hacs_action_local \
+            --env INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             --env INPUT_REPOSITORY=${{github.repository}} \
             --env INPUT_CATEGORY=integration \
             hacs/action:local
@@ -120,7 +121,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Trigger Discord notification when jobs fail
     needs: ["validate-hassfest", "validate-hacs", "validate-homeassistant"]
-    if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
+    if: ${{ always() && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
     steps:
       - name: Send notification
         run: |

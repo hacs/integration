@@ -25,13 +25,6 @@ jobs:
     - name: 🏃 Hassfest validation
       uses: "home-assistant/actions/hassfest@master"
 
-    - name: 📨 Discord notification
-      if: ${{ github.event_name == 'schedule' && failure() }}
-      run: |
-        curl \
-          -H "Content-Type: application/json" \
-          -d '{"username": "GitHub action failure", "content": "[Scheduled action failed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"}' \
-          ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
 
   validate-hacs:
     runs-on: ubuntu-latest
@@ -42,25 +35,36 @@ jobs:
       with:
         category: integration
 
-    - name: 📨 Discord notification
-      if: ${{ github.event_name == 'schedule' && failure() }}
-      run: |
-        curl \
-          -H "Content-Type: application/json" \
-          -d '{"username": "GitHub action failure", "content": "[Scheduled action failed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"}' \
-          ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
+  validate-hacs-local:
+    runs-on: ubuntu-latest
+    name: With HACS Action (local)
+    if: ${{ github.event_name != 'schedule' }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4.1.1
+
+      - name: Build Container
+        run: |
+          cd action
+          docker build . -t hacs/action:local
+
+      - name: Run Action
+        run: |
+          docker run --name hacs_action_local \
+            --env INPUT_REPOSITORY=${{github.repository}} \
+            --env INPUT_CATEGORY=integration \
+            hacs/action:local
 
 
   validata-hacs-data:
     runs-on: ubuntu-latest
     name: Validate HACS data generation
+    if: ${{ github.event_name != 'schedule' }}
     steps:
       - name: Checkout the repository
-        if: ${{ github.event_name == 'push' }}
         uses: actions/checkout@v4.1.1
 
       - name: Set up Python
-        if: ${{ github.event_name == 'push' }}
         uses: actions/setup-python@v4.7.1
         id: python
         with:
@@ -71,19 +75,16 @@ jobs:
             requirements_generate_data.txt
 
       - name: Install dependencies
-        if: ${{ github.event_name == 'push' }}
         run:  |
           scripts/install/frontend
           scripts/install/pip_packages --requirement requirements_generate_data.txt
 
       - name: Generate data
-        if: ${{ github.event_name == 'push' }}
         run: python3 -m scripts.data.generate_category_data integration hacs/integration
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Validate output with JQ
-        if: ${{ github.event_name == 'push' }}
         run: |
           jq -c . outputdata/integration/data.json
           jq -c . outputdata/integration/repositories.json
@@ -114,8 +115,14 @@ jobs:
           tag: ${{ matrix.channel }}
           config-dir: test_configuration
 
-      - name: 📨 Discord notification
-        if: ${{ github.event_name == 'schedule' && failure() }}
+
+  notify_on_failure:
+    runs-on: ubuntu-latest
+    name: Trigger Discord notification when jobs fail
+    needs: ["validate-hassfest", "validate-hacs", "validate-homeassistant"]
+    if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
+    steps:
+      - name: Send notification
         run: |
           curl \
             -H "Content-Type: application/json" \

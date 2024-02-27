@@ -25,9 +25,6 @@ jobs:
       - name: 🏃 Hassfest validation
         uses: "home-assistant/actions/hassfest@master"
 
-      - name: Test err
-        run: exit 1
-
   validate-hacs:
     runs-on: ubuntu-latest
     name: With HACS Action
@@ -123,7 +120,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Trigger Discord notification when jobs fail
     needs: ["validate-hassfest", "validate-hacs", "validate-homeassistant"]
-    if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
+    if: ${{ always() && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
     steps:
       - name: Send notification
         run: |

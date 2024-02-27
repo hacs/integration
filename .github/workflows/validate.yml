@@ -46,7 +46,9 @@ jobs:
       - name: Build Container
         run: |
           cd action
-          docker build . -t hacs/action:local
+          docker build . \
+            --cache-from ghcr.io/hacs/action \
+            -t hacs/action:local
 
       - name: Run Action
         run: |

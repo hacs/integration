@@ -4,8 +4,8 @@ from __future__ import annotations
 import os
 from typing import TYPE_CHECKING
 
-from homeassistant.core import HomeAssistant, callback
 from homeassistant.components.frontend import async_register_built_in_panel
+from homeassistant.core import HomeAssistant, callback
 
 from .const import DOMAIN, URL_BASE
 from .hacs_frontend import VERSION as FE_VERSION, locate_dir
@@ -66,7 +66,8 @@ def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
 
     # Add to sidepanel if needed
     if DOMAIN not in hass.data.get("frontend_panels", {}):
-        async_register_built_in_panel(hass,
+        async_register_built_in_panel(
+            hass,
             component_name="custom",
             sidebar_title=hacs.configuration.sidepanel_title,
             sidebar_icon=hacs.configuration.sidepanel_icon,

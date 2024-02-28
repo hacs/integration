@@ -1,6 +1,7 @@
 """Tests for the utils.url module."""
 import pytest
-from custom_components.hacs.utils.url import github_release_asset, github_archive
+
+from custom_components.hacs.utils.url import github_archive, github_release_asset
 
 
 @pytest.mark.parametrize(

@@ -1,5 +1,3 @@
-import re
-
 from awesomeversion import AwesomeVersion
 import pytest
 from voluptuous.error import Invalid

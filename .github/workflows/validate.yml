@@ -22,6 +22,10 @@ jobs:
     - name: 📥 Checkout the repository
       uses: actions/checkout@v4.1.1
 
+    # Test files conflics with running hassfest
+    - name: Remove tests
+      run: rm -rf tests
+
     - name: 🏃 Hassfest validation
       uses: "home-assistant/actions/hassfest@master"
 

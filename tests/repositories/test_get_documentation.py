@@ -5,7 +5,7 @@ import pytest
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.repositories.base import HacsRepository
 
-from tests.common import client_session_proxy
+from tests.common import ResponseMocker, client_session_proxy
 
 
 @pytest.mark.parametrize(
@@ -20,10 +20,14 @@ from tests.common import client_session_proxy
         ({"installed": False, "last_version": "99.99.99"}, None),
     ],
 )
-@pytest.mark.asyncio
-async def test_validate_repository(hacs: HacsBase, data: dict[str, Any], result: str | None):
+async def test_validate_repository(
+    hacs: HacsBase,
+    data: dict[str, Any],
+    result: str | None,
+    response_mocker: ResponseMocker,
+):
     repository = HacsRepository(hacs=hacs)
-    repository.data.full_name = "octocat/integration"
+    repository.data.full_name = "hacs-test-org/integration-basic"
     for key, value in data.items():
         setattr(repository.data, key, value)
 

@@ -15,6 +15,7 @@ def test_render_template(hacs, repository):
     repository.releases.last_release_object = MockRelease()
     render_template(hacs, content, repository)
 
+    hacs.configuration.experimental = False
     assert render_template(hacs, "{{test.test}}", repository) == "{{test.test}}"
     assert render_template(hacs, "{%if True%}hi{%endif%}", repository) == "hi"
 

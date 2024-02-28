@@ -1,5 +1,4 @@
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
-import pytest
 
 from custom_components.hacs.validate.hacsjson import Validator
 
@@ -9,14 +8,12 @@ test_tree = [
 ]
 
 
-@pytest.mark.asyncio
 async def test_hacs_manifest_no_manifest(repository):
     check = Validator(repository)
     await check.execute_validation()
     assert check.failed
 
 
-@pytest.mark.asyncio
 async def test_hacs_manifest_with_valid_manifest(repository):
     repository.tree = test_tree
 
@@ -30,7 +27,6 @@ async def test_hacs_manifest_with_valid_manifest(repository):
     assert not check.failed
 
 
-@pytest.mark.asyncio
 async def test_hacs_manifest_with_invalid_manifest(repository):
     repository.tree = test_tree
 
@@ -44,7 +40,6 @@ async def test_hacs_manifest_with_invalid_manifest(repository):
     assert check.failed
 
 
-@pytest.mark.asyncio
 async def test_hacs_manifest_with_missing_filename(repository, caplog):
     repository.tree = test_tree
     repository.data.category = "integration"

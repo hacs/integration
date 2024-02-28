@@ -1,9 +1,6 @@
-import pytest
-
 from custom_components.hacs.validate.issues import Validator
 
 
-@pytest.mark.asyncio
 async def test_repository_issues_enabled(repository):
     repository.data.has_issues = True
     check = Validator(repository)
@@ -11,7 +8,6 @@ async def test_repository_issues_enabled(repository):
     assert not check.failed
 
 
-@pytest.mark.asyncio
 async def test_repository_issues_not_enabled(repository):
     repository.data.has_issues = False
     check = Validator(repository)

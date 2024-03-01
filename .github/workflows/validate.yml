@@ -86,12 +86,6 @@ jobs:
             --env INPUT_CATEGORY=${{matrix.entry.category}} \
             hacs/action:local
 
-      - name: Summary
-        run: |
-          echo "<details><summary>Click to expand...</summary>" >> $GITHUB_STEP_SUMMARY
-          docker logs hacs_action_local >> $GITHUB_STEP_SUMMARY
-          echo "</details>" >> $GITHUB_STEP_SUMMARY
-
   validata-hacs-data:
     if: ${{ github.event_name != 'schedule' }}
     needs:

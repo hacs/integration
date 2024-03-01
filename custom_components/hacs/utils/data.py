@@ -260,7 +260,7 @@ class HacsData:
             if (
                 entry == "0"
                 or repo_data.get("category", category) is None
-                or self.hacs.repositories.is_known(repository_id=entry)
+                or self.hacs.repositories.is_registered(repository_id=entry)
             ):
                 continue
             await self.hacs.async_register_repository(

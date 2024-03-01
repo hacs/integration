@@ -265,6 +265,7 @@ class HacsData:
             and repo_data.get("category", category) is not None
         ]
         if register_tasks:
+            LOGGER.warning("Register tasks: %s", register_tasks)
             await asyncio.gather(*register_tasks)
 
     @callback

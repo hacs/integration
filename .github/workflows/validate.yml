@@ -64,10 +64,11 @@ jobs:
       - "preflight"
     runs-on: ubuntu-latest
     name: Check ${{matrix.entry.category}} ${{matrix.entry.repository}} with HACS Action (local)
-    matrix:
-      entry:
-        - repository: "hacs/integration"
-          category: "integration"
+    strategy:
+      matrix:
+        entry:
+          - repository: "hacs/integration"
+            category: "integration"
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4.1.1

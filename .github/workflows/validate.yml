@@ -86,6 +86,12 @@ jobs:
             --env INPUT_CATEGORY=${{matrix.entry.category}} \
             hacs/action:local
 
+      - name: Summary
+        run: |
+          echo "<details><summary>${{matrix.entry.repository}}</summary>" >> $GITHUB_STEP_SUMMARY
+          docker logs hacs_action_local >> $GITHUB_STEP_SUMMARY
+          echo "</details>" >> $GITHUB_STEP_SUMMARY
+
   validata-hacs-data:
     if: ${{ github.event_name != 'schedule' }}
     needs:
@@ -127,6 +133,12 @@ jobs:
         run: |
           jq -c . outputdata/${{ matrix.entry.category }}/data.json
           jq -c . outputdata/${{ matrix.entry.category }}/repositories.json
+
+      - name: Summary
+        run: |
+          echo "<details><summary>${{matrix.entry.repository}}</summary>" >> $GITHUB_STEP_SUMMARY
+          cat outputdata/${{ matrix.entry.category }}/data.json >> $GITHUB_STEP_SUMMARY
+          echo "</details>" >> $GITHUB_STEP_SUMMARY
 
   validate-homeassistant:
     needs:

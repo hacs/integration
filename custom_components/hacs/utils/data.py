@@ -269,7 +269,7 @@ class HacsData:
                 check=False,
                 repository_id=entry,
             )
-            if repo_idx % 50 == 0:
+            if repo_idx % 100 == 0:
                 # yield to avoid blocking the event loop
                 await asyncio.sleep(0)
 

@@ -132,11 +132,12 @@ jobs:
           jq -c . outputdata/${{ matrix.entry.category }}/data.json
           jq -c . outputdata/${{ matrix.entry.category }}/repositories.json
 
-      - name: Summary
-        run: |
-          echo "<details><summary>Click to expand...</summary>" >> $GITHUB_STEP_SUMMARY
-          cat outputdata/${{ matrix.entry.category }}/data.json >> $GITHUB_STEP_SUMMARY
-          echo "</details>" >> $GITHUB_STEP_SUMMARY
+      - uses: actions/upload-artifact@v4.3.1
+        with:
+          name: "${{ matrix.entry.repository }}-data"
+          path: outputdata/${{ matrix.entry.category }}/
+          retention-days: 1
+
 
   validate-homeassistant:
     needs:

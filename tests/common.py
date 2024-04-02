@@ -45,7 +45,6 @@ from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
-from custom_components.hacs.utils.configuration_schema import TOKEN as CONF_TOKEN
 from custom_components.hacs.utils.logger import LOGGER
 
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -843,7 +842,7 @@ def create_config_entry(
             minor_version=0,
             domain=DOMAIN,
             title="",
-            data={CONF_TOKEN: TOKEN, **(data or {})},
+            data={"token": TOKEN, **(data or {})},
             source="user",
             options={**(options or {})},
             unique_id="12345",
@@ -853,7 +852,7 @@ def create_config_entry(
             version=1,
             domain=DOMAIN,
             title="",
-            data={CONF_TOKEN: TOKEN, **(data or {})},
+            data={"token": TOKEN, **(data or {})},
             source="user",
             options={**(options or {})},
             unique_id="12345",

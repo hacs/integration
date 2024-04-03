@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from asyncio import sleep
-from datetime import datetime
+from datetime import datetime, UTC
 import os
 import pathlib
 import shutil
@@ -196,7 +196,7 @@ class RepositoryData:
                 continue
 
             if key == "last_fetched" and isinstance(value, float):
-                setattr(self, key, datetime.fromtimestamp(value))
+                setattr(self, key, datetime.fromtimestamp(value, UTC))
             elif key == "id":
                 setattr(self, key, str(value))
             elif key == "country":
@@ -501,7 +501,7 @@ class HacsRepository:
 
         if self.repository_object:
             self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)
-            self.data.last_fetched = datetime.utcnow()
+            self.data.last_fetched = datetime.now(UTC)
 
         # Set topics
         self.data.topics = self.data.topics
@@ -555,7 +555,7 @@ class HacsRepository:
         self.additional_info = await self.async_get_info_file_contents()
 
         # Set last fetch attribute
-        self.data.last_fetched = datetime.utcnow()
+        self.data.last_fetched = datetime.now(UTC)
 
         return True
 

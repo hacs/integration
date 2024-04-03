@@ -74,7 +74,7 @@ class HacsPluginRepository(HacsRepository):
         if self.content.path.remote == "release":
             self.content.single = True
 
-        # Signal entities to refresh
+        # Signal frontend to refresh
         if self.data.installed:
             self.hacs.async_dispatch(
                 HacsDispatchEvent.REPOSITORY,

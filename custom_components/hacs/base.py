@@ -38,6 +38,7 @@ from custom_components.hacs.repositories.base import (
 )
 
 from .const import DOMAIN, TV, URL_BASE
+from .coordinator import HacsUpdateCoordinator
 from .data_client import HacsDataClient
 from .enums import (
     ConfigurationType,
@@ -373,6 +374,7 @@ class HacsBase:
         """Initialize."""
         self.common = HacsCommon()
         self.configuration = HacsConfiguration()
+        self.coordinators: dict[HacsCategory, HacsUpdateCoordinator] = {}
         self.core = HacsCore()
         self.log = LOGGER
         self.recuring_tasks: list[Callable[[], None]] = []
@@ -423,12 +425,14 @@ class HacsBase:
         if category not in self.common.categories:
             self.log.info("Enable category: %s", category)
             self.common.categories.add(category)
+            self.coordinators[category] = HacsUpdateCoordinator()
 
     def disable_hacs_category(self, category: HacsCategory) -> None:
         """Disable HACS category."""
         if category in self.common.categories:
             self.log.info("Disabling category: %s", category)
             self.common.categories.pop(category)
+            self.coordinators.pop(category)
 
     async def async_save_file(self, file_path: str, content: Any) -> bool:
         """Save a file."""
@@ -907,6 +911,7 @@ class HacsBase:
                     self.repositories.unregister(repository)
 
         self.async_dispatch(HacsDispatchEvent.REPOSITORY, {})
+        self.coordinators[category].async_update_listeners()
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""
@@ -1078,6 +1083,13 @@ class HacsBase:
                 and not self.repositories.is_default(repository.data.id)
             ):
                 self.queue.add(repository.update_repository(ignore_issues=True))
+
+        async def update_coordinators() -> None:
+            """Update all coordinators."""
+            for coordinator in self.coordinators.values():
+                coordinator.async_update_listeners()
+
+        self.queue.add(update_coordinators())
 
         self.log.debug("Recurring background task for downloaded custom repositories done")
 

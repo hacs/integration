@@ -288,6 +288,8 @@ async def hacs_repository_refresh(
 
     await repository.update_repository(ignore_issues=True, force=True)
     await hacs.data.async_write()
+    # Update state of update entity
+    hacs.coordinators[repository.data.category].async_update_listeners()
 
     connection.send_message(websocket_api.result_message(msg["id"], {}))
 

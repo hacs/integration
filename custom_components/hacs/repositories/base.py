@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from asyncio import sleep
+from collections.abc import Coroutine
 from datetime import datetime
 import os
 import pathlib
@@ -644,11 +645,13 @@ class HacsRepository:
 
         download_queue = QueueManager(hass=self.hacs.hass)
 
+        tasks: list[Coroutine] = []
         for content in contents:
             if self.repository_manifest.content_in_root and self.repository_manifest.filename:
                 if content.name != self.repository_manifest.filename:
                     continue
-            download_queue.add(self.dowload_repository_content(content))
+            tasks.append(self.dowload_repository_content(content))
+        download_queue.add(tasks)
 
         await download_queue.execute()
 

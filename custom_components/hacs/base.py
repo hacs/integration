@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+from collections.abc import Coroutine
 from dataclasses import asdict, dataclass, field
 from datetime import timedelta
 import gzip
@@ -823,7 +824,7 @@ class HacsBase:
                 repository = self.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
             elif self.configuration.experimental and not self.status.startup:
                 self.log.error("Scheduling update of hacs/integration")
-                self.queue.add(repository.common_update())
+                self.queue.add((repository.common_update(),))
             if repository is None:
                 raise HacsException("Unknown error")
 
@@ -917,6 +918,7 @@ class HacsBase:
         except HacsException:
             return
 
+        tasks: list[Coroutine] = []
         for repo in repositories:
             if self.common.renamed_repositories.get(repo):
                 repo = self.common.renamed_repositories[repo]
@@ -929,16 +931,17 @@ class HacsBase:
                 self.repositories.mark_default(repository)
                 if self.status.new and self.configuration.dev:
                     # Force update for new installations
-                    self.queue.add(repository.common_update())
+                    tasks.append(repository.common_update())
                 continue
 
-            self.queue.add(
+            tasks.append(
                 self.async_register_repository(
                     repository_full_name=repo,
                     category=category,
                     default=True,
                 )
             )
+        self.queue.add(tasks)
 
     async def async_update_all_repositories(self, _=None) -> None:
         """Update all repositories."""
@@ -946,9 +949,11 @@ class HacsBase:
             return
         self.log.debug("Starting recurring background task for all repositories")
 
-        for repository in self.repositories.list_all:
-            if repository.data.category in self.common.categories:
-                self.queue.add(repository.common_update())
+        self.queue.add(
+            repository.common_update()
+            for repository in self.repositories.list_all
+            if repository.data.category in self.common.categories
+        )
 
         self.async_dispatch(HacsDispatchEvent.REPOSITORY, {"action": "reload"})
         self.log.debug("Recurring background task for all repositories done")
@@ -1060,9 +1065,11 @@ class HacsBase:
             return
         self.log.info("Starting recurring background task for downloaded repositories")
 
-        for repository in self.repositories.list_downloaded:
-            if repository.data.category in self.common.categories:
-                self.queue.add(repository.update_repository(ignore_issues=True))
+        self.queue.add(
+            repository.update_repository(ignore_issues=True)
+            for repository in self.repositories.list_downloaded
+            if repository.data.category in self.common.categories
+        )
 
         self.log.debug("Recurring background task for downloaded repositories done")
 
@@ -1072,12 +1079,14 @@ class HacsBase:
             return
         self.log.info("Starting recurring background task for downloaded custom repositories")
 
-        for repository in self.repositories.list_downloaded:
+        self.queue.add(
+            repository.update_repository(ignore_issues=True)
+            for repository in self.repositories.list_downloaded
             if (
                 repository.data.category in self.common.categories
                 and not self.repositories.is_default(repository.data.id)
-            ):
-                self.queue.add(repository.update_repository(ignore_issues=True))
+            )
+        )
 
         self.log.debug("Recurring background task for downloaded custom repositories done")
 
@@ -1109,6 +1118,7 @@ class HacsBase:
 
         stored_critical = []
 
+        tasks: list[Coroutine] = []
         for repository in critical:
             removed_repo = self.repositories.removed_repository(repository["repository"])
             removed_repo.removal_type = "critical"
@@ -1129,9 +1139,10 @@ class HacsBase:
                     was_installed = True
                     stored["acknowledged"] = False
                     # Remove from HACS
-                    critical_queue.add(repo.uninstall())
+                    tasks.append(repo.uninstall())
                     repo.remove()
 
+            critical_queue.add(tasks)
             stored_critical.append(stored)
             removed_repo.update_data(stored)
 

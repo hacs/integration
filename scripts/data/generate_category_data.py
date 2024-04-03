@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+from collections.abc import Coroutine
 from datetime import datetime
 import json
 import logging
@@ -288,21 +289,23 @@ class AdjustedHacs(HacsBase):
             # hacs/integration i not in the default file, but it's still needed
             repositories.append("hacs/integration")
 
+        tasks: list[Coroutine] = []
         for repo in repositories:
             if repo in removed:
                 self.log.warning("Skipping %s as it's removed from HACS", repo)
                 continue
             repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
-                self.queue.add(self.concurrent_update_repository(repository=repository))
+                tasks.append(self.concurrent_update_repository(repository=repository))
                 continue
 
-            self.queue.add(
+            tasks.append(
                 self.concurrent_register_repository(
                     repository_full_name=repo,
                     category=category,
                 )
             )
+        self.queue.add(tasks)
 
     async def summarize_data(
         self,

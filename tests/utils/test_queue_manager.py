@@ -19,12 +19,12 @@ async def test_queue_manager(hacs: HacsBase, caplog: pytest.LogCaptureFixture) -
     assert queue_manager.pending_tasks == 0
     assert queue_manager.queue == []
 
-    queue_manager.add(dummy_task())
+    queue_manager.add((dummy_task(),))
     assert queue_manager.has_pending_tasks
     assert queue_manager.pending_tasks == 1
 
     for _ in range(1, 5):
-        queue_manager.add(dummy_task())
+        queue_manager.add((dummy_task(),))
     assert queue_manager.has_pending_tasks
     assert queue_manager.pending_tasks == 5
 

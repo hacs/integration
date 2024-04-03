@@ -58,7 +58,7 @@ from .exceptions import (
     HacsRepositoryExistException,
     HomeAssistantCoreRepositoryException,
 )
-from .repositories import RERPOSITORY_CLASSES
+from .repositories import REPOSITORY_CLASSES
 from .utils.decode import decode_content
 from .utils.json import json_loads
 from .utils.logger import LOGGER
@@ -555,7 +555,7 @@ class HacsBase:
         ):
             raise AddonRepositoryException()
 
-        if category not in RERPOSITORY_CLASSES:
+        if category not in REPOSITORY_CLASSES:
             self.log.warning(
                 "%s is not a valid repository category, %s will not be registered.",
                 category,
@@ -566,7 +566,7 @@ class HacsBase:
         if (renamed := self.common.renamed_repositories.get(repository_full_name)) is not None:
             repository_full_name = renamed
 
-        repository: HacsRepository = RERPOSITORY_CLASSES[category](self, repository_full_name)
+        repository: HacsRepository = REPOSITORY_CLASSES[category](self, repository_full_name)
         if check:
             try:
                 await repository.async_registration(ref)

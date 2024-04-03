@@ -1,11 +1,14 @@
 """Update entities for HACS."""
+
 from __future__ import annotations
 
 from typing import Any
 
 from homeassistant.components.update import UpdateEntity, UpdateEntityFeature
-from homeassistant.core import HomeAssistantError, callback
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant, HomeAssistantError, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .base import HacsBase
 from .const import DOMAIN
@@ -15,10 +18,12 @@ from .exceptions import HacsException
 from .repositories.base import HacsManifest
 
 
-async def async_setup_entry(hass, _config_entry, async_add_devices):
+async def async_setup_entry(
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+) -> None:
     """Setup update platform."""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    async_add_devices(
+    async_add_entities(
         HacsRepositoryUpdateEntity(hacs=hacs, repository=repository)
         for repository in hacs.repositories.list_downloaded
     )

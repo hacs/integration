@@ -15,7 +15,7 @@ async def async_setup_validator(repository: HacsRepository) -> Validator:
 class Validator(ActionValidationBase):
     """Validate the repository."""
 
-    categories = [HacsCategory.PLUGIN, HacsCategory.THEME]
+    categories = (HacsCategory.PLUGIN, HacsCategory.THEME)
     more_info = "https://hacs.xyz/docs/publish/include#check-images"
 
     async def async_validate(self):

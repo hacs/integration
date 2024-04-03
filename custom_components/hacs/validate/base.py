@@ -17,7 +17,7 @@ class ValidationException(HacsException):
 class ActionValidationBase:
     """Base class for action validation."""
 
-    categories: list[HacsCategory] = []
+    categories: tuple[HacsCategory, ...] = ()
     allow_fork: bool = True
     more_info: str = "https://hacs.xyz/docs/publish/action"
 

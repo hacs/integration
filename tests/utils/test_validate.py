@@ -1,4 +1,4 @@
-import re
+from contextlib import nullcontext as does_not_raise
 
 from awesomeversion import AwesomeVersion
 import pytest
@@ -111,6 +111,54 @@ def test_critical_repo_data_json_schema():
 
 
 @pytest.mark.parametrize(
+    ("data", "expectation"),
+    [
+        # Good data
+        (
+            {"repository": "test", "reason": "blah", "link": "https://blah"},
+            does_not_raise(),
+        ),
+        # Missing required key
+        ({}, pytest.raises(Invalid)),
+        (
+            {"repository": "test", "reason": "blah"},
+            pytest.raises(Invalid),
+        ),
+        (
+            {"repository": "test", "link": "https://blah"},
+            pytest.raises(Invalid),
+        ),
+        (
+            {"reason": "blah", "link": "https://blah"},
+            pytest.raises(Invalid),
+        ),
+        # Wrong data type
+        (
+            {"repository": 123, "reason": "blah", "link": "https://blah"},
+            pytest.raises(Invalid),
+        ),
+        (
+            {"repository": "test", "reason": 123, "link": "https://blah"},
+            pytest.raises(Invalid),
+        ),
+        (
+            {"repository": "test", "reason": "blah", "link": 123},
+            pytest.raises(Invalid),
+        ),
+        # Extra key
+        (
+            {"repository": "test", "reason": "blah", "link": "https://blah", "extra": "key"},
+            pytest.raises(Invalid),
+        ),
+    ],
+)
+def test_critical_repo_data_json_schema_bad_data(data: dict, expectation):
+    """Test validating https://data-v2.hacs.xyz/critical/data.json."""
+    with expectation:
+        V2_CRITICAL_REPO_SCHEMA(data)
+
+
+@pytest.mark.parametrize(
     "category",
     [
         "appdaemon",
@@ -129,8 +177,392 @@ def test_repo_data_json_schema(category: str):
         V2_REPO_SCHEMA[category](repo)
 
 
+GOOD_COMMON_DATA = {
+    "description": "abc",
+    "etag_repository": "blah",
+    "full_name": "blah",
+    "last_commit": "abc",
+    "last_fetched": 0,
+    "last_updated": "blah",
+    "manifest": {},
+}
+
+GOOD_INTEGRATION_DATA = {
+    "description": "abc",
+    "domain": "abc",
+    "etag_repository": "blah",
+    "full_name": "blah",
+    "last_commit": "abc",
+    "last_fetched": 0,
+    "last_updated": "blah",
+    "manifest": {},
+    "manifest_name": "abc",
+}
+
+
+def without(d: dict, key: str) -> dict:
+    """Return a copy of d without key."""
+    d = dict(d)
+    d.pop(key)
+    return d
+
+
+@pytest.mark.parametrize(
+    ("categories", "data", "expectation"),
+    [
+        # Good data
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA,
+            does_not_raise(),
+        ),
+        # Test we allow at least one of last_commit or last_version
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            without(GOOD_COMMON_DATA, "last_commit") | {"last_version": "123"},
+            does_not_raise(),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"last_version": "123"},
+            does_not_raise(),
+        ),
+        # Missing required key
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            without(GOOD_COMMON_DATA, "description"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            without(GOOD_COMMON_DATA, "etag_repository"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            without(GOOD_COMMON_DATA, "full_name"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            without(GOOD_COMMON_DATA, "last_commit"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            without(GOOD_COMMON_DATA, "last_fetched"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            without(GOOD_COMMON_DATA, "last_updated"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            without(GOOD_COMMON_DATA, "manifest"),
+            pytest.raises(Invalid),
+        ),
+        # Wrong data type in required keys
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"description": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"etag_repository": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"full_name": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"last_commit": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"last_fetched": "blah"},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"last_updated": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"manifest": 123},
+            pytest.raises(Invalid),
+        ),
+        # Wrong data type in optional keys
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"downloads": "many"},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"etag_releases": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"last_commit": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"last_version": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"open_issues": "many"},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"stargazers_count": "many"},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"topics": 123},
+            pytest.raises(Invalid),
+        ),
+        # Extra key
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"extra": "key"},
+            pytest.raises(Invalid),
+        ),
+
+        # Good data
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA,
+            does_not_raise(),
+        ),
+        # Test we allow at least one of last_commit or last_version
+        (
+            ["integration"],
+            without(GOOD_INTEGRATION_DATA, "last_commit") | {"last_version": "123"},
+            does_not_raise(),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"last_version": "123"},
+            does_not_raise(),
+        ),
+        # Missing required key
+        (
+            ["integration"],
+            without(GOOD_INTEGRATION_DATA, "description"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            without(GOOD_INTEGRATION_DATA, "domain"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            without(GOOD_INTEGRATION_DATA, "etag_repository"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            without(GOOD_INTEGRATION_DATA, "full_name"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            without(GOOD_INTEGRATION_DATA, "last_commit"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            without(GOOD_INTEGRATION_DATA, "last_fetched"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            without(GOOD_INTEGRATION_DATA, "last_updated"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            without(GOOD_INTEGRATION_DATA, "manifest"),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            without(GOOD_INTEGRATION_DATA, "manifest_name"),
+            pytest.raises(Invalid),
+        ),
+        # Wrong data type in required keys
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"domain": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"description": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"etag_repository": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"full_name": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"last_commit": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"last_fetched": "blah"},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"last_updated": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"manifest": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"manifest_name": 123},
+            pytest.raises(Invalid),
+        ),
+        # Wrong data type in optional keys
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"downloads": "many"},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"etag_releases": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"last_commit": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"last_version": 123},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"open_issues": "many"},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"stargazers_count": "many"},
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"topics": 123},
+            pytest.raises(Invalid),
+        ),
+        # Extra key
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"extra": "key"},
+            pytest.raises(Invalid),
+        ),
+    ],
+)
+def test_repo_data_json_schema_bad_data(categories: list[str], data: dict, expectation):
+    """Test validating https://data-v2.hacs.xyz/xxx/data.json."""
+    for category in categories:
+        with expectation:
+            V2_REPO_SCHEMA[category](data)
+
+
 def test_removed_repo_data_json_schema():
     """Test validating https://data-v2.hacs.xyz/removed/data.json."""
     data = fixture("v2-removed-data.json")
     for repo in data:
         V2_REMOVED_REPO_SCHEMA(repo)
+
+
+@pytest.mark.parametrize(
+    ("data", "expectation"),
+    [
+        # Good data
+        ({"removal_type": "critical", "repository": "test"}, does_not_raise()),
+        # Missing required key
+        ({}, pytest.raises(Invalid)),
+        ({"repository": "test"}, pytest.raises(Invalid)),
+        ({"removal_type": "critical"}, pytest.raises(Invalid)),
+        # Wrong data type
+        (
+            {"link": 123, "reason": "blah", "removal_type": "critical", "repository": "test"},
+            pytest.raises(Invalid),
+        ),
+        (
+            {
+                "link": "https://blah",
+                "reason": 123,
+                "removal_type": "critical",
+                "repository": "test",
+            },
+            pytest.raises(Invalid),
+        ),
+        (
+            {"link": "https://blah", "reason": "blah", "removal_type": 123, "repository": "test"},
+            pytest.raises(Invalid),
+        ),
+        (
+            {"link": "https://blah", "reason": "blah", "removal_type": "bad", "repository": "test"},
+            pytest.raises(Invalid),
+        ),
+        (
+            {
+                "link": "https://blah",
+                "reason": "blah",
+                "removal_type": "critical",
+                "repository": 123,
+            },
+            pytest.raises(Invalid),
+        ),
+        # Extra key
+        (
+            {
+                "link": "https://blah",
+                "reason": "blah",
+                "removal_type": "critical",
+                "repository": "test",
+                "extra": "key",
+            },
+            pytest.raises(Invalid),
+        ),
+    ],
+)
+def test_removed_repo_data_json_schema_bad_data(data: dict, expectation):
+    """Test validating https://data-v2.hacs.xyz/critical/data.json."""
+    with expectation:
+        V2_REMOVED_REPO_SCHEMA(data)

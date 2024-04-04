@@ -85,7 +85,7 @@ V2_BASE_DATA_JSON_SCHEMA = vol.Schema(
         vol.Required("etag_repository"): str,
         vol.Required("full_name"): str,
         vol.Optional("last_commit"): str,
-        vol.Required("last_fetched"): float,
+        vol.Required("last_fetched"): vol.Any(int, float),
         vol.Required("last_updated"): str,
         vol.Optional("last_version"): str,
         vol.Required("manifest"): {

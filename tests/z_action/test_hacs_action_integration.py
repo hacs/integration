@@ -58,6 +58,6 @@ async def test_hacs_action_integration(
     splitlines = [f"<{l.rsplit(' <')[1]}" for l in caplog.text.split("\n") if " <" in l]
 
     snapshots.assert_match(
-        "\n".join(splitlines[0:2] + sorted(splitlines[2:-3]) + splitlines[-3:]),
+        "\n".join(splitlines[0:2] + sorted(splitlines[2:-2]) + splitlines[-2:]),
         f"action/integration/{key}.log",
     )

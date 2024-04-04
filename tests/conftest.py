@@ -44,7 +44,9 @@ from tests.common import (
     ProxyClientSession,
     ResponseMocker,
     WSClient,
-    async_test_home_assistant,
+    async_setup_component,
+    async_test_home_assistant_dev,
+    async_test_home_assistant_min_version,
     client_session_proxy,
     create_config_entry,
     dummy_repository_base,
@@ -114,7 +116,15 @@ def hass(event_loop, tmpdir, check_report_issue: None):
         orig_exception_handler(loop, context)
 
     exceptions: list[Exception] = []
-    hass_obj = event_loop.run_until_complete(async_test_home_assistant(event_loop, tmpdir))
+    if AwesomeVersion(HA_VERSION) > "2023.6.0":
+        context_manager = async_test_home_assistant_dev(event_loop, config_dir=tmpdir.strpath)
+        hass_obj = event_loop.run_until_complete(context_manager.__aenter__())
+    else:
+        hass_obj = event_loop.run_until_complete(async_test_home_assistant_min_version(event_loop, config_dir=tmpdir.strpath))
+    event_loop.run_until_complete(async_setup_component(hass_obj, "homeassistant", {}))
+    with patch("homeassistant.components.python_script.setup", return_value=True):
+        assert event_loop.run_until_complete(async_setup_component(hass_obj, "python_script", {}))
+
     orig_exception_handler = event_loop.get_exception_handler()
     event_loop.set_exception_handler(exc_handle)
 

@@ -7,7 +7,12 @@ from voluptuous.error import Invalid
 from custom_components.hacs.utils.validate import (
     HACS_MANIFEST_JSON_SCHEMA as hacs_json_schema,
     INTEGRATION_MANIFEST_JSON_SCHEMA as integration_json_schema,
+    V2_CRITICAL_REPO_SCHEMA,
+    V2_REPO_SCHEMA,
+    V2_REMOVED_REPO_SCHEMA,
 )
+
+from tests.common import fixture
 
 
 def test_hacs_manufest_json_schema():
@@ -96,3 +101,36 @@ def test_integration_json_schema():
 
     with pytest.raises(Invalid, match="expected str for dictionary value"):
         integration_json_schema({**base_data, "domain": None})
+
+
+def test_critical_repo_data_json_schema():
+    """Test validating https://data-v2.hacs.xyz/critical/data.json."""
+    data = fixture("v2-critical-data.json")
+    for repo in data:
+        V2_CRITICAL_REPO_SCHEMA(repo)
+
+
+@pytest.mark.parametrize(
+    "category",
+    [
+        "appdaemon",
+        "integration",
+        "netdaemon",
+        "plugin",
+        "python_script",
+        "template",
+        "theme",
+    ],
+)
+def test_repo_data_json_schema(category: str):
+    """Test validating https://data-v2.hacs.xyz/<category>/data.json."""
+    data = fixture(f"v2-{category}-data.json")
+    for repo in data.values():
+        V2_REPO_SCHEMA[category](repo)
+
+
+def test_removed_repo_data_json_schema():
+    """Test validating https://data-v2.hacs.xyz/removed/data.json."""
+    data = fixture("v2-removed-data.json")
+    for repo in data:
+        V2_REMOVED_REPO_SCHEMA(repo)

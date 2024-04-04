@@ -19,6 +19,7 @@ from homeassistant.const import __version__ as HA_VERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from homeassistant.runner import HassEventLoopPolicy
+from homeassistant.setup import async_setup_component
 import pytest
 import pytest_asyncio
 from pytest_snapshot.plugin import Snapshot
@@ -44,7 +45,6 @@ from tests.common import (
     ProxyClientSession,
     ResponseMocker,
     WSClient,
-    async_setup_component,
     async_test_home_assistant_dev,
     async_test_home_assistant_min_version,
     client_session_proxy,

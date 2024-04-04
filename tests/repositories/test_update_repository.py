@@ -51,6 +51,7 @@ async def test_update_repository_entity(
         service_data={"entity_id": entity_id, "version": category_test_data["version_update"]},
         blocking=True,
     )
+    repo = hacs.repositories.get_by_full_name(category_test_data["repository"])
     assert repo.data.installed_version == category_test_data["version_update"]
 
     await snapshots.assert_hacs_data(

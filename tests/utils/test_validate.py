@@ -341,7 +341,6 @@ def without(d: dict, key: str) -> dict:
             GOOD_COMMON_DATA | {"extra": "key"},
             pytest.raises(Invalid),
         ),
-
         # Good data
         (
             ["integration"],

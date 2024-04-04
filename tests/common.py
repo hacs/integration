@@ -255,10 +255,12 @@ class StoreWithoutWriteLoad(storage.Store[_T]):
 
 
 # pylint: disable=protected-access
-async def async_test_home_assistant_min_version(loop, load_registries=True, config_dir: str | None = None):
+async def async_test_home_assistant_min_version(
+    loop, load_registries=True, config_dir: str | None = None
+):
     """Return a Home Assistant object pointing at test config dir.
 
-    This should be copied from the minumum supported version,
+    This should be copied from the minimum supported version,
     currently Home Assistant Core 2023.6.0.
     """
     hass = HomeAssistant()
@@ -314,7 +316,7 @@ async def async_test_home_assistant_min_version(loop, load_registries=True, conf
 
     hass.config.location_name = "test home"
     # HACS: Modified to use the passed in config_dir
-    #hass.config.config_dir = get_test_config_dir()
+    # hass.config.config_dir = get_test_config_dir()
     hass.config.config_dir = config_dir
     hass.config.latitude = 32.87336
     hass.config.longitude = -117.22743
@@ -322,7 +324,7 @@ async def async_test_home_assistant_min_version(loop, load_registries=True, conf
     hass.config.set_time_zone("US/Pacific")
     hass.config.units = METRIC_SYSTEM
     # HACS: Disabled
-    #hass.config.media_dirs = {"local": get_test_config_dir("media")}
+    # hass.config.media_dirs = {"local": get_test_config_dir("media")}
     hass.config.skip_pip = True
     hass.config.skip_pip_packages = []
 
@@ -376,7 +378,12 @@ async def async_test_home_assistant_dev(
     """
 
     # Local imports of features not present in min version
-    from homeassistant.helpers import category_registry as cr, floor_registry as fr, label_registry as lr, translation
+    from homeassistant.helpers import (
+        category_registry as cr,
+        floor_registry as fr,
+        label_registry as lr,
+        translation,
+    )
 
     hass = HomeAssistant(config_dir or get_test_config_dir())
     store = auth_store.AuthStore(hass)

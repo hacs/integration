@@ -120,7 +120,9 @@ def hass(event_loop, tmpdir, check_report_issue: None):
         context_manager = async_test_home_assistant_dev(event_loop, config_dir=tmpdir.strpath)
         hass_obj = event_loop.run_until_complete(context_manager.__aenter__())
     else:
-        hass_obj = event_loop.run_until_complete(async_test_home_assistant_min_version(event_loop, config_dir=tmpdir.strpath))
+        hass_obj = event_loop.run_until_complete(
+            async_test_home_assistant_min_version(event_loop, config_dir=tmpdir.strpath)
+        )
     event_loop.run_until_complete(async_setup_component(hass_obj, "homeassistant", {}))
     with patch("homeassistant.components.python_script.setup", return_value=True):
         assert event_loop.run_until_complete(async_setup_component(hass_obj, "python_script", {}))

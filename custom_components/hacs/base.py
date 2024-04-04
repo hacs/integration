@@ -375,7 +375,7 @@ class HacsBase:
         self.configuration = HacsConfiguration()
         self.core = HacsCore()
         self.log = LOGGER
-        self.recuring_tasks: list[Callable[[], None]] = []
+        self.recurring_tasks: list[Callable[[], None]] = []
         self.repositories = HacsRepositories()
         self.status = HacsStatus()
         self.system = HacsSystem()
@@ -629,49 +629,49 @@ class HacsBase:
                     break
 
         if not self.configuration.experimental:
-            self.recuring_tasks.append(
+            self.recurring_tasks.append(
                 self.hass.helpers.event.async_track_time_interval(
                     self.async_update_downloaded_repositories, timedelta(hours=48)
                 )
             )
-            self.recuring_tasks.append(
+            self.recurring_tasks.append(
                 self.hass.helpers.event.async_track_time_interval(
                     self.async_update_all_repositories,
                     timedelta(hours=96),
                 )
             )
         else:
-            self.recuring_tasks.append(
+            self.recurring_tasks.append(
                 self.hass.helpers.event.async_track_time_interval(
                     self.async_load_hacs_from_github,
                     timedelta(hours=48),
                 )
             )
 
-        self.recuring_tasks.append(
+        self.recurring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
                 self.async_update_downloaded_custom_repositories, timedelta(hours=48)
             )
         )
 
-        self.recuring_tasks.append(
+        self.recurring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
                 self.async_get_all_category_repositories, timedelta(hours=6)
             )
         )
 
-        self.recuring_tasks.append(
+        self.recurring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
                 self.async_check_rate_limit, timedelta(minutes=5)
             )
         )
-        self.recuring_tasks.append(
+        self.recurring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
                 self.async_prosess_queue, timedelta(minutes=10)
             )
         )
 
-        self.recuring_tasks.append(
+        self.recurring_tasks.append(
             self.hass.helpers.event.async_track_time_interval(
                 self.async_handle_critical_repositories, timedelta(hours=6)
             )
@@ -681,7 +681,7 @@ class HacsBase:
             EVENT_HOMEASSISTANT_FINAL_WRITE, self.data.async_force_write
         )
 
-        self.log.debug("There are %s scheduled recurring tasks", len(self.recuring_tasks))
+        self.log.debug("There are %s scheduled recurring tasks", len(self.recurring_tasks))
 
         self.status.startup = False
         self.async_dispatch(HacsDispatchEvent.STATUS, {})

@@ -136,7 +136,7 @@ async def async_initialize_integration(
             hass.config.path("custom_components/custom_updater.py"),
             hass.config.path("custom_components/custom_updater/__init__.py"),
         ):
-            if await async_exists(location):
+            if await async_exists(hass, location):
                 hacs.log.critical(
                     "This cannot be used with custom_updater. "
                     "To use this you need to remove custom_updater form %s",

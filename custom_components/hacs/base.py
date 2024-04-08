@@ -464,7 +464,7 @@ class HacsBase:
             self.log.error("Could not write data to %s - %s", file_path, error)
             return False
 
-        return await async_exists(file_path)
+        return await async_exists(self.hass, file_path)
 
     async def async_can_update(self) -> int:
         """Helper to calculate the number of repositories we can fetch data for."""
@@ -1147,7 +1147,7 @@ class HacsBase:
     async def async_setup_frontend_endpoint_plugin(self) -> None:
         """Setup the http endpoints for plugins if its not already handled."""
         if self.status.active_frontend_endpoint_plugin or not await async_exists(
-            self.hass.config.path("www/community")
+            self.hass, self.hass.config.path("www/community")
         ):
             return
 
@@ -1172,7 +1172,7 @@ class HacsBase:
         if (
             self.configuration.experimental
             or self.status.active_frontend_endpoint_theme
-            or not await async_exists(self.hass.config.path("themes"))
+            or not await async_exists(self.hass, self.hass.config.path("themes"))
         ):
             return
 

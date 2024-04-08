@@ -12,7 +12,7 @@ StrOrBytesPath: TypeAlias = str | bytes | os.PathLike[str] | os.PathLike[bytes]
 FileDescriptorOrPath: TypeAlias = int | StrOrBytesPath
 
 
-async def async_exists(hass: HomeAssistant, path: FileDescriptorOrPath) -> None:
+async def async_exists(hass: HomeAssistant, path: FileDescriptorOrPath) -> bool:
     """Test whether a path exists."""
     return await hass.async_add_executor_job(os.path.exists, path)
 

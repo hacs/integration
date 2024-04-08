@@ -31,6 +31,7 @@ from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMod
 from .frontend import async_register_frontend
 from .utils.configuration_schema import hacs_config_combined
 from .utils.data import HacsData
+from .utils.file_system import async_exists
 from .utils.logger import LOGGER
 from .utils.queue_manager import QueueManager
 from .utils.version import version_left_higher_or_equal_then_right
@@ -135,7 +136,7 @@ async def async_initialize_integration(
             hass.config.path("custom_components/custom_updater.py"),
             hass.config.path("custom_components/custom_updater/__init__.py"),
         ):
-            if os.path.exists(location):
+            if await async_exists(location):
                 hacs.log.critical(
                     "This cannot be used with custom_updater. "
                     "To use this you need to remove custom_updater form %s",
@@ -167,7 +168,7 @@ async def async_initialize_integration(
         hacs.set_active_categories()
 
         async_register_websocket_commands(hass)
-        async_register_frontend(hass, hacs)
+        await async_register_frontend(hass, hacs)
 
         if hacs.configuration.config_type == ConfigurationType.YAML:
             hass.async_create_task(

@@ -60,6 +60,7 @@ from .exceptions import (
 )
 from .repositories import RERPOSITORY_CLASSES
 from .utils.decode import decode_content
+from .utils.file_system import async_exists
 from .utils.json import json_loads
 from .utils.logger import LOGGER
 from .utils.queue_manager import QueueManager
@@ -463,7 +464,7 @@ class HacsBase:
             self.log.error("Could not write data to %s - %s", file_path, error)
             return False
 
-        return os.path.exists(file_path)
+        return await async_exists(file_path)
 
     async def async_can_update(self) -> int:
         """Helper to calculate the number of repositories we can fetch data for."""
@@ -1143,10 +1144,9 @@ class HacsBase:
             self.log.critical("Restarting Home Assistant")
             self.hass.async_create_task(self.hass.async_stop(100))
 
-    @callback
-    def async_setup_frontend_endpoint_plugin(self) -> None:
+    async def async_setup_frontend_endpoint_plugin(self) -> None:
         """Setup the http endpoints for plugins if its not already handled."""
-        if self.status.active_frontend_endpoint_plugin or not os.path.exists(
+        if self.status.active_frontend_endpoint_plugin or not await async_exists(
             self.hass.config.path("www/community")
         ):
             return
@@ -1167,13 +1167,12 @@ class HacsBase:
 
         self.status.active_frontend_endpoint_plugin = True
 
-    @callback
-    def async_setup_frontend_endpoint_themes(self) -> None:
+    async def async_setup_frontend_endpoint_themes(self) -> None:
         """Setup the http endpoints for themes if its not already handled."""
         if (
             self.configuration.experimental
             or self.status.active_frontend_endpoint_theme
-            or not os.path.exists(self.hass.config.path("themes"))
+            or not await async_exists(self.hass.config.path("themes"))
         ):
             return
 

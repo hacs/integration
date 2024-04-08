@@ -77,48 +77,52 @@ def validate_version(data: Any) -> Any:
     return data
 
 
-V2_BASE_DATA_JSON_SCHEMA = vol.Schema(
-    {
-        vol.Required("description"): vol.Any(str, None),
-        vol.Optional("downloads"): int,
-        vol.Optional("etag_releases"): str,
-        vol.Required("etag_repository"): str,
-        vol.Required("full_name"): str,
-        vol.Optional("last_commit"): str,
-        vol.Required("last_fetched"): vol.Any(int, float),
-        vol.Required("last_updated"): str,
-        vol.Optional("last_version"): str,
-        vol.Required("manifest"): {
-            vol.Optional("country"): vol.Any([str], False),
-            vol.Optional("name"): str,
-        },
-        vol.Optional("open_issues"): int,
-        vol.Optional("stargazers_count"): int,
-        vol.Optional("topics"): [str],
+V2_BASE_DATA_JSON_SCHEMA = {
+    vol.Required("description"): vol.Any(str, None),
+    vol.Optional("downloads"): int,
+    vol.Optional("etag_releases"): str,
+    vol.Required("etag_repository"): str,
+    vol.Required("full_name"): str,
+    vol.Optional("last_commit"): str,
+    vol.Required("last_fetched"): vol.Any(int, float),
+    vol.Required("last_updated"): str,
+    vol.Optional("last_version"): str,
+    vol.Required("manifest"): {
+        vol.Optional("country"): vol.Any([str], False),
+        vol.Optional("name"): str,
     },
-    extra=vol.PREVENT_EXTRA,
-)
+    vol.Optional("open_issues"): int,
+    vol.Optional("stargazers_count"): int,
+    vol.Optional("topics"): [str],
+}
 
 V2_COMMON_DATA_JSON_SCHEMA = vol.All(
-    V2_BASE_DATA_JSON_SCHEMA,
+    vol.Schema(
+        V2_BASE_DATA_JSON_SCHEMA,
+        extra=vol.PREVENT_EXTRA,
+    ),
     validate_version,
 )
 
 V2_INTEGRATION_DATA_JSON_SCHEMA = vol.All(
-    V2_BASE_DATA_JSON_SCHEMA.extend(
+    vol.Schema(
         {
+            **V2_BASE_DATA_JSON_SCHEMA,
             vol.Required("domain"): str,
             vol.Required("manifest_name"): str,
         },
+        extra=vol.PREVENT_EXTRA,
     ),
     validate_version,
 )
 
 V2_NETDAEMON_DATA_JSON_SCHEMA = vol.All(
-    V2_BASE_DATA_JSON_SCHEMA.extend(
+    vol.Schema(
         {
+            **V2_BASE_DATA_JSON_SCHEMA,
             vol.Required("domain"): str,
         },
+        extra=vol.PREVENT_EXTRA,
     ),
     validate_version,
 )

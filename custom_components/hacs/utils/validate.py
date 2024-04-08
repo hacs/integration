@@ -137,6 +137,16 @@ V2_REPO_SCHEMA = {
     "theme": V2_COMMON_DATA_JSON_SCHEMA,
 }
 
+V2_REPOS_SCHEMA = {
+    "appdaemon": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
+    "integration": vol.Schema({str: V2_INTEGRATION_DATA_JSON_SCHEMA}),
+    "netdaemon": vol.Schema({str: V2_NETDAEMON_DATA_JSON_SCHEMA}),
+    "plugin": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
+    "python_script": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
+    "template": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
+    "theme": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
+}
+
 V2_CRITICAL_REPO_SCHEMA = vol.Schema(
     {
         vol.Required("link"): str,
@@ -145,6 +155,8 @@ V2_CRITICAL_REPO_SCHEMA = vol.Schema(
     },
     extra=vol.PREVENT_EXTRA,
 )
+
+V2_CRITICAL_REPOS_SCHEMA = vol.Schema([V2_CRITICAL_REPO_SCHEMA])
 
 V2_REMOVED_REPO_SCHEMA = vol.Schema(
     {
@@ -169,3 +181,5 @@ V2_REMOVED_REPO_SCHEMA = vol.Schema(
     },
     extra=vol.PREVENT_EXTRA,
 )
+
+V2_REMOVED_REPOS_SCHEMA = vol.Schema([V2_REMOVED_REPO_SCHEMA])

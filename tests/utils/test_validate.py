@@ -8,8 +8,11 @@ from custom_components.hacs.utils.validate import (
     HACS_MANIFEST_JSON_SCHEMA as hacs_json_schema,
     INTEGRATION_MANIFEST_JSON_SCHEMA as integration_json_schema,
     V2_CRITICAL_REPO_SCHEMA,
+    V2_CRITICAL_REPOS_SCHEMA,
     V2_REPO_SCHEMA,
+    V2_REPOS_SCHEMA,
     V2_REMOVED_REPO_SCHEMA,
+    V2_REMOVED_REPOS_SCHEMA,
 )
 
 from tests.common import fixture
@@ -108,6 +111,7 @@ def test_critical_repo_data_json_schema():
     data = fixture("v2-critical-data.json")
     for repo in data:
         V2_CRITICAL_REPO_SCHEMA(repo)
+    V2_CRITICAL_REPOS_SCHEMA(data)
 
 
 @pytest.mark.parametrize(
@@ -156,6 +160,8 @@ def test_critical_repo_data_json_schema_bad_data(data: dict, expectation):
     """Test validating https://data-v2.hacs.xyz/critical/data.json."""
     with expectation:
         V2_CRITICAL_REPO_SCHEMA(data)
+    with expectation:
+        V2_CRITICAL_REPOS_SCHEMA([data])
 
 
 @pytest.mark.parametrize(
@@ -175,6 +181,7 @@ def test_repo_data_json_schema(category: str):
     data = fixture(f"v2-{category}-data.json")
     for repo in data.values():
         V2_REPO_SCHEMA[category](repo)
+    V2_REPOS_SCHEMA[category](data)
 
 
 GOOD_COMMON_DATA = {
@@ -499,6 +506,8 @@ def test_repo_data_json_schema_bad_data(categories: list[str], data: dict, expec
     for category in categories:
         with expectation:
             V2_REPO_SCHEMA[category](data)
+        with expectation:
+            V2_REPOS_SCHEMA[category]({"test_repo": data})
 
 
 def test_removed_repo_data_json_schema():
@@ -506,6 +515,7 @@ def test_removed_repo_data_json_schema():
     data = fixture("v2-removed-data.json")
     for repo in data:
         V2_REMOVED_REPO_SCHEMA(repo)
+    V2_REMOVED_REPOS_SCHEMA(data)
 
 
 @pytest.mark.parametrize(
@@ -565,3 +575,5 @@ def test_removed_repo_data_json_schema_bad_data(data: dict, expectation):
     """Test validating https://data-v2.hacs.xyz/critical/data.json."""
     with expectation:
         V2_REMOVED_REPO_SCHEMA(data)
+    with expectation:
+        V2_REMOVED_REPOS_SCHEMA([data])

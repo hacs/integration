@@ -117,7 +117,7 @@ class HacsConfiguration:
     country: str = "ALL"
     debug: bool = False
     dev: bool = False
-    experimental: bool = False
+    experimental: bool = True
     frontend_repo_url: str = ""
     frontend_repo: str = ""
     netdaemon_path: str = "netdaemon/apps/"
@@ -142,6 +142,8 @@ class HacsConfiguration:
             raise HacsException("Configuration is not valid.")
 
         for key in data:
+            if key == "experimental":
+                continue
             self.__setattr__(key, data[key])
 
 

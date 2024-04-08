@@ -14,6 +14,7 @@ from tests.common import (
     TOKEN,
     MockedResponse,
     ResponseMocker,
+    create_config_entry,
     recursive_remove_key,
     safe_json_dumps,
 )
@@ -198,6 +199,7 @@ async def test_flow_with_registration_failure(
             "experimental": True,
         },
     )
+    await hass.async_block_till_done()
 
     assert result["type"] == FlowResultType.ABORT
 
@@ -273,10 +275,14 @@ async def test_already_configured(
     check_report_issue: None,
 ) -> None:
     """Test we abort if already configured."""
+    config_entry = create_config_entry(data={"experimental": True})
+    config_entry.add_to_hass(hass)
+
     result = await hass.config_entries.flow.async_init(
         DOMAIN,
         context={"source": config_entries.SOURCE_USER},
     )
+    await hass.async_block_till_done()
 
     assert result["type"] == FlowResultType.ABORT
     snapshots.assert_match(

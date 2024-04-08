@@ -131,19 +131,18 @@ async def async_initialize_integration(
         """HACS startup tasks."""
         hacs.enable_hacs()
 
-        for location in (
-            hass.config.path("custom_components/custom_updater.py"),
-            hass.config.path("custom_components/custom_updater/__init__.py"),
-        ):
-            if os.path.exists(location):
-                hacs.log.critical(
-                    "This cannot be used with custom_updater. "
-                    "To use this you need to remove custom_updater form %s",
-                    location,
-                )
+        try:
+            import custom_components.custom_updater
+        except ImportError:
+            pass
+        else:
+            hacs.log.critical(
+                "This cannot be used with custom_updater. "
+                "To use this you need to remove custom_updater from `custom_components`",
+            )
 
-                hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
-                return False
+            hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
+            return False
 
         if not version_left_higher_or_equal_then_right(
             hacs.core.ha_version.string,

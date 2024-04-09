@@ -72,7 +72,11 @@ INTEGRATION_MANIFEST_JSON_SCHEMA = vol.Schema(
 
 
 def validate_repo_data(schema: vol.Schema) -> Callable[[Any], Any]:
-    """Return a validator for repo data."""
+    """Return a validator for repo data.
+
+    This is used instead of vol.All to always try both the repo schema and
+    and the validate_version validator.
+    """
 
     def validate_repo_data(data: Any) -> Any:
         """Validate integration repo data."""

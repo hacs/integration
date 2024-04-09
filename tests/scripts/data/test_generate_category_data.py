@@ -62,7 +62,7 @@ async def test_generate_category_data_single_repository(
         "get",
         aresponses.Response(
             body=json.dumps(repository_data),
-            headers=BASE_HEADERS,
+            headers={**BASE_HEADERS, "Etag": "231"},
         ),
     )
 
@@ -147,8 +147,10 @@ async def test_generate_category_data_single_repository(
                 "manifest": {"name": "test"},
                 "description": "Sample description for repository.",
                 "domain": "test",
+                "etag_repository": "231",
                 "full_name": "test/test",
                 "last_commit": "1234567",
+                "last_updated": "1970-01-01T00:00:00Z",
                 "manifest_name": "Test",
                 "stargazers_count": 999,
                 "topics": ["topic1", "topic2"],
@@ -238,7 +240,7 @@ async def test_generate_category_data(
                         "full_name": repo["full_name"],
                     }
                 ),
-                headers=BASE_HEADERS,
+                headers={**BASE_HEADERS, "Etag": str(repo["id"])},
             ),
         )
 
@@ -329,19 +331,23 @@ async def test_generate_category_data(
                 "manifest": {"name": "test"},
                 "description": "Sample description for repository.",
                 "full_name": "test/first",
+                "etag_repository": "999999998",
                 "last_commit": "1234567",
                 "stargazers_count": 999,
                 "topics": ["topic1", "topic2"],
                 "last_fetched": ANY,
+                "last_updated": "1970-01-01T00:00:00Z",
             },
             "999999999": {
                 "manifest": {"name": "test"},
                 "description": "Sample description for repository.",
                 "full_name": "test/second",
+                "etag_repository": "999999999",
                 "last_commit": "1234567",
                 "stargazers_count": 999,
                 "topics": ["topic1", "topic2"],
                 "last_fetched": ANY,
+                "last_updated": "1970-01-01T00:00:00Z",
             },
         }
 

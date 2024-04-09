@@ -215,12 +215,13 @@ def without(d: dict, key: str) -> dict:
 
 
 @pytest.mark.parametrize(
-    ("categories", "data", "expectation"),
+    ("categories", "data", "expectation_1", "expectation_2"),
     [
         # Good data
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA,
+            does_not_raise(),
             does_not_raise(),
         ),
         # Test we allow at least one of last_commit or last_version
@@ -228,10 +229,12 @@ def without(d: dict, key: str) -> dict:
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             without(GOOD_COMMON_DATA, "last_commit") | {"last_version": "123"},
             does_not_raise(),
+            does_not_raise(),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"last_version": "123"},
+            does_not_raise(),
             does_not_raise(),
         ),
         # Missing required key
@@ -239,35 +242,42 @@ def without(d: dict, key: str) -> dict:
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             without(GOOD_COMMON_DATA, "description"),
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             without(GOOD_COMMON_DATA, "etag_repository"),
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             without(GOOD_COMMON_DATA, "full_name"),
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             without(GOOD_COMMON_DATA, "last_commit"),
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             without(GOOD_COMMON_DATA, "last_fetched"),
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             without(GOOD_COMMON_DATA, "last_updated"),
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             without(GOOD_COMMON_DATA, "manifest"),
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         # Wrong data type in required keys
@@ -275,35 +285,42 @@ def without(d: dict, key: str) -> dict:
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"description": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"etag_repository": 123},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"full_name": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"last_commit": 123},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"last_fetched": "blah"},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"last_updated": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"manifest": 123},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         # Wrong data type in optional keys
@@ -311,41 +328,49 @@ def without(d: dict, key: str) -> dict:
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"downloads": "many"},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"etag_releases": 123},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"last_commit": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"last_version": 123},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"open_issues": "many"},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"stargazers_count": "many"},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"topics": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         # Extra key
         (
             ["appdaemon", "plugin", "python_script", "template", "theme"],
             GOOD_COMMON_DATA | {"extra": "key"},
+            does_not_raise(),
             pytest.raises(Invalid),
         ),
         # Good data
@@ -353,16 +378,19 @@ def without(d: dict, key: str) -> dict:
             ["integration"],
             GOOD_INTEGRATION_DATA,
             does_not_raise(),
+            does_not_raise(),
         ),
         # Test we allow at least one of last_commit or last_version
         (
             ["integration"],
             without(GOOD_INTEGRATION_DATA, "last_commit") | {"last_version": "123"},
             does_not_raise(),
+            does_not_raise(),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"last_version": "123"},
+            does_not_raise(),
             does_not_raise(),
         ),
         # Missing required key
@@ -370,45 +398,54 @@ def without(d: dict, key: str) -> dict:
             ["integration"],
             without(GOOD_INTEGRATION_DATA, "description"),
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             without(GOOD_INTEGRATION_DATA, "domain"),
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["integration"],
             without(GOOD_INTEGRATION_DATA, "etag_repository"),
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             without(GOOD_INTEGRATION_DATA, "full_name"),
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["integration"],
             without(GOOD_INTEGRATION_DATA, "last_commit"),
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             without(GOOD_INTEGRATION_DATA, "last_fetched"),
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["integration"],
             without(GOOD_INTEGRATION_DATA, "last_updated"),
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             without(GOOD_INTEGRATION_DATA, "manifest"),
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             without(GOOD_INTEGRATION_DATA, "manifest_name"),
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         # Wrong data type in required keys
@@ -416,45 +453,54 @@ def without(d: dict, key: str) -> dict:
             ["integration"],
             GOOD_INTEGRATION_DATA | {"domain": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"description": 123},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"etag_repository": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"full_name": 123},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"last_commit": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"last_fetched": "blah"},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"last_updated": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"manifest": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"manifest_name": 123},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         # Wrong data type in optional keys
@@ -462,51 +508,59 @@ def without(d: dict, key: str) -> dict:
             ["integration"],
             GOOD_INTEGRATION_DATA | {"downloads": "many"},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"etag_releases": 123},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"last_commit": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"last_version": 123},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"open_issues": "many"},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"stargazers_count": "many"},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"topics": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         # Extra key
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"extra": "key"},
+            does_not_raise(),
             pytest.raises(Invalid),
         ),
     ],
 )
-def test_repo_data_json_schema_bad_data(categories: list[str], data: dict, expectation):
+def test_repo_data_json_schema_bad_data(categories: list[str], data: dict, expectation_1, expectation_2):
     """Test validating https://data-v2.hacs.xyz/xxx/data.json."""
     for category in categories:
-        with expectation:
+        with expectation_1:
             V2_REPO_SCHEMA[category](data)
-        with expectation:
+        with expectation_2:
             V2_REPOS_SCHEMA[category]({"test_repo": data})
 
 

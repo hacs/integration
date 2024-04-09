@@ -71,18 +71,19 @@ INTEGRATION_MANIFEST_JSON_SCHEMA = vol.Schema(
 )
 
 
-def validate_repo_data(schema: vol.Schema) -> Callable[[Any], Any]:
+def validate_repo_data(schema: dict[str, Any], extra: int) -> Callable[[Any], Any]:
     """Return a validator for repo data.
 
     This is used instead of vol.All to always try both the repo schema and
     and the validate_version validator.
     """
+    _schema = vol.Schema(schema, extra=extra)
 
     def validate_repo_data(data: Any) -> Any:
         """Validate integration repo data."""
         schema_errors: vol.MultipleInvalid | None = None
         try:
-            schema(data)
+            _schema(data)
         except vol.MultipleInvalid as err:
             schema_errors = err
         try:
@@ -106,53 +107,56 @@ def validate_version(data: Any) -> Any:
     return data
 
 
-V2_COMMON_DATA_JSON_SCHEMA = vol.Schema(
-    {
-        vol.Required("description"): vol.Any(str, None),
-        vol.Optional("downloads"): int,
-        vol.Optional("etag_releases"): str,
-        vol.Required("etag_repository"): str,
-        vol.Required("full_name"): str,
-        vol.Optional("last_commit"): str,
-        vol.Required("last_fetched"): vol.Any(int, float),
-        vol.Required("last_updated"): str,
-        vol.Optional("last_version"): str,
-        vol.Required("manifest"): {
-            vol.Optional("country"): vol.Any([str], False),
-            vol.Optional("name"): str,
-        },
-        vol.Optional("open_issues"): int,
-        vol.Optional("stargazers_count"): int,
-        vol.Optional("topics"): [str],
+V2_COMMON_DATA_JSON_SCHEMA = {
+    vol.Required("description"): vol.Any(str, None),
+    vol.Optional("downloads"): int,
+    vol.Optional("etag_releases"): str,
+    vol.Required("etag_repository"): str,
+    vol.Required("full_name"): str,
+    vol.Optional("last_commit"): str,
+    vol.Required("last_fetched"): vol.Any(int, float),
+    vol.Required("last_updated"): str,
+    vol.Optional("last_version"): str,
+    vol.Required("manifest"): {
+        vol.Optional("country"): vol.Any([str], False),
+        vol.Optional("name"): str,
     },
-    extra=vol.PREVENT_EXTRA,
-)
-
-V2_INTEGRATION_DATA_JSON_SCHEMA = V2_COMMON_DATA_JSON_SCHEMA.extend(
-    {
-        vol.Required("domain"): str,
-        vol.Required("manifest_name"): str,
-    },
-)
-
-V2_NETDAEMON_DATA_JSON_SCHEMA = V2_COMMON_DATA_JSON_SCHEMA.extend(
-    {
-        vol.Required("domain"): str,
-    },
-)
-
-V2_REPO_SCHEMA = {
-    "appdaemon": validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA),
-    "integration": validate_repo_data(V2_INTEGRATION_DATA_JSON_SCHEMA),
-    "netdaemon": validate_repo_data(V2_NETDAEMON_DATA_JSON_SCHEMA),
-    "plugin": validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA),
-    "python_script": validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA),
-    "template": validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA),
-    "theme": validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA),
+    vol.Optional("open_issues"): int,
+    vol.Optional("stargazers_count"): int,
+    vol.Optional("topics"): [str],
 }
 
+V2_INTEGRATION_DATA_JSON_SCHEMA = {
+    **V2_COMMON_DATA_JSON_SCHEMA,
+    vol.Required("domain"): str,
+    vol.Required("manifest_name"): str,
+}
+
+V2_NETDAEMON_DATA_JSON_SCHEMA = {
+    **V2_COMMON_DATA_JSON_SCHEMA,
+    vol.Required("domain"): str,
+}
+
+_V2_REPO_SCHEMAS = {
+    "appdaemon": V2_COMMON_DATA_JSON_SCHEMA,
+    "integration": V2_INTEGRATION_DATA_JSON_SCHEMA,
+    "netdaemon": V2_NETDAEMON_DATA_JSON_SCHEMA,
+    "plugin": V2_COMMON_DATA_JSON_SCHEMA,
+    "python_script": V2_COMMON_DATA_JSON_SCHEMA,
+    "template": V2_COMMON_DATA_JSON_SCHEMA,
+    "theme": V2_COMMON_DATA_JSON_SCHEMA,
+}
+
+# Used when validating repos in the hacs integration, discards extra keys
+V2_REPO_SCHEMA = {
+    category: validate_repo_data(schema, vol.REMOVE_EXTRA)
+    for category, schema in _V2_REPO_SCHEMAS.items()
+}
+
+# Used when validating repos when generating data, fails on extra keys
 V2_REPOS_SCHEMA = {
-    category: vol.Schema({str: V2_REPO_SCHEMA[category]}) for category in V2_REPO_SCHEMA
+    category: vol.Schema({str: validate_repo_data(schema, vol.PREVENT_EXTRA)})
+    for category, schema in _V2_REPO_SCHEMAS.items()
 }
 
 V2_CRITICAL_REPO_SCHEMA = vol.Schema(

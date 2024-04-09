@@ -15,12 +15,10 @@ def expand_and_humanize_error(content: dict[str, Any], error: vol.Error) -> str:
     """Expand and humanize error."""
     if isinstance(error, vol.MultipleInvalid):
         return ", ".join(
-            sorted(
-                expand_and_humanize_error(content, sub_error)
-                for sub_error in error.errors
-            )
+            sorted(expand_and_humanize_error(content, sub_error) for sub_error in error.errors)
         )
     return vol.humanize.humanize_error(content, error)
+
 
 async def validate_category_data(category: str, file_path: str) -> None:
     """Validate category data."""

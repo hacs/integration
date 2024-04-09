@@ -375,8 +375,8 @@ class HacsBase:
         self.configuration = HacsConfiguration()
         self.core = HacsCore()
         self.log = LOGGER
-        self.recuring_tasks = []
-        self.repositories: HacsRepositories = HacsRepositories()
+        self.recuring_tasks: list[Callable[[], None]] = []
+        self.repositories = HacsRepositories()
         self.status = HacsStatus()
         self.system = HacsSystem()
 

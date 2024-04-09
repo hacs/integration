@@ -32,7 +32,6 @@ from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.repositories import (
     HacsAppdaemonRepository,
     HacsIntegrationRepository,
-    HacsNetdaemonRepository,
     HacsPluginRepository,
     HacsPythonScriptRepository,
     HacsTemplateRepository,
@@ -201,13 +200,6 @@ def repository_appdaemon(hacs):
     yield dummy_repository_base(hacs, repository_obj)
 
 
-@pytest.fixture
-def repository_netdaemon(hacs):
-    """Fixtrue for HACS netdaemon repository object"""
-    repository_obj = HacsNetdaemonRepository(hacs, "test/test")
-    yield dummy_repository_base(hacs, repository_obj)
-
-
 class SnapshotFixture(Snapshot):
     async def assert_hacs_data(
         self,
@@ -347,7 +339,6 @@ async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> No
         options={
             "experimental": True,
             "appdaemon": True,
-            "netdaemon": True,
         }
     )
     await common_setup_integration(hass, config_entry)

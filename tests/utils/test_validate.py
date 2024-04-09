@@ -181,7 +181,6 @@ def test_critical_repo_data_json_schema_bad_data(data: dict, expectation_1, expe
     [
         "appdaemon",
         "integration",
-        "netdaemon",
         "plugin",
         "python_script",
         "template",

@@ -67,4 +67,7 @@ async def validate_category_data(category: str, file_path: str) -> None:
 
 
 if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python3 -m scripts.data.validate_category_data <category> <file>")
+        sys.exit(1)
     asyncio.run(validate_category_data(sys.argv[1], sys.argv[2]))

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import Any
 
 from awesomeversion import AwesomeVersion
 from homeassistant.helpers.config_validation import url as url_validator
@@ -67,3 +68,118 @@ INTEGRATION_MANIFEST_JSON_SCHEMA = vol.Schema(
     },
     extra=vol.ALLOW_EXTRA,
 )
+
+
+def validate_version(data: Any) -> Any:
+    """Ensure at least one of last_commit or last_version is present."""
+    if "last_commit" not in data and "last_version" not in data:
+        raise vol.Invalid("Expected at least one of [`last_commit`, `last_version`], got none")
+    return data
+
+
+V2_BASE_DATA_JSON_SCHEMA = {
+    vol.Required("description"): vol.Any(str, None),
+    vol.Optional("downloads"): int,
+    vol.Optional("etag_releases"): str,
+    vol.Required("etag_repository"): str,
+    vol.Required("full_name"): str,
+    vol.Optional("last_commit"): str,
+    vol.Required("last_fetched"): vol.Any(int, float),
+    vol.Required("last_updated"): str,
+    vol.Optional("last_version"): str,
+    vol.Required("manifest"): {
+        vol.Optional("country"): vol.Any([str], False),
+        vol.Optional("name"): str,
+    },
+    vol.Optional("open_issues"): int,
+    vol.Optional("stargazers_count"): int,
+    vol.Optional("topics"): [str],
+}
+
+V2_COMMON_DATA_JSON_SCHEMA = vol.All(
+    vol.Schema(
+        V2_BASE_DATA_JSON_SCHEMA,
+        extra=vol.PREVENT_EXTRA,
+    ),
+    validate_version,
+)
+
+V2_INTEGRATION_DATA_JSON_SCHEMA = vol.All(
+    vol.Schema(
+        {
+            **V2_BASE_DATA_JSON_SCHEMA,
+            vol.Required("domain"): str,
+            vol.Required("manifest_name"): str,
+        },
+        extra=vol.PREVENT_EXTRA,
+    ),
+    validate_version,
+)
+
+V2_NETDAEMON_DATA_JSON_SCHEMA = vol.All(
+    vol.Schema(
+        {
+            **V2_BASE_DATA_JSON_SCHEMA,
+            vol.Required("domain"): str,
+        },
+        extra=vol.PREVENT_EXTRA,
+    ),
+    validate_version,
+)
+
+V2_REPO_SCHEMA = {
+    "appdaemon": V2_COMMON_DATA_JSON_SCHEMA,
+    "integration": V2_INTEGRATION_DATA_JSON_SCHEMA,
+    "netdaemon": V2_NETDAEMON_DATA_JSON_SCHEMA,
+    "plugin": V2_COMMON_DATA_JSON_SCHEMA,
+    "python_script": V2_COMMON_DATA_JSON_SCHEMA,
+    "template": V2_COMMON_DATA_JSON_SCHEMA,
+    "theme": V2_COMMON_DATA_JSON_SCHEMA,
+}
+
+V2_REPOS_SCHEMA = {
+    "appdaemon": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
+    "integration": vol.Schema({str: V2_INTEGRATION_DATA_JSON_SCHEMA}),
+    "netdaemon": vol.Schema({str: V2_NETDAEMON_DATA_JSON_SCHEMA}),
+    "plugin": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
+    "python_script": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
+    "template": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
+    "theme": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
+}
+
+V2_CRITICAL_REPO_SCHEMA = vol.Schema(
+    {
+        vol.Required("link"): str,
+        vol.Required("reason"): str,
+        vol.Required("repository"): str,
+    },
+    extra=vol.PREVENT_EXTRA,
+)
+
+V2_CRITICAL_REPOS_SCHEMA = vol.Schema([V2_CRITICAL_REPO_SCHEMA])
+
+V2_REMOVED_REPO_SCHEMA = vol.Schema(
+    {
+        vol.Optional("link"): str,
+        vol.Optional("reason"): str,
+        vol.Required("removal_type"): vol.In(
+            [
+                "Integration is missing a version, and is abandoned.",
+                "Remove",
+                "archived",
+                "blacklist",
+                "critical",
+                "deprecated",
+                "removal",
+                "remove",
+                "removed",
+                "replaced",
+                "repository",
+            ]
+        ),
+        vol.Required("repository"): str,
+    },
+    extra=vol.PREVENT_EXTRA,
+)
+
+V2_REMOVED_REPOS_SCHEMA = vol.Schema([V2_REMOVED_REPO_SCHEMA])

@@ -65,7 +65,7 @@ from .utils.json import json_loads
 from .utils.logger import LOGGER
 from .utils.queue_manager import QueueManager
 from .utils.store import async_load_from_store, async_save_to_store
-from .utils.validate import V2_REPO_SCHEMA
+from .utils.validate import VALIDATE_FETCHED_V2_REPO_DATA
 
 if TYPE_CHECKING:
     from .repositories.base import HacsRepository
@@ -882,7 +882,7 @@ class HacsBase:
             if repo in self.common.archived_repositories:
                 continue
             try:
-                V2_REPO_SCHEMA[category](repo_data)
+                VALIDATE_FETCHED_V2_REPO_DATA[category](repo_data)
             except vol.Invalid as exception:
                 self.log.info("Got invalid data for %s (%s)", repo, exception)
                 continue

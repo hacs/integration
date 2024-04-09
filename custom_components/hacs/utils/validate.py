@@ -148,13 +148,13 @@ _V2_REPO_SCHEMAS = {
 }
 
 # Used when validating repos in the hacs integration, discards extra keys
-V2_REPO_SCHEMA = {
+VALIDATE_FETCHED_V2_REPO_DATA = {
     category: validate_repo_data(schema, vol.REMOVE_EXTRA)
     for category, schema in _V2_REPO_SCHEMAS.items()
 }
 
 # Used when validating repos when generating data, fails on extra keys
-V2_REPOS_SCHEMA = {
+VALIDATE_GENERATED_V2_REPO_DATA = {
     category: vol.Schema({str: validate_repo_data(schema, vol.PREVENT_EXTRA)})
     for category, schema in _V2_REPO_SCHEMAS.items()
 }

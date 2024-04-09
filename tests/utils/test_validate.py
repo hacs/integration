@@ -11,8 +11,8 @@ from custom_components.hacs.utils.validate import (
     V2_CRITICAL_REPOS_SCHEMA,
     V2_REMOVED_REPO_SCHEMA,
     V2_REMOVED_REPOS_SCHEMA,
-    V2_REPO_SCHEMA,
-    V2_REPOS_SCHEMA,
+    VALIDATE_FETCHED_V2_REPO_DATA,
+    VALIDATE_GENERATED_V2_REPO_DATA,
 )
 
 from tests.common import fixture
@@ -180,8 +180,8 @@ def test_repo_data_json_schema(category: str):
     """Test validating https://data-v2.hacs.xyz/<category>/data.json."""
     data = fixture(f"v2-{category}-data.json")
     for repo in data.values():
-        V2_REPO_SCHEMA[category](repo)
-    V2_REPOS_SCHEMA[category](data)
+        VALIDATE_FETCHED_V2_REPO_DATA[category](repo)
+    VALIDATE_GENERATED_V2_REPO_DATA[category](data)
 
 
 GOOD_COMMON_DATA = {
@@ -559,9 +559,9 @@ def test_repo_data_json_schema_bad_data(categories: list[str], data: dict, expec
     """Test validating https://data-v2.hacs.xyz/xxx/data.json."""
     for category in categories:
         with expectation_1:
-            V2_REPO_SCHEMA[category](data)
+            VALIDATE_FETCHED_V2_REPO_DATA[category](data)
         with expectation_2:
-            V2_REPOS_SCHEMA[category]({"test_repo": data})
+            VALIDATE_GENERATED_V2_REPO_DATA[category]({"test_repo": data})
 
 
 @pytest.mark.parametrize(
@@ -612,13 +612,13 @@ def test_repo_data_json_schema_multiple_bad_data(categories: list[str], data):
     }
     for category in categories:
         with pytest.raises(MultipleInvalid) as exc_info:
-            V2_REPO_SCHEMA[category](data)
+            VALIDATE_FETCHED_V2_REPO_DATA[category](data)
         msgs = [(err.msg, tuple(err.path)) for err in exc_info.value.errors]
         assert len(msgs) == 3
         assert set(msgs) == expected_errors_1
 
         with pytest.raises(MultipleInvalid) as exc_info:
-            V2_REPOS_SCHEMA[category]({"test_repo": data})
+            VALIDATE_GENERATED_V2_REPO_DATA[category]({"test_repo": data})
         msgs = [(err.msg, tuple(err.path)) for err in exc_info.value.errors]
         assert len(msgs) == 3
         assert set(msgs) == expected_errors_2

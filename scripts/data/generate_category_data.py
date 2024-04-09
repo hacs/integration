@@ -34,7 +34,7 @@ from custom_components.hacs.repositories.base import (
 from custom_components.hacs.utils.data import HacsData
 from custom_components.hacs.utils.decorator import concurrent
 from custom_components.hacs.utils.queue_manager import QueueManager
-from custom_components.hacs.utils.validate import V2_REPOS_SCHEMA
+from custom_components.hacs.utils.validate import VALIDATE_GENERATED_V2_REPO_DATA
 
 from .common import expand_and_humanize_error, print_error_and_exit
 
@@ -382,7 +382,7 @@ async def generate_category_data(category: str, repository_name: str = None):
             did_raise = True
 
         try:
-            V2_REPOS_SCHEMA[category](updated_data)
+            VALIDATE_GENERATED_V2_REPO_DATA[category](updated_data)
         except vol.Invalid as error:
             did_raise = True
             errors = expand_and_humanize_error(updated_data, error)

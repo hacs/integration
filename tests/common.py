@@ -124,14 +124,14 @@ async def async_test_home_assistant(loop, tmpdir):
 
         return orig_async_add_executor_job(target, *args)
 
-    def async_create_task(coroutine, *args):
+    def async_create_task(coroutine, *args, **kwargs):
         """Create task."""
         if isinstance(coroutine, Mock) and not isinstance(coroutine, AsyncMock):
             fut = asyncio.Future()
             fut.set_result(None)
             return fut
 
-        return orig_async_create_task(coroutine, *args)
+        return orig_async_create_task(coroutine, *args, **kwargs)
 
     hass.async_add_job = async_add_job
     hass.async_add_executor_job = async_add_executor_job
@@ -148,6 +148,8 @@ async def async_test_home_assistant(loop, tmpdir):
     hass.data = {
         "integrations": {},
         "custom_components": {},
+        "preload_platforms": [],
+        "missing_platforms": [],
         "components": {},
         "device_registry": DeviceRegistry(hass),
         "entity_registry": EntityRegistry(hass),

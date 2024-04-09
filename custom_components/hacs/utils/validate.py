@@ -1,6 +1,7 @@
 """Validation utilities."""
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -70,6 +71,30 @@ INTEGRATION_MANIFEST_JSON_SCHEMA = vol.Schema(
 )
 
 
+def validate_repo_data(schema: vol.Schema) -> Callable[[Any], Any]:
+    """Return a validator for repo data."""
+
+    def validate_repo_data(data: Any) -> Any:
+        """Validate integration repo data."""
+        schema_errors: vol.MultipleInvalid | None = None
+        try:
+            schema(data)
+        except vol.MultipleInvalid as err:
+            schema_errors = err
+        try:
+            validate_version(data)
+        except vol.Invalid as err:
+            if schema_errors:
+                schema_errors.add(err)
+            else:
+                raise
+        if schema_errors:
+            raise schema_errors
+        return data
+
+    return validate_repo_data
+
+
 def validate_version(data: Any) -> Any:
     """Ensure at least one of last_commit or last_version is present."""
     if "last_commit" not in data and "last_version" not in data:
@@ -101,7 +126,6 @@ V2_COMMON_DATA_JSON_SCHEMA = vol.All(
         V2_BASE_DATA_JSON_SCHEMA,
         extra=vol.PREVENT_EXTRA,
     ),
-    validate_version,
 )
 
 V2_INTEGRATION_DATA_JSON_SCHEMA = vol.All(
@@ -113,7 +137,6 @@ V2_INTEGRATION_DATA_JSON_SCHEMA = vol.All(
         },
         extra=vol.PREVENT_EXTRA,
     ),
-    validate_version,
 )
 
 V2_NETDAEMON_DATA_JSON_SCHEMA = vol.All(
@@ -124,27 +147,26 @@ V2_NETDAEMON_DATA_JSON_SCHEMA = vol.All(
         },
         extra=vol.PREVENT_EXTRA,
     ),
-    validate_version,
 )
 
 V2_REPO_SCHEMA = {
-    "appdaemon": V2_COMMON_DATA_JSON_SCHEMA,
-    "integration": V2_INTEGRATION_DATA_JSON_SCHEMA,
-    "netdaemon": V2_NETDAEMON_DATA_JSON_SCHEMA,
-    "plugin": V2_COMMON_DATA_JSON_SCHEMA,
-    "python_script": V2_COMMON_DATA_JSON_SCHEMA,
-    "template": V2_COMMON_DATA_JSON_SCHEMA,
-    "theme": V2_COMMON_DATA_JSON_SCHEMA,
+    "appdaemon": validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA),
+    "integration": validate_repo_data(V2_INTEGRATION_DATA_JSON_SCHEMA),
+    "netdaemon": validate_repo_data(V2_NETDAEMON_DATA_JSON_SCHEMA),
+    "plugin": validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA),
+    "python_script": validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA),
+    "template": validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA),
+    "theme": validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA),
 }
 
 V2_REPOS_SCHEMA = {
-    "appdaemon": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
-    "integration": vol.Schema({str: V2_INTEGRATION_DATA_JSON_SCHEMA}),
-    "netdaemon": vol.Schema({str: V2_NETDAEMON_DATA_JSON_SCHEMA}),
-    "plugin": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
-    "python_script": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
-    "template": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
-    "theme": vol.Schema({str: V2_COMMON_DATA_JSON_SCHEMA}),
+    "appdaemon": vol.Schema({str: validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA)}),
+    "integration": vol.Schema({str: validate_repo_data(V2_INTEGRATION_DATA_JSON_SCHEMA)}),
+    "netdaemon": vol.Schema({str: validate_repo_data(V2_NETDAEMON_DATA_JSON_SCHEMA)}),
+    "plugin": vol.Schema({str: validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA)}),
+    "python_script": vol.Schema({str: validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA)}),
+    "template": vol.Schema({str: validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA)}),
+    "theme": vol.Schema({str: validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA)}),
 }
 
 V2_CRITICAL_REPO_SCHEMA = vol.Schema(

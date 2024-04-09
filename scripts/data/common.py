@@ -1,13 +1,11 @@
 """Common helpers for data."""
-from __future__ import annotations
-
 import sys
 from typing import Any
 
 import voluptuous as vol
 
 
-def expand_and_humanize_error(content: dict[str, Any], error: vol.Invalid|vol.MultipleInvalid) -> list[str] | str:
+def expand_and_humanize_error(content: dict[str, Any], error: vol.Invalid) -> list[str] | str:
     """Expand and humanize error."""
     if isinstance(error, vol.MultipleInvalid):
         return sorted(expand_and_humanize_error(content, sub_error) for sub_error in error.errors)

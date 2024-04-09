@@ -555,7 +555,9 @@ def without(d: dict, key: str) -> dict:
         ),
     ],
 )
-def test_repo_data_json_schema_bad_data(categories: list[str], data: dict, expectation_1, expectation_2):
+def test_repo_data_json_schema_bad_data(
+    categories: list[str], data: dict, expectation_1, expectation_2
+):
     """Test validating https://data-v2.hacs.xyz/xxx/data.json."""
     for category in categories:
         with expectation_1:

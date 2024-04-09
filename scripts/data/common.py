@@ -1,7 +1,9 @@
 """Common helpers for data."""
 import sys
 from typing import Any
+
 import voluptuous as vol
+
 
 def expand_and_humanize_error(content: dict[str, Any], error: vol.Error) -> list[str] | str:
     """Expand and humanize error."""

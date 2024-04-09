@@ -31,6 +31,7 @@ from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.issue_registry import IssueSeverity, async_create_issue
 from homeassistant.loader import Integration
 from homeassistant.util import dt
+import voluptuous as vol
 
 from custom_components.hacs.repositories.base import (
     HACS_MANIFEST_KEYS_TO_EXPORT,
@@ -64,6 +65,7 @@ from .utils.json import json_loads
 from .utils.logger import LOGGER
 from .utils.queue_manager import QueueManager
 from .utils.store import async_load_from_store, async_save_to_store
+from .utils.validate import V2_REPO_SCHEMA
 
 if TYPE_CHECKING:
     from .repositories.base import HacsRepository
@@ -878,6 +880,11 @@ class HacsBase:
             if self.repositories.is_removed(repo):
                 continue
             if repo in self.common.archived_repositories:
+                continue
+            try:
+                V2_REPO_SCHEMA[category](repo_data)
+            except vol.Invalid as exception:
+                self.log.info("Got invalid data for %s (%s)", repo, exception)
                 continue
             if repository := self.repositories.get_by_full_name(repo):
                 self.repositories.set_repository_id(repository, repo_id)

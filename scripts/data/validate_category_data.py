@@ -6,9 +6,10 @@ import json
 import os
 import sys
 from typing import Any
+
 import voluptuous as vol
 
-from custom_components.hacs.utils.validate import V2_REPOS_SCHEMA, V2_REPO_SCHEMA
+from custom_components.hacs.utils.validate import V2_REPO_SCHEMA, V2_REPOS_SCHEMA
 
 
 def expand_and_humanize_error(content: dict[str, Any], error: vol.Error) -> str:
@@ -35,7 +36,6 @@ async def validate_category_data(category: str, file_path: str) -> None:
 
     with open(
         target_path,
-        mode="r",
         encoding="utf-8",
     ) as data_file:
         contents: dict[str, dict[str, Any]] = json.loads(data_file.read())

@@ -11,6 +11,17 @@ import voluptuous as vol
 from custom_components.hacs.utils.validate import V2_REPOS_SCHEMA, V2_REPO_SCHEMA
 
 
+def expand_and_humanize_error(content: dict[str, Any], error: vol.Error) -> str:
+    """Expand and humanize error."""
+    if isinstance(error, vol.MultipleInvalid):
+        return ", ".join(
+            sorted(
+                expand_and_humanize_error(content, sub_error)
+                for sub_error in error.errors
+            )
+        )
+    return vol.humanize.humanize_error(content, error)
+
 async def validate_category_data(category: str, file_path: str) -> None:
     """Validate category data."""
     target_path = os.path.join(os.getcwd(), file_path)
@@ -39,14 +50,14 @@ async def validate_category_data(category: str, file_path: str) -> None:
                 did_raise = True
                 print(
                     f"::error::[{content.get('full_name', repo)}] "
-                    f"Invalid data: {vol.humanize.humanize_error(content, error)}"
+                    f"Invalid data: {expand_and_humanize_error(content, error)}"
                 )
 
         try:
             V2_REPOS_SCHEMA[category](contents)
         except vol.Error as error:
             did_raise = True
-            print_error_and_exit(f"Invalid data: {vol.humanize.humanize_error(contents, error)}")
+            print_error_and_exit(f"Invalid data: {expand_and_humanize_error(contents, error)}")
 
         if did_raise:
             print_error_and_exit("Validation did raise but did not exit!")

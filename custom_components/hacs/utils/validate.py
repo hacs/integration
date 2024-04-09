@@ -121,32 +121,26 @@ V2_BASE_DATA_JSON_SCHEMA = {
     vol.Optional("topics"): [str],
 }
 
-V2_COMMON_DATA_JSON_SCHEMA = vol.All(
-    vol.Schema(
-        V2_BASE_DATA_JSON_SCHEMA,
-        extra=vol.PREVENT_EXTRA,
-    ),
+V2_COMMON_DATA_JSON_SCHEMA = vol.Schema(
+    V2_BASE_DATA_JSON_SCHEMA,
+    extra=vol.PREVENT_EXTRA,
 )
 
-V2_INTEGRATION_DATA_JSON_SCHEMA = vol.All(
-    vol.Schema(
-        {
-            **V2_BASE_DATA_JSON_SCHEMA,
-            vol.Required("domain"): str,
-            vol.Required("manifest_name"): str,
-        },
-        extra=vol.PREVENT_EXTRA,
-    ),
+V2_INTEGRATION_DATA_JSON_SCHEMA = vol.Schema(
+    {
+        **V2_BASE_DATA_JSON_SCHEMA,
+        vol.Required("domain"): str,
+        vol.Required("manifest_name"): str,
+    },
+    extra=vol.PREVENT_EXTRA,
 )
 
-V2_NETDAEMON_DATA_JSON_SCHEMA = vol.All(
-    vol.Schema(
-        {
-            **V2_BASE_DATA_JSON_SCHEMA,
-            vol.Required("domain"): str,
-        },
-        extra=vol.PREVENT_EXTRA,
-    ),
+V2_NETDAEMON_DATA_JSON_SCHEMA = vol.Schema(
+    {
+        **V2_BASE_DATA_JSON_SCHEMA,
+        vol.Required("domain"): str,
+    },
+    extra=vol.PREVENT_EXTRA,
 )
 
 V2_REPO_SCHEMA = {
@@ -160,13 +154,7 @@ V2_REPO_SCHEMA = {
 }
 
 V2_REPOS_SCHEMA = {
-    "appdaemon": vol.Schema({str: validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA)}),
-    "integration": vol.Schema({str: validate_repo_data(V2_INTEGRATION_DATA_JSON_SCHEMA)}),
-    "netdaemon": vol.Schema({str: validate_repo_data(V2_NETDAEMON_DATA_JSON_SCHEMA)}),
-    "plugin": vol.Schema({str: validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA)}),
-    "python_script": vol.Schema({str: validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA)}),
-    "template": vol.Schema({str: validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA)}),
-    "theme": vol.Schema({str: validate_repo_data(V2_COMMON_DATA_JSON_SCHEMA)}),
+    category: vol.Schema({str: V2_REPO_SCHEMA[category]}) for category in V2_REPO_SCHEMA
 }
 
 V2_CRITICAL_REPO_SCHEMA = vol.Schema(

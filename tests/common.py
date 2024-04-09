@@ -775,6 +775,7 @@ class ProxyClientSession(ClientSession):
                 "X-RateLimit-Remaining": "999",
                 "X-RateLimit-Reset": "999",
                 "Content-Type": "application/json",
+                "Etag": "321",
             },
         )
 

@@ -383,7 +383,7 @@ async def generate_category_data(category: str, repository_name: str = None):
 
         try:
             V2_REPOS_SCHEMA[category](updated_data)
-        except vol.Error as error:
+        except vol.Invalid as error:
             did_raise = True
             errors = expand_and_humanize_error(updated_data, error)
             if isinstance(errors, list):

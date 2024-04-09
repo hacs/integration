@@ -35,7 +35,7 @@ async def validate_category_data(category: str, file_path: str) -> None:
 
         try:
             V2_REPOS_SCHEMA[category](contents)
-        except vol.Error as error:
+        except vol.Invalid as error:
             did_raise = True
             errors = expand_and_humanize_error(contents, error)
             if isinstance(errors, list):

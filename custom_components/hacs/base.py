@@ -355,9 +355,6 @@ class HacsRepositories:
 class HacsBase:
     """Base HACS class."""
 
-    common = HacsCommon()
-    configuration = HacsConfiguration()
-    core = HacsCore()
     data: HacsData | None = None
     data_client: HacsDataClient | None = None
     frontend_version: str | None = None
@@ -365,17 +362,23 @@ class HacsBase:
     githubapi: GitHubAPI | None = None
     hass: HomeAssistant | None = None
     integration: Integration | None = None
-    log: logging.Logger = LOGGER
     queue: QueueManager | None = None
-    recuring_tasks = []
-    repositories: HacsRepositories = HacsRepositories()
     repository: AIOGitHubAPIRepository | None = None
     session: ClientSession | None = None
     stage: HacsStage | None = None
-    status = HacsStatus()
-    system = HacsSystem()
     validation: ValidationManager | None = None
     version: AwesomeVersion | None = None
+
+    def __init__(self) -> None:
+        """Initialize."""
+        self.common = HacsCommon()
+        self.configuration = HacsConfiguration()
+        self.core = HacsCore()
+        self.log = LOGGER
+        self.recuring_tasks: list[Callable[[], None]] = []
+        self.repositories = HacsRepositories()
+        self.status = HacsStatus()
+        self.system = HacsSystem()
 
     @property
     def integration_dir(self) -> pathlib.Path:

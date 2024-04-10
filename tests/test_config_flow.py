@@ -323,7 +323,7 @@ async def test_options_flow(
         "sidepanel_icon": "hacs:hacs",
         "sidepanel_title": "new_title",
     }
-    assert config_entry.data == {"token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}
+    assert config_entry.data == {"token": TOKEN}
     assert config_entry.options == {
         "appdaemon": True,
         "country": "ALL",

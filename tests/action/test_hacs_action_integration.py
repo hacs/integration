@@ -6,18 +6,22 @@ from unittest import mock
 
 import pytest
 
-from tests.common import TOKEN, MockedResponse, ResponseMocker
+from tests.common import TOKEN, MockedResponse, ResponseMocker, current_function_name
 from tests.conftest import SnapshotFixture
 
 
 @pytest.mark.parametrize(
-    "key,repository,manifest",
-    [("bad_issue_tracker", "hacs-test-org/integration-basic", {"issue_tracker": None})],
+    "key,manifest,succeed",
+    (
+        ("bad_documentation", {"documentation": None}, False),
+        ("bad_issue_tracker", {"issue_tracker": None}, False),
+        ("valid_manifest1", {}, True),
+    ),
 )
 async def test_hacs_action_integration(
     key: str,
-    repository: str,
     manifest: dict[str, str | bool | None],
+    succeed: bool,
     caplog: pytest.LogCaptureFixture,
     response_mocker: ResponseMocker,
     snapshots: SnapshotFixture,
@@ -31,7 +35,11 @@ async def test_hacs_action_integration(
         "issue_tracker": "https://example.com",
         "name": "Example",
     }
-    envpatch = {"INPUT_GITHUB_TOKEN": TOKEN, "REPOSITORY": repository, "CATEGORY": "integration"}
+    envpatch = {
+        "INPUT_GITHUB_TOKEN": TOKEN,
+        "INPUT_REPOSITORY": "hacs-test-org/integration-basic",
+        "INPUT_CATEGORY": "integration",
+    }
 
     response_mocker.add(
         "https://brands.home-assistant.io/domains.json",
@@ -55,9 +63,11 @@ async def test_hacs_action_integration(
 
         await preflight()
 
+    assert ("All (8) checks passed" if succeed else "1/8 checks failed") in caplog.text
+
     splitlines = [f"<{l.rsplit(' <')[1]}" for l in caplog.text.split("\n") if " <" in l]
 
     snapshots.assert_match(
         "\n".join(splitlines[0:2] + sorted(splitlines[2:-2]) + splitlines[-2:]),
-        f"action/integration/{key}.log",
+        f"action/{current_function_name()}/{key}.log",
     )

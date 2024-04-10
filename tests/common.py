@@ -6,6 +6,7 @@ from collections.abc import AsyncGenerator, Mapping, Sequence
 from contextlib import asynccontextmanager, contextmanager
 from contextvars import ContextVar
 import functools as ft
+from inspect import currentframe
 import json as json_func
 import os
 from types import NoneType
@@ -15,13 +16,7 @@ from unittest.mock import AsyncMock, Mock, patch
 from aiohttp import ClientError, ClientSession, ClientWebSocketResponse
 from aiohttp.typedefs import StrOrURL
 from awesomeversion import AwesomeVersion
-from homeassistant import (
-    auth,
-    bootstrap,
-    config_entries,
-    core as ha,
-    loader,
-)
+from homeassistant import auth, bootstrap, config_entries, core as ha, loader
 from homeassistant.auth import auth_store, models as auth_models
 from homeassistant.const import (
     EVENT_HOMEASSISTANT_CLOSE,
@@ -136,6 +131,11 @@ def category_test_data_parametrized(
         )
         for entry in _CATEGORY_TEST_DATA
     )
+
+
+def current_function_name():
+    """Return the name of the current function."""
+    return currentframe().f_back.f_code.co_name
 
 
 def safe_json_dumps(data: dict | list) -> str:

@@ -1,5 +1,6 @@
 """Set up some common test helper things."""
 # pytest: disable=protected-access
+from . import patch_time  # noqa: F401, isort:skip
 import asyncio
 from collections import OrderedDict
 from dataclasses import asdict
@@ -7,6 +8,7 @@ from glob import iglob
 import json
 import logging
 import os
+import freezegun
 import shutil
 from typing import Any, Generator
 from unittest.mock import MagicMock, patch
@@ -75,6 +77,11 @@ asyncio.set_event_loop_policy = lambda policy: None
 _sleep = asyncio.sleep
 asyncio.sleep = lambda _: _sleep(0)
 
+
+@pytest.fixture(autouse=True)
+def time_freezer():
+    with freezegun.freeze_time("2019-02-26T15:02:39Z"):
+        yield
 
 @pytest.fixture(autouse=True)
 def set_request_context(request: pytest.FixtureRequest):
@@ -265,7 +272,7 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                         ),
                         **(additional or {}),
                     },
-                    ("categories", "config_entry_id", "device_id", "labels", "last_fetched"),
+                    ("categories", "config_entry_id", "device_id", "labels"),
                 )
             ),
             filename,

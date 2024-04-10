@@ -8,6 +8,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType, UnknownFlow
 import pytest
 
+from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import DOMAIN
 
 from tests.common import (
@@ -289,3 +290,54 @@ async def test_already_configured(
         safe_json_dumps(recursive_remove_key(result, ("flow_id", "minor_version"))),
         "config_flow/test_already_configured.json",
     )
+
+
+async def test_options_flow(
+    hass: HomeAssistant, setup_integration: Generator, hacs: HacsBase
+) -> None:
+    """Test reconfiguring."""
+    config_entry = hass.config_entries.async_entries(DOMAIN)[0]
+    result = await hass.config_entries.options.async_init(config_entry.entry_id)
+    assert result["type"] == FlowResultType.FORM
+    assert result["step_id"] == "user"
+
+    # Test defaults
+    schema = result["data_schema"].schema
+    for key in schema:
+        assert key.default() == getattr(hacs.configuration, str(key))
+
+    result = await hass.config_entries.options.async_configure(
+        result["flow_id"],
+        user_input={
+            "sidepanel_title": "new_title",
+        },
+    )
+    assert result["type"] == FlowResultType.CREATE_ENTRY
+    assert result["data"] == {
+        "appdaemon": True,
+        "country": "ALL",
+        "debug": False,
+        "experimental": True,
+        "netdaemon": True,
+        "release_limit": 5,
+        "sidepanel_icon": "hacs:hacs",
+        "sidepanel_title": "new_title",
+    }
+    assert config_entry.data == {'token': 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'}
+    assert config_entry.options == {
+        "appdaemon": True,
+        "country": "ALL",
+        "debug": False,
+        "experimental": True,
+        "netdaemon": True,
+        "release_limit": 5,
+        "sidepanel_icon": "hacs:hacs",
+        "sidepanel_title": "new_title",
+    }
+
+    # Check config entry is reloaded with new options
+    await hass.async_block_till_done()
+    hacs = hass.data[DOMAIN]
+
+    for key, val in config_entry.options.items():
+        assert getattr(hacs.configuration, str(key)) == val

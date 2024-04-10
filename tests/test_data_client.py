@@ -1,7 +1,9 @@
 """Test the data_client module."""
 
 import asyncio
+from contextlib import nullcontext as does_not_raise
 from types import NoneType
+from typing import ContextManager
 
 import pytest
 
@@ -50,69 +52,69 @@ async def test_basic_functionality_repositories(
 
 
 @pytest.mark.parametrize(
-    "exception,result",
+    "exception,expectation",
     (
-        (Exception("Test"), "Error fetching data from HACS: Test"),
-        (asyncio.TimeoutError, "Timeout of 60s reached"),
+        pytest.param(
+            Exception("Test"),
+            pytest.raises(HacsException, match="Error fetching data from HACS: Test"),
+            id="Exception-Error fetching data from HACS: Test",
+        ),
+        pytest.param(
+            asyncio.TimeoutError,
+            pytest.raises(HacsException, match="Timeout of 60s reached"),
+            id="TimeoutError-Timeout of 60s reached",
+        ),
     ),
 )
 async def test_exception_handling(
     hacs: HacsBase,
     response_mocker: ResponseMocker,
     exception: Exception,
-    result: str,
+    expectation: str,
 ):
     """Test the base result."""
-    _result: str | None = None
-
     response_mocker.add(
         "https://data-v2.hacs.xyz/integration/repositories.json",
         response=MockedResponse(exception=exception),
     )
 
-    try:
+    with expectation:
         await hacs.data_client.get_repositories("integration")
-    except Exception as exception:
-        _result = str(exception)
-
-    assert result == _result
 
 
 @pytest.mark.parametrize(
-    "status,result",
+    "status,expectation",
     (
-        (1009, HacsException),
-        (200, NoneType),
-        (201, NoneType),
-        (301, HacsException),
-        (302, HacsException),
-        (304, HacsNotModifiedException),
-        (400, HacsException),
-        (401, HacsException),
-        (403, HacsException),
-        (418, HacsException),
-        (429, HacsException),
-        (500, HacsException),
-        (529, HacsException),
+        pytest.param(1009, pytest.raises(HacsException), id="1009-HacsException"),
+        pytest.param(200, does_not_raise(), id="200-does_not_raise"),
+        pytest.param(201, does_not_raise(), id="201-does_not_raise"),
+        pytest.param(301, pytest.raises(HacsException), id="301-HacsException"),
+        pytest.param(302, pytest.raises(HacsException), id="302-HacsException"),
+        pytest.param(
+            304,
+            pytest.raises(HacsNotModifiedException),
+            id="304-HacsNotModifiedException",
+        ),
+        pytest.param(400, pytest.raises(HacsException), id="400-HacsException"),
+        pytest.param(401, pytest.raises(HacsException), id="401-HacsException"),
+        pytest.param(403, pytest.raises(HacsException), id="403-HacsException"),
+        pytest.param(418, pytest.raises(HacsException), id="418-HacsException"),
+        pytest.param(429, pytest.raises(HacsException), id="429-HacsException"),
+        pytest.param(500, pytest.raises(HacsException), id="500-HacsException"),
+        pytest.param(529, pytest.raises(HacsException), id="529-HacsException"),
     ),
 )
 async def test_status_handling(
     hacs: HacsBase,
     response_mocker: ResponseMocker,
     status: int,
-    result: str,
+    expectation: ContextManager,
 ):
     """Test the base result."""
-    _result: str | None = None
-
     response_mocker.add(
         "https://data-v2.hacs.xyz/integration/repositories.json",
         response=MockedResponse(status=status),
     )
 
-    try:
+    with expectation:
         await hacs.data_client.get_repositories("integration")
-    except Exception as exception:
-        _result = exception
-
-    assert (result) == type(_result)

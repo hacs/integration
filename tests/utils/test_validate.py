@@ -495,8 +495,8 @@ def without(d: dict, key: str) -> dict:
         ),
         # Extra key
         (
-            ["appdaemon", "plugin", "python_script", "template", "theme"],
-            GOOD_COMMON_DATA | {"extra": "key"},
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"extra": "key"},
             pytest.raises(Invalid),
         ),
     ],

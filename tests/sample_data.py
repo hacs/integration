@@ -13,6 +13,7 @@ repository_data = {
     "topics": ["topic1", "topic2"],
     "default_branch": "main",
     "last_commit": "12345678",
+    "pushed_at": "1970-01-01T00:00:00Z",
 }
 
 response_rate_limit_header = {

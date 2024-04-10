@@ -16,6 +16,7 @@ from tests.common import (
     MockedResponse,
     ResponseMocker,
     create_config_entry,
+    get_hacs,
     recursive_remove_key,
     safe_json_dumps,
 )
@@ -293,7 +294,7 @@ async def test_already_configured(
 
 
 async def test_options_flow(
-    hass: HomeAssistant, setup_integration: Generator, hacs: HacsBase
+    hass: HomeAssistant, setup_integration: Generator
 ) -> None:
     """Test reconfiguring."""
     config_entry = hass.config_entries.async_entries(DOMAIN)[0]
@@ -302,6 +303,7 @@ async def test_options_flow(
     assert result["step_id"] == "user"
 
     # Test defaults
+    hacs = get_hacs()
     schema = result["data_schema"].schema
     for key in schema:
         assert key.default() == getattr(hacs.configuration, str(key))
@@ -337,7 +339,7 @@ async def test_options_flow(
 
     # Check config entry is reloaded with new options
     await hass.async_block_till_done()
-    hacs = hass.data[DOMAIN]
-
+    # Get a new HACS instance after reload
+    hacs = get_hacs()
     for key, val in config_entry.options.items():
         assert getattr(hacs.configuration, str(key)) == val

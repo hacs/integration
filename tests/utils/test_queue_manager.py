@@ -51,7 +51,7 @@ async def test_queue_manager(hacs: HacsBase, caplog: pytest.LogCaptureFixture) -
 async def test_queue_manager_grouping(
     event_loop: asyncio.AbstractEventLoop, hacs: HacsBase, caplog: pytest.LogCaptureFixture
 ) -> None:
-    """Test the queue manager excutes queue items in order."""
+    """Test the queue manager executes queue items in order."""
 
     dummy_task = AsyncMock()
     slow_task_event_1 = asyncio.Event()

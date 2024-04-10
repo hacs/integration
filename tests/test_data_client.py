@@ -70,7 +70,7 @@ async def test_exception_handling(
     hacs: HacsBase,
     response_mocker: ResponseMocker,
     exception: Exception,
-    expectation: str,
+    expectation: ContextManager,
 ):
     """Test the base result."""
     response_mocker.add(

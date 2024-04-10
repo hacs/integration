@@ -312,7 +312,9 @@ async def ws_client(hass: HomeAssistant) -> WSClient:
 @pytest.fixture()
 def response_mocker() -> ResponseMocker:
     """Mock fixture for responses."""
-    yield ResponseMocker()
+    mocker = ResponseMocker()
+    yield mocker
+    mocker.responses.clear()
 
 
 @pytest_asyncio.fixture()

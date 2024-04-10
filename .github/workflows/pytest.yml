@@ -54,10 +54,10 @@ jobs:
       - name: 📥 Checkout the repository
         uses: actions/checkout@v4.1.1
 
-      - name: 🛠️ Set up Python 3.12
+      - name: 🛠️ Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4.7.1
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
           cache: 'pip'
           cache-dependency-path: |
             requirements_base.txt

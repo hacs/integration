@@ -8,12 +8,12 @@ from glob import iglob
 import json
 import logging
 import os
-import freezegun
 import shutil
 from typing import Any, Generator
 from unittest.mock import MagicMock, patch
 
 from awesomeversion import AwesomeVersion
+import freezegun
 from homeassistant import loader
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
@@ -82,6 +82,7 @@ asyncio.sleep = lambda _: _sleep(0)
 def time_freezer():
     with freezegun.freeze_time("2019-02-26T15:02:39Z"):
         yield
+
 
 @pytest.fixture(autouse=True)
 def set_request_context(request: pytest.FixtureRequest):

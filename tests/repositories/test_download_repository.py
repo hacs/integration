@@ -43,6 +43,3 @@ async def test_download_repository(
     await snapshots.assert_hacs_data(
         hacs, f"{category_test_data['repository']}/test_download_repository.json"
     )
-
-    # cleanup
-    repo.data.installed = False

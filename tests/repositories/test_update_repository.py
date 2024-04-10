@@ -58,9 +58,6 @@ async def test_update_repository_entity(
         hacs, f"{category_test_data['repository']}/test_update_repository_entity.json"
     )
 
-    # cleanup
-    repo.data.installed = False
-
 
 @pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
 async def test_update_repository_websocket(
@@ -88,9 +85,6 @@ async def test_update_repository_websocket(
     await snapshots.assert_hacs_data(
         hacs, f"{category_test_data['repository']}/test_update_repository_websocket.json"
     )
-
-    # cleanup
-    repo.data.installed = False
 
 
 async def test_update_repository_entity_no_manifest(
@@ -133,9 +127,6 @@ async def test_update_repository_entity_no_manifest(
             blocking=True,
         )
 
-    # cleanup
-    repo.data.installed = False
-
 
 async def test_update_repository_entity_old_core_version(
     hass: HomeAssistant,
@@ -176,9 +167,6 @@ async def test_update_repository_entity_old_core_version(
             blocking=True,
         )
 
-    # cleanup
-    repo.data.installed = False
-
 
 async def test_update_repository_entity_old_hacs_version(
     hass: HomeAssistant,
@@ -216,9 +204,6 @@ async def test_update_repository_entity_old_hacs_version(
             service_data={"entity_id": entity_id, "version": "3.0.0"},
             blocking=True,
         )
-
-    # cleanup
-    repo.data.installed = False
 
 
 async def test_update_repository_entity_download_failure(
@@ -267,9 +252,6 @@ async def test_update_repository_entity_download_failure(
             blocking=True,
         )
 
-    # cleanup
-    repo.data.installed = False
-
 
 async def test_update_repository_entity_no_version_and_cant_download(
     hass: HomeAssistant,
@@ -307,6 +289,3 @@ async def test_update_repository_entity_no_version_and_cant_download(
             service_data={"entity_id": entity_id},
             blocking=True,
         )
-
-    # cleanup
-    repo.data.installed = False

@@ -122,7 +122,11 @@ class HacsRepositoryEntity(BaseCoordinatorEntity[HacsUpdateCoordinator], HacsBas
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
-        if self._repo_last_fetched >= self.repository.data.last_fetched:
+        if (
+            self._repo_last_fetched is not None
+            and self.repository.data.last_fetched is not None
+            and self._repo_last_fetched >= self.repository.data.last_fetched
+        ):
             return
 
         self._repo_last_fetched = self.repository.data.last_fetched

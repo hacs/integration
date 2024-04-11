@@ -9,10 +9,10 @@ from custom_components.hacs.utils.validate import (
     INTEGRATION_MANIFEST_JSON_SCHEMA as integration_json_schema,
     V2_CRITICAL_REPO_SCHEMA,
     V2_CRITICAL_REPOS_SCHEMA,
-    V2_REPO_SCHEMA,
-    V2_REPOS_SCHEMA,
     V2_REMOVED_REPO_SCHEMA,
     V2_REMOVED_REPOS_SCHEMA,
+    V2_REPO_SCHEMA,
+    V2_REPOS_SCHEMA,
 )
 
 from tests.common import fixture
@@ -495,8 +495,8 @@ def without(d: dict, key: str) -> dict:
         ),
         # Extra key
         (
-            ["appdaemon", "plugin", "python_script", "template", "theme"],
-            GOOD_COMMON_DATA | {"extra": "key"},
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"extra": "key"},
             pytest.raises(Invalid),
         ),
     ],

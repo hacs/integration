@@ -11,7 +11,7 @@ from .python_script import HacsPythonScriptRepository
 from .template import HacsTemplateRepository
 from .theme import HacsThemeRepository
 
-RERPOSITORY_CLASSES: dict[HacsCategory, HacsRepository] = {
+REPOSITORY_CLASSES: dict[HacsCategory, HacsRepository] = {
     HacsCategory.THEME: HacsThemeRepository,
     HacsCategory.INTEGRATION: HacsIntegrationRepository,
     HacsCategory.PYTHON_SCRIPT: HacsPythonScriptRepository,

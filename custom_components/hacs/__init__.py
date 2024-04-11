@@ -50,10 +50,6 @@ async def async_initialize_integration(
     hacs.enable_hacs()
 
     if config is not None:
-        if DOMAIN not in config:
-            return True
-        if hacs.configuration.config_type == ConfigurationType.CONFIG_ENTRY:
-            return True
         hacs.configuration.update_from_dict(
             {
                 "config_type": ConfigurationType.YAML,
@@ -219,24 +215,26 @@ async def async_initialize_integration(
 
 async def async_setup(hass: HomeAssistant, config: dict[str, Any]) -> bool:
     """Set up this integration using yaml."""
-    if DOMAIN in config:
-        async_create_issue(
-            hass,
-            DOMAIN,
-            "deprecated_yaml_configuration",
-            is_fixable=False,
-            issue_domain=DOMAIN,
-            severity=IssueSeverity.WARNING,
-            translation_key="deprecated_yaml_configuration",
-            learn_more_url="https://hacs.xyz/docs/configuration/options",
-        )
-        LOGGER.warning(
-            "YAML configuration of HACS is deprecated and will be "
-            "removed in version 2.0.0, there will be no automatic "
-            "import of this. "
-            "Please remove it from your configuration, "
-            "restart Home Assistant and use the UI to configure it instead."
-        )
+    if DOMAIN not in config:
+        return True
+
+    async_create_issue(
+        hass,
+        DOMAIN,
+        "deprecated_yaml_configuration",
+        is_fixable=False,
+        issue_domain=DOMAIN,
+        severity=IssueSeverity.WARNING,
+        translation_key="deprecated_yaml_configuration",
+        learn_more_url="https://hacs.xyz/docs/configuration/options",
+    )
+    LOGGER.warning(
+        "YAML configuration of HACS is deprecated and will be "
+        "removed in version 2.0.0, there will be no automatic "
+        "import of this. "
+        "Please remove it from your configuration, "
+        "restart Home Assistant and use the UI to configure it instead."
+    )
     return await async_initialize_integration(hass=hass, config=config)
 
 
@@ -259,7 +257,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     # Clear out pending queue
     hacs.queue.clear()
 
-    for task in hacs.recuring_tasks:
+    for task in hacs.recurring_tasks:
         # Cancel all pending tasks
         task()
 

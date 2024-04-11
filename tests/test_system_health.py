@@ -65,6 +65,7 @@ async def test_system_health(
 async def test_system_health_after_unload(
     hacs: HacsBase,
     hass: HomeAssistant,
+    snapshots: SnapshotFixture,
 ) -> None:
     """Test HACS system health."""
     await hass.config_entries.async_unload(hacs.configuration.config_entry.entry_id)
@@ -74,7 +75,7 @@ async def test_system_health_after_unload(
 
     info = await get_system_health_info(hass, HACS_SYSTEM_HEALTH_DOMAIN)
 
-    assert info == {"Disabled": "HACS is not loaded, but HA still requests this information..."}
+    snapshots.assert_match(safe_json_dumps(info), "system_health/system_health_after_unload.json")
 
 
 async def test_system_health_no_hacs(

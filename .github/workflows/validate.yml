@@ -177,9 +177,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Trigger Discord notification when jobs fail
     needs: ["preflight","validate-hassfest", "validate-hacs", "validate-homeassistant"]
-    if: ${{ always() && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
     steps:
       - name: Send notification
+        if: ${{ always() && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
         run: |
           curl \
             -H "Content-Type: application/json" \

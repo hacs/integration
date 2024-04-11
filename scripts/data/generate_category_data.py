@@ -20,6 +20,7 @@ from aiogithubapi import (
 from aiohttp import ClientSession
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.json import JSONEncoder
+import voluptuous as vol
 
 from custom_components.hacs.base import HacsBase, HacsRepositories
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
@@ -33,6 +34,9 @@ from custom_components.hacs.repositories.base import (
 from custom_components.hacs.utils.data import HacsData
 from custom_components.hacs.utils.decorator import concurrent
 from custom_components.hacs.utils.queue_manager import QueueManager
+from custom_components.hacs.utils.validate import V2_REPOS_SCHEMA
+
+from .common import expand_and_humanize_error, print_error_and_exit
 
 logging.addLevelName(logging.DEBUG, "")
 logging.addLevelName(logging.INFO, "")
@@ -370,6 +374,28 @@ async def generate_category_data(category: str, repository_name: str = None):
         ):
             print("No changes, exiting")
             return
+
+        did_raise = False
+
+        if not updated_data or len(updated_data) == 0 or not isinstance(updated_data, dict):
+            print_error_and_exit(f"Updated data is empty", category)
+            did_raise = True
+
+        try:
+            V2_REPOS_SCHEMA[category](updated_data)
+        except vol.Invalid as error:
+            did_raise = True
+            errors = expand_and_humanize_error(updated_data, error)
+            if isinstance(errors, list):
+                for err in errors:
+                    print(f"::error::{err}")
+                sys.exit(1)
+
+            print_error_and_exit(f"Invalid data: {errors}", category)
+
+        if did_raise:
+            print_error_and_exit("Validation did raise but did not exit!", category)
+            sys.exit(1)  # Fallback, should not be reached
 
         with open(
             os.path.join(OUTPUT_DIR, category, "data.json"),

@@ -1,5 +1,6 @@
 """Set up some common test helper things."""
 # pytest: disable=protected-access
+from . import patch_time  # noqa: F401, isort:skip
 import asyncio
 from collections import OrderedDict
 from dataclasses import asdict
@@ -12,6 +13,7 @@ from typing import Any, Generator
 from unittest.mock import MagicMock, patch
 
 from awesomeversion import AwesomeVersion
+import freezegun
 from homeassistant import loader
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
@@ -77,6 +79,12 @@ asyncio.sleep = lambda _: _sleep(0)
 
 
 @pytest.fixture(autouse=True)
+def time_freezer():
+    with freezegun.freeze_time("2019-02-26T15:02:39Z"):
+        yield
+
+
+@pytest.fixture(autouse=True)
 def set_request_context(request: pytest.FixtureRequest):
     """Set request context for every test."""
     REQUEST_CONTEXT.set(request)
@@ -106,7 +114,7 @@ def event_loop():
 
 
 @pytest.fixture
-def hass(event_loop, tmpdir, check_report_issue: None):
+def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
     """Fixture to provide a test instance of Home Assistant."""
 
     def exc_handle(loop, context):
@@ -265,7 +273,7 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                         ),
                         **(additional or {}),
                     },
-                    ("categories", "config_entry_id", "device_id", "labels", "last_fetched"),
+                    ("categories", "config_entry_id", "device_id", "labels"),
                 )
             ),
             filename,

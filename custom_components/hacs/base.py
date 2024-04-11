@@ -677,9 +677,11 @@ class HacsBase:
             )
         )
 
-        self.hass.bus.async_listen_once(
+        unsub = self.hass.bus.async_listen_once(
             EVENT_HOMEASSISTANT_FINAL_WRITE, self.data.async_force_write
         )
+        if config_entry := self.configuration.config_entry:
+            config_entry.async_on_unload(unsub)
 
         self.log.debug("There are %s scheduled recurring tasks", len(self.recurring_tasks))
 

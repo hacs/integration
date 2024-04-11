@@ -1,9 +1,6 @@
-import pytest
-
 from custom_components.hacs.validate.images import Validator
 
 
-@pytest.mark.asyncio
 async def test_repository_has_images(repository):
     repository.data.has_issues = True
     check = Validator(repository)
@@ -19,7 +16,6 @@ async def test_repository_has_images(repository):
     assert not check.failed
 
 
-@pytest.mark.asyncio
 async def test_repository_has_not_images(repository):
     repository.data.has_issues = False
     check = Validator(repository)

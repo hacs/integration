@@ -88,7 +88,7 @@ async def hacs_repositories_clear_new(
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
 ) -> None:
-    """Clear new repositories for spesific categories."""
+    """Clear new repositories for specific categories."""
     hacs: HacsBase = hass.data.get(DOMAIN)
 
     if repo := msg.get("repository"):

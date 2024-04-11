@@ -257,7 +257,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     # Clear out pending queue
     hacs.queue.clear()
 
-    for task in hacs.recuring_tasks:
+    for task in hacs.recurring_tasks:
         # Cancel all pending tasks
         task()
 

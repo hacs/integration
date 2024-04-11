@@ -87,7 +87,7 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
     def async_remove(self):
         """Cleanup.
 
-        Needed in old Home Assistant versions which don't support show progress taks.
+        Needed in old Home Assistant versions which don't support show progress tasks.
         """
         if self._use_progress_task:
             return

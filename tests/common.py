@@ -374,7 +374,7 @@ async def async_test_home_assistant_dev(
     """Return a Home Assistant object pointing at test config dir.
 
     This should be copied from latest Home Assistant version,
-    currently Home Assistant Core 2024.4.0.
+    currently Home Assistant Core 2024.5.0dev0.
     """
 
     # Local imports of features not present in min version
@@ -454,7 +454,6 @@ async def async_test_home_assistant_dev(
     hass.bus.async_listen_once(
         EVENT_HOMEASSISTANT_STOP,
         hass.config_entries._async_shutdown,
-        run_immediately=True,
     )
 
     # Load the registries
@@ -506,9 +505,9 @@ async def async_test_home_assistant_dev(
 
     hass.set_state(CoreState.running)
 
-    @callback
-    def clear_instance(event):
+    async def clear_instance(event):
         """Clear global instance."""
+        await asyncio.sleep(0)  # Give aiohttp one loop iteration to close
         INSTANCES.remove(hass)
 
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_CLOSE, clear_instance)

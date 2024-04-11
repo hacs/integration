@@ -114,7 +114,7 @@ def event_loop():
 
 
 @pytest.fixture
-def hass(event_loop, tmpdir, check_report_issue: None):
+def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
     """Fixture to provide a test instance of Home Assistant."""
 
     def exc_handle(loop, context):

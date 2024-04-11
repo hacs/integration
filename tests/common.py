@@ -374,7 +374,7 @@ async def async_test_home_assistant_dev(
     """Return a Home Assistant object pointing at test config dir.
 
     This should be copied from latest Home Assistant version,
-    currently Home Assistant Core 2024.5.0dev0.
+    currently Home Assistant Core 2024.5.0dev0 (2024-4-11).
     """
 
     # Local imports of features not present in min version

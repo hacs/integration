@@ -31,6 +31,7 @@ from homeassistant.config_entries import ConfigEntry, ConfigEntryState
 from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
+from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.issue_registry import IssueSeverity, async_create_issue
 from homeassistant.loader import Integration
 from homeassistant.util import dt
@@ -61,7 +62,7 @@ from .exceptions import (
     HacsRepositoryExistException,
     HomeAssistantCoreRepositoryException,
 )
-from .repositories import RERPOSITORY_CLASSES
+from .repositories import REPOSITORY_CLASSES
 from .utils.decode import decode_content
 from .utils.json import json_loads
 from .utils.logger import LOGGER
@@ -358,9 +359,6 @@ class HacsRepositories:
 class HacsBase:
     """Base HACS class."""
 
-    common = HacsCommon()
-    configuration = HacsConfiguration()
-    core = HacsCore()
     data: HacsData | None = None
     data_client: HacsDataClient | None = None
     frontend_version: str | None = None
@@ -368,17 +366,23 @@ class HacsBase:
     githubapi: GitHubAPI | None = None
     hass: HomeAssistant | None = None
     integration: Integration | None = None
-    log: logging.Logger = LOGGER
     queue: QueueManager | None = None
-    recuring_tasks = []
-    repositories: HacsRepositories = HacsRepositories()
     repository: AIOGitHubAPIRepository | None = None
     session: ClientSession | None = None
     stage: HacsStage | None = None
-    status = HacsStatus()
-    system = HacsSystem()
     validation: ValidationManager | None = None
     version: AwesomeVersion | None = None
+
+    def __init__(self) -> None:
+        """Initialize."""
+        self.common = HacsCommon()
+        self.configuration = HacsConfiguration()
+        self.core = HacsCore()
+        self.log = LOGGER
+        self.recurring_tasks: list[Callable[[], None]] = []
+        self.repositories = HacsRepositories()
+        self.status = HacsStatus()
+        self.system = HacsSystem()
 
     @property
     def integration_dir(self) -> pathlib.Path:
@@ -555,7 +559,7 @@ class HacsBase:
         ):
             raise AddonRepositoryException()
 
-        if category not in RERPOSITORY_CLASSES:
+        if category not in REPOSITORY_CLASSES:
             self.log.warning(
                 "%s is not a valid repository category, %s will not be registered.",
                 category,
@@ -566,7 +570,7 @@ class HacsBase:
         if (renamed := self.common.renamed_repositories.get(repository_full_name)) is not None:
             repository_full_name = renamed
 
-        repository: HacsRepository = RERPOSITORY_CLASSES[category](self, repository_full_name)
+        repository: HacsRepository = REPOSITORY_CLASSES[category](self, repository_full_name)
         if check:
             try:
                 await repository.async_registration(ref)
@@ -629,59 +633,59 @@ class HacsBase:
                     break
 
         if not self.configuration.experimental:
-            self.recuring_tasks.append(
-                self.hass.helpers.event.async_track_time_interval(
-                    self.async_update_downloaded_repositories, timedelta(hours=48)
+            self.recurring_tasks.append(
+                async_track_time_interval(
+                    self.hass, self.async_update_downloaded_repositories, timedelta(hours=48)
                 )
             )
-            self.recuring_tasks.append(
-                self.hass.helpers.event.async_track_time_interval(
+            self.recurring_tasks.append(
+                async_track_time_interval(
+                    self.hass,
                     self.async_update_all_repositories,
                     timedelta(hours=96),
                 )
             )
         else:
-            self.recuring_tasks.append(
-                self.hass.helpers.event.async_track_time_interval(
+            self.recurring_tasks.append(
+                async_track_time_interval(
+                    self.hass,
                     self.async_load_hacs_from_github,
                     timedelta(hours=48),
                 )
             )
 
-        self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_update_downloaded_custom_repositories, timedelta(hours=48)
+        self.recurring_tasks.append(
+            async_track_time_interval(
+                self.hass, self.async_update_downloaded_custom_repositories, timedelta(hours=48)
             )
         )
 
-        self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_get_all_category_repositories, timedelta(hours=6)
+        self.recurring_tasks.append(
+            async_track_time_interval(
+                self.hass, self.async_get_all_category_repositories, timedelta(hours=6)
             )
         )
 
-        self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_check_rate_limit, timedelta(minutes=5)
-            )
+        self.recurring_tasks.append(
+            async_track_time_interval(self.hass, self.async_check_rate_limit, timedelta(minutes=5))
         )
-        self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_prosess_queue, timedelta(minutes=10)
+        self.recurring_tasks.append(
+            async_track_time_interval(self.hass, self.async_prosess_queue, timedelta(minutes=10))
+        )
+
+        self.recurring_tasks.append(
+            async_track_time_interval(
+                self.hass, self.async_handle_critical_repositories, timedelta(hours=6)
             )
         )
 
-        self.recuring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_handle_critical_repositories, timedelta(hours=6)
-            )
-        )
-
-        self.hass.bus.async_listen_once(
+        unsub = self.hass.bus.async_listen_once(
             EVENT_HOMEASSISTANT_FINAL_WRITE, self.data.async_force_write
         )
+        if config_entry := self.configuration.config_entry:
+            config_entry.async_on_unload(unsub)
 
-        self.log.debug("There are %s scheduled recurring tasks", len(self.recuring_tasks))
+        self.log.debug("There are %s scheduled recurring tasks", len(self.recurring_tasks))
 
         self.status.startup = False
         self.async_dispatch(HacsDispatchEvent.STATUS, {})

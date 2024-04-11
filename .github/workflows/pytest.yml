@@ -13,45 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  run:
-    name: With pytest for Python ${{ matrix.python-version }}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.11"]
-    steps:
-      - name: 📥 Checkout the repository
-        uses: actions/checkout@v4.1.1
-
-      - name: 🛠️ Set up Python
-        uses: actions/setup-python@v4.7.1
-        id: python
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: 'pip'
-          cache-dependency-path: |
-            requirements_base.txt
-            requirements_test.txt
-
-      - name: 📦 Install requirements
-        run: |
-          scripts/install/frontend
-          scripts/install/pip_packages --requirement requirements_test.txt
-
-      - name: 🏃 Run tests
-        env:
-          PYTEST: true
-        run: |
-          python3 -m pytest
-
-      - name: 📤 Upload coverage to Codecov
-        if: ${{ matrix.python-version == '3.11' }}
-        run: |
-          scripts/coverage
-          curl -sfSL https://codecov.io/bash | bash -
-
   legacy:
-    name: With pytest with Home Assistant 2023.6.0
+    name: With pytest with Home Assistant (min. supported version)
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout the repository
@@ -72,23 +35,34 @@ jobs:
           scripts/install/core
           scripts/install/frontend
 
+      - name: ⏲️ Set time zone
+        uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: 'Asia/Singapore'
+
       - name: 🏃 Run tests
         env:
           PYTEST: true
         run: |
           python3 -m pytest
 
-  core_dev:
-    name: With pytest with Home Assistant dev
+  dev:
+    name: With pytest with Home Assistant (${{ matrix.homeassistant-version }}) & Python (${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        homeassistant-version:
+          - "dev"
+        python-version:
+          - "3.12"
     steps:
       - name: 📥 Checkout the repository
         uses: actions/checkout@v4.1.1
 
-      - name: 🛠️ Set up Python 3.11
+      - name: 🛠️ Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4.7.1
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python-version }}
           cache: 'pip'
           cache-dependency-path: |
             requirements_base.txt
@@ -100,8 +74,19 @@ jobs:
           scripts/install/core_dev
           scripts/install/frontend
 
+      - name: ⏲️ Set time zone
+        uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: 'Asia/Singapore'
+
       - name: 🏃 Run tests
         env:
           PYTEST: true
         run: |
           python3 -m pytest
+
+      - name: 📤 Upload coverage to Codecov
+        if: ${{ matrix.python-version == '3.12' }}
+        run: |
+          scripts/coverage
+          curl -sfSL https://codecov.io/bash | bash -

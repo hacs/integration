@@ -5,6 +5,7 @@ from contextlib import nullcontext as does_not_raise
 from types import NoneType
 from typing import ContextManager
 
+from homeassistant.core import HomeAssistant
 import pytest
 
 from custom_components.hacs.base import HacsBase
@@ -15,6 +16,8 @@ from tests.common import (
     MockedResponse,
     ResponseMocker,
     category_test_data_parametrized,
+    create_config_entry,
+    get_hacs,
     recursive_remove_key,
     safe_json_dumps,
 )
@@ -118,3 +121,75 @@ async def test_status_handling(
 
     with expectation:
         await hacs.data_client.get_repositories("integration")
+
+
+GOOD_COMMON_DATA = {
+    "description": "abc",
+    "etag_repository": "blah",
+    "full_name": "blah",
+    "last_commit": "abc",
+    "last_fetched": 0,
+    "last_updated": "blah",
+    "manifest": {},
+}
+
+GOOD_INTEGRATION_DATA = {
+    "description": "abc",
+    "domain": "abc",
+    "etag_repository": "blah",
+    "full_name": "blah",
+    "last_commit": "abc",
+    "last_fetched": 0,
+    "last_updated": "blah",
+    "manifest": {},
+    "manifest_name": "abc",
+}
+
+
+def without(d: dict, key: str) -> dict:
+    """Return a copy of d without key."""
+    d = dict(d)
+    d.pop(key)
+    return d
+
+
+@pytest.mark.parametrize(
+    ("category", "data"),
+    [
+        ("appdaemon", without(GOOD_COMMON_DATA, "description")),
+        ("integration", without(GOOD_INTEGRATION_DATA, "description")),
+        ("plugin", without(GOOD_COMMON_DATA, "description")),
+        ("python_script", without(GOOD_COMMON_DATA, "description")),
+        ("template", without(GOOD_COMMON_DATA, "description")),
+        ("theme", without(GOOD_COMMON_DATA, "description")),
+    ]
+)
+async def test_discard_invalid_repo_data(
+    hass: HomeAssistant,
+    response_mocker: ResponseMocker,
+    snapshots: SnapshotFixture,
+    category: list[str],
+    data: dict,
+):
+    """Test invalid repo data is discarded."""
+    response_mocker.add(
+        f"https://data-v2.hacs.xyz/{category}/data.json",
+        MockedResponse(content={'12345':data}),
+    )
+
+    config_entry = create_config_entry(data={"experimental": True})
+    hass.data.pop("custom_components", None)
+    config_entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(config_entry.entry_id)
+    await hass.async_block_till_done()
+
+    hacs: HacsBase = get_hacs(hass)
+
+    assert hacs.repositories
+    assert not hacs.system.disabled
+    assert hacs.stage == "running"
+
+    await snapshots.assert_hacs_data(
+        hacs,
+        f"test_discard_invalid_repo_data_{category}.json",
+    )

@@ -72,8 +72,9 @@ async def test_system_health_after_unload(
     assert await async_setup_component(hass, "system_health", {})
     await hass.async_block_till_done()
 
-    with pytest.raises(KeyError, match="hacs"):
-        await get_system_health_info(hass, HACS_SYSTEM_HEALTH_DOMAIN)
+    info = await get_system_health_info(hass, HACS_SYSTEM_HEALTH_DOMAIN)
+
+    assert info == {"Disabled": "HACS is not loaded, but HA still requests this information..."}
 
 
 async def test_system_health_no_hacs(

@@ -503,12 +503,6 @@ class HacsRepository:
             self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)
             self.data.last_fetched = datetime.now(UTC)
 
-        # Set topics
-        self.data.topics = self.data.topics
-
-        # Set description
-        self.data.description = self.data.description
-
     @concurrent(concurrenttasks=10, backoff_time=5)
     async def common_update(self, ignore_issues=False, force=False, skip_releases=False) -> bool:
         """Common information update steps of the repository."""

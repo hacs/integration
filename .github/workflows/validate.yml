@@ -8,61 +8,109 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 12 * * *"
 
 concurrency:
-  group: validate-${{ github.ref }}
   cancel-in-progress: true
+  group: validate-${{ github.ref }}
 
 jobs:
+  preflight:
+    if: ${{ github.repository == 'hacs/integration' }}
+    runs-on: ubuntu-latest
+    name: Preflight
+    steps:
+      - name: Validation preflight
+        env:
+          ACTOR: ${{ github.actor }}
+          EVENT_NAME: ${{ github.event_name }}
+          REF_NAME: ${{ github.ref_name }}
+          REF: ${{ github.ref }}
+          SHA: ${{ github.sha }}
+        run: |
+          echo "**Start:** $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "**Actor:** $ACTOR" >> $GITHUB_STEP_SUMMARY
+          echo "**Event:** $EVENT_NAME" >> $GITHUB_STEP_SUMMARY
+          echo "**Ref name:** $REF_NAME" >> $GITHUB_STEP_SUMMARY
+          echo "**Ref:** $REF" >> $GITHUB_STEP_SUMMARY
+          echo "**SHA:** $SHA" >> $GITHUB_STEP_SUMMARY
+
   validate-hassfest:
+    needs:
+      - "preflight"
     runs-on: ubuntu-latest
     name: With hassfest
     steps:
-    - name: 📥 Checkout the repository
-      uses: actions/checkout@v4.1.1
+      - name: Checkout the repository
+        uses: actions/checkout@v4.1.1
 
-    - name: 🏃 Hassfest validation
-      uses: "home-assistant/actions/hassfest@master"
+      # Test files conflics with running hassfest
+      - name: Remove tests
+        run: rm -rf tests
 
-    - name: 📨 Discord notification
-      if: ${{ github.event_name == 'schedule' && failure() }}
-      run: |
-        curl \
-          -H "Content-Type: application/json" \
-          -d '{"username": "GitHub action failure", "content": "[Scheduled action failed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"}' \
-          ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
+      - name: Hassfest validation
+        uses: "home-assistant/actions/hassfest@master"
 
   validate-hacs:
+    needs:
+      - "preflight"
     runs-on: ubuntu-latest
     name: With HACS Action
     steps:
-    - name: 🏃 HACS validation
-      uses: hacs/action@main
-      with:
-        category: integration
+      - name: HACS validation
+        uses: hacs/action@main
+        with:
+          category: integration
 
-    - name: 📨 Discord notification
-      if: ${{ github.event_name == 'schedule' && failure() }}
-      run: |
-        curl \
-          -H "Content-Type: application/json" \
-          -d '{"username": "GitHub action failure", "content": "[Scheduled action failed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"}' \
-          ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
-
-
-  validata-hacs-data:
+  validate-hacs-local:
+    if: ${{ github.event_name != 'schedule' }}
+    needs:
+      - "preflight"
     runs-on: ubuntu-latest
-    name: Validate HACS data generation
+    name: Check ${{matrix.entry.category}} ${{matrix.entry.repository}} with HACS Action (local)
+    strategy:
+      matrix:
+        entry:
+          - repository: "hacs/integration"
+            category: "integration"
+          - repository: "piitaya/lovelace-mushroom"
+            category: "plugin"
     steps:
       - name: Checkout the repository
-        if: ${{ github.event_name == 'push' }}
+        uses: actions/checkout@v4.1.1
+
+      - name: Build Container
+        run: |
+          cd action
+          docker build . -t hacs/action:local
+
+      - name: Run Action
+        run: |
+          docker run --name hacs_action_local \
+            --env INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+            --env INPUT_REPOSITORY=${{matrix.entry.repository}} \
+            --env INPUT_CATEGORY=${{matrix.entry.category}} \
+            hacs/action:local
+
+  validata-hacs-data:
+    if: ${{ github.event_name != 'schedule' }}
+    needs:
+      - "preflight"
+    runs-on: ubuntu-latest
+    name: Check ${{matrix.entry.category}} ${{matrix.entry.repository}} with HACS data generation
+    strategy:
+      matrix:
+        entry:
+          - repository: "hacs/integration"
+            category: "integration"
+          - repository: "piitaya/lovelace-mushroom"
+            category: "plugin"
+    steps:
+      - name: Checkout the repository
         uses: actions/checkout@v4.1.1
 
       - name: Set up Python
-        if: ${{ github.event_name == 'push' }}
-        uses: actions/setup-python@v4.7.1
-        id: python
+        uses: actions/setup-python@v5.0.0
         with:
           python-version: "3.11"
           cache: 'pip'
@@ -71,34 +119,45 @@ jobs:
             requirements_generate_data.txt
 
       - name: Install dependencies
-        if: ${{ github.event_name == 'push' }}
         run:  |
           scripts/install/frontend
           scripts/install/pip_packages --requirement requirements_generate_data.txt
 
       - name: Generate data
-        if: ${{ github.event_name == 'push' }}
-        run: python3 -m scripts.data.generate_category_data integration hacs/integration
+        run: |
+          python3 -m scripts.data.generate_category_data \
+            ${{ matrix.entry.category }} \
+            ${{ matrix.entry.repository }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Validate output with JQ
-        if: ${{ github.event_name == 'push' }}
         run: |
-          jq -c . outputdata/integration/data.json
-          jq -c . outputdata/integration/repositories.json
+          jq -c . outputdata/${{ matrix.entry.category }}/data.json
+          jq -c . outputdata/${{ matrix.entry.category }}/repositories.json
+
+      - name: Validate output with schema
+        run: |
+          python3 -m scripts.data.validate_category_data ${{  matrix.entry.category }} outputdata/${{ matrix.entry.category }}/data.json
+
 
   validate-homeassistant:
-    name: With Home Assistant
+    needs:
+      - "preflight"
+    runs-on: ubuntu-latest
+    name: With Home Assistant ${{ matrix.channel }}
     strategy:
       matrix:
-        channel: [stable, beta, dev, "2023.6.0"]
-    runs-on: ubuntu-latest
+        channel:
+          - "stable"
+          - "beta"
+          - "dev"
+          - "2023.6.0"
     steps:
-      - name: 📥 Checkout the repository
+      - name: Checkout the repository
         uses: actions/checkout@v4.1.1
 
-      - name: 📋 Copy sample configuration for Home Assistant
+      - name: Copy sample configuration for Home Assistant
         run: |
           mkdir ./test_configuration
           bash scripts/install/frontend
@@ -107,15 +166,20 @@ jobs:
           echo "hacs:" >> ./test_configuration/configuration.yaml
           echo "  token: CHANGE_ME" >> ./test_configuration/configuration.yaml
 
-      - name: 🛠️ Setup Home Assistant
+      - name: Setup Home Assistant
         id: homeassistant
         uses: ludeeus/setup-homeassistant@main
         with:
           tag: ${{ matrix.channel }}
           config-dir: test_configuration
 
-      - name: 📨 Discord notification
-        if: ${{ github.event_name == 'schedule' && failure() }}
+  notify_on_failure:
+    runs-on: ubuntu-latest
+    name: Trigger Discord notification when jobs fail
+    needs: ["preflight","validate-hassfest", "validate-hacs", "validate-homeassistant"]
+    steps:
+      - name: Send notification
+        if: ${{ always() && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
         run: |
           curl \
             -H "Content-Type: application/json" \

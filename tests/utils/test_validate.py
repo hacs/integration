@@ -2,17 +2,17 @@ from contextlib import nullcontext as does_not_raise
 
 from awesomeversion import AwesomeVersion
 import pytest
-from voluptuous.error import Invalid
+from voluptuous.error import Invalid, MultipleInvalid
 
 from custom_components.hacs.utils.validate import (
     HACS_MANIFEST_JSON_SCHEMA as hacs_json_schema,
     INTEGRATION_MANIFEST_JSON_SCHEMA as integration_json_schema,
     V2_CRITICAL_REPO_SCHEMA,
     V2_CRITICAL_REPOS_SCHEMA,
-    V2_REPO_SCHEMA,
-    V2_REPOS_SCHEMA,
     V2_REMOVED_REPO_SCHEMA,
     V2_REMOVED_REPOS_SCHEMA,
+    V2_REPO_SCHEMA,
+    V2_REPOS_SCHEMA,
 )
 
 from tests.common import fixture
@@ -495,8 +495,8 @@ def without(d: dict, key: str) -> dict:
         ),
         # Extra key
         (
-            ["appdaemon", "plugin", "python_script", "template", "theme"],
-            GOOD_COMMON_DATA | {"extra": "key"},
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"extra": "key"},
             pytest.raises(Invalid),
         ),
     ],
@@ -508,6 +508,66 @@ def test_repo_data_json_schema_bad_data(categories: list[str], data: dict, expec
             V2_REPO_SCHEMA[category](data)
         with expectation:
             V2_REPOS_SCHEMA[category]({"test_repo": data})
+
+
+@pytest.mark.parametrize(
+    ("categories", "data"),
+    [
+        # This has multiple errors:
+        # - No last_commit or last_version
+        # - No description
+        # - full_name is wrong type
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            {
+                "etag_repository": "blah",
+                "full_name": 123,
+                "last_fetched": 0,
+                "last_updated": "blah",
+                "manifest": {},
+            },
+        ),
+        (
+            ["integration"],
+            {
+                "domain": "abc",
+                "etag_repository": "blah",
+                "full_name": 123,
+                "last_fetched": 0,
+                "last_updated": "blah",
+                "manifest": {},
+                "manifest_name": "abc",
+            },
+        ),
+    ],
+)
+def test_repo_data_json_schema_multiple_bad_data(categories: list[str], data):
+    """Test validating https://data-v2.hacs.xyz/xxx/data.json with multiple errors.
+
+    This tests we get both dict-based schema errors and custom validation errors.
+    """
+    expected_errors_1 = {
+        ("expected str", ("full_name",)),
+        ("required key not provided", ("description",)),
+        ("Expected at least one of [`last_commit`, `last_version`], got none", ()),
+    }
+    expected_errors_2 = {
+        ("expected str", ("test_repo", "full_name")),
+        ("required key not provided", ("test_repo", "description")),
+        ("Expected at least one of [`last_commit`, `last_version`], got none", ("test_repo",)),
+    }
+    for category in categories:
+        with pytest.raises(MultipleInvalid) as exc_info:
+            V2_REPO_SCHEMA[category](data)
+        msgs = [(err.msg, tuple(err.path)) for err in exc_info.value.errors]
+        assert len(msgs) == 3
+        assert set(msgs) == expected_errors_1
+
+        with pytest.raises(MultipleInvalid) as exc_info:
+            V2_REPOS_SCHEMA[category]({"test_repo": data})
+        msgs = [(err.msg, tuple(err.path)) for err in exc_info.value.errors]
+        assert len(msgs) == 3
+        assert set(msgs) == expected_errors_2
 
 
 def test_removed_repo_data_json_schema():

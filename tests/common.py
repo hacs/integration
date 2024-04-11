@@ -174,7 +174,7 @@ def recursive_remove_key(data: dict[str, Any], to_remove: Iterable[str]) -> dict
         value = data[key]
         if key in to_remove:
             continue
-        elif isinstance(value, (str, bool, int, NoneType)):
+        elif isinstance(value, (str, bool, int, float, NoneType)):
             returndata[key] = value
         elif isinstance(value, dict):
             returndata[key] = recursive_remove_key(

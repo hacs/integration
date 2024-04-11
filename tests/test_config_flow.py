@@ -293,9 +293,7 @@ async def test_already_configured(
     )
 
 
-async def test_options_flow(
-    hass: HomeAssistant, setup_integration: Generator
-) -> None:
+async def test_options_flow(hass: HomeAssistant, setup_integration: Generator) -> None:
     """Test reconfiguring."""
     config_entry = hass.config_entries.async_entries(DOMAIN)[0]
     result = await hass.config_entries.options.async_init(config_entry.entry_id)
@@ -303,7 +301,7 @@ async def test_options_flow(
     assert result["step_id"] == "user"
 
     # Test defaults
-    hacs = get_hacs()
+    hacs = get_hacs(hass)
     schema = result["data_schema"].schema
     for key in schema:
         assert key.default() == getattr(hacs.configuration, str(key))
@@ -340,6 +338,6 @@ async def test_options_flow(
     # Check config entry is reloaded with new options
     await hass.async_block_till_done()
     # Get a new HACS instance after reload
-    hacs = get_hacs()
+    hacs = get_hacs(hass)
     for key, val in config_entry.options.items():
         assert getattr(hacs.configuration, str(key)) == val

@@ -1,4 +1,6 @@
 """Provide info to system health."""
+from typing import Any
+
 from aiogithubapi.common.const import BASE_API_URL
 from homeassistant.components import system_health
 from homeassistant.core import HomeAssistant, callback
@@ -17,8 +19,11 @@ def async_register(hass: HomeAssistant, register: system_health.SystemHealthRegi
     register.async_register_info(system_health_info, "/hacs")
 
 
-async def system_health_info(hass):
+async def system_health_info(hass: HomeAssistant) -> dict[str, Any]:
     """Get info for the info page."""
+    if DOMAIN not in hass.data:
+        return {"Disabled": "HACS is not loaded, but HA still requests this information..."}
+
     hacs: HacsBase = hass.data[DOMAIN]
     response = await hacs.githubapi.rate_limit()
 

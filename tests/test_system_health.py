@@ -65,6 +65,7 @@ async def test_system_health(
 async def test_system_health_after_unload(
     hacs: HacsBase,
     hass: HomeAssistant,
+    snapshots: SnapshotFixture,
 ) -> None:
     """Test HACS system health."""
     await hass.config_entries.async_unload(hacs.configuration.config_entry.entry_id)
@@ -72,8 +73,9 @@ async def test_system_health_after_unload(
     assert await async_setup_component(hass, "system_health", {})
     await hass.async_block_till_done()
 
-    with pytest.raises(KeyError, match="hacs"):
-        await get_system_health_info(hass, HACS_SYSTEM_HEALTH_DOMAIN)
+    info = await get_system_health_info(hass, HACS_SYSTEM_HEALTH_DOMAIN)
+
+    snapshots.assert_match(safe_json_dumps(info), "system_health/system_health_after_unload.json")
 
 
 async def test_system_health_no_hacs(

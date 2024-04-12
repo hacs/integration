@@ -25,6 +25,8 @@ RUN \
     \
     && rm -rf /var/cache/apk/* \
     \
-    && find /usr/local \( -type d -a -name test -o -name tests -o -name '__pycache__' \) -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) -exec rm -rf '{}' \;
+    && find /usr/local \( -type d -a -name test -o -name tests -o -name '__pycache__' \) -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) -exec rm -rf '{}' \; \
+    \
+    && cp /hacs/action/action.py /hacs/action.py
 
 ENTRYPOINT ["python3", "/hacs/action.py"]

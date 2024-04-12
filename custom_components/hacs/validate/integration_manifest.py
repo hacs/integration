@@ -23,7 +23,7 @@ class Validator(ActionValidationBase):
 
     repository: HacsIntegrationRepository
     more_info = "https://hacs.xyz/docs/publish/include#check-manifest"
-    categories = [HacsCategory.INTEGRATION]
+    categories = (HacsCategory.INTEGRATION,)
 
     async def async_validate(self) -> None:
         """Validate the repository."""

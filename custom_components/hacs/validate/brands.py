@@ -21,7 +21,7 @@ class Validator(ActionValidationBase):
     """Validate the repository."""
 
     more_info = "https://hacs.xyz/docs/publish/include#check-brands"
-    categories = [HacsCategory.INTEGRATION]
+    categories = (HacsCategory.INTEGRATION,)
 
     async def async_validate(self) -> None:
         """Validate the repository."""

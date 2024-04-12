@@ -133,8 +133,8 @@ async def async_initialize_integration(
             pass
         else:
             hacs.log.critical(
-                "This cannot be used with custom_updater. "
-                "To use this you need to remove custom_updater from `custom_components`",
+                "HACS cannot be used with custom_updater. "
+                "To use HACS you need to remove custom_updater from `custom_components`",
             )
 
             hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)

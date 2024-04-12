@@ -29,6 +29,7 @@ from homeassistant.config_entries import ConfigEntry, ConfigEntryState
 from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
+from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.issue_registry import IssueSeverity, async_create_issue
 from homeassistant.loader import Integration
 from homeassistant.util import dt
@@ -631,50 +632,48 @@ class HacsBase:
 
         if not self.configuration.experimental:
             self.recurring_tasks.append(
-                self.hass.helpers.event.async_track_time_interval(
-                    self.async_update_downloaded_repositories, timedelta(hours=48)
+                async_track_time_interval(
+                    self.hass, self.async_update_downloaded_repositories, timedelta(hours=48)
                 )
             )
             self.recurring_tasks.append(
-                self.hass.helpers.event.async_track_time_interval(
+                async_track_time_interval(
+                    self.hass,
                     self.async_update_all_repositories,
                     timedelta(hours=96),
                 )
             )
         else:
             self.recurring_tasks.append(
-                self.hass.helpers.event.async_track_time_interval(
+                async_track_time_interval(
+                    self.hass,
                     self.async_load_hacs_from_github,
                     timedelta(hours=48),
                 )
             )
 
         self.recurring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_update_downloaded_custom_repositories, timedelta(hours=48)
+            async_track_time_interval(
+                self.hass, self.async_update_downloaded_custom_repositories, timedelta(hours=48)
             )
         )
 
         self.recurring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_get_all_category_repositories, timedelta(hours=6)
+            async_track_time_interval(
+                self.hass, self.async_get_all_category_repositories, timedelta(hours=6)
             )
         )
 
         self.recurring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_check_rate_limit, timedelta(minutes=5)
-            )
+            async_track_time_interval(self.hass, self.async_check_rate_limit, timedelta(minutes=5))
         )
         self.recurring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_prosess_queue, timedelta(minutes=10)
-            )
+            async_track_time_interval(self.hass, self.async_prosess_queue, timedelta(minutes=10))
         )
 
         self.recurring_tasks.append(
-            self.hass.helpers.event.async_track_time_interval(
-                self.async_handle_critical_repositories, timedelta(hours=6)
+            async_track_time_interval(
+                self.hass, self.async_handle_critical_repositories, timedelta(hours=6)
             )
         )
 

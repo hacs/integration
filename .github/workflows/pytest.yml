@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v4.1.1
 
       - name: 🛠️ Set up Python 3.11
-        uses: actions/setup-python@v4.7.1
+        uses: actions/setup-python@v5.1.0
         with:
           python-version: "3.11"
           cache: 'pip'
@@ -35,11 +35,15 @@ jobs:
           scripts/install/core
           scripts/install/frontend
 
+      - name: ⏲️ Set time zone
+        uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: 'Asia/Singapore'
+
       - name: 🏃 Run tests
         env:
           PYTEST: true
-        run: |
-          python3 -m pytest
+        run: scripts/test
 
   dev:
     name: With pytest with Home Assistant (${{ matrix.homeassistant-version }}) & Python (${{ matrix.python-version }})
@@ -55,7 +59,7 @@ jobs:
         uses: actions/checkout@v4.1.1
 
       - name: 🛠️ Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4.7.1
+        uses: actions/setup-python@v5.1.0
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
@@ -69,11 +73,15 @@ jobs:
           scripts/install/core_dev
           scripts/install/frontend
 
+      - name: ⏲️ Set time zone
+        uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: 'Asia/Singapore'
+
       - name: 🏃 Run tests
         env:
           PYTEST: true
-        run: |
-          python3 -m pytest
+        run: scripts/test
 
       - name: 📤 Upload coverage to Codecov
         if: ${{ matrix.python-version == '3.12' }}

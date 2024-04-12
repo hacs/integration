@@ -10,11 +10,10 @@ import voluptuous as vol
 from .exceptions import HacsException, HacsNotModifiedException
 from .utils.logger import LOGGER
 from .utils.validate import (
-    VALIDATE_FETCHED_V2_REPO_DATA,
     VALIDATE_FETCHED_V2_CRITICAL_REPO_SCHEMA,
     VALIDATE_FETCHED_V2_REMOVED_REPO_SCHEMA,
+    VALIDATE_FETCHED_V2_REPO_DATA,
 )
-
 
 CRITICAL_REMOVED_VALIDATORS = {
     "critical": VALIDATE_FETCHED_V2_CRITICAL_REPO_SCHEMA,

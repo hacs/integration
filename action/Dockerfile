@@ -7,19 +7,17 @@ COPY . /hacs
 ENV PIP_EXTRA_INDEX_URL="https://wheels.home-assistant.io/musllinux-index/"
 
 RUN \
-    ls /hacs \
-    && apk add --no-cache \
+    apk add --no-cache \
         libffi-dev \
     \
     &&  apk add --no-cache --virtual .build-deps \
         bash \
         gcc \
-        git \
         musl-dev \
     \
     && bash /hacs/scripts/install/pip_packages setuptools wheel \
     \
-    && bash /hacs/scripts/install/pip_packages homeassistant aiogithubapi async-timeout \
+    && bash /hacs/scripts/install/pip_packages -r requirements_action.txt \
     \
     && bash /hacs/scripts/install/frontend \
     \

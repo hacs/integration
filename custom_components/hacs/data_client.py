@@ -11,14 +11,14 @@ from .exceptions import HacsException, HacsNotModifiedException
 from .utils.logger import LOGGER
 from .utils.validate import (
     VALIDATE_FETCHED_V2_REPO_DATA,
-    V2_CRITICAL_REPO_SCHEMA,
-    V2_REMOVED_REPO_SCHEMA,
+    VALIDATE_FETCHED_V2_CRITICAL_REPO_SCHEMA,
+    VALIDATE_FETCHED_V2_REMOVED_REPO_SCHEMA,
 )
 
 
 CRITICAL_REMOVED_VALIDATORS = {
-    "critical": V2_CRITICAL_REPO_SCHEMA,
-    "removed": V2_REMOVED_REPO_SCHEMA,
+    "critical": VALIDATE_FETCHED_V2_CRITICAL_REPO_SCHEMA,
+    "removed": VALIDATE_FETCHED_V2_REMOVED_REPO_SCHEMA,
 }
 
 

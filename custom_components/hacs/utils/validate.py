@@ -159,39 +159,61 @@ VALIDATE_GENERATED_V2_REPO_DATA = {
     for category, schema in _V2_REPO_SCHEMAS.items()
 }
 
-V2_CRITICAL_REPO_SCHEMA = vol.Schema(
-    {
-        vol.Required("link"): str,
-        vol.Required("reason"): str,
-        vol.Required("repository"): str,
-    },
-    extra=vol.PREVENT_EXTRA,
+V2_CRITICAL_REPO_DATA_SCHEMA = {
+    vol.Required("link"): str,
+    vol.Required("reason"): str,
+    vol.Required("repository"): str,
+}
+
+# Used when validating critical repos in the hacs integration, discards extra keys
+VALIDATE_FETCHED_V2_CRITICAL_REPO_SCHEMA = vol.Schema(
+    V2_CRITICAL_REPO_DATA_SCHEMA,
+    extra=vol.REMOVE_EXTRA,
 )
 
-V2_CRITICAL_REPOS_SCHEMA = vol.Schema([V2_CRITICAL_REPO_SCHEMA])
-
-V2_REMOVED_REPO_SCHEMA = vol.Schema(
-    {
-        vol.Optional("link"): str,
-        vol.Optional("reason"): str,
-        vol.Required("removal_type"): vol.In(
-            [
-                "Integration is missing a version, and is abandoned.",
-                "Remove",
-                "archived",
-                "blacklist",
-                "critical",
-                "deprecated",
-                "removal",
-                "remove",
-                "removed",
-                "replaced",
-                "repository",
-            ]
-        ),
-        vol.Required("repository"): str,
-    },
-    extra=vol.PREVENT_EXTRA,
+# Used when validating critical repos when generating data, fails on extra keys
+VALIDATE_GENERATED_V2_CRITICAL_REPO_SCHEMA = vol.Schema(
+    [
+        vol.Schema(
+            V2_CRITICAL_REPO_DATA_SCHEMA,
+            extra=vol.PREVENT_EXTRA,
+        )
+    ]
 )
 
-V2_REMOVED_REPOS_SCHEMA = vol.Schema([V2_REMOVED_REPO_SCHEMA])
+V2_REMOVED_REPO_DATA_SCHEMA = {
+    vol.Optional("link"): str,
+    vol.Optional("reason"): str,
+    vol.Required("removal_type"): vol.In(
+        [
+            "Integration is missing a version, and is abandoned.",
+            "Remove",
+            "archived",
+            "blacklist",
+            "critical",
+            "deprecated",
+            "removal",
+            "remove",
+            "removed",
+            "replaced",
+            "repository",
+        ]
+    ),
+    vol.Required("repository"): str,
+}
+
+# Used when validating removed repos in the hacs integration, discards extra keys
+VALIDATE_FETCHED_V2_REMOVED_REPO_SCHEMA = vol.Schema(
+    V2_REMOVED_REPO_DATA_SCHEMA,
+    extra=vol.REMOVE_EXTRA,
+)
+
+# Used when validating removed repos when generating data, fails on extra keys
+VALIDATE_GENERATED_V2_REMOVED_REPO_SCHEMA = vol.Schema(
+    [
+        vol.Schema(
+            V2_REMOVED_REPO_DATA_SCHEMA,
+            extra=vol.PREVENT_EXTRA,
+        )
+    ]
+)

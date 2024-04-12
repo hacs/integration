@@ -7,10 +7,10 @@ from voluptuous.error import Invalid, MultipleInvalid
 from custom_components.hacs.utils.validate import (
     HACS_MANIFEST_JSON_SCHEMA as hacs_json_schema,
     INTEGRATION_MANIFEST_JSON_SCHEMA as integration_json_schema,
-    V2_CRITICAL_REPO_SCHEMA,
-    V2_CRITICAL_REPOS_SCHEMA,
-    V2_REMOVED_REPO_SCHEMA,
-    V2_REMOVED_REPOS_SCHEMA,
+    VALIDATE_FETCHED_V2_CRITICAL_REPO_SCHEMA,
+    VALIDATE_GENERATED_V2_CRITICAL_REPO_SCHEMA,
+    VALIDATE_FETCHED_V2_REMOVED_REPO_SCHEMA,
+    VALIDATE_GENERATED_V2_REMOVED_REPO_SCHEMA,
     VALIDATE_FETCHED_V2_REPO_DATA,
     VALIDATE_GENERATED_V2_REPO_DATA,
 )
@@ -110,58 +110,70 @@ def test_critical_repo_data_json_schema():
     """Test validating https://data-v2.hacs.xyz/critical/data.json."""
     data = fixture("v2-critical-data.json")
     for repo in data:
-        V2_CRITICAL_REPO_SCHEMA(repo)
-    V2_CRITICAL_REPOS_SCHEMA(data)
+        VALIDATE_FETCHED_V2_CRITICAL_REPO_SCHEMA(repo)
+    VALIDATE_GENERATED_V2_CRITICAL_REPO_SCHEMA(data)
 
 
 @pytest.mark.parametrize(
-    ("data", "expectation"),
+    ("data", "expectation_1", "expectation_2"),
     [
         # Good data
         (
             {"repository": "test", "reason": "blah", "link": "https://blah"},
             does_not_raise(),
+            does_not_raise(),
         ),
         # Missing required key
-        ({}, pytest.raises(Invalid)),
+        (
+            {},
+            pytest.raises(Invalid),
+            pytest.raises(Invalid),
+        ),
         (
             {"repository": "test", "reason": "blah"},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             {"repository": "test", "link": "https://blah"},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             {"reason": "blah", "link": "https://blah"},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         # Wrong data type
         (
             {"repository": 123, "reason": "blah", "link": "https://blah"},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             {"repository": "test", "reason": 123, "link": "https://blah"},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
             {"repository": "test", "reason": "blah", "link": 123},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         # Extra key
         (
             {"repository": "test", "reason": "blah", "link": "https://blah", "extra": "key"},
+            does_not_raise(),
             pytest.raises(Invalid),
         ),
     ],
 )
-def test_critical_repo_data_json_schema_bad_data(data: dict, expectation):
+def test_critical_repo_data_json_schema_bad_data(data: dict, expectation_1, expectation_2):
     """Test validating https://data-v2.hacs.xyz/critical/data.json."""
-    with expectation:
-        V2_CRITICAL_REPO_SCHEMA(data)
-    with expectation:
-        V2_CRITICAL_REPOS_SCHEMA([data])
+    with expectation_1:
+        VALIDATE_FETCHED_V2_CRITICAL_REPO_SCHEMA(data)
+    with expectation_2:
+        VALIDATE_GENERATED_V2_CRITICAL_REPO_SCHEMA([data])
 
 
 @pytest.mark.parametrize(
@@ -630,22 +642,23 @@ def test_removed_repo_data_json_schema():
     """Test validating https://data-v2.hacs.xyz/removed/data.json."""
     data = fixture("v2-removed-data.json")
     for repo in data:
-        V2_REMOVED_REPO_SCHEMA(repo)
-    V2_REMOVED_REPOS_SCHEMA(data)
+        VALIDATE_FETCHED_V2_REMOVED_REPO_SCHEMA(repo)
+    VALIDATE_GENERATED_V2_REMOVED_REPO_SCHEMA(data)
 
 
 @pytest.mark.parametrize(
-    ("data", "expectation"),
+    ("data", "expectation_1", "expectation_2"),
     [
         # Good data
-        ({"removal_type": "critical", "repository": "test"}, does_not_raise()),
+        ({"removal_type": "critical", "repository": "test"}, does_not_raise(), does_not_raise()),
         # Missing required key
-        ({}, pytest.raises(Invalid)),
-        ({"repository": "test"}, pytest.raises(Invalid)),
-        ({"removal_type": "critical"}, pytest.raises(Invalid)),
+        ({}, pytest.raises(Invalid), pytest.raises(Invalid)),
+        ({"repository": "test"}, pytest.raises(Invalid), pytest.raises(Invalid)),
+        ({"removal_type": "critical"}, pytest.raises(Invalid), pytest.raises(Invalid)),
         # Wrong data type
         (
             {"link": 123, "reason": "blah", "removal_type": "critical", "repository": "test"},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
@@ -656,13 +669,16 @@ def test_removed_repo_data_json_schema():
                 "repository": "test",
             },
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             {"link": "https://blah", "reason": "blah", "removal_type": 123, "repository": "test"},
             pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         (
             {"link": "https://blah", "reason": "blah", "removal_type": "bad", "repository": "test"},
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
@@ -672,6 +688,7 @@ def test_removed_repo_data_json_schema():
                 "removal_type": "critical",
                 "repository": 123,
             },
+            pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         # Extra key
@@ -683,13 +700,14 @@ def test_removed_repo_data_json_schema():
                 "repository": "test",
                 "extra": "key",
             },
+            does_not_raise(),
             pytest.raises(Invalid),
         ),
     ],
 )
-def test_removed_repo_data_json_schema_bad_data(data: dict, expectation):
+def test_removed_repo_data_json_schema_bad_data(data: dict, expectation_1, expectation_2):
     """Test validating https://data-v2.hacs.xyz/critical/data.json."""
-    with expectation:
-        V2_REMOVED_REPO_SCHEMA(data)
-    with expectation:
-        V2_REMOVED_REPOS_SCHEMA([data])
+    with expectation_1:
+        VALIDATE_FETCHED_V2_REMOVED_REPO_SCHEMA(data)
+    with expectation_2:
+        VALIDATE_GENERATED_V2_REMOVED_REPO_SCHEMA([data])

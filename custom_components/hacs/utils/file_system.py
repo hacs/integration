@@ -18,7 +18,12 @@ async def async_exists(hass: HomeAssistant, path: FileDescriptorOrPath) -> bool:
 
 
 async def async_remove(
-    hass: HomeAssistant, path: StrOrBytesPath, *, dir_fd: int | None = None
+    hass: HomeAssistant, path: StrOrBytesPath, *, missing_ok: bool = False
 ) -> None:
     """Remove a path."""
-    return await hass.async_add_executor_job(os.remove, path)
+    try:
+        return await hass.async_add_executor_job(os.remove, path)
+    except FileNotFoundError:
+        if missing_ok:
+            return
+        raise

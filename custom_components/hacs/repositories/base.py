@@ -797,8 +797,7 @@ class HacsRepository:
                     f"{self.hacs.configuration.theme_path}/"
                     f"{self.data.name}.yaml"
                 )
-                if await async_exists(self.hacs.hass, path):
-                    await async_remove(self.hacs.hass, path)
+                await async_remove(self.hacs.hass, path, missing_ok=True)
                 local_path = self.content.path.local
             elif self.data.category == "integration":
                 if not self.data.domain:

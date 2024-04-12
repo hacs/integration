@@ -347,7 +347,7 @@ async def generate_category_data(category: str, repository_name: str = None):
         os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
         os.makedirs(os.path.join(OUTPUT_DIR, "diff"), exist_ok=True)
         force = os.environ.get("FORCE_REPOSITORY_UPDATE") == "True"
-        stored_data = await hacs.data_client.get_data(category, False)
+        stored_data = await hacs.data_client.get_data(category, validate=False)
         current_data = (
             next(
                 (

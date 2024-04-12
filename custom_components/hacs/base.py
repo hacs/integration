@@ -862,7 +862,7 @@ class HacsBase:
         """Update all category repositories."""
         self.log.debug("Fetching updated content for %s", category)
         try:
-            category_data = await self.data_client.get_data(category, True)
+            category_data = await self.data_client.get_data(category, validate=True)
         except HacsNotModifiedException:
             self.log.debug("No updates for %s", category)
             return
@@ -1007,7 +1007,7 @@ class HacsBase:
 
         try:
             if self.configuration.experimental:
-                removed_repositories = await self.data_client.get_data("removed", False)
+                removed_repositories = await self.data_client.get_data("removed", validate=True)
             else:
                 removed_repositories = await self.async_github_get_hacs_default_file(
                     HacsCategory.REMOVED
@@ -1091,7 +1091,7 @@ class HacsBase:
 
         try:
             if self.configuration.experimental:
-                critical = await self.data_client.get_data("critical", False)
+                critical = await self.data_client.get_data("critical", validate=True)
             else:
                 critical = await self.async_github_get_hacs_default_file("critical")
         except (GitHubNotModifiedException, HacsNotModifiedException):

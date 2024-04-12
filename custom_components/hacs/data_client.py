@@ -9,7 +9,17 @@ import voluptuous as vol
 
 from .exceptions import HacsException, HacsNotModifiedException
 from .utils.logger import LOGGER
-from .utils.validate import VALIDATE_FETCHED_V2_REPO_DATA
+from .utils.validate import (
+    VALIDATE_FETCHED_V2_REPO_DATA,
+    V2_CRITICAL_REPO_SCHEMA,
+    V2_REMOVED_REPO_SCHEMA,
+)
+
+
+CRITICAL_REMOVED_VALIDATORS = {
+    "critical": V2_CRITICAL_REPO_SCHEMA,
+    "removed": V2_REMOVED_REPO_SCHEMA,
+}
 
 
 class HacsDataClient:
@@ -51,18 +61,34 @@ class HacsDataClient:
 
         return await response.json()
 
-    async def get_data(self, section: str | None, validate: bool) -> dict[str, dict[str, Any]]:
+    async def get_data(self, section: str | None, *, validate: bool) -> dict[str, dict[str, Any]]:
         """Get data."""
         data = await self._do_request(filename="data.json", section=section)
-        if not validate or section not in VALIDATE_FETCHED_V2_REPO_DATA:
+        if not validate:
             return data
 
-        validated = {}
-        for key, repo_data in data.items():
+        if section in VALIDATE_FETCHED_V2_REPO_DATA:
+            validated = {}
+            for key, repo_data in data.items():
+                try:
+                    validated[key] = VALIDATE_FETCHED_V2_REPO_DATA[section](repo_data)
+                except vol.Invalid as exception:
+                    LOGGER.info(
+                        "Got invalid data for %s (%s)", repo_data.get("full_name", key), exception
+                    )
+                    continue
+
+            return validated
+
+        if not (validator := CRITICAL_REMOVED_VALIDATORS.get(section)):
+            raise ValueError(f"Do not know how to validate {section}")
+
+        validated = []
+        for repo_data in data:
             try:
-                validated[key] = VALIDATE_FETCHED_V2_REPO_DATA[section](repo_data)
+                validated.append(validator(repo_data))
             except vol.Invalid as exception:
-                LOGGER.info("Got invalid data for %s (%s)", repo_data.get("full_name", key), exception)
+                LOGGER.info("Got invalid data for %s (%s)", section, exception)
                 continue
 
         return validated

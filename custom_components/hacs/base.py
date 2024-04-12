@@ -32,7 +32,6 @@ from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.issue_registry import IssueSeverity, async_create_issue
 from homeassistant.loader import Integration
 from homeassistant.util import dt
-import voluptuous as vol
 
 from custom_components.hacs.repositories.base import (
     HACS_MANIFEST_KEYS_TO_EXPORT,
@@ -66,7 +65,6 @@ from .utils.json import json_loads
 from .utils.logger import LOGGER
 from .utils.queue_manager import QueueManager
 from .utils.store import async_load_from_store, async_save_to_store
-from .utils.validate import VALIDATE_FETCHED_V2_REPO_DATA
 
 if TYPE_CHECKING:
     from .repositories.base import HacsRepository
@@ -864,7 +862,7 @@ class HacsBase:
         """Update all category repositories."""
         self.log.debug("Fetching updated content for %s", category)
         try:
-            category_data = await self.data_client.get_data(category)
+            category_data = await self.data_client.get_data(category, True)
         except HacsNotModifiedException:
             self.log.debug("No updates for %s", category)
             return
@@ -881,11 +879,6 @@ class HacsBase:
             if self.repositories.is_removed(repo):
                 continue
             if repo in self.common.archived_repositories:
-                continue
-            try:
-                VALIDATE_FETCHED_V2_REPO_DATA[category](repo_data)
-            except vol.Invalid as exception:
-                self.log.info("Got invalid data for %s (%s)", repo, exception)
                 continue
             if repository := self.repositories.get_by_full_name(repo):
                 self.repositories.set_repository_id(repository, repo_id)
@@ -1014,7 +1007,7 @@ class HacsBase:
 
         try:
             if self.configuration.experimental:
-                removed_repositories = await self.data_client.get_data("removed")
+                removed_repositories = await self.data_client.get_data("removed", False)
             else:
                 removed_repositories = await self.async_github_get_hacs_default_file(
                     HacsCategory.REMOVED
@@ -1098,7 +1091,7 @@ class HacsBase:
 
         try:
             if self.configuration.experimental:
-                critical = await self.data_client.get_data("critical")
+                critical = await self.data_client.get_data("critical", False)
             else:
                 critical = await self.async_github_get_hacs_default_file("critical")
         except (GitHubNotModifiedException, HacsNotModifiedException):

@@ -5,8 +5,11 @@ import asyncio
 from typing import Any
 
 from aiohttp import ClientSession, ClientTimeout
+import voluptuous as vol
 
 from .exceptions import HacsException, HacsNotModifiedException
+from .utils.logger import LOGGER
+from .utils.validate import VALIDATE_FETCHED_V2_REPO_DATA
 
 
 class HacsDataClient:
@@ -48,9 +51,21 @@ class HacsDataClient:
 
         return await response.json()
 
-    async def get_data(self, section: str | None) -> dict[str, dict[str, Any]]:
+    async def get_data(self, section: str | None, validate: bool) -> dict[str, dict[str, Any]]:
         """Get data."""
-        return await self._do_request(filename="data.json", section=section)
+        data = await self._do_request(filename="data.json", section=section)
+        if not validate or section not in VALIDATE_FETCHED_V2_REPO_DATA:
+            return data
+
+        validated = {}
+        for key, repo_data in data.items():
+            try:
+                validated[key] = VALIDATE_FETCHED_V2_REPO_DATA[section](repo_data)
+            except vol.Invalid as exception:
+                LOGGER.info("Got invalid data for %s (%s)", repo_data.get("full_name", key), exception)
+                continue
+
+        return validated
 
     async def get_repositories(self, section: str) -> list[str]:
         """Get repositories."""

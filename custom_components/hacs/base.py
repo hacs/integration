@@ -667,7 +667,7 @@ class HacsBase:
             async_track_time_interval(self.hass, self.async_check_rate_limit, timedelta(minutes=5))
         )
         self.recurring_tasks.append(
-            async_track_time_interval(self.hass, self.async_prosess_queue, timedelta(minutes=10))
+            async_track_time_interval(self.hass, self.async_process_queue, timedelta(minutes=10))
         )
 
         self.recurring_tasks.append(
@@ -696,7 +696,7 @@ class HacsBase:
         self.async_dispatch(HacsDispatchEvent.RELOAD, {"force": True})
 
         await self.async_handle_critical_repositories()
-        await self.async_prosess_queue()
+        await self.async_process_queue()
 
         self.async_dispatch(HacsDispatchEvent.STATUS, {})
 
@@ -964,9 +964,9 @@ class HacsBase:
         self.log.debug("Ratelimit indicate we can update %s", can_update)
         if can_update > 0:
             self.enable_hacs()
-            await self.async_prosess_queue()
+            await self.async_process_queue()
 
-    async def async_prosess_queue(self, _=None) -> None:
+    async def async_process_queue(self, _=None) -> None:
         """Process the queue."""
         if self.system.disabled:
             self.log.debug("HACS is disabled")

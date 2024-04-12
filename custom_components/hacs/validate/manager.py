@@ -7,13 +7,12 @@ import os
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from homeassistant.core import HomeAssistant
-
-from ..repositories.base import HacsRepository
-from .base import ActionValidationBase
-
 if TYPE_CHECKING:
+    from homeassistant.core import HomeAssistant
+
     from ..base import HacsBase
+    from ..repositories.base import HacsRepository
+    from .base import ActionValidationBase
 
 
 class ValidationManager:
@@ -40,7 +39,7 @@ class ValidationManager:
             if module.name not in ("base.py", "__init__.py", "manager.py")
         )
 
-        async def _load_module(module: str):
+        async def _load_module(module: str) -> None:
             task_module = import_module(f"{__package__}.{module}")
             if task := await task_module.async_setup_validator(repository=repository):
                 self._validatiors[task.slug] = task

@@ -30,7 +30,7 @@ async def test_hacs(hacs, repository, tmpdir):
     for category in [x for x in list(HacsCategory) if x != HacsCategory.INTEGRATION]:
         assert not hacs.repositories.category_downloaded(category=category)
 
-    await hacs.async_prosess_queue()
+    await hacs.async_process_queue()
 
 
 async def test_add_remove_repository(hacs, repository, tmpdir):

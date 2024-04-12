@@ -31,7 +31,6 @@ from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMod
 from .frontend import async_register_frontend
 from .utils.configuration_schema import hacs_config_combined
 from .utils.data import HacsData
-from .utils.file_system import async_exists
 from .utils.logger import LOGGER
 from .utils.queue_manager import QueueManager
 from .utils.version import version_left_higher_or_equal_then_right
@@ -128,19 +127,18 @@ async def async_initialize_integration(
         """HACS startup tasks."""
         hacs.enable_hacs()
 
-        for location in (
-            hass.config.path("custom_components/custom_updater.py"),
-            hass.config.path("custom_components/custom_updater/__init__.py"),
-        ):
-            if await async_exists(hass, location):
-                hacs.log.critical(
-                    "This cannot be used with custom_updater. "
-                    "To use this you need to remove custom_updater form %s",
-                    location,
-                )
+        try:
+            import custom_components.custom_updater
+        except ImportError:
+            pass
+        else:
+            hacs.log.critical(
+                "HACS cannot be used with custom_updater. "
+                "To use HACS you need to remove custom_updater from `custom_components`",
+            )
 
-                hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
-                return False
+            hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
+            return False
 
         if not version_left_higher_or_equal_then_right(
             hacs.core.ha_version.string,
@@ -184,11 +182,11 @@ async def async_initialize_integration(
         if hacs.system.disabled:
             return False
 
-        # Schedule startup tasks
-        async_at_start(hass=hass, at_start_cb=hacs.startup_tasks)
-
         hacs.set_stage(HacsStage.WAITING)
         hacs.log.info("Setup complete, waiting for Home Assistant before startup tasks starts")
+
+        # Schedule startup tasks
+        async_at_start(hass=hass, at_start_cb=hacs.startup_tasks)
 
         return not hacs.system.disabled
 

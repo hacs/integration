@@ -156,12 +156,14 @@ def without(d: dict, key: str) -> dict:
 @pytest.mark.parametrize(
     ("category", "data"),
     [
-        ("appdaemon", without(GOOD_COMMON_DATA, "description")),
-        ("integration", without(GOOD_INTEGRATION_DATA, "description")),
-        ("plugin", without(GOOD_COMMON_DATA, "description")),
-        ("python_script", without(GOOD_COMMON_DATA, "description")),
-        ("template", without(GOOD_COMMON_DATA, "description")),
-        ("theme", without(GOOD_COMMON_DATA, "description")),
+        ("appdaemon", {"12345": without(GOOD_COMMON_DATA, "description")}),
+        ("integration", {"12345": without(GOOD_INTEGRATION_DATA, "description")}),
+        ("plugin", {"12345": without(GOOD_COMMON_DATA, "description")}),
+        ("python_script", {"12345": without(GOOD_COMMON_DATA, "description")}),
+        ("template", {"12345": without(GOOD_COMMON_DATA, "description")}),
+        ("theme", {"12345": without(GOOD_COMMON_DATA, "description")}),
+        ("critical", [{"repository": "test", "reason": "blah"}]),
+        ("removed", [{"repository": "test"}]),
     ],
 )
 async def test_basic_functionality_data_validate(
@@ -169,15 +171,19 @@ async def test_basic_functionality_data_validate(
     response_mocker: ResponseMocker,
     snapshots: SnapshotFixture,
     category: str,
-    data: dict,
+    data: dict | list,
 ):
     """Test invalid repo data is discarded when validation is enabled."""
     response_mocker.add(
         f"https://data-v2.hacs.xyz/{category}/data.json",
-        MockedResponse(content={"12345": data}),
+        MockedResponse(content=data),
     )
-
     validated = await hacs.data_client.get_data(category, validate=True)
+
+    response_mocker.add(
+        f"https://data-v2.hacs.xyz/{category}/data.json",
+        MockedResponse(content=data),
+    )
     unvalidated = await hacs.data_client.get_data(category, validate=False)
 
     snapshots.assert_match(
@@ -222,7 +228,7 @@ async def test_discard_invalid_repo_data(
     assert not hacs.system.disabled
     assert hacs.stage == "running"
 
-    repository=f"hacs-test-org/{category}-basic",
+    repository = f"hacs-test-org/{category}-basic"
     await snapshots.assert_hacs_data(
         hacs,
         f"{repository}/test_discard_invalid_repo_data.json",

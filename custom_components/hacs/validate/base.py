@@ -1,12 +1,12 @@
 """Base class for validation."""
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
-from ..enums import HacsCategory
 from ..exceptions import HacsException
 
 if TYPE_CHECKING:
+    from ..enums import HacsCategory
     from ..repositories.base import HacsRepository
 
 
@@ -34,7 +34,7 @@ class ActionValidationBase:
     async def async_validate(self) -> None:
         """Validate the repository."""
 
-    async def execute_validation(self, *_, **__) -> None:
+    async def execute_validation(self, *_: Any, **__: Any) -> None:
         """Execute the task defined in subclass."""
         self.failed = False
 

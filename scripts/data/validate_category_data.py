@@ -9,7 +9,7 @@ from typing import Any
 
 import voluptuous as vol
 
-from custom_components.hacs.utils.validate import V2_REPOS_SCHEMA
+from custom_components.hacs.utils.validate import VALIDATE_GENERATED_V2_REPO_DATA
 
 from .common import expand_and_humanize_error, print_error_and_exit
 
@@ -20,7 +20,7 @@ async def validate_category_data(category: str, file_path: str) -> None:
 
     if not os.path.isfile(target_path):
         print_error_and_exit(f"File {target_path} does not exist", category, file_path)
-    if category not in V2_REPOS_SCHEMA:
+    if category not in VALIDATE_GENERATED_V2_REPO_DATA:
         print_error_and_exit(f"Category {category} is not supported", category, file_path)
 
     with open(
@@ -34,7 +34,7 @@ async def validate_category_data(category: str, file_path: str) -> None:
             print_error_and_exit(f"File {target_path} is empty", category, file_path)
 
         try:
-            V2_REPOS_SCHEMA[category](contents)
+            VALIDATE_GENERATED_V2_REPO_DATA[category](contents)
         except vol.Invalid as error:
             did_raise = True
             errors = expand_and_humanize_error(contents, error)

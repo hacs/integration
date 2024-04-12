@@ -171,5 +171,6 @@ async def validate_repository(hacs, repository, category, ref=None):
     except HacsException as exception:
         error(exception)
 
+
 if __name__ == "__main__":
     asyncio.run(preflight())

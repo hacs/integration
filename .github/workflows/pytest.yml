@@ -43,8 +43,7 @@ jobs:
       - name: 🏃 Run tests
         env:
           PYTEST: true
-        run: |
-          python3 -m pytest
+        run: scripts/test
 
   dev:
     name: With pytest with Home Assistant (${{ matrix.homeassistant-version }}) & Python (${{ matrix.python-version }})
@@ -82,8 +81,7 @@ jobs:
       - name: 🏃 Run tests
         env:
           PYTEST: true
-        run: |
-          python3 -m pytest
+        run: scripts/test
 
       - name: 📤 Upload coverage to Codecov
         if: ${{ matrix.python-version == '3.12' }}

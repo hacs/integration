@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from ..enums import HacsCategory
-from ..repositories.base import HacsRepository
 from .base import ActionValidationBase, ValidationException
+
+if TYPE_CHECKING:
+    from ..repositories.base import HacsRepository
 
 IGNORED = ["-shield", "img.shields.io", "buymeacoffee.com"]
 
@@ -18,7 +22,7 @@ class Validator(ActionValidationBase):
     categories = [HacsCategory.PLUGIN, HacsCategory.THEME]
     more_info = "https://hacs.xyz/docs/publish/include#check-images"
 
-    async def async_validate(self):
+    async def async_validate(self) -> None:
         """Validate the repository."""
         info = await self.repository.async_get_info_file_contents()
         for line in info.split("\n"):

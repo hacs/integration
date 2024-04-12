@@ -182,11 +182,11 @@ async def async_initialize_integration(
         if hacs.system.disabled:
             return False
 
-        # Schedule startup tasks
-        async_at_start(hass=hass, at_start_cb=hacs.startup_tasks)
-
         hacs.set_stage(HacsStage.WAITING)
         hacs.log.info("Setup complete, waiting for Home Assistant before startup tasks starts")
+
+        # Schedule startup tasks
+        async_at_start(hass=hass, at_start_cb=hacs.startup_tasks)
 
         return not hacs.system.disabled
 

@@ -14,7 +14,6 @@ from custom_components.hacs.utils.store import (
 )
 
 
-@pytest.mark.asyncio
 async def test_store_load(hass: HomeAssistant) -> None:
     """Test the store load."""
 
@@ -37,7 +36,6 @@ async def test_store_load(hass: HomeAssistant) -> None:
             assert store.load() == {"test": "test"}
 
 
-@pytest.mark.asyncio
 async def test_store_remove(hass: HomeAssistant) -> None:
     """Test the store remove."""
 
@@ -51,7 +49,6 @@ async def test_store_remove(hass: HomeAssistant) -> None:
         assert async_remove_mock.called
 
 
-@pytest.mark.asyncio
 async def test_store_store(hass: HomeAssistant, caplog: pytest.LogCaptureFixture) -> None:
     """Test the store store."""
 

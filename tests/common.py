@@ -2,41 +2,189 @@
 from __future__ import annotations
 
 import asyncio
-from contextlib import contextmanager
+from collections.abc import AsyncGenerator, Mapping, Sequence
+from contextlib import asynccontextmanager, contextmanager
+from contextvars import ContextVar
 import functools as ft
-import json
+from inspect import currentframe
+import json as json_func
 import os
-from typing import Any
+from types import NoneType
+from typing import Any, Iterable, TypedDict, TypeVar
+from unittest.mock import AsyncMock, Mock, patch
 
-from aiohttp import ClientSession, ClientWebSocketResponse
+from aiohttp import ClientError, ClientSession, ClientWebSocketResponse
 from aiohttp.typedefs import StrOrURL
-from homeassistant import auth, config_entries, core as ha
+from awesomeversion import AwesomeVersion
+from homeassistant import auth, bootstrap, config_entries, core as ha, loader
 from homeassistant.auth import auth_store, models as auth_models
-from homeassistant.components.http import (
-    CONFIG_SCHEMA as HTTP_CONFIG_SCHEMA,
-    async_setup as http_async_setup,
+from homeassistant.const import (
+    EVENT_HOMEASSISTANT_CLOSE,
+    EVENT_HOMEASSISTANT_STOP,
+    __version__ as HAVERSION,
 )
-from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE
-from homeassistant.helpers import storage
+from homeassistant.core import CoreState, HomeAssistant, callback
+from homeassistant.helpers import (
+    area_registry as ar,
+    device_registry as dr,
+    entity,
+    entity_registry as er,
+    issue_registry as ir,
+    restore_state as rs,
+    storage,
+)
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.device_registry import DeviceRegistry
-from homeassistant.helpers.entity_registry import EntityRegistry
-from homeassistant.helpers.issue_registry import IssueRegistry
-from homeassistant.setup import async_setup_component
-import homeassistant.util.dt as date_util
+from homeassistant.helpers.json import ExtendedJSONEncoder
+import homeassistant.util.dt as dt_util
 from homeassistant.util.unit_system import METRIC_SYSTEM
+import homeassistant.util.uuid as uuid_util
+import pytest
 from yarl import URL
 
 from custom_components.hacs.base import HacsBase
+from custom_components.hacs.const import DOMAIN
+from custom_components.hacs.enums import HacsCategory
 from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
+from custom_components.hacs.utils.configuration_schema import TOKEN as CONF_TOKEN
 from custom_components.hacs.utils.logger import LOGGER
-from custom_components.hacs.websocket import async_register_websocket_commands
 
-from tests.async_mock import AsyncMock, Mock, patch
-
-_LOGGER = LOGGER
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 INSTANCES = []
+REQUEST_CONTEXT: ContextVar[pytest.FixtureRequest] = ContextVar("request_context", default=None)
+
+IGNORED_BASE_FILES = {
+    "/config/automations.yaml",
+    "/config/configuration.yaml",
+    "/config/scenes.yaml",
+    "/config/scripts.yaml",
+    "/config/secrets.yaml",
+}
+
+
+class CategoryTestData(TypedDict):
+    repository: str
+    category: str
+    files: list[str]
+    version_base: str
+    version_update: str
+
+
+_CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
+    CategoryTestData(
+        category=HacsCategory.APPDAEMON,
+        repository="hacs-test-org/appdaemon-basic",
+        id="appdaemon",
+        files=["__init__.py", "example.py"],
+        version_base="1.0.0",
+        version_update="2.0.0",
+    ),
+    CategoryTestData(
+        category=HacsCategory.INTEGRATION,
+        repository="hacs-test-org/integration-basic",
+        files=["__init__.py", "manifest.json", "module/__init__.py"],
+        version_base="1.0.0",
+        version_update="2.0.0",
+    ),
+    CategoryTestData(
+        category=HacsCategory.PLUGIN,
+        repository="hacs-test-org/plugin-basic",
+        files=["example.js", "example.js.gz"],
+        version_base="1.0.0",
+        version_update="2.0.0",
+    ),
+    CategoryTestData(
+        category=HacsCategory.PYTHON_SCRIPT,
+        repository="hacs-test-org/python_script-basic",
+        files=["example.py"],
+        version_base="1.0.0",
+        version_update="2.0.0",
+    ),
+    CategoryTestData(
+        category=HacsCategory.TEMPLATE,
+        repository="hacs-test-org/template-basic",
+        files=["example.jinja"],
+        version_base="1.0.0",
+        version_update="2.0.0",
+    ),
+    CategoryTestData(
+        category=HacsCategory.THEME,
+        repository="hacs-test-org/theme-basic",
+        files=["example.yaml"],
+        version_base="1.0.0",
+        version_update="2.0.0",
+    ),
+)
+
+
+def category_test_data_parametrized(
+    *,
+    xfail_categories: list[HacsCategory] | None = None,
+    **kwargs,
+):
+    return (
+        pytest.param(
+            entry,
+            marks=[pytest.mark.xfail]
+            if xfail_categories and entry["category"] in xfail_categories
+            else [],
+            id=entry["repository"],
+        )
+        for entry in _CATEGORY_TEST_DATA
+    )
+
+
+def current_function_name():
+    """Return the name of the current function."""
+    return currentframe().f_back.f_code.co_name
+
+
+def safe_json_dumps(data: dict | list) -> str:
+    return json_func.dumps(
+        data,
+        indent=4,
+        sort_keys=True,
+        cls=ExtendedJSONEncoder,
+    )
+
+
+def recursive_remove_key(data: dict[str, Any], to_remove: Iterable[str]) -> dict[str, Any]:
+    def _sort_list(entry):
+        if isinstance(entry, list):
+            if len(entry) == 0:
+                return entry
+            if isinstance(entry[0], str):
+                return sorted(entry)
+            if isinstance(entry[0], list):
+                return [_sort_list(item) for item in entry]
+        return sorted(
+            entry,
+            key=lambda obj: (getattr(obj, "id", None) or getattr(obj, "name", None) or 0)
+            if isinstance(obj, dict)
+            else obj,
+        )
+
+    if not isinstance(data, (dict, set, list)):
+        return data
+
+    if isinstance(data, list):
+        return [recursive_remove_key(item, to_remove) for item in _sort_list(data)]
+
+    returndata = {}
+    for key in sorted(data.keys()):
+        value = data[key]
+        if key in to_remove:
+            continue
+        elif isinstance(value, (str, bool, int, float, NoneType)):
+            returndata[key] = value
+        elif isinstance(value, dict):
+            returndata[key] = recursive_remove_key(
+                {k: value[k] for k in sorted(value.keys())}, to_remove
+            )
+        elif isinstance(value, (list, set)):
+            returndata[key] = [recursive_remove_key(item, to_remove) for item in _sort_list(value)]
+        else:
+            returndata[key] = type(value)
+    return returndata
 
 
 def fixture(filename, asjson=True):
@@ -49,9 +197,8 @@ def fixture(filename, asjson=True):
     )
     try:
         with open(path, encoding="utf-8") as fptr:
-            _LOGGER.debug("Loading fixture from %s", path)
             if asjson:
-                return json.loads(fptr.read())
+                return json_func.loads(fptr.read())
             return fptr.read()
     except OSError as err:
         raise OSError(f"Missing fixture for {path.split('fixtures/')[1]}") from err
@@ -82,13 +229,41 @@ def dummy_repository_base(hacs, repository=None):
     return repository
 
 
+def get_test_config_dir(*add_path):
+    """Return a path to a test config dir."""
+    return os.path.join(os.path.dirname(__file__), "testing_config", *add_path)
+
+
+_T = TypeVar("_T", bound=Mapping[str, Any] | Sequence[Any])
+
+
+class StoreWithoutWriteLoad(storage.Store[_T]):
+    """Fake store that does not write or load. Used for testing."""
+
+    async def async_save(self, *args: Any, **kwargs: Any) -> None:
+        """Save the data.
+
+        This function is mocked out in tests.
+        """
+
+    @callback
+    def async_save_delay(self, *args: Any, **kwargs: Any) -> None:
+        """Save data with an optional delay.
+
+        This function is mocked out in tests.
+        """
+
+
 # pylint: disable=protected-access
-async def async_test_home_assistant(loop, tmpdir):
-    """Return a Home Assistant object pointing at test config dir."""
-    try:
-        hass = ha.HomeAssistant()  # pylint: disable=no-value-for-parameter
-    except TypeError:
-        hass = ha.HomeAssistant(tmpdir)  # pylint: disable=too-many-function-args
+async def async_test_home_assistant_min_version(
+    loop, load_registries=True, config_dir: str | None = None
+):
+    """Return a Home Assistant object pointing at test config dir.
+
+    This should be copied from the minimum supported version,
+    currently Home Assistant Core 2023.6.0.
+    """
+    hass = HomeAssistant()
     store = auth_store.AuthStore(hass)
     hass.auth = auth.AuthManager(hass, store, {}, {})
     ensure_auth_manager_loaded(hass.auth)
@@ -124,65 +299,223 @@ async def async_test_home_assistant(loop, tmpdir):
 
         return orig_async_add_executor_job(target, *args)
 
-    def async_create_task(coroutine, *args):
+    def async_create_task(coroutine, name=None):
         """Create task."""
         if isinstance(coroutine, Mock) and not isinstance(coroutine, AsyncMock):
             fut = asyncio.Future()
             fut.set_result(None)
             return fut
 
-        return orig_async_create_task(coroutine, *args)
+        return orig_async_create_task(coroutine, name)
 
     hass.async_add_job = async_add_job
     hass.async_add_executor_job = async_add_executor_job
     hass.async_create_task = async_create_task
 
+    hass.data[loader.DATA_CUSTOM_COMPONENTS] = {}
+
     hass.config.location_name = "test home"
-    hass.config.config_dir = tmpdir
+    # HACS: Modified to use the passed in config_dir
+    # hass.config.config_dir = get_test_config_dir()
+    hass.config.config_dir = config_dir
     hass.config.latitude = 32.87336
     hass.config.longitude = -117.22743
     hass.config.elevation = 0
-    hass.config.time_zone = date_util.get_time_zone("US/Pacific")
+    hass.config.set_time_zone("US/Pacific")
     hass.config.units = METRIC_SYSTEM
+    # HACS: Disabled
+    # hass.config.media_dirs = {"local": get_test_config_dir("media")}
     hass.config.skip_pip = True
-    hass.data = {
-        "integrations": {},
-        "custom_components": {},
-        "components": {},
-        "device_registry": DeviceRegistry(hass),
-        "entity_registry": EntityRegistry(hass),
-        "issue_registry": IssueRegistry(hass),
-    }
+    hass.config.skip_pip_packages = []
 
-    hass.config_entries = config_entries.ConfigEntries(hass, {})
-    hass.config_entries._entries = {}
-    hass.config_entries._store._async_ensure_stop_listener = lambda: None
+    hass.config_entries = config_entries.ConfigEntries(
+        hass,
+        {"_": ("Not empty or else some bad checks for hass config in discovery.py" " breaks")},
+    )
 
-    hass.state = ha.CoreState.running
-
-    # Mock async_start
-    orig_start = hass.async_start
-
-    await http_async_setup(hass, HTTP_CONFIG_SCHEMA({}))
-
-    async def mock_async_start():
-        """Start the mocking."""
-        # We only mock time during tests and we want to track tasks
-        with patch("homeassistant.core._async_create_timer"), patch.object(
-            hass, "async_stop_track_tasks"
+    # Load the registries
+    entity.async_setup(hass)
+    if load_registries:
+        with (
+            patch("homeassistant.helpers.storage.Store.async_load", return_value=None),
+            patch(
+                "homeassistant.helpers.restore_state.RestoreStateData.async_setup_dump",
+                return_value=None,
+            ),
+            patch("homeassistant.helpers.restore_state.start.async_at_start"),
         ):
-            await orig_start()
+            await asyncio.gather(
+                ar.async_load(hass),
+                dr.async_load(hass),
+                er.async_load(hass),
+                ir.async_load(hass),
+                rs.async_load(hass),
+            )
+        hass.data[bootstrap.DATA_REGISTRIES_LOADED] = None
 
-    hass.async_start = mock_async_start
+    hass.state = CoreState.running
 
-    async def clear_instance(event):
+    @callback
+    def clear_instance(event):
         """Clear global instance."""
-        await hass.http.stop()
         INSTANCES.remove(hass)
 
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_CLOSE, clear_instance)
 
     return hass
+
+
+@asynccontextmanager
+async def async_test_home_assistant_dev(
+    event_loop: asyncio.AbstractEventLoop | None = None,
+    load_registries: bool = True,
+    config_dir: str | None = None,
+) -> AsyncGenerator[HomeAssistant, None]:
+    """Return a Home Assistant object pointing at test config dir.
+
+    This should be copied from latest Home Assistant version,
+    currently Home Assistant Core 2024.5.0dev0 (2024-4-11).
+    """
+
+    # Local imports of features not present in min version
+    from homeassistant.helpers import (
+        category_registry as cr,
+        floor_registry as fr,
+        label_registry as lr,
+        translation,
+    )
+
+    hass = HomeAssistant(config_dir or get_test_config_dir())
+    store = auth_store.AuthStore(hass)
+    hass.auth = auth.AuthManager(hass, store, {}, {})
+    ensure_auth_manager_loaded(hass.auth)
+    INSTANCES.append(hass)
+
+    orig_async_add_job = hass.async_add_job
+    orig_async_add_executor_job = hass.async_add_executor_job
+    orig_async_create_task = hass.async_create_task
+    orig_tz = dt_util.DEFAULT_TIME_ZONE
+
+    def async_add_job(target, *args, eager_start: bool = False):
+        """Add job."""
+        check_target = target
+        while isinstance(check_target, ft.partial):
+            check_target = check_target.func
+
+        if isinstance(check_target, Mock) and not isinstance(target, AsyncMock):
+            fut = asyncio.Future()
+            fut.set_result(target(*args))
+            return fut
+
+        return orig_async_add_job(target, *args, eager_start=eager_start)
+
+    def async_add_executor_job(target, *args):
+        """Add executor job."""
+        check_target = target
+        while isinstance(check_target, ft.partial):
+            check_target = check_target.func
+
+        if isinstance(check_target, Mock):
+            fut = asyncio.Future()
+            fut.set_result(target(*args))
+            return fut
+
+        return orig_async_add_executor_job(target, *args)
+
+    def async_create_task(coroutine, name=None, eager_start=False):
+        """Create task."""
+        if isinstance(coroutine, Mock) and not isinstance(coroutine, AsyncMock):
+            fut = asyncio.Future()
+            fut.set_result(None)
+            return fut
+
+        return orig_async_create_task(coroutine, name, eager_start)
+
+    hass.async_add_job = async_add_job
+    hass.async_add_executor_job = async_add_executor_job
+    hass.async_create_task = async_create_task
+
+    hass.data[loader.DATA_CUSTOM_COMPONENTS] = {}
+
+    hass.config.location_name = "test home"
+    hass.config.latitude = 32.87336
+    hass.config.longitude = -117.22743
+    hass.config.elevation = 0
+    hass.config.set_time_zone("US/Pacific")
+    hass.config.units = METRIC_SYSTEM
+    hass.config.media_dirs = {"local": get_test_config_dir("media")}
+    hass.config.skip_pip = True
+    hass.config.skip_pip_packages = []
+
+    hass.config_entries = config_entries.ConfigEntries(
+        hass,
+        {"_": ("Not empty or else some bad checks for hass config in discovery.py" " breaks")},
+    )
+    hass.bus.async_listen_once(
+        EVENT_HOMEASSISTANT_STOP,
+        hass.config_entries._async_shutdown,
+    )
+
+    # Load the registries
+    entity.async_setup(hass)
+    loader.async_setup(hass)
+
+    # setup translation cache instead of calling translation.async_setup(hass)
+    hass.data[translation.TRANSLATION_FLATTEN_CACHE] = translation._TranslationCache(hass)
+    if load_registries:
+        with (
+            patch.object(StoreWithoutWriteLoad, "async_load", return_value=None),
+            patch(
+                "homeassistant.helpers.area_registry.AreaRegistryStore",
+                StoreWithoutWriteLoad,
+            ),
+            patch(
+                "homeassistant.helpers.device_registry.DeviceRegistryStore",
+                StoreWithoutWriteLoad,
+            ),
+            patch(
+                "homeassistant.helpers.entity_registry.EntityRegistryStore",
+                StoreWithoutWriteLoad,
+            ),
+            patch(
+                "homeassistant.helpers.storage.Store",  # Floor & label registry are different
+                StoreWithoutWriteLoad,
+            ),
+            patch(
+                "homeassistant.helpers.issue_registry.IssueRegistryStore",
+                StoreWithoutWriteLoad,
+            ),
+            patch(
+                "homeassistant.helpers.restore_state.RestoreStateData.async_setup_dump",
+                return_value=None,
+            ),
+            patch(
+                "homeassistant.helpers.restore_state.start.async_at_start",
+            ),
+        ):
+            await ar.async_load(hass)
+            await cr.async_load(hass)
+            await dr.async_load(hass)
+            await er.async_load(hass)
+            await fr.async_load(hass)
+            await ir.async_load(hass)
+            await lr.async_load(hass)
+            await rs.async_load(hass)
+        hass.data[bootstrap.DATA_REGISTRIES_LOADED] = None
+
+    hass.set_state(CoreState.running)
+
+    async def clear_instance(event):
+        """Clear global instance."""
+        await asyncio.sleep(0)  # Give aiohttp one loop iteration to close
+        INSTANCES.remove(hass)
+
+    hass.bus.async_listen_once(EVENT_HOMEASSISTANT_CLOSE, clear_instance)
+
+    yield hass
+
+    # Restore timezone, it is set when creating the hass object
+    dt_util.DEFAULT_TIME_ZONE = orig_tz
 
 
 @ha.callback
@@ -214,21 +547,18 @@ def mock_storage(data=None):
             mock_data = data.get(store.key)
 
             if "data" not in mock_data or "version" not in mock_data:
-                _LOGGER.error('Mock data needs "version" and "data"')
                 raise ValueError('Mock data needs "version" and "data"')
 
             store._data = mock_data
 
         # Route through original load so that we trigger migration
         loaded = await orig_load(store)
-        _LOGGER.info("Loading data for %s: %s", store.key, loaded)
         return loaded
 
     def mock_write_data(store, path, data_to_write):
         """Mock version of write data."""
-        _LOGGER.info("Writing data to %s: %s", store.key, data_to_write)
         # To ensure that the data can be serialized
-        data[store.key] = json.loads(json.dumps(data_to_write, cls=store._encoder))
+        data[store.key] = json_func.loads(json_func.dumps(data_to_write, cls=store._encoder))
 
     async def mock_remove(store):
         """Remove data."""
@@ -275,13 +605,29 @@ class MockOwner(auth_models.User):
         return user
 
 
+class MockConfigEntry(config_entries.ConfigEntry):
+    entry_id = uuid_util.random_uuid_hex()
+
+    def add_to_hass(self, hass: ha.HomeAssistant) -> None:
+        """Test helper to add entry to hass."""
+        hass.config_entries._entries[self.entry_id] = self
+
+        if AwesomeVersion(HAVERSION) >= "2024.1.99":
+            ## This was removed in https://github.com/home-assistant/core/pull/107590 (2024.01.13)
+            pass
+        elif AwesomeVersion(HAVERSION) >= "2023.10.0":
+            hass.config_entries._domain_index.setdefault(self.domain, []).append(self)
+        else:
+            hass.config_entries._domain_index.setdefault(self.domain, []).append(self.entry_id)
+
+
 class WSClient:
     """WS Client to be used in testing."""
 
     client: ClientWebSocketResponse | None = None
 
-    def __init__(self, hacs: HacsBase, token: str) -> None:
-        self.hacs = hacs
+    def __init__(self, hass: ha.HomeAssistant, token: str) -> None:
+        self.hass = hass
         self.token = token
         self.id = 0
 
@@ -289,10 +635,21 @@ class WSClient:
         if self.client is not None:
             return
 
-        await async_setup_component(self.hacs.hass, "websocket_api", {})
-        await self.hacs.hass.http.start()
-        async_register_websocket_commands(self.hacs.hass)
-        self.client = await self.hacs.session.ws_connect("http://localhost:8123/api/websocket")
+        clientsession = async_get_clientsession(self.hass)
+
+        async def _async_close_websession(event: ha.Event) -> None:
+            """Close websession."""
+
+            await self.send_json("close", {})
+            await self.client.close()
+
+            clientsession.detach()
+
+        self.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, _async_close_websession)
+
+        self.client = await clientsession.ws_connect(
+            "ws://localhost:8123/api/websocket", timeout=1, autoclose=True
+        )
         auth_response = await self.client.receive_json()
         assert auth_response["type"] == "auth_required"
         await self.client.send_json({"type": "auth", "access_token": self.token})
@@ -315,53 +672,212 @@ class WSClient:
 
 class MockedResponse:
     def __init__(self, **kwargs) -> None:
-        self.status = kwargs.get("status", 200)
-        self.read = kwargs.get("read", AsyncMock())
-        self.json = kwargs.get("json", AsyncMock())
+        self.kwargs = kwargs
         self.exception = kwargs.get("exception", None)
+        self.keep = kwargs.get("keep", False)
+
+    @property
+    def status(self):
+        return self.kwargs.get("status", 200)
+
+    @property
+    def url(self):
+        return self.kwargs.get("url", "http://127.0.0.1")
+
+    @property
+    def headers(self):
+        return self.kwargs.get("headers", {})
+
+    async def read(self, **kwargs):
+        if (content := self.kwargs.get("content")) is not None:
+            return content
+        return await self.kwargs.get("read", AsyncMock())()
+
+    async def json(self, **kwargs):
+        if (content := self.kwargs.get("content")) is not None:
+            return content
+        return await self.kwargs.get("json", AsyncMock())()
+
+    async def text(self, **kwargs):
+        if (content := self.kwargs.get("content")) is not None:
+            return content
+        return await self.kwargs.get("text", AsyncMock())()
+
+    def raise_for_status(self) -> None:
+        if self.status >= 300:
+            raise ClientError(self.status)
 
 
 class ResponseMocker:
+    calls: list[dict[str, Any]] = []
     responses: dict[str, MockedResponse] = {}
 
     def add(self, url: str, response: MockedResponse) -> None:
         self.responses[url] = response
 
-    def get(self, url: str) -> MockedResponse:
+    def get(self, url: str, *args, **kwargs) -> MockedResponse:
+        data = {"url": url, "args": list(args), "kwargs": kwargs}
+        if (request := REQUEST_CONTEXT.get()) is not None:
+            data["_test_caller"] = f"{request.node.location[0]}::{request.node.name}"
+            data["_uses_setup_integration"] = request.node.name != "test_integration_setup" and (
+                "setup_integration" in request.fixturenames or "hacs" in request.fixturenames
+            )
+        self.calls.append(data)
+        response = self.responses.get(url, None)
+        if response is not None and response.keep:
+            return response
         return self.responses.pop(url, None)
+
+
+class ProxyClientSession(ClientSession):
+    response_mocker = ResponseMocker()
+
+    async def _request(self, method: str, str_or_url: StrOrURL, *args, **kwargs):
+        if str_or_url.startswith("ws://"):
+            return await super()._request(method, str_or_url, *args, **kwargs)
+
+        if (resp := self.response_mocker.get(str_or_url, args, kwargs)) is not None:
+            LOGGER.info("Using mocked response for %s", str_or_url)
+            if resp.exception:
+                raise resp.exception
+            return resp
+
+        url = URL(str_or_url)
+        fixture_file = f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host in ('api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
+        fp = os.path.join(
+            os.path.dirname(__file__),
+            fixture_file,
+        )
+
+        LOGGER.info("Using mocked response from %s", fixture_file)
+
+        if not os.path.exists(fp):
+            raise Exception(f"Missing fixture for proxy/{url.host}{url.path}")
+
+        async def read(**kwargs):
+            if url.path.endswith(".zip"):
+                with open(fp, mode="rb") as fptr:
+                    return fptr.read()
+            with open(fp, encoding="utf-8") as fptr:
+                return fptr.read().encode("utf-8")
+
+        async def json(**kwargs):
+            with open(fp, encoding="utf-8") as fptr:
+                return json_func.loads(fptr.read())
+
+        return MockedResponse(
+            url=url,
+            read=read,
+            json=json,
+            headers={
+                "X-RateLimit-Limit": "999",
+                "X-RateLimit-Remaining": "999",
+                "X-RateLimit-Reset": "999",
+                "Content-Type": "application/json",
+                "Etag": "321",
+            },
+        )
 
 
 async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
     """Create a mocked client session."""
     base = async_get_clientsession(hass)
+    base_request = base._request
     response_mocker = ResponseMocker()
 
     async def _request(method: str, str_or_url: StrOrURL, *args, **kwargs):
-        url = URL(str_or_url)
-        fp = os.path.join(
-            os.path.dirname(__file__),
-            f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host == 'api.github.com' else ''}",
-        )
-        print(f"Using fixture {fp} for request to {url.host}")
+        if str_or_url.startswith("ws://"):
+            return await base_request(method, str_or_url, *args, **kwargs)
 
-        if (resp := response_mocker.get(str_or_url)) is not None:
+        if (resp := response_mocker.get(str_or_url, args, kwargs)) is not None:
+            LOGGER.info("Using mocked response for %s", str_or_url)
             if resp.exception:
                 raise resp.exception
             return resp
 
-        if not os.path.exists(fp):
-            raise AssertionError(f"Missing fixture for proxy/{url.host}{url.path}")
+        url = URL(str_or_url)
+        fixture_file = f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host in ('api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
+        fp = os.path.join(
+            os.path.dirname(__file__),
+            fixture_file,
+        )
 
-        async def read():
+        if not os.path.exists(fp):
+            raise Exception(f"Missing fixture for proxy/{url.host}{url.path}")
+
+        async def read(**kwargs):
+            if url.path.endswith(".zip"):
+                with open(fp, mode="rb") as fptr:
+                    return fptr.read()
             with open(fp, encoding="utf-8") as fptr:
                 return fptr.read().encode("utf-8")
 
-        async def json():
+        async def json(**kwargs):
             with open(fp, encoding="utf-8") as fptr:
-                return json.loads(fptr.read())
+                return json_func.loads(fptr.read())
 
-        return AsyncMock(status=200, url=url, read=read, json=json)
+        return MockedResponse(
+            url=url,
+            read=read,
+            json=json,
+            headers={
+                "X-RateLimit-Limit": "999",
+                "X-RateLimit-Remaining": "999",
+                "X-RateLimit-Reset": "999",
+                "Content-Type": "application/json",
+            },
+        )
 
     base._request = _request
 
     return base
+
+
+def create_config_entry(
+    data: dict[str, Any] = None, options: dict[str, Any] = None
+) -> MockConfigEntry:
+    try:
+        # Core 2024.1 added minor_version
+        return MockConfigEntry(
+            version=1,
+            minor_version=0,
+            domain=DOMAIN,
+            title="",
+            data={CONF_TOKEN: TOKEN, **(data or {})},
+            source="user",
+            options={**(options or {})},
+            unique_id="12345",
+        )
+    except TypeError:
+        return MockConfigEntry(
+            version=1,
+            domain=DOMAIN,
+            title="",
+            data={CONF_TOKEN: TOKEN, **(data or {})},
+            source="user",
+            options={**(options or {})},
+            unique_id="12345",
+        )
+
+
+async def setup_integration(hass: ha.HomeAssistant, config_entry: MockConfigEntry) -> None:
+    mock_session = await client_session_proxy(hass)
+    with patch(
+        "homeassistant.helpers.aiohttp_client.async_get_clientsession", return_value=mock_session
+    ):
+        hass.data.pop("custom_components", None)
+        config_entry.add_to_hass(hass)
+        assert await hass.config_entries.async_setup(config_entry.entry_id)
+        await hass.async_block_till_done()
+
+    hacs: HacsBase = hass.data.get(DOMAIN)
+    for repository in hacs.repositories.list_all:
+        if repository.data.full_name != "hacs/integration":
+            repository.data.installed = False
+            repository.data.installed_version = None
+            repository.data.installed_commit = None
+    assert not hacs.system.disabled
+
+
+def get_hacs(hass: ha.HomeAssistant) -> HacsBase:
+    return hass.data[DOMAIN]

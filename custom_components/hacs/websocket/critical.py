@@ -1,10 +1,9 @@
 """Register info websocket commands."""
 from __future__ import annotations
 
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from homeassistant.components import websocket_api
-
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 

@@ -14,8 +14,9 @@ from ..const import DOMAIN
 from ..enums import HacsDispatchEvent
 
 if TYPE_CHECKING:
-    from ..base import HacsBase
     from homeassistant.core import HomeAssistant
+
+    from ..base import HacsBase
 
 
 @websocket_api.websocket_command(

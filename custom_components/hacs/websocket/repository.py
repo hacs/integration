@@ -12,8 +12,9 @@ from ..enums import HacsDispatchEvent
 from ..utils.version import version_left_higher_then_right
 
 if TYPE_CHECKING:
-    from ..base import HacsBase
     from homeassistant.core import HomeAssistant
+
+    from ..base import HacsBase
 
 
 @websocket_api.websocket_command(

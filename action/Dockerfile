@@ -7,17 +7,11 @@ COPY . /hacs
 ENV PIP_EXTRA_INDEX_URL="https://wheels.home-assistant.io/musllinux-index/"
 
 RUN \
-    apk add --no-cache \
-        libffi-dev \
-    \
-    &&  apk add --no-cache --virtual .build-deps \
+    apk add --no-cache --virtual .build-deps \
         bash \
-        gcc \
-        musl-dev \
     \
-    && bash /hacs/scripts/install/pip_packages setuptools wheel \
-    \
-    && bash /hacs/scripts/install/pip_packages -r requirements_action.txt \
+    && bash /hacs/scripts/install/pip_packages \
+        -r requirements_action.txt \
     \
     && bash /hacs/scripts/install/frontend \
     \

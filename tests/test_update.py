@@ -25,7 +25,7 @@ from tests.conftest import SnapshotFixture
 
 @pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
 async def test_update_entity_state(
-    freezer: FrozenDateTimeFactory,
+    time_freezer: FrozenDateTimeFactory,
     hass: HomeAssistant,
     response_mocker: ResponseMocker,
     setup_integration: Generator,
@@ -76,7 +76,7 @@ async def test_update_entity_state(
 
     repo = hacs.repositories.get_by_full_name(category_test_data["repository"])
 
-    freezer.tick(3600 * 24)
+    time_freezer.tick(3600 * 24)
     await hass.async_block_till_done()
 
     # Get updated state

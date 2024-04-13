@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any
 
 from homeassistant.core import callback
@@ -314,7 +314,7 @@ class HacsData:
         repository.data.manifest_name = repository_data.get("manifest_name")
 
         if last_fetched := repository_data.get("last_fetched"):
-            repository.data.last_fetched = datetime.fromtimestamp(last_fetched)
+            repository.data.last_fetched = datetime.fromtimestamp(last_fetched, UTC)
 
         repository.repository_manifest = HacsManifest.from_dict(
             repository_data.get("manifest") or repository_data.get("repository_manifest") or {}

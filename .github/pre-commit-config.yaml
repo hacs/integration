@@ -21,17 +21,18 @@ repos:
         args:
           - --safe
           - --quiet
-        files: ^((custom_components|script|tests)/.+)?[^/]+\.py$
+        files: ^((action|custom_components|script|tests)/.+)?[^/]+\.py$
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.1.0
+    rev: v2.2.6
     hooks:
       - id: codespell
         stages: [manual]
         args:
           - --quiet-level=2
           - --ignore-words-list=hass,ba,fo
-          - --exclude-file=custom_components/hacs/utils/default.repositories
+          - --skip=custom_components/hacs/utils/default.repositories
+          - --skip=tests/fixtures/*
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.3.0

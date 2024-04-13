@@ -144,6 +144,9 @@ async def preflight():
         if category is None:
             error("No category found, use env CATEGORY to set this.")
 
+        if category not in CATEGORIES:
+            error(f"Category {category} is not valid.")
+
         if ref is None and GITHUB_REPOSITORY != HacsGitHubRepo.DEFAULT:
             repo = await hacs.githubapi.repos.get(repository)
             ref = repo.data.default_branch
@@ -169,4 +172,5 @@ async def validate_repository(hacs, repository, category, ref=None):
         error(exception)
 
 
-asyncio.run(preflight())
+if __name__ == "__main__":
+    asyncio.run(preflight())

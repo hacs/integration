@@ -76,7 +76,8 @@ async def test_update_entity_state(
 
     repo = hacs.repositories.get_by_full_name(category_test_data["repository"])
 
-    time_freezer.tick(3600 * 24)
+    time_freezer.tick(3600 * 48 + 1)
+    await hass.async_block_till_done()
     await hass.async_block_till_done()
 
     # Get updated state

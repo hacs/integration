@@ -80,8 +80,8 @@ asyncio.sleep = lambda _: _sleep(0)
 
 @pytest.fixture(autouse=True)
 def time_freezer() -> Generator[freezegun.api.FrozenDateTimeFactory, None, None]:
-    with freezegun.freeze_time("2019-02-26T15:02:39Z") as freezer:
-        yield freezer
+    with freezegun.freeze_time("2019-02-26T15:02:39Z") as frozen_time:
+        yield frozen_time
 
 
 @pytest.fixture(autouse=True)

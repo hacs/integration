@@ -75,7 +75,7 @@ async def hacs_subscribe(
     """Handle websocket subscriptions."""
 
     @callback
-    def forward_messages(data: dict | None = None):
+    def forward_messages(data: dict | None = None) -> None:
         """Forward events to websocket."""
         connection.send_message(websocket_api.event_message(msg["id"], data))
 

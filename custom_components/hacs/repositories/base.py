@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from asyncio import sleep
-from datetime import datetime, UTC
+from datetime import UTC, datetime
 import os
 import pathlib
 import shutil

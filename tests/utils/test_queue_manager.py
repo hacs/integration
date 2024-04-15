@@ -32,6 +32,23 @@ async def test_queue_manager(hacs: HacsBase, caplog: pytest.LogCaptureFixture) -
     assert queue_manager.has_pending_tasks
     assert queue_manager.pending_tasks == 4
 
+    await queue_manager.execute(4)
+    assert not queue_manager.has_pending_tasks
+    assert queue_manager.pending_tasks == 0
+
+    for _ in range(1, 5):
+        queue_manager.add(dummy_task() for _ in range(1, 5))
+    assert queue_manager.has_pending_tasks
+    assert queue_manager.pending_tasks == 16
+
+    await queue_manager.execute(1)
+    assert queue_manager.has_pending_tasks
+    assert queue_manager.pending_tasks == 15
+
+    await queue_manager.execute(6)
+    assert queue_manager.has_pending_tasks
+    assert queue_manager.pending_tasks == 9
+
     queue_manager.running = True
 
     with pytest.raises(HacsExecutionStillInProgress):

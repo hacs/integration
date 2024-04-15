@@ -54,7 +54,7 @@ class QueueManager:
         while self.queue and (number_of_tasks is None or number_of_tasks):
             _LOGGER.debug("<QueueManager> Checking out tasks to execute")
             local_queue = []
-            queue_item = self.queue.pop(0)
+            queue_item = self.queue[0]
 
             if number_of_tasks:
                 for task in queue_item[:number_of_tasks]:
@@ -66,6 +66,8 @@ class QueueManager:
 
             for task in local_queue:
                 queue_item.remove(task)
+            if not queue_item:
+                self.queue.remove(queue_item)
 
             _LOGGER.debug("<QueueManager> Starting queue execution for %s tasks", len(local_queue))
             start = time.time()

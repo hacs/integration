@@ -432,7 +432,7 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
                 if filtered_calls[test] == current[test]:
                     continue
                 diff += f"Test '{test}' has changed\n"
-                diff += '\n'.join(_compare_eq_iterable(filtered_calls[test], current[test], 3))
-                diff += '\n'
+                diff += "\n".join(_compare_eq_iterable(filtered_calls[test], current[test], 3))
+                diff += "\n"
 
             raise AssertionError(f"API calls have changed, run scripts/snapshot-update\n{diff}")

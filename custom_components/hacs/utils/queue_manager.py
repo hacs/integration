@@ -30,7 +30,7 @@ class QueueManager:
     @property
     def has_pending_tasks(self) -> bool:
         """Return if there are pending tasks in the queue."""
-        return self.pending_tasks != 0
+        return len(self.queue) != 0
 
     def clear(self) -> None:
         """Clear the queue."""
@@ -64,11 +64,6 @@ class QueueManager:
                 for task in queue_item:
                     local_queue.append(task)
 
-            for task in local_queue:
-                queue_item.remove(task)
-            if not queue_item:
-                self.queue.remove(queue_item)
-
             _LOGGER.debug("<QueueManager> Starting queue execution for %s tasks", len(local_queue))
             start = time.time()
             result = await asyncio.gather(*local_queue, return_exceptions=True)
@@ -82,6 +77,11 @@ class QueueManager:
                 len(local_queue),
                 end,
             )
+
+            for task in local_queue:
+                queue_item.remove(task)
+            if not queue_item:
+                self.queue.remove(queue_item)
 
         if self.has_pending_tasks:
             _LOGGER.debug("<QueueManager> %s tasks remaining in the queue", self.pending_tasks)

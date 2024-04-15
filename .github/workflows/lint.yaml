@@ -37,10 +37,14 @@ jobs:
         id: python
         with:
           python-version: "3.11"
+          cache: 'pip'
+          cache-dependency-path: |
+            requirements_base.txt
+            requirements_lint.txt
 
       - name: 📦 Install pre-commit
         run: |
-          scripts/install/pip_packages pre-commit
+          scripts/install/pip_packages --requirement requirements_lint.txt
           pre-commit install-hooks --config .github/pre-commit-config.yaml
 
       - name: 🏃 Run the check (${{ matrix.check }})

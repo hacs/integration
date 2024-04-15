@@ -29,10 +29,10 @@ jobs:
           - mixed-line-ending
           - isort
     steps:
-      - name: 📥 Checkout the repository
+      - name: Checkout the repository
         uses: actions/checkout@v4.1.1
 
-      - name: 🛠️ Set up Python
+      - name: Set up Python
         uses: actions/setup-python@v5.1.0
         id: python
         with:
@@ -42,20 +42,20 @@ jobs:
             requirements_base.txt
             requirements_lint.txt
 
-      - name: 📦 Install pre-commit
+      - name: Install dependencies
         run: |
           scripts/install/pip_packages --requirement requirements_lint.txt
           pre-commit install-hooks --config .github/pre-commit-config.yaml
 
-      - name: 🏃 Run the check (${{ matrix.check }})
+      - name: Run the check (${{ matrix.check }})
         run: pre-commit run --hook-stage manual ${{ matrix.check }} --all-files --config .github/pre-commit-config.yaml
 
   lint-json:
     runs-on: ubuntu-latest
     name: With JQ
     steps:
-    - name: 📥 Checkout the repository
+    - name: Checkout the repository
       uses: actions/checkout@v4.1.1
 
-    - name: 🏃 Run validation
+    - name: Run validation
       run: jq -r -e -c . tests/fixtures/*.json

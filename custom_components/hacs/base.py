@@ -1079,15 +1079,28 @@ class HacsBase:
             return
         self.log.info("Starting recurring background task for downloaded custom repositories")
 
+        repositories_to_update = 0
+        repositories_updated = asyncio.Event()
+
+        async def update_repository(repository: HacsRepository) -> None:
+            """Update a repository"""
+            nonlocal repositories_to_update
+            await repository.update_repository(ignore_issues=True)
+            repositories_to_update -= 1
+            if not repositories_to_update:
+                repositories_updated.set()
+
         for repository in self.repositories.list_downloaded:
             if (
                 repository.data.category in self.common.categories
                 and not self.repositories.is_default(repository.data.id)
             ):
-                self.queue.add(repository.update_repository(ignore_issues=True))
+                repositories_to_update += 1
+                self.queue.add(update_repository(repository))
 
         async def update_coordinators() -> None:
             """Update all coordinators."""
+            await repositories_updated.wait()
             for coordinator in self.coordinators.values():
                 coordinator.async_update_listeners()
 

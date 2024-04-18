@@ -48,7 +48,7 @@ jobs:
           pre-commit install-hooks --config .github/pre-commit-config.yaml
 
       - name: Run the check (${{ matrix.check }})
-        run: pre-commit run --hook-stage manual ${{ matrix.check }} --all-files --config .github/pre-commit-config.yaml
+        run: pre-commit run --show-diff-on-failure --hook-stage manual ${{ matrix.check }} --all-files --config .github/pre-commit-config.yaml
 
   lint-json:
     runs-on: ubuntu-latest

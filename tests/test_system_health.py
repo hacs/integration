@@ -12,7 +12,6 @@ from custom_components.hacs.base import HacsBase
 from tests.common import MockedResponse, ResponseMocker, safe_json_dumps
 from tests.conftest import SnapshotFixture
 
-
 HACS_SYSTEM_HEALTH_DOMAIN = "Home Assistant Community Store"
 
 

@@ -1103,7 +1103,12 @@ class HacsBase:
             for coordinator in self.coordinators.values():
                 coordinator.async_update_listeners()
 
-        self.queue.add(update_coordinators())
+        if config_entry := self.configuration.config_entry:
+            config_entry.async_create_background_task(
+                self.hass, update_coordinators(), "update_coordinators"
+            )
+        else:
+            self.hass.async_create_background_task(update_coordinators(), "update_coordinators")
 
         self.log.debug("Recurring background task for downloaded custom repositories done")
 

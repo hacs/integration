@@ -1,12 +1,13 @@
 """Path utils"""
 from __future__ import annotations
 
+from functools import lru_cache
 from pathlib import Path
 from typing import TYPE_CHECKING
-from functools import lru_cache
 
 if TYPE_CHECKING:
     from ..base import HacsBase, HacsConfiguration
+
 
 @lru_cache(maxsize=1)
 def _get_safe_paths(config_path: str, configuration: HacsConfiguration) -> set[str]:
@@ -19,7 +20,7 @@ def _get_safe_paths(config_path: str, configuration: HacsConfiguration) -> set[s
         Path(f"{config_path}/{configuration.theme_path}").as_posix(),
         Path(f"{config_path}/custom_components/").as_posix(),
         Path(f"{config_path}/custom_templates/").as_posix(),
-    }    
+    }
 
 
 def is_safe(hacs: HacsBase, path: str | Path) -> bool:

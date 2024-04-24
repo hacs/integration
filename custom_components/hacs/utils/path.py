@@ -10,14 +10,21 @@ if TYPE_CHECKING:
 
 
 @lru_cache(maxsize=1)
-def _get_safe_paths(config_path: str, configuration: HacsConfiguration) -> set[str]:
+def _get_safe_paths(
+    config_path: str,
+    appdaemon_path: str,
+    netdaemon_path: str,
+    plugin_path: str,
+    python_script_path: str,
+    theme_path: str,
+) -> set[str]:
     """Get safe paths."""
     return {
-        Path(f"{config_path}/{configuration.appdaemon_path}").as_posix(),
-        Path(f"{config_path}/{configuration.netdaemon_path}").as_posix(),
-        Path(f"{config_path}/{configuration.plugin_path}").as_posix(),
-        Path(f"{config_path}/{configuration.python_script_path}").as_posix(),
-        Path(f"{config_path}/{configuration.theme_path}").as_posix(),
+        Path(f"{config_path}/{appdaemon_path}").as_posix(),
+        Path(f"{config_path}/{netdaemon_path}").as_posix(),
+        Path(f"{config_path}/{plugin_path}").as_posix(),
+        Path(f"{config_path}/{python_script_path}").as_posix(),
+        Path(f"{config_path}/{theme_path}").as_posix(),
         Path(f"{config_path}/custom_components/").as_posix(),
         Path(f"{config_path}/custom_templates/").as_posix(),
     }
@@ -25,4 +32,12 @@ def _get_safe_paths(config_path: str, configuration: HacsConfiguration) -> set[s
 
 def is_safe(hacs: HacsBase, path: str | Path) -> bool:
     """Helper to check if path is safe to remove."""
-    return Path(path).as_posix() not in _get_safe_paths(hacs.core.config_path, hacs.configuration)
+    configuration = hacs.configuration
+    return Path(path).as_posix() not in _get_safe_paths(
+        hacs.core.config_path,
+        configuration.appdaemon_path,
+        configuration.netdaemon_path,
+        configuration.plugin_path,
+        configuration.python_script_path,
+        configuration.theme_path,
+    )

@@ -24,6 +24,9 @@ from aiogithubapi import (
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
+from homeassistant.components.persistent_notification import (
+    async_create as async_create_persistent_notification,
+)
 from homeassistant.config_entries import ConfigEntry, ConfigEntryState
 from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
 from homeassistant.core import HomeAssistant, callback
@@ -628,8 +631,8 @@ class HacsBase:
             for repo in critical:
                 if not repo["acknowledged"]:
                     self.log.critical("URGENT!: Check the HACS panel!")
-                    self.hass.components.persistent_notification.create(
-                        title="URGENT!", message="**Check the HACS panel!**"
+                    async_create_persistent_notification(
+                        self.hass, title="URGENT!", message="**Check the HACS panel!**"
                     )
                     break
 

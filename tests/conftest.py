@@ -401,9 +401,7 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
 
     filtered_calls = {
         k: v
-        for k, v in {
-            t: {k: v for k, v in c.items() if v != 0} for t, c in calls.items()
-        }.items()
+        for k, v in {t: {k: v for k, v in c.items() if v != 0} for t, c in calls.items()}.items()
         if v
     }
 

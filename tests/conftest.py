@@ -12,6 +12,7 @@ import shutil
 from typing import Any, Generator
 from unittest.mock import MagicMock, patch
 
+from _pytest.assertion.util import _compare_eq_iterable
 from awesomeversion import AwesomeVersion
 import freezegun
 from homeassistant import loader
@@ -79,9 +80,9 @@ asyncio.sleep = lambda _: _sleep(0)
 
 
 @pytest.fixture(autouse=True)
-def time_freezer():
-    with freezegun.freeze_time("2019-02-26T15:02:39Z"):
-        yield
+def time_freezer() -> Generator[freezegun.api.FrozenDateTimeFactory, None, None]:
+    with freezegun.freeze_time("2019-02-26T15:02:39Z") as frozen_time:
+        yield frozen_time
 
 
 @pytest.fixture(autouse=True)
@@ -416,4 +417,20 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
     with open("tests/output/proxy_calls.json", encoding="utf-8") as file:
         current = json.load(file)
         if current != filtered_calls:
-            raise AssertionError("API calls have changed, run scripts/snapshot-update")
+            diff = ""
+            for test in current:
+                if test not in filtered_calls:
+                    diff += f"Test '{test}' was removed\n"
+            for test in filtered_calls:
+                if test not in current:
+                    diff += f"Test '{test}' was added\n"
+            for test in filtered_calls:
+                if test not in current:
+                    continue
+                if filtered_calls[test] == current[test]:
+                    continue
+                diff += f"Test '{test}' has changed\n"
+                diff += "\n".join(_compare_eq_iterable(filtered_calls[test], current[test], 3))
+                diff += "\n"
+
+            raise AssertionError(f"API calls have changed, run scripts/snapshot-update\n{diff}")

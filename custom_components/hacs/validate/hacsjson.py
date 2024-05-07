@@ -19,7 +19,7 @@ class Validator(ActionValidationBase):
 
     more_info = "https://hacs.xyz/docs/publish/include#check-hacs-manifest"
 
-    async def async_validate(self):
+    async def async_validate(self) -> None:
         """Validate the repository."""
         if RepositoryFile.HACS_JSON not in [x.filename for x in self.repository.tree]:
             raise ValidationException(f"The repository has no '{RepositoryFile.HACS_JSON}' file")

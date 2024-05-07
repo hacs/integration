@@ -667,7 +667,7 @@ class HacsBase:
             async_track_time_interval(self.hass, self.async_check_rate_limit, timedelta(minutes=5))
         )
         self.recurring_tasks.append(
-            async_track_time_interval(self.hass, self.async_prosess_queue, timedelta(minutes=10))
+            async_track_time_interval(self.hass, self.async_process_queue, timedelta(minutes=10))
         )
 
         self.recurring_tasks.append(
@@ -696,7 +696,7 @@ class HacsBase:
         self.async_dispatch(HacsDispatchEvent.RELOAD, {"force": True})
 
         await self.async_handle_critical_repositories()
-        await self.async_prosess_queue()
+        await self.async_process_queue()
 
         self.async_dispatch(HacsDispatchEvent.STATUS, {})
 
@@ -862,7 +862,7 @@ class HacsBase:
         """Update all category repositories."""
         self.log.debug("Fetching updated content for %s", category)
         try:
-            category_data = await self.data_client.get_data(category)
+            category_data = await self.data_client.get_data(category, validate=True)
         except HacsNotModifiedException:
             self.log.debug("No updates for %s", category)
             return
@@ -964,9 +964,9 @@ class HacsBase:
         self.log.debug("Ratelimit indicate we can update %s", can_update)
         if can_update > 0:
             self.enable_hacs()
-            await self.async_prosess_queue()
+            await self.async_process_queue()
 
-    async def async_prosess_queue(self, _=None) -> None:
+    async def async_process_queue(self, _=None) -> None:
         """Process the queue."""
         if self.system.disabled:
             self.log.debug("HACS is disabled")
@@ -1007,7 +1007,7 @@ class HacsBase:
 
         try:
             if self.configuration.experimental:
-                removed_repositories = await self.data_client.get_data("removed")
+                removed_repositories = await self.data_client.get_data("removed", validate=True)
             else:
                 removed_repositories = await self.async_github_get_hacs_default_file(
                     HacsCategory.REMOVED
@@ -1091,7 +1091,7 @@ class HacsBase:
 
         try:
             if self.configuration.experimental:
-                critical = await self.data_client.get_data("critical")
+                critical = await self.data_client.get_data("critical", validate=True)
             else:
                 critical = await self.async_github_get_hacs_default_file("critical")
         except (GitHubNotModifiedException, HacsNotModifiedException):

@@ -125,13 +125,13 @@ def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
         orig_exception_handler(loop, context)
 
     exceptions: list[Exception] = []
-    if AwesomeVersion(HA_VERSION) > "2023.6.0":
+    if AwesomeVersion(HA_VERSION) > "2024.4.0":
         context_manager = async_test_home_assistant_dev(event_loop, config_dir=tmpdir.strpath)
-        hass_obj = event_loop.run_until_complete(context_manager.__aenter__())
     else:
-        hass_obj = event_loop.run_until_complete(
-            async_test_home_assistant_min_version(event_loop, config_dir=tmpdir.strpath)
+        context_manager = async_test_home_assistant_min_version(
+            event_loop, config_dir=tmpdir.strpath
         )
+    hass_obj = event_loop.run_until_complete(context_manager.__aenter__())
     event_loop.run_until_complete(async_setup_component(hass_obj, "homeassistant", {}))
     with patch("homeassistant.components.python_script.setup", return_value=True):
         assert event_loop.run_until_complete(async_setup_component(hass_obj, "python_script", {}))

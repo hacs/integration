@@ -359,7 +359,7 @@ async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> No
 async def check_report_issue() -> None:
     """Finish things up."""
     yield
-    if (times := len(_async_suggest_report_issue_mock_call_tracker)):
+    if times := len(_async_suggest_report_issue_mock_call_tracker):
         raise AssertionError(
             f"homeassistant.loader.async_suggest_report_issue has been called {times} times"
         )

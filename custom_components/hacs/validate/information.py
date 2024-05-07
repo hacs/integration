@@ -1,7 +1,11 @@
 from __future__ import annotations
 
-from ..repositories.base import HacsRepository
+from typing import TYPE_CHECKING
+
 from .base import ActionValidationBase, ValidationException
+
+if TYPE_CHECKING:
+    from ..repositories.base import HacsRepository
 
 
 async def async_setup_validator(repository: HacsRepository) -> Validator:
@@ -14,7 +18,7 @@ class Validator(ActionValidationBase):
 
     more_info = "https://hacs.xyz/docs/publish/include#check-info"
 
-    async def async_validate(self):
+    async def async_validate(self) -> None:
         """Validate the repository."""
         filenames = [x.filename.lower() for x in self.repository.tree]
         if "readme" in filenames:

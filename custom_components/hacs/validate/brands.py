@@ -1,9 +1,13 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from custom_components.hacs.enums import HacsCategory
 
-from ..repositories.base import HacsRepository
 from .base import ActionValidationBase, ValidationException
+
+if TYPE_CHECKING:
+    from ..repositories.base import HacsRepository
 
 URL = "https://brands.home-assistant.io/domains.json"
 
@@ -17,9 +21,9 @@ class Validator(ActionValidationBase):
     """Validate the repository."""
 
     more_info = "https://hacs.xyz/docs/publish/include#check-brands"
-    categories = [HacsCategory.INTEGRATION]
+    categories = (HacsCategory.INTEGRATION,)
 
-    async def async_validate(self):
+    async def async_validate(self) -> None:
         """Validate the repository."""
 
         response = await self.hacs.session.get(URL)

@@ -4,7 +4,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 from homeassistant.components import websocket_api
-from homeassistant.core import HomeAssistant
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 
@@ -13,6 +12,8 @@ from ..enums import HacsDispatchEvent
 from ..utils.version import version_left_higher_then_right
 
 if TYPE_CHECKING:
+    from homeassistant.core import HomeAssistant
+
     from ..base import HacsBase
 
 
@@ -107,7 +108,7 @@ async def hacs_repository_ignore(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """Ignore a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository_id = msg["repository"]
@@ -140,7 +141,7 @@ async def hacs_repository_state(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """Set the state of a repository"""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_id(msg["repository"])
@@ -164,7 +165,7 @@ async def hacs_repository_version(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """Set the version of a repository"""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_id(msg["repository"])
@@ -194,7 +195,7 @@ async def hacs_repository_beta(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """Show or hide beta versions of a repository"""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_id(msg["repository"])
@@ -221,7 +222,7 @@ async def hacs_repository_download(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """Set the version of a repository"""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_id(msg["repository"])
@@ -253,7 +254,7 @@ async def hacs_repository_remove(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """Remove a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_id(msg["repository"])
@@ -281,13 +282,15 @@ async def hacs_repository_refresh(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """Refresh a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_id(msg["repository"])
 
     await repository.update_repository(ignore_issues=True, force=True)
     await hacs.data.async_write()
+    # Update state of update entity
+    hacs.coordinators[repository.data.category].async_update_listeners()
 
     connection.send_message(websocket_api.result_message(msg["id"], {}))
 
@@ -304,7 +307,7 @@ async def hacs_repository_release_notes(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """Return release notes."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_id(msg["repository"])

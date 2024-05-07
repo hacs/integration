@@ -78,7 +78,7 @@ class HacsTemplateRepository(HacsRepository):
         self.data.file_name = self.repository_manifest.filename
         self.content.path.local = self.localpath
 
-        # Signal entities to refresh
+        # Signal frontend to refresh
         if self.data.installed:
             self.hacs.async_dispatch(
                 HacsDispatchEvent.REPOSITORY,

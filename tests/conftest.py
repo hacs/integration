@@ -12,6 +12,7 @@ import shutil
 from typing import Any, Generator
 from unittest.mock import MagicMock, patch
 
+from _pytest.assertion.util import _compare_eq_iterable
 from awesomeversion import AwesomeVersion
 import freezegun
 from homeassistant import loader
@@ -79,9 +80,9 @@ asyncio.sleep = lambda _: _sleep(0)
 
 
 @pytest.fixture(autouse=True)
-def time_freezer():
-    with freezegun.freeze_time("2019-02-26T15:02:39Z"):
-        yield
+def time_freezer() -> Generator[freezegun.api.FrozenDateTimeFactory, None, None]:
+    with freezegun.freeze_time("2019-02-26T15:02:39Z") as frozen_time:
+        yield frozen_time
 
 
 @pytest.fixture(autouse=True)
@@ -329,9 +330,8 @@ def response_mocker() -> ResponseMocker:
 async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> None:
     ## Assert the string to ensure the format did not change
     if AwesomeVersion(HA_VERSION) >= "2023.11.0":
-        # Issues may be created because hacs accesses hass.components, hass.helpers and
-        # calls async_show_progress without passing a progress task
-        assert len(_async_suggest_report_issue_mock_call_tracker) in [0, 1, 2, 3]
+        # Issues may be created because hacs accesses hass.components and hass.helpers
+        assert len(_async_suggest_report_issue_mock_call_tracker) in [0, 1, 2]
         _async_suggest_report_issue_mock_call_tracker.clear()
         assert (
             loader.async_suggest_report_issue(
@@ -360,9 +360,8 @@ async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> No
 async def check_report_issue() -> None:
     """Finish things up."""
     yield
-    # Issues may be created because hacs accesses hass.components, hass.helpers and
-    # calls async_show_progress without passing a progress task
-    allowed = [0, 1, 2, 3] if AwesomeVersion(HA_VERSION) > "2023.6.0" else [0]
+    # Issues may be created because hacs accesses hass.components and hass.helpers
+    allowed = [0, 1, 2] if AwesomeVersion(HA_VERSION) > "2023.6.0" else [0]
     if (times := len(_async_suggest_report_issue_mock_call_tracker)) not in allowed:
         raise AssertionError(
             f"homeassistant.loader.async_suggest_report_issue has been called {times} times"
@@ -418,4 +417,20 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
     with open("tests/output/proxy_calls.json", encoding="utf-8") as file:
         current = json.load(file)
         if current != filtered_calls:
-            raise AssertionError("API calls have changed, run scripts/snapshot-update")
+            diff = ""
+            for test in current:
+                if test not in filtered_calls:
+                    diff += f"Test '{test}' was removed\n"
+            for test in filtered_calls:
+                if test not in current:
+                    diff += f"Test '{test}' was added\n"
+            for test in filtered_calls:
+                if test not in current:
+                    continue
+                if filtered_calls[test] == current[test]:
+                    continue
+                diff += f"Test '{test}' has changed\n"
+                diff += "\n".join(_compare_eq_iterable(filtered_calls[test], current[test], 3))
+                diff += "\n"
+
+            raise AssertionError(f"API calls have changed, run scripts/snapshot-update\n{diff}")

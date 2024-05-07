@@ -132,7 +132,7 @@ class AdjustedHacs(HacsBase):
         try:
             self.hass = HomeAssistant()  # pylint: disable=no-value-for-parameter
         except TypeError:
-            self.hass = HomeAssistant("")  # pylint: disable=too-many-function-args
+            self.hass = HomeAssistant(".")  # pylint: disable=too-many-function-args
 
         self.queue = QueueManager(self.hass)
         self.repositories = HacsRepositories()

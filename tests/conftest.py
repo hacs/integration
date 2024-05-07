@@ -330,8 +330,7 @@ def response_mocker() -> ResponseMocker:
 async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> None:
     ## Assert the string to ensure the format did not change
     if AwesomeVersion(HA_VERSION) >= "2023.11.0":
-        # Issues may be created because hacs accesses hass.components and hass.helpers
-        assert len(_async_suggest_report_issue_mock_call_tracker) in [0, 1, 2]
+        assert not len(_async_suggest_report_issue_mock_call_tracker)
         _async_suggest_report_issue_mock_call_tracker.clear()
         assert (
             loader.async_suggest_report_issue(
@@ -360,9 +359,7 @@ async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> No
 async def check_report_issue() -> None:
     """Finish things up."""
     yield
-    # Issues may be created because hacs accesses hass.components and hass.helpers
-    allowed = [0, 1, 2] if AwesomeVersion(HA_VERSION) > "2023.6.0" else [0]
-    if (times := len(_async_suggest_report_issue_mock_call_tracker)) not in allowed:
+    if times := len(_async_suggest_report_issue_mock_call_tracker):
         raise AssertionError(
             f"homeassistant.loader.async_suggest_report_issue has been called {times} times"
         )

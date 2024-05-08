@@ -2,6 +2,7 @@ from typing import Generator
 from unittest.mock import patch
 
 from aiogithubapi import GitHubException
+from freezegun.api import FrozenDateTimeFactory
 from homeassistant import config_entries
 from homeassistant.const import CONF_ACCESS_TOKEN
 from homeassistant.core import HomeAssistant
@@ -32,6 +33,7 @@ def _mock_setup_entry(hass: HomeAssistant) -> Generator[None, None, None]:
 
 
 async def test_full_user_flow_implementation(
+    time_freezer: FrozenDateTimeFactory,
     hass: HomeAssistant,
     _mock_setup_entry: None,
     response_mocker: ResponseMocker,
@@ -52,15 +54,11 @@ async def test_full_user_flow_implementation(
             headers={"Content-Type": "application/json"},
         ),
     )
+    # User has not yet entered the code
     response_mocker.add(
         url="https://github.com/login/oauth/access_token",
         response=MockedResponse(
-            content={
-                CONF_ACCESS_TOKEN: TOKEN,
-                "token_type": "bearer",
-                "scope": "",
-            },
-            headers={"Content-Type": "application/json"},
+            content={"error": "authorization_pending"}, headers={"Content-Type": "application/json"}
         ),
     )
 
@@ -99,7 +97,20 @@ async def test_full_user_flow_implementation(
     assert result["step_id"] == "device"
     assert result["type"] == FlowResultType.SHOW_PROGRESS
 
-    await hass.config_entries.flow.async_configure(result["flow_id"])
+    # User enters the code
+    response_mocker.add(
+        url="https://github.com/login/oauth/access_token",
+        response=MockedResponse(
+            content={
+                CONF_ACCESS_TOKEN: TOKEN,
+                "token_type": "bearer",
+                "scope": "",
+            },
+            headers={"Content-Type": "application/json"},
+        ),
+    )
+
+    time_freezer.tick(10)
     await hass.async_block_till_done()
 
     result = await hass.config_entries.flow.async_configure(result["flow_id"])

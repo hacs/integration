@@ -2,7 +2,6 @@
 # pytest: disable=protected-access
 from . import patch_time  # noqa: F401, isort:skip
 import asyncio
-from collections import OrderedDict
 from dataclasses import asdict
 from glob import iglob
 import json
@@ -12,7 +11,6 @@ import shutil
 from typing import Any, Generator
 from unittest.mock import MagicMock, patch
 
-from _pytest.assertion.util import _compare_eq_iterable
 from awesomeversion import AwesomeVersion
 import freezegun
 from homeassistant import loader
@@ -26,6 +24,7 @@ from homeassistant.setup import async_setup_component
 import pytest
 import pytest_asyncio
 from pytest_snapshot.plugin import Snapshot
+from slugify import slugify
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import DOMAIN
@@ -285,7 +284,11 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
 
 
 @pytest_asyncio.fixture(autouse=True)
-async def proxy_session(hass: HomeAssistant) -> Generator:
+async def proxy_session(
+    hass: HomeAssistant,
+    snapshots: SnapshotFixture,
+    response_mocker: ResponseMocker,
+) -> Generator:
     """Fixture for a proxy_session."""
     mock_session = await client_session_proxy(hass)
     with patch(
@@ -294,6 +297,30 @@ async def proxy_session(hass: HomeAssistant) -> Generator:
         "aiohttp.ClientSession", ProxyClientSession
     ):
         yield
+
+    calls = {}
+    for call in response_mocker.calls:
+        if (_test_caller := call.pop("_test_caller", None)) is None:
+            continue
+        calls.setdefault(_test_caller, {})
+        if (url := call.get("url")) not in calls[_test_caller]:
+            calls[_test_caller][url] = 0
+        calls[_test_caller][url] += 1
+
+    filtered_calls = {
+        k: v
+        for k, v in {t: {k: v for k, v in c.items() if v != 0} for t, c in calls.items()}.items()
+        if v
+    }
+    if len(filtered_calls) > 1:
+        raise AssertionError("Multiple test callers detected")
+
+    if filtered_calls:
+        caller = list(filtered_calls.keys())[0]
+        snapshots.assert_match(
+            safe_json_dumps(filtered_calls[caller]),
+            f"api-usage/{slugify(caller)}.json",
+        )
 
 
 @pytest_asyncio.fixture
@@ -363,67 +390,3 @@ async def check_report_issue() -> None:
         raise AssertionError(
             f"homeassistant.loader.async_suggest_report_issue has been called {times} times"
         )
-
-
-def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
-    response_mocker = ResponseMocker()
-    calls = {}
-
-    if session.config.args[0] != "tests" or exitstatus != 0:
-        return
-
-    for call in response_mocker.calls:
-        if (_test_caller := call.get("_test_caller")) is None:
-            continue
-        if _test_caller not in calls:
-            if call.get("_uses_setup_integration"):
-                calls[_test_caller] = {
-                    c: -1
-                    for c in [
-                        "https://data-v2.hacs.xyz/appdaemon/data.json",
-                        "https://data-v2.hacs.xyz/critical/data.json",
-                        "https://data-v2.hacs.xyz/integration/data.json",
-                        "https://data-v2.hacs.xyz/plugin/data.json",
-                        "https://data-v2.hacs.xyz/python_script/data.json",
-                        "https://data-v2.hacs.xyz/removed/data.json",
-                        "https://data-v2.hacs.xyz/template/data.json",
-                        "https://data-v2.hacs.xyz/theme/data.json",
-                    ]
-                }
-            else:
-                calls[_test_caller] = {}
-        if (url := call.get("url")) not in calls[_test_caller]:
-            calls[_test_caller][url] = 0
-        calls[_test_caller][url] += 1
-
-    filtered_calls = {
-        k: v
-        for k, v in {t: {k: v for k, v in c.items() if v != 0} for t, c in calls.items()}.items()
-        if v
-    }
-
-    if session.config.option.snapshot_update:
-        with open("tests/output/proxy_calls.json", mode="w", encoding="utf-8") as file:
-            file.write(safe_json_dumps(filtered_calls))
-            return
-
-    with open("tests/output/proxy_calls.json", encoding="utf-8") as file:
-        current = json.load(file)
-        if current != filtered_calls:
-            diff = ""
-            for test in current:
-                if test not in filtered_calls:
-                    diff += f"Test '{test}' was removed\n"
-            for test in filtered_calls:
-                if test not in current:
-                    diff += f"Test '{test}' was added\n"
-            for test in filtered_calls:
-                if test not in current:
-                    continue
-                if filtered_calls[test] == current[test]:
-                    continue
-                diff += f"Test '{test}' has changed\n"
-                diff += "\n".join(_compare_eq_iterable(filtered_calls[test], current[test], 3))
-                diff += "\n"
-
-            raise AssertionError(f"API calls have changed, run scripts/snapshot-update\n{diff}")

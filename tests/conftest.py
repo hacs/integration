@@ -125,7 +125,7 @@ def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
         orig_exception_handler(loop, context)
 
     exceptions: list[Exception] = []
-    if AwesomeVersion(HA_VERSION) > "2024.4.0":
+    if AwesomeVersion(HA_VERSION) > "2024.4.1":
         context_manager = async_test_home_assistant_dev(event_loop, config_dir=tmpdir.strpath)
     else:
         context_manager = async_test_home_assistant_min_version(

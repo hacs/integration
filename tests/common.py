@@ -268,7 +268,7 @@ async def async_test_home_assistant_min_version(
     """Return a Home Assistant object pointing at test config dir.
 
     This should be copied from the minimum supported version,
-    currently Home Assistant Core 2024.4.0.
+    currently Home Assistant Core 2024.4.1.
     """
     hass = HomeAssistant(config_dir or get_test_config_dir())
     store = auth_store.AuthStore(hass)

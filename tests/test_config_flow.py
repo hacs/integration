@@ -223,6 +223,7 @@ async def test_flow_with_registration_failure(
 
 
 async def test_flow_with_activation_failure(
+    time_freezer: FrozenDateTimeFactory,
     hass: HomeAssistant,
     _mock_setup_entry: None,
     response_mocker: ResponseMocker,
@@ -243,9 +244,12 @@ async def test_flow_with_activation_failure(
             headers={"Content-Type": "application/json"},
         ),
     )
+    # User has not yet entered the code
     response_mocker.add(
         url="https://github.com/login/oauth/access_token",
-        response=MockedResponse(exception=GitHubException("Activation failed")),
+        response=MockedResponse(
+            content={"error": "authorization_pending"}, headers={"Content-Type": "application/json"}
+        ),
     )
 
     result = await hass.config_entries.flow.async_init(
@@ -269,6 +273,14 @@ async def test_flow_with_activation_failure(
 
     assert result["step_id"] == "device"
     assert result["type"] == FlowResultType.SHOW_PROGRESS
+
+    # Activation fails
+    response_mocker.add(
+        url="https://github.com/login/oauth/access_token",
+        response=MockedResponse(exception=GitHubException("Activation failed")),
+    )
+
+    time_freezer.tick(10)
 
     await hass.config_entries.flow.async_configure(result["flow_id"])
     await hass.async_block_till_done()

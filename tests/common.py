@@ -413,7 +413,7 @@ async def async_test_home_assistant_dev(
     """Return a Home Assistant object pointing at test config dir.
 
     This should be copied from latest Home Assistant version,
-    currently Home Assistant Core 2024.5.0dev0 (2024-4-11).
+    currently Home Assistant Core 2024.6.0dev0 (2024-05-08).
     """
     hass = HomeAssistant(config_dir or get_test_config_dir())
     store = auth_store.AuthStore(hass)
@@ -423,7 +423,7 @@ async def async_test_home_assistant_dev(
 
     orig_async_add_job = hass.async_add_job
     orig_async_add_executor_job = hass.async_add_executor_job
-    orig_async_create_task = hass.async_create_task
+    orig_async_create_task_internal = hass.async_create_task_internal
     orig_tz = dt_util.DEFAULT_TIME_ZONE
 
     def async_add_job(target, *args, eager_start: bool = False):
@@ -452,18 +452,18 @@ async def async_test_home_assistant_dev(
 
         return orig_async_add_executor_job(target, *args)
 
-    def async_create_task(coroutine, name=None, eager_start=False):
+    def async_create_task_internal(coroutine, name=None, eager_start=True):
         """Create task."""
         if isinstance(coroutine, Mock) and not isinstance(coroutine, AsyncMock):
             fut = asyncio.Future()
             fut.set_result(None)
             return fut
 
-        return orig_async_create_task(coroutine, name, eager_start)
+        return orig_async_create_task_internal(coroutine, name, eager_start)
 
     hass.async_add_job = async_add_job
     hass.async_add_executor_job = async_add_executor_job
-    hass.async_create_task = async_create_task
+    hass.async_create_task_internal = async_create_task_internal
 
     hass.data[loader.DATA_CUSTOM_COMPONENTS] = {}
 

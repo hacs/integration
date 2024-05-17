@@ -674,7 +674,7 @@ class HacsBase:
             async_track_time_interval(self.hass, self.async_check_rate_limit, timedelta(minutes=5))
         )
         self.recurring_tasks.append(
-            async_track_time_interval(self.hass, self.async_process_queue, timedelta(minutes=10))
+            async_track_time_interval(self.hass, self.async_process_queue, timedelta(minutes=30))
         )
 
         self.recurring_tasks.append(

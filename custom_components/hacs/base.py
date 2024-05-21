@@ -679,7 +679,7 @@ class HacsBase:
 
         self.recurring_tasks.append(
             async_track_time_interval(
-                self.hass, self.async_handle_critical_repositories, timedelta(hours=6)
+                self.hass, self.async_handle_critical_repositories, timedelta(hours=24)
             )
         )
 

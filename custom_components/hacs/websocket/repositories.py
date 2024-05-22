@@ -5,7 +5,6 @@ import sys
 from typing import TYPE_CHECKING, Any
 
 from homeassistant.components import websocket_api
-from homeassistant.core import HomeAssistant
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 
@@ -15,6 +14,8 @@ from ..const import DOMAIN
 from ..enums import HacsDispatchEvent
 
 if TYPE_CHECKING:
+    from homeassistant.core import HomeAssistant
+
     from ..base import HacsBase
 
 
@@ -30,7 +31,7 @@ async def hacs_repositories_list(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """List repositories."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     connection.send_message(
@@ -119,7 +120,7 @@ async def hacs_repositories_removed(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """Get information about removed repositories."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     content = []
@@ -142,7 +143,7 @@ async def hacs_repositories_add(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """Add custom repositoriy."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = regex.extract_repository_from_url(msg["repository"])
@@ -203,7 +204,7 @@ async def hacs_repositories_remove(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """Remove custom repositoriy."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_id(msg["repository"])

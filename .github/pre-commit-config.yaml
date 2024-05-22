@@ -1,51 +1,80 @@
 repos:
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v2.34.0
-    hooks:
-      - id: pyupgrade
-        stages: [manual]
-        args:
-          - "--py39-plus"
-
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        name: isort (python)
-
-  - repo: https://github.com/psf/black
-    rev: 23.1.0
-    hooks:
-      - id: black
-        stages: [manual]
-        args:
-          - --safe
-          - --quiet
-        files: ^((custom_components|script|tests)/.+)?[^/]+\.py$
-
-  - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.6
+  - repo: local
     hooks:
       - id: codespell
-        stages: [manual]
+        name: Check code for common misspellings
+        language: system
+        types: [text]
+        stages: [commit, push, manual]
+        entry: codespell
         args:
           - --quiet-level=2
           - --ignore-words-list=hass,ba,fo
-          - --exclude-file=custom_components/hacs/utils/default.repositories
+          - --skip=custom_components/hacs/utils/default.repositories
           - --skip=tests/fixtures/*
 
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
-    hooks:
+      - id: isort
+        name: Sort imports
+        language: system
+        types: [text]
+        stages: [commit, push, manual]
+        entry: isort
+
+      - id: pyupgrade
+        name: Run pyupgrade
+        language: system
+        types: [text]
+        stages: [commit, push, manual]
+        entry: pyupgrade
+        files: ^.*.py$
+        args:
+          - "--py39-plus"
+
+      - id: black
+        name: Run black
+        language: system
+        types: [text]
+        stages: [commit, push, manual]
+        entry: black
+        args:
+          - --safe
+          - --quiet
+        files: ^((action|custom_components|script|tests)/.+)?[^/]+\.py$
+
       - id: check-executables-have-shebangs
-        stages: [manual]
+        name: Check that executables have shebangs
+        language: system
+        types: [text, executable]
+        entry: check-executables-have-shebangs
+        stages: [commit, push, manual]
+
       - id: check-json
-        stages: [manual]
+        name: Check JSON files
+        language: system
+        types: [json]
+        stages: [commit, push, manual]
+        entry: check-json
+
       - id: requirements-txt-fixer
-        stages: [manual]
+        name: Check requirements files
+        language: system
+        types: [text]
+        stages: [commit, push, manual]
+        entry: requirements-txt-fixer
+        files: ^requirements_.*.txt$
+
       - id: check-ast
-        stages: [manual]
+        name: Check Python AST
+        language: system
+        types: [python]
+        stages: [commit, push, manual]
+        entry: check-ast
+
       - id: mixed-line-ending
-        stages: [manual]
+        name: Check line nedings
+        language: system
+        types: [text]
+        stages: [commit, push, manual]
+        entry: mixed-line-ending
         args:
           - --fix=lf

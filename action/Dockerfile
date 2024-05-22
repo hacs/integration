@@ -1,22 +1,17 @@
-FROM python:3.11-alpine
+FROM python:3.12-alpine
 
 WORKDIR /hacs
 
+COPY . /hacs
+
+ENV PIP_EXTRA_INDEX_URL="https://wheels.home-assistant.io/musllinux-index/"
+
 RUN \
-    apk add --no-cache \
-        libffi-dev \
-    \
-    &&  apk add --no-cache --virtual .build-deps \
+    apk add --no-cache --virtual .build-deps \
         bash \
-        gcc \
-        git \
-        musl-dev \
     \
-    && git clone --quiet --depth 1 https://github.com/hacs/integration.git /hacs \
-    \
-    && bash /hacs/scripts/install/pip_packages setuptools wheel \
-    \
-    && bash /hacs/scripts/install/pip_packages homeassistant aiogithubapi async-timeout \
+    && bash /hacs/scripts/install/pip_packages \
+        -r requirements_action.txt \
     \
     && bash /hacs/scripts/install/frontend \
     \
@@ -24,8 +19,8 @@ RUN \
     \
     && rm -rf /var/cache/apk/* \
     \
-    && find /usr/local \( -type d -a -name test -o -name tests -o -name '__pycache__' \) -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) -exec rm -rf '{}' \;
-
-COPY ./action.py /hacs/action.py
+    && find /usr/local \( -type d -a -name test -o -name tests -o -name '__pycache__' \) -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) -exec rm -rf '{}' \; \
+    \
+    && cp /hacs/action/action.py /hacs/action.py
 
 ENTRYPOINT ["python3", "/hacs/action.py"]

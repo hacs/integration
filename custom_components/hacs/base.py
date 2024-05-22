@@ -24,6 +24,9 @@ from aiogithubapi import (
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 from aiohttp.client import ClientSession, ClientTimeout
 from awesomeversion import AwesomeVersion
+from homeassistant.components.persistent_notification import (
+    async_create as async_create_persistent_notification,
+)
 from homeassistant.config_entries import ConfigEntry, ConfigEntryState
 from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
 from homeassistant.core import HomeAssistant, callback
@@ -39,6 +42,7 @@ from custom_components.hacs.repositories.base import (
 )
 
 from .const import DOMAIN, TV, URL_BASE
+from .coordinator import HacsUpdateCoordinator
 from .data_client import HacsDataClient
 from .enums import (
     ConfigurationType,
@@ -375,6 +379,7 @@ class HacsBase:
         """Initialize."""
         self.common = HacsCommon()
         self.configuration = HacsConfiguration()
+        self.coordinators: dict[HacsCategory, HacsUpdateCoordinator] = {}
         self.core = HacsCore()
         self.log = LOGGER
         self.recurring_tasks: list[Callable[[], None]] = []
@@ -425,12 +430,14 @@ class HacsBase:
         if category not in self.common.categories:
             self.log.info("Enable category: %s", category)
             self.common.categories.add(category)
+            self.coordinators[category] = HacsUpdateCoordinator()
 
     def disable_hacs_category(self, category: HacsCategory) -> None:
         """Disable HACS category."""
         if category in self.common.categories:
             self.log.info("Disabling category: %s", category)
             self.common.categories.pop(category)
+            self.coordinators.pop(category)
 
     async def async_save_file(self, file_path: str, content: Any) -> bool:
         """Save a file."""
@@ -625,8 +632,8 @@ class HacsBase:
             for repo in critical:
                 if not repo["acknowledged"]:
                     self.log.critical("URGENT!: Check the HACS panel!")
-                    self.hass.components.persistent_notification.create(
-                        title="URGENT!", message="**Check the HACS panel!**"
+                    async_create_persistent_notification(
+                        self.hass, title="URGENT!", message="**Check the HACS panel!**"
                     )
                     break
 
@@ -909,6 +916,7 @@ class HacsBase:
                     self.repositories.unregister(repository)
 
         self.async_dispatch(HacsDispatchEvent.REPOSITORY, {})
+        self.coordinators[category].async_update_listeners()
 
     async def async_get_category_repositories(self, category: HacsCategory) -> None:
         """Get repositories from category."""
@@ -1074,12 +1082,37 @@ class HacsBase:
             return
         self.log.info("Starting recurring background task for downloaded custom repositories")
 
+        repositories_to_update = 0
+        repositories_updated = asyncio.Event()
+
+        async def update_repository(repository: HacsRepository) -> None:
+            """Update a repository"""
+            nonlocal repositories_to_update
+            await repository.update_repository(ignore_issues=True)
+            repositories_to_update -= 1
+            if not repositories_to_update:
+                repositories_updated.set()
+
         for repository in self.repositories.list_downloaded:
             if (
                 repository.data.category in self.common.categories
                 and not self.repositories.is_default(repository.data.id)
             ):
-                self.queue.add(repository.update_repository(ignore_issues=True))
+                repositories_to_update += 1
+                self.queue.add(update_repository(repository))
+
+        async def update_coordinators() -> None:
+            """Update all coordinators."""
+            await repositories_updated.wait()
+            for coordinator in self.coordinators.values():
+                coordinator.async_update_listeners()
+
+        if config_entry := self.configuration.config_entry:
+            config_entry.async_create_background_task(
+                self.hass, update_coordinators(), "update_coordinators"
+            )
+        else:
+            self.hass.async_create_background_task(update_coordinators(), "update_coordinators")
 
         self.log.debug("Recurring background task for downloaded custom repositories done")
 

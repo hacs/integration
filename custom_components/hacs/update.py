@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Any
 from itertools import dropwhile
+from typing import Any
 
 from homeassistant.components.update import UpdateEntity, UpdateEntityFeature
 from homeassistant.config_entries import ConfigEntry

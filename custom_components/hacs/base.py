@@ -881,14 +881,14 @@ class HacsBase:
         await self.data.register_unknown_repositories(category_data, category)
 
         for repo_id, repo_data in category_data.items():
-            repo = repo_data["full_name"]
-            if self.common.renamed_repositories.get(repo):
-                repo = self.common.renamed_repositories[repo]
-            if self.repositories.is_removed(repo):
+            repo_name = repo_data["full_name"]
+            if self.common.renamed_repositories.get(repo_name):
+                repo_name = self.common.renamed_repositories[repo_name]
+            if self.repositories.is_removed(repo_name):
                 continue
-            if repo in self.common.archived_repositories:
+            if repo_name in self.common.archived_repositories:
                 continue
-            if repository := self.repositories.get_by_full_name(repo):
+            if repository := self.repositories.get_by_full_name(repo_name):
                 self.repositories.set_repository_id(repository, repo_id)
                 self.repositories.mark_default(repository)
                 if repository.data.last_fetched is None or (

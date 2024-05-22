@@ -55,7 +55,7 @@ class HacsPluginRepository(HacsRepository):
 
     async def async_post_installation(self):
         """Run post installation steps."""
-        self.hacs.async_setup_frontend_endpoint_plugin()
+        await self.hacs.async_setup_frontend_endpoint_plugin()
 
     @concurrent(concurrenttasks=10, backoff_time=5)
     async def update_repository(self, ignore_issues=False, force=False):
@@ -74,7 +74,7 @@ class HacsPluginRepository(HacsRepository):
         if self.content.path.remote == "release":
             self.content.single = True
 
-        # Signal entities to refresh
+        # Signal frontend to refresh
         if self.data.installed:
             self.hacs.async_dispatch(
                 HacsDispatchEvent.REPOSITORY,

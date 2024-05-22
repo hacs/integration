@@ -31,6 +31,7 @@ from ..types import DownloadableContent
 from ..utils.backup import Backup, BackupNetDaemon
 from ..utils.decode import decode_content
 from ..utils.decorator import concurrent
+from ..utils.file_system import async_exists, async_remove
 from ..utils.filters import filter_content_return_one_of_type
 from ..utils.json import json_loads
 from ..utils.logger import LOGGER
@@ -796,8 +797,7 @@ class HacsRepository:
                     f"{self.hacs.configuration.theme_path}/"
                     f"{self.data.name}.yaml"
                 )
-                if os.path.exists(path):
-                    os.remove(path)
+                await async_remove(self.hacs.hass, path, missing_ok=True)
                 local_path = self.content.path.local
             elif self.data.category == "integration":
                 if not self.data.domain:
@@ -811,18 +811,18 @@ class HacsRepository:
             else:
                 local_path = self.content.path.local
 
-            if os.path.exists(local_path):
+            if await async_exists(self.hacs.hass, local_path):
                 if not is_safe(self.hacs, local_path):
                     self.logger.error("%s Path %s is blocked from removal", self.string, local_path)
                     return False
                 self.logger.debug("%s Removing %s", self.string, local_path)
 
                 if self.data.category in ["python_script", "template"]:
-                    os.remove(local_path)
+                    await async_remove(self.hacs.hass, local_path)
                 else:
                     shutil.rmtree(local_path)
 
-                while os.path.exists(local_path):
+                while await async_exists(self.hacs.hass, local_path):
                     await sleep(1)
             else:
                 self.logger.debug(
@@ -942,8 +942,9 @@ class HacsRepository:
             await self.hacs.hass.async_add_executor_job(persistent_directory.create)
 
         elif self.repository_manifest.persistent_directory:
-            if os.path.exists(
-                f"{self.content.path.local}/{self.repository_manifest.persistent_directory}"
+            if await async_exists(
+                self.hacs.hass,
+                f"{self.content.path.local}/{self.repository_manifest.persistent_directory}",
             ):
                 persistent_directory = Backup(
                     hacs=self.hacs,

@@ -12,6 +12,7 @@ from typing import Any
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
 from awesomeversion import AwesomeVersion
+from homeassistant.components.frontend import async_remove_panel
 from homeassistant.components.lovelace.system_health import system_health_info
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import Platform, __version__ as HAVERSION
@@ -162,7 +163,7 @@ async def async_initialize_integration(
         hacs.set_active_categories()
 
         async_register_websocket_commands(hass)
-        async_register_frontend(hass, hacs)
+        await async_register_frontend(hass, hacs)
 
         if hacs.configuration.config_type == ConfigurationType.YAML:
             hass.async_create_task(
@@ -266,7 +267,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     try:
         if hass.data.get("frontend_panels", {}).get("hacs"):
             hacs.log.info("Removing sidepanel")
-            hass.components.frontend.async_remove_panel("hacs")
+            async_remove_panel(hass, "hacs")
     except AttributeError:
         pass
 

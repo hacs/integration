@@ -1,4 +1,4 @@
-from typing import Generator
+from collections.abc import Generator
 
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.dispatcher import async_dispatcher_connect

@@ -163,7 +163,7 @@ async def async_initialize_integration(
         hacs.set_active_categories()
 
         async_register_websocket_commands(hass)
-        async_register_frontend(hass, hacs)
+        await async_register_frontend(hass, hacs)
 
         if hacs.configuration.config_type == ConfigurationType.YAML:
             hass.async_create_task(

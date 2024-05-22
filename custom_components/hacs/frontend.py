@@ -4,6 +4,7 @@ from __future__ import annotations
 import os
 from typing import TYPE_CHECKING
 
+from homeassistant.components.frontend import async_register_built_in_panel
 from homeassistant.core import HomeAssistant, callback
 
 from .const import DOMAIN, URL_BASE
@@ -29,12 +30,11 @@ if TYPE_CHECKING:
     from .base import HacsBase
 
 
-@callback
-def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
+async def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
     """Register the frontend."""
 
     # Setup themes endpoint if needed
-    hacs.async_setup_frontend_endpoint_themes()
+    await hacs.async_setup_frontend_endpoint_themes()
 
     # Register frontend
     if hacs.configuration.dev and (frontend_path := os.getenv("HACS_FRONTEND_DIR")):
@@ -65,7 +65,8 @@ def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
 
     # Add to sidepanel if needed
     if DOMAIN not in hass.data.get("frontend_panels", {}):
-        hass.components.frontend.async_register_built_in_panel(
+        async_register_built_in_panel(
+            hass,
             component_name="custom",
             sidebar_title=hacs.configuration.sidepanel_title,
             sidebar_icon=hacs.configuration.sidepanel_icon,
@@ -82,4 +83,4 @@ def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
         )
 
     # Setup plugin endpoint if needed
-    hacs.async_setup_frontend_endpoint_plugin()
+    await hacs.async_setup_frontend_endpoint_plugin()

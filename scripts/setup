@@ -6,6 +6,10 @@ cd "$(dirname "$0")/.."
 
 scripts/install/pip_packages "pip<23.2,>=21.3.1"
 scripts/install/pip_packages setuptools wheel
-scripts/install/pip_packages --requirement requirements_lint.txt --requirement requirements_test.txt
+scripts/install/pip_packages \
+    --requirement requirements_lint.txt \
+    --requirement requirements_core_min.txt \
+    --requirement requirements_test.txt
 scripts/install/frontend
-scripts/install/core
+
+pre-commit  install --config .github/pre-commit-config.yaml

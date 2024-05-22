@@ -61,7 +61,7 @@ jobs:
         uses: actions/setup-python@v5.1.0
         id: python
         with:
-          python-version: "3.11"
+          python-version: "3.12"
           cache: 'pip'
           cache-dependency-path: |
             requirements_base.txt
@@ -104,7 +104,7 @@ jobs:
           diff -u outputdata/diff/${{ matrix.category }}_before.json outputdata/diff/${{ matrix.category }}_after.json > outputdata/diff/${{ matrix.category }}.diff || true
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.3.3
         if: steps.updated.outputs.updated == 'true'
         with:
           name: ${{ matrix.category }}

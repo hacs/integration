@@ -413,7 +413,8 @@ async def async_test_home_assistant_dev(
     """Return a Home Assistant object pointing at test config dir.
 
     This should be copied from latest Home Assistant version,
-    currently Home Assistant Core 2024.6.0dev0 (2024-05-08).
+    currently Home Assistant Core 2024.6.0dev0 (2024-05-21).
+    https://github.com/home-assistant/core/blob/dev/tests/common.py
     """
     hass = HomeAssistant(config_dir or get_test_config_dir())
     store = auth_store.AuthStore(hass)
@@ -424,7 +425,7 @@ async def async_test_home_assistant_dev(
     orig_async_add_job = hass.async_add_job
     orig_async_add_executor_job = hass.async_add_executor_job
     orig_async_create_task_internal = hass.async_create_task_internal
-    orig_tz = dt_util.DEFAULT_TIME_ZONE
+    orig_tz = dt_util.get_default_time_zone()
 
     def async_add_job(target, *args, eager_start: bool = False):
         """Add job."""
@@ -471,7 +472,7 @@ async def async_test_home_assistant_dev(
     hass.config.latitude = 32.87336
     hass.config.longitude = -117.22743
     hass.config.elevation = 0
-    hass.config.set_time_zone("US/Pacific")
+    await hass.config.async_set_time_zone("US/Pacific")
     hass.config.units = METRIC_SYSTEM
     hass.config.media_dirs = {"local": get_test_config_dir("media")}
     hass.config.skip_pip = True
@@ -535,17 +536,18 @@ async def async_test_home_assistant_dev(
 
     hass.set_state(CoreState.running)
 
-    async def clear_instance(event):
+    @callback
+    def clear_instance(event):
         """Clear global instance."""
-        await asyncio.sleep(0)  # Give aiohttp one loop iteration to close
-        INSTANCES.remove(hass)
+        # Give aiohttp one loop iteration to close
+        hass.loop.call_soon(INSTANCES.remove, hass)
 
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_CLOSE, clear_instance)
 
     yield hass
 
     # Restore timezone, it is set when creating the hass object
-    dt_util.DEFAULT_TIME_ZONE = orig_tz
+    dt_util.set_default_time_zone(orig_tz)
 
 
 @ha.callback

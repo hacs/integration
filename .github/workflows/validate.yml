@@ -111,7 +111,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5.1.0
         with:
-          python-version: "3.11"
+          python-version: "3.12"
           cache: 'pip'
           cache-dependency-path: |
             requirements_base.txt
@@ -138,6 +138,15 @@ jobs:
       - name: Validate output with schema
         run: |
           python3 -m scripts.data.validate_category_data ${{  matrix.entry.category }} outputdata/${{ matrix.entry.category }}/data.json
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: "${{ matrix.entry.category }}_${{ strategy.job-index }}"
+          path: |
+            outputdata/${{ matrix.entry.category }}
+          if-no-files-found: error
+          retention-days: 3
 
 
   validate-homeassistant:

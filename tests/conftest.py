@@ -3,13 +3,14 @@
 from . import patch_time  # noqa: F401, isort:skip
 import asyncio
 from collections import OrderedDict
+from collections.abc import Generator
 from dataclasses import asdict
 from glob import iglob
 import json
 import logging
 import os
 import shutil
-from typing import Any, Generator
+from typing import Any
 from unittest.mock import MagicMock, patch
 
 from _pytest.assertion.util import _compare_eq_iterable

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+from collections.abc import Awaitable, Callable
 from dataclasses import asdict, dataclass, field
 from datetime import timedelta
 import gzip
@@ -10,7 +11,7 @@ import math
 import os
 import pathlib
 import shutil
-from typing import TYPE_CHECKING, Any, Awaitable, Callable
+from typing import TYPE_CHECKING, Any
 
 from aiogithubapi import (
     AIOGitHubAPIException,
@@ -742,7 +743,7 @@ class HacsBase:
                 raise HacsException(
                     f"Got status code {request.status} when trying to download {url}"
                 )
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 self.log.warning(
                     "A timeout of 60! seconds was encountered while downloading %s, "
                     "using over 60 seconds to download a single file is not normal. "

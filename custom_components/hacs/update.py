@@ -153,6 +153,7 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
                 self.repository.data.last_version = next(iter(self.repository.data.published_tags))
 
         release_notes = ""
+        # Compile release notes from installed version up to the latest
         if self.installed_version in self.repository.data.published_tags:
             for release in self.repository.releases.objects:
                 if release.tag_name == self.installed_version:

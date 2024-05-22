@@ -1,8 +1,8 @@
 """Test update entity."""
 
+from collections.abc import Generator
 import json as json_func
 import os
-from typing import Generator
 
 from freezegun.api import FrozenDateTimeFactory
 from homeassistant.core import HomeAssistant

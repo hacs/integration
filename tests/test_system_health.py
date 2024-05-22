@@ -1,7 +1,8 @@
 """Test system health."""
 
 import asyncio
-from typing import Any, Generator
+from collections.abc import Generator
+from typing import Any
 
 from homeassistant.core import HomeAssistant
 from homeassistant.setup import async_setup_component

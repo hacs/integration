@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import asyncio
-from collections.abc import AsyncGenerator, Mapping, Sequence
+from collections.abc import AsyncGenerator, Iterable, Mapping, Sequence
 from contextlib import asynccontextmanager, contextmanager
 from contextvars import ContextVar
 import functools as ft
@@ -10,7 +10,7 @@ from inspect import currentframe
 import json as json_func
 import os
 from types import NoneType
-from typing import Any, Iterable, TypedDict, TypeVar
+from typing import Any, TypedDict, TypeVar
 from unittest.mock import AsyncMock, Mock, patch
 
 from aiohttp import ClientError, ClientSession, ClientWebSocketResponse

@@ -250,22 +250,28 @@ class HacsData:
             return False
         return True
 
-    async def register_unknown_repositories(self, repositories, category: str | None = None):
+    async def register_unknown_repositories(
+        self, repositories: dict[str, dict[str, Any]], category: str | None = None
+    ):
         """Registry any unknown repositories."""
-        register_tasks = [
-            self.hacs.async_register_repository(
+        for repo_idx, (entry, repo_data) in enumerate(repositories.items()):
+            # async_register_repository is awaited in a loop
+            # since its unlikely to ever suspend at startup
+            if (
+                entry == "0"
+                or repo_data.get("category", category) is None
+                or self.hacs.repositories.is_registered(repository_id=entry)
+            ):
+                continue
+            await self.hacs.async_register_repository(
                 repository_full_name=repo_data["full_name"],
                 category=repo_data.get("category", category),
                 check=False,
                 repository_id=entry,
             )
-            for entry, repo_data in repositories.items()
-            if entry != "0"
-            and not self.hacs.repositories.is_registered(repository_id=entry)
-            and repo_data.get("category", category) is not None
-        ]
-        if register_tasks:
-            await asyncio.gather(*register_tasks)
+            if repo_idx % 100 == 0:
+                # yield to avoid blocking the event loop
+                await asyncio.sleep(0)
 
     @callback
     def async_restore_repository(self, entry: str, repository_data: dict[str, Any]):

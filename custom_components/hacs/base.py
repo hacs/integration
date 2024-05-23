@@ -6,7 +6,6 @@ from collections.abc import Awaitable, Callable
 from dataclasses import asdict, dataclass, field
 from datetime import timedelta
 import gzip
-import logging
 import math
 import os
 import pathlib
@@ -28,7 +27,7 @@ from awesomeversion import AwesomeVersion
 from homeassistant.components.persistent_notification import (
     async_create as async_create_persistent_notification,
 )
-from homeassistant.config_entries import ConfigEntry, ConfigEntryState
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
@@ -416,8 +415,6 @@ class HacsBase:
             reason == HacsDisabledReason.INVALID_TOKEN
             and self.configuration.config_type == ConfigurationType.CONFIG_ENTRY
         ):
-            self.configuration.config_entry.state = ConfigEntryState.SETUP_ERROR
-            self.configuration.config_entry.reason = "Authentication failed"
             self.hass.add_job(self.configuration.config_entry.async_start_reauth, self.hass)
 
     def enable_hacs(self) -> None:

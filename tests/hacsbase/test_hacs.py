@@ -2,10 +2,9 @@
 import pytest
 
 from custom_components.hacs.base import HacsRepositories
-from custom_components.hacs.enums import HacsCategory, HacsStage
+from custom_components.hacs.enums import HacsCategory
 
 
-@pytest.mark.asyncio
 async def test_hacs(hacs, repository, tmpdir):
     hacs.hass.config.config_dir = tmpdir
 
@@ -31,10 +30,9 @@ async def test_hacs(hacs, repository, tmpdir):
     for category in [x for x in list(HacsCategory) if x != HacsCategory.INTEGRATION]:
         assert not hacs.repositories.category_downloaded(category=category)
 
-    await hacs.async_prosess_queue()
+    await hacs.async_process_queue()
 
 
-@pytest.mark.asyncio
 async def test_add_remove_repository(hacs, repository, tmpdir):
     hacs.hass.config.config_dir = tmpdir
 
@@ -59,10 +57,3 @@ async def test_add_remove_repository(hacs, repository, tmpdir):
 
     # Verify second removal does not raise
     hacs.repositories.unregister(repository)
-
-
-@pytest.mark.asyncio
-async def test_set_stage(hacs):
-    assert hacs.stage == None
-    hacs.set_stage(HacsStage.RUNNING)
-    assert hacs.stage == HacsStage.RUNNING

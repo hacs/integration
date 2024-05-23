@@ -79,7 +79,7 @@ class HacsAppdaemonRepository(HacsRepository):
         # Set local path
         self.content.path.local = self.localpath
 
-        # Signal entities to refresh
+        # Signal frontend to refresh
         if self.data.installed:
             self.hacs.async_dispatch(
                 HacsDispatchEvent.REPOSITORY,

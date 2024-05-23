@@ -12,6 +12,7 @@ from typing import Any
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
 from awesomeversion import AwesomeVersion
+from homeassistant.components.frontend import async_remove_panel
 from homeassistant.components.lovelace.system_health import system_health_info
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import Platform, __version__ as HAVERSION
@@ -50,10 +51,6 @@ async def async_initialize_integration(
     hacs.enable_hacs()
 
     if config is not None:
-        if DOMAIN not in config:
-            return True
-        if hacs.configuration.config_type == ConfigurationType.CONFIG_ENTRY:
-            return True
         hacs.configuration.update_from_dict(
             {
                 "config_type": ConfigurationType.YAML,
@@ -131,19 +128,18 @@ async def async_initialize_integration(
         """HACS startup tasks."""
         hacs.enable_hacs()
 
-        for location in (
-            hass.config.path("custom_components/custom_updater.py"),
-            hass.config.path("custom_components/custom_updater/__init__.py"),
-        ):
-            if os.path.exists(location):
-                hacs.log.critical(
-                    "This cannot be used with custom_updater. "
-                    "To use this you need to remove custom_updater form %s",
-                    location,
-                )
+        try:
+            import custom_components.custom_updater
+        except ImportError:
+            pass
+        else:
+            hacs.log.critical(
+                "HACS cannot be used with custom_updater. "
+                "To use HACS you need to remove custom_updater from `custom_components`",
+            )
 
-                hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
-                return False
+            hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
+            return False
 
         if not version_left_higher_or_equal_then_right(
             hacs.core.ha_version.string,
@@ -167,7 +163,7 @@ async def async_initialize_integration(
         hacs.set_active_categories()
 
         async_register_websocket_commands(hass)
-        async_register_frontend(hass, hacs)
+        await async_register_frontend(hass, hacs)
 
         if hacs.configuration.config_type == ConfigurationType.YAML:
             hass.async_create_task(
@@ -187,11 +183,11 @@ async def async_initialize_integration(
         if hacs.system.disabled:
             return False
 
-        # Schedule startup tasks
-        async_at_start(hass=hass, at_start_cb=hacs.startup_tasks)
-
         hacs.set_stage(HacsStage.WAITING)
         hacs.log.info("Setup complete, waiting for Home Assistant before startup tasks starts")
+
+        # Schedule startup tasks
+        async_at_start(hass=hass, at_start_cb=hacs.startup_tasks)
 
         return not hacs.system.disabled
 
@@ -219,24 +215,26 @@ async def async_initialize_integration(
 
 async def async_setup(hass: HomeAssistant, config: dict[str, Any]) -> bool:
     """Set up this integration using yaml."""
-    if DOMAIN in config:
-        async_create_issue(
-            hass,
-            DOMAIN,
-            "deprecated_yaml_configuration",
-            is_fixable=False,
-            issue_domain=DOMAIN,
-            severity=IssueSeverity.WARNING,
-            translation_key="deprecated_yaml_configuration",
-            learn_more_url="https://hacs.xyz/docs/configuration/options",
-        )
-        LOGGER.warning(
-            "YAML configuration of HACS is deprecated and will be "
-            "removed in version 2.0.0, there will be no automatic "
-            "import of this. "
-            "Please remove it from your configuration, "
-            "restart Home Assistant and use the UI to configure it instead."
-        )
+    if DOMAIN not in config:
+        return True
+
+    async_create_issue(
+        hass,
+        DOMAIN,
+        "deprecated_yaml_configuration",
+        is_fixable=False,
+        issue_domain=DOMAIN,
+        severity=IssueSeverity.WARNING,
+        translation_key="deprecated_yaml_configuration",
+        learn_more_url="https://hacs.xyz/docs/configuration/options",
+    )
+    LOGGER.warning(
+        "YAML configuration of HACS is deprecated and will be "
+        "removed in version 2.0.0, there will be no automatic "
+        "import of this. "
+        "Please remove it from your configuration, "
+        "restart Home Assistant and use the UI to configure it instead."
+    )
     return await async_initialize_integration(hass=hass, config=config)
 
 
@@ -259,7 +257,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     # Clear out pending queue
     hacs.queue.clear()
 
-    for task in hacs.recuring_tasks:
+    for task in hacs.recurring_tasks:
         # Cancel all pending tasks
         task()
 
@@ -269,7 +267,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     try:
         if hass.data.get("frontend_panels", {}).get("hacs"):
             hacs.log.info("Removing sidepanel")
-            hass.components.frontend.async_remove_panel("hacs")
+            async_remove_panel(hass, "hacs")
     except AttributeError:
         pass
 

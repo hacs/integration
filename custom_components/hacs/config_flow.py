@@ -36,6 +36,8 @@ from .utils.configuration_schema import (
 )
 from .utils.logger import LOGGER
 
+MINIMUM_HA_VERSION_SHOW_PROGRESS_TASK = "2024.2.0"
+
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
 
@@ -52,6 +54,7 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
     _registration: GitHubLoginDeviceModel | None = None
     _activation: GitHubLoginOauthModel | None = None
     _reauth: bool = False
+    _use_progress_task: bool = False
 
     def __init__(self) -> None:
         """Initialize."""
@@ -60,6 +63,8 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
 
     async def async_step_user(self, user_input):
         """Handle a flow initialized by the user."""
+        self._use_progress_task = AwesomeVersion(HAVERSION) >= MINIMUM_HA_VERSION_SHOW_PROGRESS_TASK
+
         self._errors = {}
         if self._async_current_entries():
             return self.async_abort(reason="single_instance_allowed")
@@ -80,7 +85,12 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
 
     @callback
     def async_remove(self):
-        """Cleanup."""
+        """Cleanup.
+
+        Needed in old Home Assistant versions which don't support show progress tasks.
+        """
+        if self._use_progress_task:
+            return
         if self.activation_task and not self.activation_task.done():
             self.activation_task.cancel()
 
@@ -97,7 +107,8 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
                     with suppress(UnknownFlow):
                         await self.hass.config_entries.flow.async_configure(flow_id=self.flow_id)
 
-                self.hass.async_create_task(_progress())
+                if not self._use_progress_task:
+                    self.hass.async_create_task(_progress())
 
         if not self.device:
             integration = await async_get_integration(self.hass, DOMAIN)
@@ -122,14 +133,17 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
                 return self.async_show_progress_done(next_step_id="could_not_register")
             return self.async_show_progress_done(next_step_id="device_done")
 
-        return self.async_show_progress(
-            step_id="device",
-            progress_action="wait_for_device",
-            description_placeholders={
+        show_progress_kwargs = {
+            "step_id": "device",
+            "progress_action": "wait_for_device",
+            "description_placeholders": {
                 "url": OAUTH_USER_LOGIN,
                 "code": self._registration.user_code,
             },
-        )
+        }
+        if self._use_progress_task:
+            show_progress_kwargs["progress_task"] = self.activation_task
+        return self.async_show_progress(**show_progress_kwargs)
 
     async def _show_config_form(self, user_input):
         """Show the configuration form to edit location data."""

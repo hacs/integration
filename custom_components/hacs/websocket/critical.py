@@ -1,14 +1,16 @@
 """Register info websocket commands."""
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from homeassistant.components import websocket_api
-from homeassistant.core import HomeAssistant
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 
 from ..utils.store import async_load_from_store, async_save_to_store
+
+if TYPE_CHECKING:
+    from homeassistant.core import HomeAssistant
 
 
 @websocket_api.websocket_command(
@@ -22,7 +24,7 @@ async def hacs_critical_list(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """List critical repositories."""
     connection.send_message(
         websocket_api.result_message(
@@ -44,7 +46,7 @@ async def hacs_critical_acknowledge(
     hass: HomeAssistant,
     connection: websocket_api.ActiveConnection,
     msg: dict[str, Any],
-):
+) -> None:
     """Acknowledge critical repository."""
     repository = msg["repository"]
 

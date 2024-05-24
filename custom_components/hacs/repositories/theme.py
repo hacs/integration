@@ -37,7 +37,7 @@ class HacsThemeRepository(HacsRepository):
         except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             pass
 
-        self.hacs.async_setup_frontend_endpoint_themes()
+        await self.hacs.async_setup_frontend_endpoint_themes()
 
     async def validate_repository(self):
         """Validate."""
@@ -88,7 +88,7 @@ class HacsThemeRepository(HacsRepository):
         self.update_filenames()
         self.content.path.local = self.localpath
 
-        # Signal entities to refresh
+        # Signal frontend to refresh
         if self.data.installed:
             self.hacs.async_dispatch(
                 HacsDispatchEvent.REPOSITORY,

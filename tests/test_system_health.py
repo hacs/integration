@@ -1,7 +1,8 @@
 """Test system health."""
 
 import asyncio
-from typing import Any, Generator
+from collections.abc import Generator
+from typing import Any
 
 from homeassistant.core import HomeAssistant
 from homeassistant.setup import async_setup_component
@@ -11,7 +12,6 @@ from custom_components.hacs.base import HacsBase
 
 from tests.common import MockedResponse, ResponseMocker, safe_json_dumps
 from tests.conftest import SnapshotFixture
-
 
 HACS_SYSTEM_HEALTH_DOMAIN = "Home Assistant Community Store"
 

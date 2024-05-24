@@ -1,11 +1,14 @@
 """Update entities for HACS."""
+
 from __future__ import annotations
 
 from typing import Any
 
 from homeassistant.components.update import UpdateEntity, UpdateEntityFeature
-from homeassistant.core import HomeAssistantError, callback
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant, HomeAssistantError, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .base import HacsBase
 from .const import DOMAIN
@@ -15,10 +18,12 @@ from .exceptions import HacsException
 from .repositories.base import HacsManifest
 
 
-async def async_setup_entry(hass, _config_entry, async_add_devices):
+async def async_setup_entry(
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+) -> None:
     """Setup update platform."""
-    hacs: HacsBase = hass.data.get(DOMAIN)
-    async_add_devices(
+    hacs: HacsBase = hass.data[DOMAIN]
+    async_add_entities(
         HacsRepositoryUpdateEntity(hacs=hacs, repository=repository)
         for repository in hacs.repositories.list_downloaded
     )
@@ -148,9 +153,18 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
                 self.repository.data.last_version = next(iter(self.repository.data.published_tags))
 
         release_notes = ""
-        if len(self.repository.releases.objects) > 0:
-            release = self.repository.releases.objects[0]
-            release_notes += release.body
+        # Compile release notes from installed version up to the latest
+        if self.installed_version in self.repository.data.published_tags:
+            for release in self.repository.releases.objects:
+                if release.tag_name == self.installed_version:
+                    break
+                release_notes += f"# {release.tag_name}"
+                if release.tag_name != release.name:
+                    release_notes += f"  - {release.name}"
+                release_notes += f"\n\n{release.body}"
+                release_notes += "\n\n---\n\n"
+        elif any(self.repository.releases.objects):
+            release_notes += self.repository.releases.objects[0].body
 
         if self.repository.pending_update:
             if self.repository.data.category == HacsCategory.INTEGRATION:

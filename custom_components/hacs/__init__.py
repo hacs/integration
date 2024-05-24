@@ -12,6 +12,7 @@ from typing import Any
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
 from awesomeversion import AwesomeVersion
+from homeassistant.components.frontend import async_remove_panel
 from homeassistant.components.lovelace.system_health import system_health_info
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import Platform, __version__ as HAVERSION
@@ -127,19 +128,18 @@ async def async_initialize_integration(
         """HACS startup tasks."""
         hacs.enable_hacs()
 
-        for location in (
-            hass.config.path("custom_components/custom_updater.py"),
-            hass.config.path("custom_components/custom_updater/__init__.py"),
-        ):
-            if os.path.exists(location):
-                hacs.log.critical(
-                    "This cannot be used with custom_updater. "
-                    "To use this you need to remove custom_updater form %s",
-                    location,
-                )
+        try:
+            import custom_components.custom_updater
+        except ImportError:
+            pass
+        else:
+            hacs.log.critical(
+                "HACS cannot be used with custom_updater. "
+                "To use HACS you need to remove custom_updater from `custom_components`",
+            )
 
-                hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
-                return False
+            hacs.disable_hacs(HacsDisabledReason.CONSTRAINS)
+            return False
 
         if not version_left_higher_or_equal_then_right(
             hacs.core.ha_version.string,
@@ -163,7 +163,7 @@ async def async_initialize_integration(
         hacs.set_active_categories()
 
         async_register_websocket_commands(hass)
-        async_register_frontend(hass, hacs)
+        await async_register_frontend(hass, hacs)
 
         if hacs.configuration.config_type == ConfigurationType.YAML:
             hass.async_create_task(
@@ -183,11 +183,11 @@ async def async_initialize_integration(
         if hacs.system.disabled:
             return False
 
-        # Schedule startup tasks
-        async_at_start(hass=hass, at_start_cb=hacs.startup_tasks)
-
         hacs.set_stage(HacsStage.WAITING)
         hacs.log.info("Setup complete, waiting for Home Assistant before startup tasks starts")
+
+        # Schedule startup tasks
+        async_at_start(hass=hass, at_start_cb=hacs.startup_tasks)
 
         return not hacs.system.disabled
 
@@ -267,7 +267,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     try:
         if hass.data.get("frontend_panels", {}).get("hacs"):
             hacs.log.info("Removing sidepanel")
-            hass.components.frontend.async_remove_panel("hacs")
+            async_remove_panel(hass, "hacs")
     except AttributeError:
         pass
 

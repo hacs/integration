@@ -1,6 +1,6 @@
+from collections.abc import Generator
 import os
 from pathlib import Path
-from typing import Generator
 
 from homeassistant.core import HomeAssistant
 import pytest

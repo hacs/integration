@@ -152,7 +152,7 @@ jobs:
   notify_on_failure:
     runs-on: ubuntu-latest
     name: Trigger Discord notification when jobs fail
-    needs: ["preflight","validate-hassfest", "validate-hacs", "validate-homeassistant"]
+    needs: ["preflight","validate-hassfest", "validate-hacs"]
     steps:
       - name: Send notification
         if: ${{ always() && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}

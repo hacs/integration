@@ -1,6 +1,6 @@
+from collections.abc import Generator
 import json
 import re
-from typing import Generator
 from unittest.mock import patch
 
 from homeassistant.core import HomeAssistant, HomeAssistantError

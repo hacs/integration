@@ -30,12 +30,11 @@ if TYPE_CHECKING:
     from .base import HacsBase
 
 
-@callback
-def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
+async def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
     """Register the frontend."""
 
     # Setup themes endpoint if needed
-    hacs.async_setup_frontend_endpoint_themes()
+    await hacs.async_setup_frontend_endpoint_themes()
 
     # Register frontend
     if hacs.configuration.dev and (frontend_path := os.getenv("HACS_FRONTEND_DIR")):
@@ -84,4 +83,4 @@ def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
         )
 
     # Setup plugin endpoint if needed
-    hacs.async_setup_frontend_endpoint_plugin()
+    await hacs.async_setup_frontend_endpoint_plugin()

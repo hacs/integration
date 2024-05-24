@@ -32,9 +32,9 @@ async def test_validate_repository(
         setattr(repository.data, key, value)
 
     hacs.session = await client_session_proxy(hacs.hass)
-    docs = await repository.get_documentation(filename="README.md")
+    docs = await repository.get_documentation(filename="README.md", version=None)
 
     if result:
         assert result in docs
     else:
-        assert result is None
+        assert docs is None

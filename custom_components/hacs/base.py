@@ -2,15 +2,15 @@
 from __future__ import annotations
 
 import asyncio
+from collections.abc import Awaitable, Callable
 from dataclasses import asdict, dataclass, field
 from datetime import timedelta
 import gzip
-import logging
 import math
 import os
 import pathlib
 import shutil
-from typing import TYPE_CHECKING, Any, Awaitable, Callable
+from typing import TYPE_CHECKING, Any
 
 from aiogithubapi import (
     AIOGitHubAPIException,
@@ -27,7 +27,7 @@ from awesomeversion import AwesomeVersion
 from homeassistant.components.persistent_notification import (
     async_create as async_create_persistent_notification,
 )
-from homeassistant.config_entries import ConfigEntry, ConfigEntryState
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
@@ -65,6 +65,7 @@ from .exceptions import (
 )
 from .repositories import REPOSITORY_CLASSES
 from .utils.decode import decode_content
+from .utils.file_system import async_exists
 from .utils.json import json_loads
 from .utils.logger import LOGGER
 from .utils.queue_manager import QueueManager
@@ -414,8 +415,6 @@ class HacsBase:
             reason == HacsDisabledReason.INVALID_TOKEN
             and self.configuration.config_type == ConfigurationType.CONFIG_ENTRY
         ):
-            self.configuration.config_entry.state = ConfigEntryState.SETUP_ERROR
-            self.configuration.config_entry.reason = "Authentication failed"
             self.hass.add_job(self.configuration.config_entry.async_start_reauth, self.hass)
 
     def enable_hacs(self) -> None:
@@ -474,7 +473,7 @@ class HacsBase:
             self.log.error("Could not write data to %s - %s", file_path, error)
             return False
 
-        return os.path.exists(file_path)
+        return await async_exists(self.hass, file_path)
 
     async def async_can_update(self) -> int:
         """Helper to calculate the number of repositories we can fetch data for."""
@@ -741,7 +740,7 @@ class HacsBase:
                 raise HacsException(
                     f"Got status code {request.status} when trying to download {url}"
                 )
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 self.log.warning(
                     "A timeout of 60! seconds was encountered while downloading %s, "
                     "using over 60 seconds to download a single file is not normal. "
@@ -880,14 +879,14 @@ class HacsBase:
         await self.data.register_unknown_repositories(category_data, category)
 
         for repo_id, repo_data in category_data.items():
-            repo = repo_data["full_name"]
-            if self.common.renamed_repositories.get(repo):
-                repo = self.common.renamed_repositories[repo]
-            if self.repositories.is_removed(repo):
+            repo_name = repo_data["full_name"]
+            if self.common.renamed_repositories.get(repo_name):
+                repo_name = self.common.renamed_repositories[repo_name]
+            if self.repositories.is_removed(repo_name):
                 continue
-            if repo in self.common.archived_repositories:
+            if repo_name in self.common.archived_repositories:
                 continue
-            if repository := self.repositories.get_by_full_name(repo):
+            if repository := self.repositories.get_by_full_name(repo_name):
                 self.repositories.set_repository_id(repository, repo_id)
                 self.repositories.mark_default(repository)
                 if repository.data.last_fetched is None or (
@@ -1180,11 +1179,10 @@ class HacsBase:
             self.log.critical("Restarting Home Assistant")
             self.hass.async_create_task(self.hass.async_stop(100))
 
-    @callback
-    def async_setup_frontend_endpoint_plugin(self) -> None:
+    async def async_setup_frontend_endpoint_plugin(self) -> None:
         """Setup the http endpoints for plugins if its not already handled."""
-        if self.status.active_frontend_endpoint_plugin or not os.path.exists(
-            self.hass.config.path("www/community")
+        if self.status.active_frontend_endpoint_plugin or not await async_exists(
+            self.hass, self.hass.config.path("www/community")
         ):
             return
 
@@ -1204,13 +1202,12 @@ class HacsBase:
 
         self.status.active_frontend_endpoint_plugin = True
 
-    @callback
-    def async_setup_frontend_endpoint_themes(self) -> None:
+    async def async_setup_frontend_endpoint_themes(self) -> None:
         """Setup the http endpoints for themes if its not already handled."""
         if (
             self.configuration.experimental
             or self.status.active_frontend_endpoint_theme
-            or not os.path.exists(self.hass.config.path("themes"))
+            or not await async_exists(self.hass, self.hass.config.path("themes"))
         ):
             return
 

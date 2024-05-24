@@ -3,13 +3,14 @@
 from . import patch_time  # noqa: F401, isort:skip
 import asyncio
 from collections import OrderedDict
+from collections.abc import Generator
 from dataclasses import asdict
 from glob import iglob
 import json
 import logging
 import os
 import shutil
-from typing import Any, Generator
+from typing import Any
 from unittest.mock import MagicMock, patch
 
 from _pytest.assertion.util import _compare_eq_iterable
@@ -125,13 +126,13 @@ def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
         orig_exception_handler(loop, context)
 
     exceptions: list[Exception] = []
-    if AwesomeVersion(HA_VERSION) > "2023.6.0":
+    if AwesomeVersion(HA_VERSION) > "2024.4.1":
         context_manager = async_test_home_assistant_dev(event_loop, config_dir=tmpdir.strpath)
-        hass_obj = event_loop.run_until_complete(context_manager.__aenter__())
     else:
-        hass_obj = event_loop.run_until_complete(
-            async_test_home_assistant_min_version(event_loop, config_dir=tmpdir.strpath)
+        context_manager = async_test_home_assistant_min_version(
+            event_loop, config_dir=tmpdir.strpath
         )
+    hass_obj = event_loop.run_until_complete(context_manager.__aenter__())
     event_loop.run_until_complete(async_setup_component(hass_obj, "homeassistant", {}))
     with patch("homeassistant.components.python_script.setup", return_value=True):
         assert event_loop.run_until_complete(async_setup_component(hass_obj, "python_script", {}))
@@ -396,15 +397,11 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
             calls[_test_caller][url] = 0
         calls[_test_caller][url] += 1
 
-    filtered_calls = OrderedDict(
-        {
-            k: v
-            for k, v in {
-                t: OrderedDict({k: v for k, v in c.items() if v != 0}) for t, c in calls.items()
-            }.items()
-            if v
-        }
-    )
+    filtered_calls = {
+        k: v
+        for k, v in {t: {k: v for k, v in c.items() if v != 0} for t, c in calls.items()}.items()
+        if v
+    }
 
     if session.config.option.snapshot_update:
         with open("tests/output/proxy_calls.json", mode="w", encoding="utf-8") as file:

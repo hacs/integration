@@ -24,7 +24,7 @@ class Validator(ActionValidationBase):
 
     async def async_validate(self) -> None:
         """Validate the repository."""
-        info = await self.repository.async_get_info_file_contents()
+        info = await self.repository.async_get_info_file_contents(version=self.repository.ref)
         for line in info.split("\n"):
             if "<img" in line or "![" in line:
                 if [ignore for ignore in IGNORED if ignore in line]:

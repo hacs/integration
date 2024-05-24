@@ -2,7 +2,6 @@
 # pytest: disable=protected-access
 from . import patch_time  # noqa: F401, isort:skip
 import asyncio
-from collections import OrderedDict
 from collections.abc import Generator
 from dataclasses import asdict
 from glob import iglob

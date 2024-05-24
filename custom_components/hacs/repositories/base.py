@@ -20,7 +20,7 @@ import attr
 from homeassistant.helpers import device_registry as dr, issue_registry as ir
 
 from ..const import DOMAIN
-from ..enums import ConfigurationType, HacsDispatchEvent, RepositoryFile
+from ..enums import HacsDispatchEvent, RepositoryFile
 from ..exceptions import (
     HacsException,
     HacsNotModifiedException,
@@ -1281,10 +1281,7 @@ class HacsRepository:
 
     async def async_remove_entity_device(self) -> None:
         """Remove the entity device."""
-        if (
-            self.hacs.configuration == ConfigurationType.YAML
-            or not self.hacs.configuration.experimental
-        ):
+        if not self.hacs.configuration.experimental:
             return
 
         device_registry: dr.DeviceRegistry = dr.async_get(hass=self.hacs.hass)

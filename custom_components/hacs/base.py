@@ -45,7 +45,6 @@ from .const import DOMAIN, TV, URL_BASE
 from .coordinator import HacsUpdateCoordinator
 from .data_client import HacsDataClient
 from .enums import (
-    ConfigurationType,
     HacsCategory,
     HacsDisabledReason,
     HacsDispatchEvent,
@@ -119,7 +118,6 @@ class HacsConfiguration:
     appdaemon: bool = False
     config: dict[str, Any] = field(default_factory=dict)
     config_entry: ConfigEntry | None = None
-    config_type: ConfigurationType | None = None
     country: str = "ALL"
     debug: bool = False
     dev: bool = False
@@ -413,10 +411,7 @@ class HacsBase:
         if reason != HacsDisabledReason.REMOVED:
             self.log.error("HACS is disabled - %s", reason)
 
-        if (
-            reason == HacsDisabledReason.INVALID_TOKEN
-            and self.configuration.config_type == ConfigurationType.CONFIG_ENTRY
-        ):
+        if reason == HacsDisabledReason.INVALID_TOKEN:
             self.hass.add_job(self.configuration.config_entry.async_start_reauth, self.hass)
 
     def enable_hacs(self) -> None:
@@ -767,7 +762,7 @@ class HacsBase:
 
     async def async_recreate_entities(self) -> None:
         """Recreate entities."""
-        if self.configuration == ConfigurationType.YAML or not self.configuration.experimental:
+        if not self.configuration.experimental:
             return
 
         platforms = [Platform.SENSOR, Platform.UPDATE]

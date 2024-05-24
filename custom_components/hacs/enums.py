@@ -59,11 +59,6 @@ class RepositoryFile(StrEnum):
     MAINIFEST_JSON = "manifest.json"
 
 
-class ConfigurationType(StrEnum):
-    YAML = "yaml"
-    CONFIG_ENTRY = "config_entry"
-
-
 class LovelaceMode(StrEnum):
     """Lovelace Modes."""
 

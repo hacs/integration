@@ -149,42 +149,10 @@ jobs:
           retention-days: 3
 
 
-  validate-homeassistant:
-    needs:
-      - "preflight"
-    runs-on: ubuntu-latest
-    name: With Home Assistant ${{ matrix.channel }}
-    strategy:
-      matrix:
-        channel:
-          - "stable"
-          - "beta"
-          - "dev"
-          - "2023.6.0"
-    steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v4.1.6
-
-      - name: Copy sample configuration for Home Assistant
-        run: |
-          mkdir ./test_configuration
-          bash scripts/install/frontend
-          cp -r ./custom_components ./test_configuration
-          echo "default_config:" >> ./test_configuration/configuration.yaml
-          echo "hacs:" >> ./test_configuration/configuration.yaml
-          echo "  token: CHANGE_ME" >> ./test_configuration/configuration.yaml
-
-      - name: Setup Home Assistant
-        id: homeassistant
-        uses: ludeeus/setup-homeassistant@main
-        with:
-          tag: ${{ matrix.channel }}
-          config-dir: test_configuration
-
   notify_on_failure:
     runs-on: ubuntu-latest
     name: Trigger Discord notification when jobs fail
-    needs: ["preflight","validate-hassfest", "validate-hacs", "validate-homeassistant"]
+    needs: ["preflight","validate-hassfest", "validate-hacs"]
     steps:
       - name: Send notification
         if: ${{ always() && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}

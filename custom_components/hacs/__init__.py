@@ -7,7 +7,6 @@ https://hacs.xyz/
 from __future__ import annotations
 
 import os
-from typing import Any
 
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
@@ -20,7 +19,6 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.discovery import async_load_platform
 from homeassistant.helpers.event import async_call_later
-from homeassistant.helpers.issue_registry import IssueSeverity, async_create_issue
 from homeassistant.helpers.start import async_at_start
 from homeassistant.loader import async_get_integration
 import voluptuous as vol
@@ -30,48 +28,33 @@ from .const import DOMAIN, MINIMUM_HA_VERSION, STARTUP
 from .data_client import HacsDataClient
 from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
 from .frontend import async_register_frontend
-from .utils.configuration_schema import hacs_config_combined
 from .utils.data import HacsData
-from .utils.logger import LOGGER
 from .utils.queue_manager import QueueManager
 from .utils.version import version_left_higher_or_equal_then_right
 from .websocket import async_register_websocket_commands
 
-CONFIG_SCHEMA = vol.Schema({DOMAIN: hacs_config_combined()}, extra=vol.ALLOW_EXTRA)
 
-
-async def async_initialize_integration(
+async def _async_initialize_integration(
     hass: HomeAssistant,
-    *,
-    config_entry: ConfigEntry | None = None,
-    config: dict[str, Any] | None = None,
+    config_entry: ConfigEntry,
 ) -> bool:
     """Initialize the integration"""
     hass.data[DOMAIN] = hacs = HacsBase()
     hacs.enable_hacs()
 
-    if config is not None:
-        hacs.configuration.update_from_dict(
-            {
-                "config_type": ConfigurationType.YAML,
-                **config[DOMAIN],
-                "config": config[DOMAIN],
-            }
-        )
+    if config_entry.source == SOURCE_IMPORT:
+        # Import is not supported
+        hass.async_create_task(hass.config_entries.async_remove(config_entry.entry_id))
+        return False
 
-    if config_entry is not None:
-        if config_entry.source == SOURCE_IMPORT:
-            hass.async_create_task(hass.config_entries.async_remove(config_entry.entry_id))
-            return False
-
-        hacs.configuration.update_from_dict(
-            {
-                "config_entry": config_entry,
-                "config_type": ConfigurationType.CONFIG_ENTRY,
-                **config_entry.data,
-                **config_entry.options,
-            }
-        )
+    hacs.configuration.update_from_dict(
+        {
+            "config_entry": config_entry,
+            "config_type": ConfigurationType.CONFIG_ENTRY,
+            **config_entry.data,
+            **config_entry.options,
+        }
+    )
 
     integration = await async_get_integration(hass, DOMAIN)
 
@@ -213,35 +196,10 @@ async def async_initialize_integration(
     return True
 
 
-async def async_setup(hass: HomeAssistant, config: dict[str, Any]) -> bool:
-    """Set up this integration using yaml."""
-    if DOMAIN not in config:
-        return True
-
-    async_create_issue(
-        hass,
-        DOMAIN,
-        "deprecated_yaml_configuration",
-        is_fixable=False,
-        issue_domain=DOMAIN,
-        severity=IssueSeverity.WARNING,
-        translation_key="deprecated_yaml_configuration",
-        learn_more_url="https://hacs.xyz/docs/configuration/options",
-    )
-    LOGGER.warning(
-        "YAML configuration of HACS is deprecated and will be "
-        "removed in version 2.0.0, there will be no automatic "
-        "import of this. "
-        "Please remove it from your configuration, "
-        "restart Home Assistant and use the UI to configure it instead."
-    )
-    return await async_initialize_integration(hass=hass, config=config)
-
-
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Set up this integration using UI."""
     config_entry.async_on_unload(config_entry.add_update_listener(async_reload_entry))
-    setup_result = await async_initialize_integration(hass=hass, config_entry=config_entry)
+    setup_result = await _async_initialize_integration(hass=hass, config_entry=config_entry)
     hacs: HacsBase = hass.data[DOMAIN]
     return setup_result and not hacs.system.disabled
 

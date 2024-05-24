@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from ..base import HacsBase, HacsConfiguration
+    from ..base import HacsBase
 
 
 @lru_cache(maxsize=1)

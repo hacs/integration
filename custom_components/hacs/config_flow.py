@@ -166,9 +166,6 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
                         "acc_untested", default=user_input.get("acc_untested", False)
                     ): bool,
                     vol.Required("acc_disable", default=user_input.get("acc_disable", False)): bool,
-                    vol.Optional(
-                        "experimental", default=user_input.get("experimental", False)
-                    ): bool,
                 }
             ),
             errors=self._errors,
@@ -188,9 +185,6 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
             title="",
             data={
                 "token": self._activation.access_token,
-            },
-            options={
-                "experimental": self._user_input.get("experimental", False),
             },
         )
 
@@ -255,7 +249,6 @@ class HacsOptionsFlowHandler(OptionsFlow):
                 vol.Optional(APPDAEMON, default=hacs.configuration.appdaemon): bool,
                 vol.Optional(NETDAEMON, default=hacs.configuration.netdaemon): bool,
                 vol.Optional(DEBUG, default=hacs.configuration.debug): bool,
-                vol.Optional(EXPERIMENTAL, default=hacs.configuration.experimental): bool,
             }
 
         return self.async_show_form(step_id="user", data_schema=vol.Schema(schema))

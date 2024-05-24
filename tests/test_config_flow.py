@@ -85,7 +85,6 @@ async def test_full_user_flow_implementation(
             "acc_addons": True,
             "acc_untested": True,
             "acc_disable": False,
-            "experimental": True,
         },
     )
 
@@ -98,7 +97,6 @@ async def test_full_user_flow_implementation(
             "acc_addons": True,
             "acc_untested": True,
             "acc_disable": True,
-            "experimental": True,
         },
     )
 
@@ -164,7 +162,6 @@ async def test_flow_with_remove_while_activating(
             "acc_addons": True,
             "acc_untested": True,
             "acc_disable": True,
-            "experimental": True,
         },
     )
 
@@ -212,7 +209,6 @@ async def test_flow_with_registration_failure(
             "acc_addons": True,
             "acc_untested": True,
             "acc_disable": True,
-            "experimental": True,
         },
     )
     await hass.async_block_till_done()
@@ -281,7 +277,6 @@ async def test_flow_with_activation_failure(
             "acc_addons": True,
             "acc_untested": True,
             "acc_disable": True,
-            "experimental": True,
         },
     )
 
@@ -348,7 +343,6 @@ async def test_options_flow(hass: HomeAssistant, setup_integration: Generator) -
         "appdaemon": True,
         "country": "ALL",
         "debug": False,
-        "experimental": True,
         "netdaemon": True,
         "release_limit": 5,
         "sidepanel_icon": "hacs:hacs",
@@ -359,7 +353,6 @@ async def test_options_flow(hass: HomeAssistant, setup_integration: Generator) -
         "appdaemon": True,
         "country": "ALL",
         "debug": False,
-        "experimental": True,
         "netdaemon": True,
         "release_limit": 5,
         "sidepanel_icon": "hacs:hacs",

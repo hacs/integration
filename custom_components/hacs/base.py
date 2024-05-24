@@ -145,7 +145,7 @@ class HacsConfiguration:
             raise HacsException("Configuration is not valid.")
 
         for key in data:
-            if key == "experimental":
+            if key in {"experimental", "netdaemon"}:
                 continue
             self.__setattr__(key, data[key])
 

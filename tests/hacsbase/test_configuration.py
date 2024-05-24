@@ -49,6 +49,15 @@ def test_ignore_experimental():
     assert config.experimental is True
 
 
+def test_ignore_netdaemon():
+    """Test netdaemon setting is ignored."""
+    config = HacsConfiguration()
+    assert not hasattr(config, "netdaemon")
+
+    config.update_from_dict({"netdaemon": True})
+    assert not hasattr(config, "netdaemon")
+
+
 def test_edge_update_with_none():
     config = HacsConfiguration()
     with pytest.raises(HacsException):

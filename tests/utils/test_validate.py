@@ -18,7 +18,7 @@ from custom_components.hacs.utils.validate import (
 from tests.common import fixture
 
 
-def test_hacs_manufest_json_schema():
+def test_hacs_manifest_json_schema():
     """Test HACS validator."""
     assert hacs_json_schema({"name": "My awesome thing", "homeassistant": "1.2"}) == {
         "name": "My awesome thing",

@@ -10,10 +10,6 @@ from homeassistant.core import HomeAssistant, callback
 
 from .const import DOMAIN, URL_BASE
 from .hacs_frontend import VERSION as FE_VERSION, locate_dir
-from .hacs_frontend_experimental import (
-    VERSION as EXPERIMENTAL_FE_VERSION,
-    locate_dir as experimental_locate_dir,
-)
 
 try:
     from homeassistant.components.frontend import add_extra_js_url
@@ -45,24 +41,16 @@ async def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
         hass.http.register_static_path(
             f"{URL_BASE}/frontend", f"{frontend_path}/hacs_frontend", cache_headers=False
         )
-    elif hacs.configuration.experimental:
-        hacs.log.info("<HacsFrontend> Using experimental frontend")
-        hass.http.register_static_path(
-            f"{URL_BASE}/frontend", experimental_locate_dir(), cache_headers=False
-        )
+        hacs.frontend_version = "dev"
     else:
-        #
         hass.http.register_static_path(f"{URL_BASE}/frontend", locate_dir(), cache_headers=False)
+        hacs.frontend_version = FE_VERSION
 
     # Custom iconset
     hass.http.register_static_path(
         f"{URL_BASE}/iconset.js", str(hacs.integration_dir / "iconset.js")
     )
     add_extra_js_url(hass, f"{URL_BASE}/iconset.js")
-
-    hacs.frontend_version = (
-        FE_VERSION if not hacs.configuration.experimental else EXPERIMENTAL_FE_VERSION
-    )
 
     # Add to sidepanel if needed
     if DOMAIN not in hass.data.get("frontend_panels", {}):

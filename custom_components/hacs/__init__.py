@@ -134,17 +134,12 @@ async def _async_initialize_integration(
             hacs.disable_hacs(HacsDisabledReason.RESTORE)
             return False
 
-        if not hacs.configuration.experimental:
-            can_update = await hacs.async_can_update()
-            hacs.log.debug("Can update %s repositories", can_update)
-
         hacs.set_active_categories()
 
         async_register_websocket_commands(hass)
         await async_register_frontend(hass, hacs)
 
-        if hacs.configuration.experimental:
-            await hass.config_entries.async_forward_entry_setups(config_entry, [Platform.UPDATE])
+        await hass.config_entries.async_forward_entry_setups(config_entry, [Platform.UPDATE])
 
         hacs.set_stage(HacsStage.SETUP)
         if hacs.system.disabled:
@@ -210,9 +205,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     except AttributeError:
         pass
 
-    platforms = []
-    if hacs.configuration.experimental:
-        platforms.append("update")
+    platforms = [Platform.UPDATE]
 
     unload_ok = await hass.config_entries.async_unload_platforms(config_entry, platforms)
 

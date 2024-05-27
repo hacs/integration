@@ -46,9 +46,8 @@ async def system_health_info(hass: HomeAssistant) -> dict[str, Any]:
     if hacs.system.disabled:
         data["Disabled"] = hacs.system.disabled_reason
 
-    if hacs.configuration.experimental:
-        data["HACS Data"] = system_health.async_check_can_reach_url(
-            hass, "https://data-v2.hacs.xyz/data.json", CLOUDFLARE_STATUS
-        )
+    data["HACS Data"] = system_health.async_check_can_reach_url(
+        hass, "https://data-v2.hacs.xyz/data.json", CLOUDFLARE_STATUS
+    )
 
     return data

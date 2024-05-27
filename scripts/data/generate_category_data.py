@@ -25,6 +25,7 @@ import voluptuous as vol
 from custom_components.hacs.base import HacsBase, HacsRepositories
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.data_client import HacsDataClient
+from custom_components.hacs.enums import HacsGitHubRepo
 from custom_components.hacs.exceptions import HacsExecutionStillInProgress
 from custom_components.hacs.repositories.base import (
     HACS_MANIFEST_KEYS_TO_EXPORT,
@@ -32,7 +33,9 @@ from custom_components.hacs.repositories.base import (
     HacsRepository,
 )
 from custom_components.hacs.utils.data import HacsData
+from custom_components.hacs.utils.decode import decode_content
 from custom_components.hacs.utils.decorator import concurrent
+from custom_components.hacs.utils.json import json_loads
 from custom_components.hacs.utils.queue_manager import QueueManager
 from custom_components.hacs.utils.validate import VALIDATE_GENERATED_V2_REPO_DATA
 
@@ -140,7 +143,6 @@ class AdjustedHacs(HacsBase):
         self.session = session
         self.core.config_path = None
         self.configuration.token = token
-        self.configuration.experimental = True
         self.data = AdjustedHacsData(hacs=self)
         self.data_client = HacsDataClient(session=session, client_name="HACS/Generator")
 
@@ -338,6 +340,18 @@ class AdjustedHacs(HacsBase):
             )
         )
         return changed
+
+    async def async_github_get_hacs_default_file(self, filename: str) -> list:
+        """Get the content of a default file."""
+        response = await self.async_github_api_method(
+            method=self.githubapi.repos.contents.get,
+            repository=HacsGitHubRepo.DEFAULT,
+            path=filename,
+        )
+        if response is None:
+            return []
+
+        return json_loads(decode_content(response.data.content))
 
 
 async def generate_category_data(category: str, repository_name: str = None):

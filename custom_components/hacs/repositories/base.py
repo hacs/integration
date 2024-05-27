@@ -612,18 +612,17 @@ class HacsRepository:
     async def download_content(self, version: string | None = None) -> None:
         """Download the content of a directory."""
         contents: list[FileInformation] | None = None
-        if self.hacs.configuration.experimental:
-            if (
-                not self.repository_manifest.zip_release
-                and not self.data.file_name
-                and self.content.path.remote is not None
-            ):
-                self.logger.info("%s Trying experimental download", self.string)
-                try:
-                    await self.download_repository_zip()
-                    return
-                except HacsException as exception:
-                    self.logger.exception(exception)
+        if (
+            not self.repository_manifest.zip_release
+            and not self.data.file_name
+            and self.content.path.remote is not None
+        ):
+            self.logger.info("%s Trying experimental download", self.string)
+            try:
+                await self.download_repository_zip()
+                return
+            except HacsException as exception:
+                self.logger.exception(exception)
 
         if self.repository_manifest.filename:
             self.logger.debug("%s %s", self.string, self.repository_manifest.filename)
@@ -720,11 +719,7 @@ class HacsRepository:
         """Get the content of the info.md file."""
 
         def _info_file_variants() -> tuple[str, ...]:
-            name: str = (
-                "readme"
-                if self.repository_manifest.render_readme or self.hacs.configuration.experimental
-                else "info"
-            )
+            name: str = "readme"
             return (
                 f"{name.upper()}.md",
                 f"{name}.md",
@@ -1281,9 +1276,6 @@ class HacsRepository:
 
     async def async_remove_entity_device(self) -> None:
         """Remove the entity device."""
-        if not self.hacs.configuration.experimental:
-            return
-
         device_registry: dr.DeviceRegistry = dr.async_get(hass=self.hacs.hass)
         device = device_registry.async_get_device(identifiers={(DOMAIN, str(self.data.id))})
 

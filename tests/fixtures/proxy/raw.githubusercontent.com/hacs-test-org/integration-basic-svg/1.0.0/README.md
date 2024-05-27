@@ -1,0 +1,1 @@
+## Example readme file <svg>data</svg> (1.0.0)

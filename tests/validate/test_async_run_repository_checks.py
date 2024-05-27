@@ -22,6 +22,6 @@ async def test_async_run_repository_checks(
         await hacs.validation.async_run_repository_checks(repository_integration)
 
     with patch(
-        "custom_components.hacs.validate.manager.ValidationManager.validatiors", return_value=[]
+        "custom_components.hacs.validate.manager.ValidationManager.validators", return_value=[]
     ):
         await hacs.validation.async_run_repository_checks(repository_integration)

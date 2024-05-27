@@ -1,4 +1,5 @@
 """Sensor platform for HACS."""
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

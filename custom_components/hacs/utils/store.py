@@ -1,4 +1,5 @@
 """Storage handers."""
+
 from homeassistant.helpers.json import JSONEncoder
 from homeassistant.helpers.storage import Store
 from homeassistant.util import json as json_util

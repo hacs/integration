@@ -1,4 +1,5 @@
 """Helper constants."""
+
 # pylint: disable=missing-class-docstring
 import sys
 

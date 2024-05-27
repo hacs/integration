@@ -1,4 +1,5 @@
 """Repository."""
+
 from __future__ import annotations
 
 from asyncio import sleep
@@ -1061,9 +1062,9 @@ class HacsRepository:
             )
             self.repository_object = repository_object
             if self.data.full_name.lower() != repository_object.full_name.lower():
-                self.hacs.common.renamed_repositories[
-                    self.data.full_name
-                ] = repository_object.full_name
+                self.hacs.common.renamed_repositories[self.data.full_name] = (
+                    repository_object.full_name
+                )
                 if not self.hacs.system.generator:
                     raise HacsRepositoryExistException
                 self.logger.error(

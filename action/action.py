@@ -1,4 +1,5 @@
 """Validate a GitHub repository to be used with HACS."""
+
 from __future__ import annotations
 
 import asyncio

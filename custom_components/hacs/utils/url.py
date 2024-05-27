@@ -1,4 +1,5 @@
 """Various URL utils for HACS."""
+
 import re
 from typing import Literal
 

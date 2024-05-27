@@ -15,7 +15,6 @@ from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import Platform, __version__ as HAVERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.discovery import async_load_platform
 from homeassistant.helpers.event import async_call_later
 from homeassistant.helpers.start import async_at_start
 from homeassistant.loader import async_get_integration
@@ -23,7 +22,7 @@ from homeassistant.loader import async_get_integration
 from .base import HacsBase
 from .const import DOMAIN, MINIMUM_HA_VERSION, STARTUP
 from .data_client import HacsDataClient
-from .enums import ConfigurationType, HacsDisabledReason, HacsStage, LovelaceMode
+from .enums import HacsDisabledReason, HacsStage, LovelaceMode
 from .frontend import async_register_frontend
 from .utils.data import HacsData
 from .utils.queue_manager import QueueManager
@@ -47,7 +46,6 @@ async def _async_initialize_integration(
     hacs.configuration.update_from_dict(
         {
             "config_entry": config_entry,
-            "config_type": ConfigurationType.CONFIG_ENTRY,
             **config_entry.data,
             **config_entry.options,
         }
@@ -81,7 +79,6 @@ async def _async_initialize_integration(
     except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
         # If this happens, the users YAML is not valid, we assume YAML mode
         pass
-    hacs.log.debug("Configuration type: %s", hacs.configuration.config_type)
     hacs.core.config_path = hacs.hass.config.path()
 
     if hacs.core.ha_version is None:
@@ -145,19 +142,12 @@ async def _async_initialize_integration(
         async_register_websocket_commands(hass)
         await async_register_frontend(hass, hacs)
 
-        if hacs.configuration.config_type == ConfigurationType.YAML:
-            hass.async_create_task(
-                async_load_platform(hass, Platform.SENSOR, DOMAIN, {}, hacs.configuration.config)
-            )
-            hacs.log.info("Update entities are only supported when using UI configuration")
-
-        else:
-            await hass.config_entries.async_forward_entry_setups(
-                config_entry,
-                [Platform.SENSOR, Platform.UPDATE]
-                if hacs.configuration.experimental
-                else [Platform.SENSOR],
-            )
+        await hass.config_entries.async_forward_entry_setups(
+            config_entry,
+            [Platform.SENSOR, Platform.UPDATE]
+            if hacs.configuration.experimental
+            else [Platform.SENSOR],
+        )
 
         hacs.set_stage(HacsStage.SETUP)
         if hacs.system.disabled:
@@ -178,10 +168,7 @@ async def _async_initialize_integration(
         except AIOGitHubAPIException:
             startup_result = False
         if not startup_result:
-            if (
-                hacs.configuration.config_type == ConfigurationType.YAML
-                or hacs.system.disabled_reason != HacsDisabledReason.INVALID_TOKEN
-            ):
+            if hacs.system.disabled_reason != HacsDisabledReason.INVALID_TOKEN:
                 hacs.log.info("Could not setup HACS, trying again in 15 min")
                 async_call_later(hass, 900, async_try_startup)
             return

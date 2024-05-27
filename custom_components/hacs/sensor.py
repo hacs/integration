@@ -11,7 +11,6 @@ if TYPE_CHECKING:
 
 from .const import DOMAIN
 from .entity import HacsSystemEntity
-from .enums import ConfigurationType
 
 
 async def async_setup_platform(hass, _config, async_add_entities, _discovery_info=None):
@@ -45,10 +44,7 @@ class HACSSensor(HacsSystemEntity, SensorEntity):
             if repository.pending_update
         ]
         self._attr_native_value = len(repositories)
-        if (
-            self.hacs.configuration.config_type == ConfigurationType.YAML
-            or not self.hacs.configuration.experimental
-        ):
+        if not self.hacs.configuration.experimental:
             self._attr_extra_state_attributes = {
                 "repositories": [
                     {

@@ -23,7 +23,6 @@ import voluptuous as vol
 
 from .base import HacsBase
 from .const import CLIENT_ID, DOMAIN, LOCALE, MINIMUM_HA_VERSION
-from .enums import ConfigurationType
 from .utils.configuration_schema import (
     APPDAEMON,
     COUNTRY,
@@ -237,17 +236,14 @@ class HacsOptionsFlowHandler(OptionsFlow):
         if hacs.queue.has_pending_tasks:
             return self.async_abort(reason="pending_tasks")
 
-        if hacs.configuration.config_type == ConfigurationType.YAML:
-            schema = {vol.Optional("not_in_use", default=""): str}
-        else:
-            schema = {
-                vol.Optional(SIDEPANEL_TITLE, default=hacs.configuration.sidepanel_title): str,
-                vol.Optional(SIDEPANEL_ICON, default=hacs.configuration.sidepanel_icon): str,
-                vol.Optional(RELEASE_LIMIT, default=hacs.configuration.release_limit): int,
-                vol.Optional(COUNTRY, default=hacs.configuration.country): vol.In(LOCALE),
-                vol.Optional(APPDAEMON, default=hacs.configuration.appdaemon): bool,
-                vol.Optional(NETDAEMON, default=hacs.configuration.netdaemon): bool,
-                vol.Optional(DEBUG, default=hacs.configuration.debug): bool,
-            }
+        schema = {
+            vol.Optional(SIDEPANEL_TITLE, default=hacs.configuration.sidepanel_title): str,
+            vol.Optional(SIDEPANEL_ICON, default=hacs.configuration.sidepanel_icon): str,
+            vol.Optional(RELEASE_LIMIT, default=hacs.configuration.release_limit): int,
+            vol.Optional(COUNTRY, default=hacs.configuration.country): vol.In(LOCALE),
+            vol.Optional(APPDAEMON, default=hacs.configuration.appdaemon): bool,
+            vol.Optional(NETDAEMON, default=hacs.configuration.netdaemon): bool,
+            vol.Optional(DEBUG, default=hacs.configuration.debug): bool,
+        }
 
         return self.async_show_form(step_id="user", data_schema=vol.Schema(schema))

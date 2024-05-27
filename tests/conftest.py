@@ -252,7 +252,6 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                             "status": asdict(hacs.status),
                             "stage": hacs.stage,
                             "configuration": {
-                                "experimental": hacs.configuration.experimental,
                                 "debug": hacs.configuration.debug,
                                 "dev": hacs.configuration.dev,
                             },
@@ -345,7 +344,6 @@ async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> No
 
     config_entry = create_config_entry(
         options={
-            "experimental": True,
             "appdaemon": True,
             "netdaemon": True,
         }

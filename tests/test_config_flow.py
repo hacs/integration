@@ -303,7 +303,7 @@ async def test_already_configured(
     check_report_issue: None,
 ) -> None:
     """Test we abort if already configured."""
-    config_entry = create_config_entry(data={"experimental": True})
+    config_entry = create_config_entry()
     config_entry.add_to_hass(hass)
 
     result = await hass.config_entries.flow.async_init(

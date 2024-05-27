@@ -19,7 +19,7 @@ from tests.conftest import SnapshotFixture
     "data",
     [
         {"installed": True, "installed_version": "1.0.0"},
-        {"installed": True, "installed_version": "1.0.0"},
+        {"installed": True, "installed_version": "1.0.0","last_version": "2.0.0"},
         {"installed": False, "last_version": "2.0.0"},
         {"installed": False, "last_version": "99.99.99"}
     ],
@@ -39,5 +39,5 @@ async def test_repository_get_documentation(
     docs = await repository.get_documentation(filename="README.md", version=None)
     snapshots.assert_match(
         docs or "None",
-        f"{repository.data.full_name}/documentation_{slugify(json.dumps(data))}.md",
+        f"{repository.data.full_name}/get_documentation/{slugify(json.dumps(data), separator="_")}.md",
     )

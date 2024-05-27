@@ -22,16 +22,16 @@ class ValidationManager:
         """Initialize the setup manager class."""
         self.hacs = hacs
         self.hass = hass
-        self._validatiors: dict[str, ActionValidationBase] = {}
+        self._validators: dict[str, ActionValidationBase] = {}
 
     @property
-    def validatiors(self) -> list[ActionValidationBase]:
+    def validators(self) -> list[ActionValidationBase]:
         """Return all list of all tasks."""
-        return list(self._validatiors.values())
+        return list(self._validators.values())
 
     async def async_load(self, repository: HacsRepository) -> None:
         """Load all tasks."""
-        self._validatiors = {}
+        self._validators = {}
         validator_files = Path(__file__).parent
         validator_modules = (
             module.stem
@@ -42,7 +42,7 @@ class ValidationManager:
         async def _load_module(module: str) -> None:
             task_module = import_module(f"{__package__}.{module}")
             if task := await task_module.async_setup_validator(repository=repository):
-                self._validatiors[task.slug] = task
+                self._validators[task.slug] = task
 
         await asyncio.gather(*[_load_module(task) for task in validator_modules])
 
@@ -58,9 +58,9 @@ class ValidationManager:
             and os.getenv("GITHUB_REPOSITORY") != repository.data.full_name
         )
 
-        validatiors = [
+        validators = [
             validator
-            for validator in self.validatiors or []
+            for validator in self.validators or []
             if (
                 (not validator.categories or repository.data.category in validator.categories)
                 and validator.slug not in os.getenv("INPUT_IGNORE", "").split(" ")
@@ -68,10 +68,10 @@ class ValidationManager:
             )
         ]
 
-        await asyncio.gather(*[validator.execute_validation() for validator in validatiors])
+        await asyncio.gather(*[validator.execute_validation() for validator in validators])
 
-        total = len(validatiors)
-        failed = len([x for x in validatiors if x.failed])
+        total = len(validators)
+        failed = len([x for x in validators if x.failed])
 
         if failed != 0:
             repository.logger.error("%s %s/%s checks failed", repository.string, failed, total)

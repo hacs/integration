@@ -39,7 +39,6 @@ from ..utils.logger import LOGGER
 from ..utils.path import is_safe
 from ..utils.queue_manager import QueueManager
 from ..utils.store import async_remove_store
-from ..utils.template import render_template
 from ..utils.url import github_archive, github_release_asset
 from ..utils.validate import Validate
 from ..utils.version import (
@@ -1344,13 +1343,9 @@ class HacsRepository:
         )
 
         return (
-            render_template(
-                self.hacs,
-                result.decode(encoding="utf-8")
-                .replace("<svg", "<disabled")
-                .replace("</svg", "</disabled"),
-                self,
-            )
+            result.decode(encoding="utf-8")
+            .replace("<svg", "<disabled")
+            .replace("</svg", "</disabled")
             if result
             else None
         )

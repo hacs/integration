@@ -6,8 +6,6 @@ https://hacs.xyz/
 """
 from __future__ import annotations
 
-import os
-
 from aiogithubapi import AIOGitHubAPIException, GitHub, GitHubAPI
 from aiogithubapi.const import ACCEPT_HEADERS
 from awesomeversion import AwesomeVersion
@@ -21,7 +19,6 @@ from homeassistant.helpers.discovery import async_load_platform
 from homeassistant.helpers.event import async_call_later
 from homeassistant.helpers.start import async_at_start
 from homeassistant.loader import async_get_integration
-import voluptuous as vol
 
 from .base import HacsBase
 from .const import DOMAIN, MINIMUM_HA_VERSION, STARTUP

@@ -28,7 +28,6 @@ from .utils.configuration_schema import (
     APPDAEMON,
     COUNTRY,
     DEBUG,
-    EXPERIMENTAL,
     NETDAEMON,
     RELEASE_LIMIT,
     SIDEPANEL_ICON,

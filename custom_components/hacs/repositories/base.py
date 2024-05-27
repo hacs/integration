@@ -617,7 +617,7 @@ class HacsRepository:
             and not self.data.file_name
             and self.content.path.remote is not None
         ):
-            self.logger.info("%s Trying experimental download", self.string)
+            self.logger.info("%s Downloading repository archive", self.string)
             try:
                 await self.download_repository_zip()
                 return

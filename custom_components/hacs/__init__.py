@@ -30,6 +30,8 @@ from .utils.queue_manager import QueueManager
 from .utils.version import version_left_higher_or_equal_then_right
 from .websocket import async_register_websocket_commands
 
+PLATFORMS = [Platform.UPDATE]
+
 
 async def _async_initialize_integration(
     hass: HomeAssistant,
@@ -139,7 +141,7 @@ async def _async_initialize_integration(
         async_register_websocket_commands(hass)
         await async_register_frontend(hass, hacs)
 
-        await hass.config_entries.async_forward_entry_setups(config_entry, [Platform.UPDATE])
+        await hass.config_entries.async_forward_entry_setups(config_entry, PLATFORMS)
 
         hacs.set_stage(HacsStage.SETUP)
         if hacs.system.disabled:
@@ -205,9 +207,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     except AttributeError:
         pass
 
-    platforms = [Platform.UPDATE]
-
-    unload_ok = await hass.config_entries.async_unload_platforms(config_entry, platforms)
+    unload_ok = await hass.config_entries.async_unload_platforms(config_entry, PLATFORMS)
 
     hacs.set_stage(None)
     hacs.disable_hacs(HacsDisabledReason.REMOVED)

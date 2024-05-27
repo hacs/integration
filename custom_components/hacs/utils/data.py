@@ -165,8 +165,7 @@ class HacsData:
             pass
 
         try:
-            data = await async_load_from_store(self.hacs.hass, "data") or {}
-            if data:
+            if data := (await async_load_from_store(self.hacs.hass, "data") or {}):
                 for category, entries in data.get("repositories", {}).items():
                     for repository in entries:
                         repositories[repository["id"]] = {"category": category, **repository}

@@ -143,12 +143,8 @@ async def _async_initialize_integration(
         async_register_websocket_commands(hass)
         await async_register_frontend(hass, hacs)
 
-        await hass.config_entries.async_forward_entry_setups(
-            config_entry,
-            [Platform.SENSOR, Platform.UPDATE]
-            if hacs.configuration.experimental
-            else [Platform.SENSOR],
-        )
+        if hacs.configuration.experimental:
+            await hass.config_entries.async_forward_entry_setups(config_entry, [Platform.UPDATE])
 
         hacs.set_stage(HacsStage.SETUP)
         if hacs.system.disabled:
@@ -214,7 +210,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     except AttributeError:
         pass
 
-    platforms = ["sensor"]
+    platforms = []
     if hacs.configuration.experimental:
         platforms.append("update")
 

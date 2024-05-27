@@ -766,7 +766,7 @@ class HacsBase:
         if not self.configuration.experimental:
             return
 
-        platforms = [Platform.SENSOR, Platform.UPDATE]
+        platforms = [Platform.UPDATE]
 
         await self.hass.config_entries.async_unload_platforms(
             entry=self.configuration.config_entry,

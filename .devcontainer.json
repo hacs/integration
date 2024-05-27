@@ -20,6 +20,7 @@
   },
   "customizations": {
     "extensions": [
+      "charliermarsh.ruff",
       "ms-python.python",
       "github.vscode-pull-request-github",
       "ryanluker.vscode-coverage-gutters",
@@ -28,30 +29,19 @@
     ],
     "vscode": {
       "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python",
-        "python.linting.enabled": true,
-        "python.linting.pylintEnabled": true,
-        "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
-        "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
-        "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
-        "python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
-        "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
-        "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
-        "python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
-        "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
-        "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
-        "files.eol": "\n",
-        "editor.tabSize": 4,
-        "python.pythonPath": "/usr/local/python/bin/python",
-        "python.analysis.autoSearchPaths": false,
-        "python.linting.pylintArgs": [
-          "--disable",
-          "import-error"
-        ],
-        "python.formatting.provider": "black",
+        "python.pythonPath": "/usr/local/bin/python",
+        "python.formatting.provider": "ruff",
         "editor.formatOnPaste": false,
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.rulers": [
+          100
+        ],
+        "editor.codeActionsOnSave": {
+          "source.fixAll": "always",
+          "source.organizeImports": "always"
+        },
         "files.trimTrailingWhitespace": true
       },
       "extensions": [

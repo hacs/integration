@@ -1,4 +1,5 @@
 """Provide info to system health."""
+
 from typing import Any
 
 from aiogithubapi.common.const import BASE_API_URL

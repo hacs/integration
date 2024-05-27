@@ -1,4 +1,5 @@
 """The QueueManager class."""
+
 from __future__ import annotations
 
 import asyncio

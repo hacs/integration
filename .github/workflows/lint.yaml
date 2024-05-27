@@ -19,15 +19,16 @@ jobs:
     strategy:
       matrix:
         check:
-          - pyupgrade
-          - black
-          - codespell
+          - check-ast
           - check-executables-have-shebangs
           - check-json
-          - requirements-txt-fixer
-          - check-ast
-          - mixed-line-ending
+          - codespell
           - isort
+          - mixed-line-ending
+          - pyupgrade
+          - requirements-txt-fixer
+          - ruff-check
+          - ruff-format
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4.1.6

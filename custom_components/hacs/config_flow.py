@@ -1,4 +1,5 @@
 """Adds config flow for HACS."""
+
 from __future__ import annotations
 
 import asyncio

@@ -30,16 +30,25 @@ repos:
         args:
           - "--py39-plus"
 
-      - id: black
-        name: Run black
+      - id: ruff-check
+        name: Run ruff check
         language: system
         types: [text]
         stages: [commit, push, manual]
-        entry: black
+        entry: ruff
         args:
-          - --safe
-          - --quiet
+          - check
         files: ^((action|custom_components|script|tests)/.+)?[^/]+\.py$
+
+      - id: ruff-format
+        name: Run ruff format
+        language: system
+        types: [text]
+        stages: [commit, push, manual]
+        entry: ruff
+        args:
+          - format
+        files: ^((action|custom_components|script)/.+)?[^/]+\.py$
 
       - id: check-executables-have-shebangs
         name: Check that executables have shebangs

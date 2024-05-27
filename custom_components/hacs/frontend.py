@@ -1,4 +1,5 @@
-""""Starting setup task: Frontend"."""
+"""Starting setup task: Frontend."""
+
 from __future__ import annotations
 
 import os

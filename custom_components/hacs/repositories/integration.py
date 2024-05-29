@@ -46,7 +46,7 @@ class HacsIntegrationRepository(HacsRepository):
             if self.data.first_install:
                 self.pending_restart = False
 
-        if self.pending_restart and self.hacs.configuration.experimental:
+        if self.pending_restart:
             self.logger.debug("%s Creating restart_required issue", self.string)
             async_create_issue(
                 hass=self.hacs.hass,

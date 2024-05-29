@@ -216,7 +216,7 @@ async def test_discard_invalid_repo_data(
         MockedResponse(content={"12345": data}),
     )
 
-    config_entry = create_config_entry(data={"experimental": True})
+    config_entry = create_config_entry()
     hass.data.pop("custom_components", None)
     config_entry.add_to_hass(hass)
     assert await hass.config_entries.async_setup(config_entry.entry_id)

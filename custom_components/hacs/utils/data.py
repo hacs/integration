@@ -85,8 +85,7 @@ class HacsData:
                 "ignored_repositories": self.hacs.common.ignored_repositories,
             },
         )
-        if self.hacs.configuration.experimental:
-            await self._async_store_experimental_content_and_repos()
+        await self._async_store_experimental_content_and_repos()
         await self._async_store_content_and_repos()
 
     async def _async_store_content_and_repos(self, _=None):  # bb: ignore
@@ -166,14 +165,7 @@ class HacsData:
             pass
 
         try:
-            data = (
-                await async_load_from_store(
-                    self.hacs.hass,
-                    "data" if self.hacs.configuration.experimental else "repositories",
-                )
-                or {}
-            )
-            if data and self.hacs.configuration.experimental:
+            if data := (await async_load_from_store(self.hacs.hass, "data") or {}):
                 for category, entries in data.get("repositories", {}).items():
                     for repository in entries:
                         repositories[repository["id"]] = {"category": category, **repository}
@@ -184,11 +176,7 @@ class HacsData:
         except HomeAssistantError as exception:
             self.hacs.log.error(
                 "Could not read %s, restore the file from a backup - %s",
-                self.hacs.hass.config.path(
-                    ".storage/hacs.data"
-                    if self.hacs.configuration.experimental
-                    else ".storage/hacs.repositories"
-                ),
+                self.hacs.hass.config.path(".storage/hacs.data"),
                 exception,
             )
             self.hacs.disable_hacs(HacsDisabledReason.RESTORE)
@@ -197,13 +185,7 @@ class HacsData:
         if not hacs and not repositories:
             # Assume new install
             self.hacs.status.new = True
-            if self.hacs.configuration.experimental:
-                return True
-            self.logger.info("<HacsData restore> Loading base repository information")
-            repositories = await self.hacs.hass.async_add_executor_job(
-                json_util.load_json,
-                f"{self.hacs.core.config_path}/custom_components/hacs/utils/default.repositories",
-            )
+            return True
 
         self.logger.info("<HacsData restore> Restore started")
 

@@ -15,7 +15,7 @@ async def test_integration_setup(
     hass: HomeAssistant,
     snapshots: SnapshotFixture,
 ):
-    config_entry = create_config_entry(data={"experimental": True})
+    config_entry = create_config_entry()
     hass.data.pop("custom_components", None)
     config_entry.add_to_hass(hass)
     assert await hass.config_entries.async_setup(config_entry.entry_id)
@@ -41,7 +41,7 @@ async def test_integration_setup_with_custom_updater(
     snapshots: SnapshotFixture,
     caplog: pytest.LogCaptureFixture,
 ):
-    config_entry = create_config_entry(data={"experimental": True})
+    config_entry = create_config_entry()
     hass.data.pop("custom_components", None)
     config_entry.add_to_hass(hass)
     with patch.dict(

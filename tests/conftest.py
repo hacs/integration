@@ -18,11 +18,13 @@ import freezegun
 from homeassistant import loader
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
+from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import __version__ as HA_VERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from homeassistant.runner import HassEventLoopPolicy
 from homeassistant.setup import async_setup_component
+from homeassistant.util.async_ import create_eager_task
 import pytest
 import pytest_asyncio
 from pytest_snapshot.plugin import Snapshot
@@ -122,6 +124,7 @@ def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
         """Handle exceptions by rethrowing them, which will fail the test."""
         if exception := context.get("exception"):
             exceptions.append(exception)
+        print(context)
         orig_exception_handler(loop, context)
 
     exceptions: list[Exception] = []
@@ -140,6 +143,24 @@ def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
     event_loop.set_exception_handler(exc_handle)
 
     yield hass_obj
+
+    # Config entries are not normally unloaded on HA shutdown. They are unloaded here
+    # to ensure that they could, and to help track lingering tasks and timers.
+    loaded_entries = [
+        entry
+        for entry in hass_obj.config_entries.async_entries()
+        if entry.state is ConfigEntryState.LOADED
+    ]
+    if loaded_entries:
+        event_loop.run_until_complete(asyncio.gather(
+            *(
+                create_eager_task(
+                    hass_obj.config_entries.async_unload(config_entry.entry_id),
+                    loop=hass_obj.loop,
+                )
+                for config_entry in loaded_entries
+            )
+        ))
 
     event_loop.run_until_complete(hass_obj.async_stop(force=True))
     for ex in exceptions:

@@ -859,28 +859,16 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
 def create_config_entry(
     data: dict[str, Any] = None, options: dict[str, Any] = None
 ) -> MockConfigEntry:
-    try:
-        # Core 2024.1 added minor_version
-        return MockConfigEntry(
-            version=1,
-            minor_version=0,
-            domain=DOMAIN,
-            title="",
-            data={"token": TOKEN, **(data or {})},
-            source="user",
-            options={**(options or {})},
-            unique_id="12345",
-        )
-    except TypeError:
-        return MockConfigEntry(
-            version=1,
-            domain=DOMAIN,
-            title="",
-            data={"token": TOKEN, **(data or {})},
-            source="user",
-            options={**(options or {})},
-            unique_id="12345",
-        )
+    return MockConfigEntry(
+        version=1,
+        minor_version=0,
+        domain=DOMAIN,
+        title="",
+        data={"token": TOKEN, **(data or {})},
+        source="user",
+        options={**(options or {})},
+        unique_id="12345",
+    )
 
 
 async def setup_integration(hass: ha.HomeAssistant, config_entry: MockConfigEntry) -> None:

@@ -68,6 +68,17 @@ def jsonprint(data: any):
     )
 
 
+def dicts_are_equal(a: dict, b: dict, ignore: set[str]) -> bool:
+    def _dumper(obj: dict):
+        return json.dumps(
+            {k: v for k, v in obj.items() if k not in ignore},
+            sort_keys=True,
+            cls=JSONEncoder,
+        )
+
+    return _dumper(a) == _dumper(b)
+
+
 def repository_has_missing_keys(
     repository: HacsRepository,
     stage: Literal["update"] | Literal["store"],
@@ -335,21 +346,30 @@ class AdjustedHacs(HacsBase):
         """Summarize data."""
         changed = 0
 
+        current_count = len(current_data.keys())
+        new_count = len(updated_data.keys())
+
         for repo_id, repo_data in updated_data.items():
-            if repo_data.get("etag_releases") != current_data.get(repo_id, {}).get(
-                "etag_releases"
-            ) or repo_data.get("etag_repository") != current_data.get(repo_id, {}).get(
-                "etag_repository"
+            if not dicts_are_equal(
+                a=repo_data,
+                b=current_data.get(repo_id, {}),
+                ignore={"etag_releases", "etag_repository", "last_fetched"},
             ):
                 changed += 1
 
+        async def _rate_limit() -> dict[str, Any]:
+            res = await self.async_github_api_method(
+                method=self.githubapi.rate_limit,
+            )
+            return res.data.resources.core.as_dict
+
         summary = {
-            "rate_limit": (
-                await self.githubapi.rate_limit()
-            ).data.resources.core.as_dict,
-            "current_count": len(current_data.keys()),
-            "new_count": len(updated_data.keys()),
+            "changed_pct": round((changed / new_count) * 100),
             "changed": changed,
+            "current_count": current_count,
+            "diff": abs(new_count - current_count),
+            "new_count": new_count,
+            "rate_limit": await _rate_limit(),
         }
 
         jsonprint(summary)

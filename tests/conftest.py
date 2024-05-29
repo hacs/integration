@@ -124,7 +124,6 @@ def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
         """Handle exceptions by rethrowing them, which will fail the test."""
         if exception := context.get("exception"):
             exceptions.append(exception)
-        print(context)
         orig_exception_handler(loop, context)
 
     exceptions: list[Exception] = []

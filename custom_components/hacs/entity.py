@@ -110,8 +110,8 @@ class HacsRepositoryEntity(BaseCoordinatorEntity[HacsUpdateCoordinator], HacsBas
             return system_info(self.hacs)
 
         def _manufacturer():
-            if self.repository.data.authors:
-                return ", ".join(author.replace("@", "") for author in self.repository.data.authors)
+            if authors := self.repository.data.authors:
+                return ", ".join(author.replace("@", "") for author in authors)
             return self.repository.data.full_name.split("/")[0]
 
         return {

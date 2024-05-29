@@ -4,7 +4,9 @@ WORKDIR /hacs
 
 COPY . /hacs
 
-ENV PIP_EXTRA_INDEX_URL="https://wheels.home-assistant.io/musllinux-index/"
+ENV \
+    PIP_EXTRA_INDEX_URL="https://wheels.home-assistant.io/musllinux-index/" \
+    HACS_INSTALL_USE_UV=1
 
 RUN \
     apk add --no-cache --virtual .build-deps \

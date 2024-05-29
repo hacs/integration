@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
-
 set -e
 
-python3 -m pip \
-    install \
-    --upgrade \
-    --disable-pip-version-check \
-    --constraint constraints.txt \
-    "${@}"
-
+if [[ -n "${HACS_INSTALL_USE_UV}" ]]; then
+    if ! command -v uv &> /dev/null; then
+        python3 -m pip install uv
+    fi
+    uv \
+        pip install \
+        --upgrade \
+        --system \
+        --constraint constraints.txt \
+        "${@}"
+else
+    python3 -m pip \
+        install \
+        --upgrade \
+        --disable-pip-version-check \
+        --constraint constraints.txt \
+        "${@}"
+fi

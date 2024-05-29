@@ -26,7 +26,7 @@ from custom_components.hacs.base import HacsBase, HacsRepositories
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.data_client import HacsDataClient
 from custom_components.hacs.enums import HacsGitHubRepo
-from custom_components.hacs.exceptions import HacsExecutionStillInProgress
+from custom_components.hacs.exceptions import HacsExecutionStillInProgress, HacsException
 from custom_components.hacs.repositories.base import (
     HACS_MANIFEST_KEYS_TO_EXPORT,
     REPOSITORY_KEYS_TO_EXPORT,
@@ -349,8 +349,7 @@ class AdjustedHacs(HacsBase):
             path=filename,
         )
         if response is None:
-            return []
-
+            raise HacsException("Got a None response from GitHub API")
         return json_loads(decode_content(response.data.content))
 
 

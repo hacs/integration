@@ -57,6 +57,17 @@ log_handler.addHandler(stream_handler)
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
 
 
+def jsonprint(data: any):
+    print(
+        json.dumps(
+            data,
+            cls=JSONEncoder,
+            sort_keys=True,
+            indent=2,
+        )
+    )
+
+
 def repository_has_missing_keys(
     repository: HacsRepository,
     stage: Literal["update"] | Literal["store"],
@@ -107,7 +118,9 @@ class AdjustedHacsData(HacsData):
         """Store the repository data."""
         data = {"manifest": {}}
         for key, default in HACS_MANIFEST_KEYS_TO_EXPORT:
-            if (value := getattr(repository.repository_manifest, key, default)) != default:
+            if (
+                value := getattr(repository.repository_manifest, key, default)
+            ) != default:
                 data["manifest"][key] = value
 
         for key, default in REPOSITORY_KEYS_TO_EXPORT:
@@ -183,12 +196,17 @@ class AdjustedHacs(HacsBase):
 
         if repository.data.last_version not in (None, ""):
             try:
-                repository.logger.info("%s Fetching repository releases", repository.string)
+                repository.logger.info(
+                    "%s Fetching repository releases",
+                    repository.string,
+                )
                 response = await self.githubapi.generic(
                     endpoint=f"/repos/{repository.data.full_name}/releases/latest",
                     etag=repository.data.etag_releases,
                 )
-                response.data = GitHubReleaseModel(response.data) if response.data else None
+                response.data = (
+                    GitHubReleaseModel(response.data) if response.data else None
+                )
                 repository.data.etag_releases = response.etag
                 if (releases := response.data) is not None:
                     repository.data.releases = True
@@ -204,7 +222,10 @@ class AdjustedHacs(HacsBase):
 
             except GitHubNotModifiedException:
                 repository.data.releases = True
-                repository.logger.info("%s Release data is up to date", repository.string)
+                repository.logger.info(
+                    "%s Release data is up to date",
+                    repository.string,
+                )
             except GitHubNotFoundException:
                 repository.data.releases = False
                 repository.logger.info("%s No releases found", repository.string)
@@ -310,7 +331,7 @@ class AdjustedHacs(HacsBase):
         self,
         current_data: dict[str, dict[str, Any]],
         updated_data: dict[str, dict[str, Any]],
-    ) -> int:
+    ) -> dict[str, Any]:
         """Summarize data."""
         changed = 0
 
@@ -322,24 +343,21 @@ class AdjustedHacs(HacsBase):
             ):
                 changed += 1
 
-        print(
-            json.dumps(
-                (
-                    {
-                        "rate_limit": (
-                            await self.githubapi.rate_limit()
-                        ).data.resources.core.as_dict,
-                        "current_count": len(current_data.keys()),
-                        "new_count": len(updated_data.keys()),
-                        "changed": changed,
-                    }
-                    if len(updated_data) > 1
-                    else updated_data
-                ),
-                indent=2,
-            )
-        )
-        return changed
+        summary = {
+            "rate_limit": (
+                await self.githubapi.rate_limit()
+            ).data.resources.core.as_dict,
+            "current_count": len(current_data.keys()),
+            "new_count": len(updated_data.keys()),
+            "changed": changed,
+        }
+
+        jsonprint(summary)
+
+        if len(updated_data) == 1:
+            jsonprint(updated_data)
+
+        return summary
 
     async def async_github_get_hacs_default_file(self, filename: str) -> list:
         """Get the content of a default file."""
@@ -376,13 +394,16 @@ async def generate_category_data(category: str, repository_name: str = None):
         )
 
         updated_data = await hacs.generate_data_for_category(
-            category, repository_name, current_data, force=force
+            category,
+            repository_name,
+            current_data,
+            force=force,
         )
 
-        changed = await hacs.summarize_data(current_data, updated_data)
+        summary = await hacs.summarize_data(current_data, updated_data)
         if (
             not force
-            and changed == 0
+            and summary["changed"] == 0
             and repository_name is None
             and len(current_data) == len(updated_data)
         ):
@@ -391,7 +412,11 @@ async def generate_category_data(category: str, repository_name: str = None):
 
         did_raise = False
 
-        if not updated_data or len(updated_data) == 0 or not isinstance(updated_data, dict):
+        if (
+            not updated_data
+            or len(updated_data) == 0
+            or not isinstance(updated_data, dict)
+        ):
             print_error_and_exit(f"Updated data is empty", category)
             did_raise = True
 
@@ -454,6 +479,19 @@ async def generate_category_data(category: str, repository_name: str = None):
         ) as data_file:
             json.dump(
                 updated_data,
+                data_file,
+                cls=JSONEncoder,
+                sort_keys=True,
+                indent=2,
+            )
+
+        with open(
+            os.path.join(OUTPUT_DIR, "summary.json"),
+            mode="w",
+            encoding="utf-8",
+        ) as data_file:
+            json.dump(
+                summary,
                 data_file,
                 cls=JSONEncoder,
                 sort_keys=True,

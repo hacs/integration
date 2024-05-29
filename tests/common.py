@@ -643,14 +643,6 @@ class MockConfigEntry(config_entries.ConfigEntry):
         """Test helper to add entry to hass."""
         hass.config_entries._entries[self.entry_id] = self
 
-        if AwesomeVersion(HAVERSION) >= "2024.1.99":
-            ## This was removed in https://github.com/home-assistant/core/pull/107590 (2024.01.13)
-            pass
-        elif AwesomeVersion(HAVERSION) >= "2023.10.0":
-            hass.config_entries._domain_index.setdefault(self.domain, []).append(self)
-        else:
-            hass.config_entries._domain_index.setdefault(self.domain, []).append(self.entry_id)
-
 
 class WSClient:
     """WS Client to be used in testing."""
@@ -867,28 +859,16 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
 def create_config_entry(
     data: dict[str, Any] = None, options: dict[str, Any] = None
 ) -> MockConfigEntry:
-    try:
-        # Core 2024.1 added minor_version
-        return MockConfigEntry(
-            version=1,
-            minor_version=0,
-            domain=DOMAIN,
-            title="",
-            data={"token": TOKEN, **(data or {})},
-            source="user",
-            options={**(options or {})},
-            unique_id="12345",
-        )
-    except TypeError:
-        return MockConfigEntry(
-            version=1,
-            domain=DOMAIN,
-            title="",
-            data={"token": TOKEN, **(data or {})},
-            source="user",
-            options={**(options or {})},
-            unique_id="12345",
-        )
+    return MockConfigEntry(
+        version=1,
+        minor_version=0,
+        domain=DOMAIN,
+        title="",
+        data={"token": TOKEN, **(data or {})},
+        source="user",
+        options={**(options or {})},
+        unique_id="12345",
+    )
 
 
 async def setup_integration(hass: ha.HomeAssistant, config_entry: MockConfigEntry) -> None:

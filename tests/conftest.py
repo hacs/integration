@@ -328,18 +328,16 @@ def response_mocker() -> ResponseMocker:
 @pytest_asyncio.fixture()
 async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> None:
     ## Assert the string to ensure the format did not change
-    if AwesomeVersion(HA_VERSION) >= "2023.11.0":
-        assert not len(_async_suggest_report_issue_mock_call_tracker)
-        _async_suggest_report_issue_mock_call_tracker.clear()
-        assert (
-            loader.async_suggest_report_issue(
-                hass, integration_domain=DOMAIN, module="custom_components.hacs"
-            )
-            == "report it to the author of the 'hacs' custom integration"
+    assert not len(_async_suggest_report_issue_mock_call_tracker)
+    _async_suggest_report_issue_mock_call_tracker.clear()
+    assert (
+        loader.async_suggest_report_issue(
+            hass, integration_domain=DOMAIN, module="custom_components.hacs"
         )
-        assert len(_async_suggest_report_issue_mock_call_tracker) == 1
-        _async_suggest_report_issue_mock_call_tracker.clear()
-
+        == "report it to the author of the 'hacs' custom integration"
+    )
+    assert len(_async_suggest_report_issue_mock_call_tracker) == 1
+    _async_suggest_report_issue_mock_call_tracker.clear()
     assert len(_async_suggest_report_issue_mock_call_tracker) == 0
 
     config_entry = create_config_entry(

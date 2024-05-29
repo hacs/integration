@@ -43,7 +43,7 @@ def test_configuration_and_option():
     assert config.experimental
 
 
-def test_ignore_netdaemon():
+def test_ignore_experimental():
     """Test experimental setting is ignored."""
     config = HacsConfiguration()
     assert config.experimental is True

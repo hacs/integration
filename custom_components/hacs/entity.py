@@ -109,14 +109,17 @@ class HacsRepositoryEntity(BaseCoordinatorEntity[HacsUpdateCoordinator], HacsBas
         if self.repository.data.full_name == HacsGitHubRepo.INTEGRATION:
             return system_info(self.hacs)
 
+        def _manufacturer():
+            if self.repository.data.authors:
+                return ", ".join(author.replace("@", "") for author in self.repository.data.authors)
+            return self.repository.data.full_name.split("/")[0]
+
         return {
             "identifiers": {(DOMAIN, str(self.repository.data.id))},
             "name": self.repository.display_name,
             "model": self.repository.data.category,
-            "manufacturer": ", ".join(
-                author.replace("@", "") for author in self.repository.data.authors
-            ),
-            "configuration_url": "homeassistant://hacs",
+            "manufacturer": _manufacturer(),
+            "configuration_url": f"homeassistant://hacs/repository/{self.repository.data.id}",
             "entry_type": DeviceEntryType.SERVICE,
         }
 

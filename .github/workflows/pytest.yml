@@ -12,6 +12,9 @@ concurrency:
   group: test-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  HACS_INSTALL_USE_UV: 1
+
 jobs:
   legacy:
     name: With pytest with Home Assistant (min. supported version)

@@ -14,6 +14,9 @@ concurrency:
   cancel-in-progress: true
   group: validate-${{ github.ref }}
 
+env:
+  HACS_INSTALL_USE_UV: 1
+
 jobs:
   preflight:
     if: ${{ github.repository == 'hacs/integration' }}

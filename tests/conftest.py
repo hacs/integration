@@ -117,13 +117,20 @@ def event_loop():
 
 
 @pytest.fixture
-def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
+async def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
     """Fixture to provide a test instance of Home Assistant."""
 
     def exc_handle(loop, context):
         """Handle exceptions by rethrowing them, which will fail the test."""
         if exception := context.get("exception"):
             exceptions.append(exception)
+        else:
+            exceptions.append(
+                Exception(
+                    "Received exception handler without exception, "
+                    f"but with message: {context["message"]}"
+                )
+            )
         orig_exception_handler(loop, context)
 
     exceptions: list[Exception] = []
@@ -133,38 +140,39 @@ def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
         context_manager = async_test_home_assistant_min_version(
             event_loop, config_dir=tmpdir.strpath
         )
-    hass_obj = event_loop.run_until_complete(context_manager.__aenter__())
-    event_loop.run_until_complete(async_setup_component(hass_obj, "homeassistant", {}))
-    with patch("homeassistant.components.python_script.setup", return_value=True):
-        assert event_loop.run_until_complete(async_setup_component(hass_obj, "python_script", {}))
+    async with context_manager as hass:
+        await async_setup_component(hass, "homeassistant", {})
+        with patch("homeassistant.components.python_script.setup", return_value=True):
+            assert await async_setup_component(hass, "python_script", {})
 
-    orig_exception_handler = event_loop.get_exception_handler()
-    event_loop.set_exception_handler(exc_handle)
+        orig_exception_handler = event_loop.get_exception_handler()
+        event_loop.set_exception_handler(exc_handle)
 
-    yield hass_obj
+        yield hass
 
-    # Config entries are not normally unloaded on HA shutdown. They are unloaded here
-    # to ensure that they could, and to help track lingering tasks and timers.
-    loaded_entries = [
-        entry
-        for entry in hass_obj.config_entries.async_entries()
-        if entry.state is ConfigEntryState.LOADED
-    ]
-    if loaded_entries:
-        event_loop.run_until_complete(asyncio.gather(
-            *(
-                create_eager_task(
-                    hass_obj.config_entries.async_unload(config_entry.entry_id),
-                    loop=hass_obj.loop,
+        # Config entries are not normally unloaded on HA shutdown. They are unloaded here
+        # to ensure that they could, and to help track lingering tasks and timers.
+        loaded_entries = [
+            entry
+            for entry in hass.config_entries.async_entries()
+            if entry.state is ConfigEntryState.LOADED
+        ]
+        if loaded_entries:
+            await asyncio.gather(
+                *(
+                    create_eager_task(
+                        hass.config_entries.async_unload(config_entry.entry_id),
+                        loop=hass.loop,
+                    )
+                    for config_entry in loaded_entries
                 )
-                for config_entry in loaded_entries
             )
-        ))
 
-    event_loop.run_until_complete(hass_obj.async_stop(force=True))
+        await hass.async_stop(force=True)
+
     for ex in exceptions:
         raise ex
-    shutil.rmtree(hass_obj.config.config_dir)
+    shutil.rmtree(hass.config.config_dir)
 
 
 @pytest.fixture

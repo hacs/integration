@@ -1074,7 +1074,7 @@ class HacsRepository:
         except HacsRepositoryExistException:
             raise HacsRepositoryExistException from None
         except (AIOGitHubAPIException, HacsException) as exception:
-            if not self.hacs.status.startup:
+            if not self.hacs.status.startup or self.hacs.system.generator:
                 self.logger.error("%s %s", self.string, exception)
             if not ignore_issues:
                 self.validate.errors.append("Repository does not exist.")

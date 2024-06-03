@@ -18,6 +18,8 @@ import freezegun
 from homeassistant import loader
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
+from homeassistant.components.lovelace.const import DOMAIN as LOVELACE_DOMAIN
+from homeassistant.components.lovelace.resources import ResourceStorageCollection
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import __version__ as HA_VERSION
 from homeassistant.core import HomeAssistant
@@ -269,12 +271,15 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
             for entry in value:
                 data[key][entry["id"]] = entry
 
+        dashboard_resources: ResourceStorageCollection = hacs.hass.data[LOVELACE_DOMAIN]["resources"]
+
         snapshot.assert_match(
             safe_json_dumps(
                 recursive_remove_key(
                     {
-                        "_directory": sorted(f for f in downloaded if f not in IGNORED_BASE_FILES),
+                        "_dashboard_resources": dashboard_resources.async_items(),
                         "_data": data,
+                        "_directory": sorted(f for f in downloaded if f not in IGNORED_BASE_FILES),
                         "_hacs": {
                             "system": asdict(hacs.system),
                             "status": asdict(hacs.status),

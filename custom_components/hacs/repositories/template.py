@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from homeassistant.exceptions import HomeAssistantError
+
 from ..enums import HacsCategory, HacsDispatchEvent
 from ..exceptions import HacsException
 from ..utils.decorator import concurrent
@@ -33,7 +35,7 @@ class HacsTemplateRepository(HacsRepository):
 
     async def async_post_installation(self):
         """Run post installation steps."""
-        await self.hacs.hass.services.async_call("homeassistant", "reload_custom_templates", {})
+        await self._reload_custom_templates()
 
     async def validate_repository(self):
         """Validate."""
@@ -68,6 +70,18 @@ class HacsTemplateRepository(HacsRepository):
 
         if self.hacs.system.action:
             await self.hacs.validation.async_run_repository_checks(self)
+
+    async def async_post_uninstall(self) -> None:
+        """Run post uninstall steps."""
+        await self._reload_custom_templates()
+
+    async def _reload_custom_templates(self) -> None:
+        """Reload custom templates."""
+        self.logger.debug("%s Reloading custom templates", self.string)
+        try:
+            await self.hacs.hass.services.async_call("homeassistant", "reload_custom_templates", {})
+        except HomeAssistantError as exception:
+            self.logger.exception("%s %s", self.string, exception)
 
     @concurrent(concurrenttasks=10, backoff_time=5)
     async def update_repository(self, ignore_issues=False, force=False):

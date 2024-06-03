@@ -32,7 +32,7 @@ from ..types import DownloadableContent
 from ..utils.backup import Backup, BackupNetDaemon
 from ..utils.decode import decode_content
 from ..utils.decorator import concurrent
-from ..utils.file_system import async_exists, async_remove
+from ..utils.file_system import async_exists, async_remove, async_remove_directory
 from ..utils.filters import filter_content_return_one_of_type
 from ..utils.json import json_loads
 from ..utils.logger import LOGGER
@@ -591,8 +591,12 @@ class HacsRepository:
             temp_file = f"{temp_dir}/{self.repository_manifest.filename}"
 
             result = await self.hacs.async_save_file(temp_file, filecontent)
-            with zipfile.ZipFile(temp_file, "r") as zip_file:
-                zip_file.extractall(self.content.path.local)
+
+            def _extract_zip_file():
+                with zipfile.ZipFile(temp_file, "r") as zip_file:
+                    zip_file.extractall(self.content.path.local)
+
+            await self.hacs.hass.async_add_executor_job(_extract_zip_file)
 
             def cleanup_temp_dir():
                 """Cleanup temp_dir."""
@@ -673,23 +677,26 @@ class HacsRepository:
         if not result:
             raise HacsException("Could not save ZIP file")
 
-        with zipfile.ZipFile(temp_file, "r") as zip_file:
-            extractable = []
-            for path in zip_file.filelist:
-                filename = "/".join(path.filename.split("/")[1:])
-                if (
-                    filename.startswith(self.content.path.remote)
-                    and filename != self.content.path.remote
-                ):
-                    path.filename = filename.replace(self.content.path.remote, "")
-                    if path.filename == "/":
-                        # Blank files is not valid, and will start to throw in Python 3.12
-                        continue
-                    extractable.append(path)
+        def _extract_zip_file():
+            with zipfile.ZipFile(temp_file, "r") as zip_file:
+                extractable = []
+                for path in zip_file.filelist:
+                    filename = "/".join(path.filename.split("/")[1:])
+                    if (
+                        filename.startswith(self.content.path.remote)
+                        and filename != self.content.path.remote
+                    ):
+                        path.filename = filename.replace(self.content.path.remote, "")
+                        if path.filename == "/":
+                            # Blank files is not valid, and will start to throw in Python 3.12
+                            continue
+                        extractable.append(path)
 
-            if len(extractable) == 0:
-                raise HacsException("No content to extract")
-            zip_file.extractall(self.content.path.local, extractable)
+                if len(extractable) == 0:
+                    raise HacsException("No content to extract")
+                zip_file.extractall(self.content.path.local, extractable)
+
+        await self.hacs.hass.async_add_executor_job(_extract_zip_file)
 
         def cleanup_temp_dir():
             """Cleanup temp_dir."""
@@ -748,19 +755,7 @@ class HacsRepository:
         if not await self.remove_local_directory():
             raise HacsException("Could not uninstall")
         self.data.installed = False
-        if self.data.category == "integration":
-            if self.data.config_flow:
-                await self.reload_custom_components()
-            else:
-                self.pending_restart = True
-        elif self.data.category == "theme":
-            try:
-                await self.hacs.hass.services.async_call("frontend", "reload_themes", {})
-            except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-                pass
-        elif self.data.category == "template":
-            await self.hacs.hass.services.async_call("homeassistant", "reload_custom_templates", {})
-
+        await self._async_post_uninstall()
         await async_remove_store(self.hacs.hass, f"hacs/{self.data.id}.hacs")
 
         self.data.installed_version = None
@@ -815,7 +810,7 @@ class HacsRepository:
                 if self.data.category in ["python_script", "template"]:
                     await async_remove(self.hacs.hass, local_path)
                 else:
-                    shutil.rmtree(local_path)
+                    await async_remove_directory(self.hacs.hass, local_path)
 
                 while await async_exists(self.hacs.hass, local_path):
                     await sleep(1)
@@ -893,6 +888,13 @@ class HacsRepository:
 
     async def async_post_installation(self) -> None:
         """Run post install steps."""
+
+    async def async_post_uninstall(self):
+        """Run post uninstall steps."""
+
+    async def _async_post_uninstall(self):
+        """Run post uninstall steps."""
+        await self.async_post_uninstall()
 
     async def _async_post_install(self) -> None:
         """Run post install steps."""

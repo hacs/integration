@@ -277,7 +277,10 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
             safe_json_dumps(
                 recursive_remove_key(
                     {
-                        "_dashboard_resources": dashboard_resources.async_items(),
+                        "_dashboard_resources": recursive_remove_key(
+                            data=dashboard_resources.async_items(),
+                            to_remove=("id",)
+                            ),
                         "_data": data,
                         "_directory": sorted(f for f in downloaded if f not in IGNORED_BASE_FILES),
                         "_hacs": {

@@ -64,7 +64,7 @@ class HacsPluginRepository(HacsRepository):
         await self.hacs.async_setup_frontend_endpoint_plugin()
         await self.update_dashboard_resources()
 
-    async def async_uninstall_removal(self):
+    async def async_post_uninstall(self):
         """Run post uninstall steps."""
         await self.remove_dashboard_resources()
 

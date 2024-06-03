@@ -748,19 +748,7 @@ class HacsRepository:
         if not await self.remove_local_directory():
             raise HacsException("Could not uninstall")
         self.data.installed = False
-        if self.data.category == "integration":
-            if self.data.config_flow:
-                await self.reload_custom_components()
-            else:
-                self.pending_restart = True
-        elif self.data.category == "theme":
-            try:
-                await self.hacs.hass.services.async_call("frontend", "reload_themes", {})
-            except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-                pass
-        elif self.data.category == "template":
-            await self.hacs.hass.services.async_call("homeassistant", "reload_custom_templates", {})
-
+        await self._async_post_uninstall()
         await async_remove_store(self.hacs.hass, f"hacs/{self.data.id}.hacs")
 
         self.data.installed_version = None
@@ -893,6 +881,13 @@ class HacsRepository:
 
     async def async_post_installation(self) -> None:
         """Run post install steps."""
+
+    async def async_post_uninstall(self):
+        """Run post uninstall steps."""
+
+    async def _async_post_uninstall(self):
+        """Run post uninstall steps."""
+        await self.async_post_uninstall()
 
     async def _async_post_install(self) -> None:
         """Run post install steps."""

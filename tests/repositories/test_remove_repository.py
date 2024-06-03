@@ -33,16 +33,22 @@ async def test_remove_repository(
 
     assert len(hacs.repositories.list_downloaded) == 2
 
-    if repo.data.category in ("theme", "python_script"):
-        repo.data.file_name = category_test_data["files"][0]
-    elif repo.data.category == "plugin":
-        assert isinstance(repo, HacsPluginRepository)
-        resources = repo._get_resource_handler()
-        assert resources.async_items() == []
-        await repo.update_dashboard_resources()
 
-        first_resource = resources.async_items()[0]
-        assert first_resource["url"] == repo.generate_dashboard_resource_url()
+    match repo.data.category:
+        case "theme" | "python_script":
+            repo.data.file_name = category_test_data["files"][0]
+        case "plugin":
+            repo.data.file_name = category_test_data["files"][0]
+            assert isinstance(repo, HacsPluginRepository)
+            resources = repo._get_resource_handler()
+            assert resources.async_items() == []
+
+            await repo.update_dashboard_resources()
+            repo.update_filenames()
+
+            first_resource = resources.async_items()[0]
+            assert first_resource["url"] == repo.generate_dashboard_resource_url()
+
 
     # workaround for local path bug in tests
     repo.content.path.local = repo.localpath

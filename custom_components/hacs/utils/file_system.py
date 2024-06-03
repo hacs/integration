@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import shutil
 from typing import TypeAlias
 
 from homeassistant.core import HomeAssistant
@@ -23,6 +24,18 @@ async def async_remove(
     """Remove a path."""
     try:
         return await hass.async_add_executor_job(os.remove, path)
+    except FileNotFoundError:
+        if missing_ok:
+            return
+        raise
+
+
+async def async_remove_directory(
+    hass: HomeAssistant, path: StrOrBytesPath, *, missing_ok: bool = False
+) -> None:
+    """Remove a directory."""
+    try:
+        return await hass.async_add_executor_job(shutil.rmtree, path)
     except FileNotFoundError:
         if missing_ok:
             return

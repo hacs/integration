@@ -61,6 +61,13 @@ class HacsIntegrationRepository(HacsRepository):
                 },
             )
 
+    async def async_post_uninstall(self) -> None:
+        """Run post uninstall steps."""
+        if self.data.config_flow:
+            await self.reload_custom_components()
+        else:
+            self.pending_restart = True
+
     async def validate_repository(self):
         """Validate."""
         await self.common_validate()

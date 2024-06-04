@@ -206,12 +206,17 @@ class HacsPluginRepository(HacsRepository):
         for entry in resources.async_items():
             if (entry_url := entry["url"]).startswith(namespace):
                 if entry_url != url:
-                    self.logger.info("%s Updating existing dashboard resource", self.string)
+                    self.logger.info(
+                        "%s Updating existing dashboard resource from %s to %s",
+                        self.string,
+                        entry_url,
+                        url,
+                    )
                     await resources.async_update_item(entry["id"], {"url": url})
                 return
 
         # Nothing was updated, add the resource
-        self.logger.info("%s Adding dashboard resource", self.string)
+        self.logger.info("%s Adding dashboard resource %s", self.string, url)
         await resources.async_create_item({"res_type": "module", "url": url})
 
     async def remove_dashboard_resources(self) -> None:
@@ -226,6 +231,6 @@ class HacsPluginRepository(HacsRepository):
 
         for entry in resources.async_items():
             if entry["url"].startswith(namespace):
-                self.logger.info("%s Removing dashboard resource", self.string)
+                self.logger.info("%s Removing dashboard resource %s", self.string, entry["url"])
                 await resources.async_delete_item(entry["id"])
                 return

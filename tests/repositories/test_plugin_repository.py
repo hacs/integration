@@ -187,7 +187,10 @@ async def test_remove_dashboard_resource(
     assert downloaded_plugin_repository.generate_dashboard_resource_url() in current_urls
 
     await downloaded_plugin_repository.remove_dashboard_resources()
-    assert "Removing dashboard resource" in caplog.text
+    assert (
+        "Removing dashboard resource /hacsfiles/plugin-basic/plugin-basic.js?hacstag=1296267100"
+        in caplog.text
+    )
 
     current_urls = [resource["url"] for resource in resource_handler.async_items()]
     assert len(current_urls) == 0
@@ -206,7 +209,10 @@ async def test_add_dashboard_resource(
     assert len(current_urls) == 0
 
     await downloaded_plugin_repository.update_dashboard_resources()
-    assert "Adding dashboard resource" in caplog.text
+    assert (
+        "dding dashboard resource /hacsfiles/plugin-basic/plugin-basic.js?hacstag=1296267100"
+        in caplog.text
+    )
 
 
 async def test_update_dashboard_resource(
@@ -228,7 +234,11 @@ async def test_update_dashboard_resource(
     downloaded_plugin_repository.data.installed_version = "1.1.0"
     await downloaded_plugin_repository.update_dashboard_resources()
 
-    assert "Updating existing dashboard resource" in caplog.text
+    assert (
+        "Updating existing dashboard resource from "
+        "/hacsfiles/plugin-basic/plugin-basic.js?hacstag=1296267100 to "
+        "/hacsfiles/plugin-basic/plugin-basic.js?hacstag=1296267110" in caplog.text
+    )
     after_url = downloaded_plugin_repository.generate_dashboard_resource_url()
     assert after_url != prev_url
 

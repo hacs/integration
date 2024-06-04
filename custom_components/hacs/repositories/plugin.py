@@ -184,7 +184,7 @@ class HacsPluginRepository(HacsRepository):
 
         if (
             not hasattr(resources, "store")
-            or not hasattr(resources.store, "key")
+            or resources.store is None
             or resources.store.key != "lovelace_resources"
             or resources.store.version != 1
         ):
@@ -202,25 +202,18 @@ class HacsPluginRepository(HacsRepository):
             await resources.async_load()
 
         namespace = self.generate_dashboard_resource_namespace()
+        url = self.generate_dashboard_resource_url()
 
         for entry in resources.async_items():
-            if entry["url"].startswith(namespace):
-                self.logger.info("%s Updating existing dashboard resource", self.string)
-                await resources.async_update_item(
-                    entry["id"],
-                    {"url": self.generate_dashboard_resource_url()},
-                )
+            if (entry_url := entry["url"]).startswith(namespace):
+                if entry_url != url:
+                    self.logger.info("%s Updating existing dashboard resource", self.string)
+                    await resources.async_update_item(entry["id"], {"url": url})
                 return
 
         # Nothing was updated, add the resource
-
         self.logger.info("%s Adding dashboard resource", self.string)
-        await resources.async_create_item(
-            {
-                "res_type": "module",
-                "url": self.generate_dashboard_resource_url(),
-            }
-        )
+        await resources.async_create_item({"res_type": "module", "url": url})
 
     async def remove_dashboard_resources(self) -> None:
         """Remove dashboard resources."""

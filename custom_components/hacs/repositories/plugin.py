@@ -182,12 +182,11 @@ class HacsPluginRepository(HacsRepository):
             self.logger.warning("%s Can not access the dashboard resources", self.string)
             return
 
-        if (
-            not hasattr(resources, "store")
-            or resources.store is None
-            or resources.store.key != "lovelace_resources"
-            or resources.store.version != 1
-        ):
+        if not hasattr(resources, "store") or resources.store is None:
+            self.logger.info("%s YAML mode detected, can not update resources", self.string)
+            return
+
+        if resources.store.key != "lovelace_resources" or resources.store.version != 1:
             self.logger.warning("%s Can not use the dashboard resources", self.string)
             return
 

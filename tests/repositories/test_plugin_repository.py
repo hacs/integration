@@ -120,7 +120,7 @@ async def test_get_resource_handler_none_store(
     hass.data["lovelace"]["resources"].store = None
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
-    assert "Can not use the dashboard resources" in caplog.text
+    assert "YAML mode detected, can not update resources" in caplog.text
 
 
 async def test_get_resource_handler_no_store(
@@ -132,7 +132,7 @@ async def test_get_resource_handler_no_store(
     del hass.data["lovelace"]["resources"].store
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
-    assert "Can not use the dashboard resources" in caplog.text
+    assert "YAML mode detected, can not update resources" in caplog.text
 
 
 async def test_get_resource_handler_no_lovelace_resources(

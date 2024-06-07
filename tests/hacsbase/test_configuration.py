@@ -36,17 +36,14 @@ def test_configuration_and_option():
     assert isinstance(config.release_limit, int)
     assert config.release_limit == 5
 
-    assert isinstance(config.experimental, bool)
-    assert config.experimental
-
 
 def test_ignore_experimental():
     """Test experimental setting is ignored."""
     config = HacsConfiguration()
-    assert config.experimental is True
+    assert not hasattr(config, "experimental")
 
     config.update_from_dict({"experimental": False})
-    assert config.experimental is True
+    assert not hasattr(config, "experimental")
 
 
 def test_ignore_netdaemon():

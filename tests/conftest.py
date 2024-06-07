@@ -18,11 +18,15 @@ import freezegun
 from homeassistant import loader
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
+from homeassistant.components.lovelace.const import DOMAIN as LOVELACE_DOMAIN
+from homeassistant.components.lovelace.resources import ResourceStorageCollection
+from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import __version__ as HA_VERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from homeassistant.runner import HassEventLoopPolicy
 from homeassistant.setup import async_setup_component
+from homeassistant.util.async_ import create_eager_task
 import pytest
 import pytest_asyncio
 from pytest_snapshot.plugin import Snapshot
@@ -114,13 +118,20 @@ def event_loop():
 
 
 @pytest.fixture
-def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
+async def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
     """Fixture to provide a test instance of Home Assistant."""
 
     def exc_handle(loop, context):
         """Handle exceptions by rethrowing them, which will fail the test."""
         if exception := context.get("exception"):
             exceptions.append(exception)
+        else:
+            exceptions.append(
+                Exception(
+                    "Received exception handler without exception, "
+                    f"but with message: {context["message"]}"
+                )
+            )
         orig_exception_handler(loop, context)
 
     exceptions: list[Exception] = []
@@ -130,20 +141,39 @@ def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
         context_manager = async_test_home_assistant_min_version(
             event_loop, config_dir=tmpdir.strpath
         )
-    hass_obj = event_loop.run_until_complete(context_manager.__aenter__())
-    event_loop.run_until_complete(async_setup_component(hass_obj, "homeassistant", {}))
-    with patch("homeassistant.components.python_script.setup", return_value=True):
-        assert event_loop.run_until_complete(async_setup_component(hass_obj, "python_script", {}))
+    async with context_manager as hass:
+        await async_setup_component(hass, "homeassistant", {})
+        with patch("homeassistant.components.python_script.setup", return_value=True):
+            assert await async_setup_component(hass, "python_script", {})
 
-    orig_exception_handler = event_loop.get_exception_handler()
-    event_loop.set_exception_handler(exc_handle)
+        orig_exception_handler = event_loop.get_exception_handler()
+        event_loop.set_exception_handler(exc_handle)
 
-    yield hass_obj
+        yield hass
 
-    event_loop.run_until_complete(hass_obj.async_stop(force=True))
+        # Config entries are not normally unloaded on HA shutdown. They are unloaded here
+        # to ensure that they could, and to help track lingering tasks and timers.
+        loaded_entries = [
+            entry
+            for entry in hass.config_entries.async_entries()
+            if entry.state is ConfigEntryState.LOADED
+        ]
+        if loaded_entries:
+            await asyncio.gather(
+                *(
+                    create_eager_task(
+                        hass.config_entries.async_unload(config_entry.entry_id),
+                        loop=hass.loop,
+                    )
+                    for config_entry in loaded_entries
+                )
+            )
+
+        await hass.async_stop(force=True)
+
     for ex in exceptions:
         raise ex
-    shutil.rmtree(hass_obj.config.config_dir)
+    shutil.rmtree(hass.config.config_dir)
 
 
 @pytest.fixture
@@ -233,18 +263,23 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
             for entry in value:
                 data[key][entry["id"]] = entry
 
+        dashboard_resources: ResourceStorageCollection = hacs.hass.data[LOVELACE_DOMAIN]["resources"]
+
         snapshot.assert_match(
             safe_json_dumps(
                 recursive_remove_key(
                     {
-                        "_directory": sorted(f for f in downloaded if f not in IGNORED_BASE_FILES),
+                        "_dashboard_resources": recursive_remove_key(
+                            data=dashboard_resources.async_items(),
+                            to_remove=("id",)
+                            ),
                         "_data": data,
+                        "_directory": sorted(f for f in downloaded if f not in IGNORED_BASE_FILES),
                         "_hacs": {
                             "system": asdict(hacs.system),
                             "status": asdict(hacs.status),
                             "stage": hacs.stage,
                             "configuration": {
-                                "experimental": hacs.configuration.experimental,
                                 "debug": hacs.configuration.debug,
                                 "dev": hacs.configuration.dev,
                             },
@@ -321,23 +356,20 @@ def response_mocker() -> ResponseMocker:
 @pytest_asyncio.fixture()
 async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> None:
     ## Assert the string to ensure the format did not change
-    if AwesomeVersion(HA_VERSION) >= "2023.11.0":
-        assert not len(_async_suggest_report_issue_mock_call_tracker)
-        _async_suggest_report_issue_mock_call_tracker.clear()
-        assert (
-            loader.async_suggest_report_issue(
-                hass, integration_domain=DOMAIN, module="custom_components.hacs"
-            )
-            == "report it to the author of the 'hacs' custom integration"
+    assert not len(_async_suggest_report_issue_mock_call_tracker)
+    _async_suggest_report_issue_mock_call_tracker.clear()
+    assert (
+        loader.async_suggest_report_issue(
+            hass, integration_domain=DOMAIN, module="custom_components.hacs"
         )
-        assert len(_async_suggest_report_issue_mock_call_tracker) == 1
-        _async_suggest_report_issue_mock_call_tracker.clear()
-
+        == "report it to the author of the 'hacs' custom integration"
+    )
+    assert len(_async_suggest_report_issue_mock_call_tracker) == 1
+    _async_suggest_report_issue_mock_call_tracker.clear()
     assert len(_async_suggest_report_issue_mock_call_tracker) == 0
 
     config_entry = create_config_entry(
         options={
-            "experimental": True,
             "appdaemon": True,
         }
     )

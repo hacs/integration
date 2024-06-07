@@ -59,7 +59,7 @@ def get_event_data():
         return json.loads(ev.read())
 
 
-async def chose_repository(githubapi: GitHubAPI, category: str):
+async def choose_repository(githubapi: GitHubAPI, category: str):
     if category is None:
         return
 
@@ -79,7 +79,7 @@ async def chose_repository(githubapi: GitHubAPI, category: str):
     return new[0]
 
 
-def chose_category():
+def choose_category():
     for name in CHANGED_FILES.split(" "):
         if name in CATEGORIES:
             return name
@@ -91,10 +91,7 @@ async def preflight():
     ref: str | None = None
 
     hacs = HacsBase()
-    try:
-        hacs.hass = HomeAssistant()  # pylint: disable=no-value-for-parameter
-    except TypeError:
-        hacs.hass = HomeAssistant("")  # pylint: disable=too-many-function-args
+    hacs.hass = HomeAssistant("")
 
     hacs.system.action = True
     hacs.configuration.token = TOKEN
@@ -113,8 +110,8 @@ async def preflight():
             repository = REPOSITORY
             category = CATEGORY
         elif GITHUB_REPOSITORY == HacsGitHubRepo.DEFAULT:
-            category = chose_category()
-            repository = await chose_repository(hacs.githubapi, category)
+            category = choose_category()
+            repository = await choose_repository(hacs.githubapi, category)
             LOGGER.info(f"Actor: {GITHUB_ACTOR}")
         else:
             category = CATEGORY.lower()

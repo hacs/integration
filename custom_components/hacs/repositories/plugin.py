@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from typing import TYPE_CHECKING
 
 from ..enums import HacsCategory, HacsDispatchEvent
@@ -10,7 +11,11 @@ from ..utils.decorator import concurrent
 from ..utils.json import json_loads
 from .base import HacsRepository
 
+HACSTAG_REPLACER = re.compile(r"\D+")
+
 if TYPE_CHECKING:
+    from homeassistant.components.lovelace.resources import ResourceStorageCollection
+
     from ..base import HacsBase
 
 
@@ -57,6 +62,11 @@ class HacsPluginRepository(HacsRepository):
     async def async_post_installation(self):
         """Run post installation steps."""
         await self.hacs.async_setup_frontend_endpoint_plugin()
+        await self.update_dashboard_resources()
+
+    async def async_post_uninstall(self):
+        """Run post uninstall steps."""
+        await self.remove_dashboard_resources()
 
     @concurrent(concurrenttasks=10, backoff_time=5)
     async def update_repository(self, ignore_issues=False, force=False):
@@ -134,4 +144,93 @@ class HacsPluginRepository(HacsRepository):
             if not content_in_root and f"dist/{filename}" in all_paths:
                 self.data.file_name = filename.split("/")[-1]
                 self.content.path.remote = "dist"
+                return
+
+    def generate_dashboard_resource_hacstag(self) -> str:
+        """Get the HACS tag used by dashboard resources."""
+        version = (
+            self.display_installed_version
+            or self.data.selected_tag
+            or self.display_available_version
+        )
+        return f"{self.data.id}{HACSTAG_REPLACER.sub('', version)}"
+
+    def generate_dashboard_resource_namespace(self) -> str:
+        """Get the dashboard resource namespace."""
+        return f"/hacsfiles/{self.data.full_name.split("/")[1]}"
+
+    def generate_dashboard_resource_url(self) -> str:
+        """Get the dashboard resource namespace."""
+        return (
+            f"{self.generate_dashboard_resource_namespace()}/{self.data.file_name}"
+            f"?hacstag={self.generate_dashboard_resource_hacstag()}"
+        )
+
+    def _get_resource_handler(self) -> ResourceStorageCollection | None:
+        """Get the resource handler."""
+        if not (hass_data := self.hacs.hass.data):
+            self.logger.error("%s Can not access the hass data", self.string)
+            return
+
+        if (lovelace_data := hass_data.get("lovelace")) is None:
+            self.logger.warning("%s Can not access the lovelace integration data", self.string)
+            return
+
+        resources: ResourceStorageCollection | None = lovelace_data.get("resources")
+
+        if resources is None:
+            self.logger.warning("%s Can not access the dashboard resources", self.string)
+            return
+
+        if not hasattr(resources, "store") or resources.store is None:
+            self.logger.info("%s YAML mode detected, can not update resources", self.string)
+            return
+
+        if resources.store.key != "lovelace_resources" or resources.store.version != 1:
+            self.logger.warning("%s Can not use the dashboard resources", self.string)
+            return
+
+        return resources
+
+    async def update_dashboard_resources(self) -> None:
+        """Update dashboard resources."""
+        if not (resources := self._get_resource_handler()):
+            return
+
+        if not resources.loaded:
+            await resources.async_load()
+
+        namespace = self.generate_dashboard_resource_namespace()
+        url = self.generate_dashboard_resource_url()
+
+        for entry in resources.async_items():
+            if (entry_url := entry["url"]).startswith(namespace):
+                if entry_url != url:
+                    self.logger.info(
+                        "%s Updating existing dashboard resource from %s to %s",
+                        self.string,
+                        entry_url,
+                        url,
+                    )
+                    await resources.async_update_item(entry["id"], {"url": url})
+                return
+
+        # Nothing was updated, add the resource
+        self.logger.info("%s Adding dashboard resource %s", self.string, url)
+        await resources.async_create_item({"res_type": "module", "url": url})
+
+    async def remove_dashboard_resources(self) -> None:
+        """Remove dashboard resources."""
+        if not (resources := self._get_resource_handler()):
+            return
+
+        if not resources.loaded:
+            await resources.async_load()
+
+        namespace = self.generate_dashboard_resource_namespace()
+
+        for entry in resources.async_items():
+            if entry["url"].startswith(namespace):
+                self.logger.info("%s Removing dashboard resource %s", self.string, entry["url"])
+                await resources.async_delete_item(entry["id"])
                 return

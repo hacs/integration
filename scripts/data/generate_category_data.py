@@ -1,4 +1,5 @@
 """Generate HACS compliant data."""
+
 from __future__ import annotations
 
 import asyncio
@@ -55,6 +56,21 @@ stream_handler.setFormatter(logging.Formatter("%(levelname)s%(message)s"))
 log_handler.addHandler(stream_handler)
 
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
+
+GQL_GET_RELEASES = """
+query($owner: String!, $repo: String!){
+  repository(owner: $owner, name: $owner) {
+    latestRelease {
+      tagName
+    }
+    releases(last: 1, orderBy: {field: CREATED_AT, direction: ASC}) {
+      nodes {
+        tagName
+      }
+    }
+  }
+}
+"""
 
 
 def jsonprint(data: any):
@@ -129,9 +145,7 @@ class AdjustedHacsData(HacsData):
         """Store the repository data."""
         data = {"manifest": {}}
         for key, default in HACS_MANIFEST_KEYS_TO_EXPORT:
-            if (
-                value := getattr(repository.repository_manifest, key, default)
-            ) != default:
+            if (value := getattr(repository.repository_manifest, key, default)) != default:
                 data["manifest"][key] = value
 
         for key, default in REPOSITORY_KEYS_TO_EXPORT:
@@ -202,28 +216,30 @@ class AdjustedHacs(HacsBase):
             # If we have missing keys, force a full update by setting the etag to None
             repository.data.etag_repository = None
 
-        if repository.data.last_version not in (None, ""):
+        if True or repository.data.last_version not in (None, ""):
             try:
                 repository.logger.info(
                     "%s Fetching repository releases",
                     repository.string,
                 )
-                response = await self.githubapi.generic(
-                    endpoint=f"/repos/{repository.data.full_name}/releases/latest",
-                    etag=repository.data.etag_releases,
+                owner, repo = repository.data.full_name.split("/")
+                gql_response = await self.githubapi.graphql(
+                    query=GQL_GET_RELEASES,
+                    variables={
+                        "owner": owner,
+                        "repo": repo,
+                    },
                 )
-                response.data = (
-                    GitHubReleaseModel(response.data) if response.data else None
-                )
-                repository.data.etag_releases = response.etag
-                if (releases := response.data) is not None:
+
+                if (data := gql_response.data.get("data", {}).get("repository")) is not None:
                     repository.data.releases = True
-                    repository.releases.objects = [releases]
                     repository.data.published_tags = [
-                        x.tag_name for x in repository.releases.objects
+                        x["tagName"] for x in data.get("releases", {}).get("nodes", [])
                     ]
+                    repository.data.prerelease = repository.data.published_tags[0]
+
                     if (
-                        next_version := next(iter(repository.data.published_tags), None)
+                        next_version := data.get("latestRelease", {})
                     ) != repository.data.last_version:
                         repository.data.last_version = next_version
                         repository.data.etag_repository = None
@@ -429,11 +445,7 @@ async def generate_category_data(category: str, repository_name: str = None):
 
         did_raise = False
 
-        if (
-            not updated_data
-            or len(updated_data) == 0
-            or not isinstance(updated_data, dict)
-        ):
+        if not updated_data or len(updated_data) == 0 or not isinstance(updated_data, dict):
             print_error_and_exit(f"Updated data is empty", category)
             did_raise = True
 

@@ -108,15 +108,6 @@ def hass_storage():
         yield stored_data
 
 
-@pytest.fixture(scope="session")
-def event_loop():
-    try:
-        loop = asyncio.get_running_loop()
-    except RuntimeError:
-        loop = asyncio.new_event_loop()
-    yield loop
-    loop.close()
-
 
 @pytest.fixture
 async def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):

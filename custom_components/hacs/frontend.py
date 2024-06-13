@@ -5,23 +5,14 @@ from __future__ import annotations
 import os
 from typing import TYPE_CHECKING
 
-from homeassistant.components.frontend import async_register_built_in_panel
+from homeassistant.components.frontend import (
+    add_extra_js_url,
+    async_register_built_in_panel,
+)
 from homeassistant.core import HomeAssistant, callback
 
 from .const import DOMAIN, URL_BASE
 from .hacs_frontend import VERSION as FE_VERSION, locate_dir
-
-try:
-    from homeassistant.components.frontend import add_extra_js_url
-except ImportError:
-
-    def add_extra_js_url(hass: HomeAssistant, url: str, es5: bool = False) -> None:
-        hacs: HacsBase = hass.data.get(DOMAIN)
-        hacs.log.error("Could not import add_extra_js_url from frontend.")
-        if "frontend_extra_module_url" not in hass.data:
-            hass.data["frontend_extra_module_url"] = set()
-        hass.data["frontend_extra_module_url"].add(url)
-
 
 if TYPE_CHECKING:
     from .base import HacsBase

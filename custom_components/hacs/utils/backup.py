@@ -108,33 +108,3 @@ class Backup:
         while os.path.exists(self.backup_path):
             sleep(0.1)
         self.hacs.log.debug("Backup dir %s cleared", self.backup_path)
-
-
-class BackupNetDaemon(Backup):
-    """BackupNetDaemon."""
-
-    def create(self) -> None:
-        """Create a backup in /tmp"""
-        if not self._init_backup_dir():
-            return
-
-        for filename in os.listdir(self.repository.content.path.local):
-            if not filename.endswith(".yaml"):
-                continue
-
-            source_file_name = f"{self.repository.content.path.local}/{filename}"
-            target_file_name = f"{self.backup_path}/{filename}"
-            shutil.copyfile(source_file_name, target_file_name)
-
-    def restore(self) -> None:
-        """Create a backup in /tmp"""
-        if not os.path.exists(self.backup_path):
-            return
-
-        for filename in os.listdir(self.backup_path):
-            if not filename.endswith(".yaml"):
-                continue
-
-            source_file_name = f"{self.backup_path}/{filename}"
-            target_file_name = f"{self.repository.content.path.local}/{filename}"
-            shutil.copyfile(source_file_name, target_file_name)

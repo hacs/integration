@@ -343,6 +343,7 @@ async def test_options_flow(hass: HomeAssistant, setup_integration: Generator) -
         "appdaemon": True,
         "country": "ALL",
         "debug": False,
+        "experimental": True,
         "netdaemon": True,
         "release_limit": 5,
         "sidepanel_icon": "hacs:hacs",
@@ -353,6 +354,7 @@ async def test_options_flow(hass: HomeAssistant, setup_integration: Generator) -
         "appdaemon": True,
         "country": "ALL",
         "debug": False,
+        "experimental": True,
         "netdaemon": True,
         "release_limit": 5,
         "sidepanel_icon": "hacs:hacs",
@@ -361,7 +363,11 @@ async def test_options_flow(hass: HomeAssistant, setup_integration: Generator) -
 
     # Check config entry is reloaded with new options
     await hass.async_block_till_done()
+
     # Get a new HACS instance after reload
     hacs = get_hacs(hass)
     for key, val in config_entry.options.items():
+        if key == "experimental":
+            assert hasattr(hacs.configuration, str(key)) is False
+            continue
         assert getattr(hacs.configuration, str(key)) == val

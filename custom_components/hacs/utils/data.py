@@ -8,7 +8,6 @@ from typing import Any
 
 from homeassistant.core import callback
 from homeassistant.exceptions import HomeAssistantError
-from homeassistant.util import json as json_util
 
 from ..base import HacsBase
 from ..const import HACS_REPOSITORY_ID
@@ -100,7 +99,7 @@ class HacsData:
         for event in (HacsDispatchEvent.REPOSITORY, HacsDispatchEvent.CONFIG):
             self.hacs.async_dispatch(event, {})
 
-    async def _async_store_experimental_content_and_repos(self, _=None):  # bb: ignore
+    async def _async_store_experimental_content_and_repos(self, _=None):
         """Store the main repos file and each repo that is out of date."""
         # Repositories
         self.content = {}
@@ -165,14 +164,12 @@ class HacsData:
             pass
 
         try:
-            if data := (await async_load_from_store(self.hacs.hass, "data") or {}):
+            repositories = await async_load_from_store(self.hacs.hass, "repositories")
+            if not repositories and (data := await async_load_from_store(self.hacs.hass, "data")):
                 for category, entries in data.get("repositories", {}).items():
                     for repository in entries:
                         repositories[repository["id"]] = {"category": category, **repository}
-            else:
-                repositories = (
-                    data or await async_load_from_store(self.hacs.hass, "repositories") or {}
-                )
+
         except HomeAssistantError as exception:
             self.hacs.log.error(
                 "Could not read %s, restore the file from a backup - %s",
@@ -225,7 +222,8 @@ class HacsData:
 
             self.logger.info("<HacsData restore> Restore done")
         except (
-            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            BaseException
         ) as exception:
             self.logger.critical(
                 "<HacsData restore> [%s] Restore Failed!", exception, exc_info=exception

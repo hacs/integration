@@ -79,7 +79,7 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
 
             return await self.async_step_device(user_input)
 
-        ## Initial form
+        # Initial form
         return await self._show_config_form(user_input)
 
     @callback
@@ -185,6 +185,9 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
             data={
                 "token": self._activation.access_token,
             },
+            options={
+                "experimental": True,
+            },
         )
 
     async def async_step_could_not_register(self, _user_input=None):
@@ -229,7 +232,7 @@ class HacsOptionsFlowHandler(OptionsFlow):
             limit = int(user_input.get(RELEASE_LIMIT, 5))
             if limit <= 0 or limit > 100:
                 return self.async_abort(reason="release_limit_value")
-            return self.async_create_entry(title="", data=user_input)
+            return self.async_create_entry(title="", data={**user_input, "experimental": True})
 
         if hacs is None or hacs.configuration is None:
             return self.async_abort(reason="not_setup")

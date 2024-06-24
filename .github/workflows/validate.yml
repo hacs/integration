@@ -130,6 +130,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate diff
+        run: |
+          diff -u outputdata/diff/${{ matrix.entry.category }}_before.json outputdata/diff/${{ matrix.entry.category }}_after.json > outputdata/diff/${{ matrix.entry.category }}.diff || true
+          cat outputdata/diff/${{ matrix.entry.category }}.diff
+
       - name: Validate output with JQ
         run: |
           jq -c . outputdata/${{ matrix.entry.category }}/data.json
@@ -146,6 +151,7 @@ jobs:
           path: |
             outputdata/summary.json
             outputdata/${{ matrix.entry.category }}
+            outputdata/diff/${{ matrix.entry.category }}.diff
           if-no-files-found: error
           retention-days: 3
 

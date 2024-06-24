@@ -132,8 +132,8 @@ jobs:
 
       - name: Generate diff
         run: |
-          diff -u outputdata/diff/${{ matrix.category }}_before.json outputdata/diff/${{ matrix.category }}_after.json > outputdata/diff/${{ matrix.category }}.diff || true
-          cat outputdata/diff/${{ matrix.category }}.diff
+          diff -u outputdata/diff/${{ matrix.entry.category }}_before.json outputdata/diff/${{ matrix.entry.category }}_after.json > outputdata/diff/${{ matrix.entry.category }}.diff || true
+          cat outputdata/diff/${{ matrix.entry.category }}.diff
 
       - name: Validate output with JQ
         run: |
@@ -151,7 +151,7 @@ jobs:
           path: |
             outputdata/summary.json
             outputdata/${{ matrix.entry.category }}
-            outputdata/diff/${{ matrix.category }}.diff
+            outputdata/diff/${{ matrix.entry.category }}.diff
           if-no-files-found: error
           retention-days: 3
 

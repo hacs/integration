@@ -95,6 +95,8 @@ jobs:
     if: ${{ github.event_name != 'schedule' }}
     needs:
       - "preflight"
+    outputs:
+      summary: ${{ steps.summary.outputs.summary }}
     runs-on: ubuntu-latest
     name: Check ${{matrix.entry.category}} ${{matrix.entry.repository}} with HACS data generation
     strategy:
@@ -144,6 +146,10 @@ jobs:
         run: |
           python3 -m scripts.data.validate_category_data ${{  matrix.entry.category }} outputdata/${{ matrix.entry.category }}/data.json
 
+      - name: Output summary
+        id: summary
+        run: echo "summary=$(cat outputdata/summary.json)" >> $GITHUB_OUTPUT
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4.3.3
         with:
@@ -168,3 +174,12 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{"username": "GitHub action failure", "content": "[Scheduled action failed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"}' \
             ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
+  postflight:
+    if: ${{ github.repository == 'hacs/integration' }}
+    needs: ["validata-hacs-data"]
+    runs-on: ubuntu-latest
+    name: Postflight
+    steps:
+      - name: Validation postflight
+        run: |
+          echo "${{fromJson(needs.validata-hacs-data.outputs.summary).changed_pct}}"

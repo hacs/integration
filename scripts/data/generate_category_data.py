@@ -1,4 +1,5 @@
 """Generate HACS compliant data."""
+
 from __future__ import annotations
 
 import asyncio
@@ -418,6 +419,19 @@ async def generate_category_data(category: str, repository_name: str = None):
         )
 
         summary = await hacs.summarize_data(current_data, updated_data)
+        with open(
+            os.path.join(OUTPUT_DIR, "summary.json"),
+            mode="w",
+            encoding="utf-8",
+        ) as data_file:
+            json.dump(
+                summary,
+                data_file,
+                cls=JSONEncoder,
+                sort_keys=True,
+                indent=2,
+            )
+
         if (
             not force
             and summary["changed"] == 0
@@ -496,19 +510,6 @@ async def generate_category_data(category: str, repository_name: str = None):
         ) as data_file:
             json.dump(
                 updated_data,
-                data_file,
-                cls=JSONEncoder,
-                sort_keys=True,
-                indent=2,
-            )
-
-        with open(
-            os.path.join(OUTPUT_DIR, "summary.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
-                summary,
                 data_file,
                 cls=JSONEncoder,
                 sort_keys=True,

@@ -174,11 +174,13 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{"username": "GitHub action failure", "content": "[Scheduled action failed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"}' \
             ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
+
   postflight:
     if: ${{ github.repository == 'hacs/integration' }}
     needs: ["validata-hacs-data"]
     runs-on: ubuntu-latest
     name: Postflight
+    environment: ${{fromJson(needs.validata-hacs-data.outputs.summary).changed_pct >= 100 && 'verify' || '' }}
     steps:
       - name: Validation postflight
         run: |

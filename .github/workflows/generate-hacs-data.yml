@@ -125,15 +125,6 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.CF_R2_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CF_R2_SECRET_ACCESS_KEY }}
 
-      - name: Bust Cloudflare cache
-        if: steps.updated.outputs.updated == 'true'
-        run: |
-          curl --silent --show-error --fail -X POST \
-            "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
-            -H "Authorization: Bearer ${{ secrets.CF_BUST_CACHE_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            --data '{"files": ["https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/data.json", "https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/repositories.json"]}'
-
       - name: Discord notification
         if: ${{ github.event_name == 'schedule' && failure() }}
         run: |
@@ -196,3 +187,33 @@ jobs:
             core.setOutput("changedCategories", JSON.stringify(changedCategories))
             core.setOutput("summaries", JSON.stringify(summaries))
             core.setOutput("environment", environment)
+
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: summarize
+    if: github.repository == 'hacs/integration'
+    name: Publish ${{ matrix.category }} data
+    environment: ${{ needs.summarize.outputs.environment }}
+    strategy:
+      fail-fast: false
+      matrix:
+        category: ${{ fromJSON( needs.summarize.outputs.changedCategories )}}
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: ${{ matrix.category }}
+          path: outputdata
+
+      - name: "Inspect outputdata"
+        run: |
+          ls outputdata
+
+      - name: Bust Cloudflare cache
+        run: |
+          curl --silent --show-error --fail -X POST \
+            "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CF_BUST_CACHE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"files": ["https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/data.json", "https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/repositories.json"]}'

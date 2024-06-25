@@ -180,7 +180,7 @@ jobs:
     needs: ["validata-hacs-data"]
     runs-on: ubuntu-latest
     name: Postflight
-    environment: ${{fromJson(needs.validata-hacs-data.outputs.summary).changed_pct >= 100 && 'verify' || '' }}
+    environment: ${{fromJson(needs.validata-hacs-data.outputs.summary).changed_pct >= 101 && 'verify' || '' }}
     steps:
       - name: Validation postflight
         run: |

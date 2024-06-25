@@ -44,6 +44,7 @@ jobs:
           else
             echo "categories=['appdaemon','integration','plugin','python_script','template','theme']" >> $GITHUB_OUTPUT
           fi
+
   category-data:
     runs-on: ubuntu-latest
     needs: generate-matrix
@@ -125,15 +126,6 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.CF_R2_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CF_R2_SECRET_ACCESS_KEY }}
 
-      - name: Discord notification
-        if: ${{ github.event_name == 'schedule' && failure() }}
-        run: |
-          curl \
-            -H "Content-Type: application/json" \
-            -d '{"username": "GitHub action failure", "content": "[Scheduled action failed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"}' \
-            ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
-
-
   summarize:
     name: Summarize
     runs-on: ubuntu-latest
@@ -188,7 +180,6 @@ jobs:
             core.setOutput("summaries", JSON.stringify(summaries))
             core.setOutput("environment", environment)
 
-
   publish:
     runs-on: ubuntu-latest
     needs: summarize
@@ -217,3 +208,16 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.CF_BUST_CACHE_TOKEN }}" \
             -H "Content-Type: application/json" \
             --data '{"files": ["https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/data.json", "https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/repositories.json"]}'
+
+  notify_on_failure:
+    runs-on: ubuntu-latest
+    name: Trigger Discord notification when jobs fail
+    needs: ["generate-matrix", "category-data", "summarize", "publish"]
+    steps:
+      - name: Send notification
+        if: ${{ always() && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
+        run: |
+          curl \
+            -H "Content-Type: application/json" \
+            -d '{"username": "GitHub action failure", "content": "[Scheduled action failed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"}' \
+            ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}

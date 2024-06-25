@@ -105,7 +105,6 @@ jobs:
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4.3.3
-        if: steps.updated.outputs.updated == 'true'
         with:
           name: ${{ matrix.category }}
           path: |
@@ -151,7 +150,7 @@ jobs:
     if: github.repository == 'hacs/integration'
     outputs:
       summaries: ${{ steps.combined.outputs.summaries }}
-      categories: ${{ steps.combined.outputs.categories }}
+      changedCategories: ${{ steps.combined.outputs.changedCategories }}
       environment: ${{ steps.combined.outputs.environment }}
     steps:
       - name: Download artifacts
@@ -162,11 +161,17 @@ jobs:
       - name: Generate combined summary
         uses: actions/github-script@v7.0.1
         id: combined
+        env:
+          HACS_CHANGED_PCT_TARGET: ${{ env.HACS_CHANGED_PCT_TARGET }}
         with:
           script: |
             const fs = require('fs');
             const summaries = {};
+            const changedCategories = []
             let environment = "";
+            const changedPctTarget = Number(process.env.HACS_CHANGED_PCT_TARGET || 10)
+
+
             const subDirectories = fs.readdirSync("outputdata", { withFileTypes: true })
                 .filter(entry => entry.isDirectory())
                 .map(entry => entry.name)
@@ -174,7 +179,11 @@ jobs:
             for (const directory of subDirectories) {
               const parsed = JSON.parse(fs.readFileSync(`outputdata/${directory}/summary.json`))
 
-              if (parsed.changed_pct >= 10) {
+              if (parsed.changed_pct >= 1) {
+                changedCategories.push(directory)
+              }
+
+              if (parsed.changed_pct >= changedPctTarget) {
                 core.warning(`${directory} changed ${parsed.changed_pct}%!`)
                 environment = "verify"
               }
@@ -184,6 +193,6 @@ jobs:
 
             core.summary.addCodeBlock(JSON.stringify({summaries, environment}, null, 4), "json")
             core.summary.write()
-            core.setOutput("categories", JSON.stringify(Object.keys(summaries)))
+            core.setOutput("changedCategories", JSON.stringify(changedCategories))
             core.setOutput("summaries", JSON.stringify(summaries))
             core.setOutput("environment", environment)

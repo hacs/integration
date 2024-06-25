@@ -148,7 +148,7 @@ jobs:
 
       - name: Output summary
         id: summary
-        run: echo "summary=$(cat outputdata/summary.json)" >> $GITHUB_OUTPUT
+        run: echo "summary=$(jq -c . outputdata/summary.json)" >> $GITHUB_OUTPUT
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4.3.3

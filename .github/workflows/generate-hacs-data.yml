@@ -191,7 +191,7 @@ jobs:
               summaries[directory] = JSON.parse(fs.readFileSync(`outputdata/${directory}/summary.json`));
             }
 
-            core.summary.addCodeBlock(JSON.stringify({summaries, environment}, null, 4), "json")
+            core.summary.addCodeBlock(JSON.stringify({summaries, environment, changedCategories}, null, 4), "json")
             core.summary.write()
             core.setOutput("changedCategories", JSON.stringify(changedCategories))
             core.setOutput("summaries", JSON.stringify(summaries))

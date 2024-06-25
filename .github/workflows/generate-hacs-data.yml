@@ -142,3 +142,48 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{"username": "GitHub action failure", "content": "[Scheduled action failed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"}' \
             ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
+
+
+  summarize:
+    name: Summarize
+    runs-on: ubuntu-latest
+    needs: category-data
+    if: github.repository == 'hacs/integration'
+    outputs:
+      summaries: ${{ steps.combined.outputs.summaries }}
+      categories: ${{ steps.combined.outputs.categories }}
+      environment: ${{ steps.combined.outputs.environment }}
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4.1.7
+        with:
+          path: outputdata
+
+      - name: Generate combined summary
+        uses: actions/github-script@v7.0.1
+        id: combined
+        with:
+          script: |
+            const fs = require('fs');
+            const summaries = {};
+            let environment = "";
+            const subDirectories = fs.readdirSync("outputdata", { withFileTypes: true })
+                .filter(entry => entry.isDirectory())
+                .map(entry => entry.name)
+
+            for (const directory of subDirectories) {
+              const parsed = JSON.parse(fs.readFileSync(`outputdata/${directory}/summary.json`))
+
+              if (parsed.changed_pct >= 10) {
+                core.warning(`${directory} changed ${parsed.changed_pct}%!`)
+                environment = "verify"
+              }
+
+              summaries[directory] = JSON.parse(fs.readFileSync(`outputdata/${directory}/summary.json`));
+            }
+
+            core.summary.addCodeBlock(JSON.stringify({summaries, environment}, null, 4), "json")
+            core.summary.write()
+            core.setOutput("categories", JSON.stringify(Object.keys(summaries)))
+            core.setOutput("summaries", JSON.stringify(summaries))
+            core.setOutput("environment", environment)

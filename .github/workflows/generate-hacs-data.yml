@@ -79,28 +79,16 @@ jobs:
           DATA_GENERATOR_TOKEN: ${{ secrets.DATA_GENERATOR_TOKEN }}
           FORCE_REPOSITORY_UPDATE: ${{ inputs.forceRepositoryUpdate }}
 
-      - name: Check if updated
-        id: updated
-        run: |
-          if test -f "outputdata/${{ matrix.category }}/data.json"; then
-            echo "updated=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "updated=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Validate output with JQ
-        if: steps.updated.outputs.updated == 'true'
         run: |
           jq -c . outputdata/${{ matrix.category }}/data.json
           jq -c . outputdata/${{ matrix.category }}/repositories.json
 
       - name: Validate output with schema
-        if: steps.updated.outputs.updated == 'true'
         run: |
           python3 -m scripts.data.validate_category_data ${{ matrix.category }} outputdata/${{ matrix.category }}/data.json
 
       - name: Generate diff
-        if: steps.updated.outputs.updated == 'true'
         run: |
           diff -u outputdata/diff/${{ matrix.category }}_before.json outputdata/diff/${{ matrix.category }}_after.json > outputdata/diff/${{ matrix.category }}.diff || true
 

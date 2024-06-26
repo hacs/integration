@@ -145,6 +145,7 @@ jobs:
         id: combined
         env:
           HACS_CHANGED_PCT_TARGET: ${{ vars.HACS_CHANGED_PCT_TARGET }}
+          HACS_DIFF_TARGET: ${{ vars.HACS_DIFF_TARGET }}
         with:
           script: |
             const fs = require('fs');
@@ -152,6 +153,7 @@ jobs:
             const changedCategories = [];
             const environments = {};
             const changedPctTarget = Number(process.env.HACS_CHANGED_PCT_TARGET || 10)
+            const diffTarget = Number(process.env.HACS_DIFF_TARGET || 1)
 
             const subDirectories = fs.readdirSync("outputdata", { withFileTypes: true })
                 .filter(entry => entry.isDirectory())
@@ -166,6 +168,11 @@ jobs:
 
               if (parsed.changed_pct >= changedPctTarget) {
                 core.warning(`${directory} changed ${parsed.changed_pct}%!`)
+                environments[directory] = `publish-${directory}-verify`;
+              }
+
+              if (parsed.diff >= diffTarget) {
+                core.warning(`${directory} changed ${parsed.diff}!`)
                 environments[directory] = `publish-${directory}-verify`;
               }
 

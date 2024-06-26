@@ -145,7 +145,7 @@ jobs:
         uses: actions/github-script@v7.0.1
         id: combined
         env:
-          HACS_CHANGED_PCT_TARGET: ${{ env.HACS_CHANGED_PCT_TARGET }}
+          HACS_CHANGED_PCT_TARGET: ${{ vars.HACS_CHANGED_PCT_TARGET }}
         with:
           script: |
             const fs = require('fs');
@@ -179,6 +179,14 @@ jobs:
             core.setOutput("changedCategories", JSON.stringify(changedCategories))
             core.setOutput("summaries", JSON.stringify(summaries))
             core.setOutput("environment", environment)
+
+      - name: Send notification
+        if: ${{ steps.combined.outputs.environment != '' }}
+        run: |
+          curl \
+            -H "Content-Type: application/json" \
+            -d '{"username": "GitHub action", "content": "[Attention needed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"}' \
+            ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
 
   publish:
     runs-on: ubuntu-latest

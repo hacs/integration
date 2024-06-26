@@ -196,11 +196,23 @@ jobs:
       matrix:
         category: ${{ fromJSON(needs.summarize.outputs.changedCategories) }}
     steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4.1.7
+
       - name: Download artifacts
         uses: actions/download-artifact@v4.1.7
         with:
           name: ${{ matrix.category }}
           path: outputdata
+
+      - name: Validate output with JQ
+        run: |
+          jq -c . outputdata/${{ matrix.category }}/data.json
+          jq -c . outputdata/${{ matrix.category }}/repositories.json
+
+      - name: Validate output with schema
+        run: |
+          python3 -m scripts.data.validate_category_data ${{ matrix.category }} outputdata/${{ matrix.category }}/data.json
 
       - name: Bust Cloudflare cache
         run: |

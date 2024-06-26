@@ -139,7 +139,7 @@ jobs:
             for (const directory of subDirectories) {
               const parsed = JSON.parse(fs.readFileSync(`outputdata/${directory}/summary.json`))
 
-              if (parsed.changed_pct >= 1) {
+              if (parsed.changed_pct >= 1 || parsed.diff >= 1) {
                 changedCategories.push(directory)
               }
 

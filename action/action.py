@@ -155,7 +155,7 @@ async def preflight():
 async def validate_repository(hacs, repository, category, ref=None):
     """Validate."""
 
-    ## Legacy GitHub client
+    # Legacy GitHub client
     hacs.github = GitHub(
         hacs.configuration.token,
         hacs.session,

@@ -132,7 +132,6 @@ jobs:
     needs: category-data
     if: github.repository == 'hacs/integration'
     outputs:
-      summaries: ${{ steps.combined.outputs.summaries }}
       changedCategories: ${{ steps.combined.outputs.changedCategories }}
       environment: ${{ steps.combined.outputs.environment }}
     steps:
@@ -150,10 +149,9 @@ jobs:
           script: |
             const fs = require('fs');
             const summaries = {};
-            const changedCategories = []
-            let environment = "";
+            const changedCategories = [];
+            const environments = {};
             const changedPctTarget = Number(process.env.HACS_CHANGED_PCT_TARGET || 10)
-
 
             const subDirectories = fs.readdirSync("outputdata", { withFileTypes: true })
                 .filter(entry => entry.isDirectory())
@@ -168,20 +166,19 @@ jobs:
 
               if (parsed.changed_pct >= changedPctTarget) {
                 core.warning(`${directory} changed ${parsed.changed_pct}%!`)
-                environment = "verify"
+                environments[directory] = `publish-${directory}-verify`;
               }
 
               summaries[directory] = JSON.parse(fs.readFileSync(`outputdata/${directory}/summary.json`));
             }
 
-            core.summary.addCodeBlock(JSON.stringify({summaries, environment, changedCategories}, null, 4), "json")
+            core.summary.addCodeBlock(JSON.stringify({summaries, environments, changedCategories}, null, 4), "json")
             core.summary.write()
             core.setOutput("changedCategories", JSON.stringify(changedCategories))
-            core.setOutput("summaries", JSON.stringify(summaries))
-            core.setOutput("environment", environment)
+            core.setOutput("environments", environments)
 
       - name: Send notification
-        if: ${{ steps.combined.outputs.environment != '' }}
+        if: ${{ steps.combined.outputs.environments != '{}' }}
         run: |
           curl \
             -H "Content-Type: application/json" \
@@ -193,21 +190,17 @@ jobs:
     needs: summarize
     if: github.repository == 'hacs/integration'
     name: Publish ${{ matrix.category }} data
-    environment: ${{ needs.summarize.outputs.environment }}
+    environment: ${{ fromJSON(needs.summarize.outputs.environments)[matrix.category] }}
     strategy:
       fail-fast: false
       matrix:
-        category: ${{ fromJSON( needs.summarize.outputs.changedCategories )}}
+        category: ${{ fromJSON(needs.summarize.outputs.changedCategories) }}
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4.1.7
         with:
           name: ${{ matrix.category }}
           path: outputdata
-
-      - name: "Inspect outputdata"
-        run: |
-          ls outputdata
 
       - name: Bust Cloudflare cache
         run: |

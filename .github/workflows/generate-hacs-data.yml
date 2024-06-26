@@ -115,17 +115,6 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-      - name: Upload to R2
-        if: steps.updated.outputs.updated == 'true'
-        run: |
-          aws s3 sync \
-            outputdata/${{ matrix.category }} \
-            s3://data-v2/${{ matrix.category }} \
-            --endpoint-url ${{ secrets.CF_R2_ENDPOINT_DATA }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.CF_R2_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.CF_R2_SECRET_ACCESS_KEY }}
-
   summarize:
     name: Summarize
     runs-on: ubuntu-latest
@@ -235,6 +224,16 @@ jobs:
       - name: Validate output with schema
         run: |
           python3 -m scripts.data.validate_category_data ${{ matrix.category }} outputdata/${{ matrix.category }}/data.json
+
+      - name: Upload to R2
+        run: |
+          aws s3 sync \
+            outputdata/${{ matrix.category }} \
+            s3://data-v2/${{ matrix.category }} \
+            --endpoint-url ${{ secrets.CF_R2_ENDPOINT_DATA }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.CF_R2_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CF_R2_SECRET_ACCESS_KEY }}
 
       - name: Bust Cloudflare cache
         run: |

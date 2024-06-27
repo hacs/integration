@@ -364,7 +364,18 @@ class AdjustedHacs(HacsBase):
             res = await self.async_github_api_method(
                 method=self.githubapi.rate_limit,
             )
-            return res.data.resources.core.as_dict
+            return {
+                "core": {
+                    "used": res.data.resources.core.used,
+                    "limit": res.data.resources.core.limit,
+                    "reset": res.data.resources.core.reset,
+                },
+                "graphql": {
+                    "used": res.data.resources.graphql.used,
+                    "limit": res.data.resources.graphql.limit,
+                    "reset": res.data.resources.graphql.reset,
+                },
+            }
 
         summary = {
             "changed_pct": round((changed / new_count) * 100),

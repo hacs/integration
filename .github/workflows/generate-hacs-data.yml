@@ -129,7 +129,6 @@ jobs:
             const summaries = {};
             const changedCategories = [];
             const environments = {};
-            let changedPctTarget = Number(process.env.HACS_CHANGED_PCT_TARGET)
             const diffTarget = Number(process.env.HACS_DIFF_TARGET || 1)
 
             const subDirectories = fs.readdirSync("outputdata", { withFileTypes: true })
@@ -137,6 +136,7 @@ jobs:
                 .map(entry => entry.name)
 
             for (const directory of subDirectories) {
+              let changedPctTarget = Number(process.env.HACS_CHANGED_PCT_TARGET)
               const parsed = JSON.parse(fs.readFileSync(`outputdata/${directory}/summary.json`))
 
               if (!changedPctTarget) {

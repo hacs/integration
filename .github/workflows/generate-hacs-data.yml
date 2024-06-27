@@ -132,41 +132,42 @@ jobs:
             let changedPctTarget = Number(process.env.HACS_CHANGED_PCT_TARGET)
             const diffTarget = Number(process.env.HACS_DIFF_TARGET || 1)
 
-            if (!changedPctTarget) {
-              if (!parsed.new_count || parsed.new_count <= 0) {
-                changedPctTarget = 0;
-              } else if (parsed.new_count > 1500) {
-                  changedPctTarget = 1;
-              }else if (parsed.new_count > 1000) {
-                  changedPctTarget = 2;
-              } else if (parsed.new_count > 750) {
-                  changedPctTarget = 4;
-              } else if (parsed.new_count > 500) {
-                  changedPctTarget = 6;
-              }else if (parsed.new_count > 250) {
-                  changedPctTarget = 8;
-              } else if (parsed.new_count > 100) {
-                  changedPctTarget = 10;
-              } else if (parsed.new_count > 75) {
-                  changedPctTarget = 15;
-              } else if (parsed.new_count > 50) {
-                  changedPctTarget = 20;
-              } else if (parsed.new_count > 25) {
-                  changedPctTarget = 25;
-              } else if (parsed.new_count > 10) {
-                  changedPctTarget = 28;
-              } else {
-                  changedPctTarget = 50;
-              }
-            }
-
-
             const subDirectories = fs.readdirSync("outputdata", { withFileTypes: true })
                 .filter(entry => entry.isDirectory())
                 .map(entry => entry.name)
 
             for (const directory of subDirectories) {
               const parsed = JSON.parse(fs.readFileSync(`outputdata/${directory}/summary.json`))
+
+              if (!changedPctTarget) {
+                if (!parsed.new_count || parsed.new_count <= 0) {
+                  changedPctTarget = 0;
+                } else if (parsed.new_count > 1500) {
+                    changedPctTarget = 1;
+                }else if (parsed.new_count > 1000) {
+                    changedPctTarget = 2;
+                } else if (parsed.new_count > 750) {
+                    changedPctTarget = 4;
+                } else if (parsed.new_count > 500) {
+                    changedPctTarget = 6;
+                }else if (parsed.new_count > 250) {
+                    changedPctTarget = 8;
+                } else if (parsed.new_count > 100) {
+                    changedPctTarget = 10;
+                } else if (parsed.new_count > 75) {
+                    changedPctTarget = 15;
+                } else if (parsed.new_count > 50) {
+                    changedPctTarget = 20;
+                } else if (parsed.new_count > 25) {
+                    changedPctTarget = 25;
+                } else if (parsed.new_count > 10) {
+                    changedPctTarget = 28;
+                } else {
+                    changedPctTarget = 50;
+                }
+              }
+
+              core.info(`changedPctTarget: ${changedPctTarget}`);
 
               if (parsed.changed_pct >= 1 || parsed.diff >= 1) {
                 changedCategories.push(directory)

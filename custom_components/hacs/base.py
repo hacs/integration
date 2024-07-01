@@ -740,10 +740,22 @@ class HacsBase:
         """Recreate entities."""
         platforms = [Platform.UPDATE]
 
-        await self.hass.config_entries.async_unload_platforms(
-            entry=self.configuration.config_entry,
-            platforms=platforms,
-        )
+        # Workaround for core versions without https://github.com/home-assistant/core/pull/117084
+        if self.core.ha_version < AwesomeVersion("2024.6.0"):
+            unload_platforms_lock = asyncio.Lock()
+            async with unload_platforms_lock:
+                on_unload = self.configuration.config_entry._on_unload
+                self.configuration.config_entry._on_unload = []
+                await self.hass.config_entries.async_unload_platforms(
+                    entry=self.configuration.config_entry,
+                    platforms=platforms,
+                )
+                self.configuration.config_entry._on_unload = on_unload
+        else:
+            await self.hass.config_entries.async_unload_platforms(
+                entry=self.configuration.config_entry,
+                platforms=platforms,
+            )
         await self.hass.config_entries.async_forward_entry_setups(
             self.configuration.config_entry, platforms
         )

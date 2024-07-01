@@ -46,6 +46,7 @@ EXPORTED_DOWNLOADED_REPOSITORY_DATA = EXPORTED_REPOSITORY_DATA + (
     ("last_commit", None),
     ("last_version", None),
     ("manifest_name", None),
+    ("prerelease", None),
     ("open_issues", 0),
     ("published_tags", []),
     ("releases", False),
@@ -290,6 +291,7 @@ class HacsData:
         repository.data.show_beta = repository_data.get("show_beta", False)
         repository.data.last_version = repository_data.get("last_version")
         repository.data.last_commit = repository_data.get("last_commit")
+        repository.data.prerelease = repository_data.get("prerelease")
         repository.data.installed_version = repository_data.get("version_installed")
         repository.data.installed_commit = repository_data.get("installed_commit")
         repository.data.manifest_name = repository_data.get("manifest_name")
@@ -307,6 +309,9 @@ class HacsData:
 
         if repository.data.installed:
             repository.data.first_install = False
+
+        if repository.data.prerelease == repository.data.last_version:
+            repository.data.prerelease = None
 
         if entry == HACS_REPOSITORY_ID:
             repository.data.installed_version = self.hacs.version

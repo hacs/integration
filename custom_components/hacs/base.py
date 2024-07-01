@@ -788,7 +788,9 @@ class HacsBase:
 
         try:
             repository = self.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
+            should_recreate_entities = False
             if repository is None:
+                should_recreate_entities = True
                 await self.async_register_repository(
                     repository_full_name=HacsGitHubRepo.INTEGRATION,
                     category=HacsCategory.INTEGRATION,
@@ -805,6 +807,9 @@ class HacsBase:
             repository.data.installed_version = self.integration.version.string
             repository.data.new = False
             repository.data.releases = True
+
+            if should_recreate_entities:
+                await self.async_recreate_entities()
 
             self.repository = repository.repository_object
             self.repositories.mark_default(repository)

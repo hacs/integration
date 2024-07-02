@@ -30,7 +30,7 @@ from .utils.queue_manager import QueueManager
 from .utils.version import version_left_higher_or_equal_then_right
 from .websocket import async_register_websocket_commands
 
-PLATFORMS = [Platform.UPDATE]
+PLATFORMS = [Platform.SWITCH, Platform.UPDATE]
 
 
 async def _async_initialize_integration(

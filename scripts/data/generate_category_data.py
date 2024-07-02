@@ -234,6 +234,8 @@ class AdjustedHacs(HacsBase):
                             releases = [GitHubReleaseModel(content)]
                         else:
                             releases = []
+                    elif repository.data.prerelease is not None:
+                        repository.data.prerelease = None
 
                     if len(releases) != 0:
                         repository.data.releases = True

@@ -1,4 +1,5 @@
 """Test generate category data."""
+
 import json
 
 from homeassistant.core import HomeAssistant
@@ -41,8 +42,7 @@ async def test_generate_category_data_single_repository(
 
     with open(f"{OUTPUT_DIR}/{category_test_data['category']}/data.json", encoding="utf-8") as file:
         snapshots.assert_match(
-            safe_json_dumps(recursive_remove_key(
-                json.loads(file.read()), ("last_fetched",))),
+            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ("last_fetched",))),
             f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
                 category_test_data['repository']}/data.json",
         )
@@ -56,9 +56,7 @@ async def test_generate_category_data_single_repository(
                 category_test_data['repository']}/repositories.json",
         )
 
-    with open(
-        f"{OUTPUT_DIR}/summary.json", encoding="utf-8"
-    ) as file:
+    with open(f"{OUTPUT_DIR}/summary.json", encoding="utf-8") as file:
         snapshots.assert_match(
             safe_json_dumps(json.loads(file.read())),
             f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
@@ -82,8 +80,7 @@ async def test_generate_category_data(
 
     with open(f"{OUTPUT_DIR}/{category_test_data['category']}/data.json", encoding="utf-8") as file:
         snapshots.assert_match(
-            safe_json_dumps(recursive_remove_key(
-                json.loads(file.read()), ("last_fetched",))),
+            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ("last_fetched",))),
             f"scripts/data/generate_category_data/{
                 category_test_data['category']}//data.json",
         )
@@ -97,11 +94,63 @@ async def test_generate_category_data(
                 category_test_data['category']}/repositories.json",
         )
 
-    with open(
-        f"{OUTPUT_DIR}/summary.json", encoding="utf-8"
-    ) as file:
+    with open(f"{OUTPUT_DIR}/summary.json", encoding="utf-8") as file:
         snapshots.assert_match(
             safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
             f"scripts/data/generate_category_data/{
+                category_test_data['category']}/summary.json",
+        )
+
+
+@pytest.mark.parametrize("category_test_data", [{"category": "integration"}])
+async def test_generate_category_data_with_prior_content(
+    hass: HomeAssistant,
+    response_mocker: ResponseMocker,
+    snapshots: SnapshotFixture,
+    category_test_data: CategoryTestData,
+):
+    """Test behaviour with prior content."""
+    response_mocker.add(
+        f"https://data-v2.hacs.xyz/{category_test_data['category']}/data.json",
+        MockedResponse(
+            content={
+                "1296269": {
+                    "description": "This your first repo!",
+                    "domain": "example",
+                    "downloads": 42,
+                    "etag_repository": "321",
+                    "full_name": "hacs-test-org/integration-basic",
+                    "last_updated": "2011-01-26T19:06:43Z",
+                    "last_version": "1.0.0",
+                    "manifest": {"name": "Proxy manifest"},
+                    "manifest_name": "Proxy manifest",
+                    "stargazers_count": 80,
+                    "topics": ["api", "atom", "electron", "octocat"],
+                }
+            }
+        ),
+    )
+    await generate_category_data(category_test_data["category"])
+
+    with open(f"{OUTPUT_DIR}/{category_test_data['category']}/data.json", encoding="utf-8") as file:
+        snapshots.assert_match(
+            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ("last_fetched",))),
+            f"scripts/data/generate_category_data_with_prior_content/{
+                category_test_data['category']}/data.json",
+        )
+
+    with open(
+        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8"
+    ) as file:
+        snapshots.assert_match(
+            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
+            f"scripts/data/generate_category_data_with_prior_content/{
+                category_test_data['category']}/repositories.json",
+        )
+
+    with open(f"{OUTPUT_DIR}/summary.json", encoding="utf-8") as file:
+        snapshots.assert_match(
+            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
+            f"scripts/data/generate_category_data_with_prior_content/{
                 category_test_data['category']}/summary.json",
         )

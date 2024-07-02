@@ -220,16 +220,12 @@ class AdjustedHacs(HacsBase):
                 if len(releases) != 0:
                     first = releases[0]
                     if first.prerelease:
-                        repository.logger.error("PRERELEASE!")
+                        repository.logger.info("%s Found prerelease", repository.string)
                         repository.data.prerelease = first.tag_name
-
                         response = await self.githubapi.generic(
                             endpoint=f"/repos/{repository.data.full_name}/releases/latest",
                             etag=repository.data.etag_releases,
                         )
-                        repository.logger.error("could not fetch latest release!")
-                        response.data = GitHubReleaseModel(response.data) if response.data else None
-                        repository.data.etag_releases = response.etag
                         if content := response.data:
                             releases = [GitHubReleaseModel(content)]
                         else:

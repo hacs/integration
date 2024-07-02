@@ -112,7 +112,6 @@ REPOSITORY_KEYS_TO_EXPORT = (
     ("last_commit", None),
     ("last_updated", 0),
     ("last_version", None),
-    ("prerelease", None),
     ("manifest_name", None),
     ("open_issues", 0),
     ("stargazers_count", 0),
@@ -167,7 +166,6 @@ class RepositoryData:
     new: bool = True
     open_issues: int = 0
     published_tags: list[str] = []
-    prerelease: str = None
     releases: bool = False
     selected_tag: str = None
     show_beta: bool = False

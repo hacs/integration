@@ -114,6 +114,7 @@ REPOSITORY_KEYS_TO_EXPORT = (
     ("last_version", None),
     ("manifest_name", None),
     ("open_issues", 0),
+    ("prerelease", None),
     ("stargazers_count", 0),
     ("topics", []),
 )
@@ -165,6 +166,7 @@ class RepositoryData:
     manifest_name: str = None
     new: bool = True
     open_issues: int = 0
+    prerelease: str = None
     published_tags: list[str] = []
     releases: bool = False
     selected_tag: str = None
@@ -569,9 +571,11 @@ class HacsRepository:
                 ),
                 validate,
             )
-        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except BaseException:
             validate.errors.append(
-                f"Download of {self.repository_manifest.filename} was not completed"
+                f"Download of {
+                    self.repository_manifest.filename} was not completed"
             )
 
     async def async_download_zip_file(
@@ -610,7 +614,8 @@ class HacsRepository:
                 return
 
             validate.errors.append(f"[{content['name']}] was not downloaded")
-        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except BaseException:
             validate.errors.append("Download was not completed")
 
     async def download_content(self, version: string | None = None) -> None:
@@ -719,7 +724,8 @@ class HacsRepository:
             )
             if response:
                 return json_loads(decode_content(response.data.content))
-        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except BaseException:
             pass
 
     async def async_get_info_file_contents(self, *, version: str | None = None, **kwargs) -> str:
@@ -820,7 +826,8 @@ class HacsRepository:
                 )
 
         except (
-            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            BaseException
         ) as exception:
             self.logger.debug("%s Removing %s failed with %s", self.string, local_path, exception)
             return False
@@ -945,7 +952,8 @@ class HacsRepository:
             ):
                 persistent_directory = Backup(
                     hacs=self.hacs,
-                    local_path=f"{self.content.path.local}/{self.repository_manifest.persistent_directory}",
+                    local_path=f"{
+                        self.content.path.local}/{self.repository_manifest.persistent_directory}",
                     backup_path=tempfile.gettempdir() + "/hacs_persistent_directory/",
                 )
                 await self.hacs.hass.async_add_executor_job(persistent_directory.create)
@@ -1272,7 +1280,8 @@ class HacsRepository:
             self.validate.errors.append(f"[{content.name}] was not downloaded.")
 
         except (
-            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            BaseException
         ) as exception:
             self.validate.errors.append(f"Download was not completed [{exception}]")
 
@@ -1332,7 +1341,8 @@ class HacsRepository:
             return None
 
         result = await self.hacs.async_download_file(
-            f"https://raw.githubusercontent.com/{self.data.full_name}/{target_version}/{filename}",
+            f"https://raw.githubusercontent.com/{
+                self.data.full_name}/{target_version}/{filename}",
             nolog=True,
         )
 
@@ -1349,7 +1359,8 @@ class HacsRepository:
         self.logger.debug("%s Getting hacs.json for version=%s", self.string, version)
         try:
             result = await self.hacs.async_download_file(
-                f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/hacs.json",
+                f"https://raw.githubusercontent.com/{
+                    self.data.full_name}/{version}/hacs.json",
                 nolog=True,
             )
             if result is None:

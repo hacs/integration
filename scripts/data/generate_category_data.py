@@ -57,6 +57,34 @@ log_handler.addHandler(stream_handler)
 
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
 
+GQL_RELEASES = """
+query ($owner: String!, $repo: String!) {
+  repository(owner: $owner, name: $repo) {
+    latestRelease {
+      tagName
+      releaseAssets(first: 5) {
+        nodes {
+          name
+          downloadCount
+        }
+      }
+    }
+    releases(last: 1, orderBy: {field: CREATED_AT, direction: ASC}) {
+      nodes {
+        tagName
+        isPrerelease
+        releaseAssets(first: 5) {
+          nodes {
+            name
+            downloadCount
+          }
+        }
+      }
+    }
+  }
+}
+"""
+
 
 def jsonprint(data: any):
     print(
@@ -130,9 +158,7 @@ class AdjustedHacsData(HacsData):
         """Store the repository data."""
         data = {"manifest": {}}
         for key, default in HACS_MANIFEST_KEYS_TO_EXPORT:
-            if (
-                value := getattr(repository.repository_manifest, key, default)
-            ) != default:
+            if (value := getattr(repository.repository_manifest, key, default)) != default:
                 data["manifest"][key] = value
 
         for key, default in REPOSITORY_KEYS_TO_EXPORT:
@@ -166,8 +192,7 @@ class AdjustedHacs(HacsBase):
         self.core.config_path = None
         self.configuration.token = token
         self.data = AdjustedHacsData(hacs=self)
-        self.data_client = HacsDataClient(
-            session=session, client_name="HACS/Generator")
+        self.data_client = HacsDataClient(session=session, client_name="HACS/Generator")
 
         self.github = GitHub(
             token,
@@ -210,41 +235,61 @@ class AdjustedHacs(HacsBase):
                     "%s Fetching repository releases",
                     repository.string,
                 )
-                response = await self.githubapi.generic(
-                    endpoint=f"/repos/{repository.data.full_name}/releases/latest",
-                    etag=repository.data.etag_releases,
+
+                repoowner, reponame = repository.data.full_name.split("/")
+                response = await self.githubapi.graphql(
+                    query=GQL_RELEASES,
+                    variables={"owner": repoowner, "repo": reponame},
                 )
-                response.data = (
-                    GitHubReleaseModel(
-                        response.data) if response.data else None
-                )
-                repository.data.etag_releases = response.etag
-                if (releases := response.data) is not None:
+
+                if (data := response.data["data"]["repository"]) is not None and (
+                    last_release_nodes := data.get("releases", {}).get("nodes", [])
+                ):
                     repository.data.releases = True
-                    repository.releases.objects = [releases]
-                    repository.data.published_tags = [
-                        x.tag_name for x in repository.releases.objects
-                    ]
+
+                    latest_release = data.get("latestRelease", {})
+                    last_release = last_release_nodes[0]
+
                     if (
-                        next_version := next(iter(repository.data.published_tags), None)
-                    ) != repository.data.last_version:
-                        repository.data.last_version = next_version
+                        repository.data.prerelease
+                        and repository.data.prerelease != last_release["tagName"]
+                    ) or (
+                        repository.data.last_version
+                        and repository.data.last_version != latest_release["tagName"]
+                    ):
                         repository.data.etag_repository = None
 
-            except GitHubNotModifiedException:
-                repository.data.releases = True
-                repository.logger.info(
-                    "%s Release data is up to date",
-                    repository.string,
-                )
+                    release_assets = latest_release.get("releaseAssets", {}).get("nodes", [])
+                    repository.data.downloads = (
+                        release_assets[0]["downloadCount"] if release_assets else 0
+                    )
+                    repository.data.published_tags = [repository.data.last_version]
+                    repository.releases.objects = [
+                        GitHubReleaseModel(
+                            {
+                                "tag_name": repository.data.last_version,
+                                "assets": [
+                                    {
+                                        "name": a["name"],
+                                        "download_count": a["downloadCount"],
+                                    }
+                                    for a in release_assets
+                                ],
+                            }
+                        )
+                    ]
+
+                    repository.data.prerelease = last_release.get("tagName")
+
+                if repository.data.prerelease == repository.data.last_version:
+                    repository.data.prerelease = None
+
             except GitHubNotFoundException:
                 repository.data.releases = False
-                repository.logger.info(
-                    "%s No releases found", repository.string)
+                repository.logger.info("%s No releases found", repository.string)
             except GitHubException as exception:
                 repository.data.releases = False
-                repository.logger.warning(
-                    "%s %s", repository.string, exception)
+                repository.logger.warning("%s %s", repository.string, exception)
 
         await repository.common_update(
             force=repository.data.etag_repository is None,
@@ -330,8 +375,7 @@ class AdjustedHacs(HacsBase):
                 continue
             repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
-                self.queue.add(self.concurrent_update_repository(
-                    repository=repository))
+                self.queue.add(self.concurrent_update_repository(repository=repository))
                 continue
 
             self.queue.add(
@@ -409,8 +453,7 @@ class AdjustedHacs(HacsBase):
 async def generate_category_data(category: str, repository_name: str = None):
     """Generate data."""
     async with ClientSession() as session:
-        hacs = AdjustedHacs(
-            session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
+        hacs = AdjustedHacs(session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
         os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
         os.makedirs(os.path.join(OUTPUT_DIR, "diff"), exist_ok=True)
         force = os.environ.get("FORCE_REPOSITORY_UPDATE") == "True"
@@ -450,11 +493,7 @@ async def generate_category_data(category: str, repository_name: str = None):
             )
 
         did_raise = False
-        if (
-            not updated_data
-            or len(updated_data) == 0
-            or not isinstance(updated_data, dict)
-        ):
+        if not updated_data or len(updated_data) == 0 or not isinstance(updated_data, dict):
             print_error_and_exit(f"Updated data is empty", category)
             did_raise = True
 
@@ -471,8 +510,7 @@ async def generate_category_data(category: str, repository_name: str = None):
             print_error_and_exit(f"Invalid data: {errors}", category)
 
         if did_raise:
-            print_error_and_exit(
-                "Validation did raise but did not exit!", category)
+            print_error_and_exit("Validation did raise but did not exit!", category)
             sys.exit(1)  # Fallback, should not be reached
 
         with open(

@@ -118,7 +118,6 @@ V2_COMMON_DATA_JSON_SCHEMA = {
     vol.Required("last_fetched"): vol.Any(int, float),
     vol.Required("last_updated"): str,
     vol.Optional("last_version"): str,
-    vol.Optional("prerelease"): str,
     vol.Required("manifest"): {
         vol.Optional("country"): vol.Any([str], False),
         vol.Optional("name"): str,

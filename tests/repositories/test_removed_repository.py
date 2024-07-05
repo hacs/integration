@@ -24,7 +24,7 @@ BASE_DATA = {
 )
 def test_removed_repository(data: dict[str, any]):
     """Test RemovedRepository."""
-    removed = RemovedRepository(**{"repository": "remmoved/repository"})
+    removed = RemovedRepository(repository="remmoved/repository")
     assert removed.to_json() == BASE_DATA
     removed.update_data(data)
     assert removed.to_json() == {**BASE_DATA, **data}

@@ -15,14 +15,9 @@ from unittest.mock import AsyncMock, Mock, patch
 
 from aiohttp import ClientError, ClientSession, ClientWebSocketResponse
 from aiohttp.typedefs import StrOrURL
-from awesomeversion import AwesomeVersion
 from homeassistant import auth, bootstrap, config_entries, core as ha, loader
 from homeassistant.auth import auth_store, models as auth_models
-from homeassistant.const import (
-    EVENT_HOMEASSISTANT_CLOSE,
-    EVENT_HOMEASSISTANT_STOP,
-    __version__ as HAVERSION,
-)
+from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE, EVENT_HOMEASSISTANT_STOP
 from homeassistant.core import CoreState, HomeAssistant, callback
 from homeassistant.helpers import (
     area_registry as ar,
@@ -181,7 +176,7 @@ def recursive_remove_key(data: dict[str, Any], to_remove: Iterable[str]) -> dict
             returndata[key] = value
         elif isinstance(value, dict):
             returndata[key] = recursive_remove_key(
-                {k: value[k] for k in sorted(value.keys())}, to_remove
+                {k: value[k] for k in sorted(value.keys())}, to_remove,
             )
         elif isinstance(value, (list, set)):
             returndata[key] = [recursive_remove_key(item, to_remove) for item in _sort_list(value)]
@@ -333,7 +328,7 @@ async def async_test_home_assistant_min_version(
 
     hass.config_entries = config_entries.ConfigEntries(
         hass,
-        {"_": ("Not empty or else some bad checks for hass config in discovery.py" " breaks")},
+        {"_": ("Not empty or else some bad checks for hass config in discovery.py breaks")},
     )
     hass.bus.async_listen_once(
         EVENT_HOMEASSISTANT_STOP,
@@ -479,7 +474,7 @@ async def async_test_home_assistant_dev(
 
     hass.config_entries = config_entries.ConfigEntries(
         hass,
-        {"_": ("Not empty or else some bad checks for hass config in discovery.py" " breaks")},
+        {"_": ("Not empty or else some bad checks for hass config in discovery.py breaks")},
     )
     hass.bus.async_listen_once(
         EVENT_HOMEASSISTANT_STOP,
@@ -624,7 +619,7 @@ class MockOwner(auth_models.User):
                 "system_generated": False,
                 "groups": [],
                 "perm_lookup": None,
-            }
+            },
         )
 
     @staticmethod
@@ -662,7 +657,6 @@ class WSClient:
 
         async def _async_close_websession(event: ha.Event) -> None:
             """Close websession."""
-
             await self.send_json("close", {})
             await self.client.close()
 
@@ -671,7 +665,7 @@ class WSClient:
         self.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, _async_close_websession)
 
         self.client = await clientsession.ws_connect(
-            "ws://localhost:8123/api/websocket", timeout=1, autoclose=True
+            "ws://localhost:8123/api/websocket", timeout=1, autoclose=True,
         )
         auth_response = await self.client.receive_json()
         assert auth_response["type"] == "auth_required"
@@ -857,7 +851,7 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
 
 
 def create_config_entry(
-    data: dict[str, Any] = None, options: dict[str, Any] = None
+    data: dict[str, Any] = None, options: dict[str, Any] = None,
 ) -> MockConfigEntry:
     return MockConfigEntry(
         version=1,
@@ -874,7 +868,7 @@ def create_config_entry(
 async def setup_integration(hass: ha.HomeAssistant, config_entry: MockConfigEntry) -> None:
     mock_session = await client_session_proxy(hass)
     with patch(
-        "homeassistant.helpers.aiohttp_client.async_get_clientsession", return_value=mock_session
+        "homeassistant.helpers.aiohttp_client.async_get_clientsession", return_value=mock_session,
     ):
         hass.data.pop("custom_components", None)
         config_entry.add_to_hass(hass)

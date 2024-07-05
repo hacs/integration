@@ -28,7 +28,7 @@ class Backup:
         backup_path: str = DEFAULT_BACKUP_PATH,
         repository: HacsRepository | None = None,
     ) -> None:
-        """initialize."""
+        """Initialize."""
         self.hacs = hacs
         self.repository = repository
         self.local_path = local_path or repository.content.path.local

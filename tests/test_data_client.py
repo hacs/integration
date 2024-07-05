@@ -2,7 +2,6 @@
 
 import asyncio
 from contextlib import nullcontext as does_not_raise
-from types import NoneType
 from typing import ContextManager
 
 from homeassistant.core import HomeAssistant

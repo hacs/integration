@@ -30,14 +30,14 @@ async def test_register_repository(
     assert hacs.repositories.get_by_full_name(repository_full_name) is None
 
     response = await ws_client.send_and_receive_json(
-        "hacs/repositories/add", {"repository": repository_full_name, "category": category.value}
+        "hacs/repositories/add", {"repository": repository_full_name, "category": category.value},
     )
     assert response["success"] == True
     repo = hacs.repositories.get_by_full_name(repository_full_name)
     assert repo is not None
 
     response = await ws_client.send_and_receive_json(
-        "hacs/repository/info", {"repository_id": repo.data.id}
+        "hacs/repository/info", {"repository_id": repo.data.id},
     )
     assert response["success"] == True
 

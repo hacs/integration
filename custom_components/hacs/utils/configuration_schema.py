@@ -7,4 +7,3 @@ APPDAEMON = "appdaemon"
 
 # Options:
 COUNTRY = "country"
-DEBUG = "debug"

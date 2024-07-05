@@ -8,13 +8,13 @@ from custom_components.hacs.utils import filters
 def test_valid_objects():
     tree = [
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test/file.file", "type": "blob"}, "test/test", "main"
+            {"path": "test/file.file", "type": "blob"}, "test/test", "main",
         ),
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test/newfile.file", "type": "blob"}, "test/test", "main"
+            {"path": "test/newfile.file", "type": "blob"}, "test/test", "main",
         ),
         AIOGitHubAPIRepositoryTreeContent(
-            {"path": "test/file.png", "type": "blob"}, "test/test", "main"
+            {"path": "test/file.png", "type": "blob"}, "test/test", "main",
         ),
     ]
     files = [

@@ -53,7 +53,7 @@ async def test_update_entity_state(
     # Get initial state
     state = hass.states.get(entity_id)
     initial_state = recursive_remove_key(
-        state.as_dict(), ("id", "last_changed", "last_reported", "last_updated")
+        state.as_dict(), ("id", "last_changed", "last_reported", "last_updated"),
     )
 
     # Bump version
@@ -83,7 +83,7 @@ async def test_update_entity_state(
     # Get updated state
     state = hass.states.get(entity_id)
     updated_state = recursive_remove_key(
-        state.as_dict(), ("id", "last_changed", "last_reported", "last_updated")
+        state.as_dict(), ("id", "last_changed", "last_reported", "last_updated"),
     )
 
     snapshots.assert_match(

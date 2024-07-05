@@ -1,7 +1,5 @@
 """Test fs_util."""
 
-from contextlib import nullcontext as does_not_raise
-import os
 
 import pytest
 
@@ -10,8 +8,6 @@ from custom_components.hacs.utils.file_system import (
     async_remove,
     async_remove_directory,
 )
-
-from tests.common import fixture
 
 
 async def test_async_exists(hass, tmpdir):

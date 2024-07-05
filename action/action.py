@@ -61,12 +61,12 @@ def get_event_data():
 
 async def choose_repository(githubapi: GitHubAPI, category: str):
     if category is None:
-        return
+        return None
 
     response = await githubapi.repos.contents.get(HacsGitHubRepo.DEFAULT, category)
     current = json.loads(decode_content(response.data.content))
 
-    with open(f"{GITHUB_WORKSPACE}/{category}") as cat_file:
+    with open(f"{GITHUB_WORKSPACE}/{category}") as cat_file:  # noqa: ASYNC230
         new = json.loads(cat_file.read())
 
     for repo in current:
@@ -103,7 +103,7 @@ async def preflight():
         hacs.githubapi = GitHubAPI(
             token=hacs.configuration.token,
             session=session,
-            **{"client_name": "HACS/Action"},
+            client_name="HACS/Action",
         )
 
         if REPOSITORY and CATEGORY:
@@ -153,8 +153,7 @@ async def preflight():
 
 async def validate_repository(hacs, repository, category, ref=None):
     """Validate."""
-
-    ## Legacy GitHub client
+    # Legacy GitHub client
     hacs.github = GitHub(
         hacs.configuration.token,
         hacs.session,
@@ -163,7 +162,9 @@ async def validate_repository(hacs, repository, category, ref=None):
 
     try:
         await hacs.async_register_repository(
-            repository_full_name=repository, category=category, ref=ref
+            repository_full_name=repository,
+            category=category,
+            ref=ref,
         )
     except HacsException as exception:
         error(exception)

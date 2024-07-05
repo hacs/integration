@@ -21,7 +21,7 @@ from tests.conftest import SnapshotFixture
         {"installed": True, "installed_version": "1.0.0"},
         {"installed": True, "installed_version": "1.0.0","last_version": "2.0.0"},
         {"installed": False, "last_version": "2.0.0"},
-        {"installed": False, "last_version": "99.99.99"}
+        {"installed": False, "last_version": "99.99.99"},
     ],
 )
 async def test_repository_get_documentation(

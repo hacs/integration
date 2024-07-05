@@ -16,37 +16,37 @@ from tests.conftest import SnapshotFixture
 async def test_diagnostics(hacs: HacsBase, snapshots: SnapshotFixture):
     """Test the base result."""
     diagnostics = await async_get_config_entry_diagnostics(
-        hacs.hass, hacs.configuration.config_entry
+        hacs.hass, hacs.configuration.config_entry,
     )
 
     assert TOKEN not in str(diagnostics)
     snapshots.assert_match(
         safe_json_dumps(
             recursive_remove_key(
-                diagnostics, ("entry_id", "last_updated", "local", "minor_version")
-            )
+                diagnostics, ("entry_id", "last_updated", "local", "minor_version"),
+            ),
         ),
         "diagnostics/base.json",
     )
 
 
 async def test_diagnostics_with_exception(
-    hacs: HacsBase, snapshots: SnapshotFixture, response_mocker: ResponseMocker
+    hacs: HacsBase, snapshots: SnapshotFixture, response_mocker: ResponseMocker,
 ):
-    """test the result with issues getting the ratelimit."""
+    """Test the result with issues getting the ratelimit."""
     response_mocker.add(
         "https://api.github.com/rate_limit",
         MockedResponse(status=400, content="Something went wrong"),
     )
     diagnostics = await async_get_config_entry_diagnostics(
-        hacs.hass, hacs.configuration.config_entry
+        hacs.hass, hacs.configuration.config_entry,
     )
 
     snapshots.assert_match(
         safe_json_dumps(
             recursive_remove_key(
-                diagnostics, ("entry_id", "last_updated", "local", "minor_version")
-            )
+                diagnostics, ("entry_id", "last_updated", "local", "minor_version"),
+            ),
         ),
         "diagnostics/exception.json",
     )

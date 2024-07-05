@@ -24,7 +24,7 @@ from tests.common import (
 from tests.conftest import SnapshotFixture
 
 
-@pytest.fixture
+@pytest.fixture()
 def _mock_setup_entry(hass: HomeAssistant) -> Generator[None, None, None]:
     """Mock setting up a config entry."""
     hass.data.pop("custom_components", None)

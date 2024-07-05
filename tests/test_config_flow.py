@@ -350,7 +350,6 @@ async def test_options_flow(hass: HomeAssistant, setup_integration: Generator) -
     assert result["data"] == {
         "appdaemon": True,
         "country": "ALL",
-        "debug": False,
         "experimental": True,
         "sidepanel_icon": "hacs:hacs",
         "sidepanel_title": "new_title",
@@ -359,7 +358,6 @@ async def test_options_flow(hass: HomeAssistant, setup_integration: Generator) -
     assert config_entry.options == {
         "appdaemon": True,
         "country": "ALL",
-        "debug": False,
         "experimental": True,
         "sidepanel_icon": "hacs:hacs",
         "sidepanel_title": "new_title",

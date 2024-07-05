@@ -153,27 +153,6 @@ def test_gather_content_in_root_theme(repository_theme):
     assert "test.yaml" in files
 
 
-def test_gather_netdaemon_files_base(repository_netdaemon):
-    repository = repository_netdaemon
-    repository.tree = [
-        AIOGitHubAPIRepositoryTreeContent({"path": "test.cs", "type": "blob"}, "test/test", "main"),
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "apps/test/test.cs", "type": "blob"}, "test/test", "main"
-        ),
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": "apps/test/test.yaml", "type": "blob"}, "test/test", "main"
-        ),
-        AIOGitHubAPIRepositoryTreeContent(
-            {"path": ".github/file.file", "type": "blob"}, "test/test", "main"
-        ),
-    ]
-    files = [x.path for x in repository.gather_files_to_download()]
-    assert ".github/file.file" not in files
-    assert "test.cs" not in files
-    assert "apps/test/test.cs" in files
-    assert "apps/test/test.yaml" in files
-
-
 def test_gather_appdaemon_files_base(repository_appdaemon):
     repository = repository_appdaemon
     repository.tree = [

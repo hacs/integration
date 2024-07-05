@@ -120,8 +120,6 @@ class HacsConfiguration:
     dev: bool = False
     frontend_repo_url: str = ""
     frontend_repo: str = ""
-    netdaemon_path: str = "netdaemon/apps/"
-    netdaemon: bool = False
     plugin_path: str = "www/community/"
     python_script_path: str = "python_scripts/"
     python_script: bool = False
@@ -142,7 +140,7 @@ class HacsConfiguration:
             raise HacsException("Configuration is not valid.")
 
         for key in data:
-            if key == "experimental":
+            if key in {"experimental", "netdaemon"}:
                 continue
             self.__setattr__(key, data[key])
 
@@ -784,14 +782,6 @@ class HacsBase:
 
         if self.configuration.appdaemon:
             self.enable_hacs_category(HacsCategory.APPDAEMON)
-        if self.configuration.netdaemon:
-            if self.repositories.category_downloaded(HacsCategory.NETDAEMON):
-                self.log.warning(
-                    "NetDaemon in HACS is deprectaded. It will stop working in the future. "
-                    "Please remove all your current NetDaemon repositories from HACS "
-                    "and download them manually if you want to continue using them."
-                )
-                self.enable_hacs_category(HacsCategory.NETDAEMON)
 
     async def async_load_hacs_from_github(self, _=None) -> None:
         """Load HACS from GitHub."""

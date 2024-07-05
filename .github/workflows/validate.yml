@@ -42,7 +42,7 @@ jobs:
     name: With hassfest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4.1.6
+        uses: actions/checkout@v4.1.7
 
       # Test files conflict with running hassfest
       - name: Remove tests
@@ -77,7 +77,7 @@ jobs:
             category: "plugin"
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4.1.6
+        uses: actions/checkout@v4.1.7
 
       - name: Build Container
         run: |
@@ -106,7 +106,7 @@ jobs:
             category: "plugin"
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4.1.6
+        uses: actions/checkout@v4.1.7
 
       - name: Set up Python
         uses: actions/setup-python@v5.1.0
@@ -130,6 +130,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate diff
+        run: |
+          diff -u outputdata/diff/${{ matrix.entry.category }}_before.json outputdata/diff/${{ matrix.entry.category }}_after.json > outputdata/diff/${{ matrix.entry.category }}.diff || true
+          cat outputdata/diff/${{ matrix.entry.category }}.diff
+
       - name: Validate output with JQ
         run: |
           jq -c . outputdata/${{ matrix.entry.category }}/data.json
@@ -146,6 +151,7 @@ jobs:
           path: |
             outputdata/summary.json
             outputdata/${{ matrix.entry.category }}
+            outputdata/diff/${{ matrix.entry.category }}.diff
           if-no-files-found: error
           retention-days: 3
 

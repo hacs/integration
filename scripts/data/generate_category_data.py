@@ -1,4 +1,5 @@
 """Generate HACS compliant data."""
+
 from __future__ import annotations
 
 import asyncio
@@ -165,7 +166,8 @@ class AdjustedHacs(HacsBase):
         self.core.config_path = None
         self.configuration.token = token
         self.data = AdjustedHacsData(hacs=self)
-        self.data_client = HacsDataClient(session=session, client_name="HACS/Generator")
+        self.data_client = HacsDataClient(
+            session=session, client_name="HACS/Generator")
 
         self.github = GitHub(
             token,
@@ -213,7 +215,8 @@ class AdjustedHacs(HacsBase):
                     etag=repository.data.etag_releases,
                 )
                 response.data = (
-                    GitHubReleaseModel(response.data) if response.data else None
+                    GitHubReleaseModel(
+                        response.data) if response.data else None
                 )
                 repository.data.etag_releases = response.etag
                 if (releases := response.data) is not None:
@@ -236,10 +239,12 @@ class AdjustedHacs(HacsBase):
                 )
             except GitHubNotFoundException:
                 repository.data.releases = False
-                repository.logger.info("%s No releases found", repository.string)
+                repository.logger.info(
+                    "%s No releases found", repository.string)
             except GitHubException as exception:
                 repository.data.releases = False
-                repository.logger.warning("%s %s", repository.string, exception)
+                repository.logger.warning(
+                    "%s %s", repository.string, exception)
 
         await repository.common_update(
             force=repository.data.etag_repository is None,
@@ -325,7 +330,8 @@ class AdjustedHacs(HacsBase):
                 continue
             repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
-                self.queue.add(self.concurrent_update_repository(repository=repository))
+                self.queue.add(self.concurrent_update_repository(
+                    repository=repository))
                 continue
 
             self.queue.add(
@@ -358,7 +364,18 @@ class AdjustedHacs(HacsBase):
             res = await self.async_github_api_method(
                 method=self.githubapi.rate_limit,
             )
-            return res.data.resources.core.as_dict
+            return {
+                "core": {
+                    "used": res.data.resources.core.used,
+                    "limit": res.data.resources.core.limit,
+                    "reset": res.data.resources.core.reset,
+                },
+                "graphql": {
+                    "used": res.data.resources.graphql.used,
+                    "limit": res.data.resources.graphql.limit,
+                    "reset": res.data.resources.graphql.reset,
+                },
+            }
 
         summary = {
             "changed_pct": round((changed / new_count) * 100),
@@ -392,7 +409,8 @@ class AdjustedHacs(HacsBase):
 async def generate_category_data(category: str, repository_name: str = None):
     """Generate data."""
     async with ClientSession() as session:
-        hacs = AdjustedHacs(session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
+        hacs = AdjustedHacs(
+            session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
         os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
         os.makedirs(os.path.join(OUTPUT_DIR, "diff"), exist_ok=True)
         force = os.environ.get("FORCE_REPOSITORY_UPDATE") == "True"
@@ -418,17 +436,20 @@ async def generate_category_data(category: str, repository_name: str = None):
         )
 
         summary = await hacs.summarize_data(current_data, updated_data)
-        if (
-            not force
-            and summary["changed"] == 0
-            and repository_name is None
-            and len(current_data) == len(updated_data)
-        ):
-            print("No changes, exiting")
-            return
+        with open(
+            os.path.join(OUTPUT_DIR, "summary.json"),
+            mode="w",
+            encoding="utf-8",
+        ) as data_file:
+            json.dump(
+                summary,
+                data_file,
+                cls=JSONEncoder,
+                sort_keys=True,
+                indent=2,
+            )
 
         did_raise = False
-
         if (
             not updated_data
             or len(updated_data) == 0
@@ -450,7 +471,8 @@ async def generate_category_data(category: str, repository_name: str = None):
             print_error_and_exit(f"Invalid data: {errors}", category)
 
         if did_raise:
-            print_error_and_exit("Validation did raise but did not exit!", category)
+            print_error_and_exit(
+                "Validation did raise but did not exit!", category)
             sys.exit(1)  # Fallback, should not be reached
 
         with open(
@@ -496,19 +518,6 @@ async def generate_category_data(category: str, repository_name: str = None):
         ) as data_file:
             json.dump(
                 updated_data,
-                data_file,
-                cls=JSONEncoder,
-                sort_keys=True,
-                indent=2,
-            )
-
-        with open(
-            os.path.join(OUTPUT_DIR, "summary.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
-                summary,
                 data_file,
                 cls=JSONEncoder,
                 sort_keys=True,

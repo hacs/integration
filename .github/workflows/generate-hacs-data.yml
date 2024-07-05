@@ -44,6 +44,7 @@ jobs:
           else
             echo "categories=['appdaemon','integration','plugin','python_script','template','theme']" >> $GITHUB_OUTPUT
           fi
+
   category-data:
     runs-on: ubuntu-latest
     needs: generate-matrix
@@ -55,7 +56,7 @@ jobs:
         category: ${{ fromJSON( needs.generate-matrix.outputs.categories )}}
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4.1.6
+        uses: actions/checkout@v4.1.7
 
       - name: Set up Python
         uses: actions/setup-python@v5.1.0
@@ -78,34 +79,21 @@ jobs:
           DATA_GENERATOR_TOKEN: ${{ secrets.DATA_GENERATOR_TOKEN }}
           FORCE_REPOSITORY_UPDATE: ${{ inputs.forceRepositoryUpdate }}
 
-      - name: Check if updated
-        id: updated
-        run: |
-          if test -f "outputdata/${{ matrix.category }}/data.json"; then
-            echo "updated=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "updated=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Validate output with JQ
-        if: steps.updated.outputs.updated == 'true'
         run: |
           jq -c . outputdata/${{ matrix.category }}/data.json
           jq -c . outputdata/${{ matrix.category }}/repositories.json
 
       - name: Validate output with schema
-        if: steps.updated.outputs.updated == 'true'
         run: |
           python3 -m scripts.data.validate_category_data ${{ matrix.category }} outputdata/${{ matrix.category }}/data.json
 
       - name: Generate diff
-        if: steps.updated.outputs.updated == 'true'
         run: |
           diff -u outputdata/diff/${{ matrix.category }}_before.json outputdata/diff/${{ matrix.category }}_after.json > outputdata/diff/${{ matrix.category }}.diff || true
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4.3.3
-        if: steps.updated.outputs.updated == 'true'
         with:
           name: ${{ matrix.category }}
           path: |
@@ -115,8 +103,147 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  summarize:
+    name: Summarize
+    runs-on: ubuntu-latest
+    needs: category-data
+    if: github.repository == 'hacs/integration'
+    outputs:
+      changedCategories: ${{ steps.combined.outputs.changedCategories }}
+      environments: ${{ steps.combined.outputs.environments }}
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4.1.7
+        with:
+          path: outputdata
+
+      - name: Generate combined summary
+        uses: actions/github-script@v7.0.1
+        id: combined
+        env:
+          HACS_CHANGED_PCT_TARGET: ${{ vars.HACS_CHANGED_PCT_TARGET }}
+          HACS_DIFF_TARGET: ${{ vars.HACS_DIFF_TARGET }}
+        with:
+          script: |
+            const fs = require('fs');
+            const summaries = {};
+            const changedCategories = [];
+            const environments = {};
+            const diffTarget = Number(process.env.HACS_DIFF_TARGET || 1)
+
+            const subDirectories = fs.readdirSync("outputdata", { withFileTypes: true })
+                .filter(entry => entry.isDirectory())
+                .map(entry => entry.name)
+
+            for (const directory of subDirectories) {
+              let changedPctTarget = Number(process.env.HACS_CHANGED_PCT_TARGET)
+              const parsed = JSON.parse(fs.readFileSync(`outputdata/${directory}/summary.json`))
+
+              if (!changedPctTarget) {
+                if (!parsed.new_count || parsed.new_count <= 0) {
+                  changedPctTarget = 0;
+                } else if (parsed.new_count > 1500) {
+                    changedPctTarget = 1;
+                }else if (parsed.new_count > 1000) {
+                    changedPctTarget = 2;
+                } else if (parsed.new_count > 750) {
+                    changedPctTarget = 4;
+                } else if (parsed.new_count > 500) {
+                    changedPctTarget = 6;
+                }else if (parsed.new_count > 250) {
+                    changedPctTarget = 8;
+                } else if (parsed.new_count > 100) {
+                    changedPctTarget = 10;
+                } else if (parsed.new_count > 75) {
+                    changedPctTarget = 15;
+                } else if (parsed.new_count > 50) {
+                    changedPctTarget = 20;
+                } else if (parsed.new_count > 25) {
+                    changedPctTarget = 25;
+                } else if (parsed.new_count > 10) {
+                    changedPctTarget = 28;
+                } else {
+                    changedPctTarget = 50;
+                }
+              }
+
+              core.info(`[${directory}] changedPctTarget: ${changedPctTarget}`);
+
+              if (parsed.changed_pct >= 1 || parsed.diff >= 1) {
+                changedCategories.push(directory)
+              }
+
+              if (parsed.changed_pct >= changedPctTarget) {
+                core.warning(`${directory} changed ${parsed.changed_pct}%!`)
+                environments[directory] = `publish-${directory}-verify`;
+              }
+
+              if (parsed.diff >= diffTarget) {
+                core.warning(`${directory} changed ${parsed.diff}!`)
+                environments[directory] = `publish-${directory}-verify`;
+              }
+
+              summaries[directory] = JSON.parse(fs.readFileSync(`outputdata/${directory}/summary.json`));
+            }
+
+            core.summary.addCodeBlock(JSON.stringify({summaries, environments, changedCategories}, null, 4), "json")
+            core.summary.write()
+            core.setOutput("changedCategories", JSON.stringify(changedCategories))
+            core.setOutput("environments", environments)
+
+      - name: Send notification
+        if: ${{ steps.combined.outputs.environments != '{}' }}
+        run: |
+          curl \
+            -H "Content-Type: application/json" \
+            -d '{"username": "GitHub action", "content": "[Attention needed!](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}})"}' \
+            ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: summarize
+    if: github.repository == 'hacs/integration'
+    name: Publish ${{ matrix.category }} data
+    environment: ${{ fromJSON(needs.summarize.outputs.environments)[matrix.category] }}
+    strategy:
+      fail-fast: false
+      matrix:
+        category: ${{ fromJSON(needs.summarize.outputs.changedCategories) }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4.1.7
+
+      - name: Set up Python
+        uses: actions/setup-python@v5.1.0
+        id: python
+        with:
+          python-version: "3.12"
+          cache: 'pip'
+          cache-dependency-path: |
+            requirements_base.txt
+            requirements_generate_data.txt
+
+      - name: Install dependencies
+        run:  |
+          scripts/install/frontend
+          scripts/install/pip_packages --requirement requirements_generate_data.txt
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: ${{ matrix.category }}
+          path: outputdata
+
+      - name: Validate output with JQ
+        run: |
+          jq -c . outputdata/${{ matrix.category }}/data.json
+          jq -c . outputdata/${{ matrix.category }}/repositories.json
+
+      - name: Validate output with schema
+        run: |
+          python3 -m scripts.data.validate_category_data ${{ matrix.category }} outputdata/${{ matrix.category }}/data.json
+
       - name: Upload to R2
-        if: steps.updated.outputs.updated == 'true'
         run: |
           aws s3 sync \
             outputdata/${{ matrix.category }} \
@@ -127,7 +254,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CF_R2_SECRET_ACCESS_KEY }}
 
       - name: Bust Cloudflare cache
-        if: steps.updated.outputs.updated == 'true'
         run: |
           curl --silent --show-error --fail -X POST \
             "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
@@ -135,8 +261,13 @@ jobs:
             -H "Content-Type: application/json" \
             --data '{"files": ["https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/data.json", "https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/repositories.json"]}'
 
-      - name: Discord notification
-        if: ${{ github.event_name == 'schedule' && failure() }}
+  notify_on_failure:
+    runs-on: ubuntu-latest
+    name: Trigger Discord notification when jobs fail
+    needs: ["generate-matrix", "category-data", "summarize", "publish"]
+    steps:
+      - name: Send notification
+        if: ${{ always() && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
         run: |
           curl \
             -H "Content-Type: application/json" \

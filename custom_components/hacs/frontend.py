@@ -5,25 +5,18 @@ from __future__ import annotations
 import os
 from typing import TYPE_CHECKING
 
-from homeassistant.components.frontend import async_register_built_in_panel
-from homeassistant.core import HomeAssistant, callback
+from homeassistant.components.frontend import (
+    add_extra_js_url,
+    async_register_built_in_panel,
+)
 
 from .const import DOMAIN, URL_BASE
 from .hacs_frontend import VERSION as FE_VERSION, locate_dir
-
-try:
-    from homeassistant.components.frontend import add_extra_js_url
-except ImportError:
-
-    def add_extra_js_url(hass: HomeAssistant, url: str, es5: bool = False) -> None:
-        hacs: HacsBase = hass.data.get(DOMAIN)
-        hacs.log.error("Could not import add_extra_js_url from frontend.")
-        if "frontend_extra_module_url" not in hass.data:
-            hass.data["frontend_extra_module_url"] = set()
-        hass.data["frontend_extra_module_url"].add(url)
-
+from .utils.workarounds import async_register_static_path
 
 if TYPE_CHECKING:
+    from homeassistant.core import HomeAssistant
+
     from .base import HacsBase
 
 
@@ -35,17 +28,19 @@ async def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
         hacs.log.warning(
             "<HacsFrontend> Frontend development mode enabled. Do not run in production!"
         )
-        hass.http.register_static_path(
-            f"{URL_BASE}/frontend", f"{frontend_path}/hacs_frontend", cache_headers=False
+        await async_register_static_path(
+            hass, f"{URL_BASE}/frontend", f"{frontend_path}/hacs_frontend", cache_headers=False
         )
         hacs.frontend_version = "dev"
     else:
-        hass.http.register_static_path(f"{URL_BASE}/frontend", locate_dir(), cache_headers=False)
+        await async_register_static_path(
+            hass, f"{URL_BASE}/frontend", locate_dir(), cache_headers=False
+        )
         hacs.frontend_version = FE_VERSION
 
     # Custom iconset
-    hass.http.register_static_path(
-        f"{URL_BASE}/iconset.js", str(hacs.integration_dir / "iconset.js")
+    await async_register_static_path(
+        hass, f"{URL_BASE}/iconset.js", str(hacs.integration_dir / "iconset.js")
     )
     add_extra_js_url(hass, f"{URL_BASE}/iconset.js")
 

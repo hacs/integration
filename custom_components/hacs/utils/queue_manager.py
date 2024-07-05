@@ -61,9 +61,6 @@ class QueueManager:
             for task in self.queue:
                 local_queue.append(task)
 
-        for task in local_queue:
-            self.queue.remove(task)
-
         _LOGGER.debug("<QueueManager> Starting queue execution for %s tasks", len(local_queue))
         start = time.time()
         result = await asyncio.gather(*local_queue, return_exceptions=True)
@@ -71,6 +68,9 @@ class QueueManager:
             if isinstance(entry, Exception):
                 _LOGGER.error("<QueueManager> %s", entry)
         end = time.time() - start
+
+        for task in local_queue:
+            self.queue.remove(task)
 
         _LOGGER.debug(
             "<QueueManager> Queue execution finished for %s tasks finished in %.2f seconds",

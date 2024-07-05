@@ -8,4 +8,3 @@ APPDAEMON = "appdaemon"
 # Options:
 COUNTRY = "country"
 DEBUG = "debug"
-RELEASE_LIMIT = "release_limit"

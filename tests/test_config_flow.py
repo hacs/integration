@@ -352,7 +352,6 @@ async def test_options_flow(hass: HomeAssistant, setup_integration: Generator) -
         "country": "ALL",
         "debug": False,
         "experimental": True,
-        "release_limit": 5,
         "sidepanel_icon": "hacs:hacs",
         "sidepanel_title": "new_title",
     }
@@ -362,7 +361,6 @@ async def test_options_flow(hass: HomeAssistant, setup_integration: Generator) -
         "country": "ALL",
         "debug": False,
         "experimental": True,
-        "release_limit": 5,
         "sidepanel_icon": "hacs:hacs",
         "sidepanel_title": "new_title",
     }

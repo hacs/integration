@@ -28,7 +28,6 @@ from .utils.configuration_schema import (
     APPDAEMON,
     COUNTRY,
     DEBUG,
-    RELEASE_LIMIT,
     SIDEPANEL_ICON,
     SIDEPANEL_TITLE,
 )
@@ -228,9 +227,6 @@ class HacsOptionsFlowHandler(OptionsFlow):
         """Handle a flow initialized by the user."""
         hacs: HacsBase = self.hass.data.get(DOMAIN)
         if user_input is not None:
-            limit = int(user_input.get(RELEASE_LIMIT, 5))
-            if limit <= 0 or limit > 100:
-                return self.async_abort(reason="release_limit_value")
             return self.async_create_entry(title="", data={**user_input, "experimental": True})
 
         if hacs is None or hacs.configuration is None:
@@ -242,7 +238,6 @@ class HacsOptionsFlowHandler(OptionsFlow):
         schema = {
             vol.Optional(SIDEPANEL_TITLE, default=hacs.configuration.sidepanel_title): str,
             vol.Optional(SIDEPANEL_ICON, default=hacs.configuration.sidepanel_icon): str,
-            vol.Optional(RELEASE_LIMIT, default=hacs.configuration.release_limit): int,
             vol.Optional(COUNTRY, default=hacs.configuration.country): vol.In(LOCALE),
             vol.Optional(APPDAEMON, default=hacs.configuration.appdaemon): bool,
             vol.Optional(DEBUG, default=hacs.configuration.debug): bool,

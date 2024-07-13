@@ -1375,11 +1375,11 @@ class HacsRepository:
                 "first": first,
             },
         )
-        if (
-            response is None
-            or response.data["data"] is None
-            or response.data["data"]["repository"] is None
-            or response.data["data"]["repository"]["releases"] is None
-        ):
-            return []
-        return response.data["data"]["repository"]["releases"]["nodes"]
+        return (
+            []
+            if response is None
+            else response.data.get("data", {})
+            .get("repository", {})
+            .get("releases", {})
+            .get("nodes", [])
+        )

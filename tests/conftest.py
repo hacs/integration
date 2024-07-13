@@ -30,6 +30,7 @@ from homeassistant.util.async_ import create_eager_task
 import pytest
 import pytest_asyncio
 from pytest_snapshot.plugin import Snapshot
+from slugify import slugify
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import DOMAIN
@@ -381,15 +382,17 @@ async def check_report_issue() -> None:
         )
 
 
-def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
+@pytest.fixture(autouse=True)
+def track_api_usage(snapshots: SnapshotFixture):
+    """Track API usage."""
+    yield
+    if (request := REQUEST_CONTEXT.get()) is None:
+        return
     response_mocker = ResponseMocker()
     calls = {}
 
-    if session.config.args[0] != "tests" or exitstatus != 0:
-        return
-
     for call in response_mocker.calls:
-        if (_test_caller := call.get("_test_caller")) is None:
+        if (_test_caller := call.pop("_test_caller", None)) is None:
             continue
         if _test_caller not in calls:
             if call.get("_uses_setup_integration"):
@@ -418,30 +421,13 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
         if v
     }
 
-    if session.config.option.snapshot_update:
-        with open("tests/output/proxy_calls.json", mode="w", encoding="utf-8") as file:
-            file.write(safe_json_dumps(filtered_calls))
-            return
+    if not filtered_calls:
+        return
 
-    with open("tests/output/proxy_calls.json", encoding="utf-8") as file:
-        current = json.load(file)
-        if current != filtered_calls:
-            diff = ""
-            for test in current:
-                if test not in filtered_calls:
-                    diff += f"Test '{test}' was removed\n"
-            for test in filtered_calls:
-                if test not in current:
-                    diff += f"Test '{test}' was added\n"
-            for test in filtered_calls:
-                if test not in current:
-                    continue
-                if filtered_calls[test] == current[test]:
-                    continue
-                diff += f"Test '{test}' has changed\n"
-                diff += "\n".join(_compare_eq_iterable(
-                    filtered_calls[test], current[test], 3))
-                diff += "\n"
+    response_mocker.calls = []
 
-            raise AssertionError(
-                f"API calls have changed, run scripts/snapshot-update\n{diff}")
+    snapshots.assert_match(
+        safe_json_dumps(filtered_calls),
+        f"api-usage/{request.node.location[0].replace(".py", "")}{
+            slugify(f"::{request.node.name}")}.json"
+    )

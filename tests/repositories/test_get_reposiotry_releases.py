@@ -38,9 +38,9 @@ async def test_get_reposiotry_releases(
                         "releases": {
                             "nodes": [
                                 {
-                                    "name": "1.0.0",
-                                    "publishedAt": "2013-02-27T19:35:32Z",
-                                    "tagName": "1.0.0",
+                                    "name": category_test_data["version_update"],
+                                    "publishedAt": "2019-02-26T15:02:39Z",
+                                    "tagName": category_test_data["version_update"],
                                     "isPrerelease": False,
                                 }
                             ]

@@ -568,9 +568,11 @@ class HacsRepository:
                 ),
                 validate,
             )
-        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except BaseException:
             validate.errors.append(
-                f"Download of {self.repository_manifest.filename} was not completed"
+                f"Download of {
+                    self.repository_manifest.filename} was not completed"
             )
 
     async def async_download_zip_file(
@@ -609,7 +611,8 @@ class HacsRepository:
                 return
 
             validate.errors.append(f"[{content['name']}] was not downloaded")
-        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except BaseException:
             validate.errors.append("Download was not completed")
 
     async def download_content(self, version: string | None = None) -> None:
@@ -718,7 +721,8 @@ class HacsRepository:
             )
             if response:
                 return json_loads(decode_content(response.data.content))
-        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except BaseException:
             pass
 
     async def async_get_info_file_contents(self, *, version: str | None = None, **kwargs) -> str:
@@ -819,7 +823,8 @@ class HacsRepository:
                 )
 
         except (
-            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            BaseException
         ) as exception:
             self.logger.debug("%s Removing %s failed with %s", self.string, local_path, exception)
             return False
@@ -940,7 +945,8 @@ class HacsRepository:
             ):
                 persistent_directory = Backup(
                     hacs=self.hacs,
-                    local_path=f"{self.content.path.local}/{self.repository_manifest.persistent_directory}",
+                    local_path=f"{
+                        self.content.path.local}/{self.repository_manifest.persistent_directory}",
                     backup_path=tempfile.gettempdir() + "/hacs_persistent_directory/",
                 )
                 await self.hacs.hass.async_add_executor_job(persistent_directory.create)
@@ -1267,7 +1273,8 @@ class HacsRepository:
             self.validate.errors.append(f"[{content.name}] was not downloaded.")
 
         except (
-            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            BaseException
         ) as exception:
             self.validate.errors.append(f"Download was not completed [{exception}]")
 
@@ -1327,7 +1334,8 @@ class HacsRepository:
             return None
 
         result = await self.hacs.async_download_file(
-            f"https://raw.githubusercontent.com/{self.data.full_name}/{target_version}/{filename}",
+            f"https://raw.githubusercontent.com/{
+                self.data.full_name}/{target_version}/{filename}",
             nolog=True,
         )
 
@@ -1344,7 +1352,8 @@ class HacsRepository:
         self.logger.debug("%s Getting hacs.json for version=%s", self.string, version)
         try:
             result = await self.hacs.async_download_file(
-                f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/hacs.json",
+                f"https://raw.githubusercontent.com/{
+                    self.data.full_name}/{version}/hacs.json",
                 nolog=True,
             )
             if result is None:
@@ -1352,3 +1361,72 @@ class HacsRepository:
             return HacsManifest.from_dict(json_loads(result))
         except Exception:  # pylint: disable=broad-except
             return None
+
+    async def _ensure_download_capabilities(self, ref: str | None, **kwargs: Any) -> None:
+        """Ensure that the download can be handled."""
+        target_manifest: HacsManifest | None = None
+        if ref is None:
+            if not self.can_download:
+                raise HacsException(
+                    f"This {
+                        self.data.category.value} is not available for download."
+                )
+            return
+
+        if ref == self.data.last_version:
+            target_manifest = self.repository_manifest
+        else:
+            target_manifest = await self.get_hacs_json(version=ref)
+
+        if target_manifest is None:
+            raise HacsException(
+                f"The version {ref} for this {
+                    self.data.category.value} can not be used with HACS."
+            )
+
+        if (
+            target_manifest.homeassistant is not None
+            and self.hacs.core.ha_version < target_manifest.homeassistant
+        ):
+            raise HacsException(
+                f"This version requires Home Assistant {
+                    target_manifest.homeassistant} or newer."
+            )
+        if target_manifest.hacs is not None and self.hacs.version < target_manifest.hacs:
+            raise HacsException(f"This version requires HACS {
+                target_manifest.hacs} or newer.")
+
+    async def async_download_repository(self, *, ref: str | None = None, **_) -> None:
+        """Download the content of a repository."""
+        await self._ensure_download_capabilities(ref)
+        self.logger.info("Starting download, %s", ref)
+        if self.display_version_or_commit == "version":
+            self.hacs.async_dispatch(
+                HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+                {"repository": self.data.full_name, "progress": 10},
+            )
+            if not ref:
+                await self.update_repository(force=True)
+            else:
+                self.ref = ref
+            self.data.selected_tag = ref
+            self.force_branch = ref is not None
+            self.hacs.async_dispatch(
+                HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+                {"repository": self.data.full_name, "progress": 20},
+            )
+
+        try:
+            await self.async_install(version=ref)
+        except HacsException as exception:
+            raise HacsException(
+                f"Downloading {self.data.full_name} with version {
+                    ref or self.data.last_version or self.data.last_commit} failed with ({exception})"
+            ) from exception
+        finally:
+            self.data.selected_tag = None
+            self.force_branch = False
+            self.hacs.async_dispatch(
+                HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+                {"repository": self.data.full_name, "progress": False},
+            )

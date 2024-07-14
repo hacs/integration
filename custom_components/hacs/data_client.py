@@ -61,7 +61,7 @@ class HacsDataClient:
 
         return await response.json()
 
-    async def get_data(self, section: str | None, *, validate: bool) -> dict[str, dict[str, Any]]:
+    async def get_data(self, section: str | None, *, validate: bool) -> dict[str, dict[str, Any]] | list[str]:
         """Get data."""
         data = await self._do_request(filename="data.json", section=section)
         if not validate:

@@ -421,13 +421,16 @@ def track_api_usage(snapshots: SnapshotFixture):
         if v
     }
 
+    snapshotfile = f"api-usage/{request.node.location[0].replace(".py", "")}{
+        slugify(f"::{request.node.name}")}.json"
+
     if not filtered_calls:
+        assert not os.path.exists(f"tests/snapshots/{snapshotfile}")
         return
 
     response_mocker.calls = []
 
     snapshots.assert_match(
         safe_json_dumps(filtered_calls),
-        f"api-usage/{request.node.location[0].replace(".py", "")}{
-            slugify(f"::{request.node.name}")}.json"
+        snapshotfile
     )

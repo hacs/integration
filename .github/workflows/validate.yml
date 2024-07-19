@@ -85,7 +85,7 @@ jobs:
 
       - name: Run Action
         env:
-          GITHUB_EVENT_PATH:${{ github.event.path }}
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
         run: |
           docker run --name hacs_action_local \
             --env INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \

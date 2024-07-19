@@ -1363,6 +1363,75 @@ class HacsRepository:
         except Exception:  # pylint: disable=broad-except
             return None
 
+    async def _ensure_download_capabilities(self, ref: str | None, **kwargs: Any) -> None:
+        """Ensure that the download can be handled."""
+        target_manifest: HacsManifest | None = None
+        if ref is None:
+            if not self.can_download:
+                raise HacsException(
+                    f"This {
+                        self.data.category.value} is not available for download."
+                )
+            return
+
+        if ref == self.data.last_version:
+            target_manifest = self.repository_manifest
+        else:
+            target_manifest = await self.get_hacs_json(version=ref)
+
+        if target_manifest is None:
+            raise HacsException(
+                f"The version {ref} for this {
+                    self.data.category.value} can not be used with HACS."
+            )
+
+        if (
+            target_manifest.homeassistant is not None
+            and self.hacs.core.ha_version < target_manifest.homeassistant
+        ):
+            raise HacsException(
+                f"This version requires Home Assistant {
+                    target_manifest.homeassistant} or newer."
+            )
+        if target_manifest.hacs is not None and self.hacs.version < target_manifest.hacs:
+            raise HacsException(f"This version requires HACS {
+                target_manifest.hacs} or newer.")
+
+    async def async_download_repository(self, *, ref: str | None = None, **_) -> None:
+        """Download the content of a repository."""
+        await self._ensure_download_capabilities(ref)
+        self.logger.info("Starting download, %s", ref)
+        if self.display_version_or_commit == "version":
+            self.hacs.async_dispatch(
+                HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+                {"repository": self.data.full_name, "progress": 10},
+            )
+            if not ref:
+                await self.update_repository(force=True)
+            else:
+                self.ref = ref
+            self.data.selected_tag = ref
+            self.force_branch = ref is not None
+            self.hacs.async_dispatch(
+                HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+                {"repository": self.data.full_name, "progress": 20},
+            )
+
+        try:
+            await self.async_install(version=ref)
+        except HacsException as exception:
+            raise HacsException(
+                f"Downloading {self.data.full_name} with version {
+                    ref or self.data.last_version or self.data.last_commit} failed with ({exception})"
+            ) from exception
+        finally:
+            self.data.selected_tag = None
+            self.force_branch = False
+            self.hacs.async_dispatch(
+                HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+                {"repository": self.data.full_name, "progress": False},
+            )
+
     async def async_get_releases(self, *, first: int = 30) -> list[dict[str, Any]]:
         """Get the last x releases of a repository."""
         owner, name = self.data.full_name.split("/")

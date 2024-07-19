@@ -229,19 +229,18 @@ async def hacs_repository_download(
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository = hacs.repositories.get_by_id(msg["repository"])
 
-    was_installed = repository.data.installed
-    if version := msg.get("version"):
-        repository.data.selected_tag = version
-        await repository.update_repository(force=True)
+    try:
+        was_installed = repository.data.installed
+        await repository.async_download_repository(ref=msg.get("version"))
+        if not was_installed:
+            hacs.async_dispatch(HacsDispatchEvent.RELOAD, {"force": True})
+            await hacs.async_recreate_entities()
 
-    await repository.async_install()
-    repository.state = None
-    if not was_installed:
-        hacs.async_dispatch(HacsDispatchEvent.RELOAD, {"force": True})
-        await hacs.async_recreate_entities()
-
-    await hacs.data.async_write()
-    connection.send_message(websocket_api.result_message(msg["id"], {}))
+        await hacs.data.async_write()
+        connection.send_message(websocket_api.result_message(msg["id"], {}))
+    except HacsException as exception:
+        repository.logger.error("%s %s", repository.string, exception)
+        connection.send_error(msg["id"], "error", str(exception))
 
 
 @websocket_api.websocket_command(

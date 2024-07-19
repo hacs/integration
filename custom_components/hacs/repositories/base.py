@@ -34,6 +34,7 @@ from ..utils.decode import decode_content
 from ..utils.decorator import concurrent
 from ..utils.file_system import async_exists, async_remove, async_remove_directory
 from ..utils.filters import filter_content_return_one_of_type
+from ..utils.github_graphql_query import GET_REPOSITORY_RELEASES
 from ..utils.json import json_loads
 from ..utils.logger import LOGGER
 from ..utils.path import is_safe
@@ -1430,3 +1431,24 @@ class HacsRepository:
                 HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
                 {"repository": self.data.full_name, "progress": False},
             )
+
+    async def async_get_releases(self, *, first: int = 30) -> list[dict[str, Any]]:
+        """Get the last x releases of a repository."""
+        owner, name = self.data.full_name.split("/")
+        response = await self.hacs.async_github_api_method(
+            method=self.hacs.githubapi.graphql,
+            query=GET_REPOSITORY_RELEASES,
+            variables={
+                "owner": owner,
+                "name": name,
+                "first": first,
+            },
+        )
+        return (
+            []
+            if response is None
+            else response.data.get("data", {})
+            .get("repository", {})
+            .get("releases", {})
+            .get("nodes", [])
+        )

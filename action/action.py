@@ -98,6 +98,8 @@ async def preflight():
     hacs.configuration.token = TOKEN
     hacs.core.config_path = None
 
+    LOGGER.warning("HACS is running in action mode. %s", "pull_request" in event_data)
+
     async with aiohttp.ClientSession() as session:
         hacs.session = session
         hacs.validation = ValidationManager(hacs=hacs, hass=hacs.hass)

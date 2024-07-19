@@ -54,6 +54,7 @@ def error(error: str):
 
 def get_event_data():
     if GITHUB_EVENT_PATH is None or not os.path.exists(GITHUB_EVENT_PATH):
+        LOGGER.warning("No event data found.")
         return {}
     with open(GITHUB_EVENT_PATH) as ev:
         return json.loads(ev.read())
@@ -116,11 +117,13 @@ async def preflight():
         else:
             category = CATEGORY.lower()
             if event_data.get("pull_request") is not None:
+                LOGGER.info("This is a pull request event.")
                 head = event_data["pull_request"]["head"]
                 ref = head["ref"]
                 repository = head["repo"]["full_name"]
             else:
                 repository = GITHUB_REPOSITORY
+                LOGGER.info("This is not a pull request event.")
                 if event_data.get("ref") is not None:
                     # For push events
                     ref = event_data["ref"]

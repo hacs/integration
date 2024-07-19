@@ -10,6 +10,7 @@ import voluptuous as vol
 
 from ..const import DOMAIN
 from ..enums import HacsDispatchEvent
+from ..exceptions import HacsException
 from ..utils.version import version_left_higher_then_right
 
 if TYPE_CHECKING:
@@ -325,6 +326,45 @@ async def hacs_repository_release_notes(
                 for x in repository.releases.objects
                 if not repository.data.installed_version
                 or version_left_higher_then_right(x.tag_name, repository.data.installed_version)
+            ],
+        )
+    )
+
+
+@websocket_api.websocket_command(
+    {
+        vol.Required("type"): "hacs/repository/releases",
+        vol.Required("repository_id"): cv.string,
+    }
+)
+@websocket_api.require_admin
+@websocket_api.async_response
+async def hacs_repository_releases(
+    hass: HomeAssistant,
+    connection: websocket_api.ActiveConnection,
+    msg: dict[str, Any],
+) -> None:
+    """Return releases."""
+    hacs: HacsBase = hass.data.get(DOMAIN)
+    repository = hacs.repositories.get_by_id(msg["repository_id"])
+    try:
+        releases = await repository.async_get_releases()
+    except Exception as exception:
+        hacs.log.exception(exception)
+        connection.send_error(msg["id"], "unknown", str(exception))
+        return
+
+    connection.send_message(
+        websocket_api.result_message(
+            msg["id"],
+            [
+                {
+                    "name": release["name"],
+                    "tag": release["tagName"],
+                    "published_at": release["publishedAt"],
+                    "prerelease": release["isPrerelease"],
+                }
+                for release in releases
             ],
         )
     )

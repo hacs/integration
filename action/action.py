@@ -112,6 +112,8 @@ async def preflight():
         if REPOSITORY and CATEGORY:
             repository = REPOSITORY
             category = CATEGORY
+            if event_data.get("pull_request") is not None:
+                ref = event_data["pull_request"]["head"]["ref"]
         elif GITHUB_REPOSITORY == HacsGitHubRepo.DEFAULT:
             category = choose_category()
             repository = await choose_repository(hacs.githubapi, category)

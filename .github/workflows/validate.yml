@@ -80,14 +80,8 @@ jobs:
         uses: actions/checkout@v4.1.7
 
       - name: Build Container
-        uses: docker/build-push-action@v6.3.0
-        with:
-          context: .
-          file: action/Dockerfile
-          push: false
-          tags: hacs/action:local
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+        run: |
+          docker build . -t hacs/action:local -f action/Dockerfile
 
       - name: Run Action
         run: |

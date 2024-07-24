@@ -47,6 +47,7 @@ EXPORTED_DOWNLOADED_REPOSITORY_DATA = EXPORTED_REPOSITORY_DATA + (
     ("last_version", None),
     ("manifest_name", None),
     ("open_issues", 0),
+    ("prerelease", None),
     ("published_tags", []),
     ("releases", False),
     ("selected_tag", None),
@@ -289,6 +290,7 @@ class HacsData:
         repository.data.selected_tag = repository_data.get("selected_tag")
         repository.data.show_beta = repository_data.get("show_beta", False)
         repository.data.last_version = repository_data.get("last_version")
+        repository.data.prerelease = repository_data.get("prerelease")
         repository.data.last_commit = repository_data.get("last_commit")
         repository.data.installed_version = repository_data.get("version_installed")
         repository.data.installed_commit = repository_data.get("installed_commit")
@@ -300,6 +302,9 @@ class HacsData:
         repository.repository_manifest = HacsManifest.from_dict(
             repository_data.get("manifest") or repository_data.get("repository_manifest") or {}
         )
+
+        if repository.data.prerelease == repository.data.last_version:
+            repository.data.prerelease = None
 
         if repository.localpath is not None and is_safe(self.hacs, repository.localpath):
             # Set local path

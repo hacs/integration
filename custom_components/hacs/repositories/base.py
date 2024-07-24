@@ -114,6 +114,7 @@ REPOSITORY_KEYS_TO_EXPORT = (
     ("last_version", None),
     ("manifest_name", None),
     ("open_issues", 0),
+    ("prerelease", None),
     ("stargazers_count", 0),
     ("topics", []),
 )
@@ -165,6 +166,7 @@ class RepositoryData:
     manifest_name: str = None
     new: bool = True
     open_issues: int = 0
+    prerelease: str = None
     published_tags: list[str] = []
     releases: bool = False
     selected_tag: str = None

@@ -281,7 +281,7 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                                     "entity_id": hacs.hass.states.get(entity.entity_id).entity_id,
                                     "state": hacs.hass.states.get(entity.entity_id).state,
                                     "attributes": hacs.hass.states.get(entity.entity_id).attributes,
-                                    **recursive_remove_key(entity.as_partial_dict, ("id",)),
+                                    **recursive_remove_key(entity.as_partial_dict, ("id", "created_at", "modified_at")),
                                 }
                                 for entity in er.async_entries_for_config_entry(
                                     er.async_get(hacs.hass),

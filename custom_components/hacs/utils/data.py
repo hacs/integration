@@ -8,7 +8,6 @@ from typing import Any
 
 from homeassistant.core import callback
 from homeassistant.exceptions import HomeAssistantError
-from homeassistant.util import json as json_util
 
 from ..base import HacsBase
 from ..const import HACS_REPOSITORY_ID
@@ -48,6 +47,7 @@ EXPORTED_DOWNLOADED_REPOSITORY_DATA = EXPORTED_REPOSITORY_DATA + (
     ("last_version", None),
     ("manifest_name", None),
     ("open_issues", 0),
+    ("prerelease", None),
     ("published_tags", []),
     ("releases", False),
     ("selected_tag", None),
@@ -100,7 +100,7 @@ class HacsData:
         for event in (HacsDispatchEvent.REPOSITORY, HacsDispatchEvent.CONFIG):
             self.hacs.async_dispatch(event, {})
 
-    async def _async_store_experimental_content_and_repos(self, _=None):  # bb: ignore
+    async def _async_store_experimental_content_and_repos(self, _=None):
         """Store the main repos file and each repo that is out of date."""
         # Repositories
         self.content = {}
@@ -165,14 +165,12 @@ class HacsData:
             pass
 
         try:
-            if data := (await async_load_from_store(self.hacs.hass, "data") or {}):
+            repositories = await async_load_from_store(self.hacs.hass, "repositories")
+            if not repositories and (data := await async_load_from_store(self.hacs.hass, "data")):
                 for category, entries in data.get("repositories", {}).items():
                     for repository in entries:
                         repositories[repository["id"]] = {"category": category, **repository}
-            else:
-                repositories = (
-                    data or await async_load_from_store(self.hacs.hass, "repositories") or {}
-                )
+
         except HomeAssistantError as exception:
             self.hacs.log.error(
                 "Could not read %s, restore the file from a backup - %s",
@@ -225,7 +223,8 @@ class HacsData:
 
             self.logger.info("<HacsData restore> Restore done")
         except (
-            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            BaseException
         ) as exception:
             self.logger.critical(
                 "<HacsData restore> [%s] Restore Failed!", exception, exc_info=exception
@@ -291,6 +290,7 @@ class HacsData:
         repository.data.selected_tag = repository_data.get("selected_tag")
         repository.data.show_beta = repository_data.get("show_beta", False)
         repository.data.last_version = repository_data.get("last_version")
+        repository.data.prerelease = repository_data.get("prerelease")
         repository.data.last_commit = repository_data.get("last_commit")
         repository.data.installed_version = repository_data.get("version_installed")
         repository.data.installed_commit = repository_data.get("installed_commit")
@@ -302,6 +302,9 @@ class HacsData:
         repository.repository_manifest = HacsManifest.from_dict(
             repository_data.get("manifest") or repository_data.get("repository_manifest") or {}
         )
+
+        if repository.data.prerelease == repository.data.last_version:
+            repository.data.prerelease = None
 
         if repository.localpath is not None and is_safe(self.hacs, repository.localpath):
             # Set local path

@@ -32,7 +32,7 @@ async def test_download_repository(
     repo.content.path.local = repo.localpath
 
     response = await ws_client.send_and_receive_json(
-        "hacs/repository/download", {"repository": repo.data.id}
+        "hacs/repository/download", {"repository": repo.data.id},
     )
     assert response["success"] == True
 
@@ -41,5 +41,5 @@ async def test_download_repository(
     assert repo.data.installed is True
 
     await snapshots.assert_hacs_data(
-        hacs, f"{category_test_data['repository']}/test_download_repository.json"
+        hacs, f"{category_test_data['repository']}/test_download_repository.json",
     )

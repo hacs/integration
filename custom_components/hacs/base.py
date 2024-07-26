@@ -37,11 +37,6 @@ from homeassistant.helpers.issue_registry import IssueSeverity, async_create_iss
 from homeassistant.loader import Integration
 from homeassistant.util import dt
 
-from custom_components.hacs.repositories.base import (
-    HACS_MANIFEST_KEYS_TO_EXPORT,
-    REPOSITORY_KEYS_TO_EXPORT,
-)
-
 from .const import DOMAIN, TV, URL_BASE
 from .coordinator import HacsUpdateCoordinator
 from .data_client import HacsDataClient
@@ -64,11 +59,13 @@ from .exceptions import (
     HomeAssistantCoreRepositoryException,
 )
 from .repositories import REPOSITORY_CLASSES
+from .repositories.base import HACS_MANIFEST_KEYS_TO_EXPORT, REPOSITORY_KEYS_TO_EXPORT
 from .utils.file_system import async_exists
 from .utils.json import json_loads
 from .utils.logger import LOGGER
 from .utils.queue_manager import QueueManager
 from .utils.store import async_load_from_store, async_save_to_store
+from .utils.workarounds import async_register_static_path
 
 if TYPE_CHECKING:
     from .repositories.base import HacsRepository
@@ -123,8 +120,6 @@ class HacsConfiguration:
     dev: bool = False
     frontend_repo_url: str = ""
     frontend_repo: str = ""
-    netdaemon_path: str = "netdaemon/apps/"
-    netdaemon: bool = False
     plugin_path: str = "www/community/"
     python_script_path: str = "python_scripts/"
     python_script: bool = False
@@ -145,7 +140,7 @@ class HacsConfiguration:
             raise HacsException("Configuration is not valid.")
 
         for key in data:
-            if key == "experimental":
+            if key in {"experimental", "netdaemon", "release_limit", "debug"}:
                 continue
             self.__setattr__(key, data[key])
 
@@ -464,7 +459,8 @@ class HacsBase:
         try:
             await self.hass.async_add_executor_job(_write_file)
         except (
-            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            BaseException
         ) as error:
             self.log.error("Could not write data to %s - %s", file_path, error)
             return False
@@ -485,7 +481,8 @@ class HacsBase:
             )
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
         except (
-            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            BaseException
         ) as exception:
             self.log.exception(exception)
 
@@ -514,7 +511,8 @@ class HacsBase:
         except GitHubException as exception:
             _exception = exception
         except (
-            BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            # lgtm [py/catch-base-exception] pylint: disable=broad-except
+            BaseException
         ) as exception:
             self.log.exception(exception)
             _exception = exception
@@ -567,7 +565,8 @@ class HacsBase:
                         self.log.error("Validation for %s failed.", repository_full_name)
                     if self.system.action:
                         raise HacsException(
-                            f"::error:: Validation for {repository_full_name} failed."
+                            f"::error:: Validation for {
+                                repository_full_name} failed."
                         )
                     return repository.validate.errors
                 if self.system.action:
@@ -583,7 +582,8 @@ class HacsBase:
             except AIOGitHubAPIException as exception:
                 self.common.skip.add(repository.data.full_name)
                 raise HacsException(
-                    f"Validation for {repository_full_name} failed with {exception}."
+                    f"Validation for {
+                        repository_full_name} failed with {exception}."
                 ) from exception
 
         if self.status.new:
@@ -707,7 +707,8 @@ class HacsBase:
                     return await request.read()
 
                 raise HacsException(
-                    f"Got status code {request.status} when trying to download {url}"
+                    f"Got status code {
+                        request.status} when trying to download {url}"
                 )
             except TimeoutError:
                 self.log.warning(
@@ -725,7 +726,8 @@ class HacsBase:
                 continue
 
             except (
-                BaseException  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+                # lgtm [py/catch-base-exception] pylint: disable=broad-except
+                BaseException
             ) as exception:
                 if not nolog:
                     self.log.exception("Download failed - %s", exception)
@@ -736,10 +738,22 @@ class HacsBase:
         """Recreate entities."""
         platforms = [Platform.UPDATE]
 
-        await self.hass.config_entries.async_unload_platforms(
-            entry=self.configuration.config_entry,
-            platforms=platforms,
-        )
+        # Workaround for core versions without https://github.com/home-assistant/core/pull/117084
+        if self.core.ha_version < AwesomeVersion("2024.6.0"):
+            unload_platforms_lock = asyncio.Lock()
+            async with unload_platforms_lock:
+                on_unload = self.configuration.config_entry._on_unload
+                self.configuration.config_entry._on_unload = []
+                await self.hass.config_entries.async_unload_platforms(
+                    entry=self.configuration.config_entry,
+                    platforms=platforms,
+                )
+                self.configuration.config_entry._on_unload = on_unload
+        else:
+            await self.hass.config_entries.async_unload_platforms(
+                entry=self.configuration.config_entry,
+                platforms=platforms,
+            )
         await self.hass.config_entries.async_forward_entry_setups(
             self.configuration.config_entry, platforms
         )
@@ -768,14 +782,6 @@ class HacsBase:
 
         if self.configuration.appdaemon:
             self.enable_hacs_category(HacsCategory.APPDAEMON)
-        if self.configuration.netdaemon:
-            if self.repositories.category_downloaded(HacsCategory.NETDAEMON):
-                self.log.warning(
-                    "NetDaemon in HACS is deprectaded. It will stop working in the future. "
-                    "Please remove all your current NetDaemon repositories from HACS "
-                    "and download them manually if you want to continue using them."
-                )
-                self.enable_hacs_category(HacsCategory.NETDAEMON)
 
     async def async_load_hacs_from_github(self, _=None) -> None:
         """Load HACS from GitHub."""
@@ -784,7 +790,9 @@ class HacsBase:
 
         try:
             repository = self.repositories.get_by_full_name(HacsGitHubRepo.INTEGRATION)
+            should_recreate_entities = False
             if repository is None:
+                should_recreate_entities = True
                 await self.async_register_repository(
                     repository_full_name=HacsGitHubRepo.INTEGRATION,
                     category=HacsCategory.INTEGRATION,
@@ -801,6 +809,9 @@ class HacsBase:
             repository.data.installed_version = self.integration.version.string
             repository.data.new = False
             repository.data.releases = True
+
+            if should_recreate_entities:
+                await self.async_recreate_entities()
 
             self.repository = repository.repository_object
             self.repositories.mark_default(repository)
@@ -1089,7 +1100,8 @@ class HacsBase:
             use_cache,
         )
 
-        self.hass.http.register_static_path(
+        await async_register_static_path(
+            self.hass,
             URL_BASE,
             self.hass.config.path("www/community"),
             cache_headers=use_cache,

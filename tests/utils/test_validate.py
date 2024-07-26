@@ -48,7 +48,7 @@ def test_hacs_manifest_json_schema():
             "content_in_root": True,
             "filename": "my_super_awesome_thing.js",
             "country": ["NO", "SE", "DK"],
-        }
+        },
     )
     assert hacs_json_schema(
         {
@@ -56,7 +56,7 @@ def test_hacs_manifest_json_schema():
             "country": "NO",
             "homeassistant": "0.99.9",
             "persistent_directory": "userfiles",
-        }
+        },
     )
 
     assert hacs_json_schema(
@@ -69,13 +69,13 @@ def test_hacs_manifest_json_schema():
             "country": "NO",
             "homeassistant": "0.99.9",
             "persistent_directory": "userfiles",
-        }
+        },
     )
 
     assert hacs_json_schema(
         {
             "name": "My awesome thing",
-        }
+        },
     )
 
     with pytest.raises(Invalid, match="extra keys not allowed"):
@@ -181,7 +181,6 @@ def test_critical_repo_data_json_schema_bad_data(data: dict, expectation_1, expe
     [
         "appdaemon",
         "integration",
-        "netdaemon",
         "plugin",
         "python_script",
         "template",
@@ -248,6 +247,18 @@ def without(d: dict, key: str) -> dict:
             GOOD_COMMON_DATA | {"last_version": "123"},
             does_not_raise(),
             does_not_raise(),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"last_version": "123", "prerelease": "1.2.3"},
+            does_not_raise(),
+            does_not_raise(),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"last_version": "123", "prerelease": None},
+            pytest.raises(Invalid),
+            pytest.raises(Invalid),
         ),
         # Missing required key
         (
@@ -402,6 +413,12 @@ def without(d: dict, key: str) -> dict:
         (
             ["integration"],
             GOOD_INTEGRATION_DATA | {"last_version": "123"},
+            does_not_raise(),
+            does_not_raise(),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"last_version": "123", "prerelease": "1.2.3"},
             does_not_raise(),
             does_not_raise(),
         ),
@@ -568,7 +585,10 @@ def without(d: dict, key: str) -> dict:
     ],
 )
 def test_repo_data_json_schema_bad_data(
-    categories: list[str], data: dict, expectation_1, expectation_2
+    categories: list[str],
+    data: dict,
+    expectation_1,
+    expectation_2,
 ):
     """Test validating https://data-v2.hacs.xyz/xxx/data.json."""
     for category in categories:

@@ -109,7 +109,7 @@ jobs:
         uses: actions/checkout@v4.1.7
 
       - name: Set up Python
-        uses: actions/setup-python@v5.1.0
+        uses: actions/setup-python@v5.1.1
         with:
           python-version: "3.12"
           cache: 'pip'
@@ -130,6 +130,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate diff
+        run: |
+          diff -u outputdata/diff/${{ matrix.entry.category }}_before.json outputdata/diff/${{ matrix.entry.category }}_after.json > outputdata/diff/${{ matrix.entry.category }}.diff || true
+          cat outputdata/diff/${{ matrix.entry.category }}.diff
+
       - name: Validate output with JQ
         run: |
           jq -c . outputdata/${{ matrix.entry.category }}/data.json
@@ -140,12 +145,13 @@ jobs:
           python3 -m scripts.data.validate_category_data ${{  matrix.entry.category }} outputdata/${{ matrix.entry.category }}/data.json
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v4.3.4
         with:
           name: "${{ matrix.entry.category }}_${{ strategy.job-index }}"
           path: |
             outputdata/summary.json
             outputdata/${{ matrix.entry.category }}
+            outputdata/diff/${{ matrix.entry.category }}.diff
           if-no-files-found: error
           retention-days: 3
 

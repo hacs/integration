@@ -41,16 +41,28 @@ async def test_generate_category_data_single_repository(
 
     with open(f"{OUTPUT_DIR}/{category_test_data['category']}/data.json", encoding="utf-8") as file:
         snapshots.assert_match(
-            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ("last_fetched",))),
-            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{category_test_data['repository']}/data.json",
+            safe_json_dumps(recursive_remove_key(
+                json.loads(file.read()), ("last_fetched",))),
+            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
+                category_test_data['repository']}/data.json",
         )
 
     with open(
-        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8"
+        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8",
     ) as file:
         snapshots.assert_match(
             safe_json_dumps(json.loads(file.read())),
-            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{category_test_data['repository']}/repositories.json",
+            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
+                category_test_data['repository']}/repositories.json",
+        )
+
+    with open(
+        f"{OUTPUT_DIR}/summary.json", encoding="utf-8",
+    ) as file:
+        snapshots.assert_match(
+            safe_json_dumps(json.loads(file.read())),
+            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
+                category_test_data['repository']}/summary.json",
         )
 
 
@@ -70,14 +82,26 @@ async def test_generate_category_data(
 
     with open(f"{OUTPUT_DIR}/{category_test_data['category']}/data.json", encoding="utf-8") as file:
         snapshots.assert_match(
-            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ("last_fetched",))),
-            f"scripts/data/generate_category_data/{category_test_data['category']}//data.json",
+            safe_json_dumps(recursive_remove_key(
+                json.loads(file.read()), ("last_fetched",))),
+            f"scripts/data/generate_category_data/{
+                category_test_data['category']}//data.json",
         )
 
     with open(
-        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8"
+        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8",
     ) as file:
         snapshots.assert_match(
             safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
-            f"scripts/data/generate_category_data/{category_test_data['category']}/repositories.json",
+            f"scripts/data/generate_category_data/{
+                category_test_data['category']}/repositories.json",
+        )
+
+    with open(
+        f"{OUTPUT_DIR}/summary.json", encoding="utf-8",
+    ) as file:
+        snapshots.assert_match(
+            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
+            f"scripts/data/generate_category_data/{
+                category_test_data['category']}/summary.json",
         )

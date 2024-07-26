@@ -32,7 +32,7 @@ class Validator(ActionValidationBase):
                 f"The repository has no '{RepositoryFile.MAINIFEST_JSON}' file"
             )
 
-        content = await self.repository.async_get_integration_manifest(self.repository.ref)
+        content = await self.repository.get_integration_manifest(version=self.repository.ref)
         try:
             INTEGRATION_MANIFEST_JSON_SCHEMA(content)
         except Invalid as exception:

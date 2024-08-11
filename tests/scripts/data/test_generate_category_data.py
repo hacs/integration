@@ -125,12 +125,12 @@ async def test_generate_category_data_with_prior_content(
             content={
                 category_test_data["id"]: {
                     "description": "This your first repo!",
-                    "downloads": 42,
+                    "downloads": 0,
                     "etag_repository": "321",
                     "full_name": category_test_data["repository"],
                     "last_updated": "2011-01-26T19:06:43Z",
                     "last_version": category_test_data["version_base"],
-                    "stargazers_count": 80,
+                    "stargazers_count": 0,
                     "topics": ["api", "atom", "electron", "octocat"],
                     **category_data.get(category_test_data["category"], {}),
                 }

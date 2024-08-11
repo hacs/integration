@@ -63,29 +63,12 @@ async def test_generate_category_data_single_repository(
     )
     await generate_category_data(category_test_data["category"], category_test_data["repository"])
 
-    with open(f"{OUTPUT_DIR}/{category_test_data['category']}/data.json", encoding="utf-8") as file:
-        snapshots.assert_match(
-            safe_json_dumps(recursive_remove_key(
-                json.loads(file.read()), ("last_fetched",))),
-            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
-                category_test_data['repository']}/data.json",
-        )
-
-    with open(
-        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8"
-    ) as file:
-        snapshots.assert_match(
-            safe_json_dumps(json.loads(file.read())),
-            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
-                category_test_data['repository']}/repositories.json",
-        )
-
-    with open(f"{OUTPUT_DIR}/summary.json", encoding="utf-8") as file:
-        snapshots.assert_match(
-            safe_json_dumps(json.loads(file.read())),
-            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
-                category_test_data['repository']}/summary.json",
-        )
+    snapshots.assert_match(
+        safe_json_dumps(get_generated_category_data(
+            category_test_data["category"])),
+        f"scripts/data/test_generate_category_data_single_repository/{
+            category_test_data['category']}.json",
+    )
 
 
 @pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
@@ -102,29 +85,12 @@ async def test_generate_category_data(
     )
     await generate_category_data(category_test_data["category"])
 
-    with open(f"{OUTPUT_DIR}/{category_test_data['category']}/data.json", encoding="utf-8") as file:
-        snapshots.assert_match(
-            safe_json_dumps(recursive_remove_key(
-                json.loads(file.read()), ("last_fetched",))),
-            f"scripts/data/generate_category_data/{
-                category_test_data['category']}//data.json",
-        )
-
-    with open(
-        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8"
-    ) as file:
-        snapshots.assert_match(
-            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
-            f"scripts/data/generate_category_data/{
-                category_test_data['category']}/repositories.json",
-        )
-
-    with open(f"{OUTPUT_DIR}/summary.json", encoding="utf-8") as file:
-        snapshots.assert_match(
-            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
-            f"scripts/data/generate_category_data/{
-                category_test_data['category']}/summary.json",
-        )
+    snapshots.assert_match(
+        safe_json_dumps(get_generated_category_data(
+            category_test_data["category"])),
+        f"scripts/data/test_generate_category_data/{
+            category_test_data['category']}.json",
+    )
 
 
 @pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
@@ -162,29 +128,12 @@ async def test_generate_category_data_with_prior_content(
     )
     await generate_category_data(category_test_data["category"])
 
-    with open(f"{OUTPUT_DIR}/{category_test_data['category']}/data.json", encoding="utf-8") as file:
-        snapshots.assert_match(
-            safe_json_dumps(recursive_remove_key(
-                json.loads(file.read()), ("last_fetched",))),
-            f"scripts/data/generate_category_data_with_prior_content/{
-                category_test_data['category']}/data.json",
-        )
-
-    with open(
-        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8"
-    ) as file:
-        snapshots.assert_match(
-            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
-            f"scripts/data/generate_category_data_with_prior_content/{
-                category_test_data['category']}/repositories.json",
-        )
-
-    with open(f"{OUTPUT_DIR}/summary.json", encoding="utf-8") as file:
-        snapshots.assert_match(
-            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
-            f"scripts/data/generate_category_data_with_prior_content/{
-                category_test_data['category']}/summary.json",
-        )
+    snapshots.assert_match(
+        safe_json_dumps(get_generated_category_data(
+            category_test_data["category"])),
+        f"scripts/data/test_generate_category_data_with_prior_content/{
+            category_test_data['category']}.json",
+    )
 
 
 @pytest.mark.parametrize("category_test_data", category_test_data_parametrized())

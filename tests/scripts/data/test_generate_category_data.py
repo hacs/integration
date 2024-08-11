@@ -1,7 +1,10 @@
 """Test generate category data."""
 
+import asyncio
 import json
+from typing import Any
 
+from aiogithubapi import GitHubNotModifiedException
 from homeassistant.core import HomeAssistant
 import pytest
 
@@ -24,6 +27,26 @@ RATE_LIMIT_HEADER = {
     "X-RateLimit-Remaining": "9999",
     "X-RateLimit-Reset": "9999",
 }
+
+
+def get_generated_category_data(category: str) -> dict[str, Any]:
+    """Get the generated data."""
+    compare = {}
+
+    with open(f"{OUTPUT_DIR}/{category}/data.json", encoding="utf-8") as file:
+        compare["data"] = recursive_remove_key(
+            json.loads(file.read()), ("last_fetched",))
+
+    with open(
+        f"{OUTPUT_DIR}/{category}/repositories.json", encoding="utf-8"
+    ) as file:
+        compare["repositories"] = recursive_remove_key(
+            json.loads(file.read()), ())
+
+    with open(f"{OUTPUT_DIR}/summary.json", encoding="utf-8") as file:
+        compare["summary"] = recursive_remove_key(json.loads(file.read()), ())
+
+    return compare
 
 
 @pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
@@ -162,3 +185,29 @@ async def test_generate_category_data_with_prior_content(
             f"scripts/data/generate_category_data_with_prior_content/{
                 category_test_data['category']}/summary.json",
         )
+
+
+@pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
+@pytest.mark.parametrize("error", (asyncio.CancelledError, asyncio.TimeoutError, Exception("base")))
+async def test_generate_category_data_errors_release(
+    hass: HomeAssistant,
+    response_mocker: ResponseMocker,
+    snapshots: SnapshotFixture,
+    category_test_data: CategoryTestData,
+    error: Exception,
+    request: pytest.FixtureRequest
+):
+    """Test behaviour if single repository."""
+    response_mocker.add(
+        f"https://api.github.com/repos/{
+            category_test_data['repository']}/releases/latest",
+        MockedResponse(exception=error),
+    )
+    await generate_category_data(category_test_data["category"])
+
+    snapshots.assert_match(
+        safe_json_dumps(get_generated_category_data(
+            category_test_data["category"])),
+        f"scripts/data/test_generate_category_data_errors_release/{
+            category_test_data['category']}/{request.node.callspec.id.split("-")[0]}.json",
+    )

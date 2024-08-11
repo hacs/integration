@@ -4,7 +4,6 @@ import asyncio
 import json
 from typing import Any
 
-from aiogithubapi import GitHubNotModifiedException
 from homeassistant.core import HomeAssistant
 import pytest
 
@@ -126,6 +125,7 @@ async def test_generate_category_data_with_prior_content(
             }
         ),
     )
+
     await generate_category_data(category_test_data["category"])
 
     snapshots.assert_match(
@@ -159,4 +159,55 @@ async def test_generate_category_data_errors_release(
             category_test_data["category"])),
         f"scripts/data/test_generate_category_data_errors_release/{
             category_test_data['category']}/{request.node.callspec.id.split("-")[0]}.json",
+    )
+
+
+@pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
+@pytest.mark.parametrize("status", (304, 404))
+async def test_generate_category_data_error_status_release(
+    hass: HomeAssistant,
+    response_mocker: ResponseMocker,
+    snapshots: SnapshotFixture,
+    category_test_data: CategoryTestData,
+    status: int,
+):
+    """Test behaviour with error status and existing content."""
+    category_data = {
+        "integration": {
+            "domain": "example",
+            "manifest": {"name": "Proxy manifest"},
+            "manifest_name": "Proxy manifest",
+        }
+    }
+    response_mocker.add(
+        f"https://data-v2.hacs.xyz/{category_test_data['category']}/data.json",
+        MockedResponse(
+            content={
+                category_test_data["id"]: {
+                    "description": "This your first repo!",
+                    "downloads": 0,
+                    "etag_repository": "321",
+                    "full_name": category_test_data["repository"],
+                    "last_updated": "2011-01-26T19:06:43Z",
+                    "last_version": category_test_data["version_base"],
+                    "stargazers_count": 0,
+                    "topics": ["api", "atom", "electron", "octocat"],
+                    **category_data.get(category_test_data["category"], {}),
+                }
+            }
+        ),
+    )
+
+    response_mocker.add(
+        f"https://api.github.com/repos/{
+            category_test_data['repository']}/releases/latest",
+        MockedResponse(status=status, content={}),
+    )
+    await generate_category_data(category_test_data["category"])
+
+    snapshots.assert_match(
+        safe_json_dumps(get_generated_category_data(
+            category_test_data["category"])),
+        f"scripts/data/test_generate_category_data_error_status_release/{
+            category_test_data['category']}/{status}.json",
     )

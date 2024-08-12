@@ -30,24 +30,17 @@ async def test_get_reposiotry_releases(
     assert repo is not None
 
     response_mocker.add(
-        "https://api.github.com/graphql",
+        f"https://api.github.com/repos/{
+            category_test_data['repository']}/releases",
         response=MockedResponse(
-            content={
-                "data": {
-                    "repository": {
-                        "releases": {
-                            "nodes": [
-                                {
-                                    "name": category_test_data["version_update"],
-                                    "publishedAt": "2019-02-26T15:02:39Z",
-                                    "tagName": category_test_data["version_update"],
-                                    "isPrerelease": False,
-                                }
-                            ]
-                        }
-                    }
+            content=[
+                {
+                    "name": category_test_data["version_update"],
+                    "tag_name": category_test_data["version_update"],
+                    "published_at": "2019-02-26T15:02:39Z",
+                    "prerelease": False,
                 }
-            }
+            ]
         ),
     )
 

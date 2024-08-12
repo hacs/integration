@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+import os
 from typing import Any
 
 from homeassistant.core import HomeAssistant
@@ -10,6 +11,7 @@ import pytest
 from scripts.data.generate_category_data import OUTPUT_DIR, generate_category_data
 
 from tests.common import (
+    FIXTURES_PATH,
     CategoryTestData,
     MockedResponse,
     ResponseMocker,
@@ -69,7 +71,8 @@ async def test_generate_category_data_single_repository(
         )
 
     with open(
-        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8",
+        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json",
+        encoding="utf-8",
     ) as file:
         snapshots.assert_match(
             safe_json_dumps(json.loads(file.read())),
@@ -78,7 +81,8 @@ async def test_generate_category_data_single_repository(
         )
 
     with open(
-        f"{OUTPUT_DIR}/summary.json", encoding="utf-8",
+        f"{OUTPUT_DIR}/summary.json",
+        encoding="utf-8",
     ) as file:
         snapshots.assert_match(
             safe_json_dumps(json.loads(file.read())),
@@ -110,7 +114,8 @@ async def test_generate_category_data(
         )
 
     with open(
-        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8",
+        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json",
+        encoding="utf-8",
     ) as file:
         snapshots.assert_match(
             safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
@@ -119,7 +124,8 @@ async def test_generate_category_data(
         )
 
     with open(
-        f"{OUTPUT_DIR}/summary.json", encoding="utf-8",
+        f"{OUTPUT_DIR}/summary.json",
+        encoding="utf-8",
     ) as file:
         snapshots.assert_match(
             safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
@@ -188,7 +194,7 @@ async def test_generate_category_data_errors_release(
     """Test behaviour if single repository."""
     response_mocker.add(
         f"https://api.github.com/repos/{
-            category_test_data['repository']}/releases/latest",
+            category_test_data['repository']}/releases",
         MockedResponse(exception=error),
     )
     await generate_category_data(category_test_data["category"])
@@ -237,8 +243,8 @@ async def test_generate_category_data_error_status_release(
 
     response_mocker.add(
         f"https://api.github.com/repos/{
-            category_test_data['repository']}/releases/latest",
-        MockedResponse(status=status, content={}),
+            category_test_data['repository']}/releases",
+        MockedResponse(status=status, content=[]),
     )
     await generate_category_data(category_test_data["category"])
 
@@ -247,4 +253,60 @@ async def test_generate_category_data_error_status_release(
             category_test_data["category"])),
         f"scripts/data/test_generate_category_data_error_status_release/{
             category_test_data['category']}/{status}.json",
+    )
+
+
+@pytest.mark.parametrize(
+    "category_test_data", category_test_data_parametrized(
+        categories=["integration"])
+)
+async def test_generate_category_data_with_30plus_prereleases(
+    hass: HomeAssistant,
+    response_mocker: ResponseMocker,
+    snapshots: SnapshotFixture,
+    category_test_data: CategoryTestData,
+):
+    """Test behaviour with prior content."""
+    response_mocker.add(
+        f"https://data-v2.hacs.xyz/{category_test_data['category']}/data.json",
+        MockedResponse(
+            content={
+                category_test_data["id"]: {
+                    "description": "This your first repo!",
+                    "downloads": 0,
+                    "etag_repository": "321",
+                    "full_name": category_test_data["repository"],
+                    "last_updated": "2011-01-26T19:06:43Z",
+                    "last_version": category_test_data["version_base"],
+                    "stargazers_count": 0,
+                    "topics": ["api", "atom", "electron", "octocat"],
+                    "domain": "example",
+                    "manifest": {"name": "Proxy manifest"},
+                    "manifest_name": "Proxy manifest",
+                }
+            }
+        ),
+    )
+
+    with open(
+        os.path.join(
+            FIXTURES_PATH,
+            "proxy/api.github.com/repos/hacs-test-org/integration-basic/releases.json",
+        )
+    ) as file:
+        release_fixture = json.loads(file.read())[0]
+
+    response_mocker.add(
+        f"https://api.github.com/repos/{
+            category_test_data['repository']}/releases",
+        MockedResponse(content=[release_fixture for _ in range(30)]),
+    )
+
+    await generate_category_data(category_test_data["category"])
+
+    snapshots.assert_match(
+        safe_json_dumps(get_generated_category_data(
+            category_test_data["category"])),
+        f"scripts/data/test_generate_category_data_with_30plus_prereleases/{
+            category_test_data['category']}.json",
     )

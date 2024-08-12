@@ -33,14 +33,10 @@ def get_generated_category_data(category: str) -> dict[str, Any]:
     compare = {}
 
     with open(f"{OUTPUT_DIR}/{category}/data.json", encoding="utf-8") as file:
-        compare["data"] = recursive_remove_key(
-            json.loads(file.read()), ("last_fetched",))
+        compare["data"] = recursive_remove_key(json.loads(file.read()), ("last_fetched",))
 
-    with open(
-        f"{OUTPUT_DIR}/{category}/repositories.json", encoding="utf-8"
-    ) as file:
-        compare["repositories"] = recursive_remove_key(
-            json.loads(file.read()), ())
+    with open(f"{OUTPUT_DIR}/{category}/repositories.json", encoding="utf-8") as file:
+        compare["repositories"] = recursive_remove_key(json.loads(file.read()), ())
 
     with open(f"{OUTPUT_DIR}/summary.json", encoding="utf-8") as file:
         compare["summary"] = recursive_remove_key(json.loads(file.read()), ())
@@ -63,8 +59,7 @@ async def test_generate_category_data_single_repository(
     await generate_category_data(category_test_data["category"], category_test_data["repository"])
 
     snapshots.assert_match(
-        safe_json_dumps(get_generated_category_data(
-            category_test_data["category"])),
+        safe_json_dumps(get_generated_category_data(category_test_data["category"])),
         f"scripts/data/test_generate_category_data_single_repository/{
             category_test_data['category']}.json",
     )
@@ -85,8 +80,7 @@ async def test_generate_category_data(
     await generate_category_data(category_test_data["category"])
 
     snapshots.assert_match(
-        safe_json_dumps(get_generated_category_data(
-            category_test_data["category"])),
+        safe_json_dumps(get_generated_category_data(category_test_data["category"])),
         f"scripts/data/test_generate_category_data/{
             category_test_data['category']}.json",
     )
@@ -129,14 +123,15 @@ async def test_generate_category_data_with_prior_content(
     await generate_category_data(category_test_data["category"])
 
     snapshots.assert_match(
-        safe_json_dumps(get_generated_category_data(
-            category_test_data["category"])),
+        safe_json_dumps(get_generated_category_data(category_test_data["category"])),
         f"scripts/data/test_generate_category_data_with_prior_content/{
             category_test_data['category']}.json",
     )
 
 
-@pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
+@pytest.mark.parametrize(
+    "category_test_data", category_test_data_parametrized(categories=["integration"])
+)
 @pytest.mark.parametrize("error", (asyncio.CancelledError, asyncio.TimeoutError, Exception("base")))
 async def test_generate_category_data_errors_release(
     hass: HomeAssistant,
@@ -144,7 +139,7 @@ async def test_generate_category_data_errors_release(
     snapshots: SnapshotFixture,
     category_test_data: CategoryTestData,
     error: Exception,
-    request: pytest.FixtureRequest
+    request: pytest.FixtureRequest,
 ):
     """Test behaviour if single repository."""
     response_mocker.add(
@@ -155,14 +150,15 @@ async def test_generate_category_data_errors_release(
     await generate_category_data(category_test_data["category"])
 
     snapshots.assert_match(
-        safe_json_dumps(get_generated_category_data(
-            category_test_data["category"])),
+        safe_json_dumps(get_generated_category_data(category_test_data["category"])),
         f"scripts/data/test_generate_category_data_errors_release/{
             category_test_data['category']}/{request.node.callspec.id.split("-")[0]}.json",
     )
 
 
-@pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
+@pytest.mark.parametrize(
+    "category_test_data", category_test_data_parametrized(categories=["integration"])
+)
 @pytest.mark.parametrize("status", (304, 404))
 async def test_generate_category_data_error_status_release(
     hass: HomeAssistant,
@@ -172,13 +168,6 @@ async def test_generate_category_data_error_status_release(
     status: int,
 ):
     """Test behaviour with error status and existing content."""
-    category_data = {
-        "integration": {
-            "domain": "example",
-            "manifest": {"name": "Proxy manifest"},
-            "manifest_name": "Proxy manifest",
-        }
-    }
     response_mocker.add(
         f"https://data-v2.hacs.xyz/{category_test_data['category']}/data.json",
         MockedResponse(
@@ -192,7 +181,9 @@ async def test_generate_category_data_error_status_release(
                     "last_version": category_test_data["version_base"],
                     "stargazers_count": 0,
                     "topics": ["api", "atom", "electron", "octocat"],
-                    **category_data.get(category_test_data["category"], {}),
+                    "domain": "example",
+                    "manifest": {"name": "Proxy manifest"},
+                    "manifest_name": "Proxy manifest",
                 }
             }
         ),
@@ -206,8 +197,7 @@ async def test_generate_category_data_error_status_release(
     await generate_category_data(category_test_data["category"])
 
     snapshots.assert_match(
-        safe_json_dumps(get_generated_category_data(
-            category_test_data["category"])),
+        safe_json_dumps(get_generated_category_data(category_test_data["category"])),
         f"scripts/data/test_generate_category_data_error_status_release/{
             category_test_data['category']}/{status}.json",
     )

@@ -123,6 +123,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
 def category_test_data_parametrized(
     *,
     xfail_categories: list[HacsCategory] | None = None,
+    categories: Iterable[HacsCategory] = [entry["category"] for entry in _CATEGORY_TEST_DATA],
     **kwargs,
 ):
     return (
@@ -134,6 +135,7 @@ def category_test_data_parametrized(
             id=entry["repository"],
         )
         for entry in _CATEGORY_TEST_DATA
+        if entry["category"] in categories
     )
 
 

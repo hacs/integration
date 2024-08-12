@@ -220,6 +220,7 @@ class AdjustedHacs(HacsBase):
                 release_count = len(releases)
 
                 repository.data.etag_releases = response.etag
+                repository.data.prerelease = None
 
                 if release_count != 0:
                     for release in releases:
@@ -230,6 +231,7 @@ class AdjustedHacs(HacsBase):
                         elif release.prerelease:
                             repository.logger.info(
                                 "%s Found prerelease", repository.string)
+                            repository.data.prerelease = release.tag_name
 
                         else:
                             repository.data.releases = True
@@ -266,6 +268,12 @@ class AdjustedHacs(HacsBase):
                         ) != repository.data.last_version:
                             repository.data.last_version = next_version
                             repository.data.etag_repository = None
+
+                if (
+                    repository.data.prerelease
+                    and repository.data.prerelease == repository.data.last_version
+                ):
+                    repository.data.prerelease = None
 
             except GitHubNotModifiedException:
                 repository.data.releases = True

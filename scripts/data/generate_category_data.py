@@ -205,31 +205,67 @@ class AdjustedHacs(HacsBase):
             repository.data.etag_repository = None
 
         if repository.data.last_version not in (None, ""):
+            releases: list[GitHubReleaseModel] = []
             try:
                 repository.logger.info(
                     "%s Fetching repository releases",
                     repository.string,
                 )
                 response = await self.githubapi.generic(
-                    endpoint=f"/repos/{repository.data.full_name}/releases/latest",
+                    endpoint=f"/repos/{repository.data.full_name}/releases",
                     etag=repository.data.etag_releases,
+                    kwargs={"per_page": 30},
                 )
-                response.data = (
-                    GitHubReleaseModel(
-                        response.data) if response.data else None
-                )
+                releases = [GitHubReleaseModel(rel) for rel in response.data]
+                release_count = len(releases)
+
                 repository.data.etag_releases = response.etag
-                if (releases := response.data) is not None:
-                    repository.data.releases = True
-                    repository.releases.objects = [releases]
-                    repository.data.published_tags = [
-                        x.tag_name for x in repository.releases.objects
-                    ]
-                    if (
-                        next_version := next(iter(repository.data.published_tags), None)
-                    ) != repository.data.last_version:
-                        repository.data.last_version = next_version
-                        repository.data.etag_repository = None
+
+                if release_count != 0:
+                    for release in releases:
+                        if release.draft:
+                            repository.logger.warning(
+                                "%s Found draft", repository.string)
+
+                        elif release.prerelease:
+                            repository.logger.info(
+                                "%s Found prerelease", repository.string)
+
+                        else:
+                            repository.data.releases = True
+                            repository.releases.objects = releases
+                            repository.data.published_tags = [
+                                x.tag_name for x in repository.releases.objects
+                            ]
+                            if repository.data.last_version != release.tag_name:
+                                repository.data.last_version = release.tag_name
+                                repository.data.etag_repository = None
+                            break
+
+                if release_count >= 30 and not repository.data.releases:
+                    repository.logger.warning(
+                        "%s Found 30 releases but no release, falling back to fetching latest",
+                        repository.string,
+                    )
+
+                    response = await self.githubapi.generic(
+                        endpoint=f"/repos/{repository.data.full_name}/releases/latest",
+                        etag=repository.data.etag_releases,
+                    )
+                    response.data = GitHubReleaseModel(
+                        response.data) if response.data else None
+
+                    if (releases := response.data) is not None:
+                        repository.data.releases = True
+                        repository.releases.objects = [releases]
+                        repository.data.published_tags = [
+                            x.tag_name for x in repository.releases.objects
+                        ]
+                        if (
+                            next_version := next(iter(repository.data.published_tags), None)
+                        ) != repository.data.last_version:
+                            repository.data.last_version = next_version
+                            repository.data.etag_repository = None
 
             except GitHubNotModifiedException:
                 repository.data.releases = True
@@ -243,8 +279,7 @@ class AdjustedHacs(HacsBase):
                     "%s No releases found", repository.string)
             except GitHubException as exception:
                 repository.data.releases = False
-                repository.logger.warning(
-                    "%s %s", repository.string, exception)
+                repository.logger.error("%s %s", repository.string, exception)
 
         await repository.common_update(
             force=repository.data.etag_repository is None,

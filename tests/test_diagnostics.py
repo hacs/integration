@@ -12,26 +12,26 @@ from tests.common import (
 )
 from tests.conftest import SnapshotFixture
 
+REMOVE_KEYS = ("entry_id", "last_updated", "local", "minor_version", "created_at", "modified_at")
+
 
 async def test_diagnostics(hacs: HacsBase, snapshots: SnapshotFixture):
     """Test the base result."""
     diagnostics = await async_get_config_entry_diagnostics(
-        hacs.hass, hacs.configuration.config_entry,
+        hacs.hass,
+        hacs.configuration.config_entry,
     )
 
     assert TOKEN not in str(diagnostics)
     snapshots.assert_match(
-        safe_json_dumps(
-            recursive_remove_key(
-                diagnostics, ("entry_id", "last_updated", "local", "minor_version"),
-            ),
-        ),
-        "diagnostics/base.json",
+        safe_json_dumps(recursive_remove_key(diagnostics, REMOVE_KEYS)), "diagnostics/base.json"
     )
 
 
 async def test_diagnostics_with_exception(
-    hacs: HacsBase, snapshots: SnapshotFixture, response_mocker: ResponseMocker,
+    hacs: HacsBase,
+    snapshots: SnapshotFixture,
+    response_mocker: ResponseMocker,
 ):
     """Test the result with issues getting the ratelimit."""
     response_mocker.add(
@@ -39,14 +39,11 @@ async def test_diagnostics_with_exception(
         MockedResponse(status=400, content="Something went wrong"),
     )
     diagnostics = await async_get_config_entry_diagnostics(
-        hacs.hass, hacs.configuration.config_entry,
+        hacs.hass,
+        hacs.configuration.config_entry,
     )
 
     snapshots.assert_match(
-        safe_json_dumps(
-            recursive_remove_key(
-                diagnostics, ("entry_id", "last_updated", "local", "minor_version"),
-            ),
-        ),
+        safe_json_dumps(recursive_remove_key(diagnostics, REMOVE_KEYS)),
         "diagnostics/exception.json",
     )

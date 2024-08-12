@@ -33,10 +33,12 @@ def get_generated_category_data(category: str) -> dict[str, Any]:
     compare = {}
 
     with open(f"{OUTPUT_DIR}/{category}/data.json", encoding="utf-8") as file:
-        compare["data"] = recursive_remove_key(json.loads(file.read()), ("last_fetched",))
+        compare["data"] = recursive_remove_key(
+            json.loads(file.read()), ("last_fetched",))
 
     with open(f"{OUTPUT_DIR}/{category}/repositories.json", encoding="utf-8") as file:
-        compare["repositories"] = recursive_remove_key(json.loads(file.read()), ())
+        compare["repositories"] = recursive_remove_key(
+            json.loads(file.read()), ())
 
     with open(f"{OUTPUT_DIR}/summary.json", encoding="utf-8") as file:
         compare["summary"] = recursive_remove_key(json.loads(file.read()), ())
@@ -58,11 +60,31 @@ async def test_generate_category_data_single_repository(
     )
     await generate_category_data(category_test_data["category"], category_test_data["repository"])
 
-    snapshots.assert_match(
-        safe_json_dumps(get_generated_category_data(category_test_data["category"])),
-        f"scripts/data/test_generate_category_data_single_repository/{
-            category_test_data['category']}.json",
-    )
+    with open(f"{OUTPUT_DIR}/{category_test_data['category']}/data.json", encoding="utf-8") as file:
+        snapshots.assert_match(
+            safe_json_dumps(recursive_remove_key(
+                json.loads(file.read()), ("last_fetched",))),
+            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
+                category_test_data['repository']}/data.json",
+        )
+
+    with open(
+        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8",
+    ) as file:
+        snapshots.assert_match(
+            safe_json_dumps(json.loads(file.read())),
+            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
+                category_test_data['repository']}/repositories.json",
+        )
+
+    with open(
+        f"{OUTPUT_DIR}/summary.json", encoding="utf-8",
+    ) as file:
+        snapshots.assert_match(
+            safe_json_dumps(json.loads(file.read())),
+            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
+                category_test_data['repository']}/summary.json",
+        )
 
 
 @pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
@@ -79,11 +101,31 @@ async def test_generate_category_data(
     )
     await generate_category_data(category_test_data["category"])
 
-    snapshots.assert_match(
-        safe_json_dumps(get_generated_category_data(category_test_data["category"])),
-        f"scripts/data/test_generate_category_data/{
-            category_test_data['category']}.json",
-    )
+    with open(f"{OUTPUT_DIR}/{category_test_data['category']}/data.json", encoding="utf-8") as file:
+        snapshots.assert_match(
+            safe_json_dumps(recursive_remove_key(
+                json.loads(file.read()), ("last_fetched",))),
+            f"scripts/data/generate_category_data/{
+                category_test_data['category']}//data.json",
+        )
+
+    with open(
+        f"{OUTPUT_DIR}/{category_test_data['category']}/repositories.json", encoding="utf-8",
+    ) as file:
+        snapshots.assert_match(
+            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
+            f"scripts/data/generate_category_data/{
+                category_test_data['category']}/repositories.json",
+        )
+
+    with open(
+        f"{OUTPUT_DIR}/summary.json", encoding="utf-8",
+    ) as file:
+        snapshots.assert_match(
+            safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
+            f"scripts/data/generate_category_data/{
+                category_test_data['category']}/summary.json",
+        )
 
 
 @pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
@@ -123,14 +165,16 @@ async def test_generate_category_data_with_prior_content(
     await generate_category_data(category_test_data["category"])
 
     snapshots.assert_match(
-        safe_json_dumps(get_generated_category_data(category_test_data["category"])),
+        safe_json_dumps(get_generated_category_data(
+            category_test_data["category"])),
         f"scripts/data/test_generate_category_data_with_prior_content/{
             category_test_data['category']}.json",
     )
 
 
 @pytest.mark.parametrize(
-    "category_test_data", category_test_data_parametrized(categories=["integration"])
+    "category_test_data", category_test_data_parametrized(
+        categories=["integration"])
 )
 @pytest.mark.parametrize("error", (asyncio.CancelledError, asyncio.TimeoutError, Exception("base")))
 async def test_generate_category_data_errors_release(
@@ -150,14 +194,16 @@ async def test_generate_category_data_errors_release(
     await generate_category_data(category_test_data["category"])
 
     snapshots.assert_match(
-        safe_json_dumps(get_generated_category_data(category_test_data["category"])),
+        safe_json_dumps(get_generated_category_data(
+            category_test_data["category"])),
         f"scripts/data/test_generate_category_data_errors_release/{
             category_test_data['category']}/{request.node.callspec.id.split("-")[0]}.json",
     )
 
 
 @pytest.mark.parametrize(
-    "category_test_data", category_test_data_parametrized(categories=["integration"])
+    "category_test_data", category_test_data_parametrized(
+        categories=["integration"])
 )
 @pytest.mark.parametrize("status", (304, 404))
 async def test_generate_category_data_error_status_release(
@@ -197,7 +243,8 @@ async def test_generate_category_data_error_status_release(
     await generate_category_data(category_test_data["category"])
 
     snapshots.assert_match(
-        safe_json_dumps(get_generated_category_data(category_test_data["category"])),
+        safe_json_dumps(get_generated_category_data(
+            category_test_data["category"])),
         f"scripts/data/test_generate_category_data_error_status_release/{
             category_test_data['category']}/{status}.json",
     )

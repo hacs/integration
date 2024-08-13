@@ -55,7 +55,9 @@ async def test_update_repository_entity(
     assert repo.data.installed_version == category_test_data["version_update"]
 
     await snapshots.assert_hacs_data(
-        hacs, f"{category_test_data['repository']}/test_update_repository_entity.json",
+        hacs,
+        f"{category_test_data['repository']
+                 }/test_update_repository_entity.json",
     )
 
 
@@ -83,7 +85,9 @@ async def test_update_repository_websocket(
     assert repo.data.installed_version == category_test_data["version_update"]
 
     await snapshots.assert_hacs_data(
-        hacs, f"{category_test_data['repository']}/test_update_repository_websocket.json",
+        hacs,
+        f"{category_test_data['repository']
+                 }/test_update_repository_websocket.json",
     )
 
 
@@ -158,7 +162,8 @@ async def test_update_repository_entity_old_core_version(
     entity_id = er.async_get_entity_id("update", DOMAIN, repo.data.id)
 
     with pytest.raises(
-        HomeAssistantError, match="This version requires Home Assistant 9999.99.99 or newer.",
+        HomeAssistantError,
+        match="This version requires Home Assistant 9999.99.99 or newer.",
     ):
         await hass.services.async_call(
             "update",
@@ -249,43 +254,5 @@ async def test_update_repository_entity_download_failure(
             "update",
             "install",
             service_data={"entity_id": entity_id, "version": "2.0.0"},
-            blocking=True,
-        )
-
-
-async def test_update_repository_entity_no_version_and_cant_download(
-    hass: HomeAssistant,
-    setup_integration: Generator,
-    snapshots: SnapshotFixture,
-    response_mocker: ResponseMocker,
-):
-    hacs = get_hacs(hass)
-    repo = hacs.repositories.get_by_full_name("hacs-test-org/integration-basic")
-
-    assert repo is not None
-
-    repo.data.installed = True
-    repo.data.installed_version = "0.0.1"
-
-    await hass.config_entries.async_reload(hacs.configuration.config_entry.entry_id)
-    await hass.async_block_till_done()
-
-    # Get a new HACS instance after reload
-    hacs = get_hacs(hass)
-
-    er = async_get_entity_registry(hacs.hass)
-
-    entity_id = er.async_get_entity_id("update", DOMAIN, repo.data.id)
-
-    with patch(
-        "custom_components.hacs.repositories.base.HacsRepository.can_download", False,
-    ), pytest.raises(
-        HomeAssistantError,
-        match="This integration is not available for download.",
-    ):
-        await hass.services.async_call(
-            "update",
-            "install",
-            service_data={"entity_id": entity_id},
             blocking=True,
         )

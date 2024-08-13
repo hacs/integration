@@ -81,7 +81,7 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:
         """Install an update."""
         try:
-            await self.repository.async_download_repository(ref=version)
+            await self.repository.async_download_repository(ref=version or self.latest_version)
         except HacsException as exception:
             raise HomeAssistantError(exception) from exception
 

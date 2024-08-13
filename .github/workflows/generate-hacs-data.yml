@@ -91,12 +91,12 @@ jobs:
       - name: Generate diff
         run: |
           diff -u outputdata/diff/${{ matrix.category }}_before.json outputdata/diff/${{ matrix.category }}_after.json > outputdata/diff/${{ matrix.category }}.diff || true
-          cat outputdata/diff/${{ matrix.entry.category }}.diff
+          cat outputdata/diff/${{ matrix.category }}.diff
 
       - name: Upload diff
         uses: actions/github-script@v7.0.1
         env:
-          CATEGORY: ${{ matrix.entry.category }}
+          CATEGORY: ${{ matrix.category }}
         with:
           script: |
             const fs = require('fs');

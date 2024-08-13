@@ -138,6 +138,18 @@ jobs:
           cat outputdata/diff/${{ matrix.entry.category }}.diff >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`\n\n</details>"
 
+      - name: Upload diff
+        uses: actions/github-script@v7.0.1
+        env:
+          CATEGORY: ${{ matrix.entry.category }}
+        with:
+          script: |
+            const fs = require('fs');
+            const diffContents = fs.readFileSync(`outputdata/diff/${process.env.CATEGORY}.diff`);
+
+            core.summary.addDetails("diff", core.summary.addCodeBlock(diffContents, 'diff'))
+            core.summary.write()
+
       - name: Validate output with JQ
         run: |
           jq -c . outputdata/${{ matrix.entry.category }}/data.json

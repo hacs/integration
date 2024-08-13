@@ -58,6 +58,8 @@ IGNORED_BASE_FILES = {
     "/config/secrets.yaml",
 }
 
+FIXTURES_PATH = os.path.join(os.path.dirname(__file__), "fixtures")
+
 
 class CategoryTestData(TypedDict):
     id: str

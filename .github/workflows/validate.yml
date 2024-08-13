@@ -143,7 +143,7 @@ jobs:
             const fs = require('fs');
             const diffContents = fs.readFileSync(`outputdata/diff/${process.env.CATEGORY}.diff`);
 
-            core.summary.addDetails("diff", `\n\`\`\`diff\n${diffContents}\`\`\`\n`)
+            core.summary.addDetails("diff", `\n\n\`\`\`diff\n${diffContents}\`\`\`\n\n`)
             core.summary.write()
 
       - name: Validate output with JQ

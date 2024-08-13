@@ -68,6 +68,7 @@ class CategoryTestData(TypedDict):
     files: list[str]
     version_base: str
     version_update: str
+    prerelease: str
 
 
 _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
@@ -78,6 +79,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
         files=["__init__.py", "example.py"],
         version_base="1.0.0",
         version_update="2.0.0",
+        prerelease="3.0.0",
     ),
     CategoryTestData(
         id="1296269",
@@ -86,6 +88,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
         files=["__init__.py", "manifest.json", "module/__init__.py"],
         version_base="1.0.0",
         version_update="2.0.0",
+        prerelease="3.0.0",
     ),
     CategoryTestData(
         id="1296267",
@@ -94,6 +97,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
         files=["example.js", "example.js.gz"],
         version_base="1.0.0",
         version_update="2.0.0",
+        prerelease="3.0.0",
     ),
     CategoryTestData(
         id="1296262",
@@ -102,6 +106,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
         files=["example.py"],
         version_base="1.0.0",
         version_update="2.0.0",
+        prerelease="3.0.0",
     ),
     CategoryTestData(
         id="1296268",
@@ -110,6 +115,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
         files=["example.jinja"],
         version_base="1.0.0",
         version_update="2.0.0",
+        prerelease="3.0.0",
     ),
     CategoryTestData(
         id="1296266",
@@ -118,6 +124,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
         files=["example.yaml"],
         version_base="1.0.0",
         version_update="2.0.0",
+        prerelease="3.0.0",
     ),
 )
 

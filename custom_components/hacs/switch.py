@@ -51,17 +51,22 @@ class HacsRepositoryPreReleaseSwitchEntity(HacsRepositoryEntity, SwitchEntity):
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the entity on."""
-        await self._handle_change(True)
+        await self._handle_change(value=True)
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the entity off."""
-        await self._handle_change(False)
+        await self._handle_change(value=False)
 
     async def _handle_change(self, value: bool) -> None:
         """Handle attribute value changes."""
         self.repository.data.show_beta = value
-        self.repository.data.last_fetched = None  # Force update
+
+        # Force update of other entities
+        _last_fetch = self.repository.data.last_fetched
+        self.repository.data.last_fetched = None
         self.coordinator.async_update_listeners()
+        self.repository.data.last_fetched = _last_fetch  # Restore last fetched
+        ###
 
         await self.hacs.data.async_write()
         self.async_write_ha_state()

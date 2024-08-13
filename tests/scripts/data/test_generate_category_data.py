@@ -160,6 +160,7 @@ async def test_generate_category_data_with_prior_content(
                     "full_name": category_test_data["repository"],
                     "last_updated": "2011-01-26T19:06:43Z",
                     "last_version": category_test_data["version_base"],
+                    "prerelease": "0.0.0",
                     "stargazers_count": 0,
                     "topics": ["api", "atom", "electron", "octocat"],
                     **category_data.get(category_test_data["category"], {}),

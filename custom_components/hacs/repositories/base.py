@@ -387,7 +387,9 @@ class HacsRepository:
     @property
     def display_available_version(self) -> str:
         """Return display_authors"""
-        if self.data.last_version is not None:
+        if self.data.show_beta and self.data.prerelease is not None:
+            available = self.data.prerelease
+        elif self.data.last_version is not None:
             available = self.data.last_version
         else:
             if self.data.last_commit is not None:
@@ -1434,23 +1436,11 @@ class HacsRepository:
                 {"repository": self.data.full_name, "progress": False},
             )
 
-    async def async_get_releases(self, *, first: int = 30) -> list[dict[str, Any]]:
+    async def async_get_releases(self, *, first: int = 30) -> list[GitHubReleaseModel]:
         """Get the last x releases of a repository."""
-        owner, name = self.data.full_name.split("/")
         response = await self.hacs.async_github_api_method(
-            method=self.hacs.githubapi.graphql,
-            query=GET_REPOSITORY_RELEASES,
-            variables={
-                "owner": owner,
-                "name": name,
-                "first": first,
-            },
+            method=self.hacs.githubapi.repos.releases.list,
+            repository=self.data.full_name,
+            kwargs={"per_page": 30},
         )
-        return (
-            []
-            if response is None
-            else response.data.get("data", {})
-            .get("repository", {})
-            .get("releases", {})
-            .get("nodes", [])
-        )
+        return response.data

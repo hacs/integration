@@ -358,10 +358,10 @@ async def hacs_repository_releases(
             msg["id"],
             [
                 {
-                    "name": release["name"],
-                    "tag": release["tagName"],
-                    "published_at": release["publishedAt"],
-                    "prerelease": release["isPrerelease"],
+                    "name": release.name,
+                    "tag": release.tag_name,
+                    "published_at": release.published_at,
+                    "prerelease": release.prerelease,
                 }
                 for release in releases
             ],

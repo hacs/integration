@@ -550,11 +550,11 @@ async def generate_category_data(category: str, repository_name: str = None):
         ) as data_file:
             json.dump(
                 {
-                    i: {k: v}
-                    for i, d in current_data.items()
-                    for k, v in d.items() if k not in {
-                        "etag_releases", "etag_repository"
+                    i: {
+                        k: v
+                        for k, v in d.items() if k not in {"etag_releases", "etag_repository"}
                     }
+                    for i, d in current_data.items()
                 },
                 data_file,
                 cls=JSONEncoder,
@@ -569,11 +569,11 @@ async def generate_category_data(category: str, repository_name: str = None):
         ) as data_file:
             json.dump(
                 {
-                    i: {k: v}
-                    for i, d in updated_data.items()
-                    for k, v in d.items() if k not in {
-                        "etag_releases", "etag_repository"
+                    i: {
+                        k: v
+                        for k, v in d.items() if k not in {"etag_releases", "etag_repository"}
                     }
+                    for i, d in updated_data.items()
                 },
                 data_file,
                 cls=JSONEncoder,

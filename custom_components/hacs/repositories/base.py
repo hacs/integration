@@ -387,7 +387,9 @@ class HacsRepository:
     @property
     def display_available_version(self) -> str:
         """Return display_authors"""
-        if self.data.last_version is not None:
+        if self.data.show_beta and self.data.prerelease is not None:
+            available = self.data.prerelease
+        elif self.data.last_version is not None:
             available = self.data.last_version
         else:
             if self.data.last_commit is not None:

@@ -82,7 +82,7 @@ def dicts_are_equal(a: dict, b: dict, ignore: set[str]) -> bool:
 
 def repository_has_missing_keys(
     repository: HacsRepository,
-    stage: Literal["update"] | Literal["store"],
+    stage: Literal["update", "store"],
 ) -> bool:
     """Check if repository has missing keys."""
     retval = False
@@ -220,18 +220,23 @@ class AdjustedHacs(HacsBase):
                 release_count = len(releases)
 
                 repository.data.etag_releases = response.etag
+                repository.data.prerelease = None
 
                 if release_count != 0:
                     for release in releases:
                         if release.draft:
                             repository.logger.warning(
-                                "%s Found draft", repository.string)
+                                "%s Found draft %s", repository.string, release.tag_name)
 
                         elif release.prerelease:
                             repository.logger.info(
-                                "%s Found prerelease", repository.string)
+                                "%s Found prerelease %s", repository.string, release.tag_name)
+                            if repository.data.prerelease is None:
+                                repository.data.prerelease = release.tag_name
 
                         else:
+                            repository.logger.info(
+                                "%s Found release %s", repository.string, release.tag_name)
                             repository.data.releases = True
                             repository.releases.objects = releases
                             repository.data.published_tags = [
@@ -266,6 +271,12 @@ class AdjustedHacs(HacsBase):
                         ) != repository.data.last_version:
                             repository.data.last_version = next_version
                             repository.data.etag_repository = None
+
+                if (
+                    repository.data.prerelease
+                    and repository.data.prerelease == repository.data.last_version
+                ):
+                    repository.data.prerelease = None
 
             except GitHubNotModifiedException:
                 repository.data.releases = True
@@ -490,7 +501,7 @@ async def generate_category_data(category: str, repository_name: str = None):
             or len(updated_data) == 0
             or not isinstance(updated_data, dict)
         ):
-            print_error_and_exit(f"Updated data is empty", category)
+            print_error_and_exit("Updated data is empty", category)
             did_raise = True
 
         try:
@@ -539,7 +550,13 @@ async def generate_category_data(category: str, repository_name: str = None):
             encoding="utf-8",
         ) as data_file:
             json.dump(
-                current_data,
+                {
+                    i: {
+                        k: v
+                        for k, v in d.items() if k not in {"etag_releases", "etag_repository"}
+                    }
+                    for i, d in current_data.items()
+                },
                 data_file,
                 cls=JSONEncoder,
                 sort_keys=True,
@@ -552,7 +569,13 @@ async def generate_category_data(category: str, repository_name: str = None):
             encoding="utf-8",
         ) as data_file:
             json.dump(
-                updated_data,
+                {
+                    i: {
+                        k: v
+                        for k, v in d.items() if k not in {"etag_releases", "etag_repository"}
+                    }
+                    for i, d in updated_data.items()
+                },
                 data_file,
                 cls=JSONEncoder,
                 sort_keys=True,

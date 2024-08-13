@@ -6,6 +6,7 @@ from typing import Any
 
 from homeassistant.components.switch import SwitchEntity
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
@@ -30,6 +31,8 @@ async def async_setup_entry(
 
 class HacsRepositoryPreReleaseSwitchEntity(HacsRepositoryEntity, SwitchEntity):
     """Pre-release switch entities for repositories downloaded with HACS."""
+
+    _attr_entity_category = EntityCategory.DIAGNOSTIC
 
     def __init__(self, hacs: HacsBase, repository: HacsRepository) -> None:
         """Initialize the repository pre-release switch."""

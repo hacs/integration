@@ -33,16 +33,13 @@ class HacsRepositoryPreReleaseSwitchEntity(HacsRepositoryEntity, SwitchEntity):
     """Pre-release switch entities for repositories downloaded with HACS."""
 
     _attr_entity_category = EntityCategory.DIAGNOSTIC
+    _attr_has_entity_name = True
+    _attr_translation_key = "pre-release"
 
     def __init__(self, hacs: HacsBase, repository: HacsRepository) -> None:
         """Initialize the repository pre-release switch."""
         super().__init__(hacs, repository)
         self._attr_entity_registry_enabled_default = self.repository.data.show_beta
-
-    @property
-    def name(self) -> str:
-        """Return the name."""
-        return f"{self.repository.display_name} pre-release"
 
     @property
     def is_on(self) -> bool:

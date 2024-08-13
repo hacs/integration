@@ -550,7 +550,13 @@ async def generate_category_data(category: str, repository_name: str = None):
             encoding="utf-8",
         ) as data_file:
             json.dump(
-                current_data,
+                {
+                    i: {
+                        k: v
+                        for k, v in d.items() if k not in {"etag_releases", "etag_repository"}
+                    }
+                    for i, d in current_data.items()
+                },
                 data_file,
                 cls=JSONEncoder,
                 sort_keys=True,
@@ -563,7 +569,13 @@ async def generate_category_data(category: str, repository_name: str = None):
             encoding="utf-8",
         ) as data_file:
             json.dump(
-                updated_data,
+                {
+                    i: {
+                        k: v
+                        for k, v in d.items() if k not in {"etag_releases", "etag_repository"}
+                    }
+                    for i, d in updated_data.items()
+                },
                 data_file,
                 cls=JSONEncoder,
                 sort_keys=True,

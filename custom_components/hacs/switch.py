@@ -46,7 +46,7 @@ class HacsRepositoryPreReleaseSwitchEntity(HacsRepositoryEntity, SwitchEntity):
 
     @property
     def is_on(self) -> bool:
-        """Return if the switch ."""
+        """Return if the pre-release option is enabled for the repository."""
         return self.repository.data.show_beta
 
     async def async_turn_on(self, **kwargs: Any) -> None:

@@ -231,7 +231,8 @@ class AdjustedHacs(HacsBase):
                         elif release.prerelease:
                             repository.logger.info(
                                 "%s Found prerelease %s", repository.string, release.tag_name)
-                            repository.data.prerelease = release.tag_name
+                            if repository.data.prerelease is None:
+                                repository.data.prerelease = release.tag_name
 
                         else:
                             repository.logger.info(

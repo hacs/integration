@@ -16,7 +16,7 @@ async def test_added_to_brands(repository, response_mocker: ResponseMocker):
 
 async def test_not_added_to_brands(repository, response_mocker: ResponseMocker):
     response_mocker.add(
-        "https://brands.home-assistant.io/domains.json", MockedResponse(content={"custom": []})
+        "https://brands.home-assistant.io/domains.json", MockedResponse(content={"custom": []}),
     )
     repository.data.domain = "test"
     check = Validator(repository)

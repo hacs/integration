@@ -1,7 +1,6 @@
 """Set up some common test helper things."""
+from . import patch_time  # isort:skip
 
-# pytest: disable=protected-access
-from . import patch_time  # noqa: F401, isort:skip
 import asyncio
 from collections.abc import Generator
 from dataclasses import asdict
@@ -31,13 +30,13 @@ from homeassistant.util.async_ import create_eager_task
 import pytest
 import pytest_asyncio
 from pytest_snapshot.plugin import Snapshot
+from slugify import slugify
 
 from custom_components.hacs.base import HacsBase
 from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.repositories import (
     HacsAppdaemonRepository,
     HacsIntegrationRepository,
-    HacsNetdaemonRepository,
     HacsPluginRepository,
     HacsPythonScriptRepository,
     HacsTemplateRepository,
@@ -73,9 +72,6 @@ if "GITHUB_ACTION" in os.environ:
         level=logging.DEBUG,
     )
 
-# All test coroutines will be treated as marked.
-# pytestmark = pytest.mark.asyncio
-
 asyncio.set_event_loop_policy(HassEventLoopPolicy(False))
 asyncio.set_event_loop_policy = lambda policy: None
 
@@ -99,27 +95,17 @@ def set_request_context(request: pytest.FixtureRequest):
 @pytest.fixture()
 def connection():
     """Mock fixture for connection."""
-    yield MagicMock()
+    return MagicMock()
 
 
-@pytest.fixture
+@pytest.fixture()
 def hass_storage():
     """Fixture to mock storage."""
     with mock_storage() as stored_data:
         yield stored_data
 
 
-@pytest.fixture(scope="session")
-def event_loop():
-    try:
-        loop = asyncio.get_running_loop()
-    except RuntimeError:
-        loop = asyncio.new_event_loop()
-    yield loop
-    loop.close()
-
-
-@pytest.fixture
+@pytest.fixture()
 async def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
     """Fixture to provide a test instance of Home Assistant."""
 
@@ -131,17 +117,18 @@ async def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
             exceptions.append(
                 Exception(
                     "Received exception handler without exception, "
-                    f"but with message: {context["message"]}"
-                )
+                    f"but with message: {context["message"]}",
+                ),
             )
         orig_exception_handler(loop, context)
 
     exceptions: list[Exception] = []
     if AwesomeVersion(HA_VERSION) > "2024.4.1":
-        context_manager = async_test_home_assistant_dev(event_loop, config_dir=tmpdir.strpath)
+        context_manager = async_test_home_assistant_dev(
+            event_loop, config_dir=tmpdir.strpath)
     else:
         context_manager = async_test_home_assistant_min_version(
-            event_loop, config_dir=tmpdir.strpath
+            event_loop, config_dir=tmpdir.strpath,
         )
     async with context_manager as hass:
         await async_setup_component(hass, "homeassistant", {})
@@ -164,11 +151,12 @@ async def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
             await asyncio.gather(
                 *(
                     create_eager_task(
-                        hass.config_entries.async_unload(config_entry.entry_id),
+                        hass.config_entries.async_unload(
+                            config_entry.entry_id),
                         loop=hass.loop,
                     )
                     for config_entry in loaded_entries
-                )
+                ),
             )
 
         await hass.async_stop(force=True)
@@ -178,65 +166,58 @@ async def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
     shutil.rmtree(hass.config.config_dir)
 
 
-@pytest.fixture
+@pytest.fixture()
 def hacs(hass: HomeAssistant, setup_integration: None) -> HacsBase:
     """Fixture to provide a HACS object."""
     return get_hacs(hass)
 
 
-@pytest.fixture
+@pytest.fixture()
 def repository(hacs):
     """Fixtrue for HACS repository object"""
-    yield dummy_repository_base(hacs)
+    return dummy_repository_base(hacs)
 
 
-@pytest.fixture
+@pytest.fixture()
 def repository_integration(hacs):
     """Fixtrue for HACS integration repository object"""
     repository_obj = HacsIntegrationRepository(hacs, "test/test")
-    yield dummy_repository_base(hacs, repository_obj)
+    return dummy_repository_base(hacs, repository_obj)
 
 
-@pytest.fixture
+@pytest.fixture()
 def repository_theme(hacs):
     """Fixtrue for HACS theme repository object"""
     repository_obj = HacsThemeRepository(hacs, "test/test")
-    yield dummy_repository_base(hacs, repository_obj)
+    return dummy_repository_base(hacs, repository_obj)
 
 
-@pytest.fixture
+@pytest.fixture()
 def repository_plugin(hacs):
     """Fixtrue for HACS plugin repository object"""
     repository_obj = HacsPluginRepository(hacs, "test/test")
-    yield dummy_repository_base(hacs, repository_obj)
+    return dummy_repository_base(hacs, repository_obj)
 
 
-@pytest.fixture
+@pytest.fixture()
 def repository_python_script(hacs):
     """Fixtrue for HACS python_script repository object"""
     repository_obj = HacsPythonScriptRepository(hacs, "test/test")
-    yield dummy_repository_base(hacs, repository_obj)
+    return dummy_repository_base(hacs, repository_obj)
 
 
-@pytest.fixture
+@pytest.fixture()
 def repository_template(hacs):
     """Fixtrue for HACS template repository object"""
     repository_obj = HacsTemplateRepository(hacs, "test/test")
-    yield dummy_repository_base(hacs, repository_obj)
+    return dummy_repository_base(hacs, repository_obj)
 
 
-@pytest.fixture
+@pytest.fixture()
 def repository_appdaemon(hacs):
     """Fixtrue for HACS appdaemon repository object"""
     repository_obj = HacsAppdaemonRepository(hacs, "test/test")
-    yield dummy_repository_base(hacs, repository_obj)
-
-
-@pytest.fixture
-def repository_netdaemon(hacs):
-    """Fixtrue for HACS netdaemon repository object"""
-    repository_obj = HacsNetdaemonRepository(hacs, "test/test")
-    yield dummy_repository_base(hacs, repository_obj)
+    return dummy_repository_base(hacs, repository_obj)
 
 
 class SnapshotFixture(Snapshot):
@@ -249,7 +230,7 @@ class SnapshotFixture(Snapshot):
         pass
 
 
-@pytest.fixture
+@pytest.fixture()
 def snapshots(snapshot: Snapshot) -> SnapshotFixture:
     """Fixture for a snapshot."""
     snapshot.snapshot_dir = "tests/snapshots"
@@ -307,7 +288,7 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                                 {
                                     "entity_id": entity.entity_id,
                                     **_entity_state(entity),
-                                    **recursive_remove_key(entity.as_partial_dict, ("id",)),
+                                    **recursive_remove_key(entity.as_partial_dict, ("id", "created_at", "modified_at")),
                                 }
                                 for entity in er.async_entries_for_config_entry(
                                     er.async_get(hacs.hass),
@@ -319,7 +300,7 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                         **(additional or {}),
                     },
                     ("categories", "config_entry_id", "device_id", "labels"),
-                )
+                ),
             ),
             filename,
         )
@@ -332,13 +313,10 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
 async def proxy_session(hass: HomeAssistant) -> Generator:
     """Fixture for a proxy_session."""
     mock_session = await client_session_proxy(hass)
-    with (
-        patch(
-            "homeassistant.helpers.aiohttp_client.async_get_clientsession",
-            return_value=mock_session,
-        ),
-        patch("scripts.data.generate_category_data.ClientSession", ProxyClientSession),
-        patch("aiohttp.ClientSession", ProxyClientSession),
+    with patch(
+        "homeassistant.helpers.aiohttp_client.async_get_clientsession", return_value=mock_session,
+    ), patch("scripts.data.generate_category_data.ClientSession", ProxyClientSession), patch(
+        "aiohttp.ClientSession", ProxyClientSession,
     ):
         yield
 
@@ -346,8 +324,10 @@ async def proxy_session(hass: HomeAssistant) -> Generator:
 @pytest_asyncio.fixture
 async def ws_client(hass: HomeAssistant) -> WSClient:
     """Owner authenticated Websocket client fixture."""
-    auth_provider = HassAuthProvider(hass, hass.auth._store, {"type": "homeassistant"})
-    hass.auth._providers[(auth_provider.type, auth_provider.id)] = auth_provider
+    auth_provider = HassAuthProvider(hass, hass.auth._store, {
+                                     "type": "homeassistant"})
+    hass.auth._providers[(auth_provider.type,
+                          auth_provider.id)] = auth_provider
     owner = MockOwner.create(hass)
 
     credentials = Credentials(
@@ -359,7 +339,7 @@ async def ws_client(hass: HomeAssistant) -> WSClient:
     await auth_provider.async_initialize()
     await hass.auth.async_link_user(owner, credentials)
     refresh_token = await hass.auth.async_create_refresh_token(
-        owner, "https://hacs.xyz/testing", credential=credentials
+        owner, "https://hacs.xyz/testing", credential=credentials,
     )
 
     return WSClient(hass, hass.auth.async_create_access_token(refresh_token))
@@ -375,12 +355,12 @@ def response_mocker() -> ResponseMocker:
 
 @pytest_asyncio.fixture()
 async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> None:
-    ## Assert the string to ensure the format did not change
+    # Assert the string to ensure the format did not change
     assert not len(_async_suggest_report_issue_mock_call_tracker)
     _async_suggest_report_issue_mock_call_tracker.clear()
     assert (
         loader.async_suggest_report_issue(
-            hass, integration_domain=DOMAIN, module="custom_components.hacs"
+            hass, integration_domain=DOMAIN, module="custom_components.hacs",
         )
         == "report it to the author of the 'hacs' custom integration"
     )
@@ -391,8 +371,7 @@ async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> No
     config_entry = create_config_entry(
         options={
             "appdaemon": True,
-            "netdaemon": True,
-        }
+        },
     )
     await common_setup_integration(hass, config_entry)
     yield
@@ -405,19 +384,22 @@ async def check_report_issue() -> None:
     yield
     if times := len(_async_suggest_report_issue_mock_call_tracker):
         raise AssertionError(
-            f"homeassistant.loader.async_suggest_report_issue has been called {times} times"
+            f"homeassistant.loader.async_suggest_report_issue has been called {
+                times} times",
         )
 
 
-def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
+@pytest.fixture(autouse=True)
+def track_api_usage(snapshots: SnapshotFixture):
+    """Track API usage."""
+    yield
+    if (request := REQUEST_CONTEXT.get()) is None:
+        return
     response_mocker = ResponseMocker()
     calls = {}
 
-    if session.config.args[0] != "tests" or exitstatus != 0:
-        return
-
     for call in response_mocker.calls:
-        if (_test_caller := call.get("_test_caller")) is None:
+        if (_test_caller := call.pop("_test_caller", None)) is None:
             continue
         if _test_caller not in calls:
             if call.get("_uses_setup_integration"):
@@ -446,28 +428,16 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int):
         if v
     }
 
-    if session.config.option.snapshot_update:
-        with open("tests/output/proxy_calls.json", mode="w", encoding="utf-8") as file:
-            file.write(safe_json_dumps(filtered_calls))
-            return
+    snapshotfile = f"api-usage/{request.node.location[0].replace(".py", "")}{
+        slugify(f"::{request.node.name}")}.json"
 
-    with open("tests/output/proxy_calls.json", encoding="utf-8") as file:
-        current = json.load(file)
-        if current != filtered_calls:
-            diff = ""
-            for test in current:
-                if test not in filtered_calls:
-                    diff += f"Test '{test}' was removed\n"
-            for test in filtered_calls:
-                if test not in current:
-                    diff += f"Test '{test}' was added\n"
-            for test in filtered_calls:
-                if test not in current:
-                    continue
-                if filtered_calls[test] == current[test]:
-                    continue
-                diff += f"Test '{test}' has changed\n"
-                diff += "\n".join(_compare_eq_iterable(filtered_calls[test], current[test], 3))
-                diff += "\n"
+    if not filtered_calls:
+        assert not os.path.exists(f"tests/snapshots/{snapshotfile}")
+        return
 
-            raise AssertionError(f"API calls have changed, run scripts/snapshot-update\n{diff}")
+    response_mocker.calls = []
+
+    snapshots.assert_match(
+        safe_json_dumps(filtered_calls),
+        snapshotfile
+    )

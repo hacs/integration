@@ -118,6 +118,7 @@ V2_COMMON_DATA_JSON_SCHEMA = {
     vol.Required("last_fetched"): vol.Any(int, float),
     vol.Required("last_updated"): str,
     vol.Optional("last_version"): str,
+    vol.Optional("prerelease"): str,
     vol.Required("manifest"): {
         vol.Optional("country"): vol.Any([str], False),
         vol.Optional("name"): str,
@@ -133,15 +134,9 @@ V2_INTEGRATION_DATA_JSON_SCHEMA = {
     vol.Required("manifest_name"): str,
 }
 
-V2_NETDAEMON_DATA_JSON_SCHEMA = {
-    **V2_COMMON_DATA_JSON_SCHEMA,
-    vol.Required("domain"): str,
-}
-
 _V2_REPO_SCHEMAS = {
     "appdaemon": V2_COMMON_DATA_JSON_SCHEMA,
     "integration": V2_INTEGRATION_DATA_JSON_SCHEMA,
-    "netdaemon": V2_NETDAEMON_DATA_JSON_SCHEMA,
     "plugin": V2_COMMON_DATA_JSON_SCHEMA,
     "python_script": V2_COMMON_DATA_JSON_SCHEMA,
     "template": V2_COMMON_DATA_JSON_SCHEMA,

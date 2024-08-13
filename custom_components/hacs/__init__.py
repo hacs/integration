@@ -1,5 +1,4 @@
-"""
-HACS gives you a powerful UI to handle downloads of all your custom needs.
+"""HACS gives you a powerful UI to handle downloads of all your custom needs.
 
 For more details about this integration, please refer to the documentation at
 https://hacs.xyz/
@@ -51,7 +50,7 @@ async def _async_initialize_integration(
             "config_entry": config_entry,
             **config_entry.data,
             **config_entry.options,
-        }
+        },
     )
 
     integration = await async_get_integration(hass, DOMAIN)

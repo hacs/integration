@@ -20,10 +20,10 @@ jobs:
       contents: write
     steps:
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v4.1.6
+        uses: actions/checkout@v4.1.7
 
       - name: 🛠️ Set up Python
-        uses: actions/setup-python@v5.1.0
+        uses: actions/setup-python@v5.1.1
         with:
           python-version: "3.12"
 
@@ -42,7 +42,7 @@ jobs:
         run: ${{ github.workspace }}/scripts/install/frontend
 
       - name: 📤 Upload zip to action
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v4.3.4
         if: ${{ github.event_name == 'push' }}
         with:
           name: hacs
@@ -57,7 +57,7 @@ jobs:
           zip hacs.zip -r ./
 
       - name: 📤 Upload zip to release
-        uses: softprops/action-gh-release@v0.1.15
+        uses: softprops/action-gh-release@v2.0.8
         if: ${{ github.event_name == 'release' }}
         with:
           files: ${{ github.workspace }}/custom_components/hacs/hacs.zip

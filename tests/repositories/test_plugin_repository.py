@@ -10,7 +10,7 @@ from custom_components.hacs.repositories.plugin import HacsPluginRepository
 from tests.common import get_hacs
 
 
-@pytest.fixture
+@pytest.fixture()
 async def downloaded_plugin_repository(
     hass: HomeAssistant,
     setup_integration: Generator,

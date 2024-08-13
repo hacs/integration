@@ -25,6 +25,7 @@ from .repository import (
     hacs_repository_info,
     hacs_repository_refresh,
     hacs_repository_release_notes,
+    hacs_repository_releases,
     hacs_repository_remove,
     hacs_repository_state,
     hacs_repository_version,
@@ -58,6 +59,7 @@ def async_register_websocket_commands(hass: HomeAssistant) -> None:
     websocket_api.async_register_command(hass, hacs_repositories_clear_new)
     websocket_api.async_register_command(hass, hacs_repositories_removed)
     websocket_api.async_register_command(hass, hacs_repositories_remove)
+    websocket_api.async_register_command(hass, hacs_repository_releases)
 
 
 @websocket_api.websocket_command(

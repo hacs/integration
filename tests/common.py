@@ -15,14 +15,9 @@ from unittest.mock import AsyncMock, Mock, patch
 
 from aiohttp import ClientError, ClientSession, ClientWebSocketResponse
 from aiohttp.typedefs import StrOrURL
-from awesomeversion import AwesomeVersion
 from homeassistant import auth, bootstrap, config_entries, core as ha, loader
 from homeassistant.auth import auth_store, models as auth_models
-from homeassistant.const import (
-    EVENT_HOMEASSISTANT_CLOSE,
-    EVENT_HOMEASSISTANT_STOP,
-    __version__ as HAVERSION,
-)
+from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE, EVENT_HOMEASSISTANT_STOP
 from homeassistant.core import CoreState, HomeAssistant, callback
 from homeassistant.helpers import (
     area_registry as ar,
@@ -63,8 +58,11 @@ IGNORED_BASE_FILES = {
     "/config/secrets.yaml",
 }
 
+FIXTURES_PATH = os.path.join(os.path.dirname(__file__), "fixtures")
+
 
 class CategoryTestData(TypedDict):
+    id: str
     repository: str
     category: str
     files: list[str]
@@ -74,14 +72,15 @@ class CategoryTestData(TypedDict):
 
 _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
     CategoryTestData(
+        id="1296265",
         category=HacsCategory.APPDAEMON,
         repository="hacs-test-org/appdaemon-basic",
-        id="appdaemon",
         files=["__init__.py", "example.py"],
         version_base="1.0.0",
         version_update="2.0.0",
     ),
     CategoryTestData(
+        id="1296269",
         category=HacsCategory.INTEGRATION,
         repository="hacs-test-org/integration-basic",
         files=["__init__.py", "manifest.json", "module/__init__.py"],
@@ -89,6 +88,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
         version_update="2.0.0",
     ),
     CategoryTestData(
+        id="1296267",
         category=HacsCategory.PLUGIN,
         repository="hacs-test-org/plugin-basic",
         files=["example.js", "example.js.gz"],
@@ -96,6 +96,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
         version_update="2.0.0",
     ),
     CategoryTestData(
+        id="1296262",
         category=HacsCategory.PYTHON_SCRIPT,
         repository="hacs-test-org/python_script-basic",
         files=["example.py"],
@@ -103,6 +104,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
         version_update="2.0.0",
     ),
     CategoryTestData(
+        id="1296268",
         category=HacsCategory.TEMPLATE,
         repository="hacs-test-org/template-basic",
         files=["example.jinja"],
@@ -110,6 +112,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
         version_update="2.0.0",
     ),
     CategoryTestData(
+        id="1296266",
         category=HacsCategory.THEME,
         repository="hacs-test-org/theme-basic",
         files=["example.yaml"],
@@ -122,6 +125,7 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
 def category_test_data_parametrized(
     *,
     xfail_categories: list[HacsCategory] | None = None,
+    categories: Iterable[HacsCategory] = [entry["category"] for entry in _CATEGORY_TEST_DATA],
     **kwargs,
 ):
     return (
@@ -133,6 +137,7 @@ def category_test_data_parametrized(
             id=entry["repository"],
         )
         for entry in _CATEGORY_TEST_DATA
+        if entry["category"] in categories
     )
 
 
@@ -181,7 +186,8 @@ def recursive_remove_key(data: dict[str, Any], to_remove: Iterable[str]) -> dict
             returndata[key] = value
         elif isinstance(value, dict):
             returndata[key] = recursive_remove_key(
-                {k: value[k] for k in sorted(value.keys())}, to_remove
+                {k: value[k] for k in sorted(value.keys())},
+                to_remove,
             )
         elif isinstance(value, (list, set)):
             returndata[key] = [recursive_remove_key(item, to_remove) for item in _sort_list(value)]
@@ -204,7 +210,8 @@ def fixture(filename, asjson=True):
                 return json_func.loads(fptr.read())
             return fptr.read()
     except OSError as err:
-        raise OSError(f"Missing fixture for {path.split('fixtures/')[1]}") from err
+        raise OSError(f"Missing fixture for {
+                      path.split('fixtures/')[1]}") from err
 
 
 def dummy_repository_base(hacs, repository=None):
@@ -333,7 +340,7 @@ async def async_test_home_assistant_min_version(
 
     hass.config_entries = config_entries.ConfigEntries(
         hass,
-        {"_": ("Not empty or else some bad checks for hass config in discovery.py" " breaks")},
+        {"_": ("Not empty or else some bad checks for hass config in discovery.py breaks")},
     )
     hass.bus.async_listen_once(
         EVENT_HOMEASSISTANT_STOP,
@@ -479,7 +486,7 @@ async def async_test_home_assistant_dev(
 
     hass.config_entries = config_entries.ConfigEntries(
         hass,
-        {"_": ("Not empty or else some bad checks for hass config in discovery.py" " breaks")},
+        {"_": ("Not empty or else some bad checks for hass config in discovery.py breaks")},
     )
     hass.bus.async_listen_once(
         EVENT_HOMEASSISTANT_STOP,
@@ -595,18 +602,22 @@ def mock_storage(data=None):
         """Remove data."""
         data.pop(store.key, None)
 
-    with patch(
-        "homeassistant.helpers.storage.Store._async_load",
-        side_effect=mock_async_load,
-        autospec=True,
-    ), patch(
-        "homeassistant.helpers.storage.Store._write_data",
-        side_effect=mock_write_data,
-        autospec=True,
-    ), patch(
-        "homeassistant.helpers.storage.Store.async_remove",
-        side_effect=mock_remove,
-        autospec=True,
+    with (
+        patch(
+            "homeassistant.helpers.storage.Store._async_load",
+            side_effect=mock_async_load,
+            autospec=True,
+        ),
+        patch(
+            "homeassistant.helpers.storage.Store._write_data",
+            side_effect=mock_write_data,
+            autospec=True,
+        ),
+        patch(
+            "homeassistant.helpers.storage.Store.async_remove",
+            side_effect=mock_remove,
+            autospec=True,
+        ),
     ):
         yield data
 
@@ -624,7 +635,7 @@ class MockOwner(auth_models.User):
                 "system_generated": False,
                 "groups": [],
                 "perm_lookup": None,
-            }
+            },
         )
 
     @staticmethod
@@ -662,7 +673,6 @@ class WSClient:
 
         async def _async_close_websession(event: ha.Event) -> None:
             """Close websession."""
-
             await self.send_json("close", {})
             await self.client.close()
 
@@ -671,7 +681,9 @@ class WSClient:
         self.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, _async_close_websession)
 
         self.client = await clientsession.ws_connect(
-            "ws://localhost:8123/api/websocket", timeout=1, autoclose=True
+            "ws://localhost:8123/api/websocket",
+            timeout=1,
+            autoclose=True,
         )
         auth_response = await self.client.receive_json()
         assert auth_response["type"] == "auth_required"
@@ -741,7 +753,8 @@ class ResponseMocker:
     def get(self, url: str, *args, **kwargs) -> MockedResponse:
         data = {"url": url, "args": list(args), "kwargs": kwargs}
         if (request := REQUEST_CONTEXT.get()) is not None:
-            data["_test_caller"] = f"{request.node.location[0]}::{request.node.name}"
+            data["_test_caller"] = f"{
+                request.node.location[0]}::{request.node.name}"
             data["_uses_setup_integration"] = request.node.name != "test_integration_setup" and (
                 "setup_integration" in request.fixturenames or "hacs" in request.fixturenames
             )
@@ -766,7 +779,8 @@ class ProxyClientSession(ClientSession):
             return resp
 
         url = URL(str_or_url)
-        fixture_file = f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host in ('api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
+        fixture_file = f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host in (
+            'api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
         fp = os.path.join(
             os.path.dirname(__file__),
             fixture_file,
@@ -819,7 +833,8 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
             return resp
 
         url = URL(str_or_url)
-        fixture_file = f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host in ('api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
+        fixture_file = f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host in (
+            'api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
         fp = os.path.join(
             os.path.dirname(__file__),
             fixture_file,
@@ -857,7 +872,8 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
 
 
 def create_config_entry(
-    data: dict[str, Any] = None, options: dict[str, Any] = None
+    data: dict[str, Any] = None,
+    options: dict[str, Any] = None,
 ) -> MockConfigEntry:
     return MockConfigEntry(
         version=1,
@@ -874,7 +890,8 @@ def create_config_entry(
 async def setup_integration(hass: ha.HomeAssistant, config_entry: MockConfigEntry) -> None:
     mock_session = await client_session_proxy(hass)
     with patch(
-        "homeassistant.helpers.aiohttp_client.async_get_clientsession", return_value=mock_session
+        "homeassistant.helpers.aiohttp_client.async_get_clientsession",
+        return_value=mock_session,
     ):
         hass.data.pop("custom_components", None)
         config_entry.add_to_hass(hass)

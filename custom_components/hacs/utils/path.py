@@ -14,7 +14,6 @@ if TYPE_CHECKING:
 def _get_safe_paths(
     config_path: str,
     appdaemon_path: str,
-    netdaemon_path: str,
     plugin_path: str,
     python_script_path: str,
     theme_path: str,
@@ -22,7 +21,6 @@ def _get_safe_paths(
     """Get safe paths."""
     return {
         Path(f"{config_path}/{appdaemon_path}").as_posix(),
-        Path(f"{config_path}/{netdaemon_path}").as_posix(),
         Path(f"{config_path}/{plugin_path}").as_posix(),
         Path(f"{config_path}/{python_script_path}").as_posix(),
         Path(f"{config_path}/{theme_path}").as_posix(),
@@ -37,7 +35,6 @@ def is_safe(hacs: HacsBase, path: str | Path) -> bool:
     return Path(path).as_posix() not in _get_safe_paths(
         hacs.core.config_path,
         configuration.appdaemon_path,
-        configuration.netdaemon_path,
         configuration.plugin_path,
         configuration.python_script_path,
         configuration.theme_path,

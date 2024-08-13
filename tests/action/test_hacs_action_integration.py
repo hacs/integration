@@ -46,14 +46,10 @@ async def test_hacs_action_integration(
         response=MockedResponse(status=200, content={"custom": ["example"]}),
     )
     response_mocker.add(
-        f"https://api.github.com/repos/hacs-test-org/integration-basic/contents/custom_components/example/manifest.json",
+        "https://raw.githubusercontent.com/hacs-test-org/integration-basic/main/custom_components/example/manifest.json",
         response=MockedResponse(
             status=200,
-            content={
-                "content": base64.b64encode(
-                    json.dumps({**basemanifest, **manifest}).encode("ascii")
-                ).decode("ascii")
-            },
+            content=json.dumps({**basemanifest, **manifest}),
             keep=True,
         ),
     )
@@ -65,9 +61,11 @@ async def test_hacs_action_integration(
 
     assert ("All (8) checks passed" if succeed else "1/8 checks failed") in caplog.text
 
-    splitlines = [f"<{l.rsplit(' <')[1]}" for l in caplog.text.split("\n") if " <" in l]
+    splitlines = [f"<{line.rsplit(' <')[1]}" for line in caplog.text.split(
+        "\n") if " <" in line]
 
     snapshots.assert_match(
-        "\n".join(splitlines[0:2] + sorted(splitlines[2:-2]) + splitlines[-2:]),
+        "\n".join(splitlines[0:2] +
+                  sorted(splitlines[2:-2]) + splitlines[-2:]),
         f"action/{current_function_name()}/{key}.log",
     )

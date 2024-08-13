@@ -27,15 +27,10 @@ from .const import CLIENT_ID, DOMAIN, LOCALE, MINIMUM_HA_VERSION
 from .utils.configuration_schema import (
     APPDAEMON,
     COUNTRY,
-    DEBUG,
-    NETDAEMON,
-    RELEASE_LIMIT,
     SIDEPANEL_ICON,
     SIDEPANEL_TITLE,
 )
 from .utils.logger import LOGGER
-
-MINIMUM_HA_VERSION_SHOW_PROGRESS_TASK = "2024.2.0"
 
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
@@ -53,7 +48,6 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
     _registration: GitHubLoginDeviceModel | None = None
     _activation: GitHubLoginOauthModel | None = None
     _reauth: bool = False
-    _use_progress_task: bool = False
 
     def __init__(self) -> None:
         """Initialize."""
@@ -62,8 +56,6 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
 
     async def async_step_user(self, user_input):
         """Handle a flow initialized by the user."""
-        self._use_progress_task = AwesomeVersion(HAVERSION) >= MINIMUM_HA_VERSION_SHOW_PROGRESS_TASK
-
         self._errors = {}
         if self._async_current_entries():
             return self.async_abort(reason="single_instance_allowed")
@@ -79,19 +71,8 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
 
             return await self.async_step_device(user_input)
 
-        ## Initial form
+        # Initial form
         return await self._show_config_form(user_input)
-
-    @callback
-    def async_remove(self):
-        """Cleanup.
-
-        Needed in old Home Assistant versions which don't support show progress tasks.
-        """
-        if self._use_progress_task:
-            return
-        if self.activation_task and not self.activation_task.done():
-            self.activation_task.cancel()
 
     async def async_step_device(self, _user_input):
         """Handle device steps."""
@@ -105,9 +86,6 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
                 async def _progress():
                     with suppress(UnknownFlow):
                         await self.hass.config_entries.flow.async_configure(flow_id=self.flow_id)
-
-                if not self._use_progress_task:
-                    self.hass.async_create_task(_progress())
 
         if not self.device:
             integration = await async_get_integration(self.hass, DOMAIN)
@@ -139,9 +117,8 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
                 "url": OAUTH_USER_LOGIN,
                 "code": self._registration.user_code,
             },
+            "progress_task": self.activation_task,
         }
-        if self._use_progress_task:
-            show_progress_kwargs["progress_task"] = self.activation_task
         return self.async_show_progress(**show_progress_kwargs)
 
     async def _show_config_form(self, user_input):
@@ -185,6 +162,9 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
             data={
                 "token": self._activation.access_token,
             },
+            options={
+                "experimental": True,
+            },
         )
 
     async def async_step_could_not_register(self, _user_input=None):
@@ -226,10 +206,7 @@ class HacsOptionsFlowHandler(OptionsFlow):
         """Handle a flow initialized by the user."""
         hacs: HacsBase = self.hass.data.get(DOMAIN)
         if user_input is not None:
-            limit = int(user_input.get(RELEASE_LIMIT, 5))
-            if limit <= 0 or limit > 100:
-                return self.async_abort(reason="release_limit_value")
-            return self.async_create_entry(title="", data=user_input)
+            return self.async_create_entry(title="", data={**user_input, "experimental": True})
 
         if hacs is None or hacs.configuration is None:
             return self.async_abort(reason="not_setup")
@@ -240,11 +217,8 @@ class HacsOptionsFlowHandler(OptionsFlow):
         schema = {
             vol.Optional(SIDEPANEL_TITLE, default=hacs.configuration.sidepanel_title): str,
             vol.Optional(SIDEPANEL_ICON, default=hacs.configuration.sidepanel_icon): str,
-            vol.Optional(RELEASE_LIMIT, default=hacs.configuration.release_limit): int,
             vol.Optional(COUNTRY, default=hacs.configuration.country): vol.In(LOCALE),
             vol.Optional(APPDAEMON, default=hacs.configuration.appdaemon): bool,
-            vol.Optional(NETDAEMON, default=hacs.configuration.netdaemon): bool,
-            vol.Optional(DEBUG, default=hacs.configuration.debug): bool,
         }
 
         return self.async_show_form(step_id="user", data_schema=vol.Schema(schema))

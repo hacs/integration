@@ -1,4 +1,5 @@
 """Generate HACS compliant data."""
+
 from __future__ import annotations
 
 import asyncio
@@ -81,7 +82,7 @@ def dicts_are_equal(a: dict, b: dict, ignore: set[str]) -> bool:
 
 def repository_has_missing_keys(
     repository: HacsRepository,
-    stage: Literal["update"] | Literal["store"],
+    stage: Literal["update", "store"],
 ) -> bool:
     """Check if repository has missing keys."""
     retval = False
@@ -165,7 +166,8 @@ class AdjustedHacs(HacsBase):
         self.core.config_path = None
         self.configuration.token = token
         self.data = AdjustedHacsData(hacs=self)
-        self.data_client = HacsDataClient(session=session, client_name="HACS/Generator")
+        self.data_client = HacsDataClient(
+            session=session, client_name="HACS/Generator")
 
         self.github = GitHub(
             token,
@@ -203,30 +205,78 @@ class AdjustedHacs(HacsBase):
             repository.data.etag_repository = None
 
         if repository.data.last_version not in (None, ""):
+            releases: list[GitHubReleaseModel] = []
             try:
                 repository.logger.info(
                     "%s Fetching repository releases",
                     repository.string,
                 )
                 response = await self.githubapi.generic(
-                    endpoint=f"/repos/{repository.data.full_name}/releases/latest",
+                    endpoint=f"/repos/{repository.data.full_name}/releases",
                     etag=repository.data.etag_releases,
+                    kwargs={"per_page": 30},
                 )
-                response.data = (
-                    GitHubReleaseModel(response.data) if response.data else None
-                )
+                releases = [GitHubReleaseModel(rel) for rel in response.data]
+                release_count = len(releases)
+
                 repository.data.etag_releases = response.etag
-                if (releases := response.data) is not None:
-                    repository.data.releases = True
-                    repository.releases.objects = [releases]
-                    repository.data.published_tags = [
-                        x.tag_name for x in repository.releases.objects
-                    ]
-                    if (
-                        next_version := next(iter(repository.data.published_tags), None)
-                    ) != repository.data.last_version:
-                        repository.data.last_version = next_version
-                        repository.data.etag_repository = None
+                repository.data.prerelease = None
+
+                if release_count != 0:
+                    for release in releases:
+                        if release.draft:
+                            repository.logger.warning(
+                                "%s Found draft %s", repository.string, release.tag_name)
+
+                        elif release.prerelease:
+                            repository.logger.info(
+                                "%s Found prerelease %s", repository.string, release.tag_name)
+                            if repository.data.prerelease is None:
+                                repository.data.prerelease = release.tag_name
+
+                        else:
+                            repository.logger.info(
+                                "%s Found release %s", repository.string, release.tag_name)
+                            repository.data.releases = True
+                            repository.releases.objects = releases
+                            repository.data.published_tags = [
+                                x.tag_name for x in repository.releases.objects
+                            ]
+                            if repository.data.last_version != release.tag_name:
+                                repository.data.last_version = release.tag_name
+                                repository.data.etag_repository = None
+                            break
+
+                if release_count >= 30 and not repository.data.releases:
+                    repository.logger.warning(
+                        "%s Found 30 releases but no release, falling back to fetching latest",
+                        repository.string,
+                    )
+
+                    response = await self.githubapi.generic(
+                        endpoint=f"/repos/{repository.data.full_name}/releases/latest",
+                        etag=repository.data.etag_releases,
+                    )
+                    response.data = GitHubReleaseModel(
+                        response.data) if response.data else None
+
+                    if (releases := response.data) is not None:
+                        repository.data.releases = True
+                        repository.releases.objects = [releases]
+                        repository.data.published_tags = [
+                            x.tag_name for x in repository.releases.objects
+                        ]
+                        if (
+                            next_version := next(iter(repository.data.published_tags), None)
+                        ) != repository.data.last_version:
+                            repository.data.last_version = next_version
+                            repository.data.etag_repository = None
+
+                if (
+                    repository.data.prerelease
+                    and repository.data.prerelease == repository.data.last_version
+                ):
+                    repository.data.prerelease = None
 
             except GitHubNotModifiedException:
                 repository.data.releases = True
@@ -236,10 +286,11 @@ class AdjustedHacs(HacsBase):
                 )
             except GitHubNotFoundException:
                 repository.data.releases = False
-                repository.logger.info("%s No releases found", repository.string)
+                repository.logger.info(
+                    "%s No releases found", repository.string)
             except GitHubException as exception:
                 repository.data.releases = False
-                repository.logger.warning("%s %s", repository.string, exception)
+                repository.logger.error("%s %s", repository.string, exception)
 
         await repository.common_update(
             force=repository.data.etag_repository is None,
@@ -325,7 +376,8 @@ class AdjustedHacs(HacsBase):
                 continue
             repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
-                self.queue.add(self.concurrent_update_repository(repository=repository))
+                self.queue.add(self.concurrent_update_repository(
+                    repository=repository))
                 continue
 
             self.queue.add(
@@ -358,7 +410,18 @@ class AdjustedHacs(HacsBase):
             res = await self.async_github_api_method(
                 method=self.githubapi.rate_limit,
             )
-            return res.data.resources.core.as_dict
+            return {
+                "core": {
+                    "used": res.data.resources.core.used,
+                    "limit": res.data.resources.core.limit,
+                    "reset": res.data.resources.core.reset,
+                },
+                "graphql": {
+                    "used": res.data.resources.graphql.used,
+                    "limit": res.data.resources.graphql.limit,
+                    "reset": res.data.resources.graphql.reset,
+                },
+            }
 
         summary = {
             "changed_pct": round((changed / new_count) * 100),
@@ -392,7 +455,8 @@ class AdjustedHacs(HacsBase):
 async def generate_category_data(category: str, repository_name: str = None):
     """Generate data."""
     async with ClientSession() as session:
-        hacs = AdjustedHacs(session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
+        hacs = AdjustedHacs(
+            session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
         os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
         os.makedirs(os.path.join(OUTPUT_DIR, "diff"), exist_ok=True)
         force = os.environ.get("FORCE_REPOSITORY_UPDATE") == "True"
@@ -418,23 +482,26 @@ async def generate_category_data(category: str, repository_name: str = None):
         )
 
         summary = await hacs.summarize_data(current_data, updated_data)
-        if (
-            not force
-            and summary["changed"] == 0
-            and repository_name is None
-            and len(current_data) == len(updated_data)
-        ):
-            print("No changes, exiting")
-            return
+        with open(
+            os.path.join(OUTPUT_DIR, "summary.json"),
+            mode="w",
+            encoding="utf-8",
+        ) as data_file:
+            json.dump(
+                summary,
+                data_file,
+                cls=JSONEncoder,
+                sort_keys=True,
+                indent=2,
+            )
 
         did_raise = False
-
         if (
             not updated_data
             or len(updated_data) == 0
             or not isinstance(updated_data, dict)
         ):
-            print_error_and_exit(f"Updated data is empty", category)
+            print_error_and_exit("Updated data is empty", category)
             did_raise = True
 
         try:
@@ -450,7 +517,8 @@ async def generate_category_data(category: str, repository_name: str = None):
             print_error_and_exit(f"Invalid data: {errors}", category)
 
         if did_raise:
-            print_error_and_exit("Validation did raise but did not exit!", category)
+            print_error_and_exit(
+                "Validation did raise but did not exit!", category)
             sys.exit(1)  # Fallback, should not be reached
 
         with open(
@@ -482,7 +550,13 @@ async def generate_category_data(category: str, repository_name: str = None):
             encoding="utf-8",
         ) as data_file:
             json.dump(
-                current_data,
+                {
+                    i: {
+                        k: v
+                        for k, v in d.items() if k not in {"etag_releases", "etag_repository"}
+                    }
+                    for i, d in current_data.items()
+                },
                 data_file,
                 cls=JSONEncoder,
                 sort_keys=True,
@@ -495,20 +569,13 @@ async def generate_category_data(category: str, repository_name: str = None):
             encoding="utf-8",
         ) as data_file:
             json.dump(
-                updated_data,
-                data_file,
-                cls=JSONEncoder,
-                sort_keys=True,
-                indent=2,
-            )
-
-        with open(
-            os.path.join(OUTPUT_DIR, "summary.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
-                summary,
+                {
+                    i: {
+                        k: v
+                        for k, v in d.items() if k not in {"etag_releases", "etag_repository"}
+                    }
+                    for i, d in updated_data.items()
+                },
                 data_file,
                 cls=JSONEncoder,
                 sort_keys=True,

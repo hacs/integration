@@ -55,7 +55,7 @@ async def test_update_repository_entity(
     assert repo.data.installed_version == category_test_data["version_update"]
 
     await snapshots.assert_hacs_data(
-        hacs, f"{category_test_data['repository']}/test_update_repository_entity.json"
+        hacs, f"{category_test_data['repository']}/test_update_repository_entity.json",
     )
 
 
@@ -83,7 +83,7 @@ async def test_update_repository_websocket(
     assert repo.data.installed_version == category_test_data["version_update"]
 
     await snapshots.assert_hacs_data(
-        hacs, f"{category_test_data['repository']}/test_update_repository_websocket.json"
+        hacs, f"{category_test_data['repository']}/test_update_repository_websocket.json",
     )
 
 
@@ -158,7 +158,7 @@ async def test_update_repository_entity_old_core_version(
     entity_id = er.async_get_entity_id("update", DOMAIN, repo.data.id)
 
     with pytest.raises(
-        HomeAssistantError, match="This version requires Home Assistant 9999.99.99 or newer."
+        HomeAssistantError, match="This version requires Home Assistant 9999.99.99 or newer.",
     ):
         await hass.services.async_call(
             "update",
@@ -242,7 +242,7 @@ async def test_update_repository_entity_download_failure(
     with pytest.raises(
         HomeAssistantError,
         match=re.escape(
-            "Downloading hacs-test-org/integration-basic with version 2.0.0 failed with (Could not download, see log for details)"
+            "Downloading hacs-test-org/integration-basic with version 2.0.0 failed with (Could not download, see log for details)",
         ),
     ):
         await hass.services.async_call(
@@ -278,7 +278,7 @@ async def test_update_repository_entity_no_version_and_cant_download(
     entity_id = er.async_get_entity_id("update", DOMAIN, repo.data.id)
 
     with patch(
-        "custom_components.hacs.repositories.base.HacsRepository.can_download", False
+        "custom_components.hacs.repositories.base.HacsRepository.can_download", False,
     ), pytest.raises(
         HomeAssistantError,
         match="This integration is not available for download.",

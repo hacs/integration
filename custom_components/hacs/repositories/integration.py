@@ -86,7 +86,8 @@ class HacsIntegrationRepository(HacsRepository):
                 ):
                     raise AddonRepositoryException()
                 raise HacsException(
-                    f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                    f"{self.string} Repository structure for {
+                        self.ref.replace('tags/', '')} is not compliant"
                 )
             self.content.path.remote = f"custom_components/{name}"
 
@@ -101,7 +102,8 @@ class HacsIntegrationRepository(HacsRepository):
 
             except KeyError as exception:
                 self.validate.errors.append(
-                    f"Missing expected key '{exception}' in { RepositoryFile.MAINIFEST_JSON}"
+                    f"Missing expected key '{exception}' in {
+                        RepositoryFile.MAINIFEST_JSON}"
                 )
                 self.hacs.log.error(
                     "Missing expected key '%s' in '%s'", exception, RepositoryFile.MAINIFEST_JSON
@@ -141,7 +143,8 @@ class HacsIntegrationRepository(HacsRepository):
 
             except KeyError as exception:
                 self.validate.errors.append(
-                    f"Missing expected key '{exception}' in { RepositoryFile.MAINIFEST_JSON}"
+                    f"Missing expected key '{exception}' in {
+                        RepositoryFile.MAINIFEST_JSON}"
                 )
                 self.hacs.log.error(
                     "Missing expected key '%s' in '%s'", exception, RepositoryFile.MAINIFEST_JSON
@@ -188,3 +191,27 @@ class HacsIntegrationRepository(HacsRepository):
         )
         if response:
             return json_loads(decode_content(response.data.content))
+
+    async def get_integration_manifest(self, *, version: str, **kwargs) -> dict[str, Any] | None:
+        """Get the content of the manifest.json file."""
+        manifest_path = (
+            "manifest.json"
+            if self.repository_manifest.content_in_root
+            else f"{self.content.path.remote}/{RepositoryFile.MAINIFEST_JSON}"
+        )
+
+        if manifest_path not in (x.full_path for x in self.tree):
+            raise HacsException(f"No {RepositoryFile.MAINIFEST_JSON} file found '{manifest_path}'")
+
+        self.logger.debug("%s Getting manifest.json for version=%s", self.string, version)
+        try:
+            result = await self.hacs.async_download_file(
+                f"https://raw.githubusercontent.com/{
+                    self.data.full_name}/{version}/{manifest_path}",
+                nolog=True,
+            )
+            if result is None:
+                return None
+            return json_loads(result)
+        except Exception:  # pylint: disable=broad-except
+            return None

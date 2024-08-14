@@ -56,6 +56,7 @@ stream_handler.setFormatter(logging.Formatter("%(levelname)s%(message)s"))
 log_handler.addHandler(stream_handler)
 
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
+COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 
 
 def jsonprint(data: any):
@@ -402,7 +403,7 @@ class AdjustedHacs(HacsBase):
             if not dicts_are_equal(
                 a=repo_data,
                 b=current_data.get(repo_id, {}),
-                ignore={"etag_releases", "etag_repository", "last_fetched"},
+                ignore=COMPARE_IGNORE,
             ):
                 changed += 1
 
@@ -553,7 +554,7 @@ async def generate_category_data(category: str, repository_name: str = None):
                 {
                     i: {
                         k: v
-                        for k, v in d.items() if k not in {"etag_releases", "etag_repository"}
+                        for k, v in d.items() if k not in COMPARE_IGNORE
                     }
                     for i, d in current_data.items()
                 },
@@ -572,7 +573,7 @@ async def generate_category_data(category: str, repository_name: str = None):
                 {
                     i: {
                         k: v
-                        for k, v in d.items() if k not in {"etag_releases", "etag_repository"}
+                        for k, v in d.items() if k not in COMPARE_IGNORE
                     }
                     for i, d in updated_data.items()
                 },

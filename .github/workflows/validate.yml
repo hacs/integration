@@ -132,7 +132,7 @@ jobs:
 
       - name: Generate diff
         run: |
-          diff -u outputdata/diff/${{ matrix.entry.category }}_before.json outputdata/diff/${{ matrix.entry.category }}_after.json > outputdata/diff/${{ matrix.entry.category }}.diff || true
+          diff -U 8 outputdata/diff/${{ matrix.entry.category }}_before.json outputdata/diff/${{ matrix.entry.category }}_after.json > outputdata/diff/${{ matrix.entry.category }}.diff || true
           cat outputdata/diff/${{ matrix.entry.category }}.diff
 
       - name: Upload diff

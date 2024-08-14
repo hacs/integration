@@ -1109,7 +1109,6 @@ class HacsRepository:
                 if releases:
                     self.data.prerelease = None
                     for release in releases:
-                        self.logger.warning("Got release %s", release.tag_name)
                         if release.draft:
                             continue
                         elif release.prerelease:

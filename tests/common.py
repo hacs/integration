@@ -270,7 +270,7 @@ async def async_test_home_assistant_min_version(
     event_loop: asyncio.AbstractEventLoop | None = None,
     load_registries: bool = True,
     config_dir: str | None = None,
-) -> AsyncGenerator[HomeAssistant, None]:
+) -> AsyncGenerator[HomeAssistant]:
     """Return a Home Assistant object pointing at test config dir.
 
     This should be copied from the minimum supported version,
@@ -415,7 +415,7 @@ async def async_test_home_assistant_dev(
     event_loop: asyncio.AbstractEventLoop | None = None,
     load_registries: bool = True,
     config_dir: str | None = None,
-) -> AsyncGenerator[HomeAssistant, None]:
+) -> AsyncGenerator[HomeAssistant]:
     """Return a Home Assistant object pointing at test config dir.
 
     This should be copied from latest Home Assistant version,

@@ -253,8 +253,16 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
             for entry in value:
                 data[key][entry["id"]] = entry
 
-        dashboard_resources: ResourceStorageCollection = hacs.hass.data[
-            LOVELACE_DOMAIN]["resources"]
+        dashboard_resources: ResourceStorageCollection = hacs.hass.data[LOVELACE_DOMAIN][
+            "resources"
+        ]
+
+        def _entity_state(entity: er.RegistryEntry) -> dict[str, Any]:
+            state = hacs.hass.states.get(entity.entity_id)
+            return {
+                "state": state.state if state else None,
+                "attributes": state.attributes if state else None,
+            }
 
         snapshot.assert_match(
             safe_json_dumps(
@@ -278,9 +286,8 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                         "_entities": sorted(
                             (
                                 {
-                                    "entity_id": hacs.hass.states.get(entity.entity_id).entity_id,
-                                    "state": hacs.hass.states.get(entity.entity_id).state,
-                                    "attributes": hacs.hass.states.get(entity.entity_id).attributes,
+                                    "entity_id": entity.entity_id,
+                                    **_entity_state(entity),
                                     **recursive_remove_key(entity.as_partial_dict, ("id", "created_at", "modified_at")),
                                 }
                                 for entity in er.async_entries_for_config_entry(

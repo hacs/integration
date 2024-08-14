@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import asyncio
 from collections.abc import AsyncGenerator, Iterable, Mapping, Sequence
-from contextlib import asynccontextmanager, contextmanager
+from contextlib import asynccontextmanager, contextmanager, suppress
 from contextvars import ContextVar
 import functools as ft
 from inspect import currentframe
@@ -277,7 +277,7 @@ async def async_test_home_assistant_min_version(
     event_loop: asyncio.AbstractEventLoop | None = None,
     load_registries: bool = True,
     config_dir: str | None = None,
-) -> AsyncGenerator[HomeAssistant, None]:
+) -> AsyncGenerator[HomeAssistant]:
     """Return a Home Assistant object pointing at test config dir.
 
     This should be copied from the minimum supported version,
@@ -422,11 +422,11 @@ async def async_test_home_assistant_dev(
     event_loop: asyncio.AbstractEventLoop | None = None,
     load_registries: bool = True,
     config_dir: str | None = None,
-) -> AsyncGenerator[HomeAssistant, None]:
+) -> AsyncGenerator[HomeAssistant]:
     """Return a Home Assistant object pointing at test config dir.
 
     This should be copied from latest Home Assistant version,
-    currently Home Assistant Core 2024.6.0dev0 (2024-05-21).
+    currently Home Assistant Core 2024.9.0dev0 (2024-08-14).
     https://github.com/home-assistant/core/blob/dev/tests/common.py
     """
     hass = HomeAssistant(config_dir or get_test_config_dir())
@@ -493,7 +493,12 @@ async def async_test_home_assistant_dev(
 
     hass.config_entries = config_entries.ConfigEntries(
         hass,
-        {"_": ("Not empty or else some bad checks for hass config in discovery.py breaks")},
+        {
+            "_": (
+                "Not empty or else some bad checks for hass config in discovery.py"
+                " breaks"
+            )
+        },
     )
     hass.bus.async_listen_once(
         EVENT_HOMEASSISTANT_STOP,
@@ -505,10 +510,13 @@ async def async_test_home_assistant_dev(
     loader.async_setup(hass)
 
     # setup translation cache instead of calling translation.async_setup(hass)
-    hass.data[translation.TRANSLATION_FLATTEN_CACHE] = translation._TranslationCache(hass)
+    hass.data[translation.TRANSLATION_FLATTEN_CACHE] = translation._TranslationCache(
+        hass
+    )
     if load_registries:
         with (
-            patch.object(StoreWithoutWriteLoad, "async_load", return_value=None),
+            patch.object(StoreWithoutWriteLoad,
+                         "async_load", return_value=None),
             patch(
                 "homeassistant.helpers.area_registry.AreaRegistryStore",
                 StoreWithoutWriteLoad,
@@ -557,10 +565,14 @@ async def async_test_home_assistant_dev(
 
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_CLOSE, clear_instance)
 
-    yield hass
-
-    # Restore timezone, it is set when creating the hass object
-    dt_util.set_default_time_zone(orig_tz)
+    try:
+        yield hass
+    finally:
+        # Restore timezone, it is set when creating the hass object
+        dt_util.set_default_time_zone(orig_tz)
+        # Remove loop shutdown indicator to not interfere with additional hass objects
+        with suppress(AttributeError):
+            delattr(hass.loop, "_shutdown_run_callback_threadsafe")
 
 
 @ha.callback

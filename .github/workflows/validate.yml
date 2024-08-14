@@ -132,7 +132,7 @@ jobs:
 
       - name: Generate diff
         run: |
-          diff -u outputdata/diff/${{ matrix.entry.category }}_before.json outputdata/diff/${{ matrix.entry.category }}_after.json > outputdata/diff/${{ matrix.entry.category }}.diff || true
+          diff -U 8 outputdata/diff/${{ matrix.entry.category }}_before.json outputdata/diff/${{ matrix.entry.category }}_after.json > outputdata/diff/${{ matrix.entry.category }}.diff || true
           cat outputdata/diff/${{ matrix.entry.category }}.diff
 
       - name: Upload diff
@@ -157,7 +157,7 @@ jobs:
           python3 -m scripts.data.validate_category_data ${{  matrix.entry.category }} outputdata/${{ matrix.entry.category }}/data.json
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4.3.4
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: "${{ matrix.entry.category }}_${{ strategy.job-index }}"
           path: |

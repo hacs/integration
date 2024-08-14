@@ -1105,15 +1105,29 @@ class HacsRepository:
         # Get releases.
         if not skip_releases:
             try:
-                releases = await self.get_releases(
-                    prerelease=self.data.show_beta,
-                    returnlimit=self.hacs.configuration.release_limit,
-                )
+                releases = await self.get_releases(prerelease=True, returnlimit=30)
                 if releases:
+                    self.data.prerelease = None
+                    for release in releases:
+                        self.logger.warning("Got release %s", release.tag_name)
+                        if release.draft:
+                            continue
+                        elif release.prerelease:
+                            if self.data.prerelease is None:
+                                self.data.prerelease = release.tag_name
+                        else:
+                            self.data.last_version = release.tag_name
+                            break
+
                     self.data.releases = True
-                    self.releases.objects = releases
-                    self.data.published_tags = [x.tag_name for x in self.releases.objects]
-                    self.data.last_version = next(iter(self.data.published_tags))
+
+                    filtered_releases = [
+                        release
+                        for release in releases
+                        if not release.draft and (self.data.show_beta or not release.prerelease)
+                    ]
+                    self.releases.objects = filtered_releases
+                    self.data.published_tags = [x.tag_name for x in filtered_releases]
 
             except HacsException:
                 self.data.releases = False

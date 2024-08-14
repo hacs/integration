@@ -58,12 +58,16 @@ class HacsRepositoryPreReleaseSwitchEntity(HacsRepositoryEntity, SwitchEntity):
         """Handle attribute value changes."""
         self.repository.data.show_beta = value
 
-        # Force update of other entities
+        # As this value is directly affecting what data points is in use by other entities
+        # we need to update all entities to reflect the change
+        # Do force an update of the entities we need to clear the last fetched data
+        # since that is used to limit state updates
+        # Once we have signaled the update we can restore the last fetched data
         _last_fetch = self.repository.data.last_fetched
         self.repository.data.last_fetched = None
         self.coordinator.async_update_listeners()
         self.repository.data.last_fetched = _last_fetch  # Restore last fetched
-        ###
 
+        # Write the HACS data and update the entity state
         await self.hacs.data.async_write()
         self.async_write_ha_state()

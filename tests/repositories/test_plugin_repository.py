@@ -17,7 +17,8 @@ async def downloaded_plugin_repository(
 ) -> HacsPluginRepository:
     """Return a HacsPluginRepository instance."""
     hacs = get_hacs(hass)
-    repository = hacs.repositories.get_by_full_name("hacs-test-org/plugin-basic")
+    repository = hacs.repositories.get_by_full_name(
+        "hacs-test-org/plugin-basic")
     await repository.async_install(version="1.0.0")
     return repository
 
@@ -182,7 +183,8 @@ async def test_remove_dashboard_resource(
     resource_handler = downloaded_plugin_repository._get_resource_handler()
     await resource_handler.async_load()
 
-    current_urls = [resource["url"] for resource in resource_handler.async_items()]
+    current_urls = [resource["url"]
+                    for resource in resource_handler.async_items()]
     assert len(current_urls) == 1
     assert downloaded_plugin_repository.generate_dashboard_resource_url() in current_urls
 
@@ -192,7 +194,8 @@ async def test_remove_dashboard_resource(
         in caplog.text
     )
 
-    current_urls = [resource["url"] for resource in resource_handler.async_items()]
+    current_urls = [resource["url"]
+                    for resource in resource_handler.async_items()]
     assert len(current_urls) == 0
 
 
@@ -205,7 +208,8 @@ async def test_add_dashboard_resource(
     resource_handler = downloaded_plugin_repository._get_resource_handler()
     resource_handler.data.clear()
 
-    current_urls = [resource["url"] for resource in resource_handler.async_items()]
+    current_urls = [resource["url"]
+                    for resource in resource_handler.async_items()]
     assert len(current_urls) == 0
 
     await downloaded_plugin_repository.update_dashboard_resources()
@@ -223,7 +227,8 @@ async def test_update_dashboard_resource(
     """Test adding a dashboard resource."""
     resource_handler = downloaded_plugin_repository._get_resource_handler()
     await resource_handler.async_load()
-    current_urls = [resource["url"] for resource in resource_handler.async_items()]
+    current_urls = [resource["url"]
+                    for resource in resource_handler.async_items()]
     assert len(current_urls) == 1
 
     prev_url = downloaded_plugin_repository.generate_dashboard_resource_url()
@@ -242,6 +247,30 @@ async def test_update_dashboard_resource(
     after_url = downloaded_plugin_repository.generate_dashboard_resource_url()
     assert after_url != prev_url
 
-    current_urls = [resource["url"] for resource in resource_handler.async_items()]
+    current_urls = [resource["url"]
+                    for resource in resource_handler.async_items()]
     assert len(current_urls) == 1
     assert current_urls[0] == after_url
+
+
+async def test_add_dashboard_resource_with_invalid_file_name(
+    hass: HomeAssistant,
+    downloaded_plugin_repository: HacsPluginRepository,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Test adding a dashboard resource."""
+    resource_handler = downloaded_plugin_repository._get_resource_handler()
+    resource_handler.data.clear()
+
+    current_urls = [resource["url"]
+                    for resource in resource_handler.async_items()]
+    assert len(current_urls) == 0
+
+    downloaded_plugin_repository.data.file_name = "dist/plugin-basic.js"
+
+    await downloaded_plugin_repository.update_dashboard_resources()
+    assert "<Plugin hacs-test-org/plugin-basic> have defined an invalid file name dist/plugin-basic.js" in caplog.text
+    assert (
+        "Adding dashboard resource /hacsfiles/plugin-basic/plugin-basic.js?hacstag=1296267100"
+        in caplog.text
+    )

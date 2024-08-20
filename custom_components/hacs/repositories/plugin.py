@@ -161,8 +161,12 @@ class HacsPluginRepository(HacsRepository):
 
     def generate_dashboard_resource_url(self) -> str:
         """Get the dashboard resource namespace."""
+        filename = self.data.file_name
+        if "/" in filename:
+            self.logger.warning("%s have defined an invalid file name %s", self.string, filename)
+            filename = filename.split("/")[-1]
         return (
-            f"{self.generate_dashboard_resource_namespace()}/{self.data.file_name}"
+            f"{self.generate_dashboard_resource_namespace()}/{filename}"
             f"?hacstag={self.generate_dashboard_resource_hacstag()}"
         )
 

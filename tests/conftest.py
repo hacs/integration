@@ -92,20 +92,20 @@ def set_request_context(request: pytest.FixtureRequest):
     REQUEST_CONTEXT.set(request)
 
 
-@pytest.fixture()
+@pytest.fixture
 def connection():
     """Mock fixture for connection."""
     return MagicMock()
 
 
-@pytest.fixture()
+@pytest.fixture
 def hass_storage():
     """Fixture to mock storage."""
     with mock_storage() as stored_data:
         yield stored_data
 
 
-@pytest.fixture()
+@pytest.fixture
 async def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
     """Fixture to provide a test instance of Home Assistant."""
 
@@ -166,54 +166,54 @@ async def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
     shutil.rmtree(hass.config.config_dir)
 
 
-@pytest.fixture()
+@pytest.fixture
 def hacs(hass: HomeAssistant, setup_integration: None) -> HacsBase:
     """Fixture to provide a HACS object."""
     return get_hacs(hass)
 
 
-@pytest.fixture()
+@pytest.fixture
 def repository(hacs):
     """Fixtrue for HACS repository object"""
     return dummy_repository_base(hacs)
 
 
-@pytest.fixture()
+@pytest.fixture
 def repository_integration(hacs):
     """Fixtrue for HACS integration repository object"""
     repository_obj = HacsIntegrationRepository(hacs, "test/test")
     return dummy_repository_base(hacs, repository_obj)
 
 
-@pytest.fixture()
+@pytest.fixture
 def repository_theme(hacs):
     """Fixtrue for HACS theme repository object"""
     repository_obj = HacsThemeRepository(hacs, "test/test")
     return dummy_repository_base(hacs, repository_obj)
 
 
-@pytest.fixture()
+@pytest.fixture
 def repository_plugin(hacs):
     """Fixtrue for HACS plugin repository object"""
     repository_obj = HacsPluginRepository(hacs, "test/test")
     return dummy_repository_base(hacs, repository_obj)
 
 
-@pytest.fixture()
+@pytest.fixture
 def repository_python_script(hacs):
     """Fixtrue for HACS python_script repository object"""
     repository_obj = HacsPythonScriptRepository(hacs, "test/test")
     return dummy_repository_base(hacs, repository_obj)
 
 
-@pytest.fixture()
+@pytest.fixture
 def repository_template(hacs):
     """Fixtrue for HACS template repository object"""
     repository_obj = HacsTemplateRepository(hacs, "test/test")
     return dummy_repository_base(hacs, repository_obj)
 
 
-@pytest.fixture()
+@pytest.fixture
 def repository_appdaemon(hacs):
     """Fixtrue for HACS appdaemon repository object"""
     repository_obj = HacsAppdaemonRepository(hacs, "test/test")
@@ -230,7 +230,7 @@ class SnapshotFixture(Snapshot):
         pass
 
 
-@pytest.fixture()
+@pytest.fixture
 def snapshots(snapshot: Snapshot) -> SnapshotFixture:
     """Fixture for a snapshot."""
     snapshot.snapshot_dir = "tests/snapshots"
@@ -345,7 +345,7 @@ async def ws_client(hass: HomeAssistant) -> WSClient:
     return WSClient(hass, hass.auth.async_create_access_token(refresh_token))
 
 
-@pytest.fixture()
+@pytest.fixture
 def response_mocker() -> ResponseMocker:
     """Mock fixture for responses."""
     mocker = ResponseMocker()

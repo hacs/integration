@@ -17,7 +17,7 @@ HACS is a integration that gives the user a powerful UI to handle downloads of c
 ## Useful links
 
 - [General documentation](https://hacs.xyz/)
-- [Configuration](https://hacs.xyz/docs/configuration/basic)
+- [Configuration](https://hacs.xyz/docs/use/configuration/basic)
 - [FAQ](https://hacs.xyz/docs/faq)
 - [GitHub](https://github.com/hacs)
 - [Discord](https://discord.gg/apgchf8)
@@ -29,4 +29,4 @@ HACS is a integration that gives the user a powerful UI to handle downloads of c
 
 ~~If~~ When you experience issues/bugs with this the best way to report them is to open an issue in **this** repo.
 
-[Issue link](https://hacs.xyz/docs/issues)
+[Issue link](https://hacs.xyz/docs/help/issues)

@@ -410,8 +410,6 @@ class HacsRepository:
     @property
     def pending_update(self) -> bool:
         """Return True if pending update."""
-        if not self.can_download:
-            return False
         if self.data.installed:
             if self.data.selected_tag is not None:
                 if self.data.selected_tag == self.data.default_branch:

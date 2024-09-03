@@ -429,6 +429,7 @@ class AdjustedHacs(HacsBase):
             "changed": changed,
             "current_count": current_count,
             "diff": abs(new_count - current_count),
+            "real_diff": new_count - current_count,
             "new_count": new_count,
             "rate_limit": await _rate_limit(),
         }
@@ -522,6 +523,17 @@ async def generate_category_data(category: str, repository_name: str = None):
                 "Validation did raise but did not exit!", category)
             sys.exit(1)  # Fallback, should not be reached
 
+        with open(
+            os.path.join(OUTPUT_DIR, category, "stored.json"),
+            mode="w",
+            encoding="utf-8",
+        ) as data_file:
+            json.dump(
+                stored_data,
+                data_file,
+                cls=JSONEncoder,
+                separators=(",", ":"),
+            )
         with open(
             os.path.join(OUTPUT_DIR, category, "data.json"),
             mode="w",

@@ -1,16 +1,24 @@
-FROM python:3.12-alpine
+FROM python:alpine
 
 WORKDIR /hacs
 
 COPY . /hacs
 
-ENV PIP_EXTRA_INDEX_URL="https://wheels.home-assistant.io/musllinux-index/"
+ENV \
+    UV_SYSTEM_PYTHON=true \
+    PIP_EXTRA_INDEX_URL="https://wheels.home-assistant.io/musllinux-index/" \
+    UV_EXTRA_INDEX_URL="https://wheels.home-assistant.io/musllinux-index/"
 
 RUN \
+    --mount=from=ghcr.io/astral-sh/uv:0.2.27,source=/uv,target=/bin/uv \
+    \
     apk add --no-cache --virtual .build-deps \
         bash \
     \
     && bash /hacs/scripts/install/pip_packages \
+        "$(cat requirements_action.txt | grep homeassistant)" \
+    \
+    && bash /hacs/scripts/install/uv_packages \
         -r requirements_action.txt \
     \
     && bash /hacs/scripts/install/frontend \
@@ -21,6 +29,10 @@ RUN \
     \
     && find /usr/local \( -type d -a -name test -o -name tests -o -name '__pycache__' \) -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) -exec rm -rf '{}' \; \
     \
-    && cp /hacs/action/action.py /hacs/action.py
+    && mv /hacs/action/action.py /hacs/action.py \
+    \
+    && rm -rf /hacs/scripts /hacs/action  \
+    \
+    && rm /hacs/requirements_action.txt  /hacs/constraints.txt
 
 ENTRYPOINT ["python3", "/hacs/action.py"]

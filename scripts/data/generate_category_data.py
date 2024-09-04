@@ -429,7 +429,6 @@ class AdjustedHacs(HacsBase):
             "changed": changed,
             "current_count": current_count,
             "diff": abs(new_count - current_count),
-            "real_diff": new_count - current_count,
             "new_count": new_count,
             "rate_limit": await _rate_limit(),
         }

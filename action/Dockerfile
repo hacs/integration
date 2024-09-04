@@ -16,9 +16,6 @@ RUN \
         bash \
     \
     && bash /hacs/scripts/install/pip_packages \
-        "$(cat requirements_action.txt | grep homeassistant)" \
-    \
-    && bash /hacs/scripts/install/uv_packages \
         -r requirements_action.txt \
     \
     && bash /hacs/scripts/install/frontend \

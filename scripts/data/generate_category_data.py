@@ -523,6 +523,17 @@ async def generate_category_data(category: str, repository_name: str = None):
             sys.exit(1)  # Fallback, should not be reached
 
         with open(
+            os.path.join(OUTPUT_DIR, category, "stored.json"),
+            mode="w",
+            encoding="utf-8",
+        ) as data_file:
+            json.dump(
+                stored_data,
+                data_file,
+                cls=JSONEncoder,
+                separators=(",", ":"),
+            )
+        with open(
             os.path.join(OUTPUT_DIR, category, "data.json"),
             mode="w",
             encoding="utf-8",

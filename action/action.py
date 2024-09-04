@@ -52,6 +52,12 @@ def error(error: str):
     exit(1)
 
 
+def output_in_group(group: str, content: str):
+    print(f"::group::{group}")  # noqa: T201
+    print(content)  # noqa: T201
+    print("::endgroup::")  # noqa: T201
+
+
 def get_event_data():
     if GITHUB_EVENT_PATH is None or not os.path.exists(GITHUB_EVENT_PATH):
         return {}
@@ -151,7 +157,7 @@ async def preflight():
         await validate_repository(hacs, repository, category, ref)
 
 
-async def validate_repository(hacs, repository, category, ref=None):
+async def validate_repository(hacs: HacsBase, repository: str, category: str, ref=None):
     """Validate."""
     # Legacy GitHub client
     hacs.github = GitHub(
@@ -168,6 +174,11 @@ async def validate_repository(hacs, repository, category, ref=None):
         )
     except HacsException as exception:
         error(exception)
+
+    if (repo := hacs.repositories.get_by_full_name(repository)) is None:
+        error(f"Repository {repository} not loaded properly in HACS.")
+
+    output_in_group("data", json.dumps(repo.data.to_json(), indent=4))
 
 
 if __name__ == "__main__":

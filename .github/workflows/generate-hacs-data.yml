@@ -144,6 +144,8 @@ jobs:
             const environments = {};
             const diffTarget = Number(process.env.HACS_DIFF_TARGET || 1)
 
+            core.info(`[global] diffTarget: ${diffTarget}`);
+
             const subDirectories = fs.readdirSync("outputdata", { withFileTypes: true })
                 .filter(entry => entry.isDirectory())
                 .map(entry => entry.name)

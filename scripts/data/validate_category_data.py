@@ -9,6 +9,7 @@ from typing import Any
 
 import voluptuous as vol
 
+from custom_components.hacs.const import HACS_REPOSITORY_ID
 from custom_components.hacs.utils.validate import VALIDATE_GENERATED_V2_REPO_DATA
 
 from .common import expand_and_humanize_error, print_error_and_exit
@@ -44,6 +45,12 @@ async def validate_category_data(category: str, file_path: str) -> None:
                 sys.exit(1)
 
             print_error_and_exit(f"Invalid data: {errors}", category, file_path)
+            
+        if category == "integration" and HACS_REPOSITORY_ID not in contents:
+            did_raise = True
+            print_error_and_exit(
+                "HACS is missing...", category, file_path
+            )
 
         if did_raise:
             print_error_and_exit("Validation did raise but did not exit!", category, file_path)

@@ -387,7 +387,7 @@ class WSClient:
 class MockedResponse:
     def __init__(self, **kwargs) -> None:
         self.kwargs = kwargs
-        self.exception = kwargs.get("exception", None)
+        self.exception = kwargs.get("exception")
         self.keep = kwargs.get("keep", False)
 
     @property

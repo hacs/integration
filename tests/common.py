@@ -566,7 +566,7 @@ def create_config_entry(
     }
     # legacy workaround for tests
     if AwesomeVersion(HA_VERSION).dev:
-        config_entry_data["discovery_keys"] = None
+        config_entry_data["discovery_keys"] = {}
     return MockConfigEntry(**config_entry_data)
 
 

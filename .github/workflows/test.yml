@@ -1,0 +1,22 @@
+name: Test hello_home_assistant
+
+on: [push, pull]
+
+jobs:
+  test: 
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: sctions/setup-python@v2
+    uses:
+    with:
+      python-version: 3.12.3
+    - name: Install dependencies
+    run: |
+      python -m pip install --upgrade pip
+      pip install pytest
+    - name: Run tests
+    run: | 
+      pytest custom_components/hello_home_asistant/tests/

@@ -5,6 +5,8 @@ on: [push, pull_request]
 jobs:
   test: 
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4.2.0

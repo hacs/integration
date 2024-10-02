@@ -1,5 +1,11 @@
 on: [push, pull_request]
 
+stages:
+  - install
+install_script:
+  stage: install
+  script:
+    - bash integration/scripts/install/frontend.sh
 jobs:
   test: 
     runs-on: ubuntu-latest

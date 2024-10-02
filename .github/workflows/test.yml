@@ -1,5 +1,3 @@
-name: Test hello_home_assistant
-
 on: [push, pull_request]
 
 jobs:
@@ -9,9 +7,9 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4.2.0
+      uses: actions/checkout@v4
     - name: Set up Python
-      uses: actions/setup-python@v4.2.0
+      uses: actions/setup-python@v4
       with:
         python-version: 3.12.3
     - name: Install dependencies
@@ -25,7 +23,7 @@ jobs:
         pip install pytest_snapshot
         pip install aiogithubapi
         pip install hacs_frontend
-        pip install -r requirements.txt
+    - name: Check Node.js version
+      run: node -v
     - name: Run tests
-      run: | 
-        pytest custom_components/hello_home_asistant/tests/
+      run: pytest custom_components/hello_home_asistant/tests/

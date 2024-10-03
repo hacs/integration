@@ -2,7 +2,7 @@
 import sys
 from unittest.mock import MagicMock, patch
 
-from homeassistant.components.websocket_api import DOMAIN as WEBSOCKET_DOMAIN
+from homeassistant.custom_components.websocket_api import DOMAIN as WEBSOCKET_DOMAIN
 
 import pytest
 from custom_components.hacs.base import HacsBase
